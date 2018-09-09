@@ -202,8 +202,12 @@ void loop() {
             case midi::MidiType::ControlChange:
                 switch(MIDI.getData1())
                 {
+                    case BSP_ROT_08:
+                        rocket_settings.gate_density = MIDI.getData2();
+                        break;
                     case BSP_STEP_01:
                         randomize_503_sound();
+                        break;
                     case BSP_STEP_02:
                         randomize_503_seq();
                         break;
