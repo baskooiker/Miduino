@@ -1,3 +1,19 @@
+
+#define MIDI_CHANNEL_ROCKET 1
+#define MIDI_CHANNEL_503    10
+
+#define TICKS_PER_STEP 6
+
+
+#define NOTE_503_BD 36
+#define NOTE_503_SD 38
+#define NOTE_503_LT 41
+#define NOTE_503_MT 43
+#define NOTE_503_HT 45 
+#define NOTE_503_CY 46
+#define NOTE_503_OH 39
+#define NOTE_503_HH 40
+
 // BSP CC's
 #define BSP_STEP_01 20
 #define BSP_STEP_02 21
@@ -51,30 +67,19 @@
 #define OH_DECAY  58
 #define HH_DECAY  59
 
+#define CC_CUTOFF    74
+#define CC_RESONANCE 71
+#define CC_ENV_MOD   73
+#define CC_OSC_WAVE  70
+#define CC_OSC_TUNE  79
+
 typedef struct {
   uint8_t note;
   uint8_t min;
   uint8_t max;  
 } RandomParam;
 
-RandomParam random_503_params[] = {
-    {BD_LEVEL , 100, 127},  
-    {BD_TUNE  ,   0, 64 },  
-    {BD_DECAY ,   0, 127},  
-    {BD_PITCH ,   0, 64 },  
-    {BD_DRIVE ,   0, 127},  
-    {BD_ATTACK,   0, 127},  
-    
-    {SD_LEVEL , 100, 127},  
-    {SD_TUNE  ,   0, 127},  
-    {SD_DECAY ,   0, 127},  
-    {SD_NOISE ,   0, 127},  
-    
-    {HH_LEVEL , 100, 127},  
-    {HH_MIX   ,   0, 127},  
-    {OH_DECAY ,   0, 127},  
-    {HH_DECAY ,   0, 127},  
-};
-
-uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
+typedef struct {
+    uint8_t gate_density;
+} RocketSettings;
 

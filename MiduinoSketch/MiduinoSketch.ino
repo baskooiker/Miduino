@@ -4,21 +4,31 @@
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
+RandomParam random_503_params[] = {
+    {BD_LEVEL , 100, 127},  
+    {BD_TUNE  ,   0, 64 },  
+    {BD_DECAY ,   0, 127},  
+    {BD_PITCH ,   0, 64 },  
+    {BD_DRIVE ,   0, 127},  
+    {BD_ATTACK,   0, 127},  
+    
+    {SD_LEVEL , 100, 127},  
+    {SD_TUNE  ,   0, 127},  
+    {SD_DECAY ,   0, 127},  
+    {SD_NOISE ,   0, 127},  
+    
+    {HH_LEVEL , 100, 127},  
+    {HH_MIX   ,   0, 127},  
+    {OH_DECAY ,   0, 127},  
+    {HH_DECAY ,   0, 127},  
+};
+uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
+
 uint8_t playing_pitches[16] = {};
 uint8_t nr_playing_pitches = 0;
 
-uint8_t midi_channel = 1;
-
-#define CC_CUTOFF    74
-#define CC_RESONANCE 71
-#define CC_ENV_MOD   73
-#define CC_OSC_WAVE  70
-#define CC_OSC_TUNE  79
-
 uint8_t params[] = {CC_CUTOFF, CC_RESONANCE, CC_ENV_MOD, CC_OSC_WAVE, CC_OSC_TUNE};
 uint8_t nr_params = 5;
-
-#define TICKS_PER_STEP 6
 
 uint8_t counter = TICKS_PER_STEP;
 bool play_step = false;
@@ -34,17 +44,6 @@ uint8_t pitch_seq[nr_steps]    = {36, 36, 38, 36, 39, 36, 41, 36, 41, 39, 36, 36
 uint8_t velocity_seq[nr_steps] = {64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64};
 bool slide_seq[nr_steps]       = {};
 bool gate_seq[nr_steps]        = {};
-
-#define MIDI_CHANNEL_503 10
-
-#define NOTE_503_BD 36
-#define NOTE_503_SD 38
-#define NOTE_503_LT 41
-#define NOTE_503_MT 43
-#define NOTE_503_HT 45 
-#define NOTE_503_CY 46
-#define NOTE_503_OH 39
-#define NOTE_503_HH 40
 
 static const uint8_t NR_BD_PATTERNS = 4;
 static const uint8_t BD_PATTERNS[NR_BD_PATTERNS][16] = {
@@ -74,6 +73,11 @@ uint8_t* bd_pattern = (uint8_t*)BD_PATTERNS[0];
 uint8_t* sd_pattern = (uint8_t*)SD_PATTERNS[0];
 uint8_t* hh_pattern = (uint8_t*)HH_PATTERNS[0];
 
+static RocketSettings rocket_settings =
+{
+  80, // gate_density
+};
+
 void setup() {
     MIDI.begin(MIDI_CHANNEL_OMNI);
     for (int i = 0; i < nr_steps; i++)
@@ -89,7 +93,7 @@ void stop_notes()
 {
     while (nr_playing_pitches > 0)
     {
-        MIDI.sendNoteOff(playing_pitches[--nr_playing_pitches], 0, midi_channel);
+        MIDI.sendNoteOff(playing_pitches[--nr_playing_pitches], 0, MIDI_CHANNEL_ROCKET);
     }
 }
 
@@ -110,21 +114,24 @@ void randomize_rocket_seq()
         slide_seq[i] = random(128) < 32;
         
         // 80% slide
-        gate_seq[i] = random(100) < 80;
+        gate_seq[i] = random(100) < rocket_settings.gate_density;
     }
 }
 
-void randomize_503()
+void randomize_503_sound()
 {
-    bd_pattern = (uint8_t*)BD_PATTERNS[random(NR_BD_PATTERNS)];
-    sd_pattern = (uint8_t*)SD_PATTERNS[random(NR_SD_PATTERNS)];
-    hh_pattern = (uint8_t*)HH_PATTERNS[random(NR_HH_PATTERNS)];
-
     for (int i = 0; i < nr_random_503_params; i++)
     {
         RandomParam* p = &random_503_params[i];
         MIDI.sendControlChange(p->note, random(p->min, p->max), MIDI_CHANNEL_503);
     }
+}
+
+void randomize_503_seq()
+{
+    bd_pattern = (uint8_t*)BD_PATTERNS[random(NR_BD_PATTERNS)];
+    sd_pattern = (uint8_t*)SD_PATTERNS[random(NR_SD_PATTERNS)];
+    hh_pattern = (uint8_t*)HH_PATTERNS[random(NR_HH_PATTERNS)];
 }
 
 void play_step_rocket()
@@ -141,7 +148,7 @@ void play_step_rocket()
         }
         
         playing_pitches[nr_playing_pitches++] = pitch;
-        MIDI.sendNoteOn(pitch, velocity, midi_channel);
+        MIDI.sendNoteOn(pitch, velocity, MIDI_CHANNEL_ROCKET);
     }
 }
 
@@ -172,7 +179,7 @@ void randomize_rocket_cc()
     {
       uint8_t cc = params[i];
       uint8_t value = random(0, 128);
-      MIDI.sendControlChange(cc, value, midi_channel);
+      MIDI.sendControlChange(cc, value, MIDI_CHANNEL_ROCKET);
     }
 }
 
@@ -196,8 +203,13 @@ void loop() {
                 switch(MIDI.getData1())
                 {
                     case BSP_STEP_01:
+                        randomize_503_sound();
+                    case BSP_STEP_02:
+                        randomize_503_seq();
+                        break;
+                    case BSP_STEP_15:
+                    case BSP_STEP_16:
                         randomize_rocket_seq();
-                        randomize_503();
                         break;
                     default:
                         break;
