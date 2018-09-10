@@ -73,9 +73,18 @@ uint8_t* bd_pattern = (uint8_t*)BD_PATTERNS[0];
 uint8_t* sd_pattern = (uint8_t*)SD_PATTERNS[0];
 uint8_t* hh_pattern = (uint8_t*)HH_PATTERNS[0];
 
+RhythmPattern perc_pattern = {
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  16
+};
+
 static RocketSettings rocket_settings =
 {
-  80, // gate_density
+    80, // gate_density
+};
+
+static Mfb522Settings mfb_522_settings = {
+    NOTE_522_CP_SHORT, //perc_midi  
 };
 
 void setup() {
@@ -173,6 +182,15 @@ void play_503()
     }
 }
 
+void play_522()
+{
+    uint8_t loc_step = step % 16;
+    if (perc_pattern.data[loc_step] > 0)
+    {
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi, 63, MIDI_CHANNEL_522);
+    }
+}
+
 void randomize_rocket_cc()
 {
     for (int i = 0; i < nr_params; i++)
@@ -202,24 +220,35 @@ void loop() {
             case midi::MidiType::ControlChange:
                 switch(MIDI.getData1())
                 {
-                    case BSP_ROT_08:
+                    case BSP_KNOB_08:
                         rocket_settings.gate_density = MIDI.getData2();
                         break;
                     case BSP_STEP_01:
-                        randomize_503_sound();
+                        if (MIDI.getData2() == 0)
+                        {
+                            randomize_503_sound();
+                        }
                         break;
                     case BSP_STEP_02:
-                        randomize_503_seq();
+                        if (MIDI.getData2() == 0)
+                        {
+                            randomize_503_seq();
+                        }
                         break;
                     case BSP_STEP_15:
                     case BSP_STEP_16:
-                        randomize_rocket_seq();
+                        if (MIDI.getData2() == 0)
+                        {
+                            randomize_rocket_seq();
+                        }
                         break;
                     default:
                         break;
                 }
               break;
             case midi::MidiType::NoteOn:
+                break;
+            case midi::MidiType::NoteOff:
                 break;
             default:
                 break;
@@ -229,6 +258,7 @@ void loop() {
     if (play_step)
     {
         play_503();
+        play_522();
         play_step_rocket();
         
         play_step = false;
