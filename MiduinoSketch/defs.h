@@ -44,27 +44,27 @@
 #define BSP_STEP_10 29
 #define BSP_STEP_11 30
 #define BSP_STEP_12 31
-#define BSP_STEP_13 32
-#define BSP_STEP_14 33
-#define BSP_STEP_15 34
-#define BSP_STEP_16 35
+#define BSP_STEP_13 52
+#define BSP_STEP_14 53
+#define BSP_STEP_15 54
+#define BSP_STEP_16 55
 
-#define BSP_KNOB_01 102
-#define BSP_KNOB_02 103
-#define BSP_KNOB_03 104
-#define BSP_KNOB_04 105
-#define BSP_KNOB_05 106
-#define BSP_KNOB_06 107
-#define BSP_KNOB_07 108
-#define BSP_KNOB_08 109
-#define BSP_KNOB_09 110
-#define BSP_KNOB_10 111
-#define BSP_KNOB_11 112
-#define BSP_KNOB_12 113
-#define BSP_KNOB_13 114
-#define BSP_KNOB_14 115
-#define BSP_KNOB_15 116
-#define BSP_KNOB_16 117
+#define BSP_KNOB_01 10
+#define BSP_KNOB_02 74
+#define BSP_KNOB_03 71
+#define BSP_KNOB_04 76
+#define BSP_KNOB_05 77
+#define BSP_KNOB_06 93
+#define BSP_KNOB_07 73
+#define BSP_KNOB_08 75
+#define BSP_KNOB_09 114
+#define BSP_KNOB_10 18
+#define BSP_KNOB_11 19
+#define BSP_KNOB_12 16
+#define BSP_KNOB_13 17
+#define BSP_KNOB_14 91
+#define BSP_KNOB_15 79
+#define BSP_KNOB_16 72
 
 #define BSP_PAD_01 52
 #define BSP_PAD_02 53
@@ -118,11 +118,33 @@ typedef struct {
 } RocketSettings;
 
 typedef struct {
-    uint8_t perc_midi;
+    uint8_t perc_midi_1;
+    uint8_t perc_midi_2;
+    uint8_t perc_midi_3;
+    uint8_t perc_midi_4;
 } Mfb522Settings;
 
 typedef struct {
     uint8_t data[16];
     uint8_t length;
 } RhythmPattern;
+
+typedef struct {
+    uint8_t bsp_pad_01_down;
+    uint8_t bsp_pad_02_down;
+    uint8_t bsp_pad_03_down;
+    uint8_t bsp_pad_04_down;
+    uint8_t bsp_pad_05_down;
+    uint8_t bsp_pad_06_down;
+    uint8_t bsp_pad_07_down;
+    uint8_t bsp_pad_08_down;
+    uint8_t bsp_pad_09_down;
+    uint8_t bsp_pad_10_down;
+    uint8_t bsp_pad_11_down;
+    uint8_t bsp_pad_12_down;
+    uint8_t bsp_pad_13_down;
+    uint8_t bsp_pad_14_down;
+    uint8_t bsp_pad_15_down;
+    uint8_t bsp_pad_16_down;
+} ApplicationData;
 

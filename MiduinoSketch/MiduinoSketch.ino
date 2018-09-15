@@ -1,8 +1,12 @@
+#include <TimerObject.h>
+
 #include <MIDI.h>
 
 #include "defs.h"
 
 MIDI_CREATE_DEFAULT_INSTANCE();
+
+void randomize_522_seq();
 
 RandomParam random_503_params[] = {
     {BD_LEVEL , 100, 127},  
@@ -73,7 +77,22 @@ uint8_t* bd_pattern = (uint8_t*)BD_PATTERNS[0];
 uint8_t* sd_pattern = (uint8_t*)SD_PATTERNS[0];
 uint8_t* hh_pattern = (uint8_t*)HH_PATTERNS[0];
 
-RhythmPattern perc_pattern = {
+RhythmPattern perc_pattern_1 = {
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  16
+};
+
+RhythmPattern perc_pattern_2 = {
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  16
+};
+
+RhythmPattern perc_pattern_3 = {
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  16
+};
+
+RhythmPattern perc_pattern_4 = {
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   16
 };
@@ -87,6 +106,8 @@ static Mfb522Settings mfb_522_settings = {
     NOTE_522_CP_SHORT, //perc_midi  
 };
 
+static ApplicationData data = {0};
+
 void setup() {
     MIDI.begin(MIDI_CHANNEL_OMNI);
     for (int i = 0; i < nr_steps; i++)
@@ -96,6 +117,7 @@ void setup() {
       slide_seq[i] = false;
       gate_seq[i] = true;
     }
+    randomize_522_seq();
 }
 
 void stop_notes()
@@ -143,6 +165,21 @@ void randomize_503_seq()
     hh_pattern = (uint8_t*)HH_PATTERNS[random(NR_HH_PATTERNS)];
 }
 
+void randomize_522_seq()
+{
+    for(int i = 0; i < 16; i++)
+    {
+        perc_pattern_1.data[i] = random(100) < 25;
+        perc_pattern_2.data[i] = random(100) < 25;
+        perc_pattern_3.data[i] = random(100) < 25;
+        perc_pattern_4.data[i] = random(100) < 25;
+    }
+    mfb_522_settings.perc_midi_1 = NOTE_522_LO_TOM;
+    mfb_522_settings.perc_midi_2 = NOTE_522_MI_TOM;
+    mfb_522_settings.perc_midi_3 = NOTE_522_CLAVE;
+    mfb_522_settings.perc_midi_4 = NOTE_522_RS;
+}
+
 void play_step_rocket()
 {
     uint8_t loc_step = step % 16;
@@ -185,9 +222,21 @@ void play_503()
 void play_522()
 {
     uint8_t loc_step = step % 16;
-    if (perc_pattern.data[loc_step] > 0)
+    if (perc_pattern_1.data[loc_step] > 0)
     {
-        MIDI.sendNoteOn(mfb_522_settings.perc_midi, 63, MIDI_CHANNEL_522);
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_1, 63, MIDI_CHANNEL_522);
+    }
+    if (perc_pattern_2.data[loc_step] > 0)
+    {
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_2, 63, MIDI_CHANNEL_522);
+    }
+    if (perc_pattern_3.data[loc_step] > 0)
+    {
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_3, 63, MIDI_CHANNEL_522);
+    }
+    if (perc_pattern_4.data[loc_step] > 0)
+    {
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_4, 63, MIDI_CHANNEL_522);
     }
 }
 
@@ -235,6 +284,9 @@ void loop() {
                             randomize_503_seq();
                         }
                         break;
+                    case BSP_STEP_03:
+                        randomize_522_seq();
+                        break;
                     case BSP_STEP_15:
                     case BSP_STEP_16:
                         if (MIDI.getData2() == 0)
@@ -247,8 +299,114 @@ void loop() {
                 }
               break;
             case midi::MidiType::NoteOn:
+                switch(MIDI.getData1())
+                {
+                    case BSP_PAD_01:
+                        data.bsp_pad_01_down = true;
+                        break;
+                    case BSP_PAD_02:
+                        data.bsp_pad_02_down = true;
+                        break;
+                    case BSP_PAD_03:
+                        data.bsp_pad_03_down = true;
+                        break;
+                    case BSP_PAD_04:
+                        data.bsp_pad_04_down = true;
+                        break;
+                    case BSP_PAD_05:
+                        data.bsp_pad_05_down = true;
+                        break;
+                    case BSP_PAD_06:
+                        data.bsp_pad_06_down = true;
+                        break;
+                    case BSP_PAD_07:
+                        data.bsp_pad_07_down = true;
+                        break;
+                    case BSP_PAD_08:
+                        data.bsp_pad_08_down = true;
+                        break;
+                    case BSP_PAD_09:
+                        data.bsp_pad_09_down = true;
+                        break;
+                    case BSP_PAD_10:
+                        data.bsp_pad_10_down = true;
+                        break;
+                    case BSP_PAD_11:
+                        data.bsp_pad_11_down = true;
+                        break;
+                    case BSP_PAD_12:
+                        data.bsp_pad_12_down = true;
+                        break;
+                    case BSP_PAD_13:
+                        data.bsp_pad_13_down = true;
+                        break;
+                    case BSP_PAD_14:
+                        data.bsp_pad_14_down = true;
+                        break;
+                    case BSP_PAD_15:
+                        data.bsp_pad_15_down = true;
+                        break;
+                    case BSP_PAD_16:
+                        data.bsp_pad_16_down = true;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case midi::MidiType::NoteOff:
+                switch(MIDI.getData1())
+                {
+                    case BSP_PAD_01:
+                        data.bsp_pad_01_down = false;
+                        break;
+                    case BSP_PAD_02:
+                        data.bsp_pad_02_down = false;
+                        break;
+                    case BSP_PAD_03:
+                        data.bsp_pad_03_down = false;
+                        break;
+                    case BSP_PAD_04:
+                        data.bsp_pad_04_down = false;
+                        break;
+                    case BSP_PAD_05:
+                        data.bsp_pad_05_down = false;
+                        break;
+                    case BSP_PAD_06:
+                        data.bsp_pad_06_down = false;
+                        break;
+                    case BSP_PAD_07:
+                        data.bsp_pad_07_down = false;
+                        break;
+                    case BSP_PAD_08:
+                        data.bsp_pad_08_down = false;
+                        break;
+                    case BSP_PAD_09:
+                        data.bsp_pad_09_down = false;
+                        break;
+                    case BSP_PAD_10:
+                        data.bsp_pad_10_down = false;
+                        break;
+                    case BSP_PAD_11:
+                        data.bsp_pad_11_down = false;
+                        break;
+                    case BSP_PAD_12:
+                        data.bsp_pad_12_down = false;
+                        break;
+                    case BSP_PAD_13:
+                        data.bsp_pad_13_down = false;
+                        break;
+                    case BSP_PAD_14:
+                        data.bsp_pad_14_down = false;
+                        break;
+                    case BSP_PAD_15:
+                        data.bsp_pad_15_down = false;
+                        break;
+                    case BSP_PAD_16:
+                        data.bsp_pad_16_down = false;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
