@@ -3,6 +3,7 @@
 #include <MIDI.h>
 
 #include "defs.h"
+#include "rhythms.h"
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
@@ -97,16 +98,13 @@ RhythmPattern perc_pattern_4 = {
   16
 };
 
-static RocketSettings rocket_settings =
-{
-    80, // gate_density
-};
+GatePattern16 clap_pattern = {};
 
-static Mfb522Settings mfb_522_settings = {
-    NOTE_522_CP_SHORT, //perc_midi  
-};
+static RocketSettings rocket_settings = {};
 
-static ApplicationData data = {0};
+static Mfb522Settings mfb_522_settings = {};
+
+static ApplicationData data = {};
 
 void setup() {
     MIDI.begin(MIDI_CHANNEL_OMNI);
@@ -118,6 +116,15 @@ void setup() {
       gate_seq[i] = true;
     }
     randomize_522_seq();
+    randomize_503_seq();
+    randomize_rocket_seq();
+
+    uint8_t clap_pat[] = {0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0};
+//    uint8_t clap_pat[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    clap_pattern = init_pattern(clap_pat, 16);
+//    clap_pattern.pattern = 0xFFFF;
+
+    rocket_settings.gate_density = 80;
 }
 
 void stop_notes()
@@ -145,7 +152,7 @@ void randomize_rocket_seq()
         slide_seq[i] = random(128) < 32;
         
         // 80% slide
-        gate_seq[i] = random(100) < rocket_settings.gate_density;
+        gate_seq[i] = random(127) < rocket_settings.gate_density;
     }
 }
 
@@ -222,21 +229,26 @@ void play_503()
 void play_522()
 {
     uint8_t loc_step = step % 16;
+    uint8_t velocity = 63;
     if (perc_pattern_1.data[loc_step] > 0)
     {
-        MIDI.sendNoteOn(mfb_522_settings.perc_midi_1, 63, MIDI_CHANNEL_522);
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_1, velocity, MIDI_CHANNEL_522);
     }
     if (perc_pattern_2.data[loc_step] > 0)
     {
-        MIDI.sendNoteOn(mfb_522_settings.perc_midi_2, 63, MIDI_CHANNEL_522);
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_2, velocity, MIDI_CHANNEL_522);
     }
     if (perc_pattern_3.data[loc_step] > 0)
     {
-        MIDI.sendNoteOn(mfb_522_settings.perc_midi_3, 63, MIDI_CHANNEL_522);
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_3, velocity, MIDI_CHANNEL_522);
     }
     if (perc_pattern_4.data[loc_step] > 0)
     {
-        MIDI.sendNoteOn(mfb_522_settings.perc_midi_4, 63, MIDI_CHANNEL_522);
+        MIDI.sendNoteOn(mfb_522_settings.perc_midi_4, velocity, MIDI_CHANNEL_522);
+    }
+    if (gate(clap_pattern.pattern, loc_step))
+    {
+        MIDI.sendNoteOn(NOTE_522_CP_LONG, velocity, MIDI_CHANNEL_522);
     }
 }
 

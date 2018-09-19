@@ -1,3 +1,5 @@
+#ifndef DEFS_H
+#define DEFS_H
 
 #define MIDI_CHANNEL_ROCKET 1
 #define MIDI_CHANNEL_503    10
@@ -21,15 +23,16 @@
 #define NOTE_522_RS       37
 #define NOTE_522_SN       38
 #define NOTE_522_CP_SHORT 39
-#define NOTE_522_CP_LONG  39
-#define NOTE_522_CB       40
-#define NOTE_522_HH       41
-#define NOTE_522_OH       45
-#define NOTE_522_CLAVE    42
-#define NOTE_522_LO_TOM   44
-#define NOTE_522_MI_TOM   46
-#define NOTE_522_HI_TOM   49
-#define NOTE_522_CYMBAL   48
+#define NOTE_522_CP_LONG  40
+#define NOTE_522_CB       41
+#define NOTE_522_HH       42
+#define NOTE_522_OH       46
+#define NOTE_522_CLAVE    43
+#define NOTE_522_LO_TOM   45
+#define NOTE_522_MI_TOM   47
+#define NOTE_522_HI_TOM   48
+#define NOTE_522_HI2_TOM  50
+#define NOTE_522_CYMBAL   49
 
 // BSP CC's
 #define BSP_STEP_01 20
@@ -148,3 +151,4 @@ typedef struct {
     uint8_t bsp_pad_16_down;
 } ApplicationData;
 
+#endif // DEFS_H
