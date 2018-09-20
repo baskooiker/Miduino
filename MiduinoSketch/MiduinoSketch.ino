@@ -38,7 +38,7 @@ uint8_t nr_params = 5;
 uint8_t counter = TICKS_PER_STEP;
 bool play_step = false;
 
-uint8_t step = 0;
+long step = 0;
 #define MAX_NR_STEPS 256
 const uint8_t nr_steps = 16;
 
@@ -93,12 +93,8 @@ RhythmPattern perc_pattern_3 = {
   16
 };
 
-RhythmPattern perc_pattern_4 = {
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  16
-};
-
-GatePattern16 clap_pattern = {};
+GatePattern64 perc_pattern_clave;
+GatePattern16 clap_pattern;
 
 static RocketSettings rocket_settings = {};
 
@@ -115,16 +111,22 @@ void setup() {
       slide_seq[i] = false;
       gate_seq[i] = true;
     }
+
+    // Initialize patterns
     randomize_522_seq();
     randomize_503_seq();
     randomize_rocket_seq();
 
     uint8_t clap_pat[] = {0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0};
-//    uint8_t clap_pat[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
     clap_pattern = init_pattern(clap_pat, 16);
-//    clap_pattern.pattern = 0xFFFF;
 
+    // Initialize settings
     rocket_settings.gate_density = 80;
+    
+    mfb_522_settings.perc_midi_1 = NOTE_522_LO_TOM;
+    mfb_522_settings.perc_midi_2 = NOTE_522_MI_TOM;
+    mfb_522_settings.perc_midi_3 = NOTE_522_RS;
+    mfb_522_settings.perc_midi_4 = NOTE_522_CLAVE;
 }
 
 void stop_notes()
@@ -179,12 +181,8 @@ void randomize_522_seq()
         perc_pattern_1.data[i] = random(100) < 25;
         perc_pattern_2.data[i] = random(100) < 25;
         perc_pattern_3.data[i] = random(100) < 25;
-        perc_pattern_4.data[i] = random(100) < 25;
     }
-    mfb_522_settings.perc_midi_1 = NOTE_522_LO_TOM;
-    mfb_522_settings.perc_midi_2 = NOTE_522_MI_TOM;
-    mfb_522_settings.perc_midi_3 = NOTE_522_CLAVE;
-    mfb_522_settings.perc_midi_4 = NOTE_522_RS;
+    perc_pattern_clave = init_percussive_pattern_64();
 }
 
 void play_step_rocket()
@@ -228,7 +226,7 @@ void play_503()
 
 void play_522()
 {
-    uint8_t loc_step = step % 16;
+    long loc_step = step % 16;
     uint8_t velocity = 63;
     if (perc_pattern_1.data[loc_step] > 0)
     {
@@ -242,11 +240,11 @@ void play_522()
     {
         MIDI.sendNoteOn(mfb_522_settings.perc_midi_3, velocity, MIDI_CHANNEL_522);
     }
-    if (perc_pattern_4.data[loc_step] > 0)
+    if (gate(perc_pattern_clave, step))
     {
-        MIDI.sendNoteOn(mfb_522_settings.perc_midi_4, velocity, MIDI_CHANNEL_522);
+        MIDI.sendNoteOn(NOTE_522_CLAVE, velocity, MIDI_CHANNEL_522);
     }
-    if (gate(clap_pattern.pattern, loc_step))
+    if (gate(clap_pattern, step))
     {
         MIDI.sendNoteOn(NOTE_522_CP_LONG, velocity, MIDI_CHANNEL_522);
     }
@@ -432,7 +430,7 @@ void loop() {
         play_step_rocket();
         
         play_step = false;
-        step = (step + 1) % MAX_NR_STEPS;
+        step = (step + 1) % COMMON_DENOMINATOR;
     }
 }
 

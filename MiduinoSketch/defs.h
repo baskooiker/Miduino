@@ -5,6 +5,7 @@
 #define MIDI_CHANNEL_503    10
 #define MIDI_CHANNEL_522    12
 
+#define COMMON_DENOMINATOR 240240 // Exept 9
 #define TICKS_PER_STEP 6
 
 // MIDI 503
