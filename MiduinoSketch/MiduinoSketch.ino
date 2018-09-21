@@ -12,26 +12,6 @@
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-RandomParam random_503_params[] = {
-  {BD_LEVEL , 100, 127},
-  {BD_TUNE  ,   0, 64 },
-  {BD_DECAY ,   0, 127},
-  {BD_PITCH ,   0, 64 },
-  {BD_DRIVE ,   0, 127},
-  {BD_ATTACK,   0, 127},
-
-  {SD_LEVEL , 100, 127},
-  {SD_TUNE  ,   0, 127},
-  {SD_DECAY ,   0, 127},
-  {SD_NOISE ,  64, 127},
-
-  {HH_LEVEL , 100, 127},
-  {HH_MIX   ,   0, 127},
-  {OH_DECAY ,   0, 127},
-  {HH_DECAY ,   0, 127},
-};
-uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
-
 uint8_t playing_pitches[16] = {};
 uint8_t nr_playing_pitches = 0;
 
@@ -94,6 +74,12 @@ void note_off(uint8_t note, uint8_t channel, uint8_t* storage)
     MIDI.sendNoteOff(note, 0, channel);
     uint8_t stored = pop_from_storage(storage, note);
 }
+
+void send_cc(uint8_t cc, uint8_t value, uint8_t channel)
+{
+    MIDI.sendControlChange(cc, value, channel);
+}
+
 void stop_notes()
 {
   while (nr_playing_pitches > 0)
@@ -119,15 +105,6 @@ void randomize_rocket_seq()
     gate_seq[i] = random(127) < rocket_settings.gate_density;
   }
   data.rocket_pattern.accents = init_percussive_pattern_64();
-}
-
-void randomize_503_sound()
-{
-  for (int i = 0; i < nr_random_503_params; i++)
-  {
-    RandomParam* p = &random_503_params[i];
-    MIDI.sendControlChange(p->note, random(p->min, p->max), MIDI_CHANNEL_503);
-  }
 }
 
 void play_step_rocket()
