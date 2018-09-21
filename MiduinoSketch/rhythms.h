@@ -49,7 +49,7 @@ void set_gate(BinaryPattern* gates, const uint8_t step, const boolean val)
     }
 }
 
-GatePattern16 init_pattern(uint8_t* ar, uint8_t length)
+GatePattern16 init_pattern(const uint8_t* ar, uint8_t length)
 {
     GatePattern16 pat = get_empty_gate_pattern();
     for(uint8_t j = 0; j < length; j++)

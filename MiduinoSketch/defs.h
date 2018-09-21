@@ -218,10 +218,19 @@ typedef struct {
     uint8_t p50_octaves;
     Root root;
     Scale scale;
+    long step;
 
     ChordPattern p50_pattern;
     Bassline rocket_pattern;
+    
+    GatePattern16 ac_503_pattern;
+    GatePattern16 bd_503_pattern;
+    GatePattern16 sd_503_pattern;
+    GatePattern16 hh_503_pattern;
+    GatePattern16 oh_503_pattern;
 
+    uint8_t storage_522[16];
+    uint8_t storage_503[16];
     uint8_t storage_p50[16];
     uint8_t storage_rocket[16];
     
@@ -240,12 +249,25 @@ void add_to_storage(uint8_t* s, uint8_t value)
     }
 }
 
-uint8_t get_from_storage(uint8_t* s)
+uint8_t pop_from_storage(uint8_t* s)
 {
     for(uint8_t i = 0; i < STORAGE_SIZE; i++)
     {
         uint8_t v = s[i];
         if (v > 0){
+            s[i] = 0;
+            return v;
+        }
+    }
+    return 0;
+}
+
+uint8_t pop_from_storage(uint8_t* s, uint8_t value)
+{
+    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
+    {
+        uint8_t v = s[i];
+        if (s[i] == value){
             s[i] = 0;
             return v;
         }

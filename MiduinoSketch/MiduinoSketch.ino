@@ -6,6 +6,9 @@
 #include "rhythms.h"
 #include "basslines.h"
 
+#include "mfb_503.h"
+#include "p50.h"
+
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 void randomize_522_seq();
@@ -39,7 +42,6 @@ uint8_t nr_params = 5;
 uint8_t counter = TICKS_PER_STEP;
 bool play_step = false;
 
-long step = 0;
 #define MAX_NR_STEPS 256
 const uint8_t nr_steps = 16;
 
@@ -49,30 +51,6 @@ uint8_t pitches[] = {36, 38, 39, 41, 43, 44, 46};
 uint8_t pitch_seq[nr_steps]    = {36, 36, 38, 36, 39, 36, 41, 36, 41, 39, 36, 36, 36, 36, 36, 46};
 bool slide_seq[nr_steps]       = {};
 bool gate_seq[nr_steps]        = {};
-
-static const uint8_t NR_BD_PATTERNS = 4;
-static const uint8_t BD_PATTERNS[NR_BD_PATTERNS][16] = {
-  {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
-  {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0},
-  {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0},
-  {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
-};
-
-static const uint8_t NR_SD_PATTERNS = 4;
-static const uint8_t SD_PATTERNS[NR_SD_PATTERNS][16] = {
-  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-  {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-};
-
-static const uint8_t NR_HH_PATTERNS = 4;
-static const uint8_t HH_PATTERNS[NR_SD_PATTERNS][16] = {
-  {0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0},
-  {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2},
-  {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1},
-  {1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0},
-};
 
 uint8_t* bd_pattern = (uint8_t*)BD_PATTERNS[0];
 uint8_t* sd_pattern = (uint8_t*)SD_PATTERNS[0];
@@ -113,7 +91,7 @@ void setup() {
   
     // Initialize patterns
     randomize_522_seq();
-    randomize_503_seq();
+    randomize_503_seq(&data);
     randomize_P50_seq();
     randomize_rocket_seq();
   
@@ -135,6 +113,22 @@ void setup() {
     init_storage(data.storage_p50);
 }
 
+void note_on(uint8_t note, uint8_t velocity, uint8_t channel, uint8_t* storage)
+{
+    uint8_t stored = pop_from_storage(storage, note);
+    if (stored > 0)
+    {
+        MIDI.sendNoteOff(note, 0, channel);
+    }
+    MIDI.sendNoteOn(note, velocity, channel);
+    add_to_storage(storage, note);
+}
+
+void note_off(uint8_t note, uint8_t channel, uint8_t* storage)
+{
+    MIDI.sendNoteOff(note, 0, channel);
+    uint8_t stored = pop_from_storage(storage, note);
+}
 void stop_notes()
 {
   while (nr_playing_pitches > 0)
@@ -171,12 +165,12 @@ void randomize_503_sound()
   }
 }
 
-void randomize_503_seq()
-{
-  bd_pattern = (uint8_t*)BD_PATTERNS[random(NR_BD_PATTERNS)];
-  sd_pattern = (uint8_t*)SD_PATTERNS[random(NR_SD_PATTERNS)];
-  hh_pattern = (uint8_t*)HH_PATTERNS[random(NR_HH_PATTERNS)];
-}
+//void randomize_503_seq()
+//{
+//  bd_pattern = (uint8_t*)BD_PATTERNS[random(NR_BD_PATTERNS)];
+//  sd_pattern = (uint8_t*)SD_PATTERNS[random(NR_SD_PATTERNS)];
+//  hh_pattern = (uint8_t*)HH_PATTERNS[random(NR_HH_PATTERNS)];
+//}
 
 void randomize_522_seq()
 {
@@ -191,12 +185,12 @@ void randomize_522_seq()
 
 void play_step_rocket()
 {
-  uint8_t loc_step = step % 16;
+  uint8_t loc_step = data.step % 16;
   uint8_t pitch = pitch_seq[loc_step];
   Bassline* rocket = &data.rocket_pattern;
 
   uint8_t velocity = 32;
-  if (gate(rocket->accents, step))
+  if (gate(rocket->accents, data.step))
   {
     velocity = 100;
   }
@@ -213,30 +207,30 @@ void play_step_rocket()
   }
 }
 
-void play_503()
-{
-  uint8_t loc_step = step % 16;
-  if (bd_pattern[loc_step] > 0)
-  {
-    MIDI.sendNoteOn(NOTE_503_BD, 63, MIDI_CHANNEL_503);
-  }
-  if (sd_pattern[loc_step] > 0)
-  {
-    MIDI.sendNoteOn(NOTE_503_SD, 63, MIDI_CHANNEL_503);
-  }
-  if (hh_pattern[loc_step] == 1)
-  {
-    MIDI.sendNoteOn(NOTE_503_HH, 63, MIDI_CHANNEL_503);
-  }
-  if (hh_pattern[loc_step] == 2)
-  {
-    MIDI.sendNoteOn(NOTE_503_OH, 63, MIDI_CHANNEL_503);
-  }
-}
+//void play_503()
+//{
+//  uint8_t loc_step = data.step % 16;
+//  if (bd_pattern[loc_step] > 0)
+//  {
+//    MIDI.sendNoteOn(NOTE_503_BD, 63, MIDI_CHANNEL_503);
+//  }
+//  if (sd_pattern[loc_step] > 0)
+//  {
+//    MIDI.sendNoteOn(NOTE_503_SD, 63, MIDI_CHANNEL_503);
+//  }
+//  if (hh_pattern[loc_step] == 1)
+//  {
+//    MIDI.sendNoteOn(NOTE_503_HH, 63, MIDI_CHANNEL_503);
+//  }
+//  if (hh_pattern[loc_step] == 2)
+//  {
+//    MIDI.sendNoteOn(NOTE_503_OH, 63, MIDI_CHANNEL_503);
+//  }
+//}
 
 void play_522()
 {
-  long loc_step = step % 16;
+  long loc_step = data.step % 16;
   uint8_t velocity = 63;
   if (perc_pattern_1.data[loc_step] > 0)
   {
@@ -250,11 +244,11 @@ void play_522()
   {
     MIDI.sendNoteOn(mfb_522_settings.perc_midi_3, velocity, MIDI_CHANNEL_522);
   }
-  if (gate(perc_pattern_clave, step))
+  if (gate(perc_pattern_clave, data.step))
   {
     MIDI.sendNoteOn(NOTE_522_CLAVE, velocity, MIDI_CHANNEL_522);
   }
-  if (gate(clap_pattern, step))
+  if (gate(clap_pattern, data.step))
   {
     MIDI.sendNoteOn(NOTE_522_CP_LONG, velocity, MIDI_CHANNEL_522);
   }
@@ -275,34 +269,34 @@ void randomize_P50_seq()
     data.p50_pattern = init_chord_pattern();
 }
 
-void play_P50()
-{ 
-    ChordPattern* pattern = &data.p50_pattern;
-    uint8_t velocity = 32;
-    if (gate(pattern->gates, step))
-    {
-        uint8_t p = 0;
-        do {
-            p = get_from_storage(data.storage_p50);
-            if (p > 0)
-            {
-                MIDI.sendNoteOff(p, 0, MIDI_CHANNEL_P50);
-            }
-        } while (p != 0);
-
-        uint8_t root = pitch(&pattern->pitches, step % 64);
-        uint8_t fifth = root + 7;
-//        uint8_t third = next_in_scale(root, data.root, data.scale, 2);
-//        uint8_t fifth = next_in_scale(root, data.root, data.scale, 4);
-        MIDI.sendNoteOn(root , velocity, MIDI_CHANNEL_P50);
-//        MIDI.sendNoteOn(third, velocity, MIDI_CHANNEL_P50);
-        MIDI.sendNoteOn(fifth, velocity, MIDI_CHANNEL_P50);
-        
-        add_to_storage(data.storage_p50, root);
-//        add_to_storage(data.storage_p50, third);
-        add_to_storage(data.storage_p50, fifth);
-    }
-}
+//void play_P50()
+//{ 
+//    ChordPattern* pattern = &data.p50_pattern;
+//    uint8_t velocity = 32;
+//    if (gate(pattern->gates, step))
+//    {
+//        uint8_t p = 0;
+//        do {
+//            p = pop_from_storage(data.storage_p50);
+//            if (p > 0)
+//            {
+//                MIDI.sendNoteOff(p, 0, MIDI_CHANNEL_P50);
+//            }
+//        } while (p != 0);
+//
+//        uint8_t root = pitch(&pattern->pitches, step % 64);
+//        uint8_t fifth = root + 7;
+////        uint8_t third = next_in_scale(root, data.root, data.scale, 2);
+////        uint8_t fifth = next_in_scale(root, data.root, data.scale, 4);
+//        MIDI.sendNoteOn(root , velocity, MIDI_CHANNEL_P50);
+////        MIDI.sendNoteOn(third, velocity, MIDI_CHANNEL_P50);
+//        MIDI.sendNoteOn(fifth, velocity, MIDI_CHANNEL_P50);
+//        
+//        add_to_storage(data.storage_p50, root);
+////        add_to_storage(data.storage_p50, third);
+//        add_to_storage(data.storage_p50, fifth);
+//    }
+//}
 
 void loop() {
   if (MIDI.read())
@@ -318,7 +312,7 @@ void loop() {
         break;
       case midi::MidiType::Stop:
         stop_notes();
-        step = 0;
+        data.step = 0;
         break;
       case midi::MidiType::ControlChange:
         switch (MIDI.getData1())
@@ -335,7 +329,7 @@ void loop() {
           case BSP_STEP_02:
             if (MIDI.getData2() == 0)
             {
-              randomize_503_seq();
+              randomize_503_seq(&data);
             }
             break;
           case BSP_STEP_03:
@@ -469,13 +463,13 @@ void loop() {
 
   if (play_step)
   {
-    play_503();
+    play_503(&data);
     play_522();
     play_step_rocket();
-    play_P50();
+    play_P50(&data);
 
     play_step = false;
-    step = (step + 1) % COMMON_DENOMINATOR;
+    data.step = (data.step + 1) % COMMON_DENOMINATOR;
   }
 }
 
