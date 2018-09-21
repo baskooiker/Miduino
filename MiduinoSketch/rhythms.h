@@ -4,6 +4,30 @@
 
 #include "defs.h"
 
+static const uint8_t NR_BD_PATTERNS = 4;
+static const uint8_t BD_PATTERNS[NR_BD_PATTERNS][16] = {
+  {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+  {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0},
+  {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0},
+  {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+};
+
+static const uint8_t NR_SD_PATTERNS = 4;
+static const uint8_t SD_PATTERNS[NR_SD_PATTERNS][16] = {
+  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+  {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+};
+
+static const uint8_t NR_HH_PATTERNS = 4;
+static const uint8_t HH_PATTERNS[NR_SD_PATTERNS][16] = {
+  {0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0},
+  {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2},
+  {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1},
+  {1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0},
+};
+
 GatePattern16 get_empty_gate_pattern()
 {
     GatePattern16 gates = {0};

@@ -229,6 +229,12 @@ typedef struct {
     GatePattern16 hh_503_pattern;
     GatePattern16 oh_503_pattern;
 
+    GatePattern16 lo_tom_522_pattern;
+    GatePattern16 mi_tom_522_pattern;
+    GatePattern16 rs_522_pattern;
+    GatePattern64 clave_522_pattern;
+    GatePattern16 clap_522_pattern;
+    
     uint8_t storage_522[16];
     uint8_t storage_503[16];
     uint8_t storage_p50[16];

@@ -4,6 +4,11 @@
 #include "defs.h"
 #include "midi_io.h"
 
+void randomize_P50_seq(ApplicationData* data)
+{
+    data->p50_pattern = init_chord_pattern();
+}
+
 void play_P50(ApplicationData* data)
 { 
     ChordPattern* pattern = &data->p50_pattern;
