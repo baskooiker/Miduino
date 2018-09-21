@@ -1,11 +1,8 @@
+
+#ifndef RHYTHMS_H
+#define RHYTHMS_H
+
 #include "defs.h"
-
-typedef uint16_t BinaryPattern;
-
-typedef struct {
-    BinaryPattern pattern;
-    uint8_t length;
-} GatePattern16;
 
 GatePattern16 get_empty_gate_pattern()
 {
@@ -14,11 +11,6 @@ GatePattern16 get_empty_gate_pattern()
     gates.length = 16;
     return gates;
 }
-
-typedef struct {
-    BinaryPattern patterns[4];
-    uint8_t length;
-} GatePattern64;
 
 GatePattern64 init_gate_pattern_64()
 {
@@ -57,11 +49,6 @@ void set_gate(BinaryPattern* gates, const uint8_t step, const boolean val)
     }
 }
 
-#define BitSet(arg,posn) ((arg) | (1L << (posn)))
-#define BitClr(arg,posn) ((arg) & ~(1L << (posn)))
-#define BitTst(arg,posn) BOOL((arg) & (1L << (posn)))
-#define BitFlp(arg,posn) ((arg) ^ (1L << (posn)))
-
 GatePattern16 init_pattern(uint8_t* ar, uint8_t length)
 {
     GatePattern16 pat = get_empty_gate_pattern();
@@ -72,44 +59,54 @@ GatePattern16 init_pattern(uint8_t* ar, uint8_t length)
    return pat;
 }
 
+void randomize(GatePattern16* pattern, const float prob)
+{
+    for(uint8_t j = 0; j < pattern->length; j++)
+    {
+        set_gate(&pattern->pattern, j, (random(1024) / 1024.f) < prob);
+    }
+}
+
 GatePattern16 init_percussive_pattern()
 {
     GatePattern16 pat = get_empty_gate_pattern();
-    for(uint8_t j = 0; j < pat.length; j++)
-    {
-        set_gate(&pat.pattern, j, random(128) < 64);
-    }
+    randomize(&pat, .5f);
     return pat;
 }
 
-
-GatePattern64 init_percussive_pattern_64()
+void randomize_ab(GatePattern64* pattern, const float prob)
 {
-    GatePattern64 pattern = init_gate_pattern_64();
     GatePattern16 pat0 = init_percussive_pattern();
     GatePattern16 pat1 = init_percussive_pattern();
     GatePattern16 pat2 = init_percussive_pattern();
-    uint8_t prob = random(265);
+    uint8_t pat_prob = random(1024);
     
-    pattern.patterns[0] = pat0.pattern;
-    if (prob < 128) // AAAB
+    pattern->patterns[0] = pat0.pattern;
+    if (pat_prob < 128) // AAAB
     {
-        pattern.patterns[1] = pat0.pattern;
-        pattern.patterns[2] = pat0.pattern;
-        pattern.patterns[3] = pat1.pattern;
+        pattern->patterns[1] = pat0.pattern;
+        pattern->patterns[2] = pat0.pattern;
+        pattern->patterns[3] = pat1.pattern;
     }
-    else if (prob < 192) // ABAC
+    else if (pat_prob < 192) // ABAC
     {
-        pattern.patterns[1] = pat1.pattern;
-        pattern.patterns[2] = pat0.pattern;
-        pattern.patterns[3] = pat2.pattern;
+        pattern->patterns[1] = pat1.pattern;
+        pattern->patterns[2] = pat0.pattern;
+        pattern->patterns[3] = pat2.pattern;
     }
     else // ABAB
     {
-        pattern.patterns[1] = pat1.pattern;
-        pattern.patterns[2] = pat0.pattern;
-        pattern.patterns[3] = pat1.pattern;
+        pattern->patterns[1] = pat1.pattern;
+        pattern->patterns[2] = pat0.pattern;
+        pattern->patterns[3] = pat1.pattern;
     }
+}
+
+GatePattern64 init_percussive_pattern_64(const float prob = .5f)
+{
+    GatePattern64 pattern = init_gate_pattern_64();
+    randomize_ab(&pattern, .5f);
     return pattern;
 }
 
+#endif // RHYTHM_H

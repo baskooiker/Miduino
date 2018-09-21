@@ -2,6 +2,7 @@
 #define DEFS_H
 
 #define MIDI_CHANNEL_ROCKET 1
+#define MIDI_CHANNEL_P50    5
 #define MIDI_CHANNEL_503    10
 #define MIDI_CHANNEL_522    12
 
@@ -111,6 +112,31 @@
 #define CC_OSC_WAVE  70
 #define CC_OSC_TUNE  79
 
+enum Root {
+    ROOT_C,
+    ROOT_C_SHARP,
+    ROOT_D,
+    ROOT_D_SHARP,
+    ROOT_E,
+    ROOT_E_SHARP,
+    ROOT_F,
+    ROOT_G,
+    ROOT_G_SHARP,
+    ROOT_A,
+    ROOT_A_SHARP,
+    ROOT_B
+};
+
+enum Scale {
+    IONIAN,
+    DORIAN,
+    AEOLIAN
+};
+
+const uint8_t ionian[]  = {0, 2, 4, 5, 7, 9, 11}; // 1 2  3 4 5 6   7
+const uint8_t dorian[]  = {0, 2, 3, 5, 7, 9, 10}; // 1 2 b3 4 5 6  b7
+const uint8_t aeolian[] = {0, 2, 3, 5, 7, 8, 10}; // 1 2 b3 4 5 b6 b7 Natural Minor
+
 typedef struct {
   uint8_t note;
   uint8_t min;
@@ -134,6 +160,43 @@ typedef struct {
 } RhythmPattern;
 
 typedef struct {
+    uint8_t pattern[16];
+    uint8_t length;
+} CvPattern16;
+
+typedef struct {
+    uint8_t pattern[64]; 
+    uint8_t length;
+} CvPattern64;
+
+typedef uint16_t BinaryPattern;
+
+typedef struct {
+    BinaryPattern pattern;
+    uint8_t length;
+} GatePattern16;
+
+typedef struct {
+    BinaryPattern patterns[4];
+    uint8_t length;
+} GatePattern64;
+
+#define STORAGE_SIZE 16
+typedef uint8_t PitchStorage[STORAGE_SIZE];
+
+typedef struct {
+    GatePattern64 accents;
+    CvPattern16 pitches;
+    GatePattern64 gates;
+    GatePattern64 slides;
+} Bassline;
+
+typedef struct {
+    CvPattern64 pitches;
+    GatePattern64 gates;
+} ChordPattern;
+
+typedef struct {
     uint8_t bsp_pad_01_down;
     uint8_t bsp_pad_02_down;
     uint8_t bsp_pad_03_down;
@@ -150,6 +213,52 @@ typedef struct {
     uint8_t bsp_pad_14_down;
     uint8_t bsp_pad_15_down;
     uint8_t bsp_pad_16_down;
+
+    uint8_t rocket_octaves;
+    uint8_t p50_octaves;
+    Root root;
+    Scale scale;
+
+    ChordPattern p50_pattern;
+    Bassline rocket_pattern;
+
+    uint8_t storage_p50[16];
+    uint8_t storage_rocket[16];
+    
 } ApplicationData;
+
+
+void add_to_storage(uint8_t* s, uint8_t value)
+{
+    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
+    {
+        if (s[i] == 0){
+            
+            s[i] = value;
+            break;
+        }
+    }
+}
+
+uint8_t get_from_storage(uint8_t* s)
+{
+    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
+    {
+        uint8_t v = s[i];
+        if (v > 0){
+            s[i] = 0;
+            return v;
+        }
+    }
+    return 0;
+}
+
+uint8_t init_storage(uint8_t* s)
+{
+    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
+    {
+        s[i] = 0;
+    }
+}
 
 #endif // DEFS_H
