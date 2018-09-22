@@ -47,5 +47,11 @@ uint8_t pitch(CvPattern64* pattern, long step)
     return pattern->pattern[s];
 }
 
+uint8_t pitch(CvPattern16* pattern, long step)
+{
+    uint8_t s = uint8_t(step % pattern->length);
+    return pattern->pattern[s];
+}
+
 #endif // BASSLINES_H
 

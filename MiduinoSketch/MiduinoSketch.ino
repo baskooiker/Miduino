@@ -9,49 +9,29 @@
 #include "mfb_503.h"
 #include "mfb_522.h"
 #include "p50.h"
+#include "rocket.h"
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-uint8_t playing_pitches[16] = {};
-uint8_t nr_playing_pitches = 0;
-
 uint8_t counter = TICKS_PER_STEP;
 bool play_step = false;
-
-#define MAX_NR_STEPS 256
-const uint8_t nr_steps = 16;
-
-uint8_t nr_pitches = 7;
-uint8_t pitches[] = {36, 38, 39, 41, 43, 44, 46};
-
-uint8_t pitch_seq[nr_steps]    = {36, 36, 38, 36, 39, 36, 41, 36, 41, 39, 36, 36, 36, 36, 36, 46};
-bool slide_seq[nr_steps]       = {};
-bool gate_seq[nr_steps]        = {};
-
-static RocketSettings rocket_settings = {};
 
 static ApplicationData data = {};
 
 void setup() {
     MIDI.begin(MIDI_CHANNEL_OMNI);
-    for (int i = 0; i < nr_steps; i++)
-    {
-      pitch_seq[i] = pitches[random(7)];
-      slide_seq[i] = false;
-      gate_seq[i] = true;
-    }
+
+    data.rocket_pattern = init_bassline();
   
     // Initialize patterns
     randomize_522_seq(&data);
     randomize_503_seq(&data);
     randomize_P50_seq(&data);
-    randomize_rocket_seq();
+    randomize_rocket_seq(&data);
   
-    // Initialize settings
-    rocket_settings.gate_density = 80;
-  
-    data.rocket_octaves = 3;
-    data.p50_octaves = 3;
+    data.rocket_density = .8;
+    data.rocket_octave = 3;
+    data.p50_octave = 5;
     data.root = ROOT_C;
     data.scale = AEOLIAN;
 
@@ -80,55 +60,16 @@ void send_cc(uint8_t cc, uint8_t value, uint8_t channel)
     MIDI.sendControlChange(cc, value, channel);
 }
 
-void stop_notes()
+void all_notes_off(uint8_t* storage, uint8_t channel)
 {
-  while (nr_playing_pitches > 0)
-  {
-    MIDI.sendNoteOff(playing_pitches[--nr_playing_pitches], 0, MIDI_CHANNEL_ROCKET);
-  }
-}
-
-void randomize_rocket_seq()
-{
-  for (int i = 0; i < nr_steps; i++)
-  {
-    // 25% of pitch change
-    if (random(128) < 32)
-    {
-      pitch_seq[i] = pitches[random(7)] + (random(3) - 1) * 12;
-    }
-    randomize_ab(&data.rocket_pattern.slides, .25f);
-    // 25% slide
-    slide_seq[i] = random(128) < 32;
-
-    // 80% slide
-    gate_seq[i] = random(127) < rocket_settings.gate_density;
-  }
-  data.rocket_pattern.accents = init_percussive_pattern_64();
-}
-
-void play_step_rocket()
-{
-  uint8_t loc_step = data.step % 16;
-  uint8_t pitch = pitch_seq[loc_step];
-  Bassline* rocket = &data.rocket_pattern;
-
-  uint8_t velocity = 32;
-  if (gate(rocket->accents, data.step))
-  {
-    velocity = 100;
-  }
-
-  if (gate_seq[loc_step])
-  {
-    if (slide_seq[loc_step] == false)
-    {
-      stop_notes();
-    }
-
-    playing_pitches[nr_playing_pitches++] = pitch;
-    MIDI.sendNoteOn(pitch, velocity, MIDI_CHANNEL_ROCKET);
-  }
+    uint8_t p = 0;
+    do {
+        p = pop_from_storage(storage);
+        if (p > 0)
+        {
+            MIDI.sendNoteOff(p, 0, channel);
+        }
+    } while (p != 0);
 }
 
 void loop() {
@@ -144,35 +85,35 @@ void loop() {
         }
         break;
       case midi::MidiType::Stop:
-        stop_notes();
+//        stop_notes();
         data.step = 0;
         break;
       case midi::MidiType::ControlChange:
         switch (MIDI.getData1())
         {
           case BSP_KNOB_08:
-            rocket_settings.gate_density = MIDI.getData2();
-            break;
+              data.rocket_density = (MIDI.getData2() / 127.) * .8f + .2f;
+              break;
           case BSP_STEP_01:
-            if (MIDI.getData2() == 0)
-            {
-              randomize_503_sound();
-            }
-            break;
+              if (MIDI.getData2() == 0)
+              {
+                  randomize_503_sound();
+              }
+              break;
           case BSP_STEP_02:
-            if (MIDI.getData2() == 0)
-            {
-              randomize_503_seq(&data);
-            }
-            break;
+              if (MIDI.getData2() == 0)
+              {
+                  randomize_503_seq(&data);
+              }
+              break;
           case BSP_STEP_03:
-            randomize_522_seq(&data);
-            break;
+              randomize_522_seq(&data);
+              break;
           case BSP_STEP_15:
           case BSP_STEP_16:
             if (MIDI.getData2() == 0)
             {
-              randomize_rocket_seq();
+                randomize_rocket_seq(&data);
             }
             break;
           default:
@@ -298,7 +239,7 @@ void loop() {
   {
     play_503(&data);
     play_522(&data);
-    play_step_rocket();
+    play_rocket(&data);
     play_P50(&data);
 
     play_step = false;

@@ -57,8 +57,8 @@ RandomParam random_503_params[] = {
 
   {HH_LEVEL , 100, 127},
   {HH_MIX   ,   0, 127},
-  {OH_DECAY ,   0, 127},
-  {HH_DECAY ,   0, 127},
+  {OH_DECAY ,  32, 127},
+  {HH_DECAY ,  32, 127},
 };
 uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
 

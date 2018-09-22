@@ -7,10 +7,10 @@
 
 void randomize_522_seq(ApplicationData* data)
 {
-    data->lo_tom_522_pattern = init_percussive_pattern();
-    data->mi_tom_522_pattern = init_percussive_pattern();
-    data->rs_522_pattern = init_percussive_pattern();
-    data->clave_522_pattern = init_percussive_pattern_64();
+    data->lo_tom_522_pattern = init_percussive_pattern(.25);
+    data->mi_tom_522_pattern = init_percussive_pattern(.25);
+    data->rs_522_pattern = init_percussive_pattern(.25);
+    data->clave_522_pattern = init_percussive_pattern_64(.25);
     
     uint8_t clap_pat[] = {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0};
     data->clap_522_pattern = init_pattern(clap_pat, 16);

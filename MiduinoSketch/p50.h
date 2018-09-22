@@ -15,15 +15,8 @@ void play_P50(ApplicationData* data)
     uint8_t velocity = 32;
     if (gate(pattern->gates, data->step))
     {
-        uint8_t p = 0;
-        do {
-            p = pop_from_storage(data->storage_p50);
-            if (p > 0)
-            {
-                note_off(p, MIDI_CHANNEL_P50, data->storage_p50);
-            }
-        } while (p != 0);
-
+        all_notes_off(data->storage_p50, MIDI_CHANNEL_P50);
+        
         uint8_t root = pitch(&pattern->pitches, data->step % 64);
         uint8_t fifth = root + 7;
         note_on(root , velocity, MIDI_CHANNEL_P50, data->storage_p50);

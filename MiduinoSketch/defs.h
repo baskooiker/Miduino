@@ -144,17 +144,6 @@ typedef struct {
 } RandomParam;
 
 typedef struct {
-    uint8_t gate_density;
-} RocketSettings;
-
-typedef struct {
-    uint8_t perc_midi_1;
-    uint8_t perc_midi_2;
-    uint8_t perc_midi_3;
-    uint8_t perc_midi_4;
-} Mfb522Settings;
-
-typedef struct {
     uint8_t data[16];
     uint8_t length;
 } RhythmPattern;
@@ -214,14 +203,15 @@ typedef struct {
     uint8_t bsp_pad_15_down;
     uint8_t bsp_pad_16_down;
 
-    uint8_t rocket_octaves;
-    uint8_t p50_octaves;
+    uint8_t rocket_octave;
+    uint8_t p50_octave;
     Root root;
     Scale scale;
     long step;
 
     ChordPattern p50_pattern;
     Bassline rocket_pattern;
+    float rocket_density;
     
     GatePattern16 ac_503_pattern;
     GatePattern16 bd_503_pattern;

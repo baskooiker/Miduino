@@ -91,10 +91,10 @@ void randomize(GatePattern16* pattern, const float prob)
     }
 }
 
-GatePattern16 init_percussive_pattern()
+GatePattern16 init_percussive_pattern(const float prob = .5)
 {
     GatePattern16 pat = get_empty_gate_pattern();
-    randomize(&pat, .5f);
+    randomize(&pat, prob);
     return pat;
 }
 
