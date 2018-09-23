@@ -100,9 +100,9 @@ GatePattern16 init_percussive_pattern(const float prob = .5)
 
 void randomize_ab(GatePattern64* pattern, const float prob)
 {
-    GatePattern16 pat0 = init_percussive_pattern();
-    GatePattern16 pat1 = init_percussive_pattern();
-    GatePattern16 pat2 = init_percussive_pattern();
+    GatePattern16 pat0 = init_percussive_pattern(prob);
+    GatePattern16 pat1 = init_percussive_pattern(prob);
+    GatePattern16 pat2 = init_percussive_pattern(prob);
     float pat_prob = (random(1024) / 1024.);
     
     pattern->patterns[0] = pat0.pattern;

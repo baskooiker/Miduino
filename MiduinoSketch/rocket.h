@@ -12,8 +12,6 @@ void randomize_rocket_seq(ApplicationData* data)
     {
         const uint8_t* current_scale = get_scale(data->scale);
         p_pattern->pattern[i] = current_scale[random(7)] + ((random(3) - 1) * 12) + (data->rocket_octave * 12) + data->root;
-//        p_pattern->pattern[i] = (data->rocket_octave * 12);
-//        p_pattern->pattern[i] = pitches[random(7)] + (random(3) - 1) * 12;
     }
     randomize_ab(&data->rocket_pattern.gates, data->rocket_density);
     randomize_ab(&data->rocket_pattern.slides, .25f);
