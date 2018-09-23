@@ -1,4 +1,6 @@
 *.o
 *.d
-/MiduinoSketch/Release
-MiduinoSketch/.vs/MiduinoSketch/v15/.suo
+*.suo
+
+**/Release
+**/__vm
