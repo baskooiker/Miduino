@@ -1,6 +1,8 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+#include "scales.h"
+
 #define MIDI_CHANNEL_ROCKET 1
 #define MIDI_CHANNEL_P50    5
 #define MIDI_CHANNEL_503    10
@@ -127,16 +129,6 @@ enum Root {
     ROOT_B
 };
 
-enum Scale {
-    IONIAN,
-    DORIAN,
-    AEOLIAN
-};
-
-const uint8_t ionian[]  = {0, 2, 4, 5, 7, 9, 11}; // 1 2  3 4 5 6   7
-const uint8_t dorian[]  = {0, 2, 3, 5, 7, 9, 10}; // 1 2 b3 4 5 6  b7
-const uint8_t aeolian[] = {0, 2, 3, 5, 7, 8, 10}; // 1 2 b3 4 5 b6 b7 Natural Minor
-
 typedef struct {
   uint8_t note;
   uint8_t min;
@@ -231,52 +223,5 @@ typedef struct {
     uint8_t storage_rocket[16];
     
 } ApplicationData;
-
-
-void add_to_storage(uint8_t* s, uint8_t value)
-{
-    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
-    {
-        if (s[i] == 0){
-            
-            s[i] = value;
-            break;
-        }
-    }
-}
-
-uint8_t pop_from_storage(uint8_t* s)
-{
-    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
-    {
-        uint8_t v = s[i];
-        if (v > 0){
-            s[i] = 0;
-            return v;
-        }
-    }
-    return 0;
-}
-
-uint8_t pop_from_storage(uint8_t* s, uint8_t value)
-{
-    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
-    {
-        uint8_t v = s[i];
-        if (s[i] == value){
-            s[i] = 0;
-            return v;
-        }
-    }
-    return 0;
-}
-
-uint8_t init_storage(uint8_t* s)
-{
-    for(uint8_t i = 0; i < STORAGE_SIZE; i++)
-    {
-        s[i] = 0;
-    }
-}
 
 #endif // DEFS_H

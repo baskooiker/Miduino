@@ -103,16 +103,28 @@ void randomize_ab(GatePattern64* pattern, const float prob)
     GatePattern16 pat0 = init_percussive_pattern();
     GatePattern16 pat1 = init_percussive_pattern();
     GatePattern16 pat2 = init_percussive_pattern();
-    uint8_t pat_prob = random(1024);
+    float pat_prob = (random(1024) / 1024.);
     
     pattern->patterns[0] = pat0.pattern;
-    if (pat_prob < 128) // AAAB
+    if (pat_prob < .25) // AAAB
     {
         pattern->patterns[1] = pat0.pattern;
         pattern->patterns[2] = pat0.pattern;
         pattern->patterns[3] = pat1.pattern;
     }
-    else if (pat_prob < 192) // ABAC
+    else if (pat_prob < .5) // ABAA
+    {
+        pattern->patterns[1] = pat1.pattern;
+        pattern->patterns[2] = pat0.pattern;
+        pattern->patterns[3] = pat0.pattern;
+    }
+    else if (pat_prob < .625) // AABA
+    {
+        pattern->patterns[1] = pat0.pattern;
+        pattern->patterns[2] = pat1.pattern;
+        pattern->patterns[3] = pat0.pattern;
+    }
+    else if (pat_prob < .75) // ABAC
     {
         pattern->patterns[1] = pat1.pattern;
         pattern->patterns[2] = pat0.pattern;

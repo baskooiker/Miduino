@@ -5,6 +5,8 @@
 #include "defs.h"
 #include "rhythms.h"
 #include "basslines.h"
+#include "storage.h"
+#include "scales.h"
 
 #include "mfb_503.h"
 #include "mfb_522.h"
