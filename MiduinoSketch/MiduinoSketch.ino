@@ -30,6 +30,7 @@ void setup() {
     randomize_503_seq(&data);
     randomize_P50_seq(&data);
     randomize_rocket_seq(&data);
+    root_rocket_seq(&data);
   
     data.rocket_density = .8;
     data.rocket_octave = 3;
@@ -114,12 +115,29 @@ void loop() {
 			        case BSP_STEP_03:
 				        randomize_522_seq(&data);
 				        break;
-			        case BSP_STEP_15:
+                    case BSP_STEP_13:
+                        if (MIDI.getData2() == 0)
+                        {
+                            root_rocket_seq(&data);
+                        }
+                        break;
+                    case BSP_STEP_14:
+                        if (MIDI.getData2() == 0)
+                        {
+                            modify_rocket_seq(&data);
+                        }
+                        break;
+                    case BSP_STEP_15:
+                        if (MIDI.getData2() == 0)
+                        {
+                            modify_rocket_seq(&data);
+                        }
+                        break;
 			        case BSP_STEP_16:
-			        if (MIDI.getData2() == 0)
-			        {
-				        randomize_rocket_seq(&data);
-			        }
+			            if (MIDI.getData2() == 0)
+			            {
+				            randomize_rocket_seq(&data);
+			            }
 			        break;
 			        default:
 			        break;
