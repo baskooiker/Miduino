@@ -199,7 +199,9 @@ typedef struct {
     uint8_t p50_octave;
     Root root;
     Scale scale;
+    uint8_t ticks_counter;
     long step;
+    uint8_t swing;
 
     ChordPattern p50_pattern;
     Bassline rocket_pattern;

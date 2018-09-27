@@ -48,5 +48,8 @@
     <ClInclude Include="scales.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="storage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

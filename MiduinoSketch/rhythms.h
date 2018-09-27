@@ -1,4 +1,3 @@
-
 #ifndef RHYTHMS_H
 #define RHYTHMS_H
 
@@ -50,7 +49,7 @@ boolean gate(const BinaryPattern gates, const long step)
 
 boolean gate(const GatePattern16 pattern, const long step)
 {
-    return gate(pattern.pattern, step);
+    return gate(pattern.pattern, step % pattern.length);
 }
 
 boolean gate(const GatePattern64 pattern, const long step)
@@ -80,7 +79,8 @@ GatePattern16 init_pattern(const uint8_t* ar, uint8_t length)
     {
         set_gate(&pat.pattern, j, ar[j]);
     }
-   return pat;
+    pat.length = length;
+    return pat;
 }
 
 void randomize(GatePattern16* pattern, const float prob)

@@ -15,9 +15,6 @@
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-uint8_t counter = TICKS_PER_STEP;
-bool play_step = false;
-
 static ApplicationData data = {};
 
 void setup() {
@@ -25,20 +22,28 @@ void setup() {
 
     data.rocket_pattern = init_bassline();
   
-    // Initialize patterns
-    randomize_522_seq(&data);
-    randomize_503_seq(&data);
-    randomize_P50_seq(&data);
-    randomize_rocket_seq(&data);
-    root_rocket_seq(&data);
-  
+    data.step = 0;
+    data.ticks_counter = 0;
+    data.swing = 4;
+
     data.rocket_density = .8;
     data.rocket_octave = 3;
     data.p50_octave = 5;
     data.root = ROOT_C;
     data.scale = AEOLIAN;
 
+    init_storage(data.storage_503);
+    init_storage(data.storage_522);
     init_storage(data.storage_p50);
+    init_storage(data.storage_rocket);
+
+    // Initialize patterns
+    randomize_503_seq(&data);
+    randomize_522_seq(&data);
+    randomize_P50_seq(&data);
+    randomize_rocket_seq(&data);
+    root_rocket_seq(&data);
+
 }
 
 void note_on(uint8_t note, uint8_t velocity, uint8_t channel, uint8_t* storage)
@@ -75,17 +80,31 @@ void all_notes_off(uint8_t* storage, uint8_t channel)
     } while (p != 0);
 }
 
+void play_all()
+{
+    play_503(&data);
+    play_522(&data);
+    play_rocket(&data);
+    play_P50(&data);
+}
+
 void loop() {
 	if (MIDI.read())
 	{
 		switch (MIDI.getType())
 	    {
 		    case midi::MidiType::Clock:
-		        counter = (counter + 1) % TICKS_PER_STEP;
-		        if (counter == 0)
-		        {
-			        play_step = true;
-		        }
+            {
+                if (data.ticks_counter == (data.step % 2 == 1 ? 0 : data.swing))
+                {
+                    play_all();
+                }
+                if (data.ticks_counter == 0)
+                {
+                    data.step = (data.step + 1) % COMMON_DENOMINATOR;
+                }
+                data.ticks_counter = (data.ticks_counter + 1) % TICKS_PER_STEP;
+            }
 		    break;
 		    case midi::MidiType::Stop:
                 all_notes_off(data.storage_503, MIDI_CHANNEL_503);
@@ -93,6 +112,7 @@ void loop() {
                 all_notes_off(data.storage_p50, MIDI_CHANNEL_P50);
                 all_notes_off(data.storage_rocket, MIDI_CHANNEL_ROCKET);
 		        data.step = 0;
+                data.ticks_counter = 0;
 		    break;
 		    case midi::MidiType::ControlChange:
 		        switch (MIDI.getData1())
@@ -256,17 +276,6 @@ void loop() {
 		    default:
 		    break;
 	    }
-	}
-
-	if (play_step)
-	{
-        play_503(&data);
-        play_522(&data);
-        play_rocket(&data);
-        play_P50(&data);
-
-        play_step = false;
-        data.step = (data.step + 1) % COMMON_DENOMINATOR;
 	}
 }
 
