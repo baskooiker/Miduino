@@ -3,13 +3,19 @@
 
 #include "defs.h"
 
-static const uint8_t NR_BD_PATTERNS = 4;
-static const uint8_t BD_PATTERNS[NR_BD_PATTERNS][16] = {
+static const uint8_t BD_PATTERNS[][16] = {
   {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
-  {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0},
+  {1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0},
   {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0},
+  {1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+};
+static const uint8_t NR_BD_PATTERNS = sizeof(BD_PATTERNS) / sizeof(*BD_PATTERNS);
+
+static const uint8_t BD_OFF_PATTERNS[][16] = {
+  {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0},
   {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
 };
+static const uint8_t NR_BD_OFF_PATTERNS = sizeof(BD_OFF_PATTERNS) / sizeof(*BD_OFF_PATTERNS);
 
 static const uint8_t NR_SD_PATTERNS = 4;
 static const uint8_t SD_PATTERNS[NR_SD_PATTERNS][16] = {
@@ -60,15 +66,15 @@ boolean gate(const GatePattern64 pattern, const long step)
     return gate(pattern.patterns[sub_pat], sub_step);
 }
 
-void set_gate(BinaryPattern* gates, const uint8_t step, const boolean val)
+void set_gate(BinaryPattern& gates, const uint8_t step, const boolean val)
 {
     if (val)
     {
-        (*gates) |= ((uint16_t)(0x1) << step);
+        gates |= ((uint16_t)(0x1) << step);
     }
     else
     {
-        (*gates) &= ~((uint16_t)(0x1) << step);
+        gates &= ~((uint16_t)(0x1) << step);
     }
 }
 
@@ -77,24 +83,29 @@ GatePattern16 init_pattern(const uint8_t* ar, uint8_t length)
     GatePattern16 pat = get_empty_gate_pattern();
     for(uint8_t j = 0; j < length; j++)
     {
-        set_gate(&pat.pattern, j, ar[j]);
+        set_gate(pat.pattern, j, ar[j]);
     }
     pat.length = length;
     return pat;
 }
 
-void randomize(GatePattern16* pattern, const float prob)
+void randomize(BinaryPattern& pattern, const float prob)
 {
-    for(uint8_t j = 0; j < pattern->length; j++)
+    for (uint8_t j = 0; j < 16; j++)
     {
-        set_gate(&pattern->pattern, j, (random(1024) / 1024.f) < prob);
+        set_gate(pattern, j, (random(1024) / 1024.f) < prob);
     }
+}
+
+void randomize(GatePattern16& pattern, const float prob)
+{
+    randomize(pattern.pattern, prob);
 }
 
 GatePattern16 init_percussive_pattern(const float prob = .5)
 {
     GatePattern16 pat = get_empty_gate_pattern();
-    randomize(&pat, prob);
+    randomize(pat, prob);
     return pat;
 }
 
@@ -142,6 +153,19 @@ GatePattern64 init_percussive_pattern_64(const float prob = .5f)
 {
     GatePattern64 pattern = init_gate_pattern_64();
     randomize_ab(&pattern, .5f);
+    return pattern;
+}
+
+void set_ab_pattern(uint8_t* ab_pattern)
+{
+
+}
+
+GatePatternAB init_gate_pattern_ab()
+{
+    GatePatternAB pattern;
+    randomize(pattern.patterns[0], .5f);
+    set_ab_pattern(pattern.abPattern);
     return pattern;
 }
 

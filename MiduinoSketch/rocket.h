@@ -10,7 +10,6 @@ void root_rocket_seq(ApplicationData* data)
     CvPattern16* p_pattern = &data->rocket_pattern.pitches;
     for (int i = 0; i < p_pattern->length; i++)
     {
-        const uint8_t* current_scale = get_scale(data->scale);
         p_pattern->pattern[i] = (data->rocket_octave * 12) + data->root;
     }
     randomize_ab(&data->rocket_pattern.gates, data->rocket_density);
@@ -18,20 +17,19 @@ void root_rocket_seq(ApplicationData* data)
     data->rocket_pattern.accents = init_percussive_pattern_64();
 }
 
-void modify_rocket_seq(ApplicationData* data)
+void modify_rocket_seq(ApplicationData& data)
 {
-    CvPattern16* p_pattern = &data->rocket_pattern.pitches;
+    CvPattern16* p_pattern = &data.rocket_pattern.pitches;
     for (int i = 0; i < p_pattern->length; i++)
     {
         if ((random(1024) / 1024.) < .25)
         {
-            const uint8_t* current_scale = get_scale(data->scale);
-            p_pattern->pattern[i] = current_scale[random(7)] + ((random(3) - 1) * 12) + (data->rocket_octave * 12) + data->root;
+            p_pattern->pattern[i] = data.scale.notes[data.scale.length] + ((random(3) - 1) * 12) + (data.rocket_octave * 12) + data.root;
         }
     }
-    randomize_ab(&data->rocket_pattern.gates, data->rocket_density);
-    randomize_ab(&data->rocket_pattern.slides, .25f);
-    data->rocket_pattern.accents = init_percussive_pattern_64();
+    randomize_ab(&data.rocket_pattern.gates, data.rocket_density);
+    randomize_ab(&data.rocket_pattern.slides, .25f);
+    data.rocket_pattern.accents = init_percussive_pattern_64();
 }
 
 void randomize_rocket_seq(ApplicationData* data)
@@ -39,8 +37,7 @@ void randomize_rocket_seq(ApplicationData* data)
     CvPattern16* p_pattern = &data->rocket_pattern.pitches;
     for (int i = 0; i < p_pattern->length; i++)
     {
-        const uint8_t* current_scale = get_scale(data->scale);
-        p_pattern->pattern[i] = current_scale[random(7)] + ((random(3) - 1) * 12) + (data->rocket_octave * 12) + data->root;
+        p_pattern->pattern[i] = data->scale.notes[data->scale.length] + ((random(3) - 1) * 12) + (data->rocket_octave * 12) + data->root;
     }
     randomize_ab(&data->rocket_pattern.gates, data->rocket_density);
     randomize_ab(&data->rocket_pattern.slides, .25f);

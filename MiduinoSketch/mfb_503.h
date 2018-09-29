@@ -15,8 +15,8 @@ void randomize_503_seq(ApplicationData& data)
     uint8_t hh_idx = random(NR_HH_PATTERNS);
     for (int i = 0; i < 16; i++)
     {
-        set_gate(&data.hh_503_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 1);
-        set_gate(&data.oh_503_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 2);
+        set_gate(data.hh_503_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 1);
+        set_gate(data.oh_503_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 2);
     }
 }
 

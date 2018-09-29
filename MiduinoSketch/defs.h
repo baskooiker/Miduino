@@ -162,6 +162,12 @@ typedef struct {
     uint8_t length;
 } GatePattern64;
 
+typedef struct {
+    BinaryPattern patterns[3];
+    uint8_t length;
+    uint8_t abPattern[4];
+} GatePatternAB;
+
 #define STORAGE_SIZE 16
 typedef uint8_t PitchStorage[STORAGE_SIZE];
 

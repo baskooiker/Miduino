@@ -251,13 +251,13 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_STEP_14:
         if (value == 0)
         {
-            modify_rocket_seq(&data);
+            modify_rocket_seq(data);
         }
         break;
     case BSP_STEP_15:
         if (value == 0)
         {
-            modify_rocket_seq(&data);
+            modify_rocket_seq(data);
         }
         break;
     case BSP_STEP_16:
@@ -300,7 +300,7 @@ void setup() {
     data.rocket_octave = 3;
     data.p50_octave = 5;
     data.root = ROOT_C;
-    data.scale = AEOLIAN;
+    data.scale = get_scale(AEOLIAN);
 
     init_storage(data.storage_503);
     init_storage(data.storage_522);

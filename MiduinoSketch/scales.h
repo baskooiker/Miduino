@@ -3,28 +3,47 @@
 
 #include "defs.h"
 
-enum Scale {
+enum ScaleType {
 	IONIAN,
 	DORIAN,
 	AEOLIAN
 };
 
+typedef struct {
+    uint8_t notes[8];
+    uint8_t length;
+} Scale;
+
 const uint8_t ionian[] = { 0, 2, 4, 5, 7, 9, 11 }; // 1 2  3 4 5 6   7
 const uint8_t dorian[] = { 0, 2, 3, 5, 7, 9, 10 }; // 1 2 b3 4 5 6  b7
 const uint8_t aeolian[] = { 0, 2, 3, 5, 7, 8, 10 }; // 1 2 b3 4 5 b6 b7 Natural Minor
 
-const uint8_t* get_scale(const Scale scale)
+const Scale get_scale(const ScaleType scale_type)
 {
-    switch(scale)
+    Scale scale;
+    switch(scale_type)
     {
         case IONIAN:
-            return ionian;
+            scale.length = sizeof(ionian) / sizeof(uint8_t);
+            for (int i = 0; i < scale.length; i++)
+            {
+                scale.notes[i] = ionian[i];
+            }
         case DORIAN:
-            return dorian;
+            scale.length = sizeof(dorian) / sizeof(uint8_t);
+            for (int i = 0; i < scale.length; i++)
+            {
+                scale.notes[i] = dorian[i];
+            }
+        default:
         case AEOLIAN:
-            return aeolian;
+            scale.length = sizeof(aeolian) / sizeof(uint8_t);
+            for (int i = 0; i < scale.length; i++)
+            {
+                scale.notes[i] = aeolian[i];
+            }
     }
-    return 0;
+    return scale;
 }
 
 #endif // SCALES_H
