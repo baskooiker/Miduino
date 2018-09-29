@@ -9,7 +9,7 @@ void randomize_503_seq(ApplicationData& data)
 {
     data.ac_503_pattern = init_percussive_pattern(.25);
 
-    data.bd_503_pattern = init_pattern(BD_PATTERNS[random(NR_BD_PATTERNS)], 16);
+    set_kick_pattern(data.bd_503_pattern);
     data.sd_503_pattern = init_pattern(SD_PATTERNS[random(NR_SD_PATTERNS)], 16);
 
     uint8_t hh_idx = random(NR_HH_PATTERNS);

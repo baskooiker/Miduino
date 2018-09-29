@@ -164,7 +164,6 @@ typedef struct {
 
 typedef struct {
     BinaryPattern patterns[3];
-    uint8_t length;
     uint8_t abPattern[4];
 } GatePatternAB;
 
@@ -216,12 +215,13 @@ typedef struct {
     float rocket_density;
     
     GatePattern16 ac_503_pattern;
-    GatePattern16 bd_503_pattern;
+    GatePatternAB bd_503_pattern;
     GatePattern16 sd_503_pattern;
     GatePattern16 hh_503_pattern;
     GatePattern16 oh_503_pattern;
 
     GatePattern16 ac_522_pattern;
+    GatePatternAB bd_522_pattern;
     GatePattern16 lo_tom_522_pattern;
     GatePattern16 mi_tom_522_pattern;
     GatePattern16 rs_522_pattern;

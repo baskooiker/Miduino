@@ -240,7 +240,7 @@ void handleControlChange(byte channel, byte number, byte value)
         }
         break;
     case BSP_STEP_03:
-        randomize_522_seq(&data);
+        randomize_522_seq(data);
         break;
     case BSP_STEP_13:
         if (value == 0)
@@ -311,7 +311,7 @@ void setup() {
 
     // Initialize patterns
     randomize_503_seq(data);
-    randomize_522_seq(&data);
+    randomize_522_seq(data);
     randomize_P50_seq(&data);
     randomize_rocket_seq(&data);
     root_rocket_seq(&data);
@@ -355,7 +355,7 @@ void all_notes_off(uint8_t* storage, uint8_t channel)
 void play_all()
 {
     play_503(data);
-    play_522(&data);
+    play_522(data);
     play_rocket(&data);
     play_P50(&data);
 }
