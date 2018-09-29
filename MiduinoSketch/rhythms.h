@@ -20,7 +20,7 @@ static const uint8_t SD_PATTERNS[NR_SD_PATTERNS][16] = {
 };
 
 static const uint8_t NR_HH_PATTERNS = 4;
-static const uint8_t HH_PATTERNS[NR_SD_PATTERNS][16] = {
+static const uint8_t HH_PATTERNS[NR_HH_PATTERNS][16] = {
   {0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0},
   {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2},
   {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1},
@@ -42,7 +42,7 @@ GatePattern64 init_gate_pattern_64()
     return pattern;
 }
 
-boolean gate(const BinaryPattern gates, const long step)
+boolean gate(const BinaryPattern& gates, const long step)
 {
     return (((gates) & (uint16_t)(0x1 << (uint16_t)(step % 16)))) > 0;
 }

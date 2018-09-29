@@ -73,14 +73,14 @@
 #define BSP_KNOB_15 79
 #define BSP_KNOB_16 72
 
-#define BSP_PAD_01 52
-#define BSP_PAD_02 53
-#define BSP_PAD_03 54
-#define BSP_PAD_04 55
-#define BSP_PAD_05 56
-#define BSP_PAD_06 57
-#define BSP_PAD_07 58
-#define BSP_PAD_08 59
+#define BSP_PAD_01 36
+#define BSP_PAD_02 37
+#define BSP_PAD_03 38
+#define BSP_PAD_04 39
+#define BSP_PAD_05 40
+#define BSP_PAD_06 41
+#define BSP_PAD_07 42
+#define BSP_PAD_08 43
 #define BSP_PAD_09 44
 #define BSP_PAD_10 45
 #define BSP_PAD_11 46
@@ -115,13 +115,13 @@
 #define CC_OSC_TUNE  79
 
 enum Root {
-    ROOT_C,
+    ROOT_C = 0,
     ROOT_C_SHARP,
     ROOT_D,
     ROOT_D_SHARP,
     ROOT_E,
-    ROOT_E_SHARP,
     ROOT_F,
+    ROOT_F_SHARP,
     ROOT_G,
     ROOT_G_SHARP,
     ROOT_A,
@@ -178,23 +178,25 @@ typedef struct {
 } ChordPattern;
 
 typedef struct {
-    uint8_t bsp_pad_01_down;
-    uint8_t bsp_pad_02_down;
-    uint8_t bsp_pad_03_down;
-    uint8_t bsp_pad_04_down;
-    uint8_t bsp_pad_05_down;
-    uint8_t bsp_pad_06_down;
-    uint8_t bsp_pad_07_down;
-    uint8_t bsp_pad_08_down;
-    uint8_t bsp_pad_09_down;
-    uint8_t bsp_pad_10_down;
-    uint8_t bsp_pad_11_down;
-    uint8_t bsp_pad_12_down;
-    uint8_t bsp_pad_13_down;
-    uint8_t bsp_pad_14_down;
-    uint8_t bsp_pad_15_down;
-    uint8_t bsp_pad_16_down;
+    uint16_t bsp_button_state;
+    uint16_t bsp_pad_state;
 
+    boolean in_root_mode;
+    boolean in_swing_mode;
+} UiState;
+
+UiState init_ui_state()
+{
+    UiState ui_state = {0};
+    ui_state.bsp_button_state = 0x00;
+    ui_state.bsp_pad_state = 0x00;
+
+    ui_state.in_root_mode = false;
+    ui_state.in_swing_mode = false;
+    return ui_state;
+}
+
+typedef struct {
     uint8_t rocket_octave;
     uint8_t p50_octave;
     Root root;
@@ -213,17 +215,22 @@ typedef struct {
     GatePattern16 hh_503_pattern;
     GatePattern16 oh_503_pattern;
 
+    GatePattern16 ac_522_pattern;
     GatePattern16 lo_tom_522_pattern;
     GatePattern16 mi_tom_522_pattern;
     GatePattern16 rs_522_pattern;
     GatePattern64 clave_522_pattern;
     GatePattern16 clap_522_pattern;
+    GatePattern64 hh_522_pattern;
+    GatePattern64 oh_522_pattern;
+    GatePattern64 sd_522_pattern;
     
     uint8_t storage_522[16];
     uint8_t storage_503[16];
     uint8_t storage_p50[16];
     uint8_t storage_rocket[16];
     
+    UiState uiState;
 } ApplicationData;
 
 #endif // DEFS_H
