@@ -29,6 +29,10 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         {
             data.root = ROOT_C;
         }
+        if (no_pad(data.uiState) && no_button(data.uiState))
+        {
+            data.uiState.kill_low = true;
+        }
         set_pad_state(data.uiState, 0, true);
 
         break;
@@ -41,6 +45,10 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         {
             data.root = ROOT_D;
         }
+        if (no_pad(data.uiState) && no_button(data.uiState))
+        {
+            data.uiState.kill_mid = true;
+        }
         set_pad_state(data.uiState, 1, true);
         break;
     case BSP_PAD_03:
@@ -52,6 +60,10 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         {
             data.root = ROOT_E;
         }
+        if (no_pad(data.uiState) && no_button(data.uiState))
+        {
+            data.uiState.kill_perc = true;
+        }
         set_pad_state(data.uiState, 2, true);
         break;
     case BSP_PAD_04:
@@ -62,6 +74,10 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         if (data.uiState.in_root_mode)
         {
             data.root = ROOT_F;
+        }
+        if (no_pad(data.uiState) && no_button(data.uiState))
+        {
+            data.uiState.kill_high = true;
         }
         set_pad_state(data.uiState, 3, true);
         break;
@@ -151,15 +167,19 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
     switch (pitch)
     {
     case BSP_PAD_01:
+        data.uiState.kill_low = false;
         set_pad_state(data.uiState, 0, false);
         break;
     case BSP_PAD_02:
+        data.uiState.kill_mid = false;
         set_pad_state(data.uiState, 1, false);
         break;
     case BSP_PAD_03:
+        data.uiState.kill_perc = false;
         set_pad_state(data.uiState, 2, false);
         break;
     case BSP_PAD_04:
+        data.uiState.kill_high = false;
         set_pad_state(data.uiState, 3, false);
         break;
     case BSP_PAD_05:
@@ -294,6 +314,7 @@ void setup() {
 
     data.bd_503_pattern = init_gate_pattern_ab();
     data.bd_522_pattern = init_gate_pattern_ab();
+    data.cy_522_pattern = init_gate_pattern_ab();
 
     data.step = 0;
     data.ticks_counter = 0;

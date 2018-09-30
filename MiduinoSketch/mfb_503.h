@@ -27,21 +27,21 @@ void play_503(ApplicationData& data)
     {
         velocity = 127;
     }
-    if (gate(data.bd_503_pattern, data.step) && (get_pad_state(data.uiState, 0) == false))
+    if (gate(data.bd_503_pattern, data.step) && !data.uiState.kill_low)
     {
         note_on(NOTE_503_BD, velocity, MIDI_CHANNEL_503, data.storage_503);
     }
-    if (gate(data.sd_503_pattern, data.step) && !get_button_state(data.uiState, 8))
+    if (gate(data.sd_503_pattern, data.step) && !data.uiState.kill_mid)
     {
         note_on(NOTE_503_SD, velocity, MIDI_CHANNEL_503, data.storage_503);
     }
 
     bool oh = gate(data.oh_503_pattern, data.step);
-    if (gate(data.hh_503_pattern, data.step) && !oh)
+    if (gate(data.hh_503_pattern, data.step) && !oh && !data.uiState.kill_high)
     {
         note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.storage_503);
     }
-    if (oh)
+    if (oh && !data.uiState.kill_high)
     {
         note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.storage_503);
     }

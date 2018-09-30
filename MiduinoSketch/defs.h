@@ -188,6 +188,11 @@ typedef struct {
 
     bool in_root_mode;
     bool in_swing_mode;
+
+    bool kill_low;
+    bool kill_mid;
+    bool kill_high;
+    bool kill_perc;
 } UiState;
 
 UiState init_ui_state()
@@ -229,6 +234,7 @@ typedef struct {
     GatePattern16 clap_522_pattern;
     GatePattern64 hh_522_pattern;
     GatePattern64 oh_522_pattern;
+    GatePatternAB cy_522_pattern;
     GatePattern64 sd_522_pattern;
     
     uint8_t storage_522[16];
