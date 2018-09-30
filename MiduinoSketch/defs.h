@@ -186,8 +186,8 @@ typedef struct {
     uint16_t bsp_button_state;
     uint16_t bsp_pad_state;
 
-    boolean in_root_mode;
-    boolean in_swing_mode;
+    bool in_root_mode;
+    bool in_swing_mode;
 } UiState;
 
 UiState init_ui_state()

@@ -291,7 +291,10 @@ void setup() {
     MIDI.begin(MIDI_CHANNEL_OMNI);
 
     data.rocket_pattern = init_bassline();
-  
+
+    data.bd_503_pattern = init_gate_pattern_ab();
+    data.bd_522_pattern = init_gate_pattern_ab();
+
     data.step = 0;
     data.ticks_counter = 0;
     data.swing = 0;

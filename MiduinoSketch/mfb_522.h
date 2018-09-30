@@ -18,8 +18,7 @@ void randomize_522_seq(ApplicationData& data)
     data.oh_522_pattern = init_percussive_pattern_64(.25);
     data.sd_522_pattern = init_percussive_pattern_64(.50);
     
-    uint8_t clap_pat[] = {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0};
-    data.clap_522_pattern = init_pattern(clap_pat, 16);
+    data.clap_522_pattern = init_pattern(SD_PATTERNS[random(NR_SD_PATTERNS)], 16);
 }
 
 void play_522(ApplicationData& data)

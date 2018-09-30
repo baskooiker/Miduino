@@ -1,7 +1,7 @@
-#ifndef RHYTHMS_H
-#define RHYTHMS_H
+#pragma once
 
 #include "defs.h"
+#include "utils.h"
 
 static const uint8_t BD_PATTERNS[][16] = {
   {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
@@ -17,13 +17,15 @@ static const uint8_t BD_OFF_PATTERNS[][16] = {
 };
 static const uint8_t NR_BD_OFF_PATTERNS = sizeof(BD_OFF_PATTERNS) / sizeof(*BD_OFF_PATTERNS);
 
-static const uint8_t NR_SD_PATTERNS = 4;
-static const uint8_t SD_PATTERNS[NR_SD_PATTERNS][16] = {
+static const uint8_t SD_PATTERNS[][16] = {
   {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
   {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-  {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
   {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
 };
+static const uint8_t NR_SD_PATTERNS = sizeof(SD_PATTERNS) / sizeof(*SD_PATTERNS);
 
 static const uint8_t NR_HH_PATTERNS = 4;
 static const uint8_t HH_PATTERNS[NR_HH_PATTERNS][16] = {
@@ -48,43 +50,6 @@ GatePattern64 init_gate_pattern_64()
     return pattern;
 }
 
-boolean gate(const BinaryPattern& gates, const long step)
-{
-    return (((gates) & (uint16_t)(0x1 << (uint16_t)(step % 16)))) > 0;
-}
-
-boolean gate(const GatePattern16 pattern, const long step)
-{
-    return gate(pattern.pattern, step % pattern.length);
-}
-
-boolean gate(const GatePattern64 pattern, const long step)
-{
-    uint8_t s = uint8_t(step % pattern.length);
-    uint8_t sub_pat = s / 16;
-    uint8_t sub_step = s % 16;
-    return gate(pattern.patterns[sub_pat], sub_step);
-}
-
-boolean gate(const GatePatternAB pattern, const long step)
-{
-    uint8_t sub_pat = pattern.abPattern[step / 16];
-    uint8_t sub_step = step % 16;
-    return gate(pattern.patterns[sub_pat], sub_step);
-}
-
-void set_gate(BinaryPattern& gates, const uint8_t step, const boolean val)
-{
-    if (val)
-    {
-        gates |= ((uint16_t)(0x1) << step);
-    }
-    else
-    {
-        gates &= ~((uint16_t)(0x1) << step);
-    }
-}
-
 GatePattern16 init_pattern(const uint8_t* ar, uint8_t length)
 {
     GatePattern16 pat = get_empty_gate_pattern();
@@ -100,7 +65,7 @@ void randomize(BinaryPattern& pattern, const float prob)
 {
     for (uint8_t j = 0; j < 16; j++)
     {
-        set_gate(pattern, j, (random(1024) / 1024.f) < prob);
+        set_gate(pattern, j, randomf() < prob);
     }
 }
 
@@ -121,7 +86,7 @@ void randomize_ab(GatePattern64* pattern, const float prob)
     GatePattern16 pat0 = init_percussive_pattern(prob);
     GatePattern16 pat1 = init_percussive_pattern(prob);
     GatePattern16 pat2 = init_percussive_pattern(prob);
-    float pat_prob = (random(1024) / 1024.);
+    float pat_prob = randomf();
     
     pattern->patterns[0] = pat0.pattern;
     if (pat_prob < .25) // AAAB
@@ -169,21 +134,21 @@ void set_coefficient_pattern(BinaryPattern& pattern,
     float coef_2 = 0.f, // Up-beats
     float coef_3 = 0.f)
 {
-    for (int i = 0; i < 16; i += 4)
+    for (uint8_t i = 0; i < 16; i += 4)
     {
-        set_gate(pattern, i, (random(1024) / 1024.) < coef_0);
+        set_gate(pattern, i, randomf() < coef_0);
     }
-    for (int i = 2; i < 16; i += 4)
+    for (uint8_t i = 2; i < 16; i += 4)
     {
-        set_gate(pattern, i, (random(1024) / 1024.) < coef_1);
+        set_gate(pattern, i, randomf() < coef_1);
     }
-    for (int i = 3; i < 16; i += 4)
+    for (uint8_t i = 3; i < 16; i += 4)
     {
-        set_gate(pattern, i, (random(1024) / 1024.) < coef_2);
+        set_gate(pattern, i, randomf() < coef_2);
     }
-    for (int i = 1; i < 16; i += 4)
+    for (uint8_t i = 1; i < 16; i += 4)
     {
-        set_gate(pattern, i, (random(1024) / 1024.) < coef_3);
+        set_gate(pattern, i, randomf() < coef_3);
     }
 }
 
@@ -232,13 +197,23 @@ void set_ab_pattern(uint8_t* ab_pattern)
         ab_pattern[2] = 2;
         ab_pattern[3] = 1;
         break;
+    default: // AAAA
+        ab_pattern[1] = 0;
+        ab_pattern[2] = 0;
+        ab_pattern[3] = 0;
+        break;
     }
 }
 
 GatePatternAB init_gate_pattern_ab()
 {
     GatePatternAB pattern;
+    pattern.patterns[0] = 0x00;
+    pattern.patterns[1] = 0x00;
+    pattern.patterns[2] = 0x00;
     randomize(pattern.patterns[0], .5f);
+    randomize(pattern.patterns[1], .5f);
+    randomize(pattern.patterns[2], .5f);
     set_ab_pattern(pattern.abPattern);
     return pattern;
 }
@@ -250,5 +225,3 @@ void set_kick_pattern(GatePatternAB& pattern)
     set_coefficient_pattern(pattern.patterns[2], 1.f, .25f, .06125f, .06125f);
     set_ab_pattern(pattern.abPattern);
 }
-
-#endif // RHYTHM_H

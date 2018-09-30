@@ -36,7 +36,7 @@ void play_503(ApplicationData& data)
         note_on(NOTE_503_SD, velocity, MIDI_CHANNEL_503, data.storage_503);
     }
 
-    boolean oh = gate(data.oh_503_pattern, data.step);
+    bool oh = gate(data.oh_503_pattern, data.step);
     if (gate(data.hh_503_pattern, data.step) && !oh)
     {
         note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.storage_503);
