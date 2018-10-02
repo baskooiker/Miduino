@@ -40,10 +40,3 @@ uint8_t pop_from_storage(uint8_t* s, uint8_t value)
 	return 0;
 }
 
-uint8_t init_storage(uint8_t* s)
-{
-	for (uint8_t i = 0; i < STORAGE_SIZE; i++)
-	{
-		s[i] = 0;
-	}
-}

@@ -211,6 +211,20 @@ UiState init_ui_state()
 }
 
 typedef struct {
+    GatePattern16 ac_522_pattern;
+    GatePatternAB bd_522_pattern;
+    GatePattern16 lo_tom_522_pattern;
+    GatePattern16 mi_tom_522_pattern;
+    GatePattern16 rs_522_pattern;
+    GatePattern64 clave_522_pattern;
+    GatePattern16 clap_522_pattern;
+    GatePattern64 hh_522_pattern;
+    GatePattern64 oh_522_pattern;
+    GatePatternAB cy_522_pattern;
+    GatePattern64 sd_522_pattern;
+} Settings522;
+
+typedef struct {
     uint8_t rocket_octave;
     uint8_t p50_octave;
     Root root;
@@ -229,23 +243,13 @@ typedef struct {
     GatePattern16 hh_503_pattern;
     GatePattern16 oh_503_pattern;
 
-    GatePattern16 ac_522_pattern;
-    GatePatternAB bd_522_pattern;
-    GatePattern16 lo_tom_522_pattern;
-    GatePattern16 mi_tom_522_pattern;
-    GatePattern16 rs_522_pattern;
-    GatePattern64 clave_522_pattern;
-    GatePattern16 clap_522_pattern;
-    GatePattern64 hh_522_pattern;
-    GatePattern64 oh_522_pattern;
-    GatePatternAB cy_522_pattern;
-    GatePattern64 sd_522_pattern;
-    
     uint8_t storage_522[16];
     uint8_t storage_503[16];
     uint8_t storage_p50[16];
     uint8_t storage_rocket[16];
     
+    Settings522 settings_522;
+
     UiState uiState;
 } ApplicationData;
 

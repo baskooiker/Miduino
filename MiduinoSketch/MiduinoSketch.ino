@@ -1,8 +1,9 @@
 #include <MIDI.h>
 
-#include "defs.h"
-#include "rhythms.h"
 #include "basslines.h"
+#include "defs.h"
+#include "init.h"
+#include "rhythms.h"
 #include "storage.h"
 #include "scales.h"
 #include "ui.h"
@@ -316,36 +317,13 @@ void setup() {
 
     MIDI.begin(MIDI_CHANNEL_OMNI);
 
-    data.rocket_pattern = init_bassline();
-
-    data.bd_503_pattern = init_gate_pattern_ab();
-    data.bd_522_pattern = init_gate_pattern_ab();
-    data.cy_522_pattern = init_gate_pattern_ab();
-
-    data.step = 0;
-    data.ticks_counter = 0;
-    data.swing = 0;
-
-    data.rocket_density = .8;
-    data.rocket_octave = 3;
-    data.p50_octave = 5;
-    data.root = ROOT_C;
-    data.scale = get_scale(AEOLIAN);
-
-    init_storage(data.storage_503);
-    init_storage(data.storage_522);
-    init_storage(data.storage_p50);
-    init_storage(data.storage_rocket);
-
-    data.uiState = init_ui_state();
+    data = init_application_data();
 
     // Initialize patterns
     randomize_503_seq(data);
     randomize_522_seq(data);
     randomize_P50_seq(&data);
-    randomize_rocket_seq(&data);
     root_rocket_seq(&data);
-
 }
 
 void note_on(uint8_t note, uint8_t velocity, uint8_t channel, uint8_t* storage)
