@@ -36,12 +36,12 @@ bool get_pad_state(const UiState& state, uint8_t index)
     return (((state.bsp_pad_state) & (uint16_t)(0x1 << (uint16_t)(index % 16)))) > 0;
 }
 
-bool no_button(const UiState& state)
-{
-    return state.bsp_button_state == 0;
-}
-
-bool no_pad(const UiState& state)
-{
-    return state.bsp_pad_state == 0;
-}
+//bool no_button(const UiState& state)
+//{
+//    return state.bsp_button_state == 0;
+//}
+//
+//bool no_pad(const UiState& state)
+//{
+//    return state.bsp_pad_state == 0;
+//}

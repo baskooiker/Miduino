@@ -114,6 +114,13 @@
 #define CC_OSC_WAVE  70
 #define CC_OSC_TUNE  79
 
+enum ControlMode
+{
+    CONTROL_MODE_NORMAL,
+    CONTROL_MODE_ROOT,
+    CONTROL_MODE_SWING
+};
+
 enum Root {
     ROOT_C = 0,
     ROOT_C_SHARP,
@@ -186,8 +193,7 @@ typedef struct {
     uint16_t bsp_button_state;
     uint16_t bsp_pad_state;
 
-    bool in_root_mode;
-    bool in_swing_mode;
+    ControlMode control_mode;
 
     bool kill_low;
     bool kill_mid;
@@ -200,9 +206,7 @@ UiState init_ui_state()
     UiState ui_state = {0};
     ui_state.bsp_button_state = 0x00;
     ui_state.bsp_pad_state = 0x00;
-
-    ui_state.in_root_mode = false;
-    ui_state.in_swing_mode = false;
+    ui_state.control_mode = CONTROL_MODE_NORMAL;
     return ui_state;
 }
 

@@ -21,15 +21,15 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
     switch (pitch)
     {
     case BSP_PAD_01:
-        if (data.uiState.in_swing_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.swing = 0;
         }
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_C;
         }
-        if (no_pad(data.uiState) && no_button(data.uiState))
+        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
             data.uiState.kill_low = true;
         }
@@ -37,87 +37,87 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
 
         break;
     case BSP_PAD_02:
-        if (data.uiState.in_swing_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.swing = 1;
         }
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_D;
         }
-        if (no_pad(data.uiState) && no_button(data.uiState))
+        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
             data.uiState.kill_mid = true;
         }
         set_pad_state(data.uiState, 1, true);
         break;
     case BSP_PAD_03:
-        if (data.uiState.in_swing_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.swing = 2;
         }
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_E;
         }
-        if (no_pad(data.uiState) && no_button(data.uiState))
+        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
             data.uiState.kill_perc = true;
         }
         set_pad_state(data.uiState, 2, true);
         break;
     case BSP_PAD_04:
-        if (data.uiState.in_swing_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.swing = 3;
         }
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.root = ROOT_F;
         }
-        if (no_pad(data.uiState) && no_button(data.uiState))
+        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
             data.uiState.kill_high = true;
         }
         set_pad_state(data.uiState, 3, true);
         break;
     case BSP_PAD_05:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_G;
         }
         set_pad_state(data.uiState, 4, true);
         break;
     case BSP_PAD_06:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_A;
         }
         set_pad_state(data.uiState, 5, true);
         break;
     case BSP_PAD_07:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_B;
         }
         set_pad_state(data.uiState, 6, true);
         break;
     case BSP_PAD_08:
-        if (no_button(data.uiState) && no_pad(data.uiState))
+        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
-            data.uiState.in_swing_mode = true;
+            data.uiState.control_mode = CONTROL_MODE_SWING;
         }
         set_pad_state(data.uiState, 7, true);
         break;
     case BSP_PAD_09:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_C_SHARP;
         }
         set_pad_state(data.uiState, 8, true);
         break;
     case BSP_PAD_10:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_D_SHARP;
         }
@@ -127,21 +127,21 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 10, true);
         break;
     case BSP_PAD_12:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_F_SHARP;
         }
         set_pad_state(data.uiState, 11, true);
         break;
     case BSP_PAD_13:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_G_SHARP;
         }
         set_pad_state(data.uiState, 12, true);
         break;
     case BSP_PAD_14:
-        if (data.uiState.in_root_mode)
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
         {
             data.root = ROOT_A_SHARP;
         }
@@ -151,9 +151,9 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 14, true);
         break;
     case BSP_PAD_16:
-        if (no_button(data.uiState) && no_pad(data.uiState))
+        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
-            data.uiState.in_root_mode = true;
+            data.uiState.control_mode = CONTROL_MODE_SWING;
         }
         set_pad_state(data.uiState, 15, true);
         break;
@@ -192,7 +192,10 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 6, false);
         break;
     case BSP_PAD_08:
-        data.uiState.in_swing_mode = false;
+        if (data.uiState.control_mode == CONTROL_MODE_ROOT)
+        {
+            data.uiState.control_mode = CONTROL_MODE_NORMAL;
+        }
         set_pad_state(data.uiState, 7, false);
         break;
     case BSP_PAD_09:
@@ -217,7 +220,10 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 14, false);
         break;
     case BSP_PAD_16:
-        data.uiState.in_root_mode = false;
+        if (data.uiState.control_mode == CONTROL_MODE_SWING)
+        {
+            data.uiState.control_mode = CONTROL_MODE_NORMAL;
+        }
         set_pad_state(data.uiState, 15, false);
         break;
     default:
