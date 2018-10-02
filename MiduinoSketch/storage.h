@@ -2,7 +2,7 @@
 
 #include "defs.h"
 
-void add_to_storage(uint8_t* s, uint8_t value)
+void add_to_storage(PitchStorage& s, uint8_t value)
 {
 	for (uint8_t i = 0; i < STORAGE_SIZE; i++)
 	{
@@ -14,7 +14,7 @@ void add_to_storage(uint8_t* s, uint8_t value)
 	}
 }
 
-uint8_t pop_from_storage(uint8_t* s)
+uint8_t pop_from_storage(PitchStorage& s)
 {
 	for (uint8_t i = 0; i < STORAGE_SIZE; i++)
 	{

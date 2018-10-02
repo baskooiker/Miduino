@@ -243,10 +243,10 @@ typedef struct {
     GatePattern16 hh_503_pattern;
     GatePattern16 oh_503_pattern;
 
-    uint8_t storage_522[16];
-    uint8_t storage_503[16];
-    uint8_t storage_p50[16];
-    uint8_t storage_rocket[16];
+    PitchStorage storage_522;
+    PitchStorage storage_503;
+    PitchStorage storage_p50;
+    PitchStorage storage_rocket;
     
     Settings522 settings_522;
 

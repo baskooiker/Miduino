@@ -326,7 +326,7 @@ void setup() {
     root_rocket_seq(&data);
 }
 
-void note_on(uint8_t note, uint8_t velocity, uint8_t channel, uint8_t* storage)
+void note_on(uint8_t note, uint8_t velocity, uint8_t channel, PitchStorage& storage)
 {
     uint8_t stored = pop_from_storage(storage, note);
     if (stored > 0)
@@ -337,7 +337,7 @@ void note_on(uint8_t note, uint8_t velocity, uint8_t channel, uint8_t* storage)
     add_to_storage(storage, note);
 }
 
-void note_off(uint8_t note, uint8_t channel, uint8_t* storage)
+void note_off(uint8_t note, uint8_t channel, PitchStorage& storage)
 {
     MIDI.sendNoteOff(note, 0, channel);
     uint8_t stored = pop_from_storage(storage, note);
@@ -348,7 +348,7 @@ void send_cc(uint8_t cc, uint8_t value, uint8_t channel)
     MIDI.sendControlChange(cc, value, channel);
 }
 
-void all_notes_off(uint8_t* storage, uint8_t channel)
+void all_notes_off(PitchStorage& storage, uint8_t channel)
 {
     uint8_t p = 0;
     do {
