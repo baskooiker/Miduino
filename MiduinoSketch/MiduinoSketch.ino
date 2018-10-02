@@ -301,7 +301,7 @@ void handleControlChange(byte channel, byte number, byte value)
 void handleStop()
 {
     all_notes_off(data.storage_503, MIDI_CHANNEL_503);
-    all_notes_off(data.storage_522, MIDI_CHANNEL_522);
+    all_notes_off(data.settings_522.storage, MIDI_CHANNEL_522);
     all_notes_off(data.storage_p50, MIDI_CHANNEL_P50);
     all_notes_off(data.storage_rocket, MIDI_CHANNEL_ROCKET);
     data.step = 0;

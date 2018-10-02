@@ -222,6 +222,8 @@ typedef struct {
     GatePattern64 oh_522_pattern;
     GatePatternAB cy_522_pattern;
     GatePattern64 sd_522_pattern;
+
+    PitchStorage storage;
 } Settings522;
 
 typedef struct {
@@ -243,7 +245,6 @@ typedef struct {
     GatePattern16 hh_503_pattern;
     GatePattern16 oh_503_pattern;
 
-    PitchStorage storage_522;
     PitchStorage storage_503;
     PitchStorage storage_p50;
     PitchStorage storage_rocket;
