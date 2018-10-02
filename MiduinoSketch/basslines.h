@@ -15,6 +15,14 @@ Bassline init_bassline()
     return b;
 }
 
+void fill_bar(CvPattern& pattern, const uint8_t value)
+{
+    for (uint8_t i = 0; i < 16; i++)
+    {
+        pattern[i] = value;
+    }
+}
+
 void fill_bar(CvPattern64* pattern, const uint8_t bar_nr, const uint8_t value)
 {
     for (uint8_t i = 0; i < 16; i++)
@@ -41,16 +49,27 @@ uint8_t next_in_scale(uint8_t pitch, Root root, Scale scale, uint8_t step)
     return return_value;
 }
 
-uint8_t pitch(CvPattern64* pattern, long step)
+uint8_t pitch(CvPattern64& pattern, long step)
 {
-    uint8_t s = uint8_t(step % pattern->length);
-    return pattern->pattern[s];
+    uint8_t s = (uint8_t)(step % pattern.length);
+    return pattern.pattern[s];
 }
 
 uint8_t pitch(CvPattern16* pattern, long step)
 {
     uint8_t s = uint8_t(step % pattern->length);
     return pattern->pattern[s];
+}
+
+uint8_t pitch(CvPatternAB& pattern, Root root, Scale scale, uint8_t octave, long step)
+{
+    uint8_t s = uint8_t(step % 64);
+    uint8_t part = pattern.abPattern[s / 16];
+    uint8_t note = pattern.patterns[part][s];
+    note = scale.notes[note % scale.length]; // Actual pitch
+    note += root; // Transpose to correct root note
+    note += octave * 12; // Transpose octaves
+    return note;
 }
 
 #endif // BASSLINES_H

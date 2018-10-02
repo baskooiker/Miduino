@@ -147,15 +147,23 @@ typedef struct {
     uint8_t length;
 } RhythmPattern;
 
+#define NOTES_IN_BAR (16)
+typedef uint8_t CvPattern[NOTES_IN_BAR];
+
 typedef struct {
     uint8_t pattern[16];
     uint8_t length;
 } CvPattern16;
 
 typedef struct {
-    uint8_t pattern[64]; 
+    uint8_t pattern[64];
     uint8_t length;
 } CvPattern64;
+
+typedef struct {
+    CvPattern patterns[3];
+    uint8_t abPattern[4];
+} CvPatternAB;
 
 typedef uint16_t BinaryPattern;
 
@@ -188,6 +196,11 @@ typedef struct {
     CvPattern64 pitches;
     GatePattern64 gates;
 } ChordPattern;
+
+typedef struct {
+    CvPatternAB pitches;
+    GatePatternAB gates;
+} ChordPatternAB;
 
 typedef struct {
     uint16_t bsp_button_state;
@@ -235,7 +248,7 @@ typedef struct {
     long step;
     uint8_t swing;
 
-    ChordPattern p50_pattern;
+    ChordPatternAB p50_pattern;
     Bassline rocket_pattern;
     float rocket_density;
     
