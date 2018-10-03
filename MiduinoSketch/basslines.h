@@ -61,21 +61,20 @@ uint8_t pitch(CvPattern16* pattern, long step)
     return pattern->pattern[s];
 }
 
-uint8_t pitch(CvPatternAB& pattern, Scale scale, uint8_t octave, long step)
+uint8_t pitch(CvPatternAB& pattern, long step)
 {
     uint8_t s = uint8_t(step % 64);
     uint8_t part = pattern.abPattern[s / 16];
-    uint8_t note = pattern.patterns[part][s];
-    note = scale.notes[note % scale.length]; // Actual pitch
-    note += scale.root; // Transpose to correct root note
-    note += octave * 12; // Transpose octaves
+    uint8_t note = pattern.patterns[part][s % 16];
     return note;
 }
 
-CvPatternAB init_cv_pattern_ab()
-{   
-    CvPatternAB pattern = {0};
-    return pattern;
+uint8_t apply_scale(uint8_t note_nr, Scale scale, uint8_t octave)
+{
+    uint8_t note = scale.notes[note_nr % scale.length]; // Actual pitch
+    note += scale.root; // Transpose to correct root note
+    note += octave * 12; // Transpose octaves
+    return note;
 }
 
 #endif // BASSLINES_H

@@ -17,9 +17,13 @@ void play_P50(ApplicationData& data)
     {
         all_notes_off(data.storage_p50, MIDI_CHANNEL_P50);
         
-        uint8_t root = pitch(pattern.pitches, data.scale, data.settings_p50.octave, data.step);
-        uint8_t fifth = root + 7;
-        note_on(root , velocity, MIDI_CHANNEL_P50, data.storage_p50);
+        uint8_t note_nr = pitch(pattern.pitches, data.step);
+        uint8_t root = apply_scale(note_nr, data.scale, data.settings_p50.octave);
+        uint8_t third = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
+        uint8_t fifth = apply_scale(note_nr + 4, data.scale, data.settings_p50.octave);
+        
+        note_on(root, velocity, MIDI_CHANNEL_P50, data.storage_p50);
+        note_on(third, velocity, MIDI_CHANNEL_P50, data.storage_p50);
         note_on(fifth , velocity, MIDI_CHANNEL_P50, data.storage_p50);
     }
 }
