@@ -10,7 +10,7 @@ void root_rocket_seq(ApplicationData* data)
     CvPattern16* p_pattern = &data->rocket_pattern.pitches;
     for (int i = 0; i < p_pattern->length; i++)
     {
-        p_pattern->pattern[i] = (data->rocket_octave * 12) + data->root;
+        p_pattern->pattern[i] = (data->rocket_octave * 12) + data->scale.root;
     }
     randomize_ab(&data->rocket_pattern.gates, data->rocket_density);
     randomize_ab(&data->rocket_pattern.slides, .25f);
@@ -24,7 +24,7 @@ void modify_rocket_seq(ApplicationData& data)
     {
         if ((random(1024) / 1024.) < .25)
         {
-            p_pattern->pattern[i] = data.scale.notes[data.scale.length] + ((random(3) - 1) * 12) + (data.rocket_octave * 12) + data.root;
+            p_pattern->pattern[i] = data.scale.notes[data.scale.length] + ((random(3) - 1) * 12) + (data.rocket_octave * 12) + data.scale.root;
         }
     }
     randomize_ab(&data.rocket_pattern.gates, data.rocket_density);
@@ -37,7 +37,7 @@ void randomize_rocket_seq(ApplicationData* data)
     CvPattern16* p_pattern = &data->rocket_pattern.pitches;
     for (int i = 0; i < p_pattern->length; i++)
     {
-        p_pattern->pattern[i] = data->scale.notes[data->scale.length] + ((random(3) - 1) * 12) + (data->rocket_octave * 12) + data->root;
+        p_pattern->pattern[i] = data->scale.notes[data->scale.length] + ((random(3) - 1) * 12) + (data->rocket_octave * 12) + data->scale.root;
     }
     randomize_ab(&data->rocket_pattern.gates, data->rocket_density);
     randomize_ab(&data->rocket_pattern.slides, .25f);

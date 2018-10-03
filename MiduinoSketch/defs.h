@@ -1,7 +1,4 @@
-#ifndef DEFS_H
-#define DEFS_H
-
-#include "scales.h"
+#pragma once
 
 #define MIDI_CHANNEL_ROCKET 1
 #define MIDI_CHANNEL_P50    5
@@ -240,15 +237,23 @@ typedef struct {
 } Settings522;
 
 typedef struct {
-    uint8_t rocket_octave;
-    uint8_t p50_octave;
+    ChordPatternAB pattern;
+    uint8_t octave;
+} SettingsP50;
+
+typedef struct {
+    uint8_t notes[8];
+    uint8_t length;
     Root root;
+} Scale;
+
+typedef struct {
+    uint8_t rocket_octave;
     Scale scale;
     uint8_t ticks_counter;
     long step;
     uint8_t swing;
 
-    ChordPatternAB p50_pattern;
     Bassline rocket_pattern;
     float rocket_density;
     
@@ -262,9 +267,8 @@ typedef struct {
     PitchStorage storage_p50;
     PitchStorage storage_rocket;
     
+    SettingsP50 settings_p50;
     Settings522 settings_522;
 
     UiState uiState;
 } ApplicationData;
-
-#endif // DEFS_H

@@ -59,3 +59,18 @@ float randomf()
 {
     return (float)random(1024) / 1024.f;
 }
+
+void swap(uint8_t* array, uint8_t x, uint8_t y)
+{
+    uint8_t mem = array[x];
+    array[x] = array[y];
+    array[y] = mem;
+}
+
+void randomize_order(uint8_t* array, uint8_t length)
+{
+    for (uint8_t i = 0; i < length; i++)
+    {
+        swap(array, i, random(length));
+    }
+}

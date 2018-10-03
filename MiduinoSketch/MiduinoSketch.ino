@@ -28,7 +28,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_C;
+            data.scale.root = ROOT_C;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
@@ -43,7 +43,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_D;
+            data.scale.root = ROOT_D;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
@@ -58,7 +58,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_E;
+            data.scale.root = ROOT_E;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
@@ -73,7 +73,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_F;
+            data.scale.root = ROOT_F;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
@@ -84,21 +84,21 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
     case BSP_PAD_05:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_G;
+            data.scale.root = ROOT_G;
         }
         set_pad_state(data.uiState, 4, true);
         break;
     case BSP_PAD_06:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_A;
+            data.scale.root = ROOT_A;
         }
         set_pad_state(data.uiState, 5, true);
         break;
     case BSP_PAD_07:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_B;
+            data.scale.root = ROOT_B;
         }
         set_pad_state(data.uiState, 6, true);
         break;
@@ -112,14 +112,14 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
     case BSP_PAD_09:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_C_SHARP;
+            data.scale.root = ROOT_C_SHARP;
         }
         set_pad_state(data.uiState, 8, true);
         break;
     case BSP_PAD_10:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_D_SHARP;
+            data.scale.root = ROOT_D_SHARP;
         }
         set_pad_state(data.uiState, 9, true);
         break;
@@ -129,21 +129,21 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
     case BSP_PAD_12:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_F_SHARP;
+            data.scale.root = ROOT_F_SHARP;
         }
         set_pad_state(data.uiState, 11, true);
         break;
     case BSP_PAD_13:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_G_SHARP;
+            data.scale.root = ROOT_G_SHARP;
         }
         set_pad_state(data.uiState, 12, true);
         break;
     case BSP_PAD_14:
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
-            data.root = ROOT_A_SHARP;
+            data.scale.root = ROOT_A_SHARP;
         }
         set_pad_state(data.uiState, 13, true);
         break;
