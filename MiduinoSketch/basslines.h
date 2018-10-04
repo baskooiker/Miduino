@@ -3,21 +3,8 @@
 #define BASSLINES_H
 
 #include "defs.h"
+#include "init.h"
 #include "rhythms.h"
-
-RocketSettings init_settings_rocket()
-{
-    RocketSettings b;
-    b.pitches.length = 16;
-    b.accents = init_gate_pattern_64();
-    b.gates = init_gate_pattern_64();
-    b.slides = init_gate_pattern_ab();
-
-    b.high_velocity = 100;
-    b.low_velocity = 64;
-    b.octave = 3;
-    return b;
-}
 
 void fill_bar(CvPattern& pattern, const uint8_t value)
 {

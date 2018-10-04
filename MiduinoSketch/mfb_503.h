@@ -1,5 +1,4 @@
-#ifndef MFB_503_H
-#define MFB_503_H
+#pragma once
 
 #include "defs.h"
 #include "midi_io.h"
@@ -7,43 +6,43 @@
 
 void randomize_503_seq(ApplicationData& data)
 {
-    data.ac_503_pattern = init_percussive_pattern(.25);
+    data.settings_503.ac_pattern = init_percussive_pattern(.25);
 
-    set_kick_pattern(data.bd_503_pattern);
-    data.sd_503_pattern = init_pattern(SD_PATTERNS[random(NR_SD_PATTERNS)], 16);
+    set_kick_pattern(data.settings_503.bd_pattern);
+    data.settings_503.sd_pattern = init_pattern(SD_PATTERNS[random(NR_SD_PATTERNS)], 16);
 
     uint8_t hh_idx = random(NR_HH_PATTERNS);
     for (int i = 0; i < 16; i++)
     {
-        set_gate(data.hh_503_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 1);
-        set_gate(data.oh_503_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 2);
+        set_gate(data.settings_503.hh_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 1);
+        set_gate(data.settings_503.oh_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 2);
     }
 }
 
 void play_503(ApplicationData& data)
 {
     uint8_t velocity = 63;
-    if (gate(data.ac_503_pattern, data.step))
+    if (gate(data.settings_503.ac_pattern, data.step))
     {
         velocity = 127;
     }
-    if (gate(data.bd_503_pattern, data.step) && !data.uiState.kill_low)
+    if (gate(data.settings_503.bd_pattern, data.step) && !data.uiState.kill_low)
     {
-        note_on(NOTE_503_BD, velocity, MIDI_CHANNEL_503, data.storage_503);
+        note_on(NOTE_503_BD, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
     }
-    if (gate(data.sd_503_pattern, data.step) && !data.uiState.kill_mid)
+    if (gate(data.settings_503.sd_pattern, data.step) && !data.uiState.kill_mid)
     {
-        note_on(NOTE_503_SD, velocity, MIDI_CHANNEL_503, data.storage_503);
+        note_on(NOTE_503_SD, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
     }
 
-    bool oh = gate(data.oh_503_pattern, data.step);
-    if (gate(data.hh_503_pattern, data.step) && !oh && !data.uiState.kill_high)
+    bool oh = gate(data.settings_503.oh_pattern, data.step);
+    if (gate(data.settings_503.hh_pattern, data.step) && !oh && !data.uiState.kill_high)
     {
-        note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.storage_503);
+        note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
     }
     if (oh && !data.uiState.kill_high)
     {
-        note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.storage_503);
+        note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
     }
 }
 
@@ -75,5 +74,3 @@ void randomize_503_sound()
         send_cc(p->note, random(p->min, p->max), MIDI_CHANNEL_503);
     }
 }
-
-#endif // MFB_503_H

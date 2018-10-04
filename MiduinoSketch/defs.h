@@ -188,9 +188,12 @@ typedef struct {
     GatePattern64 gates;
     GatePatternAB slides;
 
+    float density;
     uint8_t octave;
     uint8_t low_velocity;
     uint8_t high_velocity;
+
+    PitchStorage storage;
 } RocketSettings;
 
 typedef struct {
@@ -243,6 +246,8 @@ typedef struct {
 typedef struct {
     ChordPatternAB pattern;
     uint8_t octave;
+
+    PitchStorage storage;
 } SettingsP50;
 
 typedef struct {
@@ -252,27 +257,26 @@ typedef struct {
 } Scale;
 
 typedef struct {
-    uint8_t rocket_octave;
+    GatePattern16 ac_pattern;
+    GatePatternAB bd_pattern;
+    GatePattern16 sd_pattern;
+    GatePattern16 hh_pattern;
+    GatePattern16 oh_pattern;
+
+    PitchStorage storage;
+} Settings503;
+
+typedef struct {
     Scale scale;
     uint8_t ticks_counter;
     long step;
     uint8_t swing;
 
-    RocketSettings settings_rocket;
-    float rocket_density;
-    
-    GatePattern16 ac_503_pattern;
-    GatePatternAB bd_503_pattern;
-    GatePattern16 sd_503_pattern;
-    GatePattern16 hh_503_pattern;
-    GatePattern16 oh_503_pattern;
-
-    PitchStorage storage_503;
-    PitchStorage storage_p50;
-    PitchStorage storage_rocket;
-    
     SettingsP50 settings_p50;
     Settings522 settings_522;
+    Settings503 settings_503;
+
+    RocketSettings settings_rocket;
 
     UiState uiState;
 } ApplicationData;

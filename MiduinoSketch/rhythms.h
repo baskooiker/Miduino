@@ -207,7 +207,6 @@ void set_ab_pattern(uint8_t* ab_pattern)
 
 GatePatternAB init_gate_pattern_ab()
 {
-    // OBSOLETE
     GatePatternAB pattern;
     pattern.patterns[0] = 0x00;
     pattern.patterns[1] = 0x00;

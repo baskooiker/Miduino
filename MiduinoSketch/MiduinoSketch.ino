@@ -251,7 +251,7 @@ void handleControlChange(byte channel, byte number, byte value)
     switch (number)
     {
     case BSP_KNOB_08:
-        data.rocket_density = (value / 127.) * .8f + .2f;
+        data.settings_rocket.density = (value / 127.) * .8f + .2f;
         break;
     case BSP_STEP_01:
         if (value == 0)
@@ -308,10 +308,10 @@ void handleControlChange(byte channel, byte number, byte value)
 
 void handleStop()
 {
-    all_notes_off(data.storage_503, MIDI_CHANNEL_503);
+    all_notes_off(data.settings_503.storage, MIDI_CHANNEL_503);
     all_notes_off(data.settings_522.storage, MIDI_CHANNEL_522);
-    all_notes_off(data.storage_p50, MIDI_CHANNEL_P50);
-    all_notes_off(data.storage_rocket, MIDI_CHANNEL_ROCKET);
+    all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
+    all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
 
     data.step = 0;
     data.ticks_counter = 0;
