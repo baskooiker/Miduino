@@ -81,50 +81,50 @@ GatePattern16 init_percussive_pattern(const float prob = .5)
     return pat;
 }
 
-void randomize_ab(GatePattern64* pattern, const float prob)
+void randomize_ab(GatePattern64& pattern, const float prob)
 {
     GatePattern16 pat0 = init_percussive_pattern(prob);
     GatePattern16 pat1 = init_percussive_pattern(prob);
     GatePattern16 pat2 = init_percussive_pattern(prob);
     float pat_prob = randomf();
     
-    pattern->patterns[0] = pat0.pattern;
+    pattern.patterns[0] = pat0.pattern;
     if (pat_prob < .25) // AAAB
     {
-        pattern->patterns[1] = pat0.pattern;
-        pattern->patterns[2] = pat0.pattern;
-        pattern->patterns[3] = pat1.pattern;
+        pattern.patterns[1] = pat0.pattern;
+        pattern.patterns[2] = pat0.pattern;
+        pattern.patterns[3] = pat1.pattern;
     }
     else if (pat_prob < .5) // ABAA
     {
-        pattern->patterns[1] = pat1.pattern;
-        pattern->patterns[2] = pat0.pattern;
-        pattern->patterns[3] = pat0.pattern;
+        pattern.patterns[1] = pat1.pattern;
+        pattern.patterns[2] = pat0.pattern;
+        pattern.patterns[3] = pat0.pattern;
     }
     else if (pat_prob < .625) // AABA
     {
-        pattern->patterns[1] = pat0.pattern;
-        pattern->patterns[2] = pat1.pattern;
-        pattern->patterns[3] = pat0.pattern;
+        pattern.patterns[1] = pat0.pattern;
+        pattern.patterns[2] = pat1.pattern;
+        pattern.patterns[3] = pat0.pattern;
     }
     else if (pat_prob < .75) // ABAC
     {
-        pattern->patterns[1] = pat1.pattern;
-        pattern->patterns[2] = pat0.pattern;
-        pattern->patterns[3] = pat2.pattern;
+        pattern.patterns[1] = pat1.pattern;
+        pattern.patterns[2] = pat0.pattern;
+        pattern.patterns[3] = pat2.pattern;
     }
     else // ABAB
     {
-        pattern->patterns[1] = pat1.pattern;
-        pattern->patterns[2] = pat0.pattern;
-        pattern->patterns[3] = pat1.pattern;
+        pattern.patterns[1] = pat1.pattern;
+        pattern.patterns[2] = pat0.pattern;
+        pattern.patterns[3] = pat1.pattern;
     }
 }
 
 GatePattern64 init_percussive_pattern_64(const float prob = .5f)
 {
     GatePattern64 pattern = init_gate_pattern_64();
-    randomize_ab(&pattern, .5f);
+    randomize_ab(pattern, .5f);
     return pattern;
 }
 
@@ -207,6 +207,7 @@ void set_ab_pattern(uint8_t* ab_pattern)
 
 GatePatternAB init_gate_pattern_ab()
 {
+    // OBSOLETE
     GatePatternAB pattern;
     pattern.patterns[0] = 0x00;
     pattern.patterns[1] = 0x00;
@@ -216,6 +217,14 @@ GatePatternAB init_gate_pattern_ab()
     randomize(pattern.patterns[2], .5f);
     set_ab_pattern(pattern.abPattern);
     return pattern;
+}
+
+void set_random_pattern_ab(GatePatternAB& pattern, float prob = .5f)
+{
+    randomize(pattern.patterns[0], prob);
+    randomize(pattern.patterns[1], prob);
+    randomize(pattern.patterns[2], prob);
+    set_ab_pattern(pattern.abPattern);
 }
 
 void set_kick_pattern(GatePatternAB& pattern)

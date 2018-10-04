@@ -280,7 +280,7 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_STEP_13:
         if (value == 0)
         {
-            root_rocket_seq(&data);
+            root_rocket_seq(data);
         }
         break;
     case BSP_STEP_14:
@@ -298,7 +298,7 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_STEP_16:
         if (value == 0)
         {
-            randomize_rocket_seq(&data);
+            randomize_rocket_seq(data);
         }
         break;
     default:
@@ -332,7 +332,7 @@ void setup() {
     randomize_503_seq(data);
     randomize_522_seq(data);
     randomize_P50_seq(data);
-    root_rocket_seq(&data);
+    root_rocket_seq(data);
 }
 
 void note_on(uint8_t note, uint8_t velocity, uint8_t channel, PitchStorage& storage)
@@ -373,7 +373,7 @@ void play_all()
 {
     play_503(data);
     play_522(data);
-    play_rocket(&data);
+    play_rocket(data);
     play_P50(data);
 }
 

@@ -186,8 +186,12 @@ typedef struct {
     GatePattern64 accents;
     CvPattern16 pitches;
     GatePattern64 gates;
-    GatePattern64 slides;
-} Bassline;
+    GatePatternAB slides;
+
+    uint8_t octave;
+    uint8_t low_velocity;
+    uint8_t high_velocity;
+} RocketSettings;
 
 typedef struct {
     CvPattern64 pitches;
@@ -254,7 +258,7 @@ typedef struct {
     long step;
     uint8_t swing;
 
-    Bassline rocket_pattern;
+    RocketSettings settings_rocket;
     float rocket_density;
     
     GatePattern16 ac_503_pattern;

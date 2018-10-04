@@ -5,13 +5,17 @@
 #include "defs.h"
 #include "rhythms.h"
 
-Bassline init_bassline()
+RocketSettings init_settings_rocket()
 {
-    Bassline b;
+    RocketSettings b;
     b.pitches.length = 16;
     b.accents = init_gate_pattern_64();
     b.gates = init_gate_pattern_64();
-    b.slides = init_gate_pattern_64();
+    b.slides = init_gate_pattern_ab();
+
+    b.high_velocity = 100;
+    b.low_velocity = 64;
+    b.octave = 3;
     return b;
 }
 
@@ -55,10 +59,10 @@ uint8_t pitch(CvPattern64& pattern, long step)
     return pattern.pattern[s];
 }
 
-uint8_t pitch(CvPattern16* pattern, long step)
+uint8_t pitch(const CvPattern16& pattern, long step)
 {
-    uint8_t s = uint8_t(step % pattern->length);
-    return pattern->pattern[s];
+    uint8_t s = uint8_t(step % pattern.length);
+    return pattern.pattern[s];
 }
 
 uint8_t pitch(CvPatternAB& pattern, long step)
