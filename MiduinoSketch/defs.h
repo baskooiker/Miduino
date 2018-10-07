@@ -146,6 +146,7 @@ typedef struct {
 
 #define NOTES_IN_BAR (16)
 typedef uint8_t CvPattern[NOTES_IN_BAR];
+typedef int8_t SignedCvPattern[NOTES_IN_BAR];
 
 typedef struct {
     uint8_t pattern[16];
@@ -161,6 +162,11 @@ typedef struct {
     CvPattern patterns[3];
     uint8_t abPattern[4];
 } CvPatternAB;
+
+typedef struct {
+    SignedCvPattern patterns[3];
+    uint8_t abPattern[4];
+} SignedCvPatternAB;
 
 typedef uint16_t BinaryPattern;
 
@@ -184,7 +190,8 @@ typedef uint8_t PitchStorage[STORAGE_SIZE];
 
 typedef struct {
     GatePattern64 accents;
-    CvPattern16 pitches;
+    CvPatternAB pitches;
+    SignedCvPatternAB octaves;
     GatePattern64 gates;
     GatePatternAB slides;
 
@@ -192,9 +199,10 @@ typedef struct {
     uint8_t octave;
     uint8_t low_velocity;
     uint8_t high_velocity;
+    bool follow_harmony;
 
     PitchStorage storage;
-} RocketSettings;
+} SettingsRocket;
 
 typedef struct {
     CvPattern64 pitches;
@@ -275,8 +283,7 @@ typedef struct {
     SettingsP50 settings_p50;
     Settings522 settings_522;
     Settings503 settings_503;
-
-    RocketSettings settings_rocket;
+    SettingsRocket settings_rocket;
 
     UiState uiState;
 } ApplicationData;

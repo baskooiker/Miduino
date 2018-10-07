@@ -1,5 +1,4 @@
-#ifndef ROCKET_H
-#define ROCKET_H
+#pragma once
 
 #include "defs.h"
 #include "midi_io.h"
@@ -7,11 +6,15 @@
 
 void root_rocket_seq(ApplicationData& data)
 {
-    CvPattern16& p_pattern = data.settings_rocket.pitches;
-    for (int i = 0; i < p_pattern.length; i++)
-    {
-        p_pattern.pattern[i] = (data.settings_rocket.octave * 12) + data.scale.root;
-    }
+    data.settings_rocket.follow_harmony = randomi(2);
+    CvPatternAB& p_pattern = data.settings_rocket.pitches;
+    fill_bar(p_pattern.patterns[0], 0);
+    fill_bar(p_pattern.patterns[1], 0);
+    fill_bar(p_pattern.patterns[2], 0);
+    fill_bar(data.settings_rocket.octaves.patterns[0], 0);
+    fill_bar(data.settings_rocket.octaves.patterns[1], 0);
+    fill_bar(data.settings_rocket.octaves.patterns[2], 0);
+
     randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
     set_random_pattern_ab(data.settings_rocket.slides, .25f);
     data.settings_rocket.accents = init_percussive_pattern_64();
@@ -19,12 +22,20 @@ void root_rocket_seq(ApplicationData& data)
 
 void modify_rocket_seq(ApplicationData& data)
 {
-    CvPattern16& p_pattern = data.settings_rocket.pitches;
-    for (int i = 0; i < p_pattern.length; i++)
+    data.settings_rocket.follow_harmony = randomi(2);
+    CvPatternAB& p_pattern = data.settings_rocket.pitches;
+    for (int i = 0; i < 3; i++)
     {
-        if (randomf() < .25)
+        for (int j = 0; j < NOTES_IN_BAR; j++)
         {
-            p_pattern.pattern[i] = data.scale.notes[data.scale.length] + ((random(3) - 1) * 12) + (data.settings_rocket.octave * 12) + data.scale.root;
+            if (randomf() < .25)
+            {
+                p_pattern.patterns[i][j] = data.scale.notes[data.scale.length];
+            }
+            if (randomf() < .25)
+            {
+                data.settings_rocket.octaves.patterns[i][j] = data.scale.notes[data.scale.length];
+            }
         }
     }
     randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
@@ -32,29 +43,56 @@ void modify_rocket_seq(ApplicationData& data)
     data.settings_rocket.accents = init_percussive_pattern_64();
 }
 
+void randomize_octaves(SignedCvPattern& pattern)
+{
+    for (uint8_t i = 0; i < NOTES_IN_BAR; i++)
+    {
+        pattern[i] = ((randomi(3) - 1) * 12);
+    }
+}
+
+void randomize_notes(CvPattern& pattern, uint8_t range)
+{
+    for (uint8_t i = 0; i < NOTES_IN_BAR; i++)
+    {
+        pattern[i] = randomi(range);
+    }
+}
+
 void randomize_rocket_seq(ApplicationData& data)
 {
-    CvPattern16& p_pattern = data.settings_rocket.pitches;
-    for (int i = 0; i < p_pattern.length; i++)
-    {
-        p_pattern.pattern[i] = data.scale.notes[data.scale.length] + ((random(3) - 1) * 12) + (data.settings_rocket.octave * 12) + data.scale.root;
-    }
+    CvPatternAB& p_pattern = data.settings_rocket.pitches;
+
+    randomize_octaves(data.settings_rocket.octaves.patterns[0]);
+    randomize_octaves(data.settings_rocket.octaves.patterns[1]);
+    randomize_octaves(data.settings_rocket.octaves.patterns[2]);
+
+    randomize_notes(data.settings_rocket.pitches.patterns[0], data.scale.length);
+    randomize_notes(data.settings_rocket.pitches.patterns[1], data.scale.length);
+    randomize_notes(data.settings_rocket.pitches.patterns[2], data.scale.length);
+
     randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
+
     set_random_pattern_ab(data.settings_rocket.slides, .25f);
+
     data.settings_rocket.accents = init_percussive_pattern_64();
 }
 
 void play_rocket(ApplicationData& data)
 {
-    RocketSettings& rocket = data.settings_rocket;
+    SettingsRocket& rocket = data.settings_rocket;
   
-    uint8_t p = pitch(rocket.pitches, data.step);
-    uint8_t velocity = 32;
+    uint8_t velocity = rocket.low_velocity;
     if (gate(rocket.accents, data.step))
     {
-        velocity = 100;
+        velocity = rocket.high_velocity;
     }
-  
+
+    uint8_t p = pitch(rocket.pitches, data.step);
+    uint8_t harmony = pitch(data.settings_p50.pattern.pitches, data.step);
+    uint8_t octave = get_octave(rocket.octaves, data.step);
+    uint8_t note_nr = apply_scale(p + harmony, data.scale, octave);
+
     if (gate(rocket.gates, data.step))
     {
         if (!gate(rocket.slides, data.step))
@@ -64,5 +102,3 @@ void play_rocket(ApplicationData& data)
         note_on(p, velocity, MIDI_CHANNEL_ROCKET, data.settings_rocket.storage);
     }
 }
-
-#endif // ROCKET_H
