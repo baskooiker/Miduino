@@ -57,24 +57,25 @@ void print_pattern(const GatePatternAB& pattern)
     }
 }
 
-uint8_t randomi(uint8_t min, uint8_t max)
-{
-    static bool initialized = false;
-    if (!initialized)
-    {
-        srand(time(NULL));   // should only be called once
-    }
-    return (rand() % (max - min)) + min;
-}
-
-uint8_t randomi(uint8_t max)
-{
-    return randomi(0, max);
-}
+//uint8_t randomi(uint8_t min, uint8_t max)
+//{
+//    static bool initialized = false;
+//    if (!initialized)
+//    {
+//        srand(time(NULL));   // should only be called once
+//        initialized = true;
+//    }
+//    return (rand() % (max - min)) + min;
+//}
+//
+//uint8_t randomi(uint8_t max)
+//{
+//    return randomi(0, max);
+//}
 
 float randomf()
 {
-    return (float)randomi(1024) / 1024.f;
+    return (float)random(1024) / 1024.f;
 }
 
 void swap(uint8_t* array, uint8_t x, uint8_t y)

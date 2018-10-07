@@ -5,15 +5,15 @@
 #include "chords.h"
 
 void randomize_P50_seq(ApplicationData& data)
-{
-    set_chord_pattern_ab(data.settings_p50.pattern);
+{    
+    data.settings_p50.gates = init_gate_pattern_ab();
 }
 
 void play_P50(ApplicationData& data)
 { 
-    ChordPatternAB& pattern = data.settings_p50.pattern;
+    ChordPatternAB& pattern = data.harmony;
     uint8_t velocity = 32;
-    if (gate(pattern.gates, data.step))
+    if (gate(data.settings_p50.gates, data.step))
     {
         all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
         

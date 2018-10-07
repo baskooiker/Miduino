@@ -274,6 +274,7 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_STEP_12:
         if (value == 0)
         {
+            set_chord_pattern_ab(data.harmony);
             randomize_P50_seq(data);
         }
         break;

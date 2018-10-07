@@ -111,6 +111,10 @@
 #define CC_OSC_WAVE  70
 #define CC_OSC_TUNE  79
 
+///////////
+// Enums
+///////////
+
 enum ControlMode
 {
     CONTROL_MODE_NORMAL,
@@ -133,6 +137,18 @@ enum Root {
     ROOT_B
 };
 
+enum TimeDivision {
+    TIME_DIVISION_SIXTEENTH,
+    TIME_DIVISION_EIGHT,
+    TIME_DIVISION_FOURTH,
+    TIME_DIVISION_HALF,
+    TIME_DIVISION_WHOLE,
+};
+
+////////////
+// Structs
+////////////
+
 typedef struct {
   uint8_t note;
   uint8_t min;
@@ -146,7 +162,7 @@ typedef struct {
 
 #define NOTES_IN_BAR (16)
 typedef uint8_t CvPattern[NOTES_IN_BAR];
-typedef int8_t SignedCvPattern[NOTES_IN_BAR];
+//typedef int8_t SignedCvPattern[NOTES_IN_BAR];
 
 typedef struct {
     uint8_t pattern[16];
@@ -163,10 +179,10 @@ typedef struct {
     uint8_t abPattern[4];
 } CvPatternAB;
 
-typedef struct {
-    SignedCvPattern patterns[3];
-    uint8_t abPattern[4];
-} SignedCvPatternAB;
+//typedef struct {
+//    SignedCvPattern patterns[3];
+//    uint8_t abPattern[4];
+//} SignedCvPatternAB;
 
 typedef uint16_t BinaryPattern;
 
@@ -191,12 +207,12 @@ typedef uint8_t PitchStorage[STORAGE_SIZE];
 typedef struct {
     GatePattern64 accents;
     CvPatternAB pitches;
-    SignedCvPatternAB octaves;
+    CvPatternAB octaves;
     GatePattern64 gates;
     GatePatternAB slides;
 
     float density;
-    uint8_t octave;
+    //uint8_t octave;
     uint8_t low_velocity;
     uint8_t high_velocity;
     bool follow_harmony;
@@ -211,7 +227,7 @@ typedef struct {
 
 typedef struct {
     CvPatternAB pitches;
-    GatePatternAB gates;
+    TimeDivision time_division;
 } ChordPatternAB;
 
 typedef struct {
@@ -252,9 +268,11 @@ typedef struct {
 } Settings522;
 
 typedef struct {
-    ChordPatternAB pattern;
-    uint8_t octave;
+    //ChordPatternAB patteBrn;
 
+    GatePatternAB gates;
+
+    uint8_t octave;
     PitchStorage storage;
 } SettingsP50;
 
@@ -279,6 +297,8 @@ typedef struct {
     uint8_t ticks_counter;
     long step;
     uint8_t swing;
+
+    ChordPatternAB harmony;
 
     SettingsP50 settings_p50;
     Settings522 settings_522;

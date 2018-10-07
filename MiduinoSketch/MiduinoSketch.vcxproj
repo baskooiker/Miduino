@@ -110,9 +110,11 @@
     <ClInclude Include="basslines.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="chords.h" />
     <ClInclude Include="defs.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="init.h" />
     <ClInclude Include="storage.h" />
     <ClInclude Include="mfb_503.h">
       <FileType>CppCode</FileType>
