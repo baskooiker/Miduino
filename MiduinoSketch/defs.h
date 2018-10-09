@@ -268,8 +268,6 @@ typedef struct {
 } Settings522;
 
 typedef struct {
-    //ChordPatternAB patteBrn;
-
     GatePatternAB gates;
 
     uint8_t octave;

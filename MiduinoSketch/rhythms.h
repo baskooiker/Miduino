@@ -50,13 +50,20 @@ GatePattern64 init_gate_pattern_64()
     return pattern;
 }
 
+BinaryPattern init_binary_pattern(const uint8_t* ar, uint8_t length)
+{
+    BinaryPattern pattern;
+    for (uint8_t j = 0; j < length; j++)
+    {
+        set_gate(pattern, j, ar[j]);
+    }
+    return pattern;
+}
+
 GatePattern16 init_pattern(const uint8_t* ar, uint8_t length)
 {
     GatePattern16 pat = get_empty_gate_pattern();
-    for(uint8_t j = 0; j < length; j++)
-    {
-        set_gate(pat.pattern, j, ar[j]);
-    }
+    pat.pattern = init_binary_pattern(ar, length);
     pat.length = length;
     return pat;
 }
