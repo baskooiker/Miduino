@@ -3,10 +3,11 @@
 #include "defs.h"
 #include "midi_io.h"
 #include "scales.h"
+#include "rand.h"
 
 void root_rocket_seq(ApplicationData& data)
 {
-    data.settings_rocket.follow_harmony = random(2);
+    data.settings_rocket.follow_harmony = randi(2);
     CvPatternAB& p_pattern = data.settings_rocket.pitches;
     fill_bar(p_pattern.patterns[0], 0);
     fill_bar(p_pattern.patterns[1], 0);
@@ -23,19 +24,19 @@ void root_rocket_seq(ApplicationData& data)
 
 void modify_rocket_seq(ApplicationData& data)
 {
-    data.settings_rocket.follow_harmony = random(2);
+    data.settings_rocket.follow_harmony = randi(2);
     CvPatternAB& p_pattern = data.settings_rocket.pitches;
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < NOTES_IN_BAR; j++)
         {
-            if (randomf() < .25)
+            if (randf() < .25)
             {
                 p_pattern.patterns[i][j] = data.scale.notes[data.scale.length];
             }
-            if (randomf() < .25)
+            if (randf() < .25)
             {
-                data.settings_rocket.octaves.patterns[i][j] = random(2, 5);
+                data.settings_rocket.octaves.patterns[i][j] = randi(2, 5);
             }
         }
     }
@@ -48,7 +49,7 @@ void randomize_octaves(CvPattern& pattern, uint8_t min, uint8_t max)
 {
     for (uint8_t i = 0; i < NOTES_IN_BAR; i++)
     {
-        pattern[i] = random(min, max);
+        pattern[i] = randi(min, max);
     }
 }
 
@@ -56,7 +57,7 @@ void randomize_notes(CvPattern& pattern, uint8_t range)
 {
     for (uint8_t i = 0; i < NOTES_IN_BAR; i++)
     {
-        pattern[i] = random(range);
+        pattern[i] = randi(range);
     }
 }
 

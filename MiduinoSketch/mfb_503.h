@@ -9,9 +9,9 @@ void randomize_503_seq(ApplicationData& data)
     data.settings_503.ac_pattern = init_percussive_pattern(.25);
 
     set_kick_pattern(data.settings_503.bd_pattern);
-    data.settings_503.sd_pattern = init_pattern(SD_PATTERNS[random(NR_SD_PATTERNS)], 16);
+    data.settings_503.sd_pattern = init_pattern(SD_PATTERNS[randi(NR_SD_PATTERNS)], 16);
 
-    uint8_t hh_idx = random(NR_HH_PATTERNS);
+    uint8_t hh_idx = randi(NR_HH_PATTERNS);
     for (int i = 0; i < 16; i++)
     {
         set_gate(data.settings_503.hh_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 1);
@@ -71,6 +71,6 @@ void randomize_503_sound()
     for (int i = 0; i < nr_random_503_params; i++)
     {
         RandomParam* p = &random_503_params[i];
-        send_cc(p->note, random(p->min, p->max), MIDI_CHANNEL_503);
+        send_cc(p->note, randi(p->min, p->max), MIDI_CHANNEL_503);
     }
 }

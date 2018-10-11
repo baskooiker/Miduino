@@ -72,7 +72,7 @@ void randomize(BinaryPattern& pattern, const float prob)
 {
     for (uint8_t j = 0; j < 16; j++)
     {
-        set_gate(pattern, j, randomf() < prob);
+        set_gate(pattern, j, randf() < prob);
     }
 }
 
@@ -93,7 +93,7 @@ void randomize_ab(GatePattern64& pattern, const float prob)
     GatePattern16 pat0 = init_percussive_pattern(prob);
     GatePattern16 pat1 = init_percussive_pattern(prob);
     GatePattern16 pat2 = init_percussive_pattern(prob);
-    float pat_prob = randomf();
+    float pat_prob = randf();
     
     pattern.patterns[0] = pat0.pattern;
     if (pat_prob < .25) // AAAB
@@ -143,26 +143,26 @@ void set_coefficient_pattern(BinaryPattern& pattern,
 {
     for (uint8_t i = 0; i < 16; i += 4)
     {
-        set_gate(pattern, i, randomf() < coef_0);
+        set_gate(pattern, i, randf() < coef_0);
     }
     for (uint8_t i = 2; i < 16; i += 4)
     {
-        set_gate(pattern, i, randomf() < coef_1);
+        set_gate(pattern, i, randf() < coef_1);
     }
     for (uint8_t i = 3; i < 16; i += 4)
     {
-        set_gate(pattern, i, randomf() < coef_2);
+        set_gate(pattern, i, randf() < coef_2);
     }
     for (uint8_t i = 1; i < 16; i += 4)
     {
-        set_gate(pattern, i, randomf() < coef_3);
+        set_gate(pattern, i, randf() < coef_3);
     }
 }
 
 void set_ab_pattern(uint8_t* ab_pattern)
 {
     ab_pattern[0] = 0;
-    switch (random(8))
+    switch (randi(8))
     {
     case 0: // AAAA
         ab_pattern[1] = 0;

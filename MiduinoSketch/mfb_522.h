@@ -20,7 +20,7 @@ void randomize_522_seq(ApplicationData& data)
     data.settings_522.oh_522_pattern = init_percussive_pattern_64(.25);
     data.settings_522.sd_522_pattern = init_percussive_pattern_64(.50);
     
-    data.settings_522.clap_522_pattern = init_pattern(SD_PATTERNS[random(NR_SD_PATTERNS)], 16);
+    data.settings_522.clap_522_pattern = init_pattern(SD_PATTERNS[randi(NR_SD_PATTERNS)], 16);
 }
 
 void play_522(ApplicationData& data)
