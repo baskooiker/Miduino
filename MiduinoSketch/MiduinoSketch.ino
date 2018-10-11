@@ -250,6 +250,9 @@ void handleControlChange(byte channel, byte number, byte value)
 {
     switch (number)
     {
+    case BSP_KNOB_01:
+        send_cc(BD_DECAY, value, MIDI_CHANNEL_503);
+        break;
     case BSP_KNOB_05:
         data.settings_p50.play_chords = value > 10;
         data.settings_p50.chords_velocity = value;
