@@ -114,7 +114,9 @@
     <ClInclude Include="defs.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="euclid.h" />
     <ClInclude Include="init.h" />
+    <ClInclude Include="rand.h" />
     <ClInclude Include="storage.h" />
     <ClInclude Include="mfb_503.h">
       <FileType>CppCode</FileType>

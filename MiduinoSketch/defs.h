@@ -271,6 +271,8 @@ typedef struct {
     GatePatternAB gates;
 
     uint8_t octave;
+    bool play_chords;
+    bool play_arp;
     PitchStorage storage;
 } SettingsP50;
 

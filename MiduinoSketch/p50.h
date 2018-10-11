@@ -19,11 +19,15 @@ void play_P50(ApplicationData& data)
 { 
     ChordPatternAB& pattern = data.harmony;
     uint8_t velocity = 32;
-    if (gate(data.settings_p50.gates, data.step))
+
+    if (data.step % 16 == 0)
     {
         all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
-        
-        uint8_t note_nr = pitch(pattern.pitches, data.step);
+    }
+
+    uint8_t note_nr = pitch(pattern.pitches, data.step);
+    if (gate(data.settings_p50.gates, data.step))
+    {    
         uint8_t root = apply_scale(note_nr, data.scale, data.settings_p50.octave);
         uint8_t third = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
         uint8_t fifth = apply_scale(note_nr + 4, data.scale, data.settings_p50.octave);
@@ -31,5 +35,13 @@ void play_P50(ApplicationData& data)
         note_on(root, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
         note_on(third, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
         note_on(fifth , velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
+    }
+
+    if (data.settings_p50.play_arp)
+    {
+        static uint8_t arp_choices[] = { 0, 2, 4 };
+
+        uint8_t pitch = apply_scale(note_nr + arp_choices[random(3)], data.scale, data.settings_p50.octave + 2);
+        note_on(pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
     }
 }

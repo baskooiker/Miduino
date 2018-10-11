@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "defs.h"
+#include "rand.h"
 
 bool gate(const BinaryPattern& gates, const long step)
 {
@@ -73,10 +74,10 @@ void print_pattern(const GatePatternAB& pattern)
 //    return randomi(0, max);
 //}
 
-float randomf()
-{
-    return (float)random(1024) / 1024.f;
-}
+//float randomf()
+//{
+//    return (float)random(1024) / 1024.f;
+//}
 
 void swap(uint8_t* array, uint8_t x, uint8_t y)
 {
@@ -89,6 +90,6 @@ void randomize_order(uint8_t* array, uint8_t length)
 {
     for (uint8_t i = 0; i < length; i++)
     {
-        swap(array, i, random(length));
+        swap(array, i, randi(length));
     }
 }

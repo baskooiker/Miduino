@@ -250,9 +250,16 @@ void handleControlChange(byte channel, byte number, byte value)
 {
     switch (number)
     {
+    case BSP_KNOB_05:
+        data.settings_p50.play_chords = value > 64;
+        break;
+    case BSP_KNOB_06:
+        data.settings_p50.play_arp = value > 64;
+        break;
     case BSP_KNOB_08:
         data.settings_rocket.density = (value / 127.) * .8f + .2f;
         break;
+
     case BSP_STEP_01:
         if (value == 0)
         {
