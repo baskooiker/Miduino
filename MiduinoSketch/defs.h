@@ -273,6 +273,8 @@ typedef struct {
     uint8_t octave;
     bool play_chords;
     bool play_arp;
+    uint8_t arp_velocity;
+    uint8_t chords_velocity;
     PitchStorage storage;
 } SettingsP50;
 

@@ -18,7 +18,7 @@ void randomize_P50_seq(ApplicationData& data)
 void play_P50(ApplicationData& data)
 { 
     ChordPatternAB& pattern = data.harmony;
-    uint8_t velocity = 32;
+    uint8_t velocity = data.settings_p50.chords_velocity;
 
     if (data.step % 16 == 0)
     {
@@ -26,7 +26,7 @@ void play_P50(ApplicationData& data)
     }
 
     uint8_t note_nr = pitch(pattern.pitches, data.step);
-    if (gate(data.settings_p50.gates, data.step))
+    if (gate(data.settings_p50.gates, data.step) && data.settings_p50.play_chords)
     {    
         uint8_t root = apply_scale(note_nr, data.scale, data.settings_p50.octave);
         uint8_t third = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
@@ -42,6 +42,6 @@ void play_P50(ApplicationData& data)
         static uint8_t arp_choices[] = { 0, 2, 4 };
 
         uint8_t pitch = apply_scale(note_nr + arp_choices[randi(3)], data.scale, data.settings_p50.octave + 2);
-        note_on(pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
+        note_on(pitch, data.settings_p50.arp_velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
     }
 }
