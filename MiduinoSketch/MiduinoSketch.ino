@@ -239,7 +239,7 @@ void handleClock()
         play_all();
     }
     data.ticks_counter += 1;
-    if (data.ticks_counter > TICKS_PER_STEP)
+    if (data.ticks_counter >= TICKS_PER_STEP)
     {
         data.ticks_counter = 0;
         data.step = (data.step + 1) % COMMON_DENOMINATOR;
