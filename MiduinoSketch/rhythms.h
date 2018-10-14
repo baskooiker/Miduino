@@ -135,30 +135,6 @@ GatePattern64 init_percussive_pattern_64(const float prob = .5f)
     return pattern;
 }
 
-void set_coefficient_pattern(BinaryPattern& pattern,
-    float coef_0 = 1.f, // Down-beats
-    float coef_1 = 0.f, // Off-beats
-    float coef_2 = 0.f, // Up-beats
-    float coef_3 = 0.f)
-{
-    for (uint8_t i = 0; i < 16; i += 4)
-    {
-        set_gate(pattern, i, randf() < coef_0);
-    }
-    for (uint8_t i = 2; i < 16; i += 4)
-    {
-        set_gate(pattern, i, randf() < coef_1);
-    }
-    for (uint8_t i = 3; i < 16; i += 4)
-    {
-        set_gate(pattern, i, randf() < coef_2);
-    }
-    for (uint8_t i = 1; i < 16; i += 4)
-    {
-        set_gate(pattern, i, randf() < coef_3);
-    }
-}
-
 void set_ab_pattern(uint8_t* ab_pattern)
 {
     ab_pattern[0] = 0;
@@ -230,13 +206,5 @@ void set_random_pattern_ab(GatePatternAB& pattern, float prob = .5f)
     randomize(pattern.patterns[0], prob);
     randomize(pattern.patterns[1], prob);
     randomize(pattern.patterns[2], prob);
-    set_ab_pattern(pattern.abPattern);
-}
-
-void set_kick_pattern(GatePatternAB& pattern)
-{
-    set_coefficient_pattern(pattern.patterns[0], 1.f, .25f, .06125f, .06125f);
-    set_coefficient_pattern(pattern.patterns[1], 1.f, .25f, .06125f, .06125f);
-    set_coefficient_pattern(pattern.patterns[2], 1.f, .25f, .06125f, .06125f);
     set_ab_pattern(pattern.abPattern);
 }

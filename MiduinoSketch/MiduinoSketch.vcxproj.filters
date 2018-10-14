@@ -19,6 +19,9 @@
     <Filter Include="Header Files\utils">
       <UniqueIdentifier>{2cec88fe-edc8-4cbb-a32e-54e785ee18a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\instruments">
+      <UniqueIdentifier>{649c09d7-d2df-4a33-b6a4-84403a87df42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MiduinoSketch.ino" />
@@ -33,22 +36,10 @@
     <ClInclude Include="defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mfb_503.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mfb_522.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="midi_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="p50.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="rhythms.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scales.h">
@@ -74,6 +65,21 @@
     </ClInclude>
     <ClInclude Include="rand.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="coef.h">
+      <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
+    <ClInclude Include="mfb_503.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="mfb_522.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="p50.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="rocket.h">
+      <Filter>Header Files\instruments</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

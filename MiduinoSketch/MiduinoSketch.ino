@@ -233,7 +233,6 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
 
 void handleClock()
 {
-       
     if (data.ticks_counter == (data.step % 2 == 0 ? 0 : data.swing))
     {
         play_all();

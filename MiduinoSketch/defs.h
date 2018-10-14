@@ -288,8 +288,8 @@ typedef struct {
     GatePattern16 ac_pattern;
     GatePatternAB bd_pattern;
     GatePattern16 sd_pattern;
-    GatePattern16 hh_pattern;
-    GatePattern16 oh_pattern;
+    GatePatternAB hh_pattern;
+    GatePatternAB oh_pattern;
 
     PitchStorage storage;
 } Settings503;

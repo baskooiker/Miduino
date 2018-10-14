@@ -9,8 +9,8 @@ void randomize_522_seq(ApplicationData& data)
 {
     data.settings_522.ac_522_pattern = init_percussive_pattern(.25);
 
-    set_kick_pattern(data.settings_522.bd_522_pattern);
-    set_kick_pattern(data.settings_522.cy_522_pattern);
+    set_coef_kick_pattern(data.settings_522.bd_522_pattern);
+    set_coef_kick_pattern(data.settings_522.cy_522_pattern);
 
     data.settings_522.lo_tom_522_pattern = init_percussive_pattern(.25);
     data.settings_522.mi_tom_522_pattern = init_percussive_pattern(.25);

@@ -1,21 +1,28 @@
 #pragma once
 
+#include "coef.h"
 #include "defs.h"
+#include "euclid.h"
 #include "midi_io.h"
 #include "rhythms.h"
 
 void randomize_503_seq(ApplicationData& data)
 {
-    data.settings_503.ac_pattern = init_percussive_pattern(.25);
+    set_euclid(data.settings_503.ac_pattern.pattern, 16, randi(4, 13));
 
-    set_kick_pattern(data.settings_503.bd_pattern);
+    set_coef_kick_pattern(data.settings_503.bd_pattern);
+
     data.settings_503.sd_pattern = init_pattern(SD_PATTERNS[randi(NR_SD_PATTERNS)], 16);
 
-    uint8_t hh_idx = randi(NR_HH_PATTERNS);
-    for (int i = 0; i < 16; i++)
+    if (randf() < .5)
     {
-        set_gate(data.settings_503.hh_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 1);
-        set_gate(data.settings_503.oh_pattern.pattern, i, HH_PATTERNS[hh_idx][i] == 2);
+        set_coef_hat_pattern(data.settings_503.oh_pattern);
+        set_random_pattern_ab(data.settings_503.hh_pattern, 0.f);
+    }
+    else
+    {
+        set_coef_hat_pattern(data.settings_503.hh_pattern);
+        set_random_pattern_ab(data.settings_503.oh_pattern, 0.f);
     }
 }
 
@@ -26,6 +33,7 @@ void play_503(ApplicationData& data)
     {
         velocity = 127;
     }
+
     if (gate(data.settings_503.bd_pattern, data.step) && !data.uiState.kill_low)
     {
         note_on(NOTE_503_BD, velocity, MIDI_CHANNEL_503, data.settings_503.storage);

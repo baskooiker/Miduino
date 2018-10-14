@@ -111,6 +111,7 @@
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="chords.h" />
+    <ClInclude Include="coef.h" />
     <ClInclude Include="defs.h">
       <FileType>CppCode</FileType>
     </ClInclude>
