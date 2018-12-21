@@ -36,7 +36,8 @@ void play_503(ApplicationData& data)
 
     if (gate(data.settings_503.bd_pattern, data.step) && !data.uiState.kill_low)
     {
-        note_on(NOTE_503_BD, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
+
+        note_on(NOTE_503_BD, 127, MIDI_CHANNEL_503, data.settings_503.storage);
     }
     if (gate(data.settings_503.sd_pattern, data.step) && !data.uiState.kill_mid)
     {
