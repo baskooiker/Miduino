@@ -162,7 +162,6 @@ typedef struct {
 
 #define NOTES_IN_BAR (16)
 typedef uint8_t CvPattern[NOTES_IN_BAR];
-//typedef int8_t SignedCvPattern[NOTES_IN_BAR];
 
 typedef struct {
     uint8_t pattern[16];
@@ -208,11 +207,12 @@ typedef struct {
     GatePattern64 accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
-    GatePattern64 gates;
+    //GatePattern64 gates;
     GatePatternAB slides;
+    CvPatternAB probs;
 
     float density;
-    //uint8_t octave;
+    uint8_t gate_density;
     uint8_t low_velocity;
     uint8_t high_velocity;
     bool follow_harmony;

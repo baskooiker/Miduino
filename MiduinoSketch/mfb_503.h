@@ -56,22 +56,21 @@ void play_503(ApplicationData& data)
 }
 
 RandomParam random_503_params[] = {
-  {BD_LEVEL , 100, 127},
+  {BD_LEVEL , 126, 127},
   {BD_TUNE  ,   0, 64 },
-  //{BD_DECAY ,   0, 127},
   {BD_PITCH ,   0, 64 },
   {BD_DRIVE ,   0, 127},
   {BD_ATTACK,   0, 127},
 
-  {SD_LEVEL , 100, 127},
+  {SD_LEVEL , 126, 127},
   {SD_TUNE  ,   0, 127},
-  {SD_DECAY ,   0, 127},
+  {SD_DECAY ,   0, 64},
   {SD_NOISE ,  64, 127},
 
-  {HH_LEVEL , 100, 127},
+  {HH_LEVEL , 126, 127},
   {HH_MIX   ,   0, 127},
-  {OH_DECAY ,   0, 127},
-  {HH_DECAY ,   0, 127},
+  {OH_DECAY ,   0, 64 },
+  {HH_DECAY ,   0, 64 },
 };
 uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
 

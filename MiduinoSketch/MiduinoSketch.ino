@@ -262,8 +262,11 @@ void handleControlChange(byte channel, byte number, byte value)
         break;
     case BSP_KNOB_08:
         data.settings_rocket.density = (value / 127.) * .8f + .2f;
+        data.settings_rocket.gate_density = value;
         break;
-
+    case BSP_KNOB_16:
+        data.settings_rocket.follow_harmony = value > 63;
+        break;
     case BSP_STEP_01:
         if (value == 0)
         {
@@ -280,7 +283,17 @@ void handleControlChange(byte channel, byte number, byte value)
         randomize_522_seq(data);
         break;
     case BSP_STEP_09:
+        if (value == 0)
+        {
+            set_chords(data.harmony, 0);
+        }
+        break;
     case BSP_STEP_10:
+        if (value == 0)
+        {
+            set_chords(data.harmony, 3);
+        }
+        break;
     case BSP_STEP_11:
     case BSP_STEP_12:
         if (value == 0)
@@ -302,11 +315,6 @@ void handleControlChange(byte channel, byte number, byte value)
         }
         break;
     case BSP_STEP_15:
-        if (value == 0)
-        {
-            modify_rocket_seq(data);
-        }
-        break;
     case BSP_STEP_16:
         if (value == 0)
         {
