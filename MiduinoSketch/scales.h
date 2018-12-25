@@ -1,5 +1,4 @@
-#ifndef SCALES_H
-#define SCALES_H
+#pragma once
 
 #include "defs.h"
 
@@ -38,5 +37,3 @@ const Scale get_scale(const ScaleType scale_type, const Root root = ROOT_C)
     scale.root = root;
     return scale;
 }
-
-#endif // SCALES_H

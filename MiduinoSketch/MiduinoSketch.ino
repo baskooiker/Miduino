@@ -291,10 +291,17 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_STEP_10:
         if (value == 0)
         {
-            set_chords(data.harmony, 3);
+            set_chord_pattern_ab(data.harmony);
+            set_ab_pattern_low(data.harmony.pitches.abPattern);
         }
         break;
     case BSP_STEP_11:
+        if (value == 0)
+        {
+            set_chord_pattern_ab(data.harmony);
+            set_ab_pattern_high(data.harmony.pitches.abPattern);
+        }
+        break;
     case BSP_STEP_12:
         if (value == 0)
         {

@@ -22,6 +22,9 @@
     <Filter Include="Header Files\instruments">
       <UniqueIdentifier>{649c09d7-d2df-4a33-b6a4-84403a87df42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\generators">
+      <UniqueIdentifier>{19bcf0ca-c99c-45eb-a746-20964f13a8ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MiduinoSketch.ino" />
@@ -80,6 +83,12 @@
     </ClInclude>
     <ClInclude Include="rocket.h">
       <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="randomize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arp.h">
+      <Filter>Header Files\generators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

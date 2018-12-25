@@ -1,5 +1,6 @@
 #pragma once
 
+#include "arp.h"
 #include "defs.h"
 #include "euclid.h"
 #include "midi_io.h"
@@ -39,9 +40,11 @@ void play_P50(ApplicationData& data)
 
     if (data.settings_p50.play_arp)
     {
-        static uint8_t arp_choices[] = { 0, 2, 4 };
+        //uint8_t p = get_arp_pitch(data.settings_p50.arp_data, data.scale, note_nr);
+        //note_on(p, data.settings_p50.arp_velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
 
-        uint8_t pitch = apply_scale(note_nr + arp_choices[randi(3)], data.scale, data.settings_p50.octave + 2);
-        note_on(pitch, data.settings_p50.arp_velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
+        //static uint8_t arp_choices[] = { 0, 2, 4 };
+        //uint8_t pitch = apply_scale(note_nr + arp_choices[randi(3)], data.scale, data.settings_p50.octave + 2);
+        //note_on(pitch, data.settings_p50.arp_velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
     }
 }

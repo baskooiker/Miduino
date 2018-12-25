@@ -72,3 +72,19 @@ void randomize_order(uint8_t* array, uint8_t length)
         swap(array, i, randi(length));
     }
 }
+
+void sort(uint8_t* ar, uint8_t length)
+{
+    for (uint8_t i = 0; i < length; i++)                     //Loop for descending ordering
+    {
+        for (int j = 0; j < length; j++)             //Loop for comparing other values
+        {
+            if (ar[j] > ar[i])                //Comparing other array elements
+            {
+                uint8_t tmp = ar[i];         //Using temporary variable for storing last value
+                ar[i] = ar[j];            //replacing value
+                ar[j] = tmp;             //storing last value
+            }
+        }
+    }
+}

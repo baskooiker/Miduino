@@ -1,7 +1,11 @@
 #pragma once
 
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
+#define CLIP(value,minimum,maximum) (MIN(MAX(value, minimum), maximum))
+
 #define MIDI_CHANNEL_ROCKET 1
-#define MIDI_CHANNEL_P50    5
+#define MIDI_CHANNEL_P50    6
 #define MIDI_CHANNEL_503    10
 #define MIDI_CHANNEL_522    12
 
@@ -207,9 +211,9 @@ typedef struct {
     GatePattern64 accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
-    //GatePattern64 gates;
+    GatePattern64 gates;
     GatePatternAB slides;
-    CvPatternAB probs;
+    //CvPatternAB probs;
 
     float density;
     uint8_t gate_density;
@@ -267,9 +271,22 @@ typedef struct {
     PitchStorage storage;
 } Settings522;
 
+enum ArpType {
+    UP,
+    DOWN,
+    UPDOWN,
+    RANDOM
+};
+
+typedef struct {
+    uint8_t min;
+    uint8_t range;
+    uint8_t counter;
+    ArpType type;
+} ArpData;
+
 typedef struct {
     GatePatternAB gates;
-
     uint8_t octave;
     bool play_chords;
     bool play_arp;
@@ -306,6 +323,8 @@ typedef struct {
     Settings522 settings_522;
     Settings503 settings_503;
     SettingsRocket settings_rocket;
+
+    //ArpData arp_data;
 
     UiState uiState;
 } ApplicationData;

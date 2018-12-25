@@ -17,7 +17,7 @@ void root_rocket_seq(ApplicationData& data)
     fill_bar(data.settings_rocket.octaves.patterns[1], 3);
     fill_bar(data.settings_rocket.octaves.patterns[2], 3);
 
-    //randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
+    randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
     set_random_pattern_ab(data.settings_rocket.slides, .25f);
     data.settings_rocket.accents = init_percussive_pattern_64();
 }
@@ -39,7 +39,7 @@ void modify_rocket_seq(ApplicationData& data)
             }
         }
     }
-    //randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
+    randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
     set_random_pattern_ab(data.settings_rocket.slides, .25f);
     data.settings_rocket.accents = init_percussive_pattern_64();
 }
@@ -74,11 +74,11 @@ void randomize_rocket_seq(ApplicationData& data)
     randomize_notes(data.settings_rocket.pitches.patterns[2], data.scale.length);
     set_ab_pattern(data.settings_rocket.pitches.abPattern);
 
-    //randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
+    randomize_ab(data.settings_rocket.gates, data.settings_rocket.density);
 
     set_random_pattern_ab(data.settings_rocket.slides, .25f);
 
-    randomize_cv(data.settings_rocket.probs);
+    //randomize_cv(data.settings_rocket.probs);
 
     data.settings_rocket.accents = init_percussive_pattern_64();
 }
@@ -102,7 +102,8 @@ void play_rocket(ApplicationData& data)
     uint8_t octave = get_octave(rocket.octaves, data.step);
     uint8_t p_pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
-    if (pitch(rocket.probs, data.step) <= (uint8_t)min(rocket.gate_density, 127))
+    if (gate(rocket.gates, data.step))
+    //if (pitch(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127))
     {
         if (!gate(rocket.slides, data.step))
         {

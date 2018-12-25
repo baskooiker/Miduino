@@ -188,6 +188,75 @@ void set_ab_pattern(uint8_t* ab_pattern)
     }
 }
 
+void set_ab_pattern_const(uint8_t* ab_pattern, const uint8_t value = 0)
+{
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        ab_pattern[1] = value;
+    }
+}
+
+void set_ab_pattern_low(uint8_t* ab_pattern)
+{
+    ab_pattern[0] = 0;
+    switch (randi(4))
+    {
+    case 0: // AAAB
+        ab_pattern[1] = 0;
+        ab_pattern[2] = 0;
+        ab_pattern[3] = 1;
+        break;
+    case 1: // AABB 
+        ab_pattern[1] = 0;
+        ab_pattern[2] = 1;
+        ab_pattern[3] = 1;
+        break;
+    case 2: // AABA 
+        ab_pattern[1] = 0;
+        ab_pattern[2] = 1;
+        ab_pattern[3] = 0;
+        break;
+    case 3: // ABAA 
+        ab_pattern[1] = 1;
+        ab_pattern[2] = 0;
+        ab_pattern[3] = 0;
+        break;
+    }
+}
+
+void set_ab_pattern_high(uint8_t* ab_pattern)
+{
+    ab_pattern[0] = 0;
+    switch (randi(5))
+    {
+    case 0: // ABAB 
+        ab_pattern[1] = 1;
+        ab_pattern[2] = 0;
+        ab_pattern[3] = 1;
+        break;
+    case 1: // ABAC 
+        ab_pattern[1] = 1;
+        ab_pattern[2] = 0;
+        ab_pattern[3] = 2;
+        break;
+    case 2: // ABCB
+        ab_pattern[1] = 1;
+        ab_pattern[2] = 2;
+        ab_pattern[3] = 1;
+        break;
+    case 3: // AABC
+        ab_pattern[1] = 0;
+        ab_pattern[2] = 1;
+        ab_pattern[3] = 2;
+        break;
+    case 4: // ABCA
+        ab_pattern[1] = 1;
+        ab_pattern[2] = 2;
+        ab_pattern[3] = 0;
+        break;
+    }
+}
+
 GatePatternAB init_gate_pattern_ab()
 {
     GatePatternAB pattern;
