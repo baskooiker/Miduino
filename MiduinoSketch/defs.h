@@ -6,6 +6,7 @@
 
 #define MIDI_CHANNEL_ROCKET 1
 #define MIDI_CHANNEL_P50    6
+#define MIDI_CHANNEL_LEAD   7
 #define MIDI_CHANNEL_503    10
 #define MIDI_CHANNEL_522    12
 
@@ -324,7 +325,7 @@ typedef struct {
     Settings503 settings_503;
     SettingsRocket settings_rocket;
 
-    //ArpData arp_data;
+    ArpData arp_data;
 
     UiState uiState;
 } ApplicationData;
