@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <MIDI.h>
 
 #include "basslines.h"
@@ -253,11 +255,11 @@ void handleControlChange(byte channel, byte number, byte value)
         send_cc(BD_DECAY, value, MIDI_CHANNEL_503);
         break;
     case BSP_KNOB_05:
-        data.settings_p50.play_chords = value > 10;
+        data.settings_p50.play_chords = value > 0;
         data.settings_p50.chords_velocity = value;
         break;
     case BSP_KNOB_06:
-        data.settings_p50.play_arp = value > 10;
+        data.settings_p50.play_arp = value > 0;
         data.settings_p50.arp_velocity = value;
         break;
     case BSP_KNOB_08:
@@ -352,6 +354,8 @@ void setup() {
     MIDI.setHandleStop(handleStop);
 
     MIDI.begin(MIDI_CHANNEL_OMNI);
+
+    srand(analogRead(A0));
 
     data = init_application_data();
 

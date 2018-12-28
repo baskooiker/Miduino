@@ -212,9 +212,8 @@ typedef struct {
     GatePattern64 accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
-    GatePattern64 gates;
     GatePatternAB slides;
-    //CvPatternAB probs;
+    CvPatternAB probs;
 
     float density;
     uint8_t gate_density;
