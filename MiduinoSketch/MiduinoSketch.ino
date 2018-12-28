@@ -116,6 +116,10 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         {
             data.scale.root = ROOT_C_SHARP;
         }
+        else
+        {
+            data.uiState.drum_fill = true;
+        }
         set_pad_state(data.uiState, 8, true);
         break;
     case BSP_PAD_10:
@@ -200,7 +204,10 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
         }
         set_pad_state(data.uiState, 7, false);
         break;
-    case BSP_PAD_09:
+        case BSP_PAD_09:
+        {
+            data.uiState.drum_fill = false;
+        }
         set_pad_state(data.uiState, 8, false);
         break;
     case BSP_PAD_10:
@@ -263,8 +270,10 @@ void handleControlChange(byte channel, byte number, byte value)
         data.settings_p50.arp_velocity = value;
         break;
     case BSP_KNOB_08:
-        data.settings_rocket.density = (value / 127.) * .8f + .2f;
         data.settings_rocket.gate_density = value;
+        break;
+    case BSP_KNOB_14:
+        data.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);
         break;
     case BSP_KNOB_16:
         data.settings_rocket.follow_harmony = value > 63;
@@ -273,21 +282,25 @@ void handleControlChange(byte channel, byte number, byte value)
         if (value == 0)
         {
             randomize_503_sound();
+            randomize_503_seq(data);
+            randomize_522_seq(data);
         }
         break;
     case BSP_STEP_02:
         if (value == 0)
         {
-            randomize_503_seq(data);
         }
         break;
     case BSP_STEP_03:
-        randomize_522_seq(data);
+        if (value == 0)
+        {
+        }
         break;
     case BSP_STEP_09:
         if (value == 0)
         {
             set_chords(data.harmony, 0);
+            randomize_arp(data.arp_data);
         }
         break;
     case BSP_STEP_10:

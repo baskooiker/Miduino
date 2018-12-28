@@ -215,7 +215,6 @@ typedef struct {
     GatePatternAB slides;
     CvPatternAB probs;
 
-    float density;
     uint8_t gate_density;
     uint8_t low_velocity;
     uint8_t high_velocity;
@@ -244,6 +243,8 @@ typedef struct {
     bool kill_mid;
     bool kill_high;
     bool kill_perc;
+
+    bool drum_fill;
 } UiState;
 
 UiState init_ui_state()
@@ -252,6 +253,8 @@ UiState init_ui_state()
     ui_state.bsp_button_state = 0x00;
     ui_state.bsp_pad_state = 0x00;
     ui_state.control_mode = CONTROL_MODE_NORMAL;
+    
+    ui_state.drum_fill = false;
     return ui_state;
 }
 

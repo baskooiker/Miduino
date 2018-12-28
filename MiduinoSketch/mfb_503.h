@@ -28,6 +28,24 @@ void randomize_503_seq(ApplicationData& data)
 
 void play_503(ApplicationData& data)
 {
+    if (data.uiState.drum_fill)
+    {
+        uint8_t p = 0;
+        switch (randi(8))
+        {
+        case 0: p = NOTE_503_BD; break;
+        case 1: p = NOTE_503_SD; break;
+        case 2: p = NOTE_503_LT; break;
+        case 3: p = NOTE_503_MT; break;
+        case 4: p = NOTE_503_HT; break;
+        case 5: p = NOTE_503_CY; break;
+        case 6: p = NOTE_503_OH; break;
+        case 7: p = NOTE_503_HH; break;
+        }
+        note_on(p, 127, MIDI_CHANNEL_503, data.settings_503.storage);
+        return;
+    }
+
     uint8_t velocity = 63;
     if (gate(data.settings_503.ac_pattern, data.step))
     {
@@ -36,7 +54,6 @@ void play_503(ApplicationData& data)
 
     if (gate(data.settings_503.bd_pattern, data.step) && !data.uiState.kill_low)
     {
-
         note_on(NOTE_503_BD, 127, MIDI_CHANNEL_503, data.settings_503.storage);
     }
     if (gate(data.settings_503.sd_pattern, data.step) && !data.uiState.kill_mid)
