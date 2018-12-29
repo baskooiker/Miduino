@@ -123,8 +123,7 @@
 enum ControlMode
 {
     CONTROL_MODE_NORMAL,
-    CONTROL_MODE_ROOT,
-    CONTROL_MODE_SWING
+    CONTROL_MODE_ROOT
 };
 
 enum Root {
@@ -212,13 +211,14 @@ typedef struct {
     GatePattern64 accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
+    CvPatternAB variable_octaves;
     GatePatternAB slides;
     CvPatternAB probs;
 
     uint8_t gate_density;
     uint8_t low_velocity;
     uint8_t high_velocity;
-    bool follow_harmony;
+    uint8_t pitch_range;
 
     PitchStorage storage;
 } SettingsRocket;
@@ -318,7 +318,6 @@ typedef struct {
     Scale scale;
     uint8_t ticks_counter;
     long step;
-    uint8_t swing;
 
     ChordPatternAB harmony;
 

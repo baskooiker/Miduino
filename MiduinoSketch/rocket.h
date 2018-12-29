@@ -20,6 +20,7 @@ void root_rocket_seq(ApplicationData& data)
     set_random_pattern_ab(data.settings_rocket.slides, .25f);
     data.settings_rocket.accents = init_percussive_pattern_64();
     randomize_cv(data.settings_rocket.probs);
+    randomize_cv(data.settings_rocket.variable_octaves);
 }
 
 void modify_rocket_seq(ApplicationData& data)
@@ -82,6 +83,11 @@ void randomize_rocket_seq(ApplicationData& data)
 
 void play_rocket(ApplicationData& data)
 {
+    if (data.ticks_counter % TICKS_PER_STEP != 0)
+    {
+        return;
+    }
+
     SettingsRocket& rocket = data.settings_rocket;
   
     uint8_t velocity = rocket.low_velocity;
@@ -91,12 +97,16 @@ void play_rocket(ApplicationData& data)
     }
 
     uint8_t note_nr = pitch(rocket.pitches, data.step);
-    uint8_t harmony = 0;
-    if (data.settings_rocket.follow_harmony)
-    {
-        harmony = pitch(data.harmony.pitches, data.step);
-    }
+    uint8_t harmony = harmony = pitch(data.harmony.pitches, data.step);
+
     uint8_t octave = get_octave(rocket.octaves, data.step);
+
+    uint8_t variable_octave = pitch(data.settings_rocket.variable_octaves, data.step);
+    if (variable_octave < data.settings_rocket.pitch_range)
+    {
+        octave += variable_octave % 3;
+    }
+
     uint8_t p_pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
     if (pitch(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127))

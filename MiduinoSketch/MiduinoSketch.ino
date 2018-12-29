@@ -24,10 +24,6 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
     switch (pitch)
     {
     case BSP_PAD_01:
-        if (data.uiState.control_mode == CONTROL_MODE_SWING)
-        {
-            data.swing = 0;
-        }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_C;
@@ -39,10 +35,6 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 0, true);
         break;
     case BSP_PAD_02:
-        if (data.uiState.control_mode == CONTROL_MODE_SWING)
-        {
-            data.swing = 1;
-        }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_D;
@@ -54,10 +46,6 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 1, true);
         break;
     case BSP_PAD_03:
-        if (data.uiState.control_mode == CONTROL_MODE_SWING)
-        {
-            data.swing = 2;
-        }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_E;
@@ -69,10 +57,6 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 2, true);
         break;
     case BSP_PAD_04:
-        if (data.uiState.control_mode == CONTROL_MODE_SWING)
-        {
-            data.swing = 3;
-        }
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_F;
@@ -105,10 +89,6 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 6, true);
         break;
     case BSP_PAD_08:
-        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
-        {
-            data.uiState.control_mode = CONTROL_MODE_SWING;
-        }
         set_pad_state(data.uiState, 7, true);
         break;
     case BSP_PAD_09:
@@ -229,10 +209,6 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 14, false);
         break;
     case BSP_PAD_16:
-        if (data.uiState.control_mode == CONTROL_MODE_SWING)
-        {
-            data.uiState.control_mode = CONTROL_MODE_NORMAL;
-        }
         set_pad_state(data.uiState, 15, false);
         break;
     default:
@@ -242,10 +218,8 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
 
 void handleClock()
 {
-    if (data.ticks_counter == (data.step % 2 == 0 ? 0 : data.swing))
-    {
-        play_all();
-    }
+    play_all();
+
     data.ticks_counter += 1;
     if (data.ticks_counter >= TICKS_PER_STEP)
     {
@@ -269,6 +243,9 @@ void handleControlChange(byte channel, byte number, byte value)
         data.settings_p50.play_arp = value > 0;
         data.settings_p50.arp_velocity = value;
         break;
+    case BSP_KNOB_07:
+        data.settings_rocket.pitch_range = value;
+        break;
     case BSP_KNOB_08:
         data.settings_rocket.gate_density = value;
         break;
@@ -276,7 +253,6 @@ void handleControlChange(byte channel, byte number, byte value)
         data.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);
         break;
     case BSP_KNOB_16:
-        data.settings_rocket.follow_harmony = value > 63;
         break;
     case BSP_STEP_01:
         if (value == 0)
@@ -373,6 +349,7 @@ void setup() {
     data = init_application_data();
 
     // Initialize patterns
+    send_cc(BD_DECAY, randi(32, 64), MIDI_CHANNEL_503);
     randomize_503_seq(data);
     randomize_522_seq(data);
     randomize_P50_seq(data);

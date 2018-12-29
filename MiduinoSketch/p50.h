@@ -18,6 +18,11 @@ void randomize_P50_seq(ApplicationData& data)
 
 void play_P50(ApplicationData& data)
 { 
+    if (data.ticks_counter % TICKS_PER_STEP != 0)
+    {
+        return;
+    }
+
     ChordPatternAB& pattern = data.harmony;
     uint8_t velocity = data.settings_p50.chords_velocity;
 

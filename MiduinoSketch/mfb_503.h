@@ -28,6 +28,10 @@ void randomize_503_seq(ApplicationData& data)
 
 void play_503(ApplicationData& data)
 {
+    if (data.ticks_counter % TICKS_PER_STEP != 0)
+    {
+        return;
+    }
     if (data.uiState.drum_fill)
     {
         uint8_t p = 0;

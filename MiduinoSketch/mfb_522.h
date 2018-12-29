@@ -25,6 +25,11 @@ void randomize_522_seq(ApplicationData& data)
 
 void play_522(ApplicationData& data)
 {
+    if (data.ticks_counter % TICKS_PER_STEP != 0)
+    {
+        return;
+    }
+
     uint8_t velocity = 63;
 
     Settings522& settings = data.settings_522;
