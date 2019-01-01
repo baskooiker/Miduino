@@ -38,14 +38,8 @@ void play_P50(ApplicationData& data)
         uint8_t third = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
         uint8_t fifth = apply_scale(note_nr + 4, data.scale, data.settings_p50.octave);
         
-        note_on(root, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
-        note_on(third, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
-        note_on(fifth , velocity, MIDI_CHANNEL_P50, data.settings_p50.storage);
-    }
-
-    if (data.settings_p50.play_arp)
-    {
-        uint8_t p = get_arp_pitch(data.arp_data, data.scale, note_nr);
-        note_on(p, data.settings_p50.arp_velocity, MIDI_CHANNEL_LEAD, data.settings_p50.storage);
+        note_on(root, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
+        note_on(third, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
+        note_on(fifth , velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
     }
 }

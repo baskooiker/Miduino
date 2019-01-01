@@ -90,5 +90,8 @@
     <ClInclude Include="arp.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
+    <ClInclude Include="lead.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

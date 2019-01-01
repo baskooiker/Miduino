@@ -204,8 +204,19 @@ typedef struct {
     uint8_t abPattern[4];
 } GatePatternAB;
 
+#define HOLD_NOTE 0xFF
+
+typedef struct {
+    uint8_t pitch;
+    uint8_t length;
+} NoteStruct;
+
 #define STORAGE_SIZE 16
-typedef uint8_t PitchStorage[STORAGE_SIZE];
+
+typedef struct {
+    NoteStruct data[STORAGE_SIZE];
+    uint8_t size;
+} PitchStorage;
 
 typedef struct {
     GatePattern64 accents;
@@ -315,6 +326,12 @@ typedef struct {
 } Settings503;
 
 typedef struct {
+    ArpData arp_data;
+
+    PitchStorage storage;
+} SettingsLead;
+
+typedef struct {
     Scale scale;
     uint8_t ticks_counter;
     long step;
@@ -325,6 +342,7 @@ typedef struct {
     Settings522 settings_522;
     Settings503 settings_503;
     SettingsRocket settings_rocket;
+    SettingsLead settings_lead;
 
     ArpData arp_data;
 

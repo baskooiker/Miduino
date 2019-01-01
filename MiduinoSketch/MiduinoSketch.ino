@@ -10,6 +10,7 @@
 #include "scales.h"
 #include "ui.h"
 
+#include "lead.h"
 #include "mfb_503.h"
 #include "mfb_522.h"
 #include "p50.h"
@@ -216,8 +217,18 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
     }
 }
 
+void stop_notes_all_instruments()
+{
+    stop_notes(data.settings_503.storage, MIDI_CHANNEL_503);
+    stop_notes(data.settings_522.storage, MIDI_CHANNEL_522);
+    stop_notes(data.settings_p50.storage, MIDI_CHANNEL_P50);
+    stop_notes(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
+    stop_notes(data.settings_lead.storage, MIDI_CHANNEL_LEAD);
+}
+
 void handleClock()
 {
+    stop_notes_all_instruments();
     play_all();
 
     data.ticks_counter += 1;
@@ -330,6 +341,7 @@ void handleStop()
     all_notes_off(data.settings_522.storage, MIDI_CHANNEL_522);
     all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
     all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
+    all_notes_off(data.settings_lead.storage, MIDI_CHANNEL_LEAD);
 
     data.step = 0;
     data.ticks_counter = 0;
@@ -356,21 +368,21 @@ void setup() {
     root_rocket_seq(data);
 }
 
-void note_on(uint8_t note, uint8_t velocity, uint8_t channel, PitchStorage& storage)
+void note_on(uint8_t note, uint8_t velocity, uint8_t channel, PitchStorage& storage, uint8_t length)
 {
-    uint8_t stored = pop_from_storage(storage, note);
-    if (stored > 0)
+    NoteStruct stored = pop_from_storage(storage, note);
+    if (stored.pitch > 0)
     {
         MIDI.sendNoteOff(note, 0, channel);
     }
     MIDI.sendNoteOn(note, velocity, channel);
-    add_to_storage(storage, note);
+    add_to_storage(storage, note, length);
 }
 
 void note_off(uint8_t note, uint8_t channel, PitchStorage& storage)
 {
     MIDI.sendNoteOff(note, 0, channel);
-    uint8_t stored = pop_from_storage(storage, note);
+    NoteStruct stored = pop_from_storage(storage, note);
 }
 
 void send_cc(uint8_t cc, uint8_t value, uint8_t channel)
@@ -380,14 +392,14 @@ void send_cc(uint8_t cc, uint8_t value, uint8_t channel)
 
 void all_notes_off(PitchStorage& storage, uint8_t channel)
 {
-    uint8_t p = 0;
+    NoteStruct p = {0, 0};
     do {
         p = pop_from_storage(storage);
-        if (p > 0)
+        if (p.pitch > 0)
         {
-            MIDI.sendNoteOff(p, 0, channel);
+            MIDI.sendNoteOff(p.pitch, 0, channel);
         }
-    } while (p != 0);
+    } while (p.pitch != 0);
 }
 
 void play_all()
@@ -396,6 +408,7 @@ void play_all()
     play_522(data);
     play_rocket(data);
     play_P50(data);
+    play_lead(data);
 }
 
 void loop() {
