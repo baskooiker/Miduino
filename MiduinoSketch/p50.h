@@ -31,7 +31,7 @@ void play_P50(ApplicationData& data)
         all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
     }
 
-    uint8_t note_nr = pitch(pattern.pitches, data.step);
+    uint8_t note_nr = cv(pattern.pitches, data.step);
     if (gate(data.settings_p50.gates, data.step) && data.settings_p50.play_chords)
     {    
         uint8_t root = apply_scale(note_nr, data.scale, data.settings_p50.octave);

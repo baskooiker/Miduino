@@ -288,6 +288,7 @@ void handleControlChange(byte channel, byte number, byte value)
         {
             set_chords(data.harmony, 0);
             randomize_arp(data.arp_data);
+            randomize_P50_seq(data);
         }
         break;
     case BSP_STEP_10:
@@ -308,7 +309,6 @@ void handleControlChange(byte channel, byte number, byte value)
         if (value == 0)
         {
             set_chord_pattern_ab(data.harmony);
-            randomize_P50_seq(data);
         }
         break;
     case BSP_STEP_13:

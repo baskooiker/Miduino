@@ -1,8 +1,10 @@
 #pragma once
 
 #include "coef.h"
+#include "cv.h"
 #include "defs.h"
 #include "euclid.h"
+#include "gate.h"
 #include "midi_io.h"
 #include "rhythms.h"
 

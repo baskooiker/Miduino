@@ -96,12 +96,12 @@ void play_rocket(ApplicationData& data)
         velocity = rocket.high_velocity;
     }
 
-    uint8_t note_nr = pitch(rocket.pitches, data.step);
-    uint8_t harmony = harmony = pitch(data.harmony.pitches, data.step);
+    uint8_t note_nr = cv(rocket.pitches, data.step);
+    uint8_t harmony = cv(data.harmony.pitches, data.step);
 
     uint8_t octave = get_octave(rocket.octaves, data.step);
 
-    uint8_t variable_octave = pitch(data.settings_rocket.variable_octaves, data.step);
+    uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);
     if (variable_octave < data.settings_rocket.pitch_range)
     {
         octave += variable_octave % 3;
@@ -109,7 +109,7 @@ void play_rocket(ApplicationData& data)
 
     uint8_t p_pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
-    if (pitch(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127))
+    if (cv(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127))
     {
         if (!gate(rocket.slides, data.step))
         {

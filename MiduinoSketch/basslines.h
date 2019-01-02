@@ -38,26 +38,6 @@ ChordPattern init_chord_pattern()
     return chords;
 }
 
-uint8_t pitch(CvPattern64& pattern, long step)
-{
-    uint8_t s = (uint8_t)(step % pattern.length);
-    return pattern.pattern[s];
-}
-
-uint8_t pitch(const CvPattern16& pattern, long step)
-{
-    uint8_t s = uint8_t(step % pattern.length);
-    return pattern.pattern[s];
-}
-
-uint8_t pitch(CvPatternAB& pattern, long step)
-{
-    uint8_t s = uint8_t(step % 64);
-    uint8_t part = pattern.abPattern[s / 16];
-    uint8_t note = pattern.patterns[part][s % 16];
-    return note;
-}
-
 uint8_t get_octave(CvPatternAB& pattern, long step)
 {
     uint8_t s = uint8_t(step % 64);

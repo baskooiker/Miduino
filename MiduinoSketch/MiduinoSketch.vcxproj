@@ -113,10 +113,12 @@
     </ClInclude>
     <ClInclude Include="chords.h" />
     <ClInclude Include="coef.h" />
+    <ClInclude Include="cv.h" />
     <ClInclude Include="defs.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="euclid.h" />
+    <ClInclude Include="gate.h" />
     <ClInclude Include="init.h" />
     <ClInclude Include="lead.h" />
     <ClInclude Include="rand.h" />

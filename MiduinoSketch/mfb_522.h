@@ -1,7 +1,9 @@
 #ifndef MFB_522_H
 #define MFB_522_H
 
+#include "cv.h"
 #include "defs.h"
+#include "gate.h"
 #include "midi_io.h"
 #include "rhythms.h"
 
