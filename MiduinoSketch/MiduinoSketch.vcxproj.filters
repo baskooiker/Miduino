@@ -99,5 +99,8 @@
     <ClInclude Include="utils.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
+    <ClInclude Include="intervals.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

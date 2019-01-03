@@ -136,6 +136,7 @@ enum Root {
 };
 
 enum TimeDivision {
+    TIME_DIVISION_THIRTYTWO,
     TIME_DIVISION_SIXTEENTH,
     TIME_DIVISION_EIGHT,
     TIME_DIVISION_FOURTH,
@@ -235,8 +236,12 @@ typedef struct {
 
 typedef struct {
     CvPatternAB pitches;
-    //TimeDivision time_division;
 } ChordPatternAB;
+
+typedef struct {
+    TimeDivision pattern[16];
+    TimeDivision time_division;
+} IntervalPattern;
 
 typedef struct {
     unsigned long last_pressed;
@@ -259,17 +264,6 @@ typedef struct {
     bool drum_fill;
 } UiState;
 
-UiState init_ui_state()
-{
-    UiState ui_state = {0};
-    ui_state.bsp_button_state = 0x00;
-    ui_state.bsp_pad_state = 0x00;
-    ui_state.control_mode = CONTROL_MODE_NORMAL;
-    
-    ui_state.drum_fill = false;
-    return ui_state;
-}
-
 typedef struct {
     GatePattern16 ac_522_pattern;
     GatePatternAB bd_522_pattern;
@@ -282,6 +276,10 @@ typedef struct {
     GatePattern64 oh_522_pattern;
     GatePatternAB cy_522_pattern;
     GatePattern64 sd_522_pattern;
+
+    bool use_hh_int;
+    IntervalPattern hh_int_pattern;
+
 
     PitchStorage storage;
 } Settings522;
@@ -334,7 +332,7 @@ typedef struct {
 
 typedef struct {
     Scale scale;
-    uint8_t ticks_counter;
+    uint8_t ticks;
     long step;
 
     ChordPatternAB harmony;

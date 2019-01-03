@@ -30,7 +30,7 @@ void randomize_503_seq(ApplicationData& data)
 
 void play_503(ApplicationData& data)
 {
-    if (data.ticks_counter % TICKS_PER_STEP != 0)
+    if (data.ticks % TICKS_PER_STEP != 0)
     {
         return;
     }
@@ -53,28 +53,28 @@ void play_503(ApplicationData& data)
     }
 
     uint8_t velocity = 63;
-    if (gate(data.settings_503.ac_pattern, data.step))
+    if (gate(data.settings_503.ac_pattern, data.step, data.ticks))
     {
         velocity = 127;
     }
 
-    if (gate(data.settings_503.bd_pattern, data.step) && !data.uiState.kill_low)
+    if (gate(data.settings_503.bd_pattern, data.step, data.ticks) && !data.uiState.kill_low)
     {
         note_on(NOTE_503_BD, 127, MIDI_CHANNEL_503, data.settings_503.storage);
     }
-    if (gate(data.settings_503.sd_pattern, data.step) && !data.uiState.kill_mid)
+    if (gate(data.settings_503.sd_pattern, data.step, data.ticks) && !data.uiState.kill_mid)
     {
         note_on(NOTE_503_SD, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
     }
 
-    bool oh = gate(data.settings_503.oh_pattern, data.step);
-    if (gate(data.settings_503.hh_pattern, data.step) && !oh && !data.uiState.kill_high)
-    {
-        note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
-    }
-    if (oh && !data.uiState.kill_high)
+    bool hh = gate(data.settings_503.hh_pattern, data.step, data.ticks);
+    if (gate(data.settings_503.oh_pattern, data.step, data.ticks) && !hh && !data.uiState.kill_high)
     {
         note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
+    }
+    if (hh && !data.uiState.kill_high)
+    {
+        note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
     }
 }
 

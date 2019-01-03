@@ -18,7 +18,7 @@ void randomize_P50_seq(ApplicationData& data)
 
 void play_P50(ApplicationData& data)
 { 
-    if (data.ticks_counter % TICKS_PER_STEP != 0)
+    if (data.ticks % TICKS_PER_STEP != 0)
     {
         return;
     }
@@ -32,7 +32,7 @@ void play_P50(ApplicationData& data)
     }
 
     uint8_t note_nr = cv(pattern.pitches, data.step);
-    if (gate(data.settings_p50.gates, data.step) && data.settings_p50.play_chords)
+    if (gate(data.settings_p50.gates, data.step, data.ticks) && data.settings_p50.play_chords)
     {    
         uint8_t root = apply_scale(note_nr, data.scale, data.settings_p50.octave);
         uint8_t third = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);

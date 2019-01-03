@@ -83,7 +83,7 @@ void randomize_rocket_seq(ApplicationData& data)
 
 void play_rocket(ApplicationData& data)
 {
-    if (data.ticks_counter % TICKS_PER_STEP != 0)
+    if (data.ticks % TICKS_PER_STEP != 0)
     {
         return;
     }
@@ -91,7 +91,7 @@ void play_rocket(ApplicationData& data)
     SettingsRocket& rocket = data.settings_rocket;
   
     uint8_t velocity = rocket.low_velocity;
-    if (gate(rocket.accents, data.step))
+    if (gate(rocket.accents, data.step, data.ticks))
     {
         velocity = rocket.high_velocity;
     }
@@ -112,7 +112,7 @@ void play_rocket(ApplicationData& data)
     if (cv(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127))
     {
         uint8_t length = 32;
-        if (!gate(rocket.slides, data.step))
+        if (!gate(rocket.slides, data.step, data.ticks))
         {
             all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
             length = 6;

@@ -120,6 +120,7 @@
     <ClInclude Include="euclid.h" />
     <ClInclude Include="gate.h" />
     <ClInclude Include="init.h" />
+    <ClInclude Include="intervals.h" />
     <ClInclude Include="lead.h" />
     <ClInclude Include="rand.h" />
     <ClInclude Include="randomize.h" />

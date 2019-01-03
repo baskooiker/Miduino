@@ -315,10 +315,10 @@ void handleClock()
     stop_notes_all_instruments();
     play_all();
 
-    data.ticks_counter += 1;
-    if (data.ticks_counter >= TICKS_PER_STEP)
+    data.ticks += 1;
+    if (data.ticks >= TICKS_PER_STEP)
     {
-        data.ticks_counter = 0;
+        data.ticks = 0;
         data.step = (data.step + 1) % COMMON_DENOMINATOR;
     }
 }
@@ -469,7 +469,7 @@ void handleStop()
     all_notes_off(data.settings_lead.storage, MIDI_CHANNEL_LEAD);
 
     data.step = 0;
-    data.ticks_counter = 0;
+    data.ticks = 0;
 }
 
 void setup() {
