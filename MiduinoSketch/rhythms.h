@@ -246,6 +246,10 @@ GatePatternAB init_gate_pattern_ab()
     randomize(pattern.patterns[1], .5f);
     randomize(pattern.patterns[2], .5f);
     set_ab_pattern(pattern.abPattern);
+
+    pattern.length = 64;
+    pattern.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+
     return pattern;
 }
 

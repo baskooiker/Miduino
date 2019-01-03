@@ -64,9 +64,9 @@ void randomize_rocket_seq(ApplicationData& data)
 {
     CvPatternAB& p_pattern = data.settings_rocket.pitches;
 
-    randomize_octaves(data.settings_rocket.octaves.patterns[0], 2, 5);
-    randomize_octaves(data.settings_rocket.octaves.patterns[1], 2, 5);
-    randomize_octaves(data.settings_rocket.octaves.patterns[2], 2, 5);
+    randomize_octaves(data.settings_rocket.octaves.patterns[0], 2, 4);
+    randomize_octaves(data.settings_rocket.octaves.patterns[1], 2, 4);
+    randomize_octaves(data.settings_rocket.octaves.patterns[2], 2, 4);
     set_ab_pattern(data.settings_rocket.octaves.abPattern);
 
     randomize_notes(data.settings_rocket.pitches.patterns[0], data.scale.length);
@@ -104,17 +104,19 @@ void play_rocket(ApplicationData& data)
     uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);
     if (variable_octave < data.settings_rocket.pitch_range)
     {
-        octave += variable_octave % 3;
+        octave += variable_octave % 3 + 1;
     }
 
     uint8_t p_pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
     if (cv(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127))
     {
+        uint8_t length = 32;
         if (!gate(rocket.slides, data.step))
         {
             all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
+            length = 6;
         }
-        note_on(p_pitch, velocity, MIDI_CHANNEL_ROCKET, data.settings_rocket.storage);
+        note_on(p_pitch, velocity, MIDI_CHANNEL_ROCKET, data.settings_rocket.storage, length);
     }
 }

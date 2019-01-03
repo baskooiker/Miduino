@@ -110,12 +110,6 @@
 #define OH_DECAY  58
 #define HH_DECAY  59
 
-#define CC_CUTOFF    74
-#define CC_RESONANCE 71
-#define CC_ENV_MOD   73
-#define CC_OSC_WAVE  70
-#define CC_OSC_TUNE  79
-
 ///////////
 // Enums
 ///////////
@@ -147,6 +141,7 @@ enum TimeDivision {
     TIME_DIVISION_FOURTH,
     TIME_DIVISION_HALF,
     TIME_DIVISION_WHOLE,
+    TIME_DIVISION_TRIPLE_EIGHT
 };
 
 ////////////
@@ -180,12 +175,9 @@ typedef struct {
 typedef struct {
     CvPattern patterns[3];
     uint8_t abPattern[4];
+    TimeDivision time_division;
+    uint8_t length;
 } CvPatternAB;
-
-//typedef struct {
-//    SignedCvPattern patterns[3];
-//    uint8_t abPattern[4];
-//} SignedCvPatternAB;
 
 typedef uint16_t BinaryPattern;
 
@@ -202,6 +194,8 @@ typedef struct {
 typedef struct {
     BinaryPattern patterns[3];
     uint8_t abPattern[4];
+    TimeDivision time_division;
+    uint8_t length;
 } GatePatternAB;
 
 #define HOLD_NOTE 0xFF
@@ -241,12 +235,19 @@ typedef struct {
 
 typedef struct {
     CvPatternAB pitches;
-    TimeDivision time_division;
+    //TimeDivision time_division;
 } ChordPatternAB;
+
+typedef struct {
+    unsigned long last_pressed;
+} ButtonState;
 
 typedef struct {
     uint16_t bsp_button_state;
     uint16_t bsp_pad_state;
+
+    ButtonState step_state[16];
+    ButtonState pad_state[16];
 
     ControlMode control_mode;
 
@@ -343,8 +344,6 @@ typedef struct {
     Settings503 settings_503;
     SettingsRocket settings_rocket;
     SettingsLead settings_lead;
-
-    ArpData arp_data;
 
     UiState uiState;
 } ApplicationData;

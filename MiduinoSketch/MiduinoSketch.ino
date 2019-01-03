@@ -25,50 +25,55 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
     switch (pitch)
     {
     case BSP_PAD_01:
+        data.uiState.pad_state[0].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_C;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
-            data.uiState.kill_low = true;
+            data.uiState.kill_low = !data.uiState.kill_low;
         }
         set_pad_state(data.uiState, 0, true);
         break;
     case BSP_PAD_02:
+        data.uiState.pad_state[1].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_D;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
-            data.uiState.kill_mid = true;
+            data.uiState.kill_mid = !data.uiState.kill_mid;
         }
         set_pad_state(data.uiState, 1, true);
         break;
     case BSP_PAD_03:
+        data.uiState.pad_state[2].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_E;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
-            data.uiState.kill_perc = true;
+            data.uiState.kill_perc = !data.uiState.kill_perc;
         }
         set_pad_state(data.uiState, 2, true);
         break;
     case BSP_PAD_04:
+        data.uiState.pad_state[3].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_F;
         }
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
-            data.uiState.kill_high = true;
+            data.uiState.kill_high = !data.uiState.kill_high;
         }
         set_pad_state(data.uiState, 3, true);
         break;
     case BSP_PAD_05:
+        data.uiState.pad_state[4].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_G;
@@ -76,6 +81,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 4, true);
         break;
     case BSP_PAD_06:
+        data.uiState.pad_state[5].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_A;
@@ -83,6 +89,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 5, true);
         break;
     case BSP_PAD_07:
+        data.uiState.pad_state[6].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_B;
@@ -90,9 +97,11 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 6, true);
         break;
     case BSP_PAD_08:
+        data.uiState.pad_state[7].last_pressed = millis();
         set_pad_state(data.uiState, 7, true);
         break;
     case BSP_PAD_09:
+        data.uiState.pad_state[8].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_C_SHARP;
@@ -104,6 +113,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 8, true);
         break;
     case BSP_PAD_10:
+        data.uiState.pad_state[9].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_D_SHARP;
@@ -111,9 +121,11 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 9, true);
         break;
     case BSP_PAD_11:
+        data.uiState.pad_state[10].last_pressed = millis();
         set_pad_state(data.uiState, 10, true);
         break;
     case BSP_PAD_12:
+        data.uiState.pad_state[11].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_F_SHARP;
@@ -121,6 +133,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 11, true);
         break;
     case BSP_PAD_13:
+        data.uiState.pad_state[12].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_G_SHARP;
@@ -128,6 +141,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 12, true);
         break;
     case BSP_PAD_14:
+        data.uiState.pad_state[13].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.scale.root = ROOT_A_SHARP;
@@ -135,9 +149,11 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         set_pad_state(data.uiState, 13, true);
         break;
     case BSP_PAD_15:
+        data.uiState.pad_state[14].last_pressed = millis();
         set_pad_state(data.uiState, 14, true);
         break;
     case BSP_PAD_16:
+        data.uiState.pad_state[15].last_pressed = millis();
         if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
         {
             data.uiState.control_mode = CONTROL_MODE_ROOT;
@@ -149,69 +165,137 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
     }
 }
 
+bool was_pressed_long(ButtonState& state)
+{
+    unsigned long t = millis();
+    if (t > state.last_pressed)
+    {
+        return (t - state.last_pressed) > 500;
+    }
+    return true;
+}
+
 void handleNoteOff(byte channel, byte pitch, byte velocity)
 {
     switch (pitch)
     {
     case BSP_PAD_01:
-        data.uiState.kill_low = false;
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[0]);
+        if (p_long)
+        {
+            data.uiState.kill_low = false;
+        }
         set_pad_state(data.uiState, 0, false);
+    }
         break;
     case BSP_PAD_02:
-        data.uiState.kill_mid = false;
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[1]);
+        if (p_long)
+        {
+            data.uiState.kill_mid = false;
+        }
         set_pad_state(data.uiState, 1, false);
+    }
         break;
     case BSP_PAD_03:
-        data.uiState.kill_perc = false;
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[2]);
+        if (p_long)
+        {
+            data.uiState.kill_perc = false;
+        }
         set_pad_state(data.uiState, 2, false);
         break;
+    }
     case BSP_PAD_04:
-        data.uiState.kill_high = false;
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[3]);
+        if (p_long)
+        {
+            data.uiState.kill_high = false;
+        }
         set_pad_state(data.uiState, 3, false);
         break;
+    }
     case BSP_PAD_05:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[4]);
         set_pad_state(data.uiState, 4, false);
         break;
+    }
     case BSP_PAD_06:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[5]);
         set_pad_state(data.uiState, 5, false);
         break;
+    }
     case BSP_PAD_07:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[6]);
         set_pad_state(data.uiState, 6, false);
         break;
+    }
     case BSP_PAD_08:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[7]);
         if (data.uiState.control_mode == CONTROL_MODE_ROOT)
         {
             data.uiState.control_mode = CONTROL_MODE_NORMAL;
         }
         set_pad_state(data.uiState, 7, false);
         break;
-        case BSP_PAD_09:
-        {
-            data.uiState.drum_fill = false;
-        }
+    }
+    case BSP_PAD_09:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[8]);
+        data.uiState.drum_fill = false;
         set_pad_state(data.uiState, 8, false);
         break;
+    }
     case BSP_PAD_10:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[9]);
         set_pad_state(data.uiState, 9, false);
         break;
+    }
     case BSP_PAD_11:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[10]);
         set_pad_state(data.uiState, 10, false);
         break;
+    }
     case BSP_PAD_12:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[11]);
         set_pad_state(data.uiState, 11, false);
         break;
+    }
     case BSP_PAD_13:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[12]);
         set_pad_state(data.uiState, 12, false);
         break;
+    }
     case BSP_PAD_14:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[13]);
         set_pad_state(data.uiState, 13, false);
         break;
+    }
     case BSP_PAD_15:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[14]);
         set_pad_state(data.uiState, 14, false);
         break;
+    }
     case BSP_PAD_16:
+    {
+        boolean p_long = was_pressed_long(data.uiState.pad_state[15]);
         set_pad_state(data.uiState, 15, false);
         break;
+    }
     default:
         break;
     }
@@ -261,10 +345,11 @@ void handleControlChange(byte channel, byte number, byte value)
         data.settings_rocket.gate_density = value;
         break;
     case BSP_KNOB_14:
-        data.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);
+        data.settings_lead.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);
         break;
     case BSP_KNOB_16:
         break;
+
     case BSP_STEP_01:
         if (value == 0)
         {
@@ -272,30 +357,61 @@ void handleControlChange(byte channel, byte number, byte value)
             randomize_503_seq(data);
             randomize_522_seq(data);
         }
+        else
+        {
+            data.uiState.step_state[0].last_pressed = millis();
+        }
         break;
     case BSP_STEP_02:
         if (value == 0)
         {
+        }
+        else
+        {
+            data.uiState.step_state[1].last_pressed = millis();
         }
         break;
     case BSP_STEP_03:
         if (value == 0)
         {
         }
+        else
+        {
+            data.uiState.step_state[2].last_pressed = millis();
+        }
         break;
     case BSP_STEP_09:
         if (value == 0)
         {
             set_chords(data.harmony, 0);
-            randomize_arp(data.arp_data);
+            randomize_arp(data.settings_lead.arp_data);
+            data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+
             randomize_P50_seq(data);
+        }
+        else
+        {
+            data.uiState.step_state[8].last_pressed = millis();
         }
         break;
     case BSP_STEP_10:
         if (value == 0)
         {
             set_chord_pattern_ab(data.harmony);
-            set_ab_pattern_low(data.harmony.pitches.abPattern);
+            if (randf() < .5)
+            {
+                set_ab_pattern_low(data.harmony.pitches.abPattern);
+                data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+            }
+            else
+            {
+                set_ab_pattern_high(data.harmony.pitches.abPattern);
+                data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_EIGHT;
+            }
+        }
+        else
+        {
+            data.uiState.step_state[9].last_pressed = millis();
         }
         break;
     case BSP_STEP_11:
@@ -303,24 +419,33 @@ void handleControlChange(byte channel, byte number, byte value)
         {
             set_chord_pattern_ab(data.harmony);
             set_ab_pattern_high(data.harmony.pitches.abPattern);
+            data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+        }
+        else
+        {
+            data.uiState.step_state[10].last_pressed = millis();
         }
         break;
     case BSP_STEP_12:
-        if (value == 0)
-        {
-            set_chord_pattern_ab(data.harmony);
-        }
         break;
     case BSP_STEP_13:
         if (value == 0)
         {
             root_rocket_seq(data);
         }
+        else
+        {
+            data.uiState.step_state[12].last_pressed = millis();
+        }
         break;
     case BSP_STEP_14:
         if (value == 0)
         {
             modify_rocket_seq(data);
+        }
+        else
+        {
+            data.uiState.step_state[13].last_pressed = millis();
         }
         break;
     case BSP_STEP_15:
