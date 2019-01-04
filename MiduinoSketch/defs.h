@@ -136,13 +136,13 @@ enum Root {
 };
 
 enum TimeDivision {
-    TIME_DIVISION_THIRTYTWO,
-    TIME_DIVISION_SIXTEENTH,
-    TIME_DIVISION_EIGHT,
-    TIME_DIVISION_FOURTH,
-    TIME_DIVISION_HALF,
-    TIME_DIVISION_WHOLE,
-    TIME_DIVISION_TRIPLE_EIGHT
+    TIME_DIVISION_THIRTYTWO = 32,
+    TIME_DIVISION_SIXTEENTH = 16,
+    TIME_DIVISION_EIGHT = 8,
+    TIME_DIVISION_FOURTH = 4,
+    TIME_DIVISION_HALF = 2,
+    TIME_DIVISION_WHOLE = 1,
+    TIME_DIVISION_TRIPLE_EIGHT = 12
 };
 
 ////////////
@@ -214,22 +214,6 @@ typedef struct {
 } PitchStorage;
 
 typedef struct {
-    GatePattern64 accents;
-    CvPatternAB pitches;
-    CvPatternAB octaves;
-    CvPatternAB variable_octaves;
-    GatePatternAB slides;
-    CvPatternAB probs;
-
-    uint8_t gate_density;
-    uint8_t low_velocity;
-    uint8_t high_velocity;
-    uint8_t pitch_range;
-
-    PitchStorage storage;
-} SettingsRocket;
-
-typedef struct {
     CvPattern64 pitches;
     GatePattern64 gates;
 } ChordPattern;
@@ -242,6 +226,15 @@ typedef struct {
     TimeDivision pattern[16];
     TimeDivision time_division;
 } IntervalPattern;
+
+typedef struct {
+    float p_t8;
+    float p_4;
+    float p_8;
+    float p_32;
+} IntervalProbs;
+static const IntervalProbs hat_interval_probs = { .05f, .0f , .2f, .15f };
+static const IntervalProbs arp_interval_probs = { .0f , .15f, .3f, .0f  };
 
 typedef struct {
     unsigned long last_pressed;
@@ -263,6 +256,25 @@ typedef struct {
 
     bool drum_fill;
 } UiState;
+
+typedef struct {
+    GatePattern64 accents;
+    CvPatternAB pitches;
+    CvPatternAB octaves;
+    CvPatternAB variable_octaves;
+    GatePatternAB slides;
+    CvPatternAB probs;
+
+    IntervalPattern int_pattern;
+
+    uint8_t gate_density;
+    uint8_t low_velocity;
+    uint8_t high_velocity;
+    uint8_t pitch_range;
+    bool use_int_pattern;
+
+    PitchStorage storage;
+} SettingsRocket;
 
 typedef struct {
     GatePattern16 ac_522_pattern;
@@ -288,6 +300,8 @@ enum ArpType {
     UP,
     DOWN,
     UPDOWN,
+    PICKING_IN,
+    PICKING_OUT,
     RANDOM
 };
 

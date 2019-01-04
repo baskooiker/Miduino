@@ -21,6 +21,8 @@ void root_rocket_seq(ApplicationData& data)
     data.settings_rocket.accents = init_percussive_pattern_64();
     randomize_cv(data.settings_rocket.probs);
     randomize_cv(data.settings_rocket.variable_octaves);
+
+    randomize_interval_hats(data.settings_rocket.int_pattern, arp_interval_probs);
 }
 
 void modify_rocket_seq(ApplicationData& data)
@@ -78,15 +80,17 @@ void randomize_rocket_seq(ApplicationData& data)
 
     randomize_cv(data.settings_rocket.probs);
 
+    randomize_interval_hats(data.settings_rocket.int_pattern, arp_interval_probs);
+
     data.settings_rocket.accents = init_percussive_pattern_64();
 }
 
 void play_rocket(ApplicationData& data)
 {
-    if (data.ticks % TICKS_PER_STEP != 0)
-    {
-        return;
-    }
+//    if (data.ticks % TICKS_PER_STEP != 0)
+//    {
+//        return;
+//    }
 
     SettingsRocket& rocket = data.settings_rocket;
   
@@ -109,9 +113,18 @@ void play_rocket(ApplicationData& data)
 
     uint8_t p_pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
-    if (cv(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127))
+    bool hit = false;
+    if (rocket.use_int_pattern)
     {
-        uint8_t length = 32;
+        hit = interval_hit(rocket.int_pattern, data.step, data.ticks);
+    }
+    else
+    {
+        hit = (cv(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127)) && (data.ticks % 6 == 0);
+    }
+    if (hit)
+    {
+        uint8_t length = 12;
         if (!gate(rocket.slides, data.step, data.ticks))
         {
             all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);

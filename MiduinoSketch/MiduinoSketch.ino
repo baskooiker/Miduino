@@ -343,6 +343,7 @@ void handleControlChange(byte channel, byte number, byte value)
         break;
     case BSP_KNOB_08:
         data.settings_rocket.gate_density = value;
+        data.settings_rocket.use_int_pattern = value < 64;
         break;
     case BSP_KNOB_14:
         data.settings_lead.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);

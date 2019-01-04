@@ -45,7 +45,7 @@ void randomize_522_seq(ApplicationData& data)
     }
     else
     {
-        randomize_interval_hats(data.settings_522.hh_int_pattern);
+        randomize_interval_hats(data.settings_522.hh_int_pattern, hat_interval_probs);
         data.settings_522.use_hh_int = true;
     }
 
@@ -107,8 +107,7 @@ void play_522(ApplicationData& data)
     }
     else 
     {
-        TimeDivision div = interval(data.settings_522.hh_int_pattern, data.step, data.ticks);
-        if (get_step(div, data.step, data.ticks) != NO_STEP)
+        if (interval_hit(data.settings_522.hh_int_pattern, data.step, data.ticks))
         {
             note_on(NOTE_522_HH, velocity, MIDI_CHANNEL_522, settings.storage);
         }
