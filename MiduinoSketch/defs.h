@@ -302,6 +302,7 @@ enum ArpType {
     UPDOWN,
     PICKING_IN,
     PICKING_OUT,
+    CLOSEST,
     RANDOM
 };
 
@@ -310,6 +311,7 @@ typedef struct {
     uint8_t range;
     uint8_t counter;
     ArpType type;
+    uint8_t last_note;
 } ArpData;
 
 typedef struct {
