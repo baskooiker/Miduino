@@ -1,6 +1,4 @@
-
-#ifndef BASSLINES_H
-#define BASSLINES_H
+#pragma once
 
 #include "defs.h"
 #include "init.h"
@@ -13,14 +11,6 @@ void fill_bar(CvPattern& pattern, const uint8_t value)
         pattern[i] = value;
     }
 }
-
-//void fill_bar(SignedCvPattern& pattern, const int8_t value)
-//{
-//    for (uint8_t i = 0; i < 16; i++)
-//    {
-//        pattern[i] = value;
-//    }
-//}
 
 void fill_bar(CvPattern64* pattern, const uint8_t bar_nr, const uint8_t value)
 {
@@ -53,6 +43,3 @@ uint8_t apply_scale(uint8_t note_nr, Scale scale, uint8_t octave)
     note += octave * 12; // Transpose octaves
     return note;
 }
-
-#endif // BASSLINES_H
-

@@ -145,6 +145,34 @@ enum TimeDivision {
     TIME_DIVISION_TRIPLE_EIGHT = 12
 };
 
+enum NoteRange {
+    RangeRoot,
+    RangeChord,
+    RangeScale
+};
+
+enum RocketStyle {
+    RocketWhole,
+    RocketSixteenths,
+    RocketProb,
+    RocketArpInterval
+};
+
+enum ArpType {
+    UP,
+    DOWN,
+    UPDOWN,
+    PICKING_IN,
+    PICKING_OUT,
+    CLOSEST,
+    RANDOM
+};
+
+enum LeadStyle {
+    LeadSixteenths,
+    LeadIntPattern
+};
+
 ////////////
 // Structs
 ////////////
@@ -271,7 +299,8 @@ typedef struct {
     uint8_t low_velocity;
     uint8_t high_velocity;
     uint8_t pitch_range;
-    bool use_int_pattern;
+    RocketStyle style;
+    NoteRange note_range;
 
     PitchStorage storage;
 } SettingsRocket;
@@ -296,16 +325,6 @@ typedef struct {
     PitchStorage storage;
 } Settings522;
 
-enum ArpType {
-    UP,
-    DOWN,
-    UPDOWN,
-    PICKING_IN,
-    PICKING_OUT,
-    CLOSEST,
-    RANDOM
-};
-
 typedef struct {
     uint8_t min;
     uint8_t range;
@@ -318,7 +337,6 @@ typedef struct {
     GatePatternAB gates;
     uint8_t octave;
     bool play_chords;
-    bool play_arp;
     uint8_t arp_velocity;
     uint8_t chords_velocity;
     PitchStorage storage;
@@ -342,7 +360,9 @@ typedef struct {
 
 typedef struct {
     ArpData arp_data;
-
+    IntervalPattern int_pattern;
+    CvPatternAB min_pitch_pattern;
+    LeadStyle style;
     PitchStorage storage;
 } SettingsLead;
 

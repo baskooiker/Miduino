@@ -333,24 +333,46 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_KNOB_05:
         data.settings_p50.play_chords = value > 0;
         data.settings_p50.chords_velocity = value;
-        break;
+        break;  
     case BSP_KNOB_06:
-        data.settings_p50.play_arp = value > 0;
-        data.settings_p50.arp_velocity = value;
+    {
+        if (value < 64)
+            data.settings_lead.style = LeadStyle::LeadIntPattern;
+        else
+            data.settings_lead.style = LeadStyle::LeadSixteenths;
         break;
+    }
     case BSP_KNOB_07:
         data.settings_rocket.pitch_range = value;
         break;
     case BSP_KNOB_08:
-        data.settings_rocket.gate_density = value;
-        data.settings_rocket.use_int_pattern = value < 64;
+        data.settings_rocket.gate_density = value / 2 + 64;
+        if (value < 10)
+            data.settings_rocket.style = RocketWhole;
+        else if (value < 64)
+            data.settings_rocket.style = RocketArpInterval;
+        else if (value < 120)
+            data.settings_rocket.style = RocketProb;
+        else
+            data.settings_rocket.style = RocketSixteenths;
         break;
     case BSP_KNOB_14:
         data.settings_lead.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);
         break;
     case BSP_KNOB_16:
+        if (value < 10)
+        {
+            data.settings_rocket.note_range = NoteRange::RangeRoot;
+        }
+        else if (value < 120)
+        {
+            data.settings_rocket.note_range = NoteRange::RangeChord;
+        }
+        else
+        {
+            data.settings_rocket.note_range = NoteRange::RangeScale;
+        }
         break;
-
     case BSP_STEP_01:
         if (value == 0)
         {
@@ -385,7 +407,6 @@ void handleControlChange(byte channel, byte number, byte value)
         if (value == 0)
         {
             set_chords(data.harmony, 0);
-            randomize_arp(data.settings_lead.arp_data);
             data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
 
             randomize_P50_seq(data);
@@ -428,11 +449,15 @@ void handleControlChange(byte channel, byte number, byte value)
         }
         break;
     case BSP_STEP_12:
+        if (value == 0)
+        {
+            randomize_lead(data);
+        }
         break;
     case BSP_STEP_13:
         if (value == 0)
         {
-            root_rocket_seq(data);
+            randomize_rocket_seq(data);
         }
         else
         {
@@ -491,7 +516,8 @@ void setup() {
     randomize_503_seq(data);
     randomize_522_seq(data);
     randomize_P50_seq(data);
-    root_rocket_seq(data);
+    randomize_rocket_seq(data);
+    randomize_lead(data);
 }
 
 void note_on(uint8_t note, uint8_t velocity, uint8_t channel, PitchStorage& storage, uint8_t length)
