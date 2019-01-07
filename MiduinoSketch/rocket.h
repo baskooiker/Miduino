@@ -23,7 +23,7 @@
     randomize_cv(data.settings_rocket.probs);
     randomize_cv(data.settings_rocket.variable_octaves);
 
-    randomize_interval_hats(data.settings_rocket.int_pattern, arp_interval_probs);
+    randomize_interval(data.settings_rocket.int_pattern, arp_interval_probs);
 }*/
 
 void modify_rocket_seq(ApplicationData& data)
@@ -77,11 +77,14 @@ void randomize_rocket_seq(ApplicationData& data)
     randomize_notes(data.settings_rocket.pitches.patterns[2], data.scale.length);
     set_ab_pattern(data.settings_rocket.pitches.abPattern);
 
+    set_euclid_ab(data.settings_rocket.euclid_pattern, 16, 5);
+    
     set_random_pattern_ab(data.settings_rocket.slides, .25f);
 
     randomize_cv(data.settings_rocket.probs);
+    randomize_cv(data.settings_rocket.note_range_prob);
 
-    randomize_interval_hats(data.settings_rocket.int_pattern, arp_interval_probs);
+    randomize_interval(data.settings_rocket.int_pattern, arp_interval_probs);
 
     data.settings_rocket.accents = init_percussive_pattern_64();
     randomize_cv(data.settings_rocket.variable_octaves);
@@ -105,6 +108,9 @@ void play_rocket(ApplicationData& data)
     case RocketStyle::RocketWhole:
         hit = interval_hit(TimeDivision::TIME_DIVISION_WHOLE, data.step, data.ticks);
         break;
+    case RocketEuclid:
+        hit = gate(rocket.euclid_pattern, data.step, data.ticks);
+        break;
     case RocketStyle::RocketArpInterval:
         hit = interval_hit(rocket.int_pattern, data.step, data.ticks);
         break;
@@ -121,17 +127,26 @@ void play_rocket(ApplicationData& data)
     {
         // Pitch
         uint8_t note_nr = 0;
-        if (data.settings_rocket.note_range != NoteRange::RangeRoot)
+        uint8_t note_range_p = cv(data.settings_rocket.note_range_prob, data.step);
+        if (note_range_p < data.settings_rocket.note_range_value)
         {
-            if (data.settings_rocket.note_range == NoteRange::RangeChord)
+            if (data.settings_rocket.note_range_value < 64)
             {
                 note_nr = to_chord_order(cv(rocket.pitches, data.step));
             }
             else
             {
-                note_nr = cv(rocket.pitches, data.step);
+                if (note_range_p % 64 < data.settings_rocket.note_range_value % 64)
+                {
+                    note_nr = cv(rocket.pitches, data.step);
+                }
+                else
+                {
+                    note_nr = to_chord_order(cv(rocket.pitches, data.step));
+                }
             }
         }
+
         uint8_t harmony = cv(data.harmony.pitches, data.step);
         uint8_t octave = get_octave(rocket.octaves, data.step);
         uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);

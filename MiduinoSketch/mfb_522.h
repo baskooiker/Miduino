@@ -38,14 +38,14 @@ void randomize_522_seq(ApplicationData& data)
         set_euclid(data.settings_522.hh_522_pattern.patterns[0], steps[0], gates);
         data.settings_522.hh_522_pattern.length = steps[0];
         
-        gates = randi(MAX((uint8_t)steps[1] * .3, 2), (uint8_t)steps[1] * .8);
+        gates = randi(MAX((uint8_t)steps[1] * .3, 2), (uint8_t)(steps[1] * .8));
         set_euclid(data.settings_522.hh_522_pattern.patterns[0], steps[1], gates);
         data.settings_522.hh_522_pattern.length = steps[1];
         data.settings_522.use_hh_int = false;
     }
     else
     {
-        randomize_interval_hats(data.settings_522.hh_int_pattern, hat_interval_probs);
+        randomize_interval(data.settings_522.hh_int_pattern, hat_interval_probs);
         data.settings_522.use_hh_int = true;
     }
 

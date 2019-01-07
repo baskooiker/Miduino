@@ -25,6 +25,9 @@
     <Filter Include="Header Files\generators">
       <UniqueIdentifier>{19bcf0ca-c99c-45eb-a746-20964f13a8ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\defs">
+      <UniqueIdentifier>{43c88b97-2eed-444f-bb66-c74c35203613}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MiduinoSketch.ino" />
@@ -34,9 +37,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="basslines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="midi_io.h">
@@ -101,6 +101,18 @@
     </ClInclude>
     <ClInclude Include="intervals.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="pitch.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="defs.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="consts.h">
+      <Filter>Header Files\defs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
