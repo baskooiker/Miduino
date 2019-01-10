@@ -79,7 +79,7 @@ void randomize_rocket_seq(ApplicationData& data)
 
     set_euclid_ab(data.settings_rocket.euclid_pattern, 16, 5);
     
-    set_random_pattern_ab(data.settings_rocket.slides, .25f);
+    set_random_pattern_ab(data.settings_rocket.slides, .15f);
 
     randomize_cv(data.settings_rocket.probs);
     randomize_cv(data.settings_rocket.note_range_prob);
@@ -157,8 +157,12 @@ void play_rocket(ApplicationData& data)
         uint8_t pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
         // Note length
-        uint8_t length = 12;
-        if (!gate(rocket.slides, data.step, data.ticks))
+        uint8_t length = 6;
+        if (gate(rocket.slides, data.step, data.ticks))
+        {
+            length = TIE_NOTE;
+        }
+        else
         {
             all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
             length = 6;

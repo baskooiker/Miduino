@@ -54,9 +54,11 @@ typedef struct {
 } GatePatternAB;
 
 #define HOLD_NOTE 0xFF
+#define TIE_NOTE 0xFE
 
 typedef struct {
     uint8_t pitch;
+    uint8_t velocity;
     uint8_t length;
 } NoteStruct;
 

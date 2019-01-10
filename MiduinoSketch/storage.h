@@ -12,17 +12,18 @@ void add_to_storage(PitchStorage& s, uint8_t pitch, uint8_t length = HOLD_NOTE)
             return;
         }
     }
-    s.data[s.size++] = { pitch, length };
+    // TODO: fix fixed velocity
+    s.data[s.size++] = { pitch, 64, length };
 }
 
 NoteStruct pop_from_storage(PitchStorage& s)
 {
 	if (s.size > 0) {
         NoteStruct v = s.data[s.size];
-        s.data[s.size--] = { 0, 0 };
+        s.data[s.size--] = { 0, 0, 0 };
 		return v;
 	}
-    return {0, 0};
+    return {0, 0, 0};
 }
 
 NoteStruct pop_from_storage(PitchStorage& s, uint8_t pitch)
@@ -36,7 +37,7 @@ NoteStruct pop_from_storage(PitchStorage& s, uint8_t pitch)
 			return v;
 		}
 	}
-    return {0, 0};
+    return {0, 0, 0};
 }
 
 void stop_notes(PitchStorage& storage, uint8_t channel)
@@ -45,6 +46,7 @@ void stop_notes(PitchStorage& storage, uint8_t channel)
     for (uint8_t i = 0; i < storage.size; i++)
     {
         if (storage.data[i].length != HOLD_NOTE
+            && storage.data[i].length != TIE_NOTE
             && storage.data[i].length > 0)
         {
             storage.data[i].length -= 1;
@@ -56,6 +58,17 @@ void stop_notes(PitchStorage& storage, uint8_t channel)
         if (storage.data[i].length == 0)
         {
             note_off(storage.data[i].pitch, channel, storage);
+        }
+    }
+}
+
+void untie_notes(PitchStorage& storage)
+{
+    for (uint8_t i = 0; i < storage.size; i++)
+    {
+        if (storage.data[i].length == TIE_NOTE)
+        {
+            storage.data[i].length = 0;
         }
     }
 }
