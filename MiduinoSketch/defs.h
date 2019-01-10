@@ -110,6 +110,7 @@ typedef struct {
     bool kill_perc;
 
     bool drum_fill;
+    bool drum_roll;
 } UiState;
 
 typedef struct {

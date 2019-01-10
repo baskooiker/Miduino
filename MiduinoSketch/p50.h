@@ -18,18 +18,22 @@ void randomize_P50_seq(ApplicationData& data)
 
     // Set pattern low
     steps = randi(3, 4);
-    set_euclid(data.settings_p50.gates_low.patterns[0], 16, steps);
+    uint8_t length = steps == 4 ? 15 : 16;
+
     if (randi(4) < 2)
     {
         data.settings_p50.gates_low.patterns[1] = 0x00;
-        data.settings_p50.gates_low.patterns[2] = 0x00;
+        set_euclid(data.settings_p50.gates_low.patterns[0], length, steps);
     }
     else
     {
-        set_euclid(data.settings_p50.gates_low.patterns[1], 16, steps);
-        set_euclid(data.settings_p50.gates_low.patterns[2], 16, steps);
+        data.settings_p50.gates_low.patterns[0] = 0x00;
+        set_euclid(data.settings_p50.gates_low.patterns[1], length, steps);
     }
-    set_ab_pattern(data.settings_p50.gates_low.abPattern);
+
+    data.settings_p50.gates_low.patterns[2] = 0x00;
+    set_ab_pattern_high(data.settings_p50.gates_low.abPattern);
+    data.settings_p50.gates_low.length = 16;
 }
 
 void play_P50(ApplicationData& data)

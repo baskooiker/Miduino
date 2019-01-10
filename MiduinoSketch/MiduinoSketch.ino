@@ -118,6 +118,10 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         {
             data.scale.root = ROOT_D_SHARP;
         }
+        else
+        {
+            data.uiState.drum_roll = true;
+        }
         set_pad_state(data.uiState, 9, true);
         break;
     case BSP_PAD_11:
@@ -256,7 +260,7 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
     }
     case BSP_PAD_10:
     {
-        boolean p_long = was_pressed_long(data.uiState.pad_state[9]);
+        data.uiState.drum_roll = false;
         set_pad_state(data.uiState, 9, false);
         break;
     }

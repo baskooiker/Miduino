@@ -5,6 +5,7 @@
 #include "defs.h"
 #include "euclid.h"
 #include "gate.h"
+#include "intervals.h"
 #include "midi_io.h"
 #include "rhythms.h"
 
@@ -28,28 +29,73 @@ void randomize_503_seq(ApplicationData& data)
     }
 }
 
+void play_fill(ApplicationData& data)
+{
+    static TimeDivision division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+    if (interval_hit(TimeDivision::TIME_DIVISION_TRIPLE_EIGHT, data.step, data.ticks))
+    {
+        uint8_t r = randi(16);
+        if (r < 3)
+        {
+            division = TimeDivision::TIME_DIVISION_THIRTYTWO;
+        }
+        else
+        {
+            division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+        }
+    }
+
+    if (!interval_hit(division, data.step, data.ticks)) 
+        return;
+
+    uint8_t p = 0;
+    switch (randi(7))
+    {
+    case 0: p = NOTE_503_BD; break;
+    case 1: p = NOTE_503_SD; break;
+    case 2: p = NOTE_503_LT; break;
+    case 3: p = NOTE_503_MT; break;
+    case 4: p = NOTE_503_HT; break;
+    case 5: p = NOTE_503_OH; break;
+    case 6: p = NOTE_503_HH; break;
+    }
+    note_on(p, 127, MIDI_CHANNEL_503, data.settings_503.storage);
+}
+
+void play_roll(ApplicationData& data)
+{
+
+    static TimeDivision division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+    if (interval_hit(TimeDivision::TIME_DIVISION_TRIPLE_EIGHT, data.step, data.ticks))
+    {
+        uint8_t r = randi(16);
+        if (r < 3)
+        {
+            division = TimeDivision::TIME_DIVISION_THIRTYTWO;
+        }
+        else
+        {
+            division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+        }
+    }
+
+    if (interval_hit(division, data.step, data.ticks))
+    {
+        uint8_t velocity = 127;
+        note_on(NOTE_503_SD, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
+    }
+}
+
 void play_503(ApplicationData& data)
 {
-    if (data.ticks % TICKS_PER_STEP != 0)
-    {
-        return;
-    }
     if (data.uiState.drum_fill)
     {
-        uint8_t p = 0;
-        switch (randi(8))
-        {
-        case 0: p = NOTE_503_BD; break;
-        case 1: p = NOTE_503_SD; break;
-        case 2: p = NOTE_503_LT; break;
-        case 3: p = NOTE_503_MT; break;
-        case 4: p = NOTE_503_HT; break;
-        case 5: p = NOTE_503_CY; break;
-        case 6: p = NOTE_503_OH; break;
-        case 7: p = NOTE_503_HH; break;
-        }
-        note_on(p, 127, MIDI_CHANNEL_503, data.settings_503.storage);
-        return;
+        return play_fill(data);
+    }
+
+    if (data.uiState.drum_roll)
+    {
+        play_roll(data);
     }
 
     uint8_t velocity = 63;
@@ -78,10 +124,10 @@ void play_503(ApplicationData& data)
     }
 }
 
-RandomParam random_503_params[] = {
+const RandomParam random_503_params[] = {
   {BD_LEVEL , 126, 127},
-  {BD_TUNE  ,   0, 64 },
-  {BD_PITCH ,   0, 64 },
+  {BD_TUNE  ,  16, 64 },
+  {BD_PITCH ,  16, 64 },
   {BD_DRIVE ,   0, 127},
   {BD_ATTACK,   0, 127},
 
@@ -95,7 +141,7 @@ RandomParam random_503_params[] = {
   {OH_DECAY ,   0, 64 },
   {HH_DECAY ,   0, 64 },
 };
-uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
+const uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
 
 void randomize_503_sound()
 {
