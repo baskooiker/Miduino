@@ -3,8 +3,11 @@
 #include <MIDI.h>
 
 #include "basslines.h"
+#include "chords.h"
+#include "cv.h"
 #include "defs.h"
 #include "init.h"
+#include "rand.h"
 #include "rhythms.h"
 #include "storage.h"
 #include "scales.h"
@@ -308,12 +311,12 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
 
 void stop_notes_all_instruments()
 {
-    stop_notes(data.settings_503.storage, MIDI_CHANNEL_503);
-    stop_notes(data.settings_522.storage, MIDI_CHANNEL_522);
-    stop_notes(data.settings_p50.storage, MIDI_CHANNEL_P50);
+    stop_notes(data.settings_503.storage,    MIDI_CHANNEL_503);
+    stop_notes(data.settings_522.storage,    MIDI_CHANNEL_522);
+    stop_notes(data.settings_p50.storage,    MIDI_CHANNEL_P50);
     stop_notes(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
-    stop_notes(data.settings_lead.storage, MIDI_CHANNEL_LEAD);
-    stop_notes(data.settings_mono.storage, MIDI_CHANNEL_MONO);
+    stop_notes(data.settings_lead.storage,   MIDI_CHANNEL_LEAD);
+    stop_notes(data.settings_mono.storage,   MIDI_CHANNEL_MONO);
 }
 
 void handleClock()
@@ -415,8 +418,8 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_STEP_09:
         if (value == 0)
         {
-            set_chords(data.harmony, 0);
-            data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+            set_all(data.harmony, 0);
+            data.harmony.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
 
             randomize_P50_seq(data);
         }
@@ -431,13 +434,13 @@ void handleControlChange(byte channel, byte number, byte value)
             set_chord_pattern_ab(data.harmony);
             if (randf() < .5)
             {
-                set_ab_pattern_low(data.harmony.pitches.abPattern);
-                data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+                set_ab_pattern_low(data.harmony.abPattern);
+                data.harmony.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
             }
             else
             {
-                set_ab_pattern_high(data.harmony.pitches.abPattern);
-                data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_EIGHT;
+                set_ab_pattern_high(data.harmony.abPattern);
+                data.harmony.time_division = TimeDivision::TIME_DIVISION_EIGHT;
             }
         }
         else
@@ -449,8 +452,8 @@ void handleControlChange(byte channel, byte number, byte value)
         if (value == 0)
         {
             set_chord_pattern_ab(data.harmony);
-            set_ab_pattern_high(data.harmony.pitches.abPattern);
-            data.harmony.pitches.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+            set_ab_pattern_high(data.harmony.abPattern);
+            data.harmony.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
         }
         else
         {

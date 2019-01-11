@@ -4,6 +4,16 @@
 #include "enums.h"
 
 typedef struct {
+    float one;
+    float two;
+    float three;
+    float four;
+    float eights;
+    float up;
+    float down;
+} Coefficients;
+
+typedef struct {
   uint8_t note;
   uint8_t min;
   uint8_t max;  
@@ -143,12 +153,12 @@ typedef struct {
     GatePattern16 lo_tom_522_pattern;
     GatePattern16 mi_tom_522_pattern;
     GatePattern16 rs_522_pattern;
-    GatePattern64 clave_522_pattern;
-    GatePattern16 clap_522_pattern;
-    GatePattern64 hh_522_pattern;
-    GatePattern64 oh_522_pattern;
+    GatePatternAB clave_522_pattern;
+    GatePatternAB clap_522_pattern;
+    GatePatternAB hh_522_pattern;
+    GatePatternAB oh_522_pattern;
     GatePatternAB cy_522_pattern;
-    GatePattern64 sd_522_pattern;
+    GatePatternAB sd_522_pattern;
 
     bool use_hh_int;
     IntervalPattern hh_int_pattern;
@@ -211,7 +221,7 @@ typedef struct {
     uint8_t ticks;
     long step;
 
-    ChordPatternAB harmony;
+    CvPatternAB harmony;
 
     SettingsP50 settings_p50;
     Settings522 settings_522;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defs.h"
+#include "midi_io.h"
 
 void add_to_storage(PitchStorage& s, uint8_t pitch, uint8_t length = HOLD_NOTE)
 {

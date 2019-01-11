@@ -43,7 +43,7 @@ void play_P50(ApplicationData& data)
         return;
     }
 
-    ChordPatternAB& pattern = data.harmony;
+    CvPatternAB& pattern = data.harmony;
     uint8_t velocity = data.settings_p50.chords_velocity;
 
     if (data.step % 16 == 0)
@@ -59,7 +59,7 @@ void play_P50(ApplicationData& data)
     case PolyType::PolyHigh: hit = gate(data.settings_p50.gates, data.step, data.ticks); break;
     }
 
-    uint8_t note_nr = cv(pattern.pitches, data.step);
+    uint8_t note_nr = cv(pattern, data.step);
     if (hit)
     {
         all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);

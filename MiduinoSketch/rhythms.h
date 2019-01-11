@@ -4,16 +4,6 @@
 #include "gate.h"
 #include "utils.h"
 
-static const uint8_t SD_PATTERNS[][16] = {
-  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-  {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0},
-  {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-};
-static const uint8_t NR_SD_PATTERNS = sizeof(SD_PATTERNS) / sizeof(*SD_PATTERNS);
-
 GatePattern16 get_empty_gate_pattern()
 {
     GatePattern16 gates = {0};

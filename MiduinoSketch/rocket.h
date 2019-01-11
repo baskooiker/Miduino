@@ -5,28 +5,6 @@
 #include "pitch.h"
 #include "scales.h"
 #include "rand.h"
-#include "randomize.h"
-
-//void modify_rocket_seq(ApplicationData& data)
-//{
-//    CvPatternAB& p_pattern = data.settings_rocket.pitches;
-//    for (int i = 0; i < 3; i++)
-//    {
-//        for (int j = 0; j < NOTES_IN_BAR; j++)
-//        {
-//            if (randf() < .25)
-//            {
-//                p_pattern.patterns[i][j] = data.scale.notes[data.scale.length];
-//            }
-//            if (randf() < .25)
-//            {
-//                data.settings_rocket.octaves.patterns[i][j] = randi(2, 5);
-//            }
-//        }
-//    }
-//    randomize(data.settings_rocket.slides, .25f);
-//    data.settings_rocket.accents = init_percussive_pattern_64();
-//}
 
 void randomize_rocket_seq(ApplicationData& data)
 {
@@ -105,7 +83,7 @@ void play_rocket(ApplicationData& data)
             }
         }
 
-        uint8_t harmony = cv(data.harmony.pitches, data.step);
+        uint8_t harmony = cv(data.harmony, data.step);
         uint8_t octave = get_octave(rocket.octaves, data.step);
         uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);
         if (variable_octave < data.settings_rocket.pitch_range)

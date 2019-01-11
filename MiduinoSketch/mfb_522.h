@@ -1,5 +1,4 @@
-#ifndef MFB_522_H
-#define MFB_522_H
+#pragma once
 
 #include "cv.h"
 #include "defs.h"
@@ -18,16 +17,17 @@ void randomize_522_seq(ApplicationData& data)
     data.settings_522.lo_tom_522_pattern = init_percussive_pattern(.25);
     data.settings_522.mi_tom_522_pattern = init_percussive_pattern(.25);
     data.settings_522.rs_522_pattern = init_percussive_pattern(.25);
-    data.settings_522.clave_522_pattern = init_percussive_pattern_64(.25);
-    data.settings_522.sd_522_pattern = init_percussive_pattern_64(.50);
+    randomize(data.settings_522.clave_522_pattern, .25);
+    randomize(data.settings_522.sd_522_pattern, .50);
 
-    data.settings_522.clap_522_pattern = init_pattern(SD_PATTERNS[randi(NR_SD_PATTERNS)], 16);
+    set_coef_snare_pattern(data.settings_522.clap_522_pattern);
 
     float r = randf();
     if (r < .25)
     {
-        data.settings_522.hh_522_pattern = init_percussive_pattern_64(.75);
-        data.settings_522.oh_522_pattern = init_percussive_pattern_64(.25);
+        randomize(data.settings_522.hh_522_pattern, .25f);
+        randomize(data.settings_522.oh_522_pattern, .25f);
+
         data.settings_522.use_hh_int = false;
     }
     else if (r < .5)
@@ -113,5 +113,3 @@ void play_522(ApplicationData& data)
         }
     }
 }
-
-#endif // MFB_522_H

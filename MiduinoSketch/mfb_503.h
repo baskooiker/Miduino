@@ -7,6 +7,7 @@
 #include "gate.h"
 #include "intervals.h"
 #include "midi_io.h"
+#include "rand.h"
 #include "rhythms.h"
 
 void randomize_503_seq(ApplicationData& data)
@@ -15,7 +16,8 @@ void randomize_503_seq(ApplicationData& data)
 
     set_coef_kick_pattern(data.settings_503.bd_pattern);
 
-    data.settings_503.sd_pattern = init_pattern(SD_PATTERNS[randi(NR_SD_PATTERNS)], 16);
+    // TODO: Use set_coef_snare_pattern
+    //data.settings_503.sd_pattern = init_pattern(SD_PATTERNS[randi(NR_SD_PATTERNS)], 16);
 
     if (randf() < .5)
     {
