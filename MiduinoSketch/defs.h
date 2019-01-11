@@ -116,7 +116,7 @@ typedef struct {
 } UiState;
 
 typedef struct {
-    GatePattern64 accents;
+    GatePatternAB accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
     CvPatternAB variable_octaves;
@@ -201,6 +201,12 @@ typedef struct {
 } SettingsLead;
 
 typedef struct {
+    ArpData arp_data;
+    IntervalPattern int_pattern;
+    PitchStorage storage;
+} SettingsMono;
+
+typedef struct {
     Scale scale;
     uint8_t ticks;
     long step;
@@ -212,6 +218,7 @@ typedef struct {
     Settings503 settings_503;
     SettingsRocket settings_rocket;
     SettingsLead settings_lead;
+    SettingsMono settings_mono;
 
     UiState uiState;
 } ApplicationData;

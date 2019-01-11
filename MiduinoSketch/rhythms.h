@@ -253,7 +253,7 @@ GatePatternAB init_gate_pattern_ab()
     return pattern;
 }
 
-void set_random_pattern_ab(GatePatternAB& pattern, float prob = .5f)
+void randomize(GatePatternAB& pattern, float prob = .5f)
 {
     randomize(pattern.patterns[0], prob);
     randomize(pattern.patterns[1], prob);

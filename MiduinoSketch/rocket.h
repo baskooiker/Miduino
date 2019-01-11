@@ -7,87 +7,45 @@
 #include "rand.h"
 #include "randomize.h"
 
-/*void root_rocket_seq(ApplicationData& data)
-{
-    CvPatternAB& p_pattern = data.settings_rocket.pitches;
-    fill_bar(p_pattern.patterns[0], 0);
-    fill_bar(p_pattern.patterns[1], 0);
-    fill_bar(p_pattern.patterns[2], 0);
-
-    fill_bar(data.settings_rocket.octaves.patterns[0], 3);
-    fill_bar(data.settings_rocket.octaves.patterns[1], 3);
-    fill_bar(data.settings_rocket.octaves.patterns[2], 3);
-
-    set_random_pattern_ab(data.settings_rocket.slides, .25f);
-    data.settings_rocket.accents = init_percussive_pattern_64();
-    randomize_cv(data.settings_rocket.probs);
-    randomize_cv(data.settings_rocket.variable_octaves);
-
-    randomize_interval(data.settings_rocket.int_pattern, arp_interval_probs);
-}*/
-
-void modify_rocket_seq(ApplicationData& data)
-{
-    CvPatternAB& p_pattern = data.settings_rocket.pitches;
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < NOTES_IN_BAR; j++)
-        {
-            if (randf() < .25)
-            {
-                p_pattern.patterns[i][j] = data.scale.notes[data.scale.length];
-            }
-            if (randf() < .25)
-            {
-                data.settings_rocket.octaves.patterns[i][j] = randi(2, 5);
-            }
-        }
-    }
-    set_random_pattern_ab(data.settings_rocket.slides, .25f);
-    data.settings_rocket.accents = init_percussive_pattern_64();
-}
-
-void randomize_octaves(CvPattern& pattern, uint8_t min, uint8_t max)
-{
-    for (uint8_t i = 0; i < NOTES_IN_BAR; i++)
-    {
-        pattern[i] = randi(min, max);
-    }
-}
-
-void randomize_notes(CvPattern& pattern, uint8_t range)
-{
-    for (uint8_t i = 0; i < NOTES_IN_BAR; i++)
-    {
-        pattern[i] = randi(range);
-    }
-}
+//void modify_rocket_seq(ApplicationData& data)
+//{
+//    CvPatternAB& p_pattern = data.settings_rocket.pitches;
+//    for (int i = 0; i < 3; i++)
+//    {
+//        for (int j = 0; j < NOTES_IN_BAR; j++)
+//        {
+//            if (randf() < .25)
+//            {
+//                p_pattern.patterns[i][j] = data.scale.notes[data.scale.length];
+//            }
+//            if (randf() < .25)
+//            {
+//                data.settings_rocket.octaves.patterns[i][j] = randi(2, 5);
+//            }
+//        }
+//    }
+//    randomize(data.settings_rocket.slides, .25f);
+//    data.settings_rocket.accents = init_percussive_pattern_64();
+//}
 
 void randomize_rocket_seq(ApplicationData& data)
 {
     CvPatternAB& p_pattern = data.settings_rocket.pitches;
 
-    randomize_octaves(data.settings_rocket.octaves.patterns[0], 2, 4);
-    randomize_octaves(data.settings_rocket.octaves.patterns[1], 2, 4);
-    randomize_octaves(data.settings_rocket.octaves.patterns[2], 2, 4);
-    set_ab_pattern(data.settings_rocket.octaves.abPattern);
-
-    randomize_notes(data.settings_rocket.pitches.patterns[0], data.scale.length);
-    randomize_notes(data.settings_rocket.pitches.patterns[1], data.scale.length);
-    randomize_notes(data.settings_rocket.pitches.patterns[2], data.scale.length);
-    set_ab_pattern(data.settings_rocket.pitches.abPattern);
+    randomize(data.settings_rocket.octaves, 2, 4);
+    randomize(data.settings_rocket.pitches, data.scale.length);
 
     set_euclid_ab(data.settings_rocket.euclid_pattern, 16, 5);
     
-    set_random_pattern_ab(data.settings_rocket.slides, .15f);
+    randomize(data.settings_rocket.slides, .15f);
 
-    randomize_cv(data.settings_rocket.probs);
-    randomize_cv(data.settings_rocket.note_range_prob);
+    randomize(data.settings_rocket.probs);
+    randomize(data.settings_rocket.note_range_prob);
 
     randomize_interval(data.settings_rocket.int_pattern, arp_interval_probs);
 
-    data.settings_rocket.accents = init_percussive_pattern_64();
-    randomize_cv(data.settings_rocket.variable_octaves);
+    randomize(data.settings_rocket.accents, .5f);
+    randomize(data.settings_rocket.variable_octaves);
 }
 
 void play_rocket(ApplicationData& data)

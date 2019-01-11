@@ -124,6 +124,7 @@
     <ClInclude Include="enums.h" />
     <ClInclude Include="intervals.h" />
     <ClInclude Include="lead.h" />
+    <ClInclude Include="mono.h" />
     <ClInclude Include="pitch.h" />
     <ClInclude Include="rand.h" />
     <ClInclude Include="randomize.h" />

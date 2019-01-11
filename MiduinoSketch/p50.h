@@ -69,15 +69,6 @@ void play_P50(ApplicationData& data)
         pitches[1].pitch = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
         pitches[2].pitch = apply_scale(note_nr + 4, data.scale, data.settings_p50.octave);
 
-        pitches[0].length = 6;
-        pitches[1].length = 6;
-        pitches[2].length = 6;
-
-        pitches[0].velocity = velocity;
-        pitches[1].velocity = velocity;
-        pitches[2].velocity = velocity;
-
-        //note_on(pitches, 3, MIDI_CHANNEL_P50, data.settings_p50.storage);
         note_on(pitches[0].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
         note_on(pitches[1].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
         note_on(pitches[2].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);

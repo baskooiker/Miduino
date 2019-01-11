@@ -13,6 +13,7 @@
 #include "lead.h"
 #include "mfb_503.h"
 #include "mfb_522.h"
+#include "mono.h"
 #include "p50.h"
 #include "rocket.h"
 
@@ -312,6 +313,7 @@ void stop_notes_all_instruments()
     stop_notes(data.settings_p50.storage, MIDI_CHANNEL_P50);
     stop_notes(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
     stop_notes(data.settings_lead.storage, MIDI_CHANNEL_LEAD);
+    stop_notes(data.settings_mono.storage, MIDI_CHANNEL_MONO);
 }
 
 void handleClock()
@@ -404,6 +406,12 @@ void handleControlChange(byte channel, byte number, byte value)
             data.uiState.step_state[2].last_pressed = millis();
         }
         break;
+    case BSP_STEP_08:
+        if (value == 0)
+        {
+            randomize_mono(data);
+        }
+        break;
     case BSP_STEP_09:
         if (value == 0)
         {
@@ -466,14 +474,6 @@ void handleControlChange(byte channel, byte number, byte value)
         }
         break;
     case BSP_STEP_14:
-        if (value == 0)
-        {
-            modify_rocket_seq(data);
-        }
-        else
-        {
-            data.uiState.step_state[13].last_pressed = millis();
-        }
         break;
     case BSP_STEP_15:
     case BSP_STEP_16:
@@ -494,6 +494,7 @@ void handleStop()
     all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
     all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
     all_notes_off(data.settings_lead.storage, MIDI_CHANNEL_LEAD);
+    all_notes_off(data.settings_mono.storage, MIDI_CHANNEL_MONO);
 
     data.step = 0;
     data.ticks = 0;
@@ -519,9 +520,10 @@ void setup() {
     randomize_P50_seq(data);
     randomize_rocket_seq(data);
     randomize_lead(data);
+    randomize_mono(data);
 }
 
-void note_on(uint8_t note, uint8_t velocity, uint8_t channel, PitchStorage& storage, uint8_t length)
+void note_on(const uint8_t note, const uint8_t velocity, const uint8_t channel, PitchStorage& storage, const uint8_t length)
 {
     untie_notes(storage);
     NoteStruct stored = pop_from_storage(storage, note);
@@ -533,20 +535,20 @@ void note_on(uint8_t note, uint8_t velocity, uint8_t channel, PitchStorage& stor
     add_to_storage(storage, note, length);
 }
 
-void note_on(const NoteStruct* notes, const uint8_t length, const uint8_t channel, PitchStorage& storage)
-{
-    untie_notes(storage);
-    for (int i = 0; i < length; i++)
-    {
-        NoteStruct stored = pop_from_storage(storage, notes[i].pitch);
-        if (stored.pitch > 0)
-        {
-            MIDI.sendNoteOff(notes[i].pitch, 0, channel);
-        }
-        MIDI.sendNoteOn(notes[i].pitch, notes[i].velocity, channel);
-        add_to_storage(storage, notes[i].pitch, notes[i].length);
-    }
-}
+//void note_on(const NoteStruct* notes, const uint8_t length, const uint8_t channel, PitchStorage& storage)
+//{
+//    untie_notes(storage);
+//    for (int i = 0; i < length; i++)
+//    {
+//        NoteStruct stored = pop_from_storage(storage, notes[i].pitch);
+//        if (stored.pitch > 0)
+//        {
+//            MIDI.sendNoteOff(notes[i].pitch, 0, channel);
+//        }
+//        MIDI.sendNoteOn(notes[i].pitch, notes[i].velocity, channel);
+//        add_to_storage(storage, notes[i].pitch, notes[i].length);
+//    }
+//}
 
 void note_off(uint8_t note, uint8_t channel, PitchStorage& storage)
 {
@@ -578,6 +580,7 @@ void play_all()
     play_rocket(data);
     play_P50(data);
     play_lead(data);
+    play_mono(data);
 }
 
 void loop() {

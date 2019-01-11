@@ -42,9 +42,6 @@
     <ClInclude Include="midi_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rhythms.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="scales.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="consts.h">
       <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="mono.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="rhythms.h">
+      <Filter>Header Files\rhythms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

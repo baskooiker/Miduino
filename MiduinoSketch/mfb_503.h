@@ -20,12 +20,12 @@ void randomize_503_seq(ApplicationData& data)
     if (randf() < .5)
     {
         set_coef_hat_pattern(data.settings_503.oh_pattern);
-        set_random_pattern_ab(data.settings_503.hh_pattern, 0.f);
+        randomize(data.settings_503.hh_pattern, 0.f);
     }
     else
     {
         set_coef_hat_pattern(data.settings_503.hh_pattern);
-        set_random_pattern_ab(data.settings_503.oh_pattern, 0.f);
+        randomize(data.settings_503.oh_pattern, 0.f);
     }
 }
 
@@ -147,7 +147,8 @@ void randomize_503_sound()
 {
     for (int i = 0; i < nr_random_503_params; i++)
     {
-        RandomParam* p = &random_503_params[i];
-        send_cc(p->note, randi(p->min, p->max), MIDI_CHANNEL_503);
+        send_cc(random_503_params[i].note, 
+                randi(random_503_params[i].min, random_503_params[i].max), 
+                MIDI_CHANNEL_503);
     }
 }
