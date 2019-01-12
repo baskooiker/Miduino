@@ -4,3 +4,5 @@
 
 **/Release
 **/__vm
+**/Debug
+**/x64
