@@ -30,7 +30,7 @@ bool gate(const GatePatternAB& pattern, const uint32_t step, const uint8_t tick)
     return gate(pattern.patterns[sub_part], sub_step);
 }
 
-void set_gate(BinaryPattern& pattern, const uint8_t index, const bool value)
+void set_gate(BinaryPattern& pattern, const uint8_t index, const bool value = true)
 {
     // TODO
     if (value)
