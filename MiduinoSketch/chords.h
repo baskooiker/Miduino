@@ -1,6 +1,8 @@
 #pragma once
 
 #include "cv.h"
+#include "rhythms.h"
+#include "utils.h"
 
 void set_chord_pattern_ab(CvPatternAB& pattern)
 {
@@ -13,15 +15,29 @@ void set_chord_pattern_ab(CvPatternAB& pattern)
     set_ab_pattern(pattern.abPattern);
 }
 
-bool is_in_chord(const uint8_t pitch, const Scale& scale, const uint8_t chord)
+bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size)
 {
-    // TODO
-    uint8_t note = (pitch + 12 - scale.root) % 12;
-    for (int i = 0; i < scale.length; i++)
+    for (int i = 0; i < size; i++)
     {
-        if (note == scale.notes[i])
+        if (pitch == set[i])
             return true;
     }
     return false;
 }
 
+bool is_in_scale(const uint8_t pitch, const Scale& scale)
+{
+    return is_in_set((pitch + 12 - scale.root) % 12, scale.notes, scale.length);
+}
+
+bool is_in_chord(const uint8_t pitch, const Scale& scale, const uint8_t chord)
+{
+    for (int i = 0; i < 5; i+=2)
+    {
+        uint8_t note = ((pitch + 12 - scale.root) % 12);
+        uint8_t chord_note = scale.notes[(i + chord) % scale.length];
+        if (note == chord_note)
+            return true;
+    }
+    return false;
+}

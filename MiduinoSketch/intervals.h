@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defs.h"
+#include "rand.h"
 
 TimeDivision interval(const IntervalPattern& pattern, const uint32_t step, const uint8_t tick)
 {
@@ -24,5 +25,48 @@ bool interval_hit(const IntervalPattern& pattern, const uint32_t step, const uin
 void randomize_interval(IntervalPattern& pattern, const IntervalProbs probs)
 {
     // TODO
+    for (int i = 0; i < 16; i++)
+    {
+        if (i % 2 == 0)
+        {
+            // Alles kan
+            switch (distribution(probs.p_4, probs.p_8 * 2, probs.p_16 * 2, probs.p_32 * 2, probs.p_t8 * 2))
+            {
+            case 0: pattern.pattern[i] = TimeDivision::TIME_DIVISION_FOURTH; break;
+            case 1: pattern.pattern[i] = TimeDivision::TIME_DIVISION_EIGHT; break;
+            case 2: pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH; break;
+            case 3: pattern.pattern[i] = TimeDivision::TIME_DIVISION_THIRTYTWO; break;
+            case 4: pattern.pattern[i] = TimeDivision::TIME_DIVISION_TRIPLE_EIGHT; break;
+            }
+        }
+        else if (i == 16)
+        {
+            // Alles behalve triplets en kwarten
+            switch (distribution(probs.p_8, probs.p_16, probs.p_32))
+            {
+            case 0: pattern.pattern[i] = TimeDivision::TIME_DIVISION_EIGHT; break;
+            case 1: pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH; break;
+            case 2: pattern.pattern[i] = TimeDivision::TIME_DIVISION_THIRTYTWO; break;
+            }
+        }
+        else
+        {
+            // alles behalve triplets
+            switch (distribution(probs.p_4, probs.p_8 * 2, probs.p_16 * 2, probs.p_32 * 2))
+            {
+            case 0: pattern.pattern[i] = TimeDivision::TIME_DIVISION_FOURTH; break;
+            case 1: pattern.pattern[i] = TimeDivision::TIME_DIVISION_EIGHT; break;
+            case 2: pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH; break;
+            case 3: pattern.pattern[i] = TimeDivision::TIME_DIVISION_THIRTYTWO; break;
+            }
+        }
+
+        if (pattern.pattern[i] == TimeDivision::TIME_DIVISION_FOURTH
+            || pattern.pattern[i] == TimeDivision::TIME_DIVISION_TRIPLE_EIGHT)
+        {
+            pattern.pattern[i + 1] = pattern.pattern[i];
+            i++;
+        }
+    }
 }
 

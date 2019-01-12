@@ -1,5 +1,7 @@
 #pragma once
 
+#include "defs.h"
+
 bool gate(const BinaryPattern& pattern, const uint32_t step)
 {
     // TODO
