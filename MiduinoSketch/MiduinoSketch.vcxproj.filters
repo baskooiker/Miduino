@@ -51,21 +51,6 @@
     <ClInclude Include="ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="init.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="chords.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="euclid.h">
-      <Filter>Header Files\rhythms</Filter>
-    </ClInclude>
-    <ClInclude Include="rand.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="coef.h">
-      <Filter>Header Files\rhythms</Filter>
-    </ClInclude>
     <ClInclude Include="mfb_503.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
@@ -78,32 +63,29 @@
     <ClInclude Include="rocket.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="randomize.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arp.h">
-      <Filter>Header Files\generators</Filter>
-    </ClInclude>
-    <ClInclude Include="lead.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="cv.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="gate.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="utils.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="intervals.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="pitch.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="defs.h">
       <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="rhythms.h">
+      <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
+    <ClInclude Include="arp.h">
+      <Filter>Header Files\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="euclid.h">
+      <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
+    <ClInclude Include="init.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lead.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="mono.h">
+      <Filter>Header Files\instruments</Filter>
     </ClInclude>
     <ClInclude Include="enums.h">
       <Filter>Header Files\defs</Filter>
@@ -111,11 +93,32 @@
     <ClInclude Include="consts.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
-    <ClInclude Include="mono.h">
-      <Filter>Header Files\instruments</Filter>
+    <ClInclude Include="cv.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="rhythms.h">
+    <ClInclude Include="chords.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="rand.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="gate.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="intervals.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="coef.h">
       <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
+    <ClInclude Include="pitch.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="randomize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="print.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

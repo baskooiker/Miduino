@@ -1,6 +1,7 @@
 #pragma once
 
 #include "arp.h"
+#include "basslines.h"
 #include "defs.h"
 #include "euclid.h"
 #include "midi_io.h"

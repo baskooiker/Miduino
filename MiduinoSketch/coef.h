@@ -1,5 +1,7 @@
 #pragma once
 
+#include "defs.h"
+
 void set_coef_pattern(GatePatternAB& pattern, const Coefficients coef)
 {
     // TODO

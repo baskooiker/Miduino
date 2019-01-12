@@ -1,5 +1,6 @@
 #pragma once
 
+#include "basslines.h"
 #include "defs.h"
 #include "midi_io.h"
 #include "pitch.h"

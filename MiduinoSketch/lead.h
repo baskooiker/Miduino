@@ -1,6 +1,7 @@
 #pragma once
 
 #include "arp.h"
+#include "cv.h"
 #include "intervals.h"
 #include "midi_io.h"
 
@@ -28,7 +29,7 @@ void play_lead(ApplicationData& data)
     if (hit)
     {
         uint8_t chord = cv(data.harmony, data.step);
-        uint8_t pitch = get_arp_pitch(data.settings_lead.arp_data, data.scale, chord, data.step, data.ticks);
+        uint8_t pitch = get_arp_pitch(data.settings_lead.arp_data, data.scale, chord);
         note_on(pitch, 64, MIDI_CHANNEL_LEAD, data.settings_lead.storage, 3);
     }
 }
