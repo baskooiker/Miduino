@@ -14,7 +14,7 @@ void randomize_rocket_seq(ApplicationData& data)
     randomize(data.settings_rocket.octaves, 2, 4);
     randomize(data.settings_rocket.pitches, data.scale.length);
 
-    set_euclid_ab(data.settings_rocket.euclid_pattern, 16, 5);
+    set_euclid(data.settings_rocket.euclid_pattern, 16, 5);
     
     randomize(data.settings_rocket.slides, .15f);
 

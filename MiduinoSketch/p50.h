@@ -12,9 +12,7 @@ void randomize_P50_seq(ApplicationData& data)
     // Set pattern high
     data.settings_p50.gates = init_gate_pattern_ab();
     uint8_t steps = randi(5, 11);
-    set_euclid(data.settings_p50.gates.patterns[0], 16, steps);
-    set_euclid(data.settings_p50.gates.patterns[1], 16, steps);
-    set_euclid(data.settings_p50.gates.patterns[2], 16, steps);
+    set_euclid(data.settings_p50.gates, 16, steps);
     set_ab_pattern(data.settings_p50.gates.abPattern);
 
     // Set pattern low

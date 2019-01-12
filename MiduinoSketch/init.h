@@ -14,6 +14,5 @@ IntervalPattern init_interval_pattern()
 ApplicationData init_application_data()
 {
     ApplicationData i = { 0 };
-    // TODO
     return i;
 }

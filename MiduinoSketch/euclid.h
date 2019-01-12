@@ -25,7 +25,7 @@ void set_euclid(BinaryPattern& pattern, const uint8_t _length, const uint8_t _st
     }
 }
 
-void set_euclid_ab(GatePatternAB& pattern, const uint8_t length, const uint8_t steps)
+void set_euclid(GatePatternAB& pattern, const uint8_t length, const uint8_t steps)
 {
     for (int i = 0; i < 3; i++)
         set_euclid(pattern.patterns[i], length, steps);
