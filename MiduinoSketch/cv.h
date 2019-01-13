@@ -23,11 +23,9 @@ uint8_t cv(const CvPattern& pattern, const uint32_t step)
 
 uint8_t cv(const CvPatternAB& pattern, const uint32_t step)
 {
-    uint32_t count = get_count(pattern.time_division, step, 0);
     uint8_t pat_length = MIN(pattern.length, 16);
-    uint8_t sub_step = count % pat_length;
-    uint8_t sub_part = count / pat_length;
-    return cv(pattern.patterns[sub_part], sub_step);
+    uint32_t count = get_count(pattern.time_division, step, 0) % (pattern.length <= 16 ? pat_length * 4 : 64);
+    return cv(pattern.patterns[pattern.abPattern[count / pat_length]], count % pat_length);
 }
 
 void randomize(CvPattern& pattern, const uint8_t max = 128, const uint8_t min = 0)

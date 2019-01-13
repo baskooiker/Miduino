@@ -21,3 +21,21 @@ void print_pattern(const GatePatternAB& pattern)
     }
     printf("\n");
 }
+
+void print_pattern(const CvPattern& pattern)
+{
+    for (int i = 0; i < 16; i++)
+    {
+        printf("%-3d ", cv(pattern, i));
+    }
+    printf("\n");
+}
+
+void print_pattern(const CvPatternAB& pattern)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        print_pattern(pattern.patterns[pattern.abPattern[i]]);
+    }
+    printf("\n");
+}
