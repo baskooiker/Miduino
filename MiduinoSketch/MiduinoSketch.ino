@@ -22,7 +22,7 @@
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-static ApplicationData data = {};
+static ApplicationData data = { 0 };
 
 void handleNoteOn(byte channel, byte pitch, byte velocity)
 {
@@ -340,8 +340,6 @@ void handleControlChange(byte channel, byte number, byte value)
         send_cc(BD_DECAY, value, MIDI_CHANNEL_503);
         break;
     case BSP_KNOB_05:
-        data.settings_p50.play_chords = value > 0;
-        data.settings_p50.chords_velocity = value;
         if (value < 10)
             data.settings_p50.type = PolyType::PolyOff;
         else if (value < 64)
@@ -517,7 +515,8 @@ void setup() {
     data = init_application_data();
 
     // Initialize patterns
-    send_cc(BD_DECAY, randi(32, 64), MIDI_CHANNEL_503);
+    //send_cc(BD_DECAY, randi(32, 64), MIDI_CHANNEL_503);\
+    set_all(data.harmony, 0);
     randomize_503_seq(data);
     randomize_522_seq(data);
     randomize_P50_seq(data);

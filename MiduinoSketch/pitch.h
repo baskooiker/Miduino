@@ -2,7 +2,6 @@
 
 uint8_t to_chord_order(const uint8_t order)
 {
-    // TODO
     if (order < 2)
         return 0;
     if (order < 4)

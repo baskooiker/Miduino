@@ -43,7 +43,7 @@ void play_P50(ApplicationData& data)
     }
 
     CvPatternAB& pattern = data.harmony;
-    uint8_t velocity = data.settings_p50.chords_velocity;
+    uint8_t velocity = 64;
 
     if (data.step % 16 == 0)
     {

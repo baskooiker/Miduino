@@ -13,11 +13,8 @@
 void randomize_503_seq(ApplicationData& data)
 {
     set_euclid(data.settings_503.ac_pattern.pattern, 16, randi(4, 13));
-
     set_coef_kick_pattern(data.settings_503.bd_pattern);
-
-    // TODO: Use set_coef_snare_pattern
-    //data.settings_503.sd_pattern = init_pattern(SD_PATTERNS[randi(NR_SD_PATTERNS)], 16);
+    set_coef_snare_pattern(data.settings_503.sd_pattern);
 
     if (randf() < .5)
     {

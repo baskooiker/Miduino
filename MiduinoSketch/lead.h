@@ -7,7 +7,6 @@
 
 void randomize_lead(ApplicationData& data)
 {
-    // TODO
     randomize_interval(data.settings_lead.int_pattern, arp_interval_probs);
     randomize(data.settings_lead.min_pitch_pattern, 60, 72);
 

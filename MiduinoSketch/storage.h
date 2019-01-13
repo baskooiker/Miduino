@@ -3,7 +3,7 @@
 #include "defs.h"
 #include "midi_io.h"
 
-void add_to_storage(PitchStorage& s, uint8_t pitch, uint8_t length = HOLD_NOTE)
+void add_to_storage(PitchStorage& s, uint8_t pitch, uint8_t length = HOLD_NOTE, const uint8_t velocity = 64)
 {
     for (uint8_t i = 0; i < s.size; i++)
     {
@@ -13,8 +13,7 @@ void add_to_storage(PitchStorage& s, uint8_t pitch, uint8_t length = HOLD_NOTE)
             return;
         }
     }
-    // TODO: fix fixed velocity
-    s.data[s.size++] = { pitch, 64, length };
+    s.data[s.size++] = { pitch, velocity, length };
 }
 
 NoteStruct pop_from_storage(PitchStorage& s)

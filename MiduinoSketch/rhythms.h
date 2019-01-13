@@ -225,24 +225,6 @@ void set_ab_pattern_high(uint8_t* ab_pattern)
         break;
     }
 }
-
-GatePatternAB init_gate_pattern_ab()
-{
-    GatePatternAB pattern;
-    pattern.patterns[0] = 0x00;
-    pattern.patterns[1] = 0x00;
-    pattern.patterns[2] = 0x00;
-    randomize(pattern.patterns[0], .5f);
-    randomize(pattern.patterns[1], .5f);
-    randomize(pattern.patterns[2], .5f);
-    set_ab_pattern(pattern.abPattern);
-
-    pattern.length = 64;
-    pattern.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
-
-    return pattern;
-}
-
 void randomize(GatePatternAB& pattern, float prob = .5f)
 {
     randomize(pattern.patterns[0], prob);

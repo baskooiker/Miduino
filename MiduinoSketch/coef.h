@@ -21,7 +21,6 @@ void set_coef_pattern(BinaryPattern& pattern, const Coefficients coef)
 
 void set_coef_pattern(GatePatternAB& pattern, const Coefficients coef)
 {
-    // TODO
     for (int i = 0; i < 3; i++)
         set_coef_pattern(pattern.patterns[i], coef);
     set_ab_pattern(pattern.abPattern);
@@ -29,7 +28,7 @@ void set_coef_pattern(GatePatternAB& pattern, const Coefficients coef)
 
 void set_coef_kick_pattern(GatePatternAB& pattern)
 {
-    Coefficients coef;
+    Coefficients coef = { 0 };
     coef.one = 1.f;
     coef.two = 1.f;
     coef.three = 1.f;
@@ -42,8 +41,7 @@ void set_coef_kick_pattern(GatePatternAB& pattern)
 
 void set_coef_snare_pattern(GatePatternAB& pattern)
 {
-    // TODO
-    Coefficients coef;
+    Coefficients coef = { 0 };
     coef.two = randf(.5f, .75f);
     coef.four = randf(.5f, .75f);
     coef.eights = randf(.125);
@@ -54,8 +52,7 @@ void set_coef_snare_pattern(GatePatternAB& pattern)
 
 void set_coef_hat_pattern(GatePatternAB& pattern)
 {
-    // TODO
-    Coefficients coef;
+    Coefficients coef = { 0 };
     coef.eights = 1.f;
     coef.up = randf(.25);
     coef.down = randf(.25);

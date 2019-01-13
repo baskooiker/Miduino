@@ -6,7 +6,6 @@
 
 void set_chord_pattern_ab(CvPatternAB& pattern)
 {
-    // TODO
     uint8_t options[] = {2, 3, 4, 5};
     randomize_order(options, 4);
     set_all(pattern.patterns[0], 0);

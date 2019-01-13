@@ -163,7 +163,6 @@ typedef struct {
     bool use_hh_int;
     IntervalPattern hh_int_pattern;
 
-
     PitchStorage storage;
 } Settings522;
 
@@ -179,10 +178,7 @@ typedef struct {
     GatePatternAB gates_low;
     GatePatternAB gates;
     uint8_t octave;
-    bool play_chords;
     PolyType type;
-    uint8_t arp_velocity;
-    uint8_t chords_velocity;
     PitchStorage storage;
 } SettingsP50;
 
@@ -195,7 +191,7 @@ typedef struct {
 typedef struct {
     GatePattern16 ac_pattern;
     GatePatternAB bd_pattern;
-    GatePattern16 sd_pattern;
+    GatePatternAB sd_pattern;
     GatePatternAB hh_pattern;
     GatePatternAB oh_pattern;
 
