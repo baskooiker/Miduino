@@ -120,5 +120,8 @@
     <ClInclude Include="print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="steps.h">
+      <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

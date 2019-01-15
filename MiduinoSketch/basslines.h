@@ -20,14 +20,6 @@ void fill_bar(CvPattern64* pattern, const uint8_t bar_nr, const uint8_t value)
     }
 }
 
-ChordPattern init_chord_pattern()
-{
-    ChordPattern chords;
-    chords.gates = init_percussive_pattern_64();
-    chords.pitches.length = 64;
-    return chords;
-}
-
 uint8_t get_octave(CvPatternAB& pattern, long step)
 {
     uint8_t s = uint8_t(step % 64);

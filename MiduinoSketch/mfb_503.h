@@ -142,7 +142,13 @@ const RandomParam random_503_params[] = {
 };
 const uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
 
-void randomize_503_sound()
+void send_bd_decay(ApplicationData& data)
+{
+    uint8_t decay = (uint8_t)((float)data.settings_503.bd_decay * (.5f + CLIP(data.uiState.bd_decay_factor, 0, 127) / 127.f));
+    send_cc(BD_DECAY, decay, MIDI_CHANNEL_503);
+}
+
+void randomize_503_sound(ApplicationData& data)
 {
     for (int i = 0; i < nr_random_503_params; i++)
     {
@@ -150,4 +156,8 @@ void randomize_503_sound()
                 randi(random_503_params[i].min, random_503_params[i].max), 
                 MIDI_CHANNEL_503);
     }
+
+
+    data.settings_503.bd_decay = randi(32, 64);
+    send_bd_decay(data);
 }

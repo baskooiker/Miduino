@@ -5,7 +5,8 @@
 IntervalPattern init_interval_pattern()
 {
     IntervalPattern pattern = { };
-    for (int i = 0; i < 16; i++)
+    pattern.length = 16;
+    for (int i = 0; i < pattern.length; i++)
     {
         pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH;
     }

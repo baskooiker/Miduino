@@ -9,6 +9,7 @@ void randomize_lead(ApplicationData& data)
 {
     randomize_interval(data.settings_lead.int_pattern, arp_interval_probs);
     randomize(data.settings_lead.min_pitch_pattern, 60, 72);
+    randomize_interval_lead(data.settings_lead.long_pattern);
 
     data.settings_lead.arp_data.type = ArpType::CLOSEST;
     data.settings_lead.arp_data.range = 12;

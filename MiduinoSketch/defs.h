@@ -80,17 +80,9 @@ typedef struct {
 } PitchStorage;
 
 typedef struct {
-    CvPattern64 pitches;
-    GatePattern64 gates;
-} ChordPattern;
-
-typedef struct {
-    CvPatternAB pitches;
-} ChordPatternAB;
-
-typedef struct {
     TimeDivision pattern[16];
     TimeDivision time_division;
+    uint8_t length;
 } IntervalPattern;
 
 typedef struct {
@@ -123,6 +115,7 @@ typedef struct {
 
     bool drum_fill;
     bool drum_roll;
+    uint8_t bd_decay_factor;
 } UiState;
 
 typedef struct {
@@ -195,12 +188,15 @@ typedef struct {
     GatePatternAB hh_pattern;
     GatePatternAB oh_pattern;
 
+    uint8_t bd_decay;
+
     PitchStorage storage;
 } Settings503;
 
 typedef struct {
     ArpData arp_data;
     IntervalPattern int_pattern;
+    IntervalPattern long_pattern;
     CvPatternAB min_pitch_pattern;
     LeadStyle style;
     PitchStorage storage;

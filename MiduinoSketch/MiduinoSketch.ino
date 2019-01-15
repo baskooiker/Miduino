@@ -337,7 +337,8 @@ void handleControlChange(byte channel, byte number, byte value)
     switch (number)
     {
     case BSP_KNOB_01:
-        send_cc(BD_DECAY, value, MIDI_CHANNEL_503);
+        data.uiState.bd_decay_factor = value;
+        send_bd_decay(data);
         break;
     case BSP_KNOB_05:
         if (value < 10)
@@ -380,7 +381,7 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_STEP_01:
         if (value == 0)
         {
-            randomize_503_sound();
+            randomize_503_sound(data);
             randomize_503_seq(data);
             randomize_522_seq(data);
         }
@@ -515,7 +516,6 @@ void setup() {
     data = init_application_data();
 
     // Initialize patterns
-    //send_cc(BD_DECAY, randi(32, 64), MIDI_CHANNEL_503);\
     set_all(data.harmony, 0);
     randomize_503_seq(data);
     randomize_522_seq(data);
@@ -523,6 +523,7 @@ void setup() {
     randomize_rocket_seq(data);
     randomize_lead(data);
     randomize_mono(data);
+    randomize_503_sound(data);
 }
 
 void note_on(const uint8_t note, const uint8_t velocity, const uint8_t channel, PitchStorage& storage, const uint8_t length)

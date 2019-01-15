@@ -71,3 +71,27 @@ void randomize_interval(IntervalPattern& pattern, const IntervalProbs probs)
     }
 }
 
+void randomize_interval_lead(IntervalPattern& pattern)
+{
+    for (int i = 0; i < pattern.length; i++)
+    {
+        pattern.pattern[i] = TimeDivision::TIME_DIVISION_WHOLE;
+    }
+    for (int bar = 0; bar < 4; bar++)
+    {
+        // 50% chance for fill in each far
+        if (randi(2) < 1)
+        {
+            // staring fill on beat 3 or 4
+            uint8_t start_beat = randi(2, 4);
+            for (int beat = start_beat; beat < 4; beat++)
+            {
+                TimeDivision time_division = randi(2) < 1 ? 
+                    TimeDivision::TIME_DIVISION_SIXTEENTH : 
+                    TimeDivision::TIME_DIVISION_EIGHT;
+                pattern.pattern[bar * 4 + beat] = time_division;
+            }
+        }
+    }
+    pattern.time_division = TimeDivision::TIME_DIVISION_FOURTH;
+}
