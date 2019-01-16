@@ -53,7 +53,7 @@ void stop_notes(PitchStorage& storage, uint8_t channel)
         }
     }
 
-    for (uint8_t i = 0; i < storage.size; i++)
+    for (int i = storage.size-1; i >= 0; i--)
     {
         if (storage.data[i].length == 0)
         {

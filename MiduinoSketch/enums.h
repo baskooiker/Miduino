@@ -65,3 +65,8 @@ enum PolyType {
     PolyLow,
     PolyHigh
 };
+
+enum HatStyle {
+    HatOffBeat,
+    HatFull
+};

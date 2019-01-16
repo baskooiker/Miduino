@@ -2,7 +2,6 @@
 
 #include <MIDI.h>
 
-#include "basslines.h"
 #include "chords.h"
 #include "cv.h"
 #include "defs.h"
@@ -124,7 +123,7 @@ void handleNoteOn(byte channel, byte pitch, byte velocity)
         }
         else
         {
-            data.uiState.drum_roll = true;
+            data.uiState.drum_roll = velocity;
         }
         set_pad_state(data.uiState, 9, true);
         break;
@@ -340,10 +339,14 @@ void handleControlChange(byte channel, byte number, byte value)
         data.uiState.bd_decay_factor = value;
         send_bd_decay(data);
         break;
+    case BSP_KNOB_02:
+        if (value < 64)
+            data.settings_503.hat_style = HatStyle::HatOffBeat;
+        else
+            data.settings_503.hat_style = HatStyle::HatFull;
+        break;
     case BSP_KNOB_05:
-        if (value < 10)
-            data.settings_p50.type = PolyType::PolyOff;
-        else if (value < 64)
+        if (value < 64)
             data.settings_p50.type = PolyType::PolyLow;
         else
             data.settings_p50.type = PolyType::PolyHigh;
@@ -371,6 +374,12 @@ void handleControlChange(byte channel, byte number, byte value)
             data.settings_rocket.style = RocketProb;
         else
             data.settings_rocket.style = RocketSixteenths;
+        break;
+    case BSP_KNOB_09:
+        data.settings_503.velocity_tom = value;
+        break;
+    case BSP_KNOB_10:
+        data.settings_503.velocity_cy = value;
         break;
     case BSP_KNOB_14:
         data.settings_lead.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);
@@ -517,12 +526,14 @@ void setup() {
 
     // Initialize patterns
     set_all(data.harmony, 0);
+
     randomize_503_seq(data);
     randomize_522_seq(data);
     randomize_P50_seq(data);
     randomize_rocket_seq(data);
     randomize_lead(data);
     randomize_mono(data);
+
     randomize_503_sound(data);
 }
 
@@ -538,6 +549,7 @@ void note_on(const uint8_t note, const uint8_t velocity, const uint8_t channel, 
     add_to_storage(storage, note, length);
 }
 
+// TODO: test this and call in P50
 //void note_on(const NoteStruct* notes, const uint8_t length, const uint8_t channel, PitchStorage& storage)
 //{
 //    untie_notes(storage);

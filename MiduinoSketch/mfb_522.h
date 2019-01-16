@@ -9,14 +9,14 @@
 
 void randomize_522_seq(ApplicationData& data)
 {
-    data.settings_522.ac_522_pattern = init_percussive_pattern(.25);
+    randomize(data.settings_522.ac_522_pattern, .25f);
 
     set_coef_kick_pattern(data.settings_522.bd_522_pattern);
     set_coef_kick_pattern(data.settings_522.cy_522_pattern);
 
-    data.settings_522.lo_tom_522_pattern = init_percussive_pattern(.25);
-    data.settings_522.mi_tom_522_pattern = init_percussive_pattern(.25);
-    data.settings_522.rs_522_pattern = init_percussive_pattern(.25);
+    randomize(data.settings_522.lo_tom_522_pattern, .25f);
+    randomize(data.settings_522.mi_tom_522_pattern, .25f);
+    randomize(data.settings_522.rs_522_pattern, .25f);
     randomize(data.settings_522.clave_522_pattern, .25);
     randomize(data.settings_522.sd_522_pattern, .50);
 
@@ -62,7 +62,7 @@ void play_522(ApplicationData& data)
         velocity = 127;
     }
 
-    if (gate(data.settings_522.bd_522_pattern, data.step, data.ticks))
+    if (gate(data.settings_522.bd_522_pattern, data.step, data.ticks) && !data.uiState.kill_low)
     {
         note_on(NOTE_522_BD_LONG, velocity, MIDI_CHANNEL_522, settings.storage);
     }
@@ -98,14 +98,14 @@ void play_522(ApplicationData& data)
     {
         note_on(NOTE_522_SN, velocity, MIDI_CHANNEL_522, settings.storage);
     }
-    if (!data.settings_522.use_hh_int)
+    if (!data.settings_522.use_hh_int && !data.uiState.kill_high)
     {
         if (gate(data.settings_522.hh_522_pattern, data.step, data.ticks))
         {
             note_on(NOTE_522_HH, velocity, MIDI_CHANNEL_522, settings.storage);
         }
     }
-    else 
+    else if(!data.uiState.kill_high)
     {
         if (interval_hit(data.settings_522.hh_int_pattern, data.step, data.ticks))
         {

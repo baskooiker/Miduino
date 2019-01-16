@@ -18,14 +18,21 @@ void randomize_lead(ApplicationData& data)
 void play_lead(ApplicationData& data)
 {
     bool hit = false;
+    uint8_t length = 6;
 
     switch (data.settings_lead.style)
     {
-    case LeadSixteenths: 
+    case LeadStyle::LeadSixteenths:
         hit = interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks);
+        length = 3;
         break;
-    case LeadIntPattern:
+    case LeadStyle::LeadIntPattern:
         hit = interval_hit(data.settings_lead.int_pattern, data.step, data.ticks);
+        length = TIE_NOTE;
+        break;
+    case LeadStyle::LeadLongPattern:
+        hit = interval_hit(data.settings_lead.long_pattern, data.step, data.ticks);
+        length = TIE_NOTE;
         break;
     }
 
@@ -35,6 +42,6 @@ void play_lead(ApplicationData& data)
 
         uint8_t chord = cv(data.harmony, data.step);
         uint8_t pitch = get_arp_pitch(data.settings_lead.arp_data, data.scale, chord);
-        note_on(pitch, 64, MIDI_CHANNEL_LEAD, data.settings_lead.storage, 3);
+        note_on(pitch, 64, MIDI_CHANNEL_LEAD, data.settings_lead.storage, length);
     }
 }

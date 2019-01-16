@@ -14,6 +14,13 @@ Settings503 init_503_settings()
     s.sd_pattern = init_gate_pattern_ab();
     s.hh_pattern = init_gate_pattern_ab();
     s.oh_pattern = init_gate_pattern_ab();
+    s.cy_pattern = init_gate_pattern_ab();
+    s.tom_pattern = init_cv_pattern_ab();
+
+    s.hat_int_pattern = init_interval_pattern();
+    s.hat_style = HatStyle::HatOffBeat;
+    s.velocity_cy = 0;
+    s.velocity_tom = 0;
 
     s.storage = init_pitch_storage();
 
@@ -74,7 +81,7 @@ SettingsP50 init_p50_settings()
     s.gates_low = init_gate_pattern_ab();
     s.gates = init_gate_pattern_ab();
     s.octave = 4;
-    s.type = PolyType::PolyOff;
+    s.type = PolyType::PolyLow;
     s.storage = init_pitch_storage();
 
     return s;

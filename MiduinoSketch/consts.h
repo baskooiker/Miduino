@@ -24,6 +24,13 @@
 #define NOTE_503_OH 39
 #define NOTE_503_HH 40
 
+#define NOTE_503_BD_MIN 48
+#define NOTE_503_BD_MAX 59
+#define NOTE_503_TOM_MIN 72
+#define NOTE_503_TOM_MAX 83
+#define NOTE_503_CY_MIN 84
+#define NOTE_503_CY_MAX 89
+
 // MIDI 522
 #define NOTE_522_BD_SHORT 35
 #define NOTE_522_BD_LONG  36
@@ -106,7 +113,30 @@
 #define SD_DECAY  18
 #define SD_NOISE  19 
 
+#define MFB_503_LT_LEVEL 24
+#define MFB_503_LT_TUNE  25
+#define MFB_503_LT_DECAY 26
+#define MFB_503_LT_PITCH 27
+
+#define MFB_503_MT_LEVEL 32
+#define MFB_503_MT_TUNE  33
+#define MFB_503_MT_DECAY 34
+#define MFB_503_MT_PITCH 35
+
+#define MFB_503_HT_LEVEL 40
+#define MFB_503_HT_TUNE  41
+#define MFB_503_HT_DECAY 42
+#define MFB_503_HT_PITCH 43
+
+#define MFB_503_CY_LEVEL 48
+#define MFB_503_CY_MIX   49
+#define MFB_503_CY_DECAY 50
+#define MFB_503_CY_TUNE  51
+
 #define HH_LEVEL  56
 #define HH_MIX    57
 #define OH_DECAY  58
 #define HH_DECAY  59
+
+#define TOM_DEC_MIN 32
+#define TOM_DEC_MAX 96

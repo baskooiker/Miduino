@@ -1,6 +1,5 @@
 #pragma once
 
-#include "basslines.h"
 #include "defs.h"
 #include "midi_io.h"
 #include "pitch.h"
@@ -85,7 +84,7 @@ void play_rocket(ApplicationData& data)
         }
 
         uint8_t harmony = cv(data.harmony, data.step);
-        uint8_t octave = get_octave(rocket.octaves, data.step);
+        uint8_t octave = cv(rocket.octaves, data.step);
         uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);
         if (variable_octave < data.settings_rocket.pitch_range)
         {

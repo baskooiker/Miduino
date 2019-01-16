@@ -95,3 +95,8 @@ void randomize_interval_lead(IntervalPattern& pattern)
     }
     pattern.time_division = TimeDivision::TIME_DIVISION_FOURTH;
 }
+
+void randomize_interval_hat(IntervalPattern& pattern)
+{
+    randomize_interval(pattern, hat_interval_probs);
+}

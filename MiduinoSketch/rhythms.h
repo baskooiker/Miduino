@@ -4,39 +4,6 @@
 #include "gate.h"
 #include "utils.h"
 
-GatePattern16 get_empty_gate_pattern()
-{
-    GatePattern16 gates = {0};
-    gates.pattern = 0x00;
-    gates.length = 16;
-    return gates;
-}
-
-GatePattern64 init_gate_pattern_64()
-{
-    GatePattern64 pattern;
-    pattern.length = 64;
-    return pattern;
-}
-
-BinaryPattern init_binary_pattern(const uint8_t* ar, uint8_t length)
-{
-    BinaryPattern pattern;
-    for (uint8_t j = 0; j < length; j++)
-    {
-        set_gate(pattern, j, ar[j]);
-    }
-    return pattern;
-}
-
-GatePattern16 init_pattern(const uint8_t* ar, uint8_t length)
-{
-    GatePattern16 pat = get_empty_gate_pattern();
-    pat.pattern = init_binary_pattern(ar, length);
-    pat.length = length;
-    return pat;
-}
-
 void randomize(BinaryPattern& pattern, const float prob)
 {
     for (uint8_t j = 0; j < 16; j++)
@@ -48,60 +15,6 @@ void randomize(BinaryPattern& pattern, const float prob)
 void randomize(GatePattern16& pattern, const float prob)
 {
     randomize(pattern.pattern, prob);
-}
-
-GatePattern16 init_percussive_pattern(const float prob = .5)
-{
-    GatePattern16 pat = get_empty_gate_pattern();
-    randomize(pat, prob);
-    return pat;
-}
-
-void randomize_ab(GatePattern64& pattern, const float prob)
-{
-    GatePattern16 pat0 = init_percussive_pattern(prob);
-    GatePattern16 pat1 = init_percussive_pattern(prob);
-    GatePattern16 pat2 = init_percussive_pattern(prob);
-    float pat_prob = randf();
-    
-    pattern.patterns[0] = pat0.pattern;
-    if (pat_prob < .25) // AAAB
-    {
-        pattern.patterns[1] = pat0.pattern;
-        pattern.patterns[2] = pat0.pattern;
-        pattern.patterns[3] = pat1.pattern;
-    }
-    else if (pat_prob < .5) // ABAA
-    {
-        pattern.patterns[1] = pat1.pattern;
-        pattern.patterns[2] = pat0.pattern;
-        pattern.patterns[3] = pat0.pattern;
-    }
-    else if (pat_prob < .625) // AABA
-    {
-        pattern.patterns[1] = pat0.pattern;
-        pattern.patterns[2] = pat1.pattern;
-        pattern.patterns[3] = pat0.pattern;
-    }
-    else if (pat_prob < .75) // ABAC
-    {
-        pattern.patterns[1] = pat1.pattern;
-        pattern.patterns[2] = pat0.pattern;
-        pattern.patterns[3] = pat2.pattern;
-    }
-    else // ABAB
-    {
-        pattern.patterns[1] = pat1.pattern;
-        pattern.patterns[2] = pat0.pattern;
-        pattern.patterns[3] = pat1.pattern;
-    }
-}
-
-GatePattern64 init_percussive_pattern_64(const float prob = .5f)
-{
-    GatePattern64 pattern = init_gate_pattern_64();
-    randomize_ab(pattern, .5f);
-    return pattern;
 }
 
 void set_ab_pattern(uint8_t* ab_pattern)

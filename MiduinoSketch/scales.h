@@ -37,3 +37,11 @@ const Scale get_scale(const ScaleType scale_type, const Root root = ROOT_C)
     scale.root = root;
     return scale;
 }
+
+uint8_t apply_scale(uint8_t note_nr, Scale scale, uint8_t octave)
+{
+    uint8_t note = scale.notes[note_nr % scale.length]; // Actual pitch
+    note += scale.root; // Transpose to correct root note
+    note += octave * 12; // Transpose octaves
+    return note;
+}

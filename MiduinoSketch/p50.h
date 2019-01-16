@@ -1,7 +1,6 @@
 #pragma once
 
 #include "arp.h"
-#include "basslines.h"
 #include "defs.h"
 #include "euclid.h"
 #include "midi_io.h"
@@ -68,6 +67,7 @@ void play_P50(ApplicationData& data)
         pitches[1].pitch = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
         pitches[2].pitch = apply_scale(note_nr + 4, data.scale, data.settings_p50.octave);
 
+        // TODO: Call multi-note_on function
         note_on(pitches[0].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
         note_on(pitches[1].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
         note_on(pitches[2].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);

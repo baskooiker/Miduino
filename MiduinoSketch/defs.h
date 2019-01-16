@@ -114,7 +114,7 @@ typedef struct {
     bool kill_perc;
 
     bool drum_fill;
-    bool drum_roll;
+    uint8_t drum_roll;
     uint8_t bd_decay_factor;
 } UiState;
 
@@ -187,8 +187,20 @@ typedef struct {
     GatePatternAB sd_pattern;
     GatePatternAB hh_pattern;
     GatePatternAB oh_pattern;
+    GatePatternAB cy_pattern;
+    CvPatternAB tom_pattern;
+
+    IntervalPattern hat_int_pattern;
 
     uint8_t bd_decay;
+    bool play_pitch_bd;
+
+    uint8_t velocity_cy;
+    HatStyle hat_style;
+
+    uint8_t velocity_tom;
+    uint8_t nr_toms;
+    uint8_t toms_offset;
 
     PitchStorage storage;
 } Settings503;

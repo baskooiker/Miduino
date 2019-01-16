@@ -36,16 +36,7 @@
     <ClInclude Include="__vm\.MiduinoSketch.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="basslines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="midi_io.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scales.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="storage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ui.h">
@@ -114,14 +105,14 @@
     <ClInclude Include="pitch.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="randomize.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="print.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="steps.h">
       <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
+    <ClInclude Include="storage.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="scales.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
