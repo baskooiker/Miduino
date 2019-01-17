@@ -19,8 +19,8 @@ Settings503 init_503_settings()
 
     s.hat_int_pattern = init_interval_pattern();
     s.hat_style = HatStyle::HatOffBeat;
-    s.velocity_cy = 0;
-    s.velocity_tom = 0;
+    s.volume_cy = 0;
+    s.volume_tom = 0;
 
     s.storage = init_pitch_storage();
 
@@ -57,7 +57,7 @@ SettingsLead init_lead_settings()
     s.int_pattern = init_interval_pattern();
     s.long_pattern = init_interval_pattern();
     s.min_pitch_pattern = init_cv_pattern_ab();
-    s.style = LeadStyle::LeadSixteenths;
+    s.style = LeadStyle::LeadLongPattern;
     s.storage = init_pitch_storage();
 
     return s;

@@ -55,9 +55,10 @@ enum ArpType {
 };
 
 enum LeadStyle {
-    LeadSixteenths,
+    //LeadSixteenths,
     LeadLongPattern,
-    LeadIntPattern
+    //LeadIntPattern,
+    LeadWhole
 };
 
 enum PolyType {

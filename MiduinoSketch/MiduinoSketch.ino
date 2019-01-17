@@ -354,9 +354,9 @@ void handleControlChange(byte channel, byte number, byte value)
     case BSP_KNOB_06:
     {
         if (value < 64)
-            data.settings_lead.style = LeadStyle::LeadIntPattern;
+            data.settings_lead.style = LeadStyle::LeadLongPattern;
         else
-            data.settings_lead.style = LeadStyle::LeadSixteenths;
+            data.settings_lead.style = LeadStyle::LeadWhole;
         break;
     }
     case BSP_KNOB_07:
@@ -376,10 +376,14 @@ void handleControlChange(byte channel, byte number, byte value)
             data.settings_rocket.style = RocketSixteenths;
         break;
     case BSP_KNOB_09:
-        data.settings_503.velocity_tom = value;
+        data.settings_503.volume_tom = value;
+        send_cc(MFB_503_LT_LEVEL, value, MIDI_CHANNEL_503);
+        send_cc(MFB_503_MT_LEVEL, value, MIDI_CHANNEL_503);
+        send_cc(MFB_503_HT_LEVEL, value, MIDI_CHANNEL_503);
         break;
     case BSP_KNOB_10:
-        data.settings_503.velocity_cy = value;
+        data.settings_503.volume_cy = value;
+        send_cc(MFB_503_CY_LEVEL, value, MIDI_CHANNEL_503);
         break;
     case BSP_KNOB_14:
         data.settings_lead.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);

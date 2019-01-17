@@ -150,26 +150,28 @@ void play_503(ApplicationData& data)
     }
 
     // Play toms
+    uint8_t tom_prob = cv(data.settings_503.tom_pattern, data.step);
     if (interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks) 
-        && data.settings_503.velocity_tom > 0)
+        && tom_prob < 64
+        && data.settings_503.volume_tom > 0)
     {
-        uint8_t tom_id = cv(data.settings_503.tom_pattern, data.step) % data.settings_503.nr_toms;
+        uint8_t tom_id = tom_prob % data.settings_503.nr_toms;
         tom_id = (tom_id + data.settings_503.toms_offset) % 3;
         uint8_t tom_pitch = NOTE_503_LT;
         if (tom_id == 1)
             tom_pitch = NOTE_503_MT;
         else if (tom_id == 2)
             tom_pitch = NOTE_503_HT;
-        note_on(tom_pitch, data.settings_503.velocity_tom, MIDI_CHANNEL_503, data.settings_503.storage);
+        note_on(tom_pitch, 64, MIDI_CHANNEL_503, data.settings_503.storage);
     }
 
     // Play Cymbal
-    if (data.settings_503.velocity_cy > 0)
+    if (data.settings_503.volume_cy > 0)
     {
         if (gate(data.settings_503.cy_pattern, data.step, data.ticks))
         {
             note_on(NOTE_503_CY, 
-                    data.settings_503.velocity_cy, 
+                    data.settings_503.volume_cy, 
                     MIDI_CHANNEL_503, 
                     data.settings_503.storage);
         }

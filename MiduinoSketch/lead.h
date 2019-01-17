@@ -12,7 +12,7 @@ void randomize_lead(ApplicationData& data)
     randomize_interval_lead(data.settings_lead.long_pattern);
 
     data.settings_lead.arp_data.type = ArpType::CLOSEST;
-    data.settings_lead.arp_data.range = 12;
+    data.settings_lead.arp_data.range = randi(12,24);
 }
 
 void play_lead(ApplicationData& data)
@@ -22,16 +22,20 @@ void play_lead(ApplicationData& data)
 
     switch (data.settings_lead.style)
     {
-    case LeadStyle::LeadSixteenths:
+    /*case LeadStyle::LeadSixteenths:
         hit = interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks);
         length = 3;
         break;
     case LeadStyle::LeadIntPattern:
         hit = interval_hit(data.settings_lead.int_pattern, data.step, data.ticks);
         length = TIE_NOTE;
-        break;
+        break;*/
     case LeadStyle::LeadLongPattern:
         hit = interval_hit(data.settings_lead.long_pattern, data.step, data.ticks);
+        length = TIE_NOTE;
+        break;
+    case LeadStyle::LeadWhole:
+        hit = interval_hit(TimeDivision::TIME_DIVISION_WHOLE, data.step, data.ticks);
         length = TIE_NOTE;
         break;
     }
