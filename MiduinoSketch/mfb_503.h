@@ -6,6 +6,7 @@
 #include "euclid.h"
 #include "gate.h"
 #include "intervals.h"
+#include "mask.h"
 #include "midi_io.h"
 #include "pitch.h"
 #include "rand.h"
@@ -36,6 +37,7 @@ void randomize_503_seq(ApplicationData& data)
     randomize(data.settings_503.tom_pattern);
     data.settings_503.nr_toms = randi(1, 3);
     data.settings_503.toms_offset = randi(3);
+    randomize_mask_pattern(data.settings_503.tom_mask);
 }
 
 void play_fill(ApplicationData& data)
@@ -152,7 +154,8 @@ void play_503(ApplicationData& data)
     // Play toms
     uint8_t tom_prob = cv(data.settings_503.tom_pattern, data.step);
     if (interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks) 
-        && tom_prob < 64
+        && tom_prob < 100
+        && gate(data.settings_503.tom_mask, data.step, data.ticks)
         && data.settings_503.volume_tom > 0)
     {
         uint8_t tom_id = tom_prob % data.settings_503.nr_toms;
@@ -195,14 +198,14 @@ const RandomParam random_503_params[] = {
     {OH_DECAY ,   0, 64 },
     {HH_DECAY ,   0, 64 },
 
-    {MFB_503_CY_LEVEL, 126, 127},
+    //{MFB_503_CY_LEVEL, 126, 127},
     {MFB_503_CY_MIX  , 100, 127},
     {MFB_503_CY_DECAY, 126, 127},
-    {MFB_503_CY_TUNE ,   0, 127},
+    {MFB_503_CY_TUNE ,  64, 127},
 
-    {MFB_503_LT_LEVEL, 126, 127},
+    /*{MFB_503_LT_LEVEL, 126, 127},
     {MFB_503_MT_LEVEL, 126, 127},
-    {MFB_503_HT_LEVEL, 126, 127},
+    {MFB_503_HT_LEVEL, 126, 127},*/
 };
 const uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
 
@@ -228,7 +231,7 @@ void randomize_503_sound(ApplicationData& data)
     send_cc(MFB_503_HT_DECAY, tom_dec, MIDI_CHANNEL_503);
 
     uint8_t tom_tune = randi(16, 32);
-    uint8_t tom_spread = randi(12, 24);
+    uint8_t tom_spread = randi(12, 30);
     send_cc(MFB_503_LT_TUNE, tom_tune, MIDI_CHANNEL_503);
     send_cc(MFB_503_MT_TUNE, tom_tune + tom_spread, MIDI_CHANNEL_503);
     send_cc(MFB_503_HT_TUNE, tom_tune + tom_spread * 2, MIDI_CHANNEL_503);

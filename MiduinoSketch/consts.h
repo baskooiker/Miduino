@@ -138,5 +138,5 @@
 #define OH_DECAY  58
 #define HH_DECAY  59
 
-#define TOM_DEC_MIN 32
+#define TOM_DEC_MIN 64
 #define TOM_DEC_MAX 96

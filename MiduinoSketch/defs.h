@@ -201,6 +201,7 @@ typedef struct {
     uint8_t volume_tom;
     uint8_t nr_toms;
     uint8_t toms_offset;
+    GatePatternAB tom_mask;
 
     PitchStorage storage;
 } Settings503;

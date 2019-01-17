@@ -16,6 +16,7 @@ Settings503 init_503_settings()
     s.oh_pattern = init_gate_pattern_ab();
     s.cy_pattern = init_gate_pattern_ab();
     s.tom_pattern = init_cv_pattern_ab();
+    s.tom_mask = init_gate_pattern_ab();
 
     s.hat_int_pattern = init_interval_pattern();
     s.hat_style = HatStyle::HatOffBeat;
