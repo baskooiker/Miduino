@@ -51,6 +51,7 @@ enum ArpType {
     UPDOWN,
     PICKING_IN,
     CLOSEST,
+    CLOSEST_EXC,
     RANDOM
 };
 

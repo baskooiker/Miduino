@@ -4,6 +4,46 @@
 #include "defs.h"
 #include "rand.h"
 
+uint8_t get_closest(ArpData& arp_data, const uint8_t* arp_pitches, const uint8_t size, const bool include_current)
+{
+    arp_data.last_note = CLIP(arp_data.last_note, arp_data.min, arp_data.min + arp_data.range);
+    if (is_in_set(arp_data.last_note, arp_pitches, size) && include_current)
+        return arp_data.last_note;
+    bool below = false;
+    bool above = false;
+    uint8_t c = 1;
+    while (!below || !above)
+    {
+        if (arp_data.last_note - c > arp_data.min)
+        {
+            if (is_in_set(arp_data.last_note - c, arp_pitches, size))
+            {
+                arp_data.last_note -= c;
+                return arp_data.last_note;
+            }
+        }
+        else
+        {
+            below = true;
+        }
+
+        if (arp_data.last_note + c < arp_data.min + arp_data.range)
+        {
+            if (is_in_set(arp_data.last_note + c, arp_pitches, size))
+            {
+                arp_data.last_note += c;
+                return arp_data.last_note;
+            }
+        }
+        else
+        {
+            above = true;
+        }
+        c++;
+    }
+    return 0;
+}
+
 uint8_t get_arp_pitch(ArpData& arp_data, const uint8_t* arp_pitches, const uint8_t size)
 {
     if (size == 0)
@@ -30,44 +70,9 @@ uint8_t get_arp_pitch(ArpData& arp_data, const uint8_t* arp_pitches, const uint8
         else
             return arp_pitches[size - ++arp_data.counter / 2];
     case CLOSEST:
-    {
-        arp_data.last_note = CLIP(arp_data.last_note, arp_data.min, arp_data.min+arp_data.range);
-        if (is_in_set(arp_data.last_note, arp_pitches, size))
-            return arp_data.last_note;
-        bool below = false;
-        bool above = false;
-        uint8_t c = 1;
-        while (!below || !above)
-        {
-            if (arp_data.last_note - c > arp_data.min)
-            {
-                if (is_in_set(arp_data.last_note - c, arp_pitches, size))
-                {
-                    arp_data.last_note -= c;
-                    return arp_data.last_note;
-                }
-            }
-            else
-            {
-                below = true;
-            }
-
-            if (arp_data.last_note + c < arp_data.min + arp_data.range)
-            {
-                if (is_in_set(arp_data.last_note + c, arp_pitches, size))
-                {
-                    arp_data.last_note += c;
-                    return arp_data.last_note;
-                }
-            }
-            else
-            {
-                above = true;
-            }
-            c++;
-        }
-        return 0;
-    }
+        return get_closest(arp_data, arp_pitches, size, true);
+    case CLOSEST_EXC:
+        return get_closest(arp_data, arp_pitches, size, false);
     case RANDOM:
         return arp_pitches[randi(size)];
     }
