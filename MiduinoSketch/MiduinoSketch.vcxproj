@@ -121,6 +121,7 @@
     <ClInclude Include="init.h" />
     <ClInclude Include="intervals.h" />
     <ClInclude Include="lead.h" />
+    <ClInclude Include="mask.h" />
     <ClInclude Include="mono.h" />
     <ClInclude Include="pitch.h" />
     <ClInclude Include="rand.h" />

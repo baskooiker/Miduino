@@ -39,3 +39,12 @@ void print_pattern(const CvPatternAB& pattern)
     }
     printf("\n");
 }
+
+void print_storage(PitchStorage& storage)
+{
+    printf("\nsize: %d\n", storage.size);
+    for (int i = 0; i < storage.size; i++)
+    {
+        printf("%2d %3d\n", storage.data[i].pitch, storage.data[i].length);
+    }
+}

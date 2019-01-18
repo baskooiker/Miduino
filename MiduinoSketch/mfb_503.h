@@ -104,6 +104,36 @@ void play_bd(ApplicationData& data)
     }
 }
 
+void play_hats(ApplicationData& data)
+{
+    uint8_t velocity = 64;
+    switch (data.settings_503.hat_style)
+    {
+    case HatStyle::HatOffBeat:
+    {
+        if (data.step % 4 == 2)
+            velocity = 100;
+
+        bool hh = gate(data.settings_503.hh_pattern, data.step, data.ticks);
+        if (gate(data.settings_503.oh_pattern, data.step, data.ticks) && !hh && !data.uiState.kill_high)
+        {
+            note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
+        }
+        if (hh && !data.uiState.kill_high)
+        {
+            note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
+        }
+        break;
+    }
+    case HatStyle::HatFull:
+        if (interval_hit(data.settings_503.hat_int_pattern, data.step, data.ticks) && !data.uiState.kill_high)
+        {
+            note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
+        }
+        break;
+    }
+}
+
 void play_503(ApplicationData& data)
 {
     if (data.uiState.drum_fill)
@@ -128,28 +158,7 @@ void play_503(ApplicationData& data)
     }
 
     // Play hats
-    switch (data.settings_503.hat_style)
-    {
-    case HatStyle::HatOffBeat:
-    {
-        bool hh = gate(data.settings_503.hh_pattern, data.step, data.ticks);
-        if (gate(data.settings_503.oh_pattern, data.step, data.ticks) && !hh && !data.uiState.kill_high)
-        {
-            note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
-        }
-        if (hh && !data.uiState.kill_high)
-        {
-            note_on(NOTE_503_HH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
-        }
-        break;
-    }
-    case HatStyle::HatFull:
-        if (interval_hit(data.settings_503.hat_int_pattern, data.step, data.ticks) && !data.uiState.kill_high)
-        {
-            note_on(NOTE_503_OH, velocity, MIDI_CHANNEL_503, data.settings_503.storage);
-        }
-        break;
-    }
+    play_hats(data);
 
     // Play toms
     uint8_t tom_prob = cv(data.settings_503.tom_pattern, data.step);

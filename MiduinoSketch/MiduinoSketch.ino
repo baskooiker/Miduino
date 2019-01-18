@@ -6,6 +6,7 @@
 #include "cv.h"
 #include "defs.h"
 #include "init.h"
+#include "midi_io.h"
 #include "rand.h"
 #include "rhythms.h"
 #include "storage.h"
@@ -554,20 +555,23 @@ void note_on(const uint8_t note, const uint8_t velocity, const uint8_t channel, 
 }
 
 // TODO: test this and call in P50
-//void note_on(const NoteStruct* notes, const uint8_t length, const uint8_t channel, PitchStorage& storage)
-//{
-//    untie_notes(storage);
-//    for (int i = 0; i < length; i++)
-//    {
-//        NoteStruct stored = pop_from_storage(storage, notes[i].pitch);
-//        if (stored.pitch > 0)
-//        {
-//            MIDI.sendNoteOff(notes[i].pitch, 0, channel);
-//        }
-//        MIDI.sendNoteOn(notes[i].pitch, notes[i].velocity, channel);
-//        add_to_storage(storage, notes[i].pitch, notes[i].length);
-//    }
-//}
+void note_on(const NoteStruct* notes, const uint8_t length, const uint8_t channel, PitchStorage& storage)
+{
+    untie_notes(storage);
+    for (int i = 0; i < length; i++)
+    {
+        NoteStruct stored = pop_from_storage(storage, notes[i].pitch);
+        //if (stored.pitch > 0)
+        //{
+        //    MIDI.sendNoteOff(notes[i].pitch, 0, channel);
+        //}
+        MIDI.sendNoteOn(notes[i].pitch, notes[i].velocity, channel);
+    }
+    for (int i = 0; i < length; i++)
+    {
+        add_to_storage(storage, notes[i].pitch, notes[i].length);
+    }
+}
 
 void note_off(uint8_t note, uint8_t channel, PitchStorage& storage)
 {

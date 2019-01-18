@@ -66,10 +66,17 @@ void play_P50(ApplicationData& data)
         pitches[0].pitch = apply_scale(note_nr, data.scale, data.settings_p50.octave);
         pitches[1].pitch = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
         pitches[2].pitch = apply_scale(note_nr + 4, data.scale, data.settings_p50.octave);
+        for (int i = 0; i < 3; i++)
+        {
+            pitches[i].length = 6;
+            pitches[i].velocity = 64;
+        }
+
+        note_on(pitches, 3, MIDI_CHANNEL_P50, data.settings_p50.storage);
 
         // TODO: Call multi-note_on function
-        note_on(pitches[0].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
+        /*note_on(pitches[0].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
         note_on(pitches[1].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
-        note_on(pitches[2].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
+        note_on(pitches[2].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);*/
     }
 }
