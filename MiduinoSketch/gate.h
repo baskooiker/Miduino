@@ -30,3 +30,10 @@ void set_gate(BinaryPattern& pattern, const uint8_t index, const bool value = tr
     else
         pattern &= ~(1 << index);
 }
+
+void set_all(GatePatternAB& pattern, bool _value)
+{
+    uint8_t value = _value ? 0xFF : 0x00;
+    for (int i = 0; i < 3; i++)
+        pattern.patterns[i] = value;
+}

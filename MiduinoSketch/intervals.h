@@ -98,5 +98,11 @@ void randomize_interval_lead(IntervalPattern& pattern)
 
 void randomize_interval_hat(IntervalPattern& pattern)
 {
-    randomize_interval(pattern, hat_interval_probs);
+    IntervalProbs probs = { 0,  20, 50, 15, 10 };
+    probs.p_4 = 0;
+    probs.p_8 = randi(30);
+    probs.p_16 = 50;
+    probs.p_32 = randi(15);
+    probs.p_t8 = randi(15);
+    randomize_interval(pattern, probs);
 }

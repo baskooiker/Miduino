@@ -57,7 +57,7 @@ enum ArpType {
 
 enum LeadStyle {
     //LeadSixteenths,
-    LeadLongPattern,
+    //LeadLongPattern,
     //LeadIntPattern,
     LeadWhole
 };
@@ -71,4 +71,10 @@ enum PolyType {
 enum HatStyle {
     HatOffBeat,
     HatFull
+};
+
+enum MonoStyle {
+    Sixteenths,
+    PolyRhythm,
+    LeadPattern
 };

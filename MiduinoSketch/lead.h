@@ -33,10 +33,6 @@ void play_lead(ApplicationData& data)
 
     switch (data.settings_lead.style)
     {
-    case LeadStyle::LeadLongPattern:
-        hit = interval_hit(data.settings_lead.long_pattern, data.step, data.ticks);
-        length = TIE_NOTE;
-        break;
     case LeadStyle::LeadWhole:
         hit = interval_hit(TimeDivision::TIME_DIVISION_WHOLE, data.step, data.ticks);
         length = TIE_NOTE;

@@ -11,11 +11,36 @@ void randomize_mono(ApplicationData& data)
     case 2: data.settings_mono.arp_data.type = ArpType::UPDOWN;
     case 3: data.settings_mono.arp_data.type = ArpType::PICKING_IN;
     }
+
+    switch (randi(3))
+    {
+    case 0: data.settings_mono.style = MonoStyle::Sixteenths; break;
+    case 1: data.settings_mono.style = MonoStyle::PolyRhythm; break;
+    case 2: data.settings_mono.style = MonoStyle::LeadPattern; break;
+    }
+
+    set_euclid(data.settings_mono.euclid_pattern, randi(5, 8), 1);
+
+    randomize_interval_lead(data.settings_mono.lead_pattern);
 }
 
 void play_mono(ApplicationData& data)
 {
-    if (interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks))
+    bool hit = false;
+    switch (data.settings_mono.style)
+    {
+    case MonoStyle::Sixteenths: 
+        hit = interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks); 
+        break;
+    case MonoStyle::PolyRhythm:
+        hit = gate(data.settings_mono.euclid_pattern, data.step, data.ticks);
+        break;
+    case MonoStyle::LeadPattern:
+        hit = interval_hit(data.settings_mono.lead_pattern, data.step, data.ticks);
+        break;
+    }
+
+    if (hit)
     {
         uint8_t chord = cv(data.harmony, data.step);
         uint8_t pitch = get_arp_pitch(data.settings_mono.arp_data, data.scale, chord);

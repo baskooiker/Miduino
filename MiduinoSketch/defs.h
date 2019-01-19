@@ -92,7 +92,7 @@ typedef struct {
     uint8_t p_32;
     uint8_t p_t8;
 } IntervalProbs;
-static const IntervalProbs hat_interval_probs = { 0,  20, 50, 15, 10 };
+//static const IntervalProbs hat_interval_probs = { 0,  20, 50, 15, 10 };
 static const IntervalProbs arp_interval_probs = { 25, 25, 25, 0,  0 };
 
 typedef struct {
@@ -216,8 +216,11 @@ typedef struct {
 } SettingsLead;
 
 typedef struct {
+    MonoStyle style;
     ArpData arp_data;
     IntervalPattern int_pattern;
+    GatePatternAB euclid_pattern;
+    IntervalPattern lead_pattern;
     PitchStorage storage;
 } SettingsMono;
 

@@ -58,7 +58,7 @@ SettingsLead init_lead_settings()
     s.int_pattern = init_interval_pattern();
     s.long_pattern = init_interval_pattern();
     s.min_pitch_pattern = init_cv_pattern_ab();
-    s.style = LeadStyle::LeadLongPattern;
+    s.style = LeadStyle::LeadWhole;
     s.storage = init_pitch_storage();
 
     return s;
@@ -66,10 +66,13 @@ SettingsLead init_lead_settings()
 
 SettingsMono init_mono_settings()
 {
-    SettingsMono s = { 0 };
+    SettingsMono s = {};
 
+    s.style = MonoStyle::Sixteenths;
     s.arp_data = init_arp_data();
     s.int_pattern = init_interval_pattern();
+    s.euclid_pattern = init_gate_pattern_ab();
+    s.lead_pattern = init_interval_pattern();
     s.storage = init_pitch_storage();
 
     return s;

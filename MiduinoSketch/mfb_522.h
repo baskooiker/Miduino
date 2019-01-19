@@ -45,7 +45,7 @@ void randomize_522_seq(ApplicationData& data)
     }
     else
     {
-        randomize_interval(data.settings_522.hh_int_pattern, hat_interval_probs);
+        randomize_interval_hat(data.settings_522.hh_int_pattern);
         data.settings_522.use_hh_int = true;
     }
 

@@ -28,18 +28,15 @@
     <Filter Include="Header Files\defs">
       <UniqueIdentifier>{43c88b97-2eed-444f-bb66-c74c35203613}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\app">
+      <UniqueIdentifier>{9bccd42c-049c-40b6-a4d4-cbc47aaffdf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MiduinoSketch.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.MiduinoSketch.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="midi_io.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mfb_503.h">
@@ -116,6 +113,15 @@
     </ClInclude>
     <ClInclude Include="mask.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="midi_io.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="callbacks.h">
+      <Filter>Header Files\app</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

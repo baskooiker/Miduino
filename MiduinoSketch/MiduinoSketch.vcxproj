@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arp.h" />
+    <ClInclude Include="callbacks.h" />
     <ClInclude Include="chords.h" />
     <ClInclude Include="coef.h" />
     <ClInclude Include="consts.h" />

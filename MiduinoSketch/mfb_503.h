@@ -18,15 +18,16 @@ void randomize_503_seq(ApplicationData& data)
     set_coef_kick_pattern(data.settings_503.bd_pattern);
     set_coef_snare_pattern(data.settings_503.sd_pattern);
 
-    if (randf() < .5)
+    // Randomize hats
+    set_coef_hat_pattern(data.settings_503.oh_pattern);
+    if (randi(2) < 1)
     {
-        set_coef_hat_pattern(data.settings_503.oh_pattern);
         randomize(data.settings_503.hh_pattern, 0.f);
     }
     else
     {
         set_coef_hat_pattern(data.settings_503.hh_pattern);
-        randomize(data.settings_503.oh_pattern, 0.f);
+        set_all(data.settings_503.oh_pattern, false);
     }
     randomize_interval_hat(data.settings_503.hat_int_pattern);
 
