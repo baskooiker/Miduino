@@ -24,8 +24,9 @@ typedef struct {
     uint8_t length;
 } RhythmPattern;
 
-#define NOTES_IN_BAR (16)
-typedef uint8_t CvPattern[NOTES_IN_BAR];
+#define STEPS_IN_BAR (16)
+#define TICKS_IN_BAR (96)
+typedef uint8_t CvPattern[STEPS_IN_BAR];
 
 typedef struct {
     uint8_t pattern[16];
@@ -64,12 +65,12 @@ typedef struct {
 } GatePatternAB;
 
 #define HOLD_NOTE 0xFF
-#define TIE_NOTE 0xFE
 
 typedef struct {
     uint8_t pitch;
     uint8_t velocity;
     uint8_t length;
+    bool holding;
 } NoteStruct;
 
 #define STORAGE_SIZE 16
@@ -170,6 +171,7 @@ typedef struct {
 typedef struct {
     GatePatternAB gates_low;
     GatePatternAB gates;
+    GatePatternAB tie_pattern;
     uint8_t octave;
     PolyType type;
     PitchStorage storage;

@@ -55,12 +55,18 @@ void loop() {
 //////////////////////////////////////////////////
 // MIDI IO ///////////////////////////////////////
 //////////////////////////////////////////////////
-void note_on(const uint8_t note, const uint8_t velocity, const uint8_t channel, PitchStorage& storage, const uint8_t length)
+
+void note_on(const NoteStruct note, const uint8_t channel, PitchStorage& storage)
 {
+
     untie_notes(storage);
-    NoteStruct stored = pop_from_storage(storage, note);
-    MIDI.sendNoteOn(note, velocity, channel);
-    add_to_storage(storage, note, length);
+    NoteStruct stored = pop_from_storage(storage, note.pitch);
+    if (note.pitch == stored.pitch)
+    {
+        note_off(note.pitch, channel, storage);
+    }
+    MIDI.sendNoteOn(note.pitch, note.velocity, channel);
+    add_to_storage(storage, note.pitch, note.length);
 }
 
 void note_on(const NoteStruct* notes, const uint8_t length, const uint8_t channel, PitchStorage& storage)
@@ -69,6 +75,10 @@ void note_on(const NoteStruct* notes, const uint8_t length, const uint8_t channe
     for (int i = 0; i < length; i++)
     {
         NoteStruct stored = pop_from_storage(storage, notes[i].pitch);
+        if (notes[i].pitch == stored.pitch)
+        {
+            note_off(notes[i].pitch, channel, storage);
+        }
         MIDI.sendNoteOn(notes[i].pitch, notes[i].velocity, channel);
     }
     for (int i = 0; i < length; i++)

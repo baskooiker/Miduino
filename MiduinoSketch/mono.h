@@ -1,5 +1,7 @@
 #pragma once
 
+#include "rhythm_time.h"
+
 void randomize_mono(ApplicationData& data)
 {
     data.settings_mono.arp_data.min = randi(36, 60);
@@ -44,6 +46,9 @@ void play_mono(ApplicationData& data)
     {
         uint8_t chord = cv(data.harmony, data.step);
         uint8_t pitch = get_arp_pitch(data.settings_mono.arp_data, data.scale, chord);
-        note_on(pitch, 64, MIDI_CHANNEL_MONO, data.settings_mono.storage, 3);
+        //note_on(make_note(pitch, 64, ticks_left_in_bar(data.step, data.ticks)),
+        note_on(make_note(pitch, 64, 3),
+                MIDI_CHANNEL_MONO, 
+                data.settings_mono.storage);
     }
 }

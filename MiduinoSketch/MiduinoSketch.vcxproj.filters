@@ -123,5 +123,11 @@
     <ClInclude Include="callbacks.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="rhythm_time.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="app_utils.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

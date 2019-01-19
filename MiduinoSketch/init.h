@@ -84,8 +84,9 @@ SettingsP50 init_p50_settings()
 
     s.gates_low = init_gate_pattern_ab();
     s.gates = init_gate_pattern_ab();
+    s.tie_pattern = init_gate_pattern_ab();
     s.octave = 4;
-    s.type = PolyType::PolyLow;
+    s.type = PolyType::PolyHigh;
     s.storage = init_pitch_storage();
 
     return s;

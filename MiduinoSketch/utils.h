@@ -37,3 +37,12 @@ void sort(uint8_t* ar, uint8_t length)
     }
 }
 
+NoteStruct make_note(const uint8_t pitch, const uint8_t velocity, const uint8_t length = 1, const bool holding = false)
+{
+    NoteStruct n = { 0 };
+    n.pitch = pitch;
+    n.velocity = velocity;
+    n.length = length;
+    n.holding = holding;
+    return n;
+}

@@ -1,37 +1,42 @@
 #pragma once
 
 #include "arp.h"
+#include "chords.h"
 #include "defs.h"
 #include "euclid.h"
 #include "midi_io.h"
-#include "chords.h"
+#include "rhythm_time.h"
 
 void randomize_P50_seq(ApplicationData& data)
 {    
     // Set pattern high
-    data.settings_p50.gates = init_gate_pattern_ab();
     uint8_t steps = randi(5, 11);
     set_euclid(data.settings_p50.gates, 16, steps);
     set_ab_pattern(data.settings_p50.gates.abPattern);
 
     // Set pattern low
-    steps = randi(3, 4);
-    uint8_t length = steps == 4 ? 15 : 16;
+    if (randi(2) < 1)
+        steps = 3;
+    else
+        steps = 5;
 
     if (randi(4) < 2)
     {
         data.settings_p50.gates_low.patterns[1] = 0x00;
-        set_euclid(data.settings_p50.gates_low.patterns[0], length, steps);
+        set_euclid(data.settings_p50.gates_low.patterns[0], 16, steps);
     }
     else
     {
         data.settings_p50.gates_low.patterns[0] = 0x00;
-        set_euclid(data.settings_p50.gates_low.patterns[1], length, steps);
+        set_euclid(data.settings_p50.gates_low.patterns[1], 16, steps);
     }
 
     data.settings_p50.gates_low.patterns[2] = 0x00;
     set_ab_pattern_high(data.settings_p50.gates_low.abPattern);
     data.settings_p50.gates_low.length = 16;
+
+    // Set Tie Pattern
+    randomize(data.settings_p50.tie_pattern, randf(.1f, .4f));
 }
 
 void play_P50(ApplicationData& data)
@@ -41,7 +46,6 @@ void play_P50(ApplicationData& data)
         return;
     }
 
-    CvPatternAB& pattern = data.harmony;
     uint8_t velocity = 64;
 
     if (data.step % 16 == 0)
@@ -52,31 +56,36 @@ void play_P50(ApplicationData& data)
     bool hit = false;
     switch (data.settings_p50.type)
     {
-    case PolyType::PolyOff: break;
-    case PolyType::PolyLow: hit = gate(data.settings_p50.gates_low, data.step, data.ticks);  break;
+    /*case PolyType::PolyOff: break;
+    case PolyType::PolyLow: hit = gate(data.settings_p50.gates_low, data.step, data.ticks);  break;*/
     case PolyType::PolyHigh: hit = gate(data.settings_p50.gates, data.step, data.ticks); break;
     }
 
-    uint8_t note_nr = cv(pattern, data.step);
     if (hit)
     {
-        all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
+        const uint8_t MAX_CHORD_NOTES = 8;
 
-        NoteStruct pitches[3] = { 0 };
-        pitches[0].pitch = apply_scale(note_nr, data.scale, data.settings_p50.octave);
-        pitches[1].pitch = apply_scale(note_nr + 2, data.scale, data.settings_p50.octave);
-        pitches[2].pitch = apply_scale(note_nr + 4, data.scale, data.settings_p50.octave);
-        for (int i = 0; i < 3; i++)
+        //all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
+
+        uint8_t chord_nr = cv(data.harmony, data.step);
+        uint8_t size = 0;
+        uint8_t chord_notes[MAX_CHORD_NOTES];
+
+        // TODO: Make offset variable, parameterized, LFO'd
+        uint8_t offset = 48;
+        get_chord(chord_nr, data.scale, offset, chord_notes, size);
+
+        NoteStruct note_structs[MAX_CHORD_NOTES] = { 0 };
+        for (int i = 0; i < size; i++)
         {
-            pitches[i].length = 6;
-            pitches[i].velocity = 64;
+            note_structs[i].pitch = chord_notes[i];
+            note_structs[i].velocity = 64;
+            note_structs[i].holding = false;
+            note_structs[i].length = gate(data.settings_p50.tie_pattern, data.step, data.ticks) ? 
+                ticks_left_in_bar(data.step, data.ticks) : 
+                6;
         }
 
-        note_on(pitches, 3, MIDI_CHANNEL_P50, data.settings_p50.storage);
-
-        // TODO: Call multi-note_on function
-        /*note_on(pitches[0].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
-        note_on(pitches[1].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);
-        note_on(pitches[2].pitch, velocity, MIDI_CHANNEL_P50, data.settings_p50.storage, 6);*/
+        note_on(note_structs, size, MIDI_CHANNEL_P50, data.settings_p50.storage);
     }
 }

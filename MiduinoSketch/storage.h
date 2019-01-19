@@ -46,7 +46,6 @@ void stop_notes(PitchStorage& storage, uint8_t channel)
     for (uint8_t i = 0; i < storage.size; i++)
     {
         if (storage.data[i].length != HOLD_NOTE
-            && storage.data[i].length != TIE_NOTE
             && storage.data[i].length > 0)
         {
             storage.data[i].length -= 1;
@@ -66,7 +65,7 @@ void untie_notes(PitchStorage& storage)
 {
     for (uint8_t i = 0; i < storage.size; i++)
     {
-        if (storage.data[i].length == TIE_NOTE)
+        if (!storage.data[i].holding)
         {
             storage.data[i].length = 0;
         }

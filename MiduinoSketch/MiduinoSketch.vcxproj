@@ -107,6 +107,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="app_utils.h" />
     <ClInclude Include="arp.h" />
     <ClInclude Include="callbacks.h" />
     <ClInclude Include="chords.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="scales.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="rhythm_time.h" />
     <ClInclude Include="ui.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="__vm\.MiduinoSketch.vsarduino.h" />

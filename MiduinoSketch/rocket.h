@@ -28,30 +28,33 @@ void randomize_rocket_seq(ApplicationData& data)
 
 void play_rocket(ApplicationData& data)
 {
-    SettingsRocket& rocket = data.settings_rocket;
-  
+    //SettingsRocket& rocket = data.settings_rocket;
+
+    NoteStruct note = { 0 };
+
     // Velocity
-    uint8_t velocity = rocket.low_velocity;
-    if (gate(rocket.accents, data.step, data.ticks))
-    {
-        velocity = rocket.high_velocity;
-    }
+    note.velocity = data.settings_rocket.low_velocity;
+    // TODO: Check if accents can be removed
+//    if (gate(data.settings_rocket.accents, data.step, data.ticks))
+//    {
+//        note.velocity = data.settings_rocket.high_velocity;
+//    }
 
     // Get hit
     bool hit = false;
-    switch (rocket.style)
+    switch (data.settings_rocket.style)
     {
     case RocketStyle::RocketWhole:
         hit = interval_hit(TimeDivision::TIME_DIVISION_WHOLE, data.step, data.ticks);
         break;
     case RocketEuclid:
-        hit = gate(rocket.euclid_pattern, data.step, data.ticks);
+        hit = gate(data.settings_rocket.euclid_pattern, data.step, data.ticks);
         break;
     case RocketStyle::RocketArpInterval:
-        hit = interval_hit(rocket.int_pattern, data.step, data.ticks);
+        hit = interval_hit(data.settings_rocket.int_pattern, data.step, data.ticks);
         break;
     case RocketStyle::RocketProb:
-        hit = (cv(rocket.probs, data.step) <= (uint8_t)MIN(rocket.gate_density, 127)) && (data.ticks % 6 == 0);
+        hit = (cv(data.settings_rocket.probs, data.step) <= (uint8_t)MIN(data.settings_rocket.gate_density, 127)) && (data.ticks % 6 == 0);
         break;
     case RocketStyle::RocketSixteenths:
         hit = interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks); 
@@ -68,43 +71,43 @@ void play_rocket(ApplicationData& data)
         {
             if (data.settings_rocket.note_range_value < 64)
             {
-                note_nr = to_chord_order(cv(rocket.pitches, data.step));
+                note_nr = to_chord_order(cv(data.settings_rocket.pitches, data.step));
             }
             else
             {
                 if (note_range_p % 64 < data.settings_rocket.note_range_value % 64)
                 {
-                    note_nr = cv(rocket.pitches, data.step);
+                    note_nr = cv(data.settings_rocket.pitches, data.step);
                 }
                 else
                 {
-                    note_nr = to_chord_order(cv(rocket.pitches, data.step));
+                    note_nr = to_chord_order(cv(data.settings_rocket.pitches, data.step));
                 }
             }
         }
 
         uint8_t harmony = cv(data.harmony, data.step);
-        uint8_t octave = cv(rocket.octaves, data.step);
+        uint8_t octave = cv(data.settings_rocket.octaves, data.step);
         uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);
         if (variable_octave < data.settings_rocket.pitch_range)
         {
             octave += variable_octave % 3 + 1;
         }
-        uint8_t pitch = apply_scale(note_nr + harmony, data.scale, octave);
+
+        note.pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
         // Note length
-        uint8_t length = 6;
-        if (gate(rocket.slides, data.step, data.ticks))
+        if (gate(data.settings_rocket.slides, data.step, data.ticks))
         {
-            length = TIE_NOTE;
+            note.length = TICKS_IN_BAR;
         }
         else
         {
             all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
-            length = 6;
+            note.length = 6;
         }
 
         // Play it!
-        note_on(pitch, velocity, MIDI_CHANNEL_ROCKET, data.settings_rocket.storage, length);
+        note_on(note, MIDI_CHANNEL_ROCKET, data.settings_rocket.storage);
     }
 }

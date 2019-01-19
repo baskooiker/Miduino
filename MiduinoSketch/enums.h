@@ -63,8 +63,7 @@ enum LeadStyle {
 };
 
 enum PolyType {
-    PolyOff,
-    PolyLow,
+    //PolyLow,
     PolyHigh
 };
 
