@@ -131,9 +131,7 @@ typedef struct {
     GatePatternAB euclid_pattern;
     GatePatternAB low_pattern;
 
-    //uint8_t gate_density;
     uint8_t low_velocity;
-    uint8_t high_velocity;
     uint8_t pitch_range;
     RocketStyle style;
     CvPatternAB note_range_prob;

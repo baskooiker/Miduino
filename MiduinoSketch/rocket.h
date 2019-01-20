@@ -17,7 +17,6 @@ void randomize_rocket_seq(ApplicationData& data)
     
     randomize(data.settings_rocket.slides, .15f);
 
-    randomize(data.settings_rocket.probs);
     randomize(data.settings_rocket.note_range_prob);
 
     randomize_interval(data.settings_rocket.int_pattern, arp_interval_probs);
@@ -37,9 +36,6 @@ void play_rocket(ApplicationData& data)
     bool hit = false;
     switch (data.settings_rocket.style)
     {
-    //case RocketStyle::RocketWhole:
-        //hit = interval_hit(TimeDivision::TIME_DIVISION_WHOLE, data.step, data.ticks);
-        //break;
     case RocketStyle::RocketLow:
         hit = gate(data.settings_rocket.low_pattern, data.step, data.ticks);
         break;
@@ -49,9 +45,6 @@ void play_rocket(ApplicationData& data)
     case RocketStyle::RocketArpInterval:
         hit = interval_hit(data.settings_rocket.int_pattern, data.step, data.ticks);
         break;
-    /*case RocketStyle::RocketProb:
-        hit = (cv(data.settings_rocket.probs, data.step) <= (uint8_t)MIN(data.settings_rocket.gate_density, 127)) && (data.ticks % 6 == 0);
-        break;*/
     case RocketStyle::RocketSixteenths:
         hit = interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks); 
         break;

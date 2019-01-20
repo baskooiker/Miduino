@@ -9,31 +9,24 @@
 
 void randomize_P50_seq(ApplicationData& data)
 {    
+    // Set pattern low
+    set_gates_low(data.settings_p50.gates_low, randi(1, 4));
+
     // Set pattern high
     uint8_t steps = randi(5, 11);
     set_euclid(data.settings_p50.gates, 16, steps);
     set_ab_pattern(data.settings_p50.gates.abPattern);
 
-    // Set pattern low
-    set_gates_low(data.settings_p50.gates_low, randi(1, 4));
-
     // Set Tie Pattern
     randomize(data.settings_p50.tie_pattern, randf(.1f, .4f));
+
+    // Randomize pitch range
+    data.settings_p50.pitch_offset = randi(42, 54);
 }
 
 void play_P50(ApplicationData& data)
 { 
-    if (data.ticks % TICKS_PER_STEP != 0)
-    {
-        return;
-    }
-
     uint8_t velocity = 64;
-
-    //if (data.step % 16 == 0)
-    //{
-    //    all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
-    //}
 
     bool hit = false;
     switch (data.settings_p50.type)
@@ -50,10 +43,7 @@ void play_P50(ApplicationData& data)
         uint8_t size = 0;
         uint8_t chord_notes[MAX_CHORD_NOTES];
 
-        // TODO: Make offset variable, parameterized, LFO'd
-        //uint8_t offset = 48;
-        uint8_t offset = data.settings_p50.pitch_offset;
-        get_chord(chord_nr, data.scale, offset, chord_notes, size);
+        get_chord(chord_nr, data.scale, data.settings_p50.pitch_offset, chord_notes, size);
 
         uint8_t length = 6;
         if (gate(data.settings_p50.tie_pattern, data.step, data.ticks) 

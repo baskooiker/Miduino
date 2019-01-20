@@ -23,7 +23,6 @@ void randomize_lead(ApplicationData& data)
     case 0: data.settings_lead.arp_data.type = ArpType::CLOSEST; break;
     case 1: data.settings_lead.arp_data.type = ArpType::CLOSEST_EXC; break;
     }
-    //data.settings_lead.arp_data.range = randi(12, 24);
     data.settings_lead.arp_data.range = 12;
 }
 

@@ -106,9 +106,7 @@ SettingsRocket init_rocket_settings()
     s.euclid_pattern = init_gate_pattern_ab();
     s.low_pattern = init_gate_pattern_ab();
 
-    //s.gate_density = 0;
     s.low_velocity = 64;
-    s.high_velocity = 100;
     s.pitch_range = 0;
     s.style = RocketStyle::RocketLow;
     s.note_range_prob = init_cv_pattern_ab();
