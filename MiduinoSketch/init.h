@@ -85,8 +85,8 @@ SettingsP50 init_p50_settings()
     s.gates_low = init_gate_pattern_ab();
     s.gates = init_gate_pattern_ab();
     s.tie_pattern = init_gate_pattern_ab();
-    s.octave = 4;
-    s.type = PolyType::PolyHigh;
+    s.pitch_offset = 48;
+    s.type = PolyType::PolyLow;
     s.storage = init_pitch_storage();
 
     return s;
@@ -104,11 +104,13 @@ SettingsRocket init_rocket_settings()
     s.probs = init_cv_pattern_ab();
     s.int_pattern = init_interval_pattern();
     s.euclid_pattern = init_gate_pattern_ab();
-    s.gate_density = 0;
+    s.low_pattern = init_gate_pattern_ab();
+
+    //s.gate_density = 0;
     s.low_velocity = 64;
     s.high_velocity = 100;
     s.pitch_range = 0;
-    s.style = RocketStyle::RocketWhole;
+    s.style = RocketStyle::RocketLow;
     s.note_range_prob = init_cv_pattern_ab();
     s.note_range_value = 0;
     s.storage = init_pitch_storage();

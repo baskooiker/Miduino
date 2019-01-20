@@ -341,15 +341,13 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         data.settings_rocket.pitch_range = value;
         break;
     case BSP_KNOB_08:
-        data.settings_rocket.gate_density = value / 2 + 64;
+        //data.settings_rocket.gate_density = value / 2 + 64;
         if (value < 10)
-            data.settings_rocket.style = RocketWhole;
-        else if (value < 40)
+            data.settings_rocket.style = RocketLow;
+        else if (value < 64)
             data.settings_rocket.style = RocketEuclid;
-        else if (value < 80)
-            data.settings_rocket.style = RocketArpInterval;
         else if (value < 120)
-            data.settings_rocket.style = RocketProb;
+            data.settings_rocket.style = RocketArpInterval;
         else
             data.settings_rocket.style = RocketSixteenths;
         break;
@@ -361,7 +359,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         break;
     case BSP_KNOB_10:
         data.settings_503.volume_cy = (value + 1) / 2;
-        send_cc(MFB_503_CY_LEVEL, value, MIDI_CHANNEL_503);
+        send_cc(MFB_503_CY_LEVEL, data.settings_503.volume_cy, MIDI_CHANNEL_503);
         break;
     case BSP_KNOB_14:
         data.settings_lead.arp_data.range = 12 + (uint8_t)(value * 24. / 127.);

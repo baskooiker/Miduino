@@ -129,8 +129,9 @@ typedef struct {
     CvPatternAB probs;
     IntervalPattern int_pattern;
     GatePatternAB euclid_pattern;
+    GatePatternAB low_pattern;
 
-    uint8_t gate_density;
+    //uint8_t gate_density;
     uint8_t low_velocity;
     uint8_t high_velocity;
     uint8_t pitch_range;
@@ -163,8 +164,10 @@ typedef struct {
 typedef struct {
     uint8_t min;
     uint8_t range;
+    uint8_t range_count;
     uint8_t counter;
     ArpType type;
+    RangeType range_type;
     uint8_t last_note;
 } ArpData;
 
@@ -172,7 +175,7 @@ typedef struct {
     GatePatternAB gates_low;
     GatePatternAB gates;
     GatePatternAB tie_pattern;
-    uint8_t octave;
+    uint8_t pitch_offset;
     PolyType type;
     PitchStorage storage;
 } SettingsP50;

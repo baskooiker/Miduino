@@ -44,10 +44,15 @@ void play_mono(ApplicationData& data)
 
     if (hit)
     {
-        uint8_t chord = cv(data.harmony, data.step);
-        uint8_t pitch = get_arp_pitch(data.settings_mono.arp_data, data.scale, chord);
-        //note_on(make_note(pitch, 64, ticks_left_in_bar(data.step, data.ticks)),
-        note_on(make_note(pitch, 64, 3),
+        uint8_t pitch = get_arp_pitch(data.settings_mono.arp_data, 
+                                      data.scale, 
+                                      cv(data.harmony, data.step));
+
+        uint8_t length = 3;
+        if (data.settings_mono.style == MonoStyle::LeadPattern)
+            length = ticks_left_in_bar(data.step, data.ticks);
+
+        note_on(make_note(pitch, 64, length),
                 MIDI_CHANNEL_MONO, 
                 data.settings_mono.storage);
     }

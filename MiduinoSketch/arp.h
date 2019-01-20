@@ -79,14 +79,37 @@ uint8_t get_arp_pitch(ArpData& arp_data, const uint8_t* arp_pitches, const uint8
     return 0;
 }
 
-uint8_t get_arp_pitch(ArpData& arp_data, const Scale scale, const uint8_t chord)
+void get_arp_pitches_by_range(ArpData& arp_data, const Scale scale, const uint8_t chord, uint8_t* arp_pitches, uint8_t& size)
 {
-    uint8_t arp_pitches[32] = {0};
-    uint8_t size = 0;
     for (int i = arp_data.min; i < arp_data.min + arp_data.range; i++)
     {
         if (is_in_chord(i, scale, chord))
             arp_pitches[size++] = i;
+    }
+}
+
+void get_arp_pitches_by_count(ArpData& arp_data, const Scale scale, const uint8_t chord, uint8_t* arp_pitches, uint8_t& size)
+{
+    int i = arp_data.min;
+    size = 0;
+    while (size < arp_data.range_count 
+        && i < 128)
+    {
+        if (is_in_chord(i, scale, chord))
+            arp_pitches[size++] = i;
+        i++;
+    }
+}
+
+uint8_t get_arp_pitch(ArpData& arp_data, const Scale scale, const uint8_t chord)
+{
+    uint8_t arp_pitches[32] = {0};
+    uint8_t size = 0;
+
+    switch (arp_data.range_type)
+    {
+    case RangeType::Range: get_arp_pitches_by_range(arp_data, scale, chord, arp_pitches, size); break;
+    case RangeType::Count: get_arp_pitches_by_count(arp_data, scale, chord, arp_pitches, size); break;
     }
 
     return get_arp_pitch(arp_data, arp_pitches, size);

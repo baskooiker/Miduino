@@ -38,9 +38,10 @@ enum NoteRange {
 };
 
 enum RocketStyle {
-    RocketWhole,
+    //RocketWhole,
+    RocketLow,
     RocketSixteenths,
-    RocketProb,
+    //RocketProb,
     RocketArpInterval,
     RocketEuclid
 };
@@ -55,6 +56,11 @@ enum ArpType {
     RANDOM
 };
 
+enum RangeType {
+    Range,
+    Count
+};
+
 enum LeadStyle {
     //LeadSixteenths,
     //LeadLongPattern,
@@ -63,7 +69,7 @@ enum LeadStyle {
 };
 
 enum PolyType {
-    //PolyLow,
+    PolyLow,
     PolyHigh
 };
 
