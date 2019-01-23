@@ -107,6 +107,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ab.h" />
     <ClInclude Include="app_utils.h" />
     <ClInclude Include="arp.h" />
     <ClInclude Include="callbacks.h" />
@@ -120,7 +121,10 @@
     <ClInclude Include="enums.h" />
     <ClInclude Include="euclid.h" />
     <ClInclude Include="gate.h" />
+    <ClInclude Include="harmony.h" />
     <ClInclude Include="init.h" />
+    <ClInclude Include="init_patterns.h" />
+    <ClInclude Include="init_structs.h" />
     <ClInclude Include="intervals.h" />
     <ClInclude Include="lead.h" />
     <ClInclude Include="mask.h" />

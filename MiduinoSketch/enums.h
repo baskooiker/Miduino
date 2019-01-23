@@ -65,6 +65,7 @@ enum LeadStyle {
     //LeadSixteenths,
     //LeadLongPattern,
     //LeadIntPattern,
+    LeadSlow,
     LeadWhole
 };
 
@@ -82,4 +83,10 @@ enum MonoStyle {
     Sixteenths,
     PolyRhythm,
     LeadPattern
+};
+
+enum HarmonyType {
+    Const,
+    Low,
+    High
 };

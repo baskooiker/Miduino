@@ -80,11 +80,12 @@ void randomize_interval_lead(IntervalPattern& pattern)
     for (int bar = 0; bar < 4; bar++)
     {
         // 50% chance for fill in each far
-        if (randi(2) < 1)
+        if (randi(4) < 3)
         {
-            // staring fill on beat 3 or 4
-            uint8_t start_beat = randi(2, 4);
-            for (int beat = start_beat; beat < 4; beat++)
+            // Starting fill of length 1 or two. Randomize position in bar.
+            uint8_t fill_length = randi(1,3);
+            uint8_t start_beat = randi(0, 5-fill_length);
+            for (int beat = start_beat; beat < start_beat+fill_length; beat++)
             {
                 TimeDivision time_division = randi(2) < 1 ? 
                     TimeDivision::TIME_DIVISION_SIXTEENTH : 

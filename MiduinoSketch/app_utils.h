@@ -43,7 +43,7 @@ void all_notes_off(PitchStorage& storage, uint8_t channel)
 
 void randomize_all(ApplicationData& data)
 {
-    set_all(data.harmony, 0);
+    randomize_harmony(data);
 
     randomize_503_seq(data);
     randomize_522_seq(data);

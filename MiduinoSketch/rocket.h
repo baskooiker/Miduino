@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defs.h"
+#include "harmony.h"
 #include "midi_io.h"
 #include "pitch.h"
 #include "scales.h"
@@ -51,6 +52,8 @@ void play_rocket(ApplicationData& data)
     default: break;
     }
 
+    hit &= !data.uiState.kill_bass;
+
     if (hit)
     {
         // Pitch
@@ -75,7 +78,7 @@ void play_rocket(ApplicationData& data)
             }
         }
 
-        uint8_t harmony = cv(data.harmony, data.step);
+        uint8_t harmony = get_chord_step(data);
         uint8_t octave = cv(data.settings_rocket.octaves, data.step);
         uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);
         if (variable_octave < data.settings_rocket.pitch_range)

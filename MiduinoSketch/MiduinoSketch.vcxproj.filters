@@ -31,6 +31,9 @@
     <Filter Include="Header Files\app">
       <UniqueIdentifier>{9bccd42c-049c-40b6-a4d4-cbc47aaffdf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\init">
+      <UniqueIdentifier>{960e0301-93f6-407f-85bf-79afd30c0300}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MiduinoSketch.ino" />
@@ -65,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="euclid.h">
       <Filter>Header Files\rhythms</Filter>
-    </ClInclude>
-    <ClInclude Include="init.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lead.h">
       <Filter>Header Files\instruments</Filter>
@@ -128,6 +128,21 @@
     </ClInclude>
     <ClInclude Include="app_utils.h">
       <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="ab.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="init_structs.h">
+      <Filter>Header Files\init</Filter>
+    </ClInclude>
+    <ClInclude Include="init.h">
+      <Filter>Header Files\init</Filter>
+    </ClInclude>
+    <ClInclude Include="init_patterns.h">
+      <Filter>Header Files\init</Filter>
+    </ClInclude>
+    <ClInclude Include="harmony.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

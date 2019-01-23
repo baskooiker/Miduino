@@ -55,9 +55,8 @@ SettingsLead init_lead_settings()
     SettingsLead s = { 0 };
 
     s.arp_data = init_arp_data();
-    s.int_pattern = init_interval_pattern();
-    s.long_pattern = init_interval_pattern();
     s.min_pitch_pattern = init_cv_pattern_ab();
+    s.pattern_slow = init_gate_pattern_ab();
     s.style = LeadStyle::LeadWhole;
     s.storage = init_pitch_storage();
 
@@ -120,7 +119,8 @@ ApplicationData init_application_data()
 {
     ApplicationData i = { 0 };
 
-    i.harmony = init_cv_pattern_ab();
+    i.harmony = init_harmony_struct();
+
     i.scale = get_scale(AEOLIAN, ROOT_C);
     i.step = 0;
     i.ticks = 0;

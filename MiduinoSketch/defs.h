@@ -93,7 +93,6 @@ typedef struct {
     uint8_t p_32;
     uint8_t p_t8;
 } IntervalProbs;
-//static const IntervalProbs hat_interval_probs = { 0,  20, 50, 15, 10 };
 static const IntervalProbs arp_interval_probs = { 25, 25, 25, 0,  0 };
 
 typedef struct {
@@ -104,7 +103,6 @@ typedef struct {
     uint16_t bsp_button_state;
     uint16_t bsp_pad_state;
 
-    ButtonState step_state[16];
     ButtonState pad_state[16];
 
     ControlMode control_mode;
@@ -113,6 +111,8 @@ typedef struct {
     bool kill_mid;
     bool kill_high;
     bool kill_perc;
+
+    bool kill_bass;
 
     bool drum_fill;
     uint8_t drum_roll;
@@ -185,6 +185,13 @@ typedef struct {
 } Scale;
 
 typedef struct {
+    CvPatternAB const_pattern;
+    CvPatternAB low_pattern;
+    CvPatternAB high_pattern;
+    HarmonyType type;
+} HarmonyStruct;
+
+typedef struct {
     GatePattern16 ac_pattern;
     GatePatternAB bd_pattern;
     GatePatternAB sd_pattern;
@@ -211,9 +218,8 @@ typedef struct {
 
 typedef struct {
     ArpData arp_data;
-    IntervalPattern int_pattern;
-    IntervalPattern long_pattern;
     CvPatternAB min_pitch_pattern;
+    GatePatternAB pattern_slow;
     LeadStyle style;
     PitchStorage storage;
 } SettingsLead;
@@ -232,7 +238,7 @@ typedef struct {
     uint8_t ticks;
     long step;
 
-    CvPatternAB harmony;
+    HarmonyStruct harmony;
 
     SettingsP50 settings_p50;
     Settings522 settings_522;

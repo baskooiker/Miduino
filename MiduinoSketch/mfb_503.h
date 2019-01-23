@@ -5,6 +5,7 @@
 #include "defs.h"
 #include "euclid.h"
 #include "gate.h"
+#include "harmony.h"
 #include "intervals.h"
 #include "mask.h"
 #include "midi_io.h"
@@ -99,7 +100,7 @@ void play_bd(ApplicationData& data)
         uint8_t pitch = NOTE_503_BD;
         if (data.settings_503.play_pitch_bd)
         {
-            pitch = clip_pitch(cv(data.harmony, data.step), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
+            pitch = clip_pitch(get_chord_step(data), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
         note_on(make_note(pitch, 127), MIDI_CHANNEL_503, data.settings_503.storage);
     }
@@ -107,13 +108,13 @@ void play_bd(ApplicationData& data)
 
 void play_hats(ApplicationData& data)
 {
-    uint8_t velocity = 64;
+    uint8_t velocity = 63;
     switch (data.settings_503.hat_style)
     {
     case HatStyle::HatOffBeat:
     {
         if (data.step % 4 == 2)
-            velocity = 100;
+            velocity = 127;
 
         bool hh = gate(data.settings_503.hh_pattern, data.step, data.ticks);
         if (gate(data.settings_503.oh_pattern, data.step, data.ticks) && !hh && !data.uiState.kill_high)
@@ -127,6 +128,8 @@ void play_hats(ApplicationData& data)
         break;
     }
     case HatStyle::HatFull:
+        if (data.step % 4 == 0)
+            velocity = 127;
         if (interval_hit(data.settings_503.hat_int_pattern, data.step, data.ticks) && !data.uiState.kill_high)
         {
             note_on(make_note(NOTE_503_OH, velocity), MIDI_CHANNEL_503, data.settings_503.storage);

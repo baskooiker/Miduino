@@ -58,3 +58,13 @@ void set_coef_hat_pattern(GatePatternAB& pattern)
     coef.down = randf(.25);
     set_coef_pattern(pattern, coef);
 }
+
+void set_coef_slow_pattern(GatePatternAB& pattern)
+{
+    Coefficients coef = { 0 };
+    coef.one = 1.f;
+    coef.two = randf(.5f, 1.f);
+    coef.three = randf(.5f, 1.f);
+    coef.four = randf(.5f, 1.f);
+    set_coef_pattern(pattern, coef);
+}

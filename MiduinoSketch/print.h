@@ -40,6 +40,15 @@ void print_pattern(const CvPatternAB& pattern)
     printf("\n");
 }
 
+void print_pattern(const IntervalPattern& pattern)
+{
+    for (int i = 0; i < pattern.length; i++)
+    {
+        printf("%-2d ", (uint8_t)pattern.pattern[i]);
+    }
+    printf("\n");
+}
+
 void print_storage(PitchStorage& storage)
 {
     printf("\nsize: %d\n", storage.size);

@@ -4,6 +4,7 @@
 #include "chords.h"
 #include "defs.h"
 #include "euclid.h"
+#include "harmony.h"
 #include "midi_io.h"
 #include "rhythm_time.h"
 
@@ -39,7 +40,7 @@ void play_P50(ApplicationData& data)
     {
         const uint8_t MAX_CHORD_NOTES = 8;
 
-        uint8_t chord_nr = cv(data.harmony, data.step);
+        uint8_t chord_nr = get_chord_step(data);
         uint8_t size = 0;
         uint8_t chord_notes[MAX_CHORD_NOTES];
 

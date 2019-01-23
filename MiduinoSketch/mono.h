@@ -1,5 +1,6 @@
 #pragma once
 
+#include "harmony.h"
 #include "rhythm_time.h"
 
 void randomize_mono(ApplicationData& data)
@@ -22,6 +23,7 @@ void randomize_mono(ApplicationData& data)
     }
 
     set_euclid(data.settings_mono.euclid_pattern, randi(5, 8), 1);
+    data.settings_mono.euclid_pattern.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
 
     randomize_interval_lead(data.settings_mono.lead_pattern);
 }
@@ -46,7 +48,7 @@ void play_mono(ApplicationData& data)
     {
         uint8_t pitch = get_arp_pitch(data.settings_mono.arp_data, 
                                       data.scale, 
-                                      cv(data.harmony, data.step));
+                                      get_chord_step(data));
 
         uint8_t length = 3;
         if (data.settings_mono.style == MonoStyle::LeadPattern)

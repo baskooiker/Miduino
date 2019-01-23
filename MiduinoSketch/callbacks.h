@@ -6,6 +6,7 @@
 #include "chords.h"
 #include "cv.h"
 #include "defs.h"
+#include "harmony.h"
 #include "init.h"
 #include "midi_io.h"
 #include "rand.h"
@@ -99,6 +100,14 @@ void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity
         break;
     case BSP_PAD_08:
         data.uiState.pad_state[7].last_pressed = millis();
+        if (data.uiState.control_mode == CONTROL_MODE_NORMAL)
+        {
+            data.uiState.kill_bass = !data.uiState.kill_bass;
+            if (data.uiState.kill_bass)
+            {
+                stop_notes(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
+            }
+        }
         set_pad_state(data.uiState, 7, true);
         break;
     case BSP_PAD_09:
@@ -244,10 +253,9 @@ void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocit
     }
     case BSP_PAD_08:
     {
-        boolean p_long = was_pressed_long(data.uiState.pad_state[7]);
-        if (data.uiState.control_mode == CONTROL_MODE_ROOT)
+        if (was_pressed_long(data.uiState.pad_state[7]))
         {
-            data.uiState.control_mode = CONTROL_MODE_NORMAL;
+            data.uiState.kill_bass = false;
         }
         set_pad_state(data.uiState, 7, false);
         break;
@@ -333,6 +341,14 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         else
             data.settings_503.hat_style = HatStyle::HatFull;
         break;
+    case BSP_KNOB_03:
+        if (value < 10)
+            data.harmony.type = HarmonyType::Const;
+        else if (value < 117)
+            data.harmony.type = HarmonyType::Low;
+        else
+            data.harmony.type = HarmonyType::High;
+        break;
     case BSP_KNOB_05:
         break;
     case BSP_KNOB_06:
@@ -341,7 +357,6 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         data.settings_rocket.pitch_range = value;
         break;
     case BSP_KNOB_08:
-        //data.settings_rocket.gate_density = value / 2 + 64;
         if (value < 10)
             data.settings_rocket.style = RocketLow;
         else if (value < 64)
@@ -374,84 +389,47 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
             randomize_503_seq(data);
             randomize_522_seq(data);
         }
-        else
-        {
-            data.uiState.step_state[0].last_pressed = millis();
-        }
         break;
     case BSP_STEP_02:
-        if (value == 0)
-        {
-        }
-        else
-        {
-            data.uiState.step_state[1].last_pressed = millis();
-        }
         break;
     case BSP_STEP_03:
+        break;
+    case BSP_STEP_05:
         if (value == 0)
         {
-        }
-        else
-        {
-            data.uiState.step_state[2].last_pressed = millis();
+            randomize_harmony(data);
         }
         break;
-    case BSP_STEP_08:
+    case BSP_STEP_07:
         if (value == 0)
         {
-            randomize_mono(data);
+            randomize_P50_seq(data);
         }
         break;
     case BSP_STEP_09:
         if (value == 0)
         {
-            set_all(data.harmony, 0);
-            data.harmony.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
-
-            randomize_P50_seq(data);
-        }
-        else
-        {
-            data.uiState.step_state[8].last_pressed = millis();
+            randomize_lead(data);
         }
         break;
     case BSP_STEP_10:
-        if (value == 0)
-        {
-            set_chord_pattern_ab(data.harmony);
-            if (randf() < .5)
-            {
-                set_ab_pattern_low(data.harmony.abPattern);
-                data.harmony.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
-            }
-            else
-            {
-                set_ab_pattern_high(data.harmony.abPattern);
-                data.harmony.time_division = TimeDivision::TIME_DIVISION_EIGHT;
-            }
-        }
-        else
-        {
-            data.uiState.step_state[9].last_pressed = millis();
-        }
         break;
     case BSP_STEP_11:
         if (value == 0)
         {
-            set_chord_pattern_ab(data.harmony);
-            set_ab_pattern_high(data.harmony.abPattern);
-            data.harmony.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
-        }
-        else
-        {
-            data.uiState.step_state[10].last_pressed = millis();
+            randomize_mono(data);
+            data.settings_mono.style = MonoStyle::Sixteenths; 
         }
         break;
     case BSP_STEP_12:
         if (value == 0)
         {
-            randomize_lead(data);
+            randomize_mono(data);
+            switch (randi(2))
+            {
+            case 0: data.settings_mono.style = MonoStyle::PolyRhythm; break;
+            case 1: data.settings_mono.style = MonoStyle::LeadPattern; break;
+            }
         }
         break;
     case BSP_STEP_13:
@@ -459,19 +437,12 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         {
             randomize_rocket_seq(data);
         }
-        else
-        {
-            data.uiState.step_state[12].last_pressed = millis();
-        }
         break;
     case BSP_STEP_14:
         break;
     case BSP_STEP_15:
+        break;
     case BSP_STEP_16:
-        if (value == 0)
-        {
-            randomize_rocket_seq(data);
-        }
         break;
     default:
         break;
