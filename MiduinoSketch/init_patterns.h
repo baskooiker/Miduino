@@ -8,9 +8,9 @@ IntervalPattern init_interval_pattern()
     pattern.length = 16;
     for (int i = 0; i < pattern.length; i++)
     {
-        pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH;
+        pattern.pattern[i] = TimeDivision::Sixteenth;
     }
-    pattern.time_division = TimeDivision::TIME_DIVISION_EIGHT;
+    pattern.time_division = TimeDivision::Eight;
     return pattern;
 }
 
@@ -18,7 +18,7 @@ CvPatternAB init_cv_pattern_ab()
 {
     CvPatternAB p = { 0 };
     p.length = 64;
-    p.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+    p.time_division = TimeDivision::Sixteenth;
     return p;
 }
 
@@ -36,6 +36,6 @@ GatePatternAB init_gate_pattern_ab()
     pattern.patterns[1] = 0x00;
     pattern.patterns[2] = 0x00;
     pattern.length = 64;
-    pattern.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+    pattern.time_division = TimeDivision::Sixteenth;
     return pattern;
 }

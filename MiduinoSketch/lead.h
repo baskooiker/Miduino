@@ -13,9 +13,9 @@ void randomize_lead(ApplicationData& data)
     randomize(data.settings_lead.min_pitch_pattern, 60, 78);
     switch (randi(3))
     {
-    case 0: data.settings_lead.min_pitch_pattern.time_division = TimeDivision::TIME_DIVISION_FOURTH; break;
-    case 1: data.settings_lead.min_pitch_pattern.time_division = TimeDivision::TIME_DIVISION_HALF; break;
-    case 2: data.settings_lead.min_pitch_pattern.time_division = TimeDivision::TIME_DIVISION_WHOLE; break;
+    case 0: data.settings_lead.min_pitch_pattern.time_division = TimeDivision::Quarter; break;
+    case 1: data.settings_lead.min_pitch_pattern.time_division = TimeDivision::Half; break;
+    case 2: data.settings_lead.min_pitch_pattern.time_division = TimeDivision::Whole; break;
     }
 
     switch (distribution(10, 30))
@@ -36,7 +36,7 @@ void play_lead(ApplicationData& data)
     switch (data.settings_lead.style)
     {
     case LeadStyle::LeadWhole:
-        hit = interval_hit(TimeDivision::TIME_DIVISION_WHOLE, data.step, data.ticks);
+        hit = interval_hit(TimeDivision::Whole, data.step, data.ticks);
         length = TICKS_IN_BAR;
         break;
     case LeadStyle::LeadSlow:

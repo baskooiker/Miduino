@@ -20,15 +20,15 @@ enum Root {
 };
 
 enum TimeDivision {
-    TIME_DIVISION_THIRTYTWO = 3,
-    TIME_DIVISION_SIXTEENTH = 6,
-    TIME_DIVISION_TRIPLE_EIGHT = 8,
-    TIME_DIVISION_EIGHT = 12,
-    TIME_DIVISION_EIGHT_DOT = 18,
-    TIME_DIVISION_FOURTH = 24,
-    TIME_DIVISION_FOURTH_DOT = 36,
-    TIME_DIVISION_HALF = 48,
-    TIME_DIVISION_WHOLE = 96,
+    Thirtysecond = 3,
+    Sixteenth = 6,
+    TripletEight = 8,
+    Eight = 12,
+    DottedEight = 18,
+    Quarter = 24,
+    DottedQuarter = 36,
+    Half = 48,
+    Whole = 96,
 };
 
 enum NoteRange {

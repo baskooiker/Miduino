@@ -16,15 +16,15 @@ void randomize_mask_pattern(GatePatternAB& pattern)
     uint8_t r = randi(3);
     if (r < 1)
     {
-        pattern.time_division = TimeDivision::TIME_DIVISION_FOURTH;
+        pattern.time_division = TimeDivision::Quarter;
     }
     else if (r < 2)
     {
-        pattern.time_division = TimeDivision::TIME_DIVISION_EIGHT;
+        pattern.time_division = TimeDivision::Eight;
     }
     else
     {
-        pattern.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+        pattern.time_division = TimeDivision::Sixteenth;
     }
     pattern.length = 8;
     set_ab_pattern(pattern.abPattern);

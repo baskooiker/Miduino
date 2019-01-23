@@ -23,7 +23,7 @@ void randomize_mono(ApplicationData& data)
     }
 
     set_euclid(data.settings_mono.euclid_pattern, randi(5, 8), 1);
-    data.settings_mono.euclid_pattern.time_division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+    data.settings_mono.euclid_pattern.time_division = TimeDivision::Sixteenth;
 
     randomize_interval_lead(data.settings_mono.lead_pattern);
 }
@@ -34,7 +34,7 @@ void play_mono(ApplicationData& data)
     switch (data.settings_mono.style)
     {
     case MonoStyle::Sixteenths: 
-        hit = interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks); 
+        hit = interval_hit(TimeDivision::Sixteenth, data.step, data.ticks); 
         break;
     case MonoStyle::PolyRhythm:
         hit = gate(data.settings_mono.euclid_pattern, data.step, data.ticks);

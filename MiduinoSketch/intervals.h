@@ -33,11 +33,11 @@ void randomize_interval(IntervalPattern& pattern, const IntervalProbs probs)
             // Alles kan
             switch (distribution(probs.p_4, probs.p_8 * 2, probs.p_16 * 2, probs.p_32 * 2, probs.p_t8 * 2))
             {
-            case 0: pattern.pattern[i] = TimeDivision::TIME_DIVISION_FOURTH; break;
-            case 1: pattern.pattern[i] = TimeDivision::TIME_DIVISION_EIGHT; break;
-            case 2: pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH; break;
-            case 3: pattern.pattern[i] = TimeDivision::TIME_DIVISION_THIRTYTWO; break;
-            case 4: pattern.pattern[i] = TimeDivision::TIME_DIVISION_TRIPLE_EIGHT; break;
+            case 0: pattern.pattern[i] = TimeDivision::Quarter; break;
+            case 1: pattern.pattern[i] = TimeDivision::Eight; break;
+            case 2: pattern.pattern[i] = TimeDivision::Sixteenth; break;
+            case 3: pattern.pattern[i] = TimeDivision::Thirtysecond; break;
+            case 4: pattern.pattern[i] = TimeDivision::TripletEight; break;
             }
         }
         else if (i == 16)
@@ -45,9 +45,9 @@ void randomize_interval(IntervalPattern& pattern, const IntervalProbs probs)
             // Alles behalve triplets en kwarten
             switch (distribution(probs.p_8, probs.p_16, probs.p_32))
             {
-            case 0: pattern.pattern[i] = TimeDivision::TIME_DIVISION_EIGHT; break;
-            case 1: pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH; break;
-            case 2: pattern.pattern[i] = TimeDivision::TIME_DIVISION_THIRTYTWO; break;
+            case 0: pattern.pattern[i] = TimeDivision::Eight; break;
+            case 1: pattern.pattern[i] = TimeDivision::Sixteenth; break;
+            case 2: pattern.pattern[i] = TimeDivision::Thirtysecond; break;
             }
         }
         else
@@ -55,15 +55,15 @@ void randomize_interval(IntervalPattern& pattern, const IntervalProbs probs)
             // alles behalve triplets
             switch (distribution(probs.p_4, probs.p_8 * 2, probs.p_16 * 2, probs.p_32 * 2))
             {
-            case 0: pattern.pattern[i] = TimeDivision::TIME_DIVISION_FOURTH; break;
-            case 1: pattern.pattern[i] = TimeDivision::TIME_DIVISION_EIGHT; break;
-            case 2: pattern.pattern[i] = TimeDivision::TIME_DIVISION_SIXTEENTH; break;
-            case 3: pattern.pattern[i] = TimeDivision::TIME_DIVISION_THIRTYTWO; break;
+            case 0: pattern.pattern[i] = TimeDivision::Quarter; break;
+            case 1: pattern.pattern[i] = TimeDivision::Eight; break;
+            case 2: pattern.pattern[i] = TimeDivision::Sixteenth; break;
+            case 3: pattern.pattern[i] = TimeDivision::Thirtysecond; break;
             }
         }
 
-        if (pattern.pattern[i] == TimeDivision::TIME_DIVISION_FOURTH
-            || pattern.pattern[i] == TimeDivision::TIME_DIVISION_TRIPLE_EIGHT)
+        if (pattern.pattern[i] == TimeDivision::Quarter
+            || pattern.pattern[i] == TimeDivision::TripletEight)
         {
             pattern.pattern[i + 1] = pattern.pattern[i];
             i++;
@@ -75,7 +75,7 @@ void randomize_interval_lead(IntervalPattern& pattern)
 {
     for (int i = 0; i < pattern.length; i++)
     {
-        pattern.pattern[i] = TimeDivision::TIME_DIVISION_WHOLE;
+        pattern.pattern[i] = TimeDivision::Whole;
     }
     for (int bar = 0; bar < 4; bar++)
     {
@@ -88,13 +88,13 @@ void randomize_interval_lead(IntervalPattern& pattern)
             for (int beat = start_beat; beat < start_beat+fill_length; beat++)
             {
                 TimeDivision time_division = randi(2) < 1 ? 
-                    TimeDivision::TIME_DIVISION_SIXTEENTH : 
-                    TimeDivision::TIME_DIVISION_EIGHT;
+                    TimeDivision::Sixteenth : 
+                    TimeDivision::Eight;
                 pattern.pattern[bar * 4 + beat] = time_division;
             }
         }
     }
-    pattern.time_division = TimeDivision::TIME_DIVISION_FOURTH;
+    pattern.time_division = TimeDivision::Quarter;
 }
 
 void randomize_interval_hat(IntervalPattern& pattern)

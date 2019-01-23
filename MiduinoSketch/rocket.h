@@ -47,7 +47,7 @@ void play_rocket(ApplicationData& data)
         hit = interval_hit(data.settings_rocket.int_pattern, data.step, data.ticks);
         break;
     case RocketStyle::RocketSixteenths:
-        hit = interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks); 
+        hit = interval_hit(TimeDivision::Sixteenth, data.step, data.ticks); 
         break;
     default: break;
     }

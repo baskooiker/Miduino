@@ -44,13 +44,13 @@ void randomize_503_seq(ApplicationData& data)
 
 void play_fill(ApplicationData& data)
 {
-    static TimeDivision division = TimeDivision::TIME_DIVISION_SIXTEENTH;
-    if (interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks))
+    static TimeDivision division = TimeDivision::Sixteenth;
+    if (interval_hit(TimeDivision::Sixteenth, data.step, data.ticks))
     {
         //uint8_t r = randi(16);
         //if (r < 3)
         //{
-        //    division = TimeDivision::TIME_DIVISION_THIRTYTWO;
+        //    division = TimeDivision::Thirtysecond;
         //}
     }
 
@@ -73,17 +73,17 @@ void play_fill(ApplicationData& data)
 
 void play_roll(ApplicationData& data)
 {
-    static TimeDivision division = TimeDivision::TIME_DIVISION_SIXTEENTH;
-    if (interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks))
+    static TimeDivision division = TimeDivision::Sixteenth;
+    if (interval_hit(TimeDivision::Sixteenth, data.step, data.ticks))
     {
         uint8_t r = randi(16);
         if (r < 3)
         {
-            division = TimeDivision::TIME_DIVISION_THIRTYTWO;
+            division = TimeDivision::Thirtysecond;
         }
         else
         {
-            division = TimeDivision::TIME_DIVISION_SIXTEENTH;
+            division = TimeDivision::Sixteenth;
         }
     }
 
@@ -166,7 +166,7 @@ void play_503(ApplicationData& data)
 
     // Play toms
     uint8_t tom_prob = cv(data.settings_503.tom_pattern, data.step);
-    if (interval_hit(TimeDivision::TIME_DIVISION_SIXTEENTH, data.step, data.ticks) 
+    if (interval_hit(TimeDivision::Sixteenth, data.step, data.ticks) 
         && tom_prob < 100
         && gate(data.settings_503.tom_mask, data.step, data.ticks)
         && data.settings_503.volume_tom > 0)
