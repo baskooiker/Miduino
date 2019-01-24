@@ -44,7 +44,10 @@ void play_P50(ApplicationData& data)
         uint8_t size = 0;
         uint8_t chord_notes[MAX_CHORD_NOTES];
 
-        get_chord(chord_nr, data.scale, data.settings_p50.pitch_offset, chord_notes, size);
+        uint8_t pitch_offset = data.settings_p50.pitch_offset 
+            + (((uint16_t)data.uiState.poly_pitch_offset * 24) / 128) 
+            - 12;
+        get_chord(chord_nr, data.scale, pitch_offset, chord_notes, size);
 
         uint8_t length = 6;
         if (gate(data.settings_p50.tie_pattern, data.step, data.ticks) 

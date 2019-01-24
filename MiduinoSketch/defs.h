@@ -105,8 +105,6 @@ typedef struct {
 
     ButtonState pad_state[16];
 
-    ControlMode control_mode;
-
     bool kill_low;
     bool kill_mid;
     bool kill_high;
@@ -117,6 +115,8 @@ typedef struct {
     bool drum_fill;
     uint8_t drum_roll;
     uint8_t bd_decay_factor;
+    uint8_t mono_pitch_offset;
+    uint8_t poly_pitch_offset;
 } UiState;
 
 typedef struct {
@@ -230,6 +230,9 @@ typedef struct {
     IntervalPattern int_pattern;
     GatePatternAB euclid_pattern;
     IntervalPattern lead_pattern;
+
+    uint8_t pitch_offset;
+
     PitchStorage storage;
 } SettingsMono;
 

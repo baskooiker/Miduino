@@ -5,8 +5,9 @@
 
 void randomize_mono(ApplicationData& data)
 {
-    data.settings_mono.arp_data.min = randi(36, 60);
+    data.settings_mono.pitch_offset = randi(24, 48);
     data.settings_mono.arp_data.range = randi(12, 24);
+
     switch (randi(4))
     {
     case 0: data.settings_mono.arp_data.type = ArpType::UP;
@@ -46,6 +47,8 @@ void play_mono(ApplicationData& data)
 
     if (hit)
     {
+        data.settings_mono.arp_data.min = data.settings_mono.pitch_offset 
+            + (uint8_t)(((uint16_t)data.uiState.mono_pitch_offset * 24) / 128);
         uint8_t pitch = get_arp_pitch(data.settings_mono.arp_data, 
                                       data.scale, 
                                       get_chord_step(data));

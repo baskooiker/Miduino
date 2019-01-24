@@ -1,8 +1,4 @@
-enum ControlMode
-{
-    CONTROL_MODE_NORMAL,
-    CONTROL_MODE_ROOT
-};
+#pragma once
 
 enum Root {
     ROOT_C = 0,

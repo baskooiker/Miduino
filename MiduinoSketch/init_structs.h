@@ -6,7 +6,8 @@ UiState init_ui_state()
 {
     UiState s = { 0 };
 
-    s.control_mode = ControlMode::CONTROL_MODE_NORMAL;
+    s.drum_fill = false;
+    s.drum_roll = false;
 
     s.kill_bass = false;
     s.kill_high = false;
@@ -14,6 +15,9 @@ UiState init_ui_state()
     s.kill_mid = false;
     s.kill_low = false;
 
+    s.mono_pitch_offset = 0;
+    s.bd_decay_factor = 0;
+    
     return s;
 }
 
