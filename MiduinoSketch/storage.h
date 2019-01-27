@@ -3,17 +3,18 @@
 #include "defs.h"
 #include "midi_io.h"
 
-void add_to_storage(PitchStorage& s, uint8_t pitch, uint8_t length = HOLD_NOTE, const uint8_t velocity = 64)
+void add_to_storage(const NoteStruct& note, PitchStorage& storage)
 {
-    for (uint8_t i = 0; i < s.size; i++)
+    for (uint8_t i = 0; i < storage.size; i++)
     {
-        if (s.data[i].pitch == pitch)
+        if (storage.data[i].pitch == note.pitch)
         {
-            s.data[i].length = length;
+            storage.data[i] = note;
             return;
         }
     }
-    s.data[s.size++] = { pitch, velocity, length };
+    storage.data[storage.size] = note;
+    storage.size++;
 }
 
 NoteStruct pop_from_storage(PitchStorage& s)
@@ -61,13 +62,18 @@ void stop_notes(PitchStorage& storage, uint8_t channel)
     }
 }
 
-void untie_notes(PitchStorage& storage)
+void untie_notes(PitchStorage& storage, const uint8_t channel)
 {
-    for (uint8_t i = 0; i < storage.size; i++)
+    for (int i = storage.size-1; i >= 0; i--)
     {
-        if (!storage.data[i].holding)
+        switch(storage.data[i].type)
         {
+        case NoteType::Slide:
             storage.data[i].length = 0;
+            break;
+        case NoteType::Tie:
+            note_off(storage.data[i].pitch, channel, storage);
+            break;
         }
     }
 }

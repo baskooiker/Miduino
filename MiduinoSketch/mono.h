@@ -29,36 +29,41 @@ void randomize_mono(ApplicationData& data)
     randomize_interval_lead(data.settings_mono.lead_pattern);
 }
 
-void play_mono(ApplicationData& data)
+void play_mono(SettingsMono& settings, 
+    const HarmonyStruct& harmony, 
+    const Scale& scale, 
+    const UiState& uiState, 
+    const uint32_t step, 
+    const uint8_t tick)
 {
     bool hit = false;
-    switch (data.settings_mono.style)
+    switch (settings.style)
     {
     case MonoStyle::Sixteenths: 
-        hit = interval_hit(TimeDivision::Sixteenth, data.step, data.ticks); 
+        hit = interval_hit(TimeDivision::Sixteenth, step, tick); 
         break;
     case MonoStyle::PolyRhythm:
-        hit = gate(data.settings_mono.euclid_pattern, data.step, data.ticks);
+        hit = gate(settings.euclid_pattern, step, tick);
         break;
     case MonoStyle::LeadPattern:
-        hit = interval_hit(data.settings_mono.lead_pattern, data.step, data.ticks);
+        hit = interval_hit(settings.lead_pattern, step, tick);
         break;
     }
 
     if (hit)
     {
-        data.settings_mono.arp_data.min = data.settings_mono.pitch_offset 
-            + (uint8_t)(((uint16_t)data.uiState.mono_pitch_offset * 24) / 128);
-        uint8_t pitch = get_arp_pitch(data.settings_mono.arp_data, 
-                                      data.scale, 
-                                      get_chord_step(data));
+        settings.arp_data.min = settings.pitch_offset 
+            + (uint8_t)(((uint16_t)uiState.mono_pitch_offset * 24) / 128);
+        uint8_t pitch = get_arp_pitch(settings.arp_data,
+                                      scale, 
+                                      get_chord_step(harmony, scale, step, tick));
 
         uint8_t length = 3;
-        if (data.settings_mono.style == MonoStyle::LeadPattern)
-            length = ticks_left_in_bar(data.step, data.ticks);
+        if (settings.style == MonoStyle::LeadPattern)
+            length = ticks_left_in_bar(step, tick);
 
-        note_on(make_note(pitch, 64, length),
+        note_on(make_note(pitch, 64, length, NoteType::Tie),
                 MIDI_CHANNEL_MONO, 
-                data.settings_mono.storage);
+                settings.storage);
     }
 }

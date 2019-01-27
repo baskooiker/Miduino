@@ -86,3 +86,9 @@ enum HarmonyType {
     Low,
     High
 };
+
+enum NoteType {
+    Normal,
+    Tie,
+    Slide
+};

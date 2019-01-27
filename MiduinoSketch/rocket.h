@@ -28,10 +28,8 @@ void randomize_rocket_seq(ApplicationData& data)
 
 void play_rocket(ApplicationData& data)
 {
-    NoteStruct note = { 0 };
-
     // Velocity
-    note.velocity = data.settings_rocket.low_velocity;
+    uint8_t velocity = data.settings_rocket.low_velocity;
 
     // Get hit
     bool hit = false;
@@ -78,7 +76,7 @@ void play_rocket(ApplicationData& data)
             }
         }
 
-        uint8_t harmony = get_chord_step(data);
+        uint8_t harmony = get_chord_step(data.harmony, data.scale, data.step, data.ticks);
         uint8_t octave = cv(data.settings_rocket.octaves, data.step);
         uint8_t variable_octave = cv(data.settings_rocket.variable_octaves, data.step);
         if (variable_octave < data.settings_rocket.pitch_range)
@@ -86,21 +84,22 @@ void play_rocket(ApplicationData& data)
             octave += variable_octave % 3 + 1;
         }
 
-        note.pitch = apply_scale(note_nr + harmony, data.scale, octave);
+        uint8_t pitch = apply_scale(note_nr + harmony, data.scale, octave);
 
         // Note length
+        uint8_t length = 5;
         if (gate(data.settings_rocket.slides, data.step, data.ticks) 
             || data.settings_rocket.style == RocketStyle::RocketLow)
         {
-            note.length = TICKS_IN_BAR;
+            length = TICKS_IN_BAR;
         }
         else
         {
-            all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
-            note.length = 5;
+            //all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
+            length = 5;
         }
 
         // Play it!
-        note_on(note, MIDI_CHANNEL_ROCKET, data.settings_rocket.storage);
+        note_on(make_note(pitch, velocity, length), MIDI_CHANNEL_ROCKET, data.settings_rocket.storage);
     }
 }

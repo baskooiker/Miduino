@@ -49,7 +49,7 @@ void play_lead(ApplicationData& data)
     {
         data.settings_lead.arp_data.min = cv(data.settings_lead.min_pitch_pattern, data.step);
 
-        uint8_t chord = get_chord_step(data);
+        uint8_t chord = get_chord_step(data.harmony, data.scale, data.step, data.ticks);
         uint8_t pitch = get_arp_pitch(data.settings_lead.arp_data, data.scale, chord);
         note_on(make_note(pitch, 64, length), MIDI_CHANNEL_LEAD, data.settings_lead.storage);
     }

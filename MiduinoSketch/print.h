@@ -51,9 +51,12 @@ void print_pattern(const IntervalPattern& pattern)
 
 void print_storage(PitchStorage& storage)
 {
-    printf("\nsize: %d\n", storage.size);
+    printf("\nStorage size: %d\n", storage.size);
     for (int i = 0; i < storage.size; i++)
     {
-        printf("%2d %3d\n", storage.data[i].pitch, storage.data[i].length);
+        printf("%2d, %3d, %d\n", 
+            storage.data[i].pitch, 
+            storage.data[i].length,
+            storage.data[i].type);
     }
 }

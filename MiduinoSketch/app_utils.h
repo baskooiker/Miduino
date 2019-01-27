@@ -16,7 +16,7 @@ void play_all(ApplicationData& data)
     play_rocket(data);
     play_P50(data);
     play_lead(data);
-    play_mono(data);
+    play_mono(data.settings_mono, data.harmony, data.scale, data.uiState, data.step, data.ticks);
 }
 
 void stop_notes_all_instruments(ApplicationData& data)

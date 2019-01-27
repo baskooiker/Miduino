@@ -40,7 +40,7 @@ void play_P50(ApplicationData& data)
     {
         const uint8_t MAX_CHORD_NOTES = 8;
 
-        uint8_t chord_nr = get_chord_step(data);
+        uint8_t chord_nr = get_chord_step(data.harmony, data.scale, data.step, data.ticks);
         uint8_t size = 0;
         uint8_t chord_notes[MAX_CHORD_NOTES];
 
@@ -61,7 +61,7 @@ void play_P50(ApplicationData& data)
         {
             note_structs[i].pitch = chord_notes[i];
             note_structs[i].velocity = 64;
-            note_structs[i].holding = false;
+            note_structs[i].type = NoteType::Tie;
             note_structs[i].length = length;
         }
 

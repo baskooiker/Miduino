@@ -70,7 +70,7 @@ typedef struct {
     uint8_t pitch;
     uint8_t velocity;
     uint8_t length;
-    bool holding;
+    NoteType type;
 } NoteStruct;
 
 #define STORAGE_SIZE 16

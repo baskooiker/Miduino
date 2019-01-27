@@ -100,7 +100,7 @@ void play_bd(ApplicationData& data)
         uint8_t pitch = NOTE_503_BD;
         if (data.settings_503.play_pitch_bd)
         {
-            pitch = clip_pitch(get_chord_step(data), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
+            pitch = clip_pitch(get_chord_step(data.harmony, data.scale, data.step, data.ticks), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
         note_on(make_note(pitch, 127), MIDI_CHANNEL_503, data.settings_503.storage);
     }
