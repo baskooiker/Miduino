@@ -6,6 +6,7 @@
 
 #define MIDI_CHANNEL_ROCKET 1
 #define MIDI_CHANNEL_MONO   2
+#define MIDI_CHANNEL_MONO_2 3
 #define MIDI_CHANNEL_P50    6
 #define MIDI_CHANNEL_LEAD   7
 #define MIDI_CHANNEL_503    10

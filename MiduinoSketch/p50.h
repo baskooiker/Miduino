@@ -65,6 +65,6 @@ void play_P50(ApplicationData& data)
             note_structs[i].length = length;
         }
 
-        note_on(note_structs, size, MIDI_CHANNEL_P50, data.settings_p50.storage);
+        note_on(note_structs, size, data.settings_p50.storage);
     }
 }

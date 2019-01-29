@@ -100,6 +100,6 @@ void play_rocket(ApplicationData& data)
         }
 
         // Play it!
-        note_on(make_note(pitch, velocity, length), MIDI_CHANNEL_ROCKET, data.settings_rocket.storage);
+        note_on(make_note(pitch, velocity, length), data.settings_rocket.storage);
     }
 }

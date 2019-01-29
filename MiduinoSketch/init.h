@@ -130,8 +130,17 @@ ApplicationData init_application_data()
     i.settings_522 = init_522_settings();
     i.settings_lead = init_lead_settings();
     i.settings_mono = init_mono_settings();
+    i.settings_mono_2 = init_mono_settings();
     i.settings_p50 = init_p50_settings();
     i.settings_rocket = init_rocket_settings();
+
+    i.settings_503.storage.channel = MIDI_CHANNEL_503;
+    i.settings_522.storage.channel = MIDI_CHANNEL_522;
+    i.settings_lead.storage.channel = MIDI_CHANNEL_LEAD;
+    i.settings_mono.storage.channel = MIDI_CHANNEL_MONO;
+    i.settings_mono_2.storage.channel = MIDI_CHANNEL_MONO_2;
+    i.settings_p50.storage.channel = MIDI_CHANNEL_P50;
+    i.settings_rocket.storage.channel = MIDI_CHANNEL_ROCKET;
 
     return i;
 }

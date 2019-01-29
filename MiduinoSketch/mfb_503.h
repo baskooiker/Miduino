@@ -68,7 +68,7 @@ void play_fill(ApplicationData& data)
     case 5: p = NOTE_503_OH; break;
     case 6: p = NOTE_503_HH; break;
     }
-    note_on(make_note(p, 127), MIDI_CHANNEL_503, data.settings_503.storage);
+    note_on(make_note(p, 127), data.settings_503.storage);
 }
 
 void play_roll(ApplicationData& data)
@@ -89,7 +89,7 @@ void play_roll(ApplicationData& data)
 
     if (interval_hit(division, data.step, data.ticks))
     {
-        note_on(make_note(NOTE_503_SD, data.uiState.drum_roll), MIDI_CHANNEL_503, data.settings_503.storage);
+        note_on(make_note(NOTE_503_SD, data.uiState.drum_roll), data.settings_503.storage);
     }
 }
 
@@ -102,7 +102,7 @@ void play_bd(ApplicationData& data)
         {
             pitch = clip_pitch(get_chord_step(data.harmony, data.scale, data.step, data.ticks), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
-        note_on(make_note(pitch, 127), MIDI_CHANNEL_503, data.settings_503.storage);
+        note_on(make_note(pitch, 127), data.settings_503.storage);
     }
 }
 
@@ -119,11 +119,11 @@ void play_hats(ApplicationData& data)
         bool hh = gate(data.settings_503.hh_pattern, data.step, data.ticks);
         if (gate(data.settings_503.oh_pattern, data.step, data.ticks) && !hh && !data.uiState.kill_high)
         {
-            note_on(make_note(NOTE_503_OH, velocity), MIDI_CHANNEL_503, data.settings_503.storage);
+            note_on(make_note(NOTE_503_OH, velocity), data.settings_503.storage);
         }
         if (hh && !data.uiState.kill_high)
         {
-            note_on(make_note(NOTE_503_HH, velocity), MIDI_CHANNEL_503, data.settings_503.storage);
+            note_on(make_note(NOTE_503_HH, velocity), data.settings_503.storage);
         }
         break;
     }
@@ -132,7 +132,7 @@ void play_hats(ApplicationData& data)
             velocity = 127;
         if (interval_hit(data.settings_503.hat_int_pattern, data.step, data.ticks) && !data.uiState.kill_high)
         {
-            note_on(make_note(NOTE_503_OH, velocity), MIDI_CHANNEL_503, data.settings_503.storage);
+            note_on(make_note(NOTE_503_OH, velocity), data.settings_503.storage);
         }
         break;
     }
@@ -158,7 +158,7 @@ void play_503(ApplicationData& data)
     // Play snare
     if (gate(data.settings_503.sd_pattern, data.step, data.ticks) && !data.uiState.kill_mid)
     {
-        note_on(make_note(NOTE_503_SD, velocity), MIDI_CHANNEL_503, data.settings_503.storage);
+        note_on(make_note(NOTE_503_SD, velocity), data.settings_503.storage);
     }
 
     // Play hats
@@ -178,7 +178,7 @@ void play_503(ApplicationData& data)
             tom_pitch = NOTE_503_MT;
         else if (tom_id == 2)
             tom_pitch = NOTE_503_HT;
-        note_on(make_note(tom_pitch, 64), MIDI_CHANNEL_503, data.settings_503.storage);
+        note_on(make_note(tom_pitch, 64), data.settings_503.storage);
     }
 
     // Play Cymbal
@@ -188,7 +188,6 @@ void play_503(ApplicationData& data)
         {
             note_on(make_note(NOTE_503_CY,
                     data.settings_503.volume_cy), 
-                    MIDI_CHANNEL_503, 
                     data.settings_503.storage);
         }
     }

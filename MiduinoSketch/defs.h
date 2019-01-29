@@ -78,6 +78,7 @@ typedef struct {
 typedef struct {
     NoteStruct data[STORAGE_SIZE];
     uint8_t size;
+    uint8_t channel;
 } PitchStorage;
 
 typedef struct {
@@ -249,6 +250,7 @@ typedef struct {
     SettingsRocket settings_rocket;
     SettingsLead settings_lead;
     SettingsMono settings_mono;
+    SettingsMono settings_mono_2;
 
     UiState uiState;
 } ApplicationData;

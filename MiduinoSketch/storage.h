@@ -41,7 +41,7 @@ NoteStruct pop_from_storage(PitchStorage& s, uint8_t pitch)
     return {0, 0, 0};
 }
 
-void stop_notes(PitchStorage& storage, uint8_t channel)
+void stop_notes(PitchStorage& storage)
 {
     if (storage.size == 0) return;
     for (uint8_t i = 0; i < storage.size; i++)
@@ -57,12 +57,12 @@ void stop_notes(PitchStorage& storage, uint8_t channel)
     {
         if (storage.data[i].length == 0)
         {
-            note_off(storage.data[i].pitch, channel, storage);
+            note_off(storage.data[i].pitch, storage);
         }
     }
 }
 
-void untie_notes(PitchStorage& storage, const uint8_t channel)
+void untie_notes(PitchStorage& storage)
 {
     for (int i = storage.size-1; i >= 0; i--)
     {
@@ -72,7 +72,7 @@ void untie_notes(PitchStorage& storage, const uint8_t channel)
             storage.data[i].length = 0;
             break;
         case NoteType::Tie:
-            note_off(storage.data[i].pitch, channel, storage);
+            note_off(storage.data[i].pitch, storage);
             break;
         }
     }

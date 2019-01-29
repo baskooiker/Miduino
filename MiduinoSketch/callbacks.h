@@ -63,7 +63,7 @@ void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity
         data.uiState.kill_bass = !data.uiState.kill_bass;
         if (data.uiState.kill_bass)
         {
-            stop_notes(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
+            stop_notes(data.settings_rocket.storage);
         }
         set_pad_state(data.uiState, 7, true);
         break;
@@ -347,26 +347,42 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         }
         break;
     case BSP_STEP_08:
-        break;
-    case BSP_STEP_09:
         if (value == 0)
         {
             randomize_lead(data);
         }
         break;
+    case BSP_STEP_09:
+        if (value == 0)
+        {
+            randomize_mono(data.settings_mono_2);
+            data.settings_mono_2.style = MonoStyle::Sixteenths;
+        }
+        break;
+        break;
     case BSP_STEP_10:
+        if (value == 0)
+        {
+            randomize_mono(data.settings_mono_2);
+            switch (randi(2))
+            {
+            case 0: data.settings_mono.style = MonoStyle::PolyRhythm; break;
+            case 1: data.settings_mono.style = MonoStyle::LeadPattern; break;
+            }
+        }
+        break;
         break;
     case BSP_STEP_11:
         if (value == 0)
         {
-            randomize_mono(data);
+            randomize_mono(data.settings_mono);
             data.settings_mono.style = MonoStyle::Sixteenths; 
         }
         break;
     case BSP_STEP_12:
         if (value == 0)
         {
-            randomize_mono(data);
+            randomize_mono(data.settings_mono);
             switch (randi(2))
             {
             case 0: data.settings_mono.style = MonoStyle::PolyRhythm; break;
@@ -393,12 +409,13 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
 
 void handleStop(ApplicationData& data)
 {
-    all_notes_off(data.settings_503.storage, MIDI_CHANNEL_503);
-    all_notes_off(data.settings_522.storage, MIDI_CHANNEL_522);
-    all_notes_off(data.settings_p50.storage, MIDI_CHANNEL_P50);
-    all_notes_off(data.settings_rocket.storage, MIDI_CHANNEL_ROCKET);
-    all_notes_off(data.settings_lead.storage, MIDI_CHANNEL_LEAD);
-    all_notes_off(data.settings_mono.storage, MIDI_CHANNEL_MONO);
+    all_notes_off(data.settings_503.storage);
+    all_notes_off(data.settings_522.storage);
+    all_notes_off(data.settings_p50.storage);
+    all_notes_off(data.settings_rocket.storage);
+    all_notes_off(data.settings_lead.storage);
+    all_notes_off(data.settings_mono.storage);
+    all_notes_off(data.settings_mono_2.storage);
 
     data.step = 0;
     data.ticks = 0;
