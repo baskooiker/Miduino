@@ -8,32 +8,32 @@
 #include "midi_io.h"
 #include "rhythm_time.h"
 
-void randomize_P50_seq(ApplicationData& data)
+void randomize_poly(ApplicationData& data)
 {    
     // Set pattern low
-    set_gates_low(data.settings_p50.gates_low, randi(1, 4));
+    set_gates_low(data.poly_settings.gates_low, randi(1, 4));
 
     // Set pattern high
     uint8_t steps = randi(5, 11);
-    set_euclid(data.settings_p50.gates, 16, steps);
-    set_ab_pattern(data.settings_p50.gates.abPattern);
+    set_euclid(data.poly_settings.gates, 16, steps);
+    set_ab_pattern(data.poly_settings.gates.abPattern);
 
     // Set Tie Pattern
-    randomize(data.settings_p50.tie_pattern, randf(.1f, .4f));
+    randomize(data.poly_settings.tie_pattern, randf(.1f, .4f));
 
     // Randomize pitch range
-    data.settings_p50.pitch_offset = randi(42, 54);
+    data.poly_settings.pitch_offset = randi(42, 54);
 }
 
-void play_P50(ApplicationData& data)
+void play_poly(ApplicationData& data)
 { 
     uint8_t velocity = 64;
 
     bool hit = false;
-    switch (data.settings_p50.type)
+    switch (data.poly_settings.type)
     {
-    case PolyType::PolyLow: hit = gate(data.settings_p50.gates_low, data.step, data.ticks); break;
-    case PolyType::PolyHigh: hit = gate(data.settings_p50.gates, data.step, data.ticks); break;
+    case PolyType::PolyLow: hit = gate(data.poly_settings.gates_low, data.step, data.ticks); break;
+    case PolyType::PolyHigh: hit = gate(data.poly_settings.gates, data.step, data.ticks); break;
     }
 
     if (hit)
@@ -44,14 +44,14 @@ void play_P50(ApplicationData& data)
         uint8_t size = 0;
         uint8_t chord_notes[MAX_CHORD_NOTES];
 
-        uint8_t pitch_offset = data.settings_p50.pitch_offset 
-            + (((uint16_t)data.uiState.poly_pitch_offset * 24) / 128) 
+        uint8_t pitch_offset = data.poly_settings.pitch_offset 
+            + (((uint16_t)data.ui_state.poly_pitch_offset * 24) / 128) 
             - 12;
         get_chord(chord_nr, data.scale, pitch_offset, chord_notes, size);
 
         uint8_t length = 6;
-        if (gate(data.settings_p50.tie_pattern, data.step, data.ticks) 
-            || data.settings_p50.type == PolyType::PolyLow)
+        if (gate(data.poly_settings.tie_pattern, data.step, data.ticks) 
+            || data.poly_settings.type == PolyType::PolyLow)
         {
             length = ticks_left_in_bar(data.step, data.ticks);
         }
@@ -65,6 +65,6 @@ void play_P50(ApplicationData& data)
             note_structs[i].length = length;
         }
 
-        note_on(note_structs, size, data.settings_p50.storage);
+        note_on(note_structs, size, data.poly_settings.storage);
     }
 }

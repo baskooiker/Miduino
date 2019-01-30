@@ -139,7 +139,7 @@ typedef struct {
     uint8_t note_range_value;
 
     PitchStorage storage;
-} SettingsRocket;
+} BassSettings;
 
 typedef struct {
     GatePattern16 ac_522_pattern;
@@ -158,7 +158,7 @@ typedef struct {
     IntervalPattern hh_int_pattern;
 
     PitchStorage storage;
-} Settings522;
+} Mfb522Settings;
 
 typedef struct {
     uint8_t min;
@@ -177,7 +177,7 @@ typedef struct {
     uint8_t pitch_offset;
     PolyType type;
     PitchStorage storage;
-} SettingsP50;
+} PolySettings;
 
 typedef struct {
     uint8_t notes[8];
@@ -215,7 +215,7 @@ typedef struct {
     GatePatternAB tom_mask;
 
     PitchStorage storage;
-} Settings503;
+} Mfb503Settings;
 
 typedef struct {
     ArpData arp_data;
@@ -223,7 +223,7 @@ typedef struct {
     GatePatternAB pattern_slow;
     LeadStyle style;
     PitchStorage storage;
-} SettingsLead;
+} LeadSettings;
 
 typedef struct {
     MonoStyle style;
@@ -235,7 +235,7 @@ typedef struct {
     uint8_t pitch_offset;
 
     PitchStorage storage;
-} SettingsMono;
+} MonoSettings;
 
 typedef struct {
     Scale scale;
@@ -244,13 +244,13 @@ typedef struct {
 
     HarmonyStruct harmony;
 
-    SettingsP50 settings_p50;
-    Settings522 settings_522;
-    Settings503 settings_503;
-    SettingsRocket settings_rocket;
-    SettingsLead settings_lead;
-    SettingsMono settings_mono;
-    SettingsMono settings_mono_2;
+    PolySettings poly_settings;
+    Mfb522Settings mfb_522_settings;
+    Mfb503Settings mfb_503_settings;
+    BassSettings bass_settings;
+    LeadSettings lead_settings;
+    MonoSettings mono_settings;
+    MonoSettings mono_2_settings;
 
-    UiState uiState;
+    UiState ui_state;
 } ApplicationData;

@@ -15,31 +15,31 @@
 
 void randomize_503_seq(ApplicationData& data)
 {
-    set_euclid(data.settings_503.ac_pattern.pattern, 16, randi(4, 13));
-    set_coef_kick_pattern(data.settings_503.bd_pattern);
-    set_coef_snare_pattern(data.settings_503.sd_pattern);
+    set_euclid(data.mfb_503_settings.ac_pattern.pattern, 16, randi(4, 13));
+    set_coef_kick_pattern(data.mfb_503_settings.bd_pattern);
+    set_coef_snare_pattern(data.mfb_503_settings.sd_pattern);
 
     // Randomize hats
-    set_coef_hat_pattern(data.settings_503.oh_pattern);
+    set_coef_hat_pattern(data.mfb_503_settings.oh_pattern);
     if (randi(2) < 1)
     {
-        randomize(data.settings_503.hh_pattern, 0.f);
+        randomize(data.mfb_503_settings.hh_pattern, 0.f);
     }
     else
     {
-        set_coef_hat_pattern(data.settings_503.hh_pattern);
-        set_all(data.settings_503.oh_pattern, false);
+        set_coef_hat_pattern(data.mfb_503_settings.hh_pattern);
+        set_all(data.mfb_503_settings.oh_pattern, false);
     }
-    randomize_interval_hat(data.settings_503.hat_int_pattern);
+    randomize_interval_hat(data.mfb_503_settings.hat_int_pattern);
 
     // Randomize Cymbal
-    set_coef_kick_pattern(data.settings_503.cy_pattern);
+    set_coef_kick_pattern(data.mfb_503_settings.cy_pattern);
 
     // Randomize toms
-    randomize(data.settings_503.tom_pattern);
-    data.settings_503.nr_toms = randi(1, 3);
-    data.settings_503.toms_offset = randi(3);
-    randomize_mask_pattern(data.settings_503.tom_mask);
+    randomize(data.mfb_503_settings.tom_pattern);
+    data.mfb_503_settings.nr_toms = randi(1, 3);
+    data.mfb_503_settings.toms_offset = randi(3);
+    randomize_mask_pattern(data.mfb_503_settings.tom_mask);
 }
 
 void play_fill(ApplicationData& data)
@@ -68,7 +68,7 @@ void play_fill(ApplicationData& data)
     case 5: p = NOTE_503_OH; break;
     case 6: p = NOTE_503_HH; break;
     }
-    note_on(make_note(p, 127), data.settings_503.storage);
+    note_on(make_note(p, 127), data.mfb_503_settings.storage);
 }
 
 void play_roll(ApplicationData& data)
@@ -89,50 +89,50 @@ void play_roll(ApplicationData& data)
 
     if (interval_hit(division, data.step, data.ticks))
     {
-        note_on(make_note(NOTE_503_SD, data.uiState.drum_roll), data.settings_503.storage);
+        note_on(make_note(NOTE_503_SD, data.ui_state.drum_roll), data.mfb_503_settings.storage);
     }
 }
 
 void play_bd(ApplicationData& data)
 {
-    if (gate(data.settings_503.bd_pattern, data.step, data.ticks) && !data.uiState.kill_low)
+    if (gate(data.mfb_503_settings.bd_pattern, data.step, data.ticks) && !data.ui_state.kill_low)
     {
         uint8_t pitch = NOTE_503_BD;
-        if (data.settings_503.play_pitch_bd)
+        if (data.mfb_503_settings.play_pitch_bd)
         {
             pitch = clip_pitch(get_chord_step(data.harmony, data.scale, data.step, data.ticks), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
-        note_on(make_note(pitch, 127), data.settings_503.storage);
+        note_on(make_note(pitch, 127), data.mfb_503_settings.storage);
     }
 }
 
 void play_hats(ApplicationData& data)
 {
     uint8_t velocity = 63;
-    switch (data.settings_503.hat_style)
+    switch (data.mfb_503_settings.hat_style)
     {
     case HatStyle::HatOffBeat:
     {
         if (data.step % 4 == 2)
             velocity = 127;
 
-        bool hh = gate(data.settings_503.hh_pattern, data.step, data.ticks);
-        if (gate(data.settings_503.oh_pattern, data.step, data.ticks) && !hh && !data.uiState.kill_high)
+        bool hh = gate(data.mfb_503_settings.hh_pattern, data.step, data.ticks);
+        if (gate(data.mfb_503_settings.oh_pattern, data.step, data.ticks) && !hh && !data.ui_state.kill_high)
         {
-            note_on(make_note(NOTE_503_OH, velocity), data.settings_503.storage);
+            note_on(make_note(NOTE_503_OH, velocity), data.mfb_503_settings.storage);
         }
-        if (hh && !data.uiState.kill_high)
+        if (hh && !data.ui_state.kill_high)
         {
-            note_on(make_note(NOTE_503_HH, velocity), data.settings_503.storage);
+            note_on(make_note(NOTE_503_HH, velocity), data.mfb_503_settings.storage);
         }
         break;
     }
     case HatStyle::HatFull:
         if (data.step % 4 == 0)
             velocity = 127;
-        if (interval_hit(data.settings_503.hat_int_pattern, data.step, data.ticks) && !data.uiState.kill_high)
+        if (interval_hit(data.mfb_503_settings.hat_int_pattern, data.step, data.ticks) && !data.ui_state.kill_high)
         {
-            note_on(make_note(NOTE_503_OH, velocity), data.settings_503.storage);
+            note_on(make_note(NOTE_503_OH, velocity), data.mfb_503_settings.storage);
         }
         break;
     }
@@ -140,12 +140,12 @@ void play_hats(ApplicationData& data)
 
 void play_503(ApplicationData& data)
 {
-    if (data.uiState.drum_fill)
+    if (data.ui_state.drum_fill)
     {
         return play_fill(data);
     }
 
-    if (data.uiState.drum_roll > 0)
+    if (data.ui_state.drum_roll > 0)
     {
         play_roll(data);
     }
@@ -156,39 +156,39 @@ void play_503(ApplicationData& data)
     play_bd(data);
 
     // Play snare
-    if (gate(data.settings_503.sd_pattern, data.step, data.ticks) && !data.uiState.kill_mid)
+    if (gate(data.mfb_503_settings.sd_pattern, data.step, data.ticks) && !data.ui_state.kill_mid)
     {
-        note_on(make_note(NOTE_503_SD, velocity), data.settings_503.storage);
+        note_on(make_note(NOTE_503_SD, velocity), data.mfb_503_settings.storage);
     }
 
     // Play hats
     play_hats(data);
 
     // Play toms
-    uint8_t tom_prob = cv(data.settings_503.tom_pattern, data.step);
+    uint8_t tom_prob = cv(data.mfb_503_settings.tom_pattern, data.step);
     if (interval_hit(TimeDivision::Sixteenth, data.step, data.ticks) 
         && tom_prob < 100
-        && gate(data.settings_503.tom_mask, data.step, data.ticks)
-        && data.settings_503.volume_tom > 0)
+        && gate(data.mfb_503_settings.tom_mask, data.step, data.ticks)
+        && data.mfb_503_settings.volume_tom > 0)
     {
-        uint8_t tom_id = tom_prob % data.settings_503.nr_toms;
-        tom_id = (tom_id + data.settings_503.toms_offset) % 3;
+        uint8_t tom_id = tom_prob % data.mfb_503_settings.nr_toms;
+        tom_id = (tom_id + data.mfb_503_settings.toms_offset) % 3;
         uint8_t tom_pitch = NOTE_503_LT;
         if (tom_id == 1)
             tom_pitch = NOTE_503_MT;
         else if (tom_id == 2)
             tom_pitch = NOTE_503_HT;
-        note_on(make_note(tom_pitch, 64), data.settings_503.storage);
+        note_on(make_note(tom_pitch, 64), data.mfb_503_settings.storage);
     }
 
     // Play Cymbal
-    if (data.settings_503.volume_cy > 0)
+    if (data.mfb_503_settings.volume_cy > 0)
     {
-        if (gate(data.settings_503.cy_pattern, data.step, data.ticks))
+        if (gate(data.mfb_503_settings.cy_pattern, data.step, data.ticks))
         {
             note_on(make_note(NOTE_503_CY,
-                    data.settings_503.volume_cy), 
-                    data.settings_503.storage);
+                    data.mfb_503_settings.volume_cy), 
+                    data.mfb_503_settings.storage);
         }
     }
 }
@@ -223,7 +223,7 @@ const uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomPa
 
 void send_bd_decay(ApplicationData& data)
 {
-    uint8_t decay = (uint8_t)((float)data.settings_503.bd_decay * (.5f + CLIP(data.uiState.bd_decay_factor, 0, 127) / 127.f));
+    uint8_t decay = (uint8_t)((float)data.mfb_503_settings.bd_decay * (.5f + CLIP(data.ui_state.bd_decay_factor, 0, 127) / 127.f));
     send_cc(BD_DECAY, decay, MIDI_CHANNEL_503);
 }
 
@@ -258,7 +258,7 @@ void randomize_503_sound(ApplicationData& data)
     send_cc(MFB_503_HT_LEVEL, 127, MIDI_CHANNEL_503);
 
     // Randomize other sound settings
-    data.settings_503.play_pitch_bd = randi(128) < 32;
-    data.settings_503.bd_decay = randi(32, 64);
+    data.mfb_503_settings.play_pitch_bd = randi(128) < 32;
+    data.mfb_503_settings.bd_decay = randi(32, 64);
     send_bd_decay(data);
 }

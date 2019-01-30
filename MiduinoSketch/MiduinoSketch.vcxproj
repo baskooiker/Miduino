@@ -142,13 +142,13 @@
     <ClInclude Include="midi_io.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="p50.h">
+    <ClInclude Include="poly.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="rhythms.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="rocket.h">
+    <ClInclude Include="bass.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="scales.h">

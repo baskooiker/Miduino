@@ -4,10 +4,10 @@
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define CLIP(value,minimum,maximum) (MIN(MAX(value, minimum), maximum))
 
-#define MIDI_CHANNEL_ROCKET 1
+#define MIDI_CHANNEL_BASS   1
 #define MIDI_CHANNEL_MONO   2
 #define MIDI_CHANNEL_MONO_2 3
-#define MIDI_CHANNEL_P50    6
+#define MIDI_CHANNEL_POLY   6
 #define MIDI_CHANNEL_LEAD   7
 #define MIDI_CHANNEL_503    10
 #define MIDI_CHANNEL_522    12

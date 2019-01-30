@@ -3,7 +3,7 @@
 #include "harmony.h"
 #include "rhythm_time.h"
 
-void randomize_mono(SettingsMono& settings)
+void randomize_mono(MonoSettings& settings)
 {
     settings.pitch_offset = randi(24, 48);
     settings.arp_data.range = randi(12, 24);
@@ -29,10 +29,10 @@ void randomize_mono(SettingsMono& settings)
     randomize_interval_lead(settings.lead_pattern);
 }
 
-void play_mono(SettingsMono& settings, 
+void play_mono(MonoSettings& settings, 
     const HarmonyStruct& harmony, 
     const Scale& scale, 
-    const UiState& uiState, 
+    const UiState& ui_state, 
     const uint32_t step, 
     const uint8_t tick)
 {
@@ -53,7 +53,7 @@ void play_mono(SettingsMono& settings,
     if (hit)
     {
         settings.arp_data.min = settings.pitch_offset 
-            + (uint8_t)(((uint16_t)uiState.mono_pitch_offset * 24) / 128);
+            + (uint8_t)(((uint16_t)ui_state.mono_pitch_offset * 24) / 128);
         uint8_t pitch = get_arp_pitch(settings.arp_data,
                                       scale, 
                                       get_chord_step(harmony, scale, step, tick));

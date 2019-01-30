@@ -48,12 +48,6 @@
     <ClInclude Include="mfb_522.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="p50.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="rocket.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
@@ -143,6 +137,12 @@
     </ClInclude>
     <ClInclude Include="harmony.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="bass.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="poly.h">
+      <Filter>Header Files\instruments</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

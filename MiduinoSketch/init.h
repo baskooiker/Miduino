@@ -5,9 +5,9 @@
 
 #include "scales.h"
 
-Settings503 init_503_settings()
+Mfb503Settings init_503_settings()
 {
-    Settings503 s = { 0 };
+    Mfb503Settings s = { 0 };
 
     s.ac_pattern = init_gate_pattern();
     s.bd_pattern = init_gate_pattern_ab();
@@ -28,9 +28,9 @@ Settings503 init_503_settings()
     return s;
 }
 
-Settings522 init_522_settings()
+Mfb522Settings init_522_settings()
 {
-    Settings522 s = { 0 };
+    Mfb522Settings s = { 0 };
 
     s.ac_522_pattern = init_gate_pattern();
     s.bd_522_pattern = init_gate_pattern_ab();
@@ -50,9 +50,9 @@ Settings522 init_522_settings()
     return s;
 }
 
-SettingsLead init_lead_settings()
+LeadSettings init_lead_settings()
 {
-    SettingsLead s = { 0 };
+    LeadSettings s = { 0 };
 
     s.arp_data = init_arp_data();
     s.min_pitch_pattern = init_cv_pattern_ab();
@@ -63,9 +63,9 @@ SettingsLead init_lead_settings()
     return s;
 }
 
-SettingsMono init_mono_settings()
+MonoSettings init_mono_settings()
 {
-    SettingsMono s = {};
+    MonoSettings s = {};
 
     s.style = MonoStyle::Sixteenths;
     s.arp_data = init_arp_data();
@@ -77,9 +77,9 @@ SettingsMono init_mono_settings()
     return s;
 }
 
-SettingsP50 init_p50_settings()
+PolySettings init_poly_settings()
 {
-    SettingsP50 s = { 0 };
+    PolySettings s = { 0 };
 
     s.gates_low = init_gate_pattern_ab();
     s.gates = init_gate_pattern_ab();
@@ -91,9 +91,9 @@ SettingsP50 init_p50_settings()
     return s;
 }
 
-SettingsRocket init_rocket_settings()
+BassSettings init_rocket_settings()
 {
-    SettingsRocket s = { 0 };
+    BassSettings s = { 0 };
 
     s.accents = init_gate_pattern_ab();
     s.pitches = init_cv_pattern_ab();
@@ -124,23 +124,23 @@ ApplicationData init_application_data()
     i.scale = get_scale(AEOLIAN, ROOT_C);
     i.step = 0;
     i.ticks = 0;
-    i.uiState = init_ui_state();
+    i.ui_state = init_ui_state();
 
-    i.settings_503 = init_503_settings();
-    i.settings_522 = init_522_settings();
-    i.settings_lead = init_lead_settings();
-    i.settings_mono = init_mono_settings();
-    i.settings_mono_2 = init_mono_settings();
-    i.settings_p50 = init_p50_settings();
-    i.settings_rocket = init_rocket_settings();
+    i.mfb_503_settings = init_503_settings();
+    i.mfb_522_settings = init_522_settings();
+    i.lead_settings = init_lead_settings();
+    i.mono_settings = init_mono_settings();
+    i.mono_2_settings = init_mono_settings();
+    i.poly_settings = init_poly_settings();
+    i.bass_settings = init_rocket_settings();
 
-    i.settings_503.storage.channel = MIDI_CHANNEL_503;
-    i.settings_522.storage.channel = MIDI_CHANNEL_522;
-    i.settings_lead.storage.channel = MIDI_CHANNEL_LEAD;
-    i.settings_mono.storage.channel = MIDI_CHANNEL_MONO;
-    i.settings_mono_2.storage.channel = MIDI_CHANNEL_MONO_2;
-    i.settings_p50.storage.channel = MIDI_CHANNEL_P50;
-    i.settings_rocket.storage.channel = MIDI_CHANNEL_ROCKET;
+    i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;
+    i.mfb_522_settings.storage.channel = MIDI_CHANNEL_522;
+    i.lead_settings.storage.channel = MIDI_CHANNEL_LEAD;
+    i.mono_settings.storage.channel = MIDI_CHANNEL_MONO;
+    i.mono_2_settings.storage.channel = MIDI_CHANNEL_MONO_2;
+    i.poly_settings.storage.channel = MIDI_CHANNEL_POLY;
+    i.bass_settings.storage.channel = MIDI_CHANNEL_BASS;
 
     return i;
 }
