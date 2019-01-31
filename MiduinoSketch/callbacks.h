@@ -11,7 +11,6 @@
 #include "midi_io.h"
 #include "rand.h"
 #include "rhythms.h"
-#include "storage.h"
 #include "scales.h"
 #include "ui.h"
 
@@ -316,8 +315,11 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
     case BSP_KNOB_12:
         data.ui_state.poly_pitch_offset = value;
         break;
+    case BSP_KNOB_13:
+        data.mono_2_settings.variable_pitch_offset = value;
+        break;
     case BSP_KNOB_14:
-        data.ui_state.mono_pitch_offset = value;
+        data.mono_2_settings.variable_pitch_offset = value;
         break;
     case BSP_KNOB_16:
         data.bass_settings.note_range_value = value;
@@ -359,15 +361,14 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
             data.mono_2_settings.style = MonoStyle::Sixteenths;
         }
         break;
-        break;
     case BSP_STEP_10:
         if (value == 0)
         {
             randomize_mono(data.mono_2_settings);
             switch (randi(2))
             {
-            case 0: data.mono_settings.style = MonoStyle::PolyRhythm; break;
-            case 1: data.mono_settings.style = MonoStyle::LeadPattern; break;
+            case 0: data.mono_2_settings.style = MonoStyle::PolyRhythm; break;
+            case 1: data.mono_2_settings.style = MonoStyle::LeadPattern; break;
             }
         }
         break;
@@ -393,12 +394,16 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
     case BSP_STEP_13:
         if (value == 0)
         {
-            randomize_bass(data);
+            randomize_bass_dub(data.bass_dub_settings);
         }
         break;
     case BSP_STEP_14:
         break;
     case BSP_STEP_15:
+        if (value == 0)
+        {
+            randomize_bass(data);
+        }
         break;
     case BSP_STEP_16:
         break;

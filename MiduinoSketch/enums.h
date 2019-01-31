@@ -42,6 +42,11 @@ enum RocketStyle {
     RocketEuclid
 };
 
+enum BassDubStyle {
+    Unison,
+    Octave
+};
+
 enum ArpType {
     UP,
     DOWN,

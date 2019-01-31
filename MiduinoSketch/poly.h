@@ -40,14 +40,14 @@ void play_poly(ApplicationData& data)
     {
         const uint8_t MAX_CHORD_NOTES = 8;
 
-        uint8_t chord_nr = get_chord_step(data.harmony, data.scale, data.step, data.ticks);
+        uint8_t chord_nr = get_chord_step(data.harmony, data.step, data.ticks);
         uint8_t size = 0;
         uint8_t chord_notes[MAX_CHORD_NOTES];
 
         uint8_t pitch_offset = data.poly_settings.pitch_offset 
             + (((uint16_t)data.ui_state.poly_pitch_offset * 24) / 128) 
             - 12;
-        get_chord(chord_nr, data.scale, pitch_offset, chord_notes, size);
+        get_chord(chord_nr, data.harmony.scale, pitch_offset, chord_notes, size);
 
         uint8_t length = 6;
         if (gate(data.poly_settings.tie_pattern, data.step, data.ticks) 

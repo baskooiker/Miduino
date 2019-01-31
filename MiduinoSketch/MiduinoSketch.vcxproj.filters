@@ -99,9 +99,6 @@
     <ClInclude Include="steps.h">
       <Filter>Header Files\rhythms</Filter>
     </ClInclude>
-    <ClInclude Include="storage.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="scales.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
@@ -142,6 +139,12 @@
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
     <ClInclude Include="poly.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="note_handling.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="bass_dub.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
   </ItemGroup>

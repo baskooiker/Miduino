@@ -115,13 +115,22 @@ BassSettings init_rocket_settings()
     return s;
 }
 
+BassDubSettings init_bass_dub_settings()
+{
+    BassDubSettings s = { 0 };
+
+    s.style = BassDubStyle::Octave;
+    s.storage = init_pitch_storage();
+
+    return s;
+}
+
 ApplicationData init_application_data()
 {
     ApplicationData i = { 0 };
 
     i.harmony = init_harmony_struct();
 
-    i.scale = get_scale(AEOLIAN, ROOT_C);
     i.step = 0;
     i.ticks = 0;
     i.ui_state = init_ui_state();
@@ -133,6 +142,7 @@ ApplicationData init_application_data()
     i.mono_2_settings = init_mono_settings();
     i.poly_settings = init_poly_settings();
     i.bass_settings = init_rocket_settings();
+    i.bass_dub_settings = init_bass_dub_settings();
 
     i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;
     i.mfb_522_settings.storage.channel = MIDI_CHANNEL_522;
@@ -141,6 +151,7 @@ ApplicationData init_application_data()
     i.mono_2_settings.storage.channel = MIDI_CHANNEL_MONO_2;
     i.poly_settings.storage.channel = MIDI_CHANNEL_POLY;
     i.bass_settings.storage.channel = MIDI_CHANNEL_BASS;
+    i.bass_dub_settings.storage.channel = MIDI_CHANNEL_BASS_DUB;
 
     return i;
 }

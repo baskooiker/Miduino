@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage.h"
+#include "note_handling.h"
 
 #include "lead.h"
 #include "mfb_503.h"
@@ -8,16 +8,18 @@
 #include "mono.h"
 #include "poly.h"
 #include "bass.h"
+#include "bass_dub.h"
 
 void play_all(ApplicationData& data)
 {
     play_503(data);
     play_522(data);
     play_bass(data);
+    play_bass_dub(data.bass_settings, data.bass_dub_settings, data.harmony, data.step, data.ticks);
     play_poly(data);
     play_lead(data);
-    play_mono(data.mono_settings, data.harmony, data.scale, data.ui_state, data.step, data.ticks);
-    play_mono(data.mono_2_settings, data.harmony, data.scale, data.ui_state, data.step, data.ticks);
+    play_mono(data.mono_settings, data.harmony, data.ui_state, data.step, data.ticks);
+    play_mono(data.mono_2_settings, data.harmony, data.ui_state, data.step, data.ticks);
 }
 
 void stop_notes_all_instruments(ApplicationData& data)

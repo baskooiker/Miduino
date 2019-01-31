@@ -49,8 +49,8 @@ void play_lead(ApplicationData& data)
     {
         data.lead_settings.arp_data.min = cv(data.lead_settings.min_pitch_pattern, data.step);
 
-        uint8_t chord = get_chord_step(data.harmony, data.scale, data.step, data.ticks);
-        uint8_t pitch = get_arp_pitch(data.lead_settings.arp_data, data.scale, chord);
+        uint8_t chord = get_chord_step(data.harmony, data.step, data.ticks);
+        uint8_t pitch = get_arp_pitch(data.lead_settings.arp_data, data.harmony.scale, chord);
         note_on(make_note(pitch, 64, length), data.lead_settings.storage);
     }
 }

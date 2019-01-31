@@ -31,7 +31,6 @@ void randomize_mono(MonoSettings& settings)
 
 void play_mono(MonoSettings& settings, 
     const HarmonyStruct& harmony, 
-    const Scale& scale, 
     const UiState& ui_state, 
     const uint32_t step, 
     const uint8_t tick)
@@ -53,14 +52,17 @@ void play_mono(MonoSettings& settings,
     if (hit)
     {
         settings.arp_data.min = settings.pitch_offset 
-            + (uint8_t)(((uint16_t)ui_state.mono_pitch_offset * 24) / 128);
+            + (uint8_t)(((uint16_t)settings.variable_pitch_offset * 24) / 128);
         uint8_t pitch = get_arp_pitch(settings.arp_data,
-                                      scale, 
-                                      get_chord_step(harmony, scale, step, tick));
+                                      harmony.scale, 
+                                      get_chord_step(harmony, step, tick));
 
         uint8_t length = 3;
         if (settings.style == MonoStyle::LeadPattern)
-            length = ticks_left_in_bar(step, tick);
+        {
+            //length = ticks_left_in_bar(step, tick);
+            length = 9;
+        }
 
         note_on(make_note(pitch, 64, length, NoteType::Tie), settings.storage);
     }

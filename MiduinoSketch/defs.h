@@ -116,7 +116,6 @@ typedef struct {
     bool drum_fill;
     uint8_t drum_roll;
     uint8_t bd_decay_factor;
-    uint8_t mono_pitch_offset;
     uint8_t poly_pitch_offset;
 } UiState;
 
@@ -140,6 +139,11 @@ typedef struct {
 
     PitchStorage storage;
 } BassSettings;
+
+typedef struct {
+    BassDubStyle style;
+    PitchStorage storage;
+} BassDubSettings;
 
 typedef struct {
     GatePattern16 ac_522_pattern;
@@ -190,6 +194,7 @@ typedef struct {
     CvPatternAB low_pattern;
     CvPatternAB high_pattern;
     HarmonyType type;
+    Scale scale;
 } HarmonyStruct;
 
 typedef struct {
@@ -232,13 +237,13 @@ typedef struct {
     GatePatternAB euclid_pattern;
     IntervalPattern lead_pattern;
 
+    uint8_t variable_pitch_offset;
     uint8_t pitch_offset;
 
     PitchStorage storage;
 } MonoSettings;
 
 typedef struct {
-    Scale scale;
     uint8_t ticks;
     long step;
 
@@ -248,6 +253,7 @@ typedef struct {
     Mfb522Settings mfb_522_settings;
     Mfb503Settings mfb_503_settings;
     BassSettings bass_settings;
+    BassDubSettings bass_dub_settings;
     LeadSettings lead_settings;
     MonoSettings mono_settings;
     MonoSettings mono_2_settings;

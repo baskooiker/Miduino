@@ -15,7 +15,6 @@ UiState init_ui_state()
     s.kill_mid = false;
     s.kill_low = false;
 
-    s.mono_pitch_offset = 0;
     s.bd_decay_factor = 0;
     
     return s;
@@ -51,6 +50,8 @@ HarmonyStruct init_harmony_struct()
     s.low_pattern = init_cv_pattern_ab();
     s.high_pattern = init_cv_pattern_ab();
     s.type = HarmonyType::Const;
+
+    s.scale = get_scale(AEOLIAN, ROOT_C);
 
     return s;
 }

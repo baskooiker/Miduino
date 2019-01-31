@@ -27,8 +27,9 @@ void randomize_harmony(ApplicationData& data)
     data.harmony.high_pattern.time_division = TimeDivision::Sixteenth;
 }
 
-uint8_t get_chord_step(const HarmonyStruct& harmony, const Scale& scale, const uint32_t step, const uint8_t tick)
+uint8_t get_chord_step(const HarmonyStruct& harmony, const uint32_t step, const uint8_t tick)
 {
+    // TODO: Check implementation on this. Should it not apply scale?
     switch (harmony.type)
     {
     case HarmonyType::Const: 

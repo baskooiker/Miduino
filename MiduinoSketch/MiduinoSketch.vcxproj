@@ -110,6 +110,7 @@
     <ClInclude Include="ab.h" />
     <ClInclude Include="app_utils.h" />
     <ClInclude Include="arp.h" />
+    <ClInclude Include="bass_dub.h" />
     <ClInclude Include="callbacks.h" />
     <ClInclude Include="chords.h" />
     <ClInclude Include="coef.h" />
@@ -129,10 +130,10 @@
     <ClInclude Include="lead.h" />
     <ClInclude Include="mask.h" />
     <ClInclude Include="mono.h" />
+    <ClInclude Include="note_handling.h" />
     <ClInclude Include="pitch.h" />
     <ClInclude Include="rand.h" />
     <ClInclude Include="steps.h" />
-    <ClInclude Include="storage.h" />
     <ClInclude Include="mfb_503.h">
       <FileType>CppCode</FileType>
     </ClInclude>
