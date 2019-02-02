@@ -43,8 +43,16 @@ enum BassStyle {
 };
 
 enum BassDubStyle {
-    Unison,
-    Octave
+    DubUnison,
+    DubOctave,
+    DubOctProbability,
+    DubHitProbability,
+};
+
+enum NoteInterval {
+    IntervalRoot = 0,
+    IntervalThird = 2,
+    IntervalFifth = 4
 };
 
 enum ArpType {

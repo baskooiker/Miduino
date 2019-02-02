@@ -119,7 +119,10 @@ BassDubSettings init_bass_dub_settings()
 {
     BassDubSettings s = { };
 
-    s.style = BassDubStyle::Octave;
+    s.style = BassDubStyle::DubOctave;
+    s.note_interval = NoteInterval::IntervalRoot;
+    s.octave_probs = init_gate_pattern_ab();
+    s.hit_probs = init_gate_pattern_ab();
     s.storage = init_pitch_storage();
 
     return s;

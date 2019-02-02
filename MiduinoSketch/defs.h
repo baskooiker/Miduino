@@ -142,6 +142,9 @@ typedef struct {
 
 typedef struct {
     BassDubStyle style;
+    NoteInterval note_interval;
+    GatePatternAB octave_probs;
+    GatePatternAB hit_probs;
     PitchStorage storage;
 } BassDubSettings;
 

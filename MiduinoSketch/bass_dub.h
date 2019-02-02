@@ -3,14 +3,25 @@
 #include "defs.h"
 #include "bass.h"
 #include "midi_io.h"
+#include "rhythms.h"
 
 void randomize_bass_dub(BassDubSettings& settings)
 {
-    switch (distribution(10, 30))
+    switch (distribution(10, 30, 10, 10))
     {
-    case 0: settings.style = BassDubStyle::Unison; break;
-    case 1: settings.style = BassDubStyle::Octave; break;
+    case 0: settings.style = BassDubStyle::DubUnison; break;
+    case 1: settings.style = BassDubStyle::DubOctave; break;
+    case 2: settings.style = BassDubStyle::DubOctProbability; break;
+    case 3: settings.style = BassDubStyle::DubHitProbability; break;
     }
+    switch (distribution(60, 10, 20))
+    {
+    case 0: settings.note_interval = NoteInterval::IntervalRoot; break;
+    case 1: settings.note_interval = NoteInterval::IntervalThird; break;
+    case 2: settings.note_interval = NoteInterval::IntervalFifth; break;
+    }
+    randomize(settings.octave_probs, randf(.25f, .75f));
+    randomize(settings.hit_probs, randf(.25f, .75f));
 }
 
 void play_bass_dub(
@@ -20,12 +31,15 @@ void play_bass_dub(
     const uint32_t step, 
     const uint8_t tick)
 {
-    bool hit = false;
+    bool hit = get_bass_hit(settings, step, tick);
     switch (dub_settings.style)
     {
-    case BassDubStyle::Unison:
-    case BassDubStyle::Octave:
-        hit = get_bass_hit(settings, step, tick);
+    case BassDubStyle::DubUnison:
+    case BassDubStyle::DubOctave:
+    case BassDubStyle::DubOctProbability:
+        break;
+    case BassDubStyle::DubHitProbability:
+        hit &= gate(dub_settings.hit_probs, step, tick);
         break;
     }
 
@@ -35,10 +49,17 @@ void play_bass_dub(
 
         switch (dub_settings.style)
         {
-        case BassDubStyle::Unison:
+        case BassDubStyle::DubUnison:
             break;
-        case BassDubStyle::Octave:
+        case BassDubStyle::DubHitProbability:
+        case BassDubStyle::DubOctave:
             pitch += 12;
+            break;
+        case BassDubStyle::DubOctProbability:
+            if (gate(dub_settings.octave_probs, step, tick))
+            {
+                pitch += 12;
+            }
             break;
         }
 
