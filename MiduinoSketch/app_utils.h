@@ -29,6 +29,7 @@ void stop_notes_all_instruments(ApplicationData& data)
     stop_notes(data.mfb_522_settings.storage);
     stop_notes(data.poly_settings.storage);
     stop_notes(data.bass_settings.storage);
+    stop_notes(data.bass_dub_settings.storage);
     stop_notes(data.lead_settings.storage);
     stop_notes(data.mono_settings.storage);
     stop_notes(data.mono_dub_settings.settings.storage);
