@@ -77,6 +77,16 @@ MonoSettings init_mono_settings()
     return s;
 }
 
+MonoDubSettings init_mono_dub_settings()
+{
+    MonoDubSettings s = { };
+
+    s.settings = init_mono_settings();
+    s.style = MonoDubStyle::MonoDubLead;
+
+    return s;
+}
+
 PolySettings init_poly_settings()
 {
     PolySettings s = { 0 };
@@ -134,15 +144,15 @@ ApplicationData init_application_data()
 
     i.harmony = init_harmony_struct();
 
-    i.step = 0;
-    i.ticks = 0;
+    i.time = init_time();
+
     i.ui_state = init_ui_state();
 
     i.mfb_503_settings = init_503_settings();
     i.mfb_522_settings = init_522_settings();
     i.lead_settings = init_lead_settings();
     i.mono_settings = init_mono_settings();
-    i.mono_2_settings = init_mono_settings();
+    i.mono_dub_settings = init_mono_dub_settings();
     i.poly_settings = init_poly_settings();
     i.bass_settings = init_bass_settings();
     i.bass_dub_settings = init_bass_dub_settings();
@@ -151,7 +161,7 @@ ApplicationData init_application_data()
     i.mfb_522_settings.storage.channel = MIDI_CHANNEL_522;
     i.lead_settings.storage.channel = MIDI_CHANNEL_LEAD;
     i.mono_settings.storage.channel = MIDI_CHANNEL_MONO;
-    i.mono_2_settings.storage.channel = MIDI_CHANNEL_MONO_2;
+    i.mono_dub_settings.settings.storage.channel = MIDI_CHANNEL_MONO_2;
     i.poly_settings.storage.channel = MIDI_CHANNEL_POLY;
     i.bass_settings.storage.channel = MIDI_CHANNEL_BASS;
     i.bass_dub_settings.storage.channel = MIDI_CHANNEL_BASS_DUB;

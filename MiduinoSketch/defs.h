@@ -4,6 +4,12 @@
 #include "enums.h"
 
 typedef struct {
+    uint32_t step;
+    uint8_t tick;
+    PlayState state;
+} TimeStruct;
+
+typedef struct {
     float one;
     float two;
     float three;
@@ -247,9 +253,12 @@ typedef struct {
 } MonoSettings;
 
 typedef struct {
-    uint8_t ticks;
-    long step;
+    MonoSettings settings;
+    MonoDubStyle style;
+} MonoDubSettings;
 
+typedef struct {
+    TimeStruct time;
     HarmonyStruct harmony;
 
     PolySettings poly_settings;
@@ -259,7 +268,7 @@ typedef struct {
     BassDubSettings bass_dub_settings;
     LeadSettings lead_settings;
     MonoSettings mono_settings;
-    MonoSettings mono_2_settings;
+    MonoDubSettings mono_dub_settings;
 
     UiState ui_state;
 } ApplicationData;

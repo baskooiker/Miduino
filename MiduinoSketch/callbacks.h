@@ -18,6 +18,7 @@
 #include "mfb_503.h"
 #include "mfb_522.h"
 #include "mono.h"
+#include "mono_dub.h"
 #include "poly.h"
 #include "bass.h"
 
@@ -242,14 +243,15 @@ void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocit
 
 void handleClock(ApplicationData& data)
 {
+    data.time.state = PlayState::Playing;
     stop_notes_all_instruments(data);
     play_all(data);
 
-    data.ticks += 1;
-    if (data.ticks >= TICKS_PER_STEP)
+    data.time.tick += 1;
+    if (data.time.tick >= TICKS_PER_STEP)
     {
-        data.ticks = 0;
-        data.step = (data.step + 1) % COMMON_DENOMINATOR;
+        data.time.tick = 0;
+        data.time.step = (data.time.step + 1) % COMMON_DENOMINATOR;
     }
 }
 
@@ -316,7 +318,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         data.ui_state.poly_pitch_offset = value;
         break;
     case BSP_KNOB_13:
-        data.mono_2_settings.variable_pitch_offset = value;
+        data.mono_dub_settings.settings.variable_pitch_offset = value;
         break;
     case BSP_KNOB_14:
         data.mono_settings.variable_pitch_offset = value;
@@ -357,18 +359,18 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
     case BSP_STEP_09:
         if (value == 0)
         {
-            randomize_mono(data.mono_2_settings);
-            data.mono_2_settings.style = MonoStyle::MonoSixteenths;
+            randomize_mono_dub(data.mono_dub_settings);
+            data.mono_dub_settings.settings.style = MonoStyle::MonoSixteenths;
         }
         break;
     case BSP_STEP_10:
         if (value == 0)
         {
-            randomize_mono(data.mono_2_settings);
+            randomize_mono_dub(data.mono_dub_settings);
             switch (randi(2))
             {
-            case 0: data.mono_2_settings.style = MonoStyle::MonoPolyRhythm; break;
-            case 1: data.mono_2_settings.style = MonoStyle::MonoLeadPattern; break;
+            case 0: data.mono_dub_settings.settings.style = MonoStyle::MonoPolyRhythm; break;
+            case 1: data.mono_dub_settings.settings.style = MonoStyle::MonoLeadPattern; break;
             }
         }
         break;
@@ -420,10 +422,11 @@ void handleStop(ApplicationData& data)
     all_notes_off(data.bass_settings.storage);
     all_notes_off(data.lead_settings.storage);
     all_notes_off(data.mono_settings.storage);
-    all_notes_off(data.mono_2_settings.storage);
+    all_notes_off(data.mono_dub_settings.settings.storage);
 
-    data.step = 0;
-    data.ticks = 0;
+    data.time.step = 0;
+    data.time.tick = 0;
+    data.time.state = PlayState::Stopped;
 
     randomize_all(data);
 }

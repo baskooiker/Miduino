@@ -130,6 +130,7 @@
     <ClInclude Include="lead.h" />
     <ClInclude Include="mask.h" />
     <ClInclude Include="mono.h" />
+    <ClInclude Include="mono_dub.h" />
     <ClInclude Include="note_handling.h" />
     <ClInclude Include="pitch.h" />
     <ClInclude Include="rand.h" />

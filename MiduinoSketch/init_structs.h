@@ -2,6 +2,17 @@
 
 #include "defs.h"
 
+TimeStruct init_time()
+{
+    TimeStruct s = {};
+
+    s.step = 0;
+    s.tick = 0;
+    s.state = PlayState::Stopped;
+
+    return s;
+}
+
 UiState init_ui_state()
 {
     UiState s = { 0 };

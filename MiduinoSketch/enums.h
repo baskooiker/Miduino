@@ -94,6 +94,12 @@ enum MonoStyle {
     MonoLeadPattern
 };
 
+enum MonoDubStyle {
+    MonoDubLead,
+    MonoDubUnison,
+    MonoDubOctave
+};
+
 enum HarmonyType {
     HarmonyConst,
     HarmonyLow,
@@ -104,4 +110,10 @@ enum NoteType {
     Normal,
     Tie,
     Slide
+};
+
+enum PlayState {
+    Playing,
+    Paused,
+    Stopped
 };

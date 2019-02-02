@@ -6,20 +6,21 @@
 #include "mfb_503.h"
 #include "mfb_522.h"
 #include "mono.h"
+#include "mono_dub.h"
 #include "poly.h"
 #include "bass.h"
 #include "bass_dub.h"
 
 void play_all(ApplicationData& data)
 {
-    play_503(data);
-    play_522(data);
-    play_bass(data);
-    play_bass_dub(data.bass_settings, data.bass_dub_settings, data.harmony, data.step, data.ticks);
-    play_poly(data);
-    play_lead(data);
-    play_mono(data.mono_settings, data.harmony, data.step, data.ticks);
-    play_mono(data.mono_2_settings, data.harmony, data.step, data.ticks);
+    play_503(data, data.time);
+    play_522(data, data.time);
+    play_bass(data, data.time);
+    play_bass_dub(data.bass_settings, data.bass_dub_settings, data.harmony, data.time);
+    play_poly(data, data.time);
+    play_lead(data, data.time);
+    play_mono(data.mono_settings, data.harmony, data.time);
+    play_mono_dub(data.mono_dub_settings, data.mono_settings, data.harmony, data.time);
 }
 
 void stop_notes_all_instruments(ApplicationData& data)
@@ -30,7 +31,7 @@ void stop_notes_all_instruments(ApplicationData& data)
     stop_notes(data.bass_settings.storage);
     stop_notes(data.lead_settings.storage);
     stop_notes(data.mono_settings.storage);
-    stop_notes(data.mono_2_settings.storage);
+    stop_notes(data.mono_dub_settings.settings.storage);
 }
 
 void all_notes_off(PitchStorage& storage)
@@ -55,7 +56,7 @@ void randomize_all(ApplicationData& data)
     randomize_bass(data);
     randomize_lead(data);
     randomize_mono(data.mono_settings);
-    randomize_mono(data.mono_2_settings);
+    randomize_mono_dub(data.mono_dub_settings);
 
     randomize_503_sound(data);
 }

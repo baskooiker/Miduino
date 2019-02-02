@@ -51,63 +51,63 @@ void randomize_522_seq(ApplicationData& data)
 
 }
 
-void play_522(ApplicationData& data)
+void play_522(ApplicationData& data, const TimeStruct& time)
 {
     uint8_t velocity = 63;
 
     Mfb522Settings& settings = data.mfb_522_settings;
 
-    if (gate(data.mfb_522_settings.ac_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.ac_522_pattern, time.step, time.tick))
     {
         velocity = 127;
     }
 
-    if (gate(data.mfb_522_settings.bd_522_pattern, data.step, data.ticks) && !data.ui_state.kill_low)
+    if (gate(data.mfb_522_settings.bd_522_pattern, time.step, time.tick) && !data.ui_state.kill_low)
     {
         note_on(make_note(NOTE_522_BD_LONG, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.lo_tom_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.lo_tom_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_LO_TOM, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.mi_tom_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.mi_tom_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_HI_TOM, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.rs_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.rs_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_RS, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.clave_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.clave_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_CLAVE, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.clap_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.clap_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_CP_LONG, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.oh_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.oh_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_OH, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.cy_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.cy_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_CYMBAL, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.sd_522_pattern, data.step, data.ticks))
+    if (gate(data.mfb_522_settings.sd_522_pattern, time.step, time.tick))
     {
         note_on(make_note(NOTE_522_SN, velocity), settings.storage);
     }
     if (!data.mfb_522_settings.use_hh_int && !data.ui_state.kill_high)
     {
-        if (gate(data.mfb_522_settings.hh_522_pattern, data.step, data.ticks))
+        if (gate(data.mfb_522_settings.hh_522_pattern, time.step, time.tick))
         {
             note_on(make_note(NOTE_522_HH, velocity), settings.storage);
         }
     }
     else if(!data.ui_state.kill_high)
     {
-        if (interval_hit(data.mfb_522_settings.hh_int_pattern, data.step, data.ticks))
+        if (interval_hit(data.mfb_522_settings.hh_int_pattern, time.step, time.tick))
         {
             note_on(make_note(NOTE_522_HH, velocity), settings.storage);
         }

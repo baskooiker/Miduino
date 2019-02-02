@@ -28,7 +28,7 @@ void randomize_lead(ApplicationData& data)
     set_coef_slow_pattern(data.lead_settings.pattern_slow);
 }
 
-void play_lead(ApplicationData& data)
+void play_lead(ApplicationData& data, const TimeStruct& time)
 {
     bool hit = false;
     uint8_t length = 6;
@@ -36,20 +36,20 @@ void play_lead(ApplicationData& data)
     switch (data.lead_settings.style)
     {
     case LeadStyle::LeadWhole:
-        hit = interval_hit(TimeDivision::Whole, data.step, data.ticks);
+        hit = interval_hit(TimeDivision::Whole, time.step, time.tick);
         length = TICKS_IN_BAR;
         break;
     case LeadStyle::LeadSlow:
-        hit = gate(data.lead_settings.pattern_slow, data.step, data.ticks);
-        length = ticks_left_in_bar(data.step, data.ticks);
+        hit = gate(data.lead_settings.pattern_slow, time.step, time.tick);
+        length = ticks_left_in_bar(time.step, time.tick);
         break;
     }
 
     if (hit)
     {
-        data.lead_settings.arp_data.min = cv(data.lead_settings.min_pitch_pattern, data.step);
+        data.lead_settings.arp_data.min = cv(data.lead_settings.min_pitch_pattern, time.step);
 
-        uint8_t chord = get_chord_step(data.harmony, data.step, data.ticks);
+        uint8_t chord = get_chord_step(data.harmony, time.step, time.tick);
         uint8_t pitch = get_arp_pitch(data.lead_settings.arp_data, data.harmony.scale, chord);
         note_on(make_note(pitch, 64, length), data.lead_settings.storage);
     }

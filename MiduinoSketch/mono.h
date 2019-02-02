@@ -29,37 +29,48 @@ void randomize_mono(MonoSettings& settings)
     randomize_interval_lead(settings.lead_pattern);
 }
 
-void play_mono(MonoSettings& settings, 
-    const HarmonyStruct& harmony, 
-    const uint32_t step, 
-    const uint8_t tick)
+bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
 {
     bool hit = false;
     switch (settings.style)
     {
-    case MonoStyle::MonoSixteenths: 
-        hit = interval_hit(TimeDivision::Sixteenth, step, tick); 
+    case MonoStyle::MonoSixteenths:
+        hit = interval_hit(TimeDivision::Sixteenth, time.step, time.tick);
         break;
     case MonoStyle::MonoPolyRhythm:
-        hit = gate(settings.euclid_pattern, step, tick);
+        hit = gate(settings.euclid_pattern, time.step, time.tick);
         break;
     case MonoStyle::MonoLeadPattern:
-        hit = interval_hit(settings.lead_pattern, step, tick);
+        hit = interval_hit(settings.lead_pattern, time.step, time.tick);
         break;
     }
+    return hit;
+}
+
+uint8_t get_mono_pitch(MonoSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
+{
+    settings.arp_data.min = settings.pitch_offset
+        + (uint8_t)(((uint16_t)settings.variable_pitch_offset * 24) / 128);
+    uint8_t pitch = get_arp_pitch(settings.arp_data,
+        harmony.scale,
+        get_chord_step(harmony, time.step, time.tick));
+    return pitch;
+}
+
+void play_mono(
+    MonoSettings& settings, 
+    const HarmonyStruct& harmony, 
+    const TimeStruct& time)
+{
+    bool hit = get_mono_hit(settings, time);
 
     if (hit)
     {
-        settings.arp_data.min = settings.pitch_offset 
-            + (uint8_t)(((uint16_t)settings.variable_pitch_offset * 24) / 128);
-        uint8_t pitch = get_arp_pitch(settings.arp_data,
-                                      harmony.scale, 
-                                      get_chord_step(harmony, step, tick));
+        uint8_t pitch = get_mono_pitch(settings, harmony, time);
 
         uint8_t length = 3;
         if (settings.style == MonoStyle::MonoLeadPattern)
         {
-            //length = ticks_left_in_bar(step, tick);
             length = 9;
         }
 

@@ -147,5 +147,8 @@
     <ClInclude Include="bass_dub.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
+    <ClInclude Include="mono_dub.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

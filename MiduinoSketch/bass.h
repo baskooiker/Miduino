@@ -85,10 +85,10 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
     return pitch;
 }
 
-void play_bass(ApplicationData& data)
+void play_bass(ApplicationData& data, const TimeStruct& time)
 {
-    const uint32_t step = data.step;
-    const uint32_t tick = data.ticks;
+    const uint32_t step = time.step;
+    const uint32_t tick = time.tick;
 
     // Velocity
     uint8_t velocity = data.bass_settings.low_velocity;
