@@ -18,8 +18,8 @@ void play_all(ApplicationData& data)
     play_bass_dub(data.bass_settings, data.bass_dub_settings, data.harmony, data.step, data.ticks);
     play_poly(data);
     play_lead(data);
-    play_mono(data.mono_settings, data.harmony, data.ui_state, data.step, data.ticks);
-    play_mono(data.mono_2_settings, data.harmony, data.ui_state, data.step, data.ticks);
+    play_mono(data.mono_settings, data.harmony, data.step, data.ticks);
+    play_mono(data.mono_2_settings, data.harmony, data.step, data.ticks);
 }
 
 void stop_notes_all_instruments(ApplicationData& data)

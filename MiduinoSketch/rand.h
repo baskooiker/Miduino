@@ -42,3 +42,27 @@ uint8_t distribution(const uint8_t a, const uint8_t b, const uint8_t c = 0, cons
         return 3;
     return 4;
 }
+
+uint8_t get_distributed_range(uint8_t input, const uint8_t dist, const uint8_t ranges)
+{
+    uint8_t ticks_per_range = 128 / ranges;
+    uint8_t ranges_for_dist = dist / ticks_per_range + 1;
+    ticks_per_range = (uint8_t)((float)ticks_per_range * .7f);
+    if (input > 0)
+    {
+        input = MAX(16, input) - 16;
+    }
+    if (input < dist)
+    {
+        for (int i = 0; i < ranges; i++)
+        {
+            if (input < ((i + 1) * ticks_per_range))
+            {
+                return i + 1;
+            }
+        }
+        return ranges;
+        //return input % (ranges_for_dist + 1);
+    }
+    return 0;
+}

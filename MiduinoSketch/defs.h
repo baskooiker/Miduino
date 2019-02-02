@@ -133,7 +133,7 @@ typedef struct {
 
     uint8_t low_velocity;
     uint8_t pitch_range;
-    RocketStyle style;
+    BassStyle style;
     CvPatternAB note_range_prob;
     uint8_t note_range_value;
 

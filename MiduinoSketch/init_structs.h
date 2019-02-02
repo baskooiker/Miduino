@@ -49,7 +49,7 @@ HarmonyStruct init_harmony_struct()
     s.const_pattern = init_cv_pattern_ab();
     s.low_pattern = init_cv_pattern_ab();
     s.high_pattern = init_cv_pattern_ab();
-    s.type = HarmonyType::Const;
+    s.type = HarmonyType::HarmonyConst;
 
     s.scale = get_scale(AEOLIAN, ROOT_C);
 

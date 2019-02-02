@@ -269,11 +269,11 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         break;
     case BSP_KNOB_03:
         if (value < 10)
-            data.harmony.type = HarmonyType::Const;
+            data.harmony.type = HarmonyType::HarmonyConst;
         else if (value < 117)
-            data.harmony.type = HarmonyType::Low;
+            data.harmony.type = HarmonyType::HarmonyLow;
         else
-            data.harmony.type = HarmonyType::High;
+            data.harmony.type = HarmonyType::HarmonyHigh;
         break;
     case BSP_KNOB_04:
         if (value < 64)
@@ -294,13 +294,13 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         break;
     case BSP_KNOB_08:
         if (value < 10)
-            data.bass_settings.style = RocketLow;
+            data.bass_settings.style = BassStyle::BassLow;
         else if (value < 64)
-            data.bass_settings.style = RocketEuclid;
+            data.bass_settings.style = BassStyle::BassEuclid;
         else if (value < 120)
-            data.bass_settings.style = RocketArpInterval;
+            data.bass_settings.style = BassStyle::BassArpInterval;
         else
-            data.bass_settings.style = RocketSixteenths;
+            data.bass_settings.style = BassStyle::BassSixteenths;
         break;
     case BSP_KNOB_09:
         data.mfb_503_settings.volume_tom = value;
@@ -319,7 +319,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         data.mono_2_settings.variable_pitch_offset = value;
         break;
     case BSP_KNOB_14:
-        data.mono_2_settings.variable_pitch_offset = value;
+        data.mono_settings.variable_pitch_offset = value;
         break;
     case BSP_KNOB_16:
         data.bass_settings.note_range_value = value;
@@ -358,7 +358,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         if (value == 0)
         {
             randomize_mono(data.mono_2_settings);
-            data.mono_2_settings.style = MonoStyle::Sixteenths;
+            data.mono_2_settings.style = MonoStyle::MonoSixteenths;
         }
         break;
     case BSP_STEP_10:
@@ -367,8 +367,8 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
             randomize_mono(data.mono_2_settings);
             switch (randi(2))
             {
-            case 0: data.mono_2_settings.style = MonoStyle::PolyRhythm; break;
-            case 1: data.mono_2_settings.style = MonoStyle::LeadPattern; break;
+            case 0: data.mono_2_settings.style = MonoStyle::MonoPolyRhythm; break;
+            case 1: data.mono_2_settings.style = MonoStyle::MonoLeadPattern; break;
             }
         }
         break;
@@ -377,7 +377,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         if (value == 0)
         {
             randomize_mono(data.mono_settings);
-            data.mono_settings.style = MonoStyle::Sixteenths; 
+            data.mono_settings.style = MonoStyle::MonoSixteenths; 
         }
         break;
     case BSP_STEP_12:
@@ -386,8 +386,8 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
             randomize_mono(data.mono_settings);
             switch (randi(2))
             {
-            case 0: data.mono_settings.style = MonoStyle::PolyRhythm; break;
-            case 1: data.mono_settings.style = MonoStyle::LeadPattern; break;
+            case 0: data.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
+            case 1: data.mono_settings.style = MonoStyle::MonoLeadPattern; break;
             }
         }
         break;

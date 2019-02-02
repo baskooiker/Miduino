@@ -33,13 +33,13 @@ enum NoteRange {
     RangeScale
 };
 
-enum RocketStyle {
-    //RocketWhole,
-    RocketLow,
-    RocketSixteenths,
-    //RocketProb,
-    RocketArpInterval,
-    RocketEuclid
+enum BassStyle {
+    //Whole,
+    BassLow,
+    BassSixteenths,
+    //Prob,
+    BassArpInterval,
+    BassEuclid
 };
 
 enum BassDubStyle {
@@ -81,15 +81,15 @@ enum HatStyle {
 };
 
 enum MonoStyle {
-    Sixteenths,
-    PolyRhythm,
-    LeadPattern
+    MonoSixteenths,
+    MonoPolyRhythm,
+    MonoLeadPattern
 };
 
 enum HarmonyType {
-    Const,
-    Low,
-    High
+    HarmonyConst,
+    HarmonyLow,
+    HarmonyHigh
 };
 
 enum NoteType {

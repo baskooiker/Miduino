@@ -67,7 +67,7 @@ MonoSettings init_mono_settings()
 {
     MonoSettings s = {};
 
-    s.style = MonoStyle::Sixteenths;
+    s.style = MonoStyle::MonoSixteenths;
     s.arp_data = init_arp_data();
     s.int_pattern = init_interval_pattern();
     s.euclid_pattern = init_gate_pattern_ab();
@@ -91,7 +91,7 @@ PolySettings init_poly_settings()
     return s;
 }
 
-BassSettings init_rocket_settings()
+BassSettings init_bass_settings()
 {
     BassSettings s = { 0 };
 
@@ -107,7 +107,7 @@ BassSettings init_rocket_settings()
 
     s.low_velocity = 64;
     s.pitch_range = 0;
-    s.style = RocketStyle::RocketLow;
+    s.style = BassStyle::BassLow;
     s.note_range_prob = init_cv_pattern_ab();
     s.note_range_value = 0;
     s.storage = init_pitch_storage();
@@ -117,7 +117,7 @@ BassSettings init_rocket_settings()
 
 BassDubSettings init_bass_dub_settings()
 {
-    BassDubSettings s = { 0 };
+    BassDubSettings s = { };
 
     s.style = BassDubStyle::Octave;
     s.storage = init_pitch_storage();
@@ -141,7 +141,7 @@ ApplicationData init_application_data()
     i.mono_settings = init_mono_settings();
     i.mono_2_settings = init_mono_settings();
     i.poly_settings = init_poly_settings();
-    i.bass_settings = init_rocket_settings();
+    i.bass_settings = init_bass_settings();
     i.bass_dub_settings = init_bass_dub_settings();
 
     i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;

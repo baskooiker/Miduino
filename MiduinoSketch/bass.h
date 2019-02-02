@@ -11,7 +11,7 @@ void randomize_bass(ApplicationData& data)
 {
     CvPatternAB& p_pattern = data.bass_settings.pitches;
 
-    randomize(data.bass_settings.octaves, 2, 4);
+    randomize(data.bass_settings.octaves, 2, randi(4, 6));
     randomize(data.bass_settings.pitches, data.harmony.scale.length);
     set_gates_low(data.bass_settings.low_pattern, 1);
     set_euclid(data.bass_settings.euclid_pattern, 16, 5);
@@ -31,27 +31,22 @@ bool get_bass_hit(BassSettings& settings, const uint32_t step, const uint8_t tic
     bool hit = false;
     switch (settings.style)
     {
-    case RocketStyle::RocketLow:
+    case BassStyle::BassLow:
         hit = gate(settings.low_pattern, step, tick);
         break;
-    case RocketStyle::RocketEuclid:
+    case BassStyle::BassEuclid:
         hit = gate(settings.euclid_pattern, step, tick);
         break;
-    case RocketStyle::RocketArpInterval:
+    case BassStyle::BassArpInterval:
         hit = interval_hit(settings.int_pattern, step, tick);
         break;
-    case RocketStyle::RocketSixteenths:
+    case BassStyle::BassSixteenths:
         hit = interval_hit(TimeDivision::Sixteenth, step, tick);
         break;
     default: 
         hit = false;
     }
     return hit;
-}
-
-uint8_t get_bass_base_pitch(BassSettings& settings, const uint32_t step, const uint8_t tick)
-{
-    // TODO:
 }
 
 uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmony, const uint32_t step, const uint8_t tick)
@@ -78,11 +73,12 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
     }
 
     uint8_t octave = cv(settings.octaves, step);
-    uint8_t variable_octave = cv(settings.variable_octaves, step);
+    /*uint8_t variable_octave = cv(settings.variable_octaves, step);
     if (variable_octave < settings.pitch_range)
     {
         octave += variable_octave % 3 + 1;
-    }
+    }*/
+    octave += get_distributed_range(cv(settings.variable_octaves, step), settings.pitch_range, 3);
 
     uint8_t harmony_step = get_chord_step(harmony, step, tick);
     uint8_t pitch = apply_scale(note_nr + harmony_step, harmony.scale, octave);
@@ -109,9 +105,9 @@ void play_bass(ApplicationData& data)
         // Note length
         uint8_t length = 5;
         if (gate(data.bass_settings.slides, step, tick) 
-            || data.bass_settings.style == RocketStyle::RocketLow)
+            || data.bass_settings.style == BassStyle::BassLow)
         {
-            length = ticks_left_in_bar(step, tick);
+            length = ticks_left_in_bar(step, tick) - 6;
         }
         else
         {

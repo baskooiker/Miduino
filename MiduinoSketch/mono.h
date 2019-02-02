@@ -18,9 +18,9 @@ void randomize_mono(MonoSettings& settings)
 
     switch (randi(3))
     {
-    case 0: settings.style = MonoStyle::Sixteenths; break;
-    case 1: settings.style = MonoStyle::PolyRhythm; break;
-    case 2: settings.style = MonoStyle::LeadPattern; break;
+    case 0: settings.style = MonoStyle::MonoSixteenths; break;
+    case 1: settings.style = MonoStyle::MonoPolyRhythm; break;
+    case 2: settings.style = MonoStyle::MonoLeadPattern; break;
     }
 
     set_euclid(settings.euclid_pattern, randi(5, 8), 1);
@@ -31,20 +31,19 @@ void randomize_mono(MonoSettings& settings)
 
 void play_mono(MonoSettings& settings, 
     const HarmonyStruct& harmony, 
-    const UiState& ui_state, 
     const uint32_t step, 
     const uint8_t tick)
 {
     bool hit = false;
     switch (settings.style)
     {
-    case MonoStyle::Sixteenths: 
+    case MonoStyle::MonoSixteenths: 
         hit = interval_hit(TimeDivision::Sixteenth, step, tick); 
         break;
-    case MonoStyle::PolyRhythm:
+    case MonoStyle::MonoPolyRhythm:
         hit = gate(settings.euclid_pattern, step, tick);
         break;
-    case MonoStyle::LeadPattern:
+    case MonoStyle::MonoLeadPattern:
         hit = interval_hit(settings.lead_pattern, step, tick);
         break;
     }
@@ -58,7 +57,7 @@ void play_mono(MonoSettings& settings,
                                       get_chord_step(harmony, step, tick));
 
         uint8_t length = 3;
-        if (settings.style == MonoStyle::LeadPattern)
+        if (settings.style == MonoStyle::MonoLeadPattern)
         {
             //length = ticks_left_in_bar(step, tick);
             length = 9;
