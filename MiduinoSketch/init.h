@@ -120,6 +120,9 @@ BassSettings init_bass_settings()
     s.style = BassStyle::BassLow;
     s.note_range_prob = init_cv_pattern_ab();
     s.note_range_value = 0;
+
+    s.octave_offset = 2;
+
     s.storage = init_pitch_storage();
 
     return s;

@@ -85,6 +85,9 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
 
     uint8_t harmony_step = get_chord_step(harmony, time.step, time.tick);
     uint8_t pitch = apply_scale(note_nr + harmony_step, harmony.scale, octave);
+
+    pitch += settings.octave_offset * 12;
+
     return pitch;
 }
 

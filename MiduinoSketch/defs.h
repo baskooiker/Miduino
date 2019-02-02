@@ -142,6 +142,7 @@ typedef struct {
     BassStyle style;
     CvPatternAB note_range_prob;
     uint8_t note_range_value;
+    uint8_t octave_offset;
 
     PitchStorage storage;
 } BassSettings;

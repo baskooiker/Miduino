@@ -7,7 +7,7 @@
 
 void randomize_bass_dub(BassDubSettings& settings)
 {
-    switch (distribution(10, 30, 10, 10))
+    switch (distribution(0, 30, 10, 10))
     {
     case 0: settings.style = BassDubStyle::DubUnison; break;
     case 1: settings.style = BassDubStyle::DubOctave; break;
