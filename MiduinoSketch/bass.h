@@ -7,114 +7,105 @@
 #include "scales.h"
 #include "rand.h"
 
-void randomize_bass(ApplicationData& data)
+void randomize_bass(BassSettings& settings)
 {
-    CvPatternAB& p_pattern = data.bass_settings.pitches;
+    CvPatternAB& p_pattern = settings.pitches;
 
-    randomize(data.bass_settings.octaves, 2, randi(4, 6));
-    randomize(data.bass_settings.pitches, data.harmony.scale.length);
-    set_gates_low(data.bass_settings.low_pattern, 1);
-    set_euclid(data.bass_settings.euclid_pattern, 16, 5);
+    randomize(settings.octaves, 2, randi(4, 6));
+    randomize(settings.pitches);
+    set_gates_low(settings.low_pattern, 1);
+    set_euclid(settings.euclid_pattern, 16, 5);
     
-    randomize(data.bass_settings.slides, .15f);
+    randomize(settings.slides, .15f);
 
-    randomize(data.bass_settings.note_range_prob);
+    randomize(settings.note_range_prob);
 
-    randomize_interval(data.bass_settings.int_pattern, arp_interval_probs);
+    randomize_interval(settings.int_pattern, arp_interval_probs);
 
-    randomize(data.bass_settings.accents, .5f);
-    randomize(data.bass_settings.variable_octaves);
+    randomize(settings.accents, .5f);
+    randomize(settings.variable_octaves);
 }
 
-bool get_bass_hit(BassSettings& settings, const uint32_t step, const uint8_t tick)
+bool get_bass_hit(BassSettings& settings, const TimeStruct& time)
 {
     bool hit = false;
     switch (settings.style)
     {
     case BassStyle::BassLow:
-        hit = gate(settings.low_pattern, step, tick);
+        hit = gate(settings.low_pattern, time);
         break;
     case BassStyle::BassEuclid:
-        hit = gate(settings.euclid_pattern, step, tick);
+        hit = gate(settings.euclid_pattern, time);
         break;
     case BassStyle::BassArpInterval:
-        hit = interval_hit(settings.int_pattern, step, tick);
+        hit = interval_hit(settings.int_pattern, time);
         break;
     case BassStyle::BassSixteenths:
-        hit = interval_hit(TimeDivision::Sixteenth, step, tick);
+        hit = interval_hit(TimeDivision::Sixteenth, time);
         break;
-    default: 
-        hit = false;
     }
     return hit;
 }
 
-uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmony, const uint32_t step, const uint8_t tick)
+uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
 {
+    // TODO: Hier klopt dus niks van...
     uint8_t note_nr = 0;
-    uint8_t note_range_p = cv(settings.note_range_prob, step);
+    uint8_t note_range_p = cv(settings.note_range_prob, time.step);
+
+    // TODO: Deze geeft veel te vaak false.
     if (note_range_p < settings.note_range_value)
     {
+        uint8_t pitch_cv = cv(settings.pitches, time.step) % harmony.scale.length;
+
         if (settings.note_range_value < 64)
         {
-            note_nr = to_chord_order(cv(settings.pitches, step));
+            note_nr = to_chord_order(pitch_cv);
         }
         else
         {
             if (note_range_p % 64 < settings.note_range_value % 64)
             {
-                note_nr = cv(settings.pitches, step);
+                note_nr = pitch_cv;
             }
             else
             {
-                note_nr = to_chord_order(cv(settings.pitches, step));
+                note_nr = to_chord_order(pitch_cv);
             }
         }
     }
 
-    uint8_t octave = cv(settings.octaves, step);
+    uint8_t octave = cv(settings.octaves, time.step);
     /*uint8_t variable_octave = cv(settings.variable_octaves, step);
     if (variable_octave < settings.pitch_range)
     {
         octave += variable_octave % 3 + 1;
     }*/
-    octave += get_distributed_range(cv(settings.variable_octaves, step), settings.pitch_range, 3);
+    octave += get_distributed_range(cv(settings.variable_octaves, time.step), settings.pitch_range, 3);
 
-    uint8_t harmony_step = get_chord_step(harmony, step, tick);
+    uint8_t harmony_step = get_chord_step(harmony, time.step, time.tick);
     uint8_t pitch = apply_scale(note_nr + harmony_step, harmony.scale, octave);
     return pitch;
 }
 
 void play_bass(ApplicationData& data, const TimeStruct& time)
 {
-    const uint32_t step = time.step;
-    const uint32_t tick = time.tick;
-
     // Velocity
     uint8_t velocity = data.bass_settings.low_velocity;
 
     // Get hit
-    bool hit = get_bass_hit(data.bass_settings, step, tick);
+    bool hit = get_bass_hit(data.bass_settings, time);
 
     hit &= !data.ui_state.kill_bass;
 
     if (hit)
     {
-        uint8_t pitch = get_bass_pitch(data.bass_settings, data.harmony, step, tick);
+        uint8_t pitch = get_bass_pitch(data.bass_settings, data.harmony, time);
 
         // Note length
         uint8_t length = 5;
-        if (gate(data.bass_settings.slides, step, tick) 
-            || data.bass_settings.style == BassStyle::BassLow)
-        {
-            length = ticks_left_in_bar(step, tick) - 6;
-        }
-        else
-        {
-            length = 5;
-        }
 
         // Play it!
-        note_on(make_note(pitch, velocity, length), data.bass_settings.storage);
+        note_on(make_note(pitch, velocity, length, NoteType::Tie), data.bass_settings.storage);
     }
 }

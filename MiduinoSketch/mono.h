@@ -35,26 +35,31 @@ bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
     switch (settings.style)
     {
     case MonoStyle::MonoSixteenths:
-        hit = interval_hit(TimeDivision::Sixteenth, time.step, time.tick);
+        hit = interval_hit(TimeDivision::Sixteenth, time);
         break;
     case MonoStyle::MonoPolyRhythm:
-        hit = gate(settings.euclid_pattern, time.step, time.tick);
+        hit = gate(settings.euclid_pattern, time);
         break;
     case MonoStyle::MonoLeadPattern:
-        hit = interval_hit(settings.lead_pattern, time.step, time.tick);
+        hit = interval_hit(settings.lead_pattern, time);
         break;
     }
     return hit;
 }
 
-uint8_t get_mono_pitch(MonoSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
+uint8_t get_next_mono_pitch(MonoSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
 {
     settings.arp_data.min = settings.pitch_offset
         + (uint8_t)(((uint16_t)settings.variable_pitch_offset * 24) / 128);
-    uint8_t pitch = get_arp_pitch(settings.arp_data,
+    uint8_t pitch = get_next_arp_pitch(settings.arp_data,
         harmony.scale,
         get_chord_step(harmony, time.step, time.tick));
     return pitch;
+}
+
+uint8_t get_mono_pitch(const MonoSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
+{
+    return get_arp_pitch(settings.arp_data);
 }
 
 void play_mono(
@@ -66,7 +71,7 @@ void play_mono(
 
     if (hit)
     {
-        uint8_t pitch = get_mono_pitch(settings, harmony, time);
+        uint8_t pitch = get_next_mono_pitch(settings, harmony, time);
 
         uint8_t length = 3;
         if (settings.style == MonoStyle::MonoLeadPattern)

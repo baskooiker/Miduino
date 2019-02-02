@@ -30,7 +30,7 @@ void play_bass_dub(
     const HarmonyStruct harmony,
     const TimeStruct& time)
 {
-    bool hit = get_bass_hit(settings, time.step, time.tick);
+    bool hit = get_bass_hit(settings, time);
     switch (dub_settings.style)
     {
     case BassDubStyle::DubUnison:
@@ -38,13 +38,16 @@ void play_bass_dub(
     case BassDubStyle::DubOctProbability:
         break;
     case BassDubStyle::DubHitProbability:
-        hit &= gate(dub_settings.hit_probs, time.step, time.tick);
+        if (hit)
+        {
+            hit = gate(dub_settings.hit_probs, time);
+        }
         break;
     }
 
     if (hit)
     {
-        uint8_t pitch = get_bass_pitch(settings, harmony, time.step, time.tick);
+        uint8_t pitch = get_bass_pitch(settings, harmony, time);
 
         switch (dub_settings.style)
         {
@@ -55,7 +58,7 @@ void play_bass_dub(
             pitch += 12;
             break;
         case BassDubStyle::DubOctProbability:
-            if (gate(dub_settings.octave_probs, time.step, time.tick))
+            if (gate(dub_settings.octave_probs, time))
             {
                 pitch += 12;
             }

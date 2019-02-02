@@ -50,6 +50,8 @@ ArpData init_arp_data()
     a.range_type = RangeType::Range;
     a.last_note = 0;
 
+    a.arp_notes_length = 0;
+
     return a;
 }
 

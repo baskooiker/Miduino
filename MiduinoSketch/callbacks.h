@@ -404,7 +404,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
     case BSP_STEP_15:
         if (value == 0)
         {
-            randomize_bass(data);
+            randomize_bass(data.bass_settings);
         }
         break;
     case BSP_STEP_16:

@@ -181,6 +181,9 @@ typedef struct {
     ArpType type;
     RangeType range_type;
     uint8_t last_note;
+
+    uint8_t arp_notes[32];
+    uint8_t arp_notes_length;
 } ArpData;
 
 typedef struct {

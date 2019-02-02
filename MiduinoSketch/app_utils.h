@@ -54,8 +54,10 @@ void randomize_all(ApplicationData& data)
     randomize_503_seq(data);
     randomize_522_seq(data);
     randomize_poly(data);
-    randomize_bass(data);
+    randomize_bass(data.bass_settings);
+    randomize_bass_dub(data.bass_dub_settings);
     randomize_lead(data);
+
     randomize_mono(data.mono_settings);
     randomize_mono_dub(data.mono_dub_settings);
 

@@ -32,8 +32,8 @@ void play_poly(ApplicationData& data, const TimeStruct& time)
     bool hit = false;
     switch (data.poly_settings.type)
     {
-    case PolyType::PolyLow: hit = gate(data.poly_settings.gates_low, time.step, time.tick); break;
-    case PolyType::PolyHigh: hit = gate(data.poly_settings.gates, time.step, time.tick); break;
+    case PolyType::PolyLow: hit = gate(data.poly_settings.gates_low, time); break;
+    case PolyType::PolyHigh: hit = gate(data.poly_settings.gates, time); break;
     }
 
     if (hit)
@@ -50,7 +50,7 @@ void play_poly(ApplicationData& data, const TimeStruct& time)
         get_chord(chord_nr, data.harmony.scale, pitch_offset, chord_notes, size);
 
         uint8_t length = 6;
-        if (gate(data.poly_settings.tie_pattern, time.step, time.tick) 
+        if (gate(data.poly_settings.tie_pattern, time) 
             || data.poly_settings.type == PolyType::PolyLow)
         {
             length = ticks_left_in_bar(time.step, time.tick);

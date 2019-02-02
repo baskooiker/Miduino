@@ -45,7 +45,7 @@ void randomize_503_seq(ApplicationData& data)
 void play_fill(ApplicationData& data, const TimeStruct time)
 {
     static TimeDivision division = TimeDivision::Sixteenth;
-    if (interval_hit(TimeDivision::Sixteenth, time.step, time.tick))
+    if (interval_hit(TimeDivision::Sixteenth, time))
     {
         //uint8_t r = randi(16);
         //if (r < 3)
@@ -54,7 +54,7 @@ void play_fill(ApplicationData& data, const TimeStruct time)
         //}
     }
 
-    if (!interval_hit(division, time.step, time.tick))
+    if (!interval_hit(division, time))
         return;
 
     uint8_t p = 0;
@@ -74,7 +74,7 @@ void play_fill(ApplicationData& data, const TimeStruct time)
 void play_roll(ApplicationData& data, const TimeStruct& time)
 {
     static TimeDivision division = TimeDivision::Sixteenth;
-    if (interval_hit(TimeDivision::Sixteenth, time.step, time.tick))
+    if (interval_hit(TimeDivision::Sixteenth, time))
     {
         uint8_t r = randi(16);
         if (r < 3)
@@ -87,7 +87,7 @@ void play_roll(ApplicationData& data, const TimeStruct& time)
         }
     }
 
-    if (interval_hit(division, time.step, time.tick))
+    if (interval_hit(division, time))
     {
         note_on(make_note(NOTE_503_SD, data.ui_state.drum_roll), data.mfb_503_settings.storage);
     }
@@ -95,7 +95,7 @@ void play_roll(ApplicationData& data, const TimeStruct& time)
 
 void play_bd(ApplicationData& data, const TimeStruct& time)
 {
-    if (gate(data.mfb_503_settings.bd_pattern, time.step, time.tick) && !data.ui_state.kill_low)
+    if (gate(data.mfb_503_settings.bd_pattern, time) && !data.ui_state.kill_low)
     {
         uint8_t pitch = NOTE_503_BD;
         if (data.mfb_503_settings.play_pitch_bd)
@@ -116,8 +116,8 @@ void play_hats(ApplicationData& data, const TimeStruct& time)
         if (time.step % 4 == 2)
             velocity = 127;
 
-        bool hh = gate(data.mfb_503_settings.hh_pattern, time.step, time.tick);
-        if (gate(data.mfb_503_settings.oh_pattern, time.step, time.tick) && !hh && !data.ui_state.kill_high)
+        bool hh = gate(data.mfb_503_settings.hh_pattern, time);
+        if (gate(data.mfb_503_settings.oh_pattern, time) && !hh && !data.ui_state.kill_high)
         {
             note_on(make_note(NOTE_503_OH, velocity), data.mfb_503_settings.storage);
         }
@@ -130,7 +130,7 @@ void play_hats(ApplicationData& data, const TimeStruct& time)
     case HatStyle::HatFull:
         if (time.step % 4 == 0)
             velocity = 127;
-        if (interval_hit(data.mfb_503_settings.hat_int_pattern, time.step, time.tick) && !data.ui_state.kill_high)
+        if (interval_hit(data.mfb_503_settings.hat_int_pattern, time) && !data.ui_state.kill_high)
         {
             note_on(make_note(NOTE_503_OH, velocity), data.mfb_503_settings.storage);
         }
@@ -156,7 +156,7 @@ void play_503(ApplicationData& data, const TimeStruct& time)
     play_bd(data, time);
 
     // Play snare
-    if (gate(data.mfb_503_settings.sd_pattern, time.step, time.tick) && !data.ui_state.kill_mid)
+    if (gate(data.mfb_503_settings.sd_pattern, time) && !data.ui_state.kill_mid)
     {
         note_on(make_note(NOTE_503_SD, velocity), data.mfb_503_settings.storage);
     }
@@ -166,9 +166,9 @@ void play_503(ApplicationData& data, const TimeStruct& time)
 
     // Play toms
     uint8_t tom_prob = cv(data.mfb_503_settings.tom_pattern, time.step);
-    if (interval_hit(TimeDivision::Sixteenth, time.step, time.tick) 
+    if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
-        && gate(data.mfb_503_settings.tom_mask, time.step, time.tick)
+        && gate(data.mfb_503_settings.tom_mask, time)
         && data.mfb_503_settings.volume_tom > 0)
     {
         uint8_t tom_id = tom_prob % data.mfb_503_settings.nr_toms;
@@ -184,7 +184,7 @@ void play_503(ApplicationData& data, const TimeStruct& time)
     // Play Cymbal
     if (data.mfb_503_settings.volume_cy > 0)
     {
-        if (gate(data.mfb_503_settings.cy_pattern, time.step, time.tick))
+        if (gate(data.mfb_503_settings.cy_pattern, time))
         {
             note_on(make_note(NOTE_503_CY,
                     data.mfb_503_settings.volume_cy), 

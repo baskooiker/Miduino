@@ -62,7 +62,7 @@ void play_522(ApplicationData& data, const TimeStruct& time)
         velocity = 127;
     }
 
-    if (gate(data.mfb_522_settings.bd_522_pattern, time.step, time.tick) && !data.ui_state.kill_low)
+    if (gate(data.mfb_522_settings.bd_522_pattern, time) && !data.ui_state.kill_low)
     {
         note_on(make_note(NOTE_522_BD_LONG, velocity), settings.storage);
     }
@@ -78,36 +78,36 @@ void play_522(ApplicationData& data, const TimeStruct& time)
     {
         note_on(make_note(NOTE_522_RS, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.clave_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.clave_522_pattern, time))
     {
         note_on(make_note(NOTE_522_CLAVE, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.clap_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.clap_522_pattern, time))
     {
         note_on(make_note(NOTE_522_CP_LONG, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.oh_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.oh_522_pattern, time))
     {
         note_on(make_note(NOTE_522_OH, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.cy_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.cy_522_pattern, time))
     {
         note_on(make_note(NOTE_522_CYMBAL, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.sd_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.sd_522_pattern, time))
     {
         note_on(make_note(NOTE_522_SN, velocity), settings.storage);
     }
     if (!data.mfb_522_settings.use_hh_int && !data.ui_state.kill_high)
     {
-        if (gate(data.mfb_522_settings.hh_522_pattern, time.step, time.tick))
+        if (gate(data.mfb_522_settings.hh_522_pattern, time))
         {
             note_on(make_note(NOTE_522_HH, velocity), settings.storage);
         }
     }
     else if(!data.ui_state.kill_high)
     {
-        if (interval_hit(data.mfb_522_settings.hh_int_pattern, time.step, time.tick))
+        if (interval_hit(data.mfb_522_settings.hh_int_pattern, time))
         {
             note_on(make_note(NOTE_522_HH, velocity), settings.storage);
         }

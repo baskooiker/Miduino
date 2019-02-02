@@ -19,13 +19,36 @@ void play_mono_dub(
     const HarmonyStruct& harmony, 
     const TimeStruct time)
 {
-    // Only get regular mono
-    // Ignore dubbing
-    bool hit = get_mono_hit(settings.settings, time);
+    bool hit = false;
+    switch (settings.style)
+    {
+    case MonoDubStyle::MonoDubLead: 
+        hit = get_mono_hit(settings.settings, time);  
+        break;
+    case MonoDubStyle::MonoDubUnison: 
+    case MonoDubStyle::MonoDubOctave:
+        hit = get_mono_hit(lead_settings, time); 
+        break;
+    }
 
     if (hit)
     {
-        uint8_t pitch = get_mono_pitch(settings.settings, harmony, time);
+        uint8_t pitch = 0;
+
+        switch (settings.style)
+        {
+        case MonoDubStyle::MonoDubLead:
+            pitch = get_next_mono_pitch(settings.settings, harmony, time);
+            break;
+        case MonoDubStyle::MonoDubUnison:
+            pitch = get_mono_pitch(lead_settings, harmony, time);
+            break;
+        case MonoDubStyle::MonoDubOctave:
+            pitch = get_mono_pitch(lead_settings, harmony, time);
+            pitch += 12;
+            break;
+        }
+
         uint8_t length = 6;
         note_on(make_note(pitch, 64, length, NoteType::Tie), settings.settings.storage);
     }

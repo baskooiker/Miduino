@@ -14,14 +14,14 @@ TimeDivision interval(const IntervalPattern& pattern, const uint32_t step, const
     return pattern.pattern[c % 16];
 }
 
-bool interval_hit(const TimeDivision time_division, const uint32_t step, const uint8_t tick)
+bool interval_hit(const TimeDivision time_division, const TimeStruct& time)
 {
-    return (step * TICKS_PER_STEP + tick) % (uint8_t)time_division == 0;
+    return (time.step * TICKS_PER_STEP + time.tick) % (uint8_t)time_division == 0;
 }
 
-bool interval_hit(const IntervalPattern& pattern, const uint32_t step, const uint8_t tick)
+bool interval_hit(const IntervalPattern& pattern, const TimeStruct& time)
 {
-    return interval_hit(interval(pattern, step, tick), step, tick);
+    return interval_hit(interval(pattern, time.step, time.tick), time);
 }
 
 void randomize_interval(IntervalPattern& pattern, const IntervalProbs probs)
