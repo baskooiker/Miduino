@@ -10,10 +10,10 @@ bool gate(const BinaryPattern& pattern, const uint32_t step)
     return (pattern >> (step % 16)) & 0x1;
 }
 
-bool gate(const GatePattern16& pattern, const uint32_t step, const uint8_t tick)
+bool gate(const GatePattern16& pattern, const TimeStruct& time)
 {
-    if (tick % TICKS_PER_STEP != 0) return false;
-    return gate(pattern.pattern, step % pattern.length);
+    if (time.tick % TICKS_PER_STEP != 0) return false;
+    return gate(pattern.pattern, time.step % pattern.length);
 }
 
 bool gate(const GatePatternAB& pattern, const TimeStruct& time)

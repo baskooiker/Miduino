@@ -65,8 +65,9 @@ LeadSettings init_lead_settings()
 
 MonoSettings init_mono_settings()
 {
-    MonoSettings s = {};
+    MonoSettings s = { 0 };
 
+    s.fugue_player_settings = init_fugue_player_settings();
     s.style = MonoStyle::MonoSixteenths;
     s.arp_data = init_arp_data();
     s.int_pattern = init_interval_pattern();
@@ -79,7 +80,7 @@ MonoSettings init_mono_settings()
 
 MonoDubSettings init_mono_dub_settings()
 {
-    MonoDubSettings s = { };
+    MonoDubSettings s = { 0 };
 
     s.settings = init_mono_settings();
     s.style = MonoDubStyle::MonoDubLead;
@@ -104,6 +105,8 @@ PolySettings init_poly_settings()
 BassSettings init_bass_settings()
 {
     BassSettings s = { 0 };
+
+    s.fugue_player_settings = init_fugue_player_settings();
 
     s.accents = init_gate_pattern_ab();
     s.pitches = init_cv_pattern_ab();
@@ -130,8 +133,9 @@ BassSettings init_bass_settings()
 
 BassDubSettings init_bass_dub_settings()
 {
-    BassDubSettings s = { };
+    BassDubSettings s = { 0 };
 
+    s.fugue_player_settings = init_fugue_player_settings();
     s.style = BassDubStyle::DubOctave;
     s.note_interval = NoteInterval::IntervalRoot;
     s.octave_probs = init_gate_pattern_ab();
@@ -151,14 +155,18 @@ ApplicationData init_application_data()
 
     i.ui_state = init_ui_state();
 
+    i.fugue_settings = init_fugue_settings();
+
     i.mfb_503_settings = init_503_settings();
-    i.mfb_522_settings = init_522_settings();
-    i.lead_settings = init_lead_settings();
-    i.mono_settings = init_mono_settings();
-    i.mono_dub_settings = init_mono_dub_settings();
+    //i.mfb_522_settings = init_522_settings();
+
     i.poly_settings = init_poly_settings();
+    i.lead_settings = init_lead_settings();
+
     i.bass_settings = init_bass_settings();
     i.bass_dub_settings = init_bass_dub_settings();
+    i.mono_settings = init_mono_settings();
+    i.mono_dub_settings = init_mono_dub_settings();
 
     i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;
     i.mfb_522_settings.storage.channel = MIDI_CHANNEL_522;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "fugue.h"
 #include "harmony.h"
 #include "rhythm_time.h"
 
@@ -63,10 +64,21 @@ uint8_t get_mono_pitch(const MonoSettings& settings, const HarmonyStruct& harmon
 }
 
 void play_mono(
+    ApplicationData& data,
     MonoSettings& settings, 
     const HarmonyStruct& harmony, 
     const TimeStruct& time)
 {
+    if (settings.style == MonoStyle::MonoFugue && time.tick == 0)
+    {
+        return play_fugue(
+            data.fugue_settings,
+            settings.fugue_player_settings, 
+            harmony, 
+            time, 
+            settings.storage);
+    }
+
     bool hit = get_mono_hit(settings, time);
 
     if (hit)

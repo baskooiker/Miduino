@@ -39,7 +39,8 @@ enum BassStyle {
     BassSixteenths,
     //Prob,
     BassArpInterval,
-    BassEuclid
+    BassEuclid,
+    BassFugue
 };
 
 enum BassDubStyle {
@@ -47,6 +48,7 @@ enum BassDubStyle {
     DubOctave,
     DubOctProbability,
     DubHitProbability,
+    DubFugue
 };
 
 enum NoteInterval {
@@ -91,7 +93,8 @@ enum HatStyle {
 enum MonoStyle {
     MonoSixteenths,
     MonoPolyRhythm,
-    MonoLeadPattern
+    MonoLeadPattern,
+    MonoFugue
 };
 
 enum MonoDubStyle {
@@ -116,4 +119,10 @@ enum PlayState {
     Playing,
     Paused,
     Stopped
+};
+
+enum FuguePlayerType {
+    FugueForward = 0,
+    FugueBackward = 1,
+    FugueBackAndForth = 2
 };

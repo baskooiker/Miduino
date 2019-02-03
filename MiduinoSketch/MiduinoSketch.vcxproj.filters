@@ -150,5 +150,8 @@
     <ClInclude Include="mono_dub.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
+    <ClInclude Include="fugue.h">
+      <Filter>Header Files\generators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

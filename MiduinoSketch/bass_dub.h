@@ -25,11 +25,19 @@ void randomize_bass_dub(BassDubSettings& settings)
 }
 
 void play_bass_dub(
+    ApplicationData& data,
     BassSettings& settings, 
     BassDubSettings& dub_settings, 
     const HarmonyStruct harmony,
     const TimeStruct& time)
 {
+    if (dub_settings.style == BassDubStyle::DubFugue && time.tick == 0)
+    {
+        return play_fugue(
+            data.fugue_settings,
+            dub_settings.fugue_player_settings, harmony, time, dub_settings.storage);
+    }
+
     bool hit = get_bass_hit(settings, time);
     switch (dub_settings.style)
     {

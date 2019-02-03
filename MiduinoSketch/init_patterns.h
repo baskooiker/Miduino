@@ -22,6 +22,13 @@ CvPatternAB init_cv_pattern_ab()
     return p;
 }
 
+CvPattern16 init_cv_pattern()
+{
+    CvPattern16 p = { 0 };
+    p.length = 16;
+    return p;
+}
+
 GatePattern16 init_gate_pattern()
 {
     GatePattern16 p = { 0 };

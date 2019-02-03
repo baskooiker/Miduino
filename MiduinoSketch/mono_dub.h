@@ -14,6 +14,7 @@ void randomize_mono_dub(MonoDubSettings& settings)
 }
 
 void play_mono_dub(
+    ApplicationData& data,
     MonoDubSettings& settings, 
     const MonoSettings& lead_settings, 
     const HarmonyStruct& harmony, 
@@ -23,6 +24,15 @@ void play_mono_dub(
     switch (settings.style)
     {
     case MonoDubStyle::MonoDubLead: 
+        if (settings.settings.style == MonoStyle::MonoFugue && time.tick == 0)
+        {
+            return play_fugue(
+                data.fugue_settings,
+                settings.settings.fugue_player_settings,
+                harmony,
+                time,
+                settings.settings.storage);
+        }
         hit = get_mono_hit(settings.settings, time);  
         break;
     case MonoDubStyle::MonoDubUnison: 

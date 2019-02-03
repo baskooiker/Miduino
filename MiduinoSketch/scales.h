@@ -45,3 +45,13 @@ uint8_t apply_scale(uint8_t note_nr, Scale scale, uint8_t octave)
     note += octave * 12; // Transpose octaves
     return note;
 }
+
+uint8_t apply_scale_offset(uint8_t note_nr, Scale scale, uint8_t offset)
+{
+    uint8_t octave = note_nr / scale.length;
+    uint8_t note = scale.notes[note_nr % scale.length]; // Actual pitch
+    note += scale.root; // Transpose to correct root note
+    note = clip_pitch(note, offset, 127);
+    note += octave * 12; // Transpose octaves
+    return note;
+}

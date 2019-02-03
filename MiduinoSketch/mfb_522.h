@@ -57,7 +57,7 @@ void play_522(ApplicationData& data, const TimeStruct& time)
 
     Mfb522Settings& settings = data.mfb_522_settings;
 
-    if (gate(data.mfb_522_settings.ac_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.ac_522_pattern, time))
     {
         velocity = 127;
     }
@@ -66,15 +66,15 @@ void play_522(ApplicationData& data, const TimeStruct& time)
     {
         note_on(make_note(NOTE_522_BD_LONG, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.lo_tom_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.lo_tom_522_pattern, time))
     {
         note_on(make_note(NOTE_522_LO_TOM, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.mi_tom_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.mi_tom_522_pattern, time))
     {
         note_on(make_note(NOTE_522_HI_TOM, velocity), settings.storage);
     }
-    if (gate(data.mfb_522_settings.rs_522_pattern, time.step, time.tick))
+    if (gate(data.mfb_522_settings.rs_522_pattern, time))
     {
         note_on(make_note(NOTE_522_RS, velocity), settings.storage);
     }

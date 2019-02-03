@@ -126,6 +126,19 @@ typedef struct {
 } UiState;
 
 typedef struct {
+    CvPattern16 pattern;
+} FugueSettings;
+
+typedef struct {
+    uint8_t pitch_offset;
+    uint8_t length;
+    FuguePlayerType type;
+    uint8_t counter;
+} FuguePlayerSettings;
+
+typedef struct {
+    FuguePlayerSettings fugue_player_settings;
+
     GatePatternAB accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
@@ -148,6 +161,7 @@ typedef struct {
 } BassSettings;
 
 typedef struct {
+    FuguePlayerSettings fugue_player_settings;
     BassDubStyle style;
     NoteInterval note_interval;
     GatePatternAB octave_probs;
@@ -244,6 +258,7 @@ typedef struct {
 } LeadSettings;
 
 typedef struct {
+    FuguePlayerSettings fugue_player_settings;
     MonoStyle style;
     ArpData arp_data;
     IntervalPattern int_pattern;
@@ -264,6 +279,8 @@ typedef struct {
 typedef struct {
     TimeStruct time;
     HarmonyStruct harmony;
+
+    FugueSettings fugue_settings;
 
     PolySettings poly_settings;
     Mfb522Settings mfb_522_settings;

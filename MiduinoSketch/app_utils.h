@@ -14,19 +14,24 @@
 void play_all(ApplicationData& data)
 {
     play_503(data, data.time);
-    play_522(data, data.time);
+    //play_522(data, data.time);
     play_bass(data, data.time);
-    play_bass_dub(data.bass_settings, data.bass_dub_settings, data.harmony, data.time);
+    play_bass_dub(
+        data,
+        data.bass_settings, 
+        data.bass_dub_settings, 
+        data.harmony, 
+        data.time);
     play_poly(data, data.time);
     play_lead(data, data.time);
-    play_mono(data.mono_settings, data.harmony, data.time);
-    play_mono_dub(data.mono_dub_settings, data.mono_settings, data.harmony, data.time);
+    play_mono(data, data.mono_settings, data.harmony, data.time);
+    play_mono_dub(data, data.mono_dub_settings, data.mono_settings, data.harmony, data.time);
 }
 
 void stop_notes_all_instruments(ApplicationData& data)
 {
     stop_notes(data.mfb_503_settings.storage);
-    stop_notes(data.mfb_522_settings.storage);
+    //stop_notes(data.mfb_522_settings.storage);
     stop_notes(data.poly_settings.storage);
     stop_notes(data.bass_settings.storage);
     stop_notes(data.bass_dub_settings.storage);
@@ -52,7 +57,7 @@ void randomize_all(ApplicationData& data)
     randomize_harmony(data);
 
     randomize_503_seq(data);
-    randomize_522_seq(data);
+    //randomize_522_seq(data);
     randomize_poly(data);
     randomize_bass(data.bass_settings);
     randomize_bass_dub(data.bass_dub_settings);
@@ -62,4 +67,13 @@ void randomize_all(ApplicationData& data)
     randomize_mono_dub(data.mono_dub_settings);
 
     randomize_503_sound(data);
+}
+
+void set_fugue(ApplicationData& data)
+{
+    randomize_fugue(data);
+    data.ui_state.kill_low = true;
+    data.ui_state.kill_mid = true;
+    data.ui_state.kill_perc = true;
+    data.ui_state.kill_high = true;
 }

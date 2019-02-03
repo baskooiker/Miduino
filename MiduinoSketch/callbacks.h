@@ -255,7 +255,7 @@ void handleClock(ApplicationData& data)
     }
 }
 
-void handleControlChange(ApplicationData& data, byte channel, byte number, byte value)
+void handleControlChangePlaying(ApplicationData& data, byte channel, byte number, byte value)
 {
     switch (number)
     {
@@ -282,7 +282,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         {
             data.poly_settings.type = PolyType::PolyLow;
         }
-        else 
+        else
         {
             data.poly_settings.type = PolyType::PolyHigh;
         }
@@ -379,7 +379,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
         if (value == 0)
         {
             randomize_mono(data.mono_settings);
-            data.mono_settings.style = MonoStyle::MonoSixteenths; 
+            data.mono_settings.style = MonoStyle::MonoSixteenths;
         }
         break;
     case BSP_STEP_12:
@@ -414,12 +414,55 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
     }
 }
 
+void handleControlChangeStopped(ApplicationData& data, byte channel, byte number, byte value)
+{
+    switch (number)
+    {
+    case BSP_STEP_01:
+        if (value == 0)
+        {
+            randomize_all(data);
+            data.ui_state.kill_low  = false;
+            data.ui_state.kill_mid  = false;
+            data.ui_state.kill_perc = false;
+            data.ui_state.kill_high = false;
+        }
+    case BSP_STEP_02:
+        if (value == 0)
+        {
+            randomize_all(data);
+            data.ui_state.kill_low = true;
+            data.ui_state.kill_mid = true;
+            data.ui_state.kill_perc = true;
+            data.ui_state.kill_high = true;
+        }
+    case BSP_STEP_16:
+        if (value == 0)
+        {
+            set_fugue(data);
+        }
+    }
+}
+
+void handleControlChange(ApplicationData& data, byte channel, byte number, byte value)
+{
+    switch (data.time.state)
+    {
+    case PlayState::Playing:
+        return handleControlChangePlaying(data, channel, number, value);
+    case PlayState::Paused:
+    case PlayState::Stopped:
+        return handleControlChangeStopped(data, channel, number, value);
+    }
+}
+
 void handleStop(ApplicationData& data)
 {
     all_notes_off(data.mfb_503_settings.storage);
     all_notes_off(data.mfb_522_settings.storage);
-    all_notes_off(data.poly_settings.storage);
     all_notes_off(data.bass_settings.storage);
+    all_notes_off(data.bass_dub_settings.storage);
+    all_notes_off(data.poly_settings.storage);
     all_notes_off(data.lead_settings.storage);
     all_notes_off(data.mono_settings.storage);
     all_notes_off(data.mono_dub_settings.settings.storage);
@@ -427,6 +470,4 @@ void handleStop(ApplicationData& data)
     data.time.step = 0;
     data.time.tick = 0;
     data.time.state = PlayState::Stopped;
-
-    randomize_all(data);
 }

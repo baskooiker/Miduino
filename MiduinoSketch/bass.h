@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defs.h"
+#include "fugue.h"
 #include "harmony.h"
 #include "midi_io.h"
 #include "pitch.h"
@@ -93,6 +94,16 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
 
 void play_bass(ApplicationData& data, const TimeStruct& time)
 {
+    if (data.bass_settings.style == BassStyle::BassFugue && time.tick == 0)
+    {
+        return play_fugue(
+            data.fugue_settings,
+            data.bass_settings.fugue_player_settings, 
+            data.harmony, 
+            time, 
+            data.bass_settings.storage);
+    }
+
     // Velocity
     uint8_t velocity = data.bass_settings.low_velocity;
 

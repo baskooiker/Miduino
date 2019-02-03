@@ -21,6 +21,11 @@ uint8_t cv(const CvPattern& pattern, const uint32_t step)
     return pattern[step % 16];
 }
 
+uint8_t cv(const CvPattern16& pattern, const uint32_t step)
+{
+    return pattern.pattern[step % MAX(MIN(pattern.length, 16), 1)];
+}
+
 uint8_t cv(const CvPatternAB& pattern, const uint32_t step)
 {
     uint8_t pat_length = MIN(pattern.length, 16);

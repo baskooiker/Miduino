@@ -121,6 +121,7 @@
     </ClInclude>
     <ClInclude Include="enums.h" />
     <ClInclude Include="euclid.h" />
+    <ClInclude Include="fugue.h" />
     <ClInclude Include="gate.h" />
     <ClInclude Include="harmony.h" />
     <ClInclude Include="init.h" />

@@ -31,6 +31,12 @@ void print_pattern(const CvPattern& pattern)
     printf("\n");
 }
 
+void print_pattern(const CvPattern16& pattern)
+{
+    print_pattern(pattern.pattern);
+    printf("\n");
+}
+
 void print_pattern(const CvPatternAB& pattern)
 {
     for (int i = 0; i < 4; i++)
