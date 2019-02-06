@@ -35,7 +35,7 @@ void play_bass_dub(
     {
         return play_fugue(
             data.fugue_settings,
-            dub_settings.fugue_player_settings, harmony, time, dub_settings.storage);
+            dub_settings.fugue_id, harmony, time, dub_settings.storage);
     }
 
     bool hit = get_bass_hit(settings, time);

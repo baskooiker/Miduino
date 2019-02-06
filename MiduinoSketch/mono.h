@@ -73,7 +73,7 @@ void play_mono(
     {
         return play_fugue(
             data.fugue_settings,
-            settings.fugue_player_settings, 
+            settings.fugue_id, 
             harmony, 
             time, 
             settings.storage);

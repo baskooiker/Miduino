@@ -28,7 +28,7 @@ void play_mono_dub(
         {
             return play_fugue(
                 data.fugue_settings,
-                settings.settings.fugue_player_settings,
+                settings.settings.fugue_id,
                 harmony,
                 time,
                 settings.settings.storage);

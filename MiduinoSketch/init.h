@@ -65,9 +65,8 @@ LeadSettings init_lead_settings()
 
 MonoSettings init_mono_settings()
 {
-    MonoSettings s = { 0 };
+    MonoSettings s = { };
 
-    s.fugue_player_settings = init_fugue_player_settings();
     s.style = MonoStyle::MonoSixteenths;
     s.arp_data = init_arp_data();
     s.int_pattern = init_interval_pattern();
@@ -80,7 +79,7 @@ MonoSettings init_mono_settings()
 
 MonoDubSettings init_mono_dub_settings()
 {
-    MonoDubSettings s = { 0 };
+    MonoDubSettings s = { };
 
     s.settings = init_mono_settings();
     s.style = MonoDubStyle::MonoDubLead;
@@ -106,8 +105,6 @@ BassSettings init_bass_settings()
 {
     BassSettings s = { 0 };
 
-    s.fugue_player_settings = init_fugue_player_settings();
-
     s.accents = init_gate_pattern_ab();
     s.pitches = init_cv_pattern_ab();
     s.octaves = init_cv_pattern_ab();
@@ -118,7 +115,6 @@ BassSettings init_bass_settings()
     s.euclid_pattern = init_gate_pattern_ab();
     s.low_pattern = init_gate_pattern_ab();
 
-    s.low_velocity = 64;
     s.pitch_range = 0;
     s.style = BassStyle::BassLow;
     s.note_range_prob = init_cv_pattern_ab();
@@ -133,9 +129,8 @@ BassSettings init_bass_settings()
 
 BassDubSettings init_bass_dub_settings()
 {
-    BassDubSettings s = { 0 };
+    BassDubSettings s = { };
 
-    s.fugue_player_settings = init_fugue_player_settings();
     s.style = BassDubStyle::DubOctave;
     s.note_interval = NoteInterval::IntervalRoot;
     s.octave_probs = init_gate_pattern_ab();

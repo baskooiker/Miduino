@@ -215,24 +215,28 @@ void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocit
     case BSP_PAD_13:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[12]);
+        randomize_fugue_player(data.fugue_settings, 0);
         set_pad_state(data.ui_state, 12, false);
         break;
     }
     case BSP_PAD_14:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[13]);
+        randomize_fugue_player(data.fugue_settings, 1);
         set_pad_state(data.ui_state, 13, false);
         break;
     }
     case BSP_PAD_15:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[14]);
+        randomize_fugue_player(data.fugue_settings, 2);
         set_pad_state(data.ui_state, 14, false);
         break;
     }
     case BSP_PAD_16:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[15]);
+        randomize_fugue_player(data.fugue_settings, 3);
         set_pad_state(data.ui_state, 15, false);
         break;
     }
@@ -427,6 +431,7 @@ void handleControlChangeStopped(ApplicationData& data, byte channel, byte number
             data.ui_state.kill_perc = false;
             data.ui_state.kill_high = false;
         }
+        break;
     case BSP_STEP_02:
         if (value == 0)
         {
@@ -436,11 +441,13 @@ void handleControlChangeStopped(ApplicationData& data, byte channel, byte number
             data.ui_state.kill_perc = true;
             data.ui_state.kill_high = true;
         }
+        break;
     case BSP_STEP_16:
         if (value == 0)
         {
             set_fugue(data);
         }
+        break;
     }
 }
 

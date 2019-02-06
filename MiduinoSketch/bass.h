@@ -98,14 +98,11 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
     {
         return play_fugue(
             data.fugue_settings,
-            data.bass_settings.fugue_player_settings, 
+            data.bass_settings.fugue_id, 
             data.harmony, 
             time, 
             data.bass_settings.storage);
     }
-
-    // Velocity
-    uint8_t velocity = data.bass_settings.low_velocity;
 
     // Get hit
     bool hit = get_bass_hit(data.bass_settings, time);
@@ -120,6 +117,6 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
         uint8_t length = 5;
 
         // Play it!
-        note_on(make_note(pitch, velocity, length, NoteType::Tie), data.bass_settings.storage);
+        note_on(make_note(pitch, 64, length, NoteType::Tie), data.bass_settings.storage);
     }
 }

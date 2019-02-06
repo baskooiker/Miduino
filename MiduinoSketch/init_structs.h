@@ -69,20 +69,25 @@ HarmonyStruct init_harmony_struct()
     return s;
 }
 
+FuguePlayerSettings init_fugue_player_settings()
+{
+    FuguePlayerSettings s = { 0 };
+
+    s.pitch_offset = 36;
+    s.length = 4;
+    s.type = FuguePlayerType::FugueForward;
+    s.interval = NoteInterval::IntervalRoot;
+
+    return s;
+}
+
 FugueSettings init_fugue_settings()
 {
     FugueSettings s = { 0 };
     s.pattern = init_cv_pattern();
-    return s;
-}
-
-FuguePlayerSettings init_fugue_player_settings()
-{
-    FuguePlayerSettings s = { 0 };
-    
-    s.pitch_offset = 36;
-    s.length = 4;
-    s.type = FuguePlayerType::FugueForward;
-    
+    for (int i = 0; i < 4; i++)
+    {
+        s.player_settings[i] = init_fugue_player_settings();
+    }
     return s;
 }

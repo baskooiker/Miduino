@@ -126,19 +126,21 @@ typedef struct {
 } UiState;
 
 typedef struct {
-    CvPattern16 pattern;
-} FugueSettings;
-
-typedef struct {
     uint8_t pitch_offset;
     uint8_t length;
     FuguePlayerType type;
     uint8_t counter;
+    NoteInterval interval;
 } FuguePlayerSettings;
 
-typedef struct {
-    FuguePlayerSettings fugue_player_settings;
+#define NUMBER_FUGUE_PLAYERS 4
 
+typedef struct {
+    CvPattern16 pattern;
+    FuguePlayerSettings player_settings[NUMBER_FUGUE_PLAYERS];
+} FugueSettings;
+
+typedef struct {
     GatePatternAB accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
@@ -150,22 +152,22 @@ typedef struct {
     GatePatternAB euclid_pattern;
     GatePatternAB low_pattern;
 
-    uint8_t low_velocity;
     uint8_t pitch_range;
     BassStyle style;
     CvPatternAB note_range_prob;
     uint8_t note_range_value;
     uint8_t octave_offset;
+    uint8_t fugue_id;
 
     PitchStorage storage;
 } BassSettings;
 
 typedef struct {
-    FuguePlayerSettings fugue_player_settings;
     BassDubStyle style;
     NoteInterval note_interval;
     GatePatternAB octave_probs;
     GatePatternAB hit_probs;
+    uint8_t fugue_id;
     PitchStorage storage;
 } BassDubSettings;
 
@@ -258,7 +260,6 @@ typedef struct {
 } LeadSettings;
 
 typedef struct {
-    FuguePlayerSettings fugue_player_settings;
     MonoStyle style;
     ArpData arp_data;
     IntervalPattern int_pattern;
@@ -267,6 +268,7 @@ typedef struct {
 
     uint8_t variable_pitch_offset;
     uint8_t pitch_offset;
+    uint8_t fugue_id;
 
     PitchStorage storage;
 } MonoSettings;

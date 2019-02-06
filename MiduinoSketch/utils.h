@@ -13,7 +13,46 @@ void swap(uint8_t* array, uint8_t x, uint8_t y)
     array[y] = mem;
 }
 
+void remove(uint8_t item, uint8_t* array, uint8_t& length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        if (array[i] == item)
+        {
+            swap(array, i, length - 1);
+            length--;
+        }
+    }
+}
+
 void randomize_order(uint8_t* array, uint8_t length)
+{
+    for (uint8_t i = 0; i < length; i++)
+    {
+        swap(array, i, randi(length));
+    }
+}
+
+NoteInterval random_note_interval()
+{
+    switch (randi(3))
+    {
+    case 1:
+        return NoteInterval::IntervalThird;
+    case 2:
+        return NoteInterval::IntervalFifth;
+    }
+    return NoteInterval::IntervalRoot;
+}
+
+void swap(NoteInterval* array, uint8_t x, uint8_t y)
+{
+    NoteInterval mem = array[x];
+    array[x] = array[y];
+    array[y] = mem;
+}
+
+void randomize_order(NoteInterval* array, uint8_t length)
 {
     for (uint8_t i = 0; i < length; i++)
     {
