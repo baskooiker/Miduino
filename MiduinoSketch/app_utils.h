@@ -14,7 +14,6 @@
 void play_all(ApplicationData& data)
 {
     play_503(data, data.time);
-    //play_522(data, data.time);
     play_bass(data, data.time);
     play_bass_dub(
         data,
@@ -31,7 +30,6 @@ void play_all(ApplicationData& data)
 void stop_notes_all_instruments(ApplicationData& data)
 {
     stop_notes(data.mfb_503_settings.storage);
-    //stop_notes(data.mfb_522_settings.storage);
     stop_notes(data.poly_settings.storage);
     stop_notes(data.bass_settings.storage);
     stop_notes(data.bass_dub_settings.storage);
@@ -57,7 +55,6 @@ void randomize_all(ApplicationData& data)
     randomize_harmony(data);
 
     randomize_503_seq(data);
-    //randomize_522_seq(data);
     randomize_poly(data);
     randomize_bass(data.bass_settings);
     randomize_bass_dub(data.bass_dub_settings);

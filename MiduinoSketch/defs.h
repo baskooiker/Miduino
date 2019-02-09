@@ -289,7 +289,6 @@ typedef struct {
     FugueSettings fugue_settings;
 
     PolySettings poly_settings;
-    Mfb522Settings mfb_522_settings;
     Mfb503Settings mfb_503_settings;
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;

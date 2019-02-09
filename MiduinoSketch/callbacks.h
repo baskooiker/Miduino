@@ -336,7 +336,6 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         {
             randomize_503_sound(data);
             randomize_503_seq(data);
-            //randomize_522_seq(data);
         }
         break;
     case BSP_STEP_02:
@@ -468,7 +467,6 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
 void handleStop(ApplicationData& data)
 {
     all_notes_off(data.mfb_503_settings.storage);
-    //all_notes_off(data.mfb_522_settings.storage);
     all_notes_off(data.bass_settings.storage);
     all_notes_off(data.bass_dub_settings.storage);
     all_notes_off(data.poly_settings.storage);

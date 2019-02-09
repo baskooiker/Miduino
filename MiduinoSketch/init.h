@@ -154,7 +154,6 @@ ApplicationData init_application_data()
     i.fugue_settings = init_fugue_settings();
 
     i.mfb_503_settings = init_503_settings();
-    //i.mfb_522_settings = init_522_settings();
 
     i.poly_settings = init_poly_settings();
     i.lead_settings = init_lead_settings();
@@ -165,7 +164,6 @@ ApplicationData init_application_data()
     i.mono_dub_settings = init_mono_dub_settings();
 
     i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;
-    //i.mfb_522_settings.storage.channel = MIDI_CHANNEL_522;
     i.lead_settings.storage.channel = MIDI_CHANNEL_LEAD;
     i.mono_settings.storage.channel = MIDI_CHANNEL_MONO;
     i.mono_dub_settings.settings.storage.channel = MIDI_CHANNEL_MONO_2;
