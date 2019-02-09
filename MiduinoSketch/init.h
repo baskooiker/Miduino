@@ -121,6 +121,7 @@ BassSettings init_bass_settings()
     s.note_range_value = 0;
 
     s.octave_offset = 2;
+    s.kill = false;
 
     s.storage = init_pitch_storage();
 
@@ -164,7 +165,7 @@ ApplicationData init_application_data()
     i.mono_dub_settings = init_mono_dub_settings();
 
     i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;
-    i.mfb_522_settings.storage.channel = MIDI_CHANNEL_522;
+    //i.mfb_522_settings.storage.channel = MIDI_CHANNEL_522;
     i.lead_settings.storage.channel = MIDI_CHANNEL_LEAD;
     i.mono_settings.storage.channel = MIDI_CHANNEL_MONO;
     i.mono_dub_settings.settings.storage.channel = MIDI_CHANNEL_MONO_2;

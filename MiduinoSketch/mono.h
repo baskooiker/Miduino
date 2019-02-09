@@ -54,7 +54,7 @@ uint8_t get_next_mono_pitch(MonoSettings& settings, const HarmonyStruct& harmony
         + (uint8_t)(((uint16_t)settings.variable_pitch_offset * 24) / 128);
     uint8_t pitch = get_next_arp_pitch(settings.arp_data,
         harmony.scale,
-        get_chord_step(harmony, time.step, time.tick));
+        get_chord_step(harmony, time));
     return pitch;
 }
 

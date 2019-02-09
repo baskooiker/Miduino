@@ -142,3 +142,20 @@
 
 #define TOM_DEC_MIN 64
 #define TOM_DEC_MAX 96
+
+#define B0000 0
+#define B000X 1
+#define B00X0 2
+#define B00XX 3
+#define B0X00 4
+#define B0X0X 5
+#define B0XX0 6
+#define B0XXX 7
+#define BX000 8
+#define BX00X 9
+#define BX0X0 10
+#define BX0XX 11
+#define BXX00 12
+#define BXX0X 13
+#define BXXX0 14
+#define BXXXX 15

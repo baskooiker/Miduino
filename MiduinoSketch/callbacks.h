@@ -60,8 +60,8 @@ void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity
         break;
     case BSP_PAD_08:
         data.ui_state.pad_state[7].last_pressed = millis();
-        data.ui_state.kill_bass = !data.ui_state.kill_bass;
-        if (data.ui_state.kill_bass)
+        data.bass_settings.kill = !data.bass_settings.kill;
+        if (data.bass_settings.kill)
         {
             stop_notes(data.bass_settings.storage);
         }
@@ -182,7 +182,8 @@ void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocit
     {
         if (was_pressed_long(data.ui_state.pad_state[7]))
         {
-            data.ui_state.kill_bass = false;
+            //data.ui_state.kill_bass = false;
+            data.bass_settings.kill = false;
         }
         set_pad_state(data.ui_state, 7, false);
         break;
@@ -215,28 +216,28 @@ void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocit
     case BSP_PAD_13:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[12]);
-        randomize_fugue_player(data.fugue_settings, 0);
+        randomize_fugue_player(data.fugue_settings, 3);
         set_pad_state(data.ui_state, 12, false);
         break;
     }
     case BSP_PAD_14:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[13]);
-        randomize_fugue_player(data.fugue_settings, 1);
+        randomize_fugue_player(data.fugue_settings, 2);
         set_pad_state(data.ui_state, 13, false);
         break;
     }
     case BSP_PAD_15:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[14]);
-        randomize_fugue_player(data.fugue_settings, 2);
+        randomize_fugue_player(data.fugue_settings, 1);
         set_pad_state(data.ui_state, 14, false);
         break;
     }
     case BSP_PAD_16:
     {
         boolean p_long = was_pressed_long(data.ui_state.pad_state[15]);
-        randomize_fugue_player(data.fugue_settings, 3);
+        randomize_fugue_player(data.fugue_settings, 0);
         set_pad_state(data.ui_state, 15, false);
         break;
     }
@@ -335,7 +336,7 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         {
             randomize_503_sound(data);
             randomize_503_seq(data);
-            randomize_522_seq(data);
+            //randomize_522_seq(data);
         }
         break;
     case BSP_STEP_02:
@@ -445,6 +446,7 @@ void handleControlChangeStopped(ApplicationData& data, byte channel, byte number
     case BSP_STEP_16:
         if (value == 0)
         {
+            randomize_503_sound(data);
             set_fugue(data);
         }
         break;
@@ -466,7 +468,7 @@ void handleControlChange(ApplicationData& data, byte channel, byte number, byte 
 void handleStop(ApplicationData& data)
 {
     all_notes_off(data.mfb_503_settings.storage);
-    all_notes_off(data.mfb_522_settings.storage);
+    //all_notes_off(data.mfb_522_settings.storage);
     all_notes_off(data.bass_settings.storage);
     all_notes_off(data.bass_dub_settings.storage);
     all_notes_off(data.poly_settings.storage);
@@ -477,4 +479,6 @@ void handleStop(ApplicationData& data)
     data.time.step = 0;
     data.time.tick = 0;
     data.time.state = PlayState::Stopped;
+
+    reset(data.fugue_settings);
 }

@@ -117,7 +117,7 @@ typedef struct {
     bool kill_high;
     bool kill_perc;
 
-    bool kill_bass;
+    //bool kill_bass;
 
     bool drum_fill;
     uint8_t drum_roll;
@@ -129,7 +129,9 @@ typedef struct {
     uint8_t pitch_offset;
     uint8_t length;
     FuguePlayerType type;
-    uint8_t counter;
+    uint32_t counter;
+    uint8_t rhythm;
+    //uint8_t note_repeat;
     NoteInterval interval;
 } FuguePlayerSettings;
 
@@ -158,6 +160,8 @@ typedef struct {
     uint8_t note_range_value;
     uint8_t octave_offset;
     uint8_t fugue_id;
+
+    bool kill;
 
     PitchStorage storage;
 } BassSettings;

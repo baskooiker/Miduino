@@ -40,7 +40,7 @@ void play_poly(ApplicationData& data, const TimeStruct& time)
     {
         const uint8_t MAX_CHORD_NOTES = 8;
 
-        uint8_t chord_nr = get_chord_step(data.harmony, time.step, time.tick);
+        uint8_t chord_nr = get_chord_step(data.harmony, time);
         uint8_t size = 0;
         uint8_t chord_notes[MAX_CHORD_NOTES];
 

@@ -29,6 +29,11 @@ void randomize_bass(BassSettings& settings)
 
 bool get_bass_hit(BassSettings& settings, const TimeStruct& time)
 {
+    if (settings.kill)
+    {
+        return false;
+    }
+
     bool hit = false;
     switch (settings.style)
     {
@@ -84,7 +89,7 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
     }*/
     octave += get_distributed_range(cv(settings.variable_octaves, time.step), settings.pitch_range, 3);
 
-    uint8_t harmony_step = get_chord_step(harmony, time.step, time.tick);
+    uint8_t harmony_step = get_chord_step(harmony, time);
     uint8_t pitch = apply_scale(note_nr + harmony_step, harmony.scale, octave);
 
     pitch += settings.octave_offset * 12;
@@ -106,8 +111,6 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
 
     // Get hit
     bool hit = get_bass_hit(data.bass_settings, time);
-
-    hit &= !data.ui_state.kill_bass;
 
     if (hit)
     {

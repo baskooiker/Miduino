@@ -27,16 +27,16 @@ void randomize_harmony(ApplicationData& data)
     data.harmony.high_pattern.time_division = TimeDivision::Sixteenth;
 }
 
-uint8_t get_chord_step(const HarmonyStruct& harmony, const uint32_t step, const uint8_t tick)
+uint8_t get_chord_step(const HarmonyStruct& harmony, const TimeStruct& time)
 {
     switch (harmony.type)
     {
     case HarmonyType::HarmonyConst:
-        return cv(harmony.const_pattern, step);
+        return cv(harmony.const_pattern, time.step);
     case HarmonyType::HarmonyLow:
-        return cv(harmony.low_pattern, step);
+        return cv(harmony.low_pattern, time.step);
     case HarmonyType::HarmonyHigh:
-        return cv(harmony.high_pattern, step);
+        return cv(harmony.high_pattern, time.step);
     }
     return 0;
 }

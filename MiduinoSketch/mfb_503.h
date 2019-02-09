@@ -100,7 +100,7 @@ void play_bd(ApplicationData& data, const TimeStruct& time)
         uint8_t pitch = NOTE_503_BD;
         if (data.mfb_503_settings.play_pitch_bd)
         {
-            pitch = clip_pitch(get_chord_step(data.harmony, time.step, time.tick), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
+            pitch = clip_pitch(get_chord_step(data.harmony, time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
         note_on(make_note(pitch, 127), data.mfb_503_settings.storage);
     }
@@ -237,25 +237,25 @@ void randomize_503_sound(ApplicationData& data)
     }
 
     // Randomize Tom sounds
-    uint8_t tom_dec = randi(TOM_DEC_MIN, TOM_DEC_MAX);
-    send_cc(MFB_503_LT_DECAY, tom_dec, MIDI_CHANNEL_503);
-    send_cc(MFB_503_MT_DECAY, tom_dec, MIDI_CHANNEL_503);
-    send_cc(MFB_503_HT_DECAY, tom_dec, MIDI_CHANNEL_503);
+    //uint8_t tom_dec = randi(TOM_DEC_MIN, TOM_DEC_MAX);
+    //send_cc(MFB_503_LT_DECAY, tom_dec, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_MT_DECAY, tom_dec, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_HT_DECAY, tom_dec, MIDI_CHANNEL_503);
 
-    uint8_t tom_tune = randi(16, 32);
-    uint8_t tom_spread = randi(12, 30);
-    send_cc(MFB_503_LT_TUNE, tom_tune, MIDI_CHANNEL_503);
-    send_cc(MFB_503_MT_TUNE, tom_tune + tom_spread, MIDI_CHANNEL_503);
-    send_cc(MFB_503_HT_TUNE, tom_tune + tom_spread * 2, MIDI_CHANNEL_503);
-
-    uint8_t tom_pitch = randi(16, 32);
-    send_cc(MFB_503_LT_PITCH, tom_pitch, MIDI_CHANNEL_503);
-    send_cc(MFB_503_MT_PITCH, tom_pitch + tom_spread, MIDI_CHANNEL_503);
-    send_cc(MFB_503_HT_PITCH, tom_pitch + tom_spread * 2, MIDI_CHANNEL_503);
-
-    send_cc(MFB_503_LT_LEVEL, 127, MIDI_CHANNEL_503);
-    send_cc(MFB_503_MT_LEVEL, 127, MIDI_CHANNEL_503);
-    send_cc(MFB_503_HT_LEVEL, 127, MIDI_CHANNEL_503);
+    //uint8_t tom_tune = randi(16, 32);
+    //uint8_t tom_spread = randi(12, 30);
+    //send_cc(MFB_503_LT_TUNE, tom_tune, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_MT_TUNE, tom_tune + tom_spread, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_HT_TUNE, tom_tune + tom_spread * 2, MIDI_CHANNEL_503);
+    //
+    //uint8_t tom_pitch = randi(16, 32);
+    //send_cc(MFB_503_LT_PITCH, tom_pitch, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_MT_PITCH, tom_pitch + tom_spread, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_HT_PITCH, tom_pitch + tom_spread * 2, MIDI_CHANNEL_503);
+    //
+    //send_cc(MFB_503_LT_LEVEL, 127, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_MT_LEVEL, 127, MIDI_CHANNEL_503);
+    //send_cc(MFB_503_HT_LEVEL, 127, MIDI_CHANNEL_503);
 
     // Randomize other sound settings
     data.mfb_503_settings.play_pitch_bd = randi(128) < 32;

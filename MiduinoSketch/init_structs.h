@@ -20,7 +20,6 @@ UiState init_ui_state()
     s.drum_fill = false;
     s.drum_roll = false;
 
-    s.kill_bass = false;
     s.kill_high = false;
     s.kill_perc = false;
     s.kill_mid = false;

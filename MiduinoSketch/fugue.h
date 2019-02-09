@@ -41,10 +41,28 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
         }
     }
 
-    settings.player_settings[id % NUMBER_FUGUE_PLAYERS].pitch_offset = pitch_offsets[0];
-    settings.player_settings[id % NUMBER_FUGUE_PLAYERS].length = lengths[0];
-    settings.player_settings[id % NUMBER_FUGUE_PLAYERS].interval = intervals[0];
-    settings.player_settings[id % NUMBER_FUGUE_PLAYERS].type = random_player_type();
+    FuguePlayerSettings& player_settings = settings.player_settings[id % NUMBER_FUGUE_PLAYERS];
+
+    player_settings.pitch_offset = pitch_offsets[0];
+    player_settings.length = lengths[0];
+    player_settings.interval = intervals[0];
+    player_settings.type = random_player_type();
+
+    switch (distribution(16, 4, 4, 4, 4))
+    {
+    case 0: player_settings.rhythm = BXXXX; break;
+    case 1: player_settings.rhythm = BXXX0; break;
+    case 2: player_settings.rhythm = BXX0X; break;
+    case 3: player_settings.rhythm = BX0XX; break;
+    case 4: player_settings.rhythm = B0XXX; break;
+    }
+
+    //switch (distribution(16, 4, 4))
+    //{
+    //case 0: player_settings.note_repeat = 1; break;
+    //case 1: player_settings.note_repeat = 2; break;
+    //case 2: player_settings.note_repeat = 3; break;
+    //}
 }
 
 void randomize_fugue(ApplicationData& data)
@@ -90,35 +108,61 @@ void play_fugue(
     const TimeStruct& time, 
     PitchStorage& storage)
 {
-    FuguePlayerSettings& player_settings = fugue_settings.player_settings[player_id % NUMBER_FUGUE_PLAYERS];
-    if (time.step % player_settings.length == 0)
-    { 
-        uint8_t pat_length = fugue_settings.pattern.length;
-        switch (player_settings.type)
+    if (interval_hit(TimeDivision::Sixteenth, time))
+    {
+        FuguePlayerSettings& player_settings = fugue_settings.player_settings[player_id % NUMBER_FUGUE_PLAYERS];
+        bool hit = false;
+        if (player_settings.counter % player_settings.length == 0)
         {
-        case FuguePlayerType::FugueForward: 
-            player_settings.counter = player_settings.counter % pat_length;
-            break;
-        case FuguePlayerType::FugueBackward:
-            player_settings.counter = pat_length - (player_settings.counter % pat_length) - 1;
-            break;
-        case FuguePlayerType::FugueBackAndForth:
-            player_settings.counter = player_settings.counter % (pat_length * 2);
-            if (player_settings.counter < pat_length)
-            {
-                player_settings.counter = player_settings.counter % pat_length;
-            }
-            else
-            {
-                player_settings.counter = pat_length - (player_settings.counter % pat_length) - 1;
-            }
-            break;
+            hit = gate(player_settings.rhythm, player_settings.counter / player_settings.length, 4);
         }
+        uint8_t pat_length = fugue_settings.pattern.length;
 
-        uint8_t note_step = cv(fugue_settings.pattern, player_settings.counter);
+        if (hit)
+        {
+            uint8_t c = player_settings.counter;
+            switch (player_settings.type)
+            {
+            case FuguePlayerType::FugueForward:
+                c = player_settings.counter % pat_length;
+                break;
+            case FuguePlayerType::FugueBackward:
+                c = pat_length - (c % pat_length) - 1;
+                break;
+            case FuguePlayerType::FugueBackAndForth:
+            {
+                c = c % (pat_length * 2);
+                if (c < pat_length)
+                {
+                    c = c % pat_length;
+                }
+                else
+                {
+                    c = pat_length - (c % pat_length) - 1;
+                }
+                break;
+            }
+            }
+
+            uint8_t note_step = cv(
+                fugue_settings.pattern, 
+                c
+            );
+
+            note_step += get_chord_step(harmony, time);
+            uint8_t pitch = apply_scale_offset(note_step, harmony.scale, player_settings.pitch_offset);
+            uint8_t length = MAX(player_settings.length - 1, 1) * TICKS_PER_STEP;
+            note_on(make_note(pitch, 64, length, NoteType::Tie), storage);
+        }
+        
         player_settings.counter++;
-        uint8_t pitch = apply_scale_offset(note_step, harmony.scale, player_settings.pitch_offset);
-        uint8_t length = MAX(player_settings.length - 1, 1) * TICKS_PER_STEP;
-        note_on(make_note(pitch, 64, 6, NoteType::Tie), storage);
+    }
+}
+
+void reset(FugueSettings& settings)
+{
+    for (int i = 0; i < NUMBER_FUGUE_PLAYERS; i++)
+    {
+        settings.player_settings[i].counter = 0;
     }
 }

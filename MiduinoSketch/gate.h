@@ -5,9 +5,9 @@
 #include "intervals.h"
 #include "utils.h"
 
-bool gate(const BinaryPattern& pattern, const uint32_t step)
+bool gate(const BinaryPattern& pattern, const uint32_t step, const uint8_t length = 16)
 {
-    return (pattern >> (step % 16)) & 0x1;
+    return (pattern >> (step % length)) & 0x1;
 }
 
 bool gate(const GatePattern16& pattern, const TimeStruct& time)
