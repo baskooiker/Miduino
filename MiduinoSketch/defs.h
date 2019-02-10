@@ -127,11 +127,11 @@ typedef struct {
 
 typedef struct {
     uint8_t pitch_offset;
+    uint8_t manual_pitch_offset;
     uint8_t length;
     FuguePlayerType type;
     uint32_t counter;
     uint8_t rhythm;
-    //uint8_t note_repeat;
     NoteInterval interval;
 } FuguePlayerSettings;
 

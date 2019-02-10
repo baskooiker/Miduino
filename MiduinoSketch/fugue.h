@@ -17,7 +17,7 @@ FuguePlayerType random_player_type()
 
 void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
 {
-    uint8_t pitch_offsets[] = { 36, 42, 48, 54, 60, 66, 72 };
+    uint8_t pitch_offsets[] = { 36, 42, 48, 54, 60 };
     uint8_t nr_pitch_offsets = sizeof(pitch_offsets) / sizeof(*pitch_offsets);
     randomize_order(pitch_offsets, nr_pitch_offsets);
 
@@ -149,8 +149,13 @@ void play_fugue(
                 c
             );
 
-            note_step += get_chord_step(harmony, time);
-            uint8_t pitch = apply_scale_offset(note_step, harmony.scale, player_settings.pitch_offset);
+            uint8_t manual_pitch_offset = (uint8_t)(((uint16_t)player_settings.manual_pitch_offset * 24) / 127);
+            uint8_t pitch = apply_scale_offset(
+                note_step, 
+                harmony.scale, 
+                player_settings.pitch_offset + manual_pitch_offset, 
+                get_chord_step(harmony, time) + (uint8_t)player_settings.interval
+            );
             uint8_t length = MAX(player_settings.length - 1, 1) * TICKS_PER_STEP;
             note_on(make_note(pitch, 64, length, NoteType::Tie), storage);
         }

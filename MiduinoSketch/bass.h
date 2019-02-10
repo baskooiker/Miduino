@@ -25,6 +25,7 @@ void randomize_bass(BassSettings& settings)
 
     randomize(settings.accents, .5f);
     randomize(settings.variable_octaves);
+    settings.note_range_value = randi(128);
 }
 
 bool get_bass_hit(BassSettings& settings, const TimeStruct& time)

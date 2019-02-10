@@ -37,12 +37,13 @@ NoteInterval random_note_interval()
 {
     switch (randi(3))
     {
+    case 0:
+        return NoteInterval::IntervalFifth;
     case 1:
         return NoteInterval::IntervalThird;
     case 2:
         return NoteInterval::IntervalFifth;
     }
-    return NoteInterval::IntervalRoot;
 }
 
 void swap(NoteInterval* array, uint8_t x, uint8_t y)

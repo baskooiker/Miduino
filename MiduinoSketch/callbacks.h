@@ -268,11 +268,21 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         data.ui_state.bd_decay_factor = value;
         send_bd_decay(data);
         break;
+    case BSP_KNOB_09:
+        data.mfb_503_settings.volume_tom = value;
+        send_cc(MFB_503_LT_LEVEL, value, MIDI_CHANNEL_503);
+        send_cc(MFB_503_MT_LEVEL, value, MIDI_CHANNEL_503);
+        send_cc(MFB_503_HT_LEVEL, value, MIDI_CHANNEL_503);
+        break;
     case BSP_KNOB_02:
         if (value < 64)
             data.mfb_503_settings.hat_style = HatStyle::HatOffBeat;
         else
             data.mfb_503_settings.hat_style = HatStyle::HatFull;
+        break;
+    case BSP_KNOB_10:
+        data.mfb_503_settings.volume_cy = (value + 1) / 2;
+        send_cc(MFB_503_CY_LEVEL, data.mfb_503_settings.volume_cy, MIDI_CHANNEL_503);
         break;
     case BSP_KNOB_03:
         if (value < 10)
@@ -281,6 +291,8 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
             data.harmony.type = HarmonyType::HarmonyLow;
         else
             data.harmony.type = HarmonyType::HarmonyHigh;
+        break;
+    case BSP_KNOB_11:
         break;
     case BSP_KNOB_04:
         if (value < 64)
@@ -292,45 +304,34 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
             data.poly_settings.type = PolyType::PolyHigh;
         }
         break;
-    case BSP_KNOB_05:
-        break;
-    case BSP_KNOB_06:
-        break;
-    case BSP_KNOB_07:
-        data.bass_settings.pitch_range = value;
-        break;
-    case BSP_KNOB_08:
-        if (value < 10)
-            data.bass_settings.style = BassStyle::BassLow;
-        else if (value < 64)
-            data.bass_settings.style = BassStyle::BassEuclid;
-        else if (value < 120)
-            data.bass_settings.style = BassStyle::BassArpInterval;
-        else
-            data.bass_settings.style = BassStyle::BassSixteenths;
-        break;
-    case BSP_KNOB_09:
-        data.mfb_503_settings.volume_tom = value;
-        send_cc(MFB_503_LT_LEVEL, value, MIDI_CHANNEL_503);
-        send_cc(MFB_503_MT_LEVEL, value, MIDI_CHANNEL_503);
-        send_cc(MFB_503_HT_LEVEL, value, MIDI_CHANNEL_503);
-        break;
-    case BSP_KNOB_10:
-        data.mfb_503_settings.volume_cy = (value + 1) / 2;
-        send_cc(MFB_503_CY_LEVEL, data.mfb_503_settings.volume_cy, MIDI_CHANNEL_503);
-        break;
     case BSP_KNOB_12:
         data.ui_state.poly_pitch_offset = value;
         break;
+    case BSP_KNOB_05:
+        // TODO: Bass density
+        break;
     case BSP_KNOB_13:
-        data.mono_dub_settings.settings.variable_pitch_offset = value;
+        data.bass_settings.pitch_range = value;
+        data.fugue_settings.player_settings[0].manual_pitch_offset = value;
+        break;
+    case BSP_KNOB_06:
         break;
     case BSP_KNOB_14:
+        data.fugue_settings.player_settings[1].manual_pitch_offset = value;
+        break;
+    case BSP_KNOB_07:
+        break;
+    case BSP_KNOB_15:
         data.mono_settings.variable_pitch_offset = value;
+        data.fugue_settings.player_settings[2].manual_pitch_offset = value;
+        break;
+    case BSP_KNOB_08:
         break;
     case BSP_KNOB_16:
-        data.bass_settings.note_range_value = value;
+        data.mono_dub_settings.settings.variable_pitch_offset = value;
+        data.fugue_settings.player_settings[3].manual_pitch_offset = value;
         break;
+
     case BSP_STEP_01:
         if (value == 0)
         {
@@ -363,30 +364,35 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
     case BSP_STEP_09:
         if (value == 0)
         {
-            randomize_mono_dub(data.mono_dub_settings);
-            data.mono_dub_settings.settings.style = MonoStyle::MonoSixteenths;
+            randomize_bass(data.bass_settings);
+            switch (randi(3))
+            {
+            case 0: data.bass_settings.style = BassStyle::BassLow; break;
+            case 1: data.bass_settings.style = BassStyle::BassArpInterval; break;
+            case 2: data.bass_settings.style = BassStyle::BassEuclid; break;
+            }
         }
         break;
     case BSP_STEP_10:
         if (value == 0)
         {
-            randomize_mono_dub(data.mono_dub_settings);
-            switch (randi(2))
-            {
-            case 0: data.mono_dub_settings.settings.style = MonoStyle::MonoPolyRhythm; break;
-            case 1: data.mono_dub_settings.settings.style = MonoStyle::MonoLeadPattern; break;
-            }
+            randomize_bass(data.bass_settings);
+            data.bass_settings.style = BassStyle::BassSixteenths; 
         }
-        break;
         break;
     case BSP_STEP_11:
         if (value == 0)
         {
-            randomize_mono(data.mono_settings);
-            data.mono_settings.style = MonoStyle::MonoSixteenths;
+            randomize_bass_dub(data.bass_dub_settings);
         }
         break;
     case BSP_STEP_12:
+        if (value == 0)
+        {
+            randomize_bass_dub(data.bass_dub_settings);
+        }
+        break;
+    case BSP_STEP_13:
         if (value == 0)
         {
             randomize_mono(data.mono_settings);
@@ -397,21 +403,30 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
             }
         }
         break;
-    case BSP_STEP_13:
+    case BSP_STEP_14:
         if (value == 0)
         {
-            randomize_bass_dub(data.bass_dub_settings);
+            randomize_mono(data.mono_settings);
+            data.mono_settings.style = MonoStyle::MonoSixteenths;
         }
-        break;
-    case BSP_STEP_14:
         break;
     case BSP_STEP_15:
         if (value == 0)
         {
-            randomize_bass(data.bass_settings);
+            randomize_mono_dub(data.mono_dub_settings);
+            data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
         }
         break;
     case BSP_STEP_16:
+        if (value == 0)
+        {
+            randomize_mono_dub(data.mono_dub_settings);
+            switch (randi(2))
+            {
+            case 0: data.mono_dub_settings.style = MonoDubStyle::MonoDubOctave; break;
+            case 1: data.mono_dub_settings.style = MonoDubStyle::MonoDubUnison; break;
+            }
+        }
         break;
     default:
         break;
