@@ -15,6 +15,7 @@
 
 #define COMMON_DENOMINATOR 240240 // Exept 9
 #define TICKS_PER_STEP 6
+#define SHORT_PRESS_TIME 500
 
 // MIDI 503
 #define NOTE_503_BD 36
@@ -67,6 +68,7 @@
 #define BSP_STEP_14 53
 #define BSP_STEP_15 54
 #define BSP_STEP_16 55
+#define NR_OF_STEPS 16
 
 #define BSP_KNOB_01 10
 #define BSP_KNOB_02 74
@@ -84,6 +86,7 @@
 #define BSP_KNOB_14 91
 #define BSP_KNOB_15 79
 #define BSP_KNOB_16 72
+#define NR_OF_KNOBS 16
 
 #define BSP_PAD_01 36
 #define BSP_PAD_02 37
@@ -101,6 +104,7 @@
 #define BSP_PAD_14 49
 #define BSP_PAD_15 50
 #define BSP_PAD_16 51
+#define NR_OF_PADS 16
 
 // MFB 503 CC's
 #define BD_LEVEL  8 

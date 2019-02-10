@@ -104,13 +104,15 @@ static const IntervalProbs arp_interval_probs = { 25, 25, 25, 0,  0 };
 
 typedef struct {
     unsigned long last_pressed;
+    unsigned long last_released;
 } ButtonState;
 
 typedef struct {
     uint16_t bsp_button_state;
     uint16_t bsp_pad_state;
 
-    ButtonState pad_state[16];
+    ButtonState pad_state[NR_OF_PADS];
+    ButtonState step_state[NR_OF_STEPS];
 
     bool kill_low;
     bool kill_mid;

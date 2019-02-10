@@ -24,226 +24,124 @@
 
 void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity)
 {
+    press_pad(data.ui_state.pad_state, pitch);
     switch (pitch)
     {
     case BSP_PAD_01:
-        data.ui_state.pad_state[0].last_pressed = millis();
         data.ui_state.kill_low = !data.ui_state.kill_low;
-        set_pad_state(data.ui_state, 0, true);
         break;
     case BSP_PAD_02:
-        data.ui_state.pad_state[1].last_pressed = millis();
         data.ui_state.kill_mid = !data.ui_state.kill_mid;
-        set_pad_state(data.ui_state, 1, true);
         break;
     case BSP_PAD_03:
-        data.ui_state.pad_state[2].last_pressed = millis();
         data.ui_state.kill_perc = !data.ui_state.kill_perc;
-        set_pad_state(data.ui_state, 2, true);
         break;
     case BSP_PAD_04:
-        data.ui_state.pad_state[3].last_pressed = millis();
         data.ui_state.kill_high = !data.ui_state.kill_high;
-        set_pad_state(data.ui_state, 3, true);
         break;
     case BSP_PAD_05:
-        data.ui_state.pad_state[4].last_pressed = millis();
-        set_pad_state(data.ui_state, 4, true);
         break;
     case BSP_PAD_06:
-        data.ui_state.pad_state[5].last_pressed = millis();
-        set_pad_state(data.ui_state, 5, true);
         break;
     case BSP_PAD_07:
-        data.ui_state.pad_state[6].last_pressed = millis();
-        set_pad_state(data.ui_state, 6, true);
         break;
     case BSP_PAD_08:
-        data.ui_state.pad_state[7].last_pressed = millis();
         data.bass_settings.kill = !data.bass_settings.kill;
         if (data.bass_settings.kill)
         {
             stop_notes(data.bass_settings.storage);
         }
-        set_pad_state(data.ui_state, 7, true);
         break;
     case BSP_PAD_09:
-        data.ui_state.pad_state[8].last_pressed = millis();
         data.ui_state.drum_fill = true;
-        set_pad_state(data.ui_state, 8, true);
         break;
     case BSP_PAD_10:
-        data.ui_state.pad_state[9].last_pressed = millis();
         data.ui_state.drum_roll = velocity;
-        set_pad_state(data.ui_state, 9, true);
         break;
     case BSP_PAD_11:
-        data.ui_state.pad_state[10].last_pressed = millis();
-        set_pad_state(data.ui_state, 10, true);
         break;
     case BSP_PAD_12:
-        data.ui_state.pad_state[11].last_pressed = millis();
-        set_pad_state(data.ui_state, 11, true);
         break;
     case BSP_PAD_13:
-        data.ui_state.pad_state[12].last_pressed = millis();
-        set_pad_state(data.ui_state, 12, true);
         break;
     case BSP_PAD_14:
-        data.ui_state.pad_state[13].last_pressed = millis();
-        set_pad_state(data.ui_state, 13, true);
         break;
     case BSP_PAD_15:
-        data.ui_state.pad_state[14].last_pressed = millis();
-        set_pad_state(data.ui_state, 14, true);
         break;
     case BSP_PAD_16:
-        data.ui_state.pad_state[15].last_pressed = millis();
-        set_pad_state(data.ui_state, 15, true);
         break;
     default:
         break;
     }
-}
-
-bool was_pressed_long(ButtonState& state)
-{
-    unsigned long t = millis();
-    if (t > state.last_pressed)
-    {
-        return (t - state.last_pressed) > 500;
-    }
-    return true;
 }
 
 void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocity)
 {
+    release_pad(data.ui_state.pad_state, pitch);
     switch (pitch)
     {
     case BSP_PAD_01:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[0]);
-        if (p_long)
+        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
             data.ui_state.kill_low = false;
         }
-        set_pad_state(data.ui_state, 0, false);
-    }
     break;
     case BSP_PAD_02:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[1]);
-        if (p_long)
+        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
             data.ui_state.kill_mid = false;
         }
-        set_pad_state(data.ui_state, 1, false);
-    }
     break;
     case BSP_PAD_03:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[2]);
-        if (p_long)
+        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
             data.ui_state.kill_perc = false;
         }
-        set_pad_state(data.ui_state, 2, false);
         break;
-    }
     case BSP_PAD_04:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[3]);
-        if (p_long)
+        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
             data.ui_state.kill_high = false;
         }
-        set_pad_state(data.ui_state, 3, false);
         break;
-    }
     case BSP_PAD_05:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[4]);
-        set_pad_state(data.ui_state, 4, false);
         break;
-    }
     case BSP_PAD_06:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[5]);
-        set_pad_state(data.ui_state, 5, false);
         break;
-    }
     case BSP_PAD_07:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[6]);
-        set_pad_state(data.ui_state, 6, false);
         break;
-    }
     case BSP_PAD_08:
-    {
-        if (was_pressed_long(data.ui_state.pad_state[7]))
+        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
-            //data.ui_state.kill_bass = false;
             data.bass_settings.kill = false;
         }
-        set_pad_state(data.ui_state, 7, false);
         break;
-    }
     case BSP_PAD_09:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[8]);
         data.ui_state.drum_fill = false;
-        set_pad_state(data.ui_state, 8, false);
         break;
-    }
     case BSP_PAD_10:
-    {
         data.ui_state.drum_roll = false;
-        set_pad_state(data.ui_state, 9, false);
         break;
-    }
     case BSP_PAD_11:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[10]);
-        set_pad_state(data.ui_state, 10, false);
         break;
-    }
     case BSP_PAD_12:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[11]);
-        set_pad_state(data.ui_state, 11, false);
         break;
-    }
     case BSP_PAD_13:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[12]);
         randomize_fugue_player(data.fugue_settings, 3);
-        set_pad_state(data.ui_state, 12, false);
         break;
-    }
     case BSP_PAD_14:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[13]);
         randomize_fugue_player(data.fugue_settings, 2);
-        set_pad_state(data.ui_state, 13, false);
         break;
-    }
     case BSP_PAD_15:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[14]);
         randomize_fugue_player(data.fugue_settings, 1);
-        set_pad_state(data.ui_state, 14, false);
         break;
-    }
     case BSP_PAD_16:
-    {
-        boolean p_long = was_pressed_long(data.ui_state.pad_state[15]);
         randomize_fugue_player(data.fugue_settings, 0);
-        set_pad_state(data.ui_state, 15, false);
         break;
-    }
     default:
         break;
     }
+    release_pad(data.ui_state.pad_state, pitch);
 }
 
 void handleClock(ApplicationData& data)
@@ -469,6 +367,14 @@ void handleControlChangeStopped(ApplicationData& data, byte channel, byte number
 
 void handleControlChange(ApplicationData& data, byte channel, byte number, byte value)
 {
+    if (value > 0)
+    {
+        press_step(data.ui_state.step_state, number);
+    }
+    else
+    {
+        release_step(data.ui_state.step_state, number);
+    }
     switch (data.time.state)
     {
     case PlayState::Playing:
