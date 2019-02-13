@@ -28,9 +28,15 @@ float randf(const float min, const float max)
     return _min + randf(_max - _min);
 }
 
-uint8_t distribution(const uint8_t a, const uint8_t b, const uint8_t c = 0, const uint8_t d = 0, const uint8_t e = 0)
+uint8_t distribution(
+    const uint8_t a, 
+    const uint8_t b, 
+    const uint8_t c = 0, 
+    const uint8_t d = 0,
+    const uint8_t e = 0,
+    const uint8_t f = 0)
 {
-    uint8_t total = a + b + c + d + e;
+    uint8_t total = a + b + c + d + e + f;
     uint8_t r = randi(total);
     if (r < a)
         return 0;
@@ -40,7 +46,9 @@ uint8_t distribution(const uint8_t a, const uint8_t b, const uint8_t c = 0, cons
         return 2;
     if (r < (a + b + c + d))
         return 3;
-    return 4;
+    if (r < (a + b + c + d + e))
+        return 4;
+    return 5;
 }
 
 uint8_t get_distributed_range(uint8_t input, const uint8_t dist, const uint8_t ranges)

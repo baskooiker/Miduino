@@ -116,10 +116,7 @@ typedef struct {
 
     bool kill_low;
     bool kill_mid;
-    bool kill_high;
     bool kill_perc;
-
-    //bool kill_bass;
 
     bool drum_fill;
     uint8_t drum_roll;
@@ -134,6 +131,7 @@ typedef struct {
     FuguePlayerType type;
     uint32_t counter;
     uint8_t rhythm;
+    uint8_t density;
     NoteInterval interval;
 } FuguePlayerSettings;
 
@@ -242,6 +240,7 @@ typedef struct {
     CvPatternAB tom_pattern;
 
     IntervalPattern hat_int_pattern;
+    CvPatternAB hat_velocity;
 
     uint8_t bd_decay;
     bool play_pitch_bd;
@@ -253,6 +252,10 @@ typedef struct {
     uint8_t nr_toms;
     uint8_t toms_offset;
     GatePatternAB tom_mask;
+
+    HatClosedStyle hat_closed_style;
+    uint8_t closed_hat_note;
+    bool kill_hats;
 
     PitchStorage storage;
 } Mfb503Settings;

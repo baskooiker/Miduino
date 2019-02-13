@@ -22,9 +22,8 @@
 #include "poly.h"
 #include "bass.h"
 
-void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity)
+void handleNoteOnPlaying(ApplicationData& data, byte channel, byte pitch, byte velocity)
 {
-    press_pad(data.ui_state.pad_state, pitch);
     switch (pitch)
     {
     case BSP_PAD_01:
@@ -37,7 +36,7 @@ void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity
         data.ui_state.kill_perc = !data.ui_state.kill_perc;
         break;
     case BSP_PAD_04:
-        data.ui_state.kill_high = !data.ui_state.kill_high;
+        data.mfb_503_settings.kill_hats = !data.mfb_503_settings.kill_hats;
         break;
     case BSP_PAD_05:
         break;
@@ -75,6 +74,74 @@ void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity
     }
 }
 
+void handleNoteOnStopped(ApplicationData& data, byte channel, byte pitch, byte velocity)
+{
+    switch (pitch)
+    {
+    case BSP_PAD_01: 
+        data.harmony.scale.root = Root::ROOT_C;
+        break;
+    case BSP_PAD_02:
+        data.harmony.scale.root = Root::ROOT_D;
+        break;
+    case BSP_PAD_03:
+        data.harmony.scale.root = Root::ROOT_E;
+        break;
+    case BSP_PAD_04:
+        data.harmony.scale.root = Root::ROOT_F;
+        break;
+    case BSP_PAD_05:
+        data.harmony.scale.root = Root::ROOT_G;
+        break;
+    case BSP_PAD_06:
+        data.harmony.scale.root = Root::ROOT_A;
+        break;
+    case BSP_PAD_07:
+        data.harmony.scale.root = Root::ROOT_B;
+        break;
+    case BSP_PAD_08: 
+        break;
+    case BSP_PAD_09:
+        data.harmony.scale.root = Root::ROOT_C_SHARP;
+        break;
+    case BSP_PAD_10:
+        data.harmony.scale.root = Root::ROOT_D_SHARP;
+        break;
+    case BSP_PAD_11: 
+        break;
+    case BSP_PAD_12:
+        data.harmony.scale.root = Root::ROOT_F_SHARP;
+        break;
+    case BSP_PAD_13:
+        data.harmony.scale.root = Root::ROOT_G_SHARP;
+        break;
+    case BSP_PAD_14:
+        data.harmony.scale.root = Root::ROOT_A_SHARP;
+        break;
+    case BSP_PAD_15: 
+        set_scale(data.harmony.scale, ScaleType::AEOLIAN);
+        break;
+    case BSP_PAD_16:
+        set_scale(data.harmony.scale, ScaleType::IONIAN); 
+        break;
+    }
+}
+
+void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity)
+{
+    press_pad(data.ui_state.pad_state, pitch);
+    switch (data.time.state)
+    {
+    case PlayState::Playing:
+        handleNoteOnPlaying(data, channel, pitch, velocity);
+        break;
+    case PlayState::Paused:
+    case PlayState::Stopped:
+        handleNoteOnStopped(data, channel, pitch, velocity);
+        break;
+    }
+}
+
 void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocity)
 {
     release_pad(data.ui_state.pad_state, pitch);
@@ -101,7 +168,7 @@ void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocit
     case BSP_PAD_04:
         if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
-            data.ui_state.kill_high = false;
+            data.mfb_503_settings.kill_hats = false;
         }
         break;
     case BSP_PAD_05:
@@ -173,10 +240,12 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         send_cc(MFB_503_HT_LEVEL, value, MIDI_CHANNEL_503);
         break;
     case BSP_KNOB_02:
-        if (value < 64)
-            data.mfb_503_settings.hat_style = HatStyle::HatOffBeat;
+        if (value < 42)
+            data.mfb_503_settings.hat_style = HatStyle::HatClosed;
+        else if (value < 84)
+            data.mfb_503_settings.hat_style = HatStyle::HatBoth;
         else
-            data.mfb_503_settings.hat_style = HatStyle::HatFull;
+            data.mfb_503_settings.hat_style = HatStyle::HatOpen;
         break;
     case BSP_KNOB_10:
         data.mfb_503_settings.volume_cy = (value + 1) / 2;
@@ -207,23 +276,27 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         break;
     case BSP_KNOB_05:
         // TODO: Bass density
+        data.fugue_settings.player_settings[0].density = value;
         break;
     case BSP_KNOB_13:
         data.bass_settings.pitch_range = value;
         data.fugue_settings.player_settings[0].manual_pitch_offset = value;
         break;
     case BSP_KNOB_06:
+        data.fugue_settings.player_settings[1].density = value;
         break;
     case BSP_KNOB_14:
         data.fugue_settings.player_settings[1].manual_pitch_offset = value;
         break;
     case BSP_KNOB_07:
+        data.fugue_settings.player_settings[2].density = value;
         break;
     case BSP_KNOB_15:
         data.mono_settings.variable_pitch_offset = value;
         data.fugue_settings.player_settings[2].manual_pitch_offset = value;
         break;
     case BSP_KNOB_08:
+        data.fugue_settings.player_settings[3].density = value;
         break;
     case BSP_KNOB_16:
         data.mono_dub_settings.settings.variable_pitch_offset = value;
@@ -342,7 +415,7 @@ void handleControlChangeStopped(ApplicationData& data, byte channel, byte number
             data.ui_state.kill_low  = false;
             data.ui_state.kill_mid  = false;
             data.ui_state.kill_perc = false;
-            data.ui_state.kill_high = false;
+            data.mfb_503_settings.kill_hats = false;
         }
         break;
     case BSP_STEP_02:
@@ -352,7 +425,7 @@ void handleControlChangeStopped(ApplicationData& data, byte channel, byte number
             data.ui_state.kill_low = true;
             data.ui_state.kill_mid = true;
             data.ui_state.kill_perc = true;
-            data.ui_state.kill_high = true;
+            data.mfb_503_settings.kill_hats = true;
         }
         break;
     case BSP_STEP_16:

@@ -27,6 +27,10 @@
 #define NOTE_503_OH 39
 #define NOTE_503_HH 40
 
+#define NOTE_503_HH_1 91
+#define NOTE_503_HH_2 93
+#define NOTE_503_HH_3 95
+
 #define NOTE_503_BD_MIN 48
 #define NOTE_503_BD_MAX 59
 #define NOTE_503_TOM_MIN 72

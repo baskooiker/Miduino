@@ -12,16 +12,20 @@ Mfb503Settings init_503_settings()
     s.ac_pattern = init_gate_pattern();
     s.bd_pattern = init_gate_pattern_ab();
     s.sd_pattern = init_gate_pattern_ab();
-    s.hh_pattern = init_gate_pattern_ab();
-    s.oh_pattern = init_gate_pattern_ab();
     s.cy_pattern = init_gate_pattern_ab();
     s.tom_pattern = init_cv_pattern_ab();
     s.tom_mask = init_gate_pattern_ab();
 
+    s.hh_pattern = init_gate_pattern_ab();
+    s.oh_pattern = init_gate_pattern_ab();
     s.hat_int_pattern = init_interval_pattern();
-    s.hat_style = HatStyle::HatOffBeat;
+    s.hat_velocity = init_cv_pattern_ab();
+    s.hat_style = HatStyle::HatClosed;
+    s.hat_closed_style = HatClosedStyle::HatClosedRegular;
     s.volume_cy = 0;
     s.volume_tom = 0;
+    s.kill_hats = false;
+    s.closed_hat_note = NOTE_503_HH_1;
 
     s.storage = init_pitch_storage();
 

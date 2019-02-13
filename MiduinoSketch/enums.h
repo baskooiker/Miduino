@@ -86,8 +86,14 @@ enum PolyType {
 };
 
 enum HatStyle {
-    HatOffBeat,
-    HatFull
+    HatOpen,
+    HatBoth,
+    HatClosed
+};
+
+enum HatClosedStyle {
+    HatClosedInterval,
+    HatClosedRegular
 };
 
 enum MonoStyle {

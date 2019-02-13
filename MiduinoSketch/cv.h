@@ -49,3 +49,8 @@ void randomize(CvPatternAB& pattern, const uint8_t max = 128, const uint8_t min 
     }
     set_ab_pattern(pattern.abPattern);
 }
+
+uint8_t apply_cv(uint8_t input, uint8_t range, int8_t offset)
+{
+    return (uint8_t)(MIN( MAX(((((int16_t)input) * range) / 128 + offset), 0), 127));
+}

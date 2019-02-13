@@ -103,7 +103,7 @@ void randomize_interval_hat(IntervalPattern& pattern)
     probs.p_4 = 0;
     probs.p_8 = randi(30);
     probs.p_16 = 50;
-    probs.p_32 = randi(15);
-    probs.p_t8 = randi(15);
+    probs.p_32 = randi(64) < 32 ? randi(15) : 0;
+    probs.p_t8 = randi(64) < 16 ? randi(15) : 0;
     randomize_interval(pattern, probs);
 }

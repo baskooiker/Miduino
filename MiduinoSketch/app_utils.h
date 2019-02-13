@@ -30,10 +30,13 @@ void play_all(ApplicationData& data)
 void stop_notes_all_instruments(ApplicationData& data)
 {
     stop_notes(data.mfb_503_settings.storage);
+
+    stop_notes(data.lead_settings.storage);
     stop_notes(data.poly_settings.storage);
+
     stop_notes(data.bass_settings.storage);
     stop_notes(data.bass_dub_settings.storage);
-    stop_notes(data.lead_settings.storage);
+
     stop_notes(data.mono_settings.storage);
     stop_notes(data.mono_dub_settings.settings.storage);
 }
@@ -72,5 +75,5 @@ void set_fugue(ApplicationData& data)
     data.ui_state.kill_low = true;
     data.ui_state.kill_mid = true;
     data.ui_state.kill_perc = true;
-    data.ui_state.kill_high = true;
+    data.mfb_503_settings.kill_hats = true;
 }

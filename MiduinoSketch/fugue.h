@@ -5,6 +5,9 @@
 #include "gate.h"
 #include "scales.h"
 
+uint8_t time_intervals[] = { 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16 };
+uint8_t nr_time_intervals = sizeof(time_intervals) / sizeof(*time_intervals);
+
 FuguePlayerType random_player_type()
 {
     switch (randi(3))
@@ -21,10 +24,6 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
     uint8_t nr_pitch_offsets = sizeof(pitch_offsets) / sizeof(*pitch_offsets);
     randomize_order(pitch_offsets, nr_pitch_offsets);
 
-    uint8_t lengths[] = { 1, 1, 2, 3, 4, 6, 7, 8, 10, 12, 16 };
-    uint8_t nr_lengths = sizeof(lengths) / sizeof(*lengths);
-    randomize_order(lengths, nr_lengths);
-
     NoteInterval intervals[4] = {};
     intervals[0] = NoteInterval::IntervalRoot;
     intervals[1] = NoteInterval::IntervalFifth;
@@ -37,14 +36,13 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
         if (i != id)
         {
             remove(settings.player_settings[i].pitch_offset, pitch_offsets, nr_pitch_offsets);
-            remove(settings.player_settings[i].length, lengths, nr_lengths);
         }
     }
 
     FuguePlayerSettings& player_settings = settings.player_settings[id % NUMBER_FUGUE_PLAYERS];
 
     player_settings.pitch_offset = pitch_offsets[0];
-    player_settings.length = lengths[0];
+    player_settings.length = randi(2, nr_time_intervals - 1);
     player_settings.interval = intervals[0];
     player_settings.type = random_player_type();
 
@@ -112,9 +110,13 @@ void play_fugue(
     {
         FuguePlayerSettings& player_settings = fugue_settings.player_settings[player_id % NUMBER_FUGUE_PLAYERS];
         bool hit = false;
-        if (player_settings.counter % player_settings.length == 0)
+
+        int8_t player_length_idx = player_settings.length + (((int8_t)player_settings.density * 5) / 128) - 2;
+        uint8_t player_length = time_intervals[MAX(MIN(player_length_idx, nr_time_intervals), 0)];
+
+        if (player_settings.counter % player_length == 0)
         {
-            hit = gate(player_settings.rhythm, player_settings.counter / player_settings.length, 4);
+            hit = gate(player_settings.rhythm, player_settings.counter / player_length, 4);
         }
         uint8_t pat_length = fugue_settings.pattern.length;
 
@@ -156,7 +158,7 @@ void play_fugue(
                 player_settings.pitch_offset + manual_pitch_offset, 
                 get_chord_step(harmony, time) + (uint8_t)player_settings.interval
             );
-            uint8_t length = MAX(player_settings.length - 1, 1) * TICKS_PER_STEP;
+            uint8_t length = MAX(player_length - 1, 1) * TICKS_PER_STEP;
             note_on(make_note(pitch, 64, length, NoteType::Tie), storage);
         }
         

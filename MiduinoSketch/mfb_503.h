@@ -15,22 +15,46 @@
 
 void randomize_503_seq(ApplicationData& data)
 {
+    Mfb503Settings& settings = data.mfb_503_settings;
+
     set_euclid(data.mfb_503_settings.ac_pattern.pattern, 16, randi(4, 13));
     set_coef_kick_pattern(data.mfb_503_settings.bd_pattern);
     set_coef_snare_pattern(data.mfb_503_settings.sd_pattern);
 
     // Randomize hats
     set_coef_hat_pattern(data.mfb_503_settings.oh_pattern);
-    if (randi(2) < 1)
+    uint8_t four_pat = 0;
+    switch (distribution(10, 10, 10, 10, 10, 10))
     {
-        randomize(data.mfb_503_settings.hh_pattern, 0.f);
+    case 0: four_pat = BXXXX; break;
+    case 1: four_pat = BXXX0; break;
+    case 2: four_pat = BXX0X; break;
+    case 3: four_pat = BX0XX; break;
+    case 4: four_pat = B0XXX; break;
+    case 5: four_pat = BX0X0; break;
     }
-    else
+    for (int i = 0; i < 3; i++)
     {
-        set_coef_hat_pattern(data.mfb_503_settings.hh_pattern);
-        set_all(data.mfb_503_settings.oh_pattern, false);
+        for (int step = 0; step < 4; step++)
+        {
+            set_gate(settings.hh_pattern.patterns[i], step, gate(four_pat, step));
+        }
+        settings.hh_pattern.length = 4;
+        set_ab_pattern(settings.hh_pattern.abPattern);
+    }
+    switch (distribution(32, 32))
+    {
+    case 0: settings.hat_closed_style = HatClosedStyle::HatClosedRegular; break;
+    case 1: settings.hat_closed_style = HatClosedStyle::HatClosedInterval; break;
+    }
+    switch (distribution(32, 32, 32))
+    {
+    case 0: settings.closed_hat_note = NOTE_503_HH_1; break;
+    case 1: settings.closed_hat_note = NOTE_503_HH_2; break;
+    case 2: settings.closed_hat_note = NOTE_503_HH_3; break;
     }
     randomize_interval_hat(data.mfb_503_settings.hat_int_pattern);
+    randomize(settings.hat_velocity);
 
     // Randomize Cymbal
     set_coef_kick_pattern(data.mfb_503_settings.cy_pattern);
@@ -44,17 +68,7 @@ void randomize_503_seq(ApplicationData& data)
 
 void play_fill(ApplicationData& data, const TimeStruct time)
 {
-    static TimeDivision division = TimeDivision::Sixteenth;
-    if (interval_hit(TimeDivision::Sixteenth, time))
-    {
-        //uint8_t r = randi(16);
-        //if (r < 3)
-        //{
-        //    division = TimeDivision::Thirtysecond;
-        //}
-    }
-
-    if (!interval_hit(division, time))
+    if (!interval_hit(TimeDivision::Sixteenth, time))
         return;
 
     uint8_t p = 0;
@@ -106,34 +120,62 @@ void play_bd(ApplicationData& data, const TimeStruct& time)
     }
 }
 
-void play_hats(ApplicationData& data, const TimeStruct& time)
+void play_hats_closed(Mfb503Settings& settings, const TimeStruct& time)
 {
     uint8_t velocity = 63;
-    switch (data.mfb_503_settings.hat_style)
+
+    switch (settings.hat_closed_style)
     {
-    case HatStyle::HatOffBeat:
-    {
-        if (time.step % 4 == 2)
+    case HatClosedStyle::HatClosedInterval:
+        if (time.step % 4 == 0)
             velocity = 127;
 
-        bool hh = gate(data.mfb_503_settings.hh_pattern, time);
-        if (gate(data.mfb_503_settings.oh_pattern, time) && !hh && !data.ui_state.kill_high)
+        if (interval_hit(settings.hat_int_pattern, time))
         {
-            note_on(make_note(NOTE_503_OH, velocity), data.mfb_503_settings.storage);
+            note_on(make_note(NOTE_503_HH, velocity), settings.storage);
         }
-        if (hh && !data.ui_state.kill_high)
+        break;
+    case HatClosedStyle::HatClosedRegular:
+        if (gate(settings.hh_pattern, time))
         {
-            note_on(make_note(NOTE_503_HH, velocity), data.mfb_503_settings.storage);
+            velocity = apply_cv(cv(settings.hat_velocity, time.step), 64, 64);
+            note_on(make_note(settings.closed_hat_note, velocity), settings.storage);
         }
         break;
     }
-    case HatStyle::HatFull:
-        if (time.step % 4 == 0)
-            velocity = 127;
-        if (interval_hit(data.mfb_503_settings.hat_int_pattern, time) && !data.ui_state.kill_high)
-        {
-            note_on(make_note(NOTE_503_OH, velocity), data.mfb_503_settings.storage);
-        }
+}
+
+void play_hats_open(Mfb503Settings& settings, const TimeStruct& time)
+{
+    if (settings.kill_hats)
+        return;
+
+    uint8_t velocity = 63;
+    if (time.step % 4 == 2)
+        velocity = 127;
+
+    if (gate(settings.oh_pattern, time))
+    {
+        note_on(make_note(NOTE_503_OH, velocity), settings.storage);
+    }
+}
+
+void play_hats(Mfb503Settings& settings, const TimeStruct& time)
+{
+    if (settings.kill_hats)
+        return;
+
+    switch (settings.hat_style)
+    {
+    case HatStyle::HatOpen:
+        play_hats_open(settings, time);
+        break;
+    case HatStyle::HatBoth:
+        play_hats_closed(settings, time);
+        play_hats_open(settings, time);
+        break;
+    case HatStyle::HatClosed:
+        play_hats_closed(settings, time);
         break;
     }
 }
@@ -162,7 +204,7 @@ void play_503(ApplicationData& data, const TimeStruct& time)
     }
 
     // Play hats
-    play_hats(data, time);
+    play_hats(data.mfb_503_settings, time);
 
     // Play toms
     uint8_t tom_prob = cv(data.mfb_503_settings.tom_pattern, time.step);
