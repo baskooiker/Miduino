@@ -20,13 +20,16 @@ void set_scale(Scale& scale, const ScaleType type)
     case ScaleType::IONIAN:
         scale.length = sizeof(ionian) / sizeof(uint8_t);
         notes_ptr = ionian;
+        break;
     case ScaleType::DORIAN:
         scale.length = sizeof(dorian) / sizeof(uint8_t);
         notes_ptr = dorian;
+        break;
     default:
     case ScaleType::AEOLIAN:
         scale.length = sizeof(aeolian) / sizeof(uint8_t);
         notes_ptr = aeolian;
+        break;
     }
 
     for (int i = 0; i < scale.length; i++)
@@ -45,7 +48,7 @@ const Scale get_scale(const ScaleType scale_type, const Root root = ROOT_C)
     return scale;
 }
 
-uint8_t apply_scale(uint8_t note_nr, Scale scale, uint8_t octave)
+uint8_t apply_scale(uint8_t note_nr, const Scale& scale, uint8_t octave)
 {
     uint8_t note = scale.notes[note_nr % scale.length]; // Actual pitch
     note += scale.root; // Transpose to correct root note
@@ -53,7 +56,7 @@ uint8_t apply_scale(uint8_t note_nr, Scale scale, uint8_t octave)
     return note;
 }
 
-uint8_t apply_scale_offset(uint8_t note_nr, Scale scale, uint8_t offset, uint8_t chord_step)
+uint8_t apply_scale_offset(uint8_t note_nr, const Scale& scale, uint8_t offset, uint8_t chord_step)
 {
     uint8_t octave = note_nr / scale.length;
     uint8_t note = scale.notes[(note_nr + chord_step) % scale.length]; // Actual pitch

@@ -87,7 +87,7 @@ uint8_t get_arp_pitch(
     return 0;
 }
 
-void get_arp_pitches_by_range(ArpData& arp_data, const Scale scale, const uint8_t chord)
+void get_arp_pitches_by_range(ArpData& arp_data, const Scale& scale, const uint8_t chord)
 {
     arp_data.arp_notes_length = 0;
     for (int i = arp_data.min; i < arp_data.min + arp_data.range; i++)
@@ -96,8 +96,7 @@ void get_arp_pitches_by_range(ArpData& arp_data, const Scale scale, const uint8_
             arp_data.arp_notes[arp_data.arp_notes_length++] = i;
     }
 }
-
-void get_arp_pitches_by_count(ArpData& arp_data, const Scale scale, const uint8_t chord)
+void get_arp_pitches_by_count(ArpData& arp_data, const Scale& scale, const uint8_t chord)
 {
     int i = arp_data.min;
     arp_data.arp_notes_length = 0;
@@ -110,7 +109,7 @@ void get_arp_pitches_by_count(ArpData& arp_data, const Scale scale, const uint8_
     }
 }
 
-uint8_t get_next_arp_pitch(ArpData& arp_data, const Scale scale, const uint8_t chord)
+uint8_t get_next_arp_pitch(ArpData& arp_data, const Scale& scale, const uint8_t chord)
 {
     switch (arp_data.range_type)
     {

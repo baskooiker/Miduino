@@ -66,3 +66,13 @@ void print_storage(PitchStorage& storage)
             storage.data[i].type);
     }
 }
+
+void print_scale(const Scale& scale)
+{
+    printf("Root = %d\n", scale.root);
+    for (int i = 0; i < scale.length; i++)
+    {
+        printf("%-2d  ", scale.notes[i]);
+    }
+    printf("\n");
+}

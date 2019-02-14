@@ -138,7 +138,7 @@ void play_hats_closed(Mfb503Settings& settings, const TimeStruct& time)
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
-            velocity = apply_cv(cv(settings.hat_velocity, time.step), 64, 64);
+            velocity = apply_cv(cv(settings.hat_velocity, time.step), 50, 32);
             note_on(make_note(settings.closed_hat_note, velocity), settings.storage);
         }
         break;
