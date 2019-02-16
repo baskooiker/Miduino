@@ -46,7 +46,7 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
     player_settings.interval = intervals[0];
     player_settings.type = random_player_type();
 
-    switch (distribution(16, 4, 4, 4, 4))
+    switch (distribution(32, 4, 4, 4, 4))
     {
     case 0: player_settings.rhythm = BXXXX; break;
     case 1: player_settings.rhythm = BXXX0; break;
@@ -54,13 +54,6 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
     case 3: player_settings.rhythm = BX0XX; break;
     case 4: player_settings.rhythm = B0XXX; break;
     }
-
-    //switch (distribution(16, 4, 4))
-    //{
-    //case 0: player_settings.note_repeat = 1; break;
-    //case 1: player_settings.note_repeat = 2; break;
-    //case 2: player_settings.note_repeat = 3; break;
-    //}
 }
 
 void randomize_fugue(ApplicationData& data)
@@ -78,25 +71,10 @@ void randomize_fugue(ApplicationData& data)
         }
     }
 
-    data.bass_settings.fugue_id = 0;
-    data.bass_dub_settings.fugue_id = 1;
-    data.mono_settings.fugue_id = 2;
-    data.mono_dub_settings.settings.fugue_id = 3;
-
     for (int i = 0; i < NUMBER_FUGUE_PLAYERS; i++)
     {
         randomize_fugue_player(data.fugue_settings, i);
     }
-
-    // Set bass
-    data.bass_settings.style = BassStyle::BassFugue;
-    // Set bass dub
-    data.bass_dub_settings.style = BassDubStyle::DubFugue;
-    // Set mono
-    data.mono_settings.style = MonoStyle::MonoFugue;
-    // Set mono dub
-    data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
-    data.mono_dub_settings.settings.style = MonoStyle::MonoFugue;
 }
 
 void play_fugue(
@@ -111,7 +89,7 @@ void play_fugue(
         FuguePlayerSettings& player_settings = fugue_settings.player_settings[player_id % NUMBER_FUGUE_PLAYERS];
         bool hit = false;
 
-        int8_t player_length_idx = player_settings.length + (((int8_t)player_settings.density * 5) / 128) - 2;
+        uint8_t player_length_idx = apply_cv(player_settings.density, 5, player_settings.length - 2);
         uint8_t player_length = time_intervals[MAX(MIN(player_length_idx, nr_time_intervals), 0)];
 
         if (player_settings.counter % player_length == 0)

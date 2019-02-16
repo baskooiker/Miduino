@@ -17,9 +17,6 @@ UiState init_ui_state()
 {
     UiState s = { 0 };
 
-    s.drum_fill = false;
-    s.drum_roll = false;
-
     s.kill_perc = false;
     s.kill_mid = false;
     s.kill_low = false;

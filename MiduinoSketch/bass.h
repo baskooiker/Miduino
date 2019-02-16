@@ -15,7 +15,14 @@ void randomize_bass(BassSettings& settings)
     randomize(settings.octaves, 2, randi(4, 6));
     randomize(settings.pitches);
     set_gates_low(settings.low_pattern, 1);
-    set_euclid(settings.euclid_pattern, 16, 5);
+
+    uint8_t steps = 5;
+    switch (distribution(20, 20))
+    {
+    case 0: steps = 3;  break;
+    case 1: steps = 5;  break;
+    }
+    set_euclid(settings.euclid_pattern, 16, steps);
     
     randomize(settings.slides, .15f);
 

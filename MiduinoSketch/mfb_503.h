@@ -13,16 +13,49 @@
 #include "rand.h"
 #include "rhythms.h"
 
-void randomize_503_seq(ApplicationData& data)
+void set_kick_fill(BinaryPattern& pattern, uint8_t offset)
 {
-    Mfb503Settings& settings = data.mfb_503_settings;
+    static const uint8_t fill_a[] = { 1, 0, 0, 1, 0, 0, 1, 0 };
+    static const uint8_t fill_b[] = { 1, 0, 1, 0, 0, 1, 0, 0 };
+    static const uint8_t fill_c[] = { 0, 1, 0, 1, 0, 0, 1, 0 };
+    static const uint8_t fill_d[] = { 0, 1, 0, 0, 1, 0, 1, 0 };
 
-    set_euclid(data.mfb_503_settings.ac_pattern.pattern, 16, randi(4, 13));
-    set_coef_kick_pattern(data.mfb_503_settings.bd_pattern);
-    set_coef_snare_pattern(data.mfb_503_settings.sd_pattern);
+    const uint8_t* fill = 0;
+    switch (distribution(10, 10, 10, 10))
+    {
+    case 0: fill = fill_a; break;
+    case 1: fill = fill_b; break;
+    case 2: fill = fill_c; break;
+    case 3: fill = fill_d; break;
+    }
+
+    for (int i = 0; i < 8; i++)
+    {
+        uint8_t index = offset + i;
+        if (index < 16)
+        {
+            set_gate(pattern, index, fill[i]);
+        }
+    }
+}
+
+void randomize_503_kick(Mfb503Settings& settings)
+{
+    // Fill in first or second half of bar
+    uint8_t half = distribution(64, 64);
+
+    uint8_t bar = settings.bd_pattern.abPattern[randi(4)];
+    set_kick_fill(settings.bd_pattern.patterns[bar], half * 8);
+}
+
+void randomize_503_seq(Mfb503Settings& settings)
+{
+    set_coef_kick_pattern(settings.bd_pattern);
+
+    set_coef_snare_pattern(settings.sd_pattern);
 
     // Randomize hats
-    set_coef_hat_pattern(data.mfb_503_settings.oh_pattern);
+    set_coef_hat_pattern(settings.oh_pattern);
     uint8_t four_pat = 0;
     switch (distribution(10, 10, 10, 10, 10, 10))
     {
@@ -53,20 +86,20 @@ void randomize_503_seq(ApplicationData& data)
     case 1: settings.closed_hat_note = NOTE_503_HH_2; break;
     case 2: settings.closed_hat_note = NOTE_503_HH_3; break;
     }
-    randomize_interval_hat(data.mfb_503_settings.hat_int_pattern);
+    randomize_interval_hat(settings.hat_int_pattern);
     randomize(settings.hat_velocity);
 
     // Randomize Cymbal
-    set_coef_kick_pattern(data.mfb_503_settings.cy_pattern);
+    set_coef_kick_pattern(settings.cy_pattern);
 
     // Randomize toms
-    randomize(data.mfb_503_settings.tom_pattern);
-    data.mfb_503_settings.nr_toms = randi(1, 3);
-    data.mfb_503_settings.toms_offset = randi(3);
-    randomize_mask_pattern(data.mfb_503_settings.tom_mask);
+    randomize(settings.tom_pattern);
+    settings.nr_toms = randi(1, 3);
+    settings.toms_offset = randi(3);
+    randomize_mask_pattern(settings.tom_mask);
 }
 
-void play_fill(ApplicationData& data, const TimeStruct time)
+void play_fill(Mfb503Settings& settings, const TimeStruct time)
 {
     if (!interval_hit(TimeDivision::Sixteenth, time))
         return;
@@ -82,10 +115,10 @@ void play_fill(ApplicationData& data, const TimeStruct time)
     case 5: p = NOTE_503_OH; break;
     case 6: p = NOTE_503_HH; break;
     }
-    note_on(make_note(p, 127), data.mfb_503_settings.storage);
+    note_on(make_note(p, 127), settings.storage);
 }
 
-void play_roll(ApplicationData& data, const TimeStruct& time)
+void play_roll(Mfb503Settings& settings, const TimeStruct& time)
 {
     static TimeDivision division = TimeDivision::Sixteenth;
     if (interval_hit(TimeDivision::Sixteenth, time))
@@ -103,7 +136,7 @@ void play_roll(ApplicationData& data, const TimeStruct& time)
 
     if (interval_hit(division, time))
     {
-        note_on(make_note(NOTE_503_SD, data.ui_state.drum_roll), data.mfb_503_settings.storage);
+        note_on(make_note(NOTE_503_SD, settings.snare_roll), settings.storage);
     }
 }
 
@@ -182,14 +215,15 @@ void play_hats(Mfb503Settings& settings, const TimeStruct& time)
 
 void play_503(ApplicationData& data, const TimeStruct& time)
 {
-    if (data.ui_state.drum_fill)
+    Mfb503Settings& settings = data.mfb_503_settings;
+    if (settings.drum_fill)
     {
-        return play_fill(data, time);
+        return play_fill(settings, time);
     }
 
-    if (data.ui_state.drum_roll > 0)
+    if (settings.snare_roll > 0)
     {
-        play_roll(data, time);
+        play_roll(settings, time);
     }
 
     uint8_t velocity = 63;
@@ -198,39 +232,39 @@ void play_503(ApplicationData& data, const TimeStruct& time)
     play_bd(data, time);
 
     // Play snare
-    if (gate(data.mfb_503_settings.sd_pattern, time) && !data.ui_state.kill_mid)
+    if (gate(settings.sd_pattern, time) && !data.ui_state.kill_mid)
     {
-        note_on(make_note(NOTE_503_SD, velocity), data.mfb_503_settings.storage);
+        note_on(make_note(NOTE_503_SD, velocity), settings.storage);
     }
 
     // Play hats
-    play_hats(data.mfb_503_settings, time);
+    play_hats(settings, time);
 
     // Play toms
-    uint8_t tom_prob = cv(data.mfb_503_settings.tom_pattern, time.step);
+    uint8_t tom_prob = cv(settings.tom_pattern, time.step);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
-        && gate(data.mfb_503_settings.tom_mask, time)
-        && data.mfb_503_settings.volume_tom > 0)
+        && gate(settings.tom_mask, time)
+        && settings.volume_tom > 0)
     {
-        uint8_t tom_id = tom_prob % data.mfb_503_settings.nr_toms;
-        tom_id = (tom_id + data.mfb_503_settings.toms_offset) % 3;
+        uint8_t tom_id = tom_prob % settings.nr_toms;
+        tom_id = (tom_id + settings.toms_offset) % 3;
         uint8_t tom_pitch = NOTE_503_LT;
         if (tom_id == 1)
             tom_pitch = NOTE_503_MT;
         else if (tom_id == 2)
             tom_pitch = NOTE_503_HT;
-        note_on(make_note(tom_pitch, 64), data.mfb_503_settings.storage);
+        note_on(make_note(tom_pitch, 64), settings.storage);
     }
 
     // Play Cymbal
-    if (data.mfb_503_settings.volume_cy > 0)
+    if (settings.volume_cy > 0)
     {
-        if (gate(data.mfb_503_settings.cy_pattern, time))
+        if (gate(settings.cy_pattern, time))
         {
             note_on(make_note(NOTE_503_CY,
-                    data.mfb_503_settings.volume_cy), 
-                    data.mfb_503_settings.storage);
+                    settings.volume_cy), 
+                    settings.storage);
         }
     }
 }
@@ -249,13 +283,13 @@ const RandomParam random_503_params[] = {
 
     {HH_LEVEL , 126, 127},
     {HH_MIX   ,   0, 127},
-    {OH_DECAY ,   0, 64 },
+    {OH_DECAY ,  32, 84 },
     {HH_DECAY ,   0, 64 },
 
     //{MFB_503_CY_LEVEL, 126, 127},
     {MFB_503_CY_MIX  , 100, 127},
-    {MFB_503_CY_DECAY, 126, 127},
-    {MFB_503_CY_TUNE ,  64, 127},
+    {MFB_503_CY_DECAY, 120, 127},
+    {MFB_503_CY_TUNE , 100, 127},
 
     /*{MFB_503_LT_LEVEL, 126, 127},
     {MFB_503_MT_LEVEL, 126, 127},
@@ -278,29 +312,8 @@ void randomize_503_sound(ApplicationData& data)
                 MIDI_CHANNEL_503);
     }
 
-    // Randomize Tom sounds
-    //uint8_t tom_dec = randi(TOM_DEC_MIN, TOM_DEC_MAX);
-    //send_cc(MFB_503_LT_DECAY, tom_dec, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_MT_DECAY, tom_dec, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_HT_DECAY, tom_dec, MIDI_CHANNEL_503);
-
-    //uint8_t tom_tune = randi(16, 32);
-    //uint8_t tom_spread = randi(12, 30);
-    //send_cc(MFB_503_LT_TUNE, tom_tune, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_MT_TUNE, tom_tune + tom_spread, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_HT_TUNE, tom_tune + tom_spread * 2, MIDI_CHANNEL_503);
-    //
-    //uint8_t tom_pitch = randi(16, 32);
-    //send_cc(MFB_503_LT_PITCH, tom_pitch, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_MT_PITCH, tom_pitch + tom_spread, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_HT_PITCH, tom_pitch + tom_spread * 2, MIDI_CHANNEL_503);
-    //
-    //send_cc(MFB_503_LT_LEVEL, 127, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_MT_LEVEL, 127, MIDI_CHANNEL_503);
-    //send_cc(MFB_503_HT_LEVEL, 127, MIDI_CHANNEL_503);
-
     // Randomize other sound settings
-    data.mfb_503_settings.play_pitch_bd = randi(128) < 32;
+    data.mfb_503_settings.play_pitch_bd = randi(128) < 64;
     data.mfb_503_settings.bd_decay = randi(32, 64);
     send_bd_decay(data);
 }

@@ -69,7 +69,7 @@ void play_mono(
     const HarmonyStruct& harmony, 
     const TimeStruct& time)
 {
-    if (settings.style == MonoStyle::MonoFugue && time.tick == 0)
+    if (settings.style == MonoStyle::MonoFugue)
     {
         return play_fugue(
             data.fugue_settings,

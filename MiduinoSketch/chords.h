@@ -41,7 +41,7 @@ bool is_in_chord(const uint8_t pitch, const Scale& scale, const uint8_t chord)
     return false;
 }
 
-void get_chord(uint8_t chord, Scale& scale, uint8_t offset, uint8_t* chord_notes, uint8_t& size)
+void get_chord(uint8_t chord, const Scale& scale, uint8_t offset, uint8_t* chord_notes, uint8_t& size)
 {
     size = 0;
     for (int i = offset; i < offset + 12; i++)

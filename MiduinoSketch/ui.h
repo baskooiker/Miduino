@@ -14,10 +14,10 @@ void set_button_state(UiState& state, uint8_t index, bool value)
     }
 }
 
-bool get_button_state(const UiState& state, uint8_t index)
-{
-    return (((state.bsp_button_state) & (uint16_t)(0x1 << (uint16_t)(index % 16)))) > 0;
-}
+//bool get_button_state(const UiState& state, uint8_t index)
+//{
+//    return (((state.bsp_button_state) & (uint16_t)(0x1 << (uint16_t)(index % 16)))) > 0;
+//}
 
 void set_pad_state(UiState& state, uint8_t index, bool value)
 {
@@ -31,10 +31,10 @@ void set_pad_state(UiState& state, uint8_t index, bool value)
     }
 }
 
-bool get_pad_state(const UiState& state, uint8_t index)
-{
-    return (((state.bsp_pad_state) & (uint16_t)(0x1 << (uint16_t)(index % 16)))) > 0;
-}
+//bool get_pad_state(const UiState& state, uint8_t index)
+//{
+//    return (((state.bsp_pad_state) & (uint16_t)(0x1 << (uint16_t)(index % 16)))) > 0;
+//}
 
 bool was_pressed_long(ButtonState& state)
 {
@@ -148,4 +148,9 @@ const ButtonState& get_step_state(const ButtonState* state, uint8_t id)
 const ButtonState& get_pad_state(const ButtonState* state, uint8_t id)
 {
     return state[get_pad_index(id)];
+}
+
+bool is_pressed(const ButtonState& state)
+{
+    return state.last_released < state.last_pressed;
 }

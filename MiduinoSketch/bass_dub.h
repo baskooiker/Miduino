@@ -7,7 +7,7 @@
 
 void randomize_bass_dub(BassDubSettings& settings)
 {
-    switch (distribution(0, 30, 10, 10))
+    switch (distribution(0, 30, 10, 0))
     {
     case 0: settings.style = BassDubStyle::DubUnison; break;
     case 1: settings.style = BassDubStyle::DubOctave; break;
@@ -31,11 +31,14 @@ void play_bass_dub(
     const HarmonyStruct harmony,
     const TimeStruct& time)
 {
-    if (dub_settings.style == BassDubStyle::DubFugue && time.tick == 0)
+    if (dub_settings.style == BassDubStyle::DubFugue)
     {
         return play_fugue(
             data.fugue_settings,
-            dub_settings.fugue_id, harmony, time, dub_settings.storage);
+            dub_settings.fugue_id, 
+            harmony, 
+            time, 
+            dub_settings.storage);
     }
 
     bool hit = get_bass_hit(settings, time);
@@ -68,6 +71,8 @@ void play_bass_dub(
         case BassDubStyle::DubOctProbability:
             if (gate(dub_settings.octave_probs, time))
             {
+                // Make oct pattern into cv for more range
+                //pitch += get_distributed_range(cv(dub_settings.octave_probs), 127, 3) * 12;
                 pitch += 12;
             }
             break;

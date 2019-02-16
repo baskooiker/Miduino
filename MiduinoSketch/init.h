@@ -9,7 +9,6 @@ Mfb503Settings init_503_settings()
 {
     Mfb503Settings s = { 0 };
 
-    s.ac_pattern = init_gate_pattern();
     s.bd_pattern = init_gate_pattern_ab();
     s.sd_pattern = init_gate_pattern_ab();
     s.cy_pattern = init_gate_pattern_ab();
@@ -77,6 +76,7 @@ MonoSettings init_mono_settings()
     s.euclid_pattern = init_gate_pattern_ab();
     s.lead_pattern = init_interval_pattern();
     s.storage = init_pitch_storage();
+    s.fugue_id = 0;
 
     return s;
 }
@@ -159,8 +159,8 @@ ApplicationData init_application_data()
 
     i.mfb_503_settings = init_503_settings();
 
-    i.poly_settings = init_poly_settings();
-    i.lead_settings = init_lead_settings();
+    //i.poly_settings = init_poly_settings();
+    //i.lead_settings = init_lead_settings();
 
     i.bass_settings = init_bass_settings();
     i.bass_dub_settings = init_bass_dub_settings();
@@ -168,12 +168,17 @@ ApplicationData init_application_data()
     i.mono_dub_settings = init_mono_dub_settings();
 
     i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;
-    i.lead_settings.storage.channel = MIDI_CHANNEL_LEAD;
+    //i.lead_settings.storage.channel = MIDI_CHANNEL_LEAD;
     i.mono_settings.storage.channel = MIDI_CHANNEL_MONO;
     i.mono_dub_settings.settings.storage.channel = MIDI_CHANNEL_MONO_2;
-    i.poly_settings.storage.channel = MIDI_CHANNEL_POLY;
+    //i.poly_settings.storage.channel = MIDI_CHANNEL_POLY;
     i.bass_settings.storage.channel = MIDI_CHANNEL_BASS;
     i.bass_dub_settings.storage.channel = MIDI_CHANNEL_BASS_DUB;
+
+    i.bass_settings.fugue_id = 0;
+    i.bass_dub_settings.fugue_id = 1;
+    i.mono_settings.fugue_id = 2;
+    i.mono_dub_settings.settings.fugue_id = 3;
 
     return i;
 }

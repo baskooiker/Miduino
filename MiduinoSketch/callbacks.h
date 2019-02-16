@@ -39,23 +39,23 @@ void handleNoteOnPlaying(ApplicationData& data, byte channel, byte pitch, byte v
         data.mfb_503_settings.kill_hats = !data.mfb_503_settings.kill_hats;
         break;
     case BSP_PAD_05:
-        break;
-    case BSP_PAD_06:
-        break;
-    case BSP_PAD_07:
-        break;
-    case BSP_PAD_08:
         data.bass_settings.kill = !data.bass_settings.kill;
         if (data.bass_settings.kill)
         {
             stop_notes(data.bass_settings.storage);
         }
         break;
+    case BSP_PAD_06:
+        break;
+    case BSP_PAD_07:
+        break;
+    case BSP_PAD_08:
+        break;
     case BSP_PAD_09:
-        data.ui_state.drum_fill = true;
+        data.mfb_503_settings.drum_fill = true;
         break;
     case BSP_PAD_10:
-        data.ui_state.drum_roll = velocity;
+        data.mfb_503_settings.snare_roll = velocity;
         break;
     case BSP_PAD_11:
         break;
@@ -172,38 +172,43 @@ void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocit
         }
         break;
     case BSP_PAD_05:
+        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
+        {
+            data.bass_settings.kill = false;
+        }
         break;
     case BSP_PAD_06:
         break;
     case BSP_PAD_07:
         break;
     case BSP_PAD_08:
-        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
-        {
-            data.bass_settings.kill = false;
-        }
         break;
     case BSP_PAD_09:
-        data.ui_state.drum_fill = false;
+        data.mfb_503_settings.drum_fill = false;
         break;
     case BSP_PAD_10:
-        data.ui_state.drum_roll = false;
+        data.mfb_503_settings.snare_roll = false;
         break;
     case BSP_PAD_11:
         break;
     case BSP_PAD_12:
         break;
     case BSP_PAD_13:
-        randomize_fugue_player(data.fugue_settings, 3);
+        randomize_fugue_player(data.fugue_settings, 0);
+        data.bass_settings.style = BassStyle::BassFugue;
         break;
     case BSP_PAD_14:
-        randomize_fugue_player(data.fugue_settings, 2);
+        randomize_fugue_player(data.fugue_settings, 1);
+        data.bass_dub_settings.style = BassDubStyle::DubFugue;
         break;
     case BSP_PAD_15:
-        randomize_fugue_player(data.fugue_settings, 1);
+        randomize_fugue_player(data.fugue_settings, 2);
+        data.mono_settings.style = MonoStyle::MonoFugue;
         break;
     case BSP_PAD_16:
-        randomize_fugue_player(data.fugue_settings, 0);
+        randomize_fugue_player(data.fugue_settings, 3);
+        data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
+        data.mono_dub_settings.settings.style = MonoStyle::MonoFugue;
         break;
     default:
         break;
@@ -262,14 +267,14 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
     case BSP_KNOB_11:
         break;
     case BSP_KNOB_04:
-        if (value < 64)
-        {
-            data.poly_settings.type = PolyType::PolyLow;
-        }
-        else
-        {
-            data.poly_settings.type = PolyType::PolyHigh;
-        }
+        //if (value < 64)
+        //{
+        //    data.poly_settings.type = PolyType::PolyLow;
+        //}
+        //else
+        //{
+        //    data.poly_settings.type = PolyType::PolyHigh;
+        //}
         break;
     case BSP_KNOB_12:
         data.ui_state.poly_pitch_offset = value;
@@ -307,10 +312,16 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         if (value == 0)
         {
             randomize_503_sound(data);
-            randomize_503_seq(data);
+            randomize_503_seq(data.mfb_503_settings);
         }
         break;
     case BSP_STEP_02:
+        if (value == 0)
+        {
+            randomize_503_sound(data);
+            randomize_503_seq(data.mfb_503_settings);
+            randomize_503_kick(data.mfb_503_settings);
+        }
         break;
     case BSP_STEP_03:
         break;
@@ -323,24 +334,24 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
     case BSP_STEP_07:
         if (value == 0)
         {
-            randomize_poly(data);
+            //randomize_poly(data);
         }
         break;
     case BSP_STEP_08:
         if (value == 0)
         {
-            randomize_lead(data);
+            //randomize_lead(data);
         }
         break;
     case BSP_STEP_09:
         if (value == 0)
         {
             randomize_bass(data.bass_settings);
-            switch (randi(3))
+            switch (randi(2))
             {
-            case 0: data.bass_settings.style = BassStyle::BassLow; break;
-            case 1: data.bass_settings.style = BassStyle::BassArpInterval; break;
-            case 2: data.bass_settings.style = BassStyle::BassEuclid; break;
+            case 0: data.bass_settings.style = BassStyle::BassArpInterval; break;
+            case 1: data.bass_settings.style = BassStyle::BassEuclid; break;
+            //case 2: data.bass_settings.style = BassStyle::BassLow; break;
             }
         }
         break;
@@ -352,15 +363,36 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         }
         break;
     case BSP_STEP_11:
-        if (value == 0)
+        if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_12)) > SHORT_PRESS_TIME)
         {
-            randomize_bass_dub(data.bass_dub_settings);
+            if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_12)))
+            {
+                randomize_bass_dub(data.bass_dub_settings);
+                data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
+            }
+            else
+            {
+                randomize_bass_dub(data.bass_dub_settings);
+                data.bass_dub_settings.style = BassDubStyle::DubUnison;
+            }
         }
         break;
     case BSP_STEP_12:
+        if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_11)) > SHORT_PRESS_TIME)
+        {
+            if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_11)))
+            {
+                randomize_bass_dub(data.bass_dub_settings);
+                data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
+            }
+            else
+            {
+                randomize_bass_dub(data.bass_dub_settings);
+                data.bass_dub_settings.style = BassDubStyle::DubOctave;
+            }
+        }
         if (value == 0)
         {
-            randomize_bass_dub(data.bass_dub_settings);
         }
         break;
     case BSP_STEP_13:
@@ -384,18 +416,42 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
     case BSP_STEP_15:
         if (value == 0)
         {
-            randomize_mono_dub(data.mono_dub_settings);
-            data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
+            if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_16)) > SHORT_PRESS_TIME)
+            {
+                if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_16)))
+                {
+                    randomize_mono_dub(data.mono_dub_settings);
+                    data.mono_dub_settings.style = MonoDubStyle::MonoDubOctave;
+                }
+                else
+                {
+                    randomize_mono_dub(data.mono_dub_settings);
+                    data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
+                    switch (randi(2))
+                    {
+                    case 0: data.mono_dub_settings.settings.style = MonoStyle::MonoPolyRhythm; break;
+                    case 1: data.mono_dub_settings.settings.style = MonoStyle::MonoLeadPattern; break;
+                    }
+                }
+            }
         }
         break;
     case BSP_STEP_16:
         if (value == 0)
         {
-            randomize_mono_dub(data.mono_dub_settings);
-            switch (randi(2))
+            if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_15)) > SHORT_PRESS_TIME)
             {
-            case 0: data.mono_dub_settings.style = MonoDubStyle::MonoDubOctave; break;
-            case 1: data.mono_dub_settings.style = MonoDubStyle::MonoDubUnison; break;
+                if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_15)))
+                {
+                    randomize_mono_dub(data.mono_dub_settings);
+                    data.mono_dub_settings.style = MonoDubStyle::MonoDubOctave;
+                }
+                else
+                {
+                    randomize_mono_dub(data.mono_dub_settings);
+                    data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
+                    data.mono_dub_settings.settings.style = MonoStyle::MonoSixteenths;
+                }
             }
         }
         break;
@@ -463,8 +519,6 @@ void handleStop(ApplicationData& data)
     all_notes_off(data.mfb_503_settings.storage);
     all_notes_off(data.bass_settings.storage);
     all_notes_off(data.bass_dub_settings.storage);
-    all_notes_off(data.poly_settings.storage);
-    all_notes_off(data.lead_settings.storage);
     all_notes_off(data.mono_settings.storage);
     all_notes_off(data.mono_dub_settings.settings.storage);
 

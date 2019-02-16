@@ -118,8 +118,6 @@ typedef struct {
     bool kill_mid;
     bool kill_perc;
 
-    bool drum_fill;
-    uint8_t drum_roll;
     uint8_t bd_decay_factor;
     uint8_t poly_pitch_offset;
 } UiState;
@@ -231,7 +229,6 @@ typedef struct {
 } HarmonyStruct;
 
 typedef struct {
-    GatePattern16 ac_pattern;
     GatePatternAB bd_pattern;
     GatePatternAB sd_pattern;
     GatePatternAB hh_pattern;
@@ -256,6 +253,8 @@ typedef struct {
     HatClosedStyle hat_closed_style;
     uint8_t closed_hat_note;
     bool kill_hats;
+    bool drum_fill;
+    uint8_t snare_roll;
 
     PitchStorage storage;
 } Mfb503Settings;
@@ -293,13 +292,13 @@ typedef struct {
 
     FugueSettings fugue_settings;
 
-    PolySettings poly_settings;
     Mfb503Settings mfb_503_settings;
+
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;
-    LeadSettings lead_settings;
     MonoSettings mono_settings;
     MonoDubSettings mono_dub_settings;
 
     UiState ui_state;
+
 } ApplicationData;

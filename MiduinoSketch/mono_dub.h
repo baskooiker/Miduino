@@ -24,19 +24,7 @@ void play_mono_dub(
     switch (settings.style)
     {
     case MonoDubStyle::MonoDubLead: 
-        if (settings.settings.style == MonoStyle::MonoFugue)
-        {
-            return play_fugue(
-                data.fugue_settings,
-                settings.settings.fugue_id,
-                harmony,
-                time,
-                settings.settings.storage);
-        }
-        else
-        {
-            hit = get_mono_hit(settings.settings, time);
-        }
+        return play_mono(data, settings.settings, harmony, time);
         break;
     case MonoDubStyle::MonoDubUnison: 
     case MonoDubStyle::MonoDubOctave:
