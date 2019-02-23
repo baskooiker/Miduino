@@ -5,12 +5,6 @@
 void randomize_mono_dub(MonoDubSettings& settings)
 {
     randomize_mono(settings.settings);
-    switch (distribution(50, 10, 20))
-    {
-    case 0: settings.style = MonoDubStyle::MonoDubLead; break;
-    case 1: settings.style = MonoDubStyle::MonoDubUnison; break;
-    case 2: settings.style = MonoDubStyle::MonoDubOctave; break;
-    }
 }
 
 void play_mono_dub(
@@ -26,8 +20,7 @@ void play_mono_dub(
     case MonoDubStyle::MonoDubLead: 
         return play_mono(data, settings.settings, harmony, time);
         break;
-    case MonoDubStyle::MonoDubUnison: 
-    case MonoDubStyle::MonoDubOctave:
+    case MonoDubStyle::MonoDubUnison:
         hit = get_mono_hit(lead_settings, time); 
         break;
     }
@@ -44,13 +37,10 @@ void play_mono_dub(
         case MonoDubStyle::MonoDubUnison:
             pitch = get_mono_pitch(lead_settings, harmony, time);
             break;
-        case MonoDubStyle::MonoDubOctave:
-            pitch = get_mono_pitch(lead_settings, harmony, time);
-            pitch += 12;
-            break;
         }
 
-        uint8_t length = 6;
-        note_on(make_note(pitch, 64, length, NoteType::Tie), settings.settings.storage);
+        pitch = clip_pitch(pitch, apply_cv(settings.variable_pitch_offset, 48, 36));
+
+        note_on(make_note(pitch, 64, 6, NoteType::Tie), settings.settings.storage);
     }
 }

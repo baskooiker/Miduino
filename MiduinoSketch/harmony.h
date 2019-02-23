@@ -24,7 +24,11 @@ void randomize_harmony(ApplicationData& data)
     // Set high pattern
     set_chord_pattern_ab(data.harmony.high_pattern);
     set_ab_pattern_high(data.harmony.high_pattern.abPattern);
-    data.harmony.high_pattern.time_division = TimeDivision::Sixteenth;
+    switch (distribution(10, 10))
+    {
+    case 0: data.harmony.high_pattern.time_division = TimeDivision::Sixteenth; break;
+    case 1: data.harmony.high_pattern.time_division = TimeDivision::Eight; break;
+    }
 }
 
 uint8_t get_chord_step(const HarmonyStruct& harmony, const TimeStruct& time)

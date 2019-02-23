@@ -20,3 +20,8 @@ uint8_t clip_pitch(const uint8_t pitch, const uint8_t min, const uint8_t _max)
         return clip_pitch(pitch - 12, min, max);
     return pitch;
 }
+
+uint8_t clip_pitch(const uint8_t pitch, const uint8_t min)
+{
+    return clip_pitch(pitch, min, min + 12);
+}

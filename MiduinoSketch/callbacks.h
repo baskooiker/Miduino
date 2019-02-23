@@ -12,6 +12,7 @@
 #include "rand.h"
 #include "rhythms.h"
 #include "scales.h"
+#include "step_callbacks.h"
 #include "ui.h"
 
 #include "lead.h"
@@ -22,7 +23,7 @@
 #include "poly.h"
 #include "bass.h"
 
-void handleNoteOnPlaying(ApplicationData& data, byte channel, byte pitch, byte velocity)
+void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
 {
     switch (pitch)
     {
@@ -74,7 +75,7 @@ void handleNoteOnPlaying(ApplicationData& data, byte channel, byte pitch, byte v
     }
 }
 
-void handleNoteOnStopped(ApplicationData& data, byte channel, byte pitch, byte velocity)
+void handleNoteOnStopped(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
 {
     switch (pitch)
     {
@@ -127,7 +128,7 @@ void handleNoteOnStopped(ApplicationData& data, byte channel, byte pitch, byte v
     }
 }
 
-void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity)
+void handleNoteOn(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
 {
     press_pad(data.ui_state.pad_state, pitch);
     switch (data.time.state)
@@ -142,7 +143,7 @@ void handleNoteOn(ApplicationData& data, byte channel, byte pitch, byte velocity
     }
 }
 
-void handleNoteOff(ApplicationData& data, byte channel, byte pitch, byte velocity)
+void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
 {
     release_pad(data.ui_state.pad_state, pitch);
     switch (pitch)
@@ -230,7 +231,35 @@ void handleClock(ApplicationData& data)
     }
 }
 
-void handleControlChangePlaying(ApplicationData& data, byte channel, byte number, byte value)
+void handle_step_release(
+    ApplicationData& data,
+    uint8_t released_button,
+    uint8_t button_1,
+    uint8_t button_2,
+    void callback_one(ApplicationData&),
+    void callback_two(ApplicationData&),
+    void callback_both(ApplicationData&))
+{
+    ButtonState other_button = released_button == button_1 ?
+        get_step_state(data.ui_state.step_state, button_2) :
+        get_step_state(data.ui_state.step_state, button_1);
+    if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_15)) > SHORT_PRESS_TIME)
+    {
+        if (is_pressed(other_button))
+        {
+            callback_both(data);
+        }
+        else
+        {   
+            if (released_button == button_1)
+                callback_one(data);
+            else
+                callback_two(data);
+        }
+    }
+}
+
+void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t number, uint8_t value)
 {
     switch (number)
     {
@@ -267,20 +296,13 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
     case BSP_KNOB_11:
         break;
     case BSP_KNOB_04:
-        //if (value < 64)
-        //{
-        //    data.poly_settings.type = PolyType::PolyLow;
-        //}
-        //else
-        //{
-        //    data.poly_settings.type = PolyType::PolyHigh;
-        //}
         break;
     case BSP_KNOB_12:
         data.ui_state.poly_pitch_offset = value;
         break;
     case BSP_KNOB_05:
         // TODO: Bass density
+        data.bass_settings.density = value;
         data.fugue_settings.player_settings[0].density = value;
         break;
     case BSP_KNOB_13:
@@ -288,9 +310,11 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         data.fugue_settings.player_settings[0].manual_pitch_offset = value;
         break;
     case BSP_KNOB_06:
+        data.bass_dub_settings.density = value;
         data.fugue_settings.player_settings[1].density = value;
         break;
     case BSP_KNOB_14:
+        data.bass_dub_settings.v_pitch = value;
         data.fugue_settings.player_settings[1].manual_pitch_offset = value;
         break;
     case BSP_KNOB_07:
@@ -305,154 +329,84 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
         break;
     case BSP_KNOB_16:
         data.mono_dub_settings.settings.variable_pitch_offset = value;
+        data.mono_dub_settings.variable_pitch_offset = value;
         data.fugue_settings.player_settings[3].manual_pitch_offset = value;
         break;
 
     case BSP_STEP_01:
         if (value == 0)
         {
-            randomize_503_sound(data);
-            randomize_503_seq(data.mfb_503_settings);
+            release_step_1(data);
         }
         break;
     case BSP_STEP_02:
         if (value == 0)
         {
-            randomize_503_sound(data);
-            randomize_503_seq(data.mfb_503_settings);
-            randomize_503_kick(data.mfb_503_settings);
+            release_step_2(data);
         }
         break;
     case BSP_STEP_03:
+        if (value == 0)
+        {
+            release_step_3(data);
+        }
         break;
     case BSP_STEP_05:
         if (value == 0)
         {
-            randomize_harmony(data);
+            release_step_5(data);
         }
         break;
     case BSP_STEP_07:
         if (value == 0)
         {
-            //randomize_poly(data);
+            release_step_7(data);
         }
         break;
     case BSP_STEP_08:
         if (value == 0)
         {
-            //randomize_lead(data);
+            release_step_8(data);
         }
         break;
     case BSP_STEP_09:
         if (value == 0)
         {
-            randomize_bass(data.bass_settings);
-            switch (randi(2))
-            {
-            case 0: data.bass_settings.style = BassStyle::BassArpInterval; break;
-            case 1: data.bass_settings.style = BassStyle::BassEuclid; break;
-            //case 2: data.bass_settings.style = BassStyle::BassLow; break;
-            }
+            release_step_9(data);
         }
         break;
     case BSP_STEP_10:
         if (value == 0)
         {
-            randomize_bass(data.bass_settings);
-            data.bass_settings.style = BassStyle::BassSixteenths; 
+            release_step_10(data);
         }
         break;
     case BSP_STEP_11:
-        if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_12)) > SHORT_PRESS_TIME)
-        {
-            if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_12)))
-            {
-                randomize_bass_dub(data.bass_dub_settings);
-                data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
-            }
-            else
-            {
-                randomize_bass_dub(data.bass_dub_settings);
-                data.bass_dub_settings.style = BassDubStyle::DubUnison;
-            }
-        }
-        break;
     case BSP_STEP_12:
-        if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_11)) > SHORT_PRESS_TIME)
-        {
-            if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_11)))
-            {
-                randomize_bass_dub(data.bass_dub_settings);
-                data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
-            }
-            else
-            {
-                randomize_bass_dub(data.bass_dub_settings);
-                data.bass_dub_settings.style = BassDubStyle::DubOctave;
-            }
-        }
         if (value == 0)
         {
+            handle_step_release(data, number, BSP_STEP_11, BSP_STEP_12,
+                release_step_11, release_step_12, release_step_11_and_12);
         }
         break;
     case BSP_STEP_13:
         if (value == 0)
         {
-            randomize_mono(data.mono_settings);
-            switch (randi(2))
-            {
-            case 0: data.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
-            case 1: data.mono_settings.style = MonoStyle::MonoLeadPattern; break;
-            }
+            release_step_13(data);
         }
         break;
     case BSP_STEP_14:
         if (value == 0)
         {
-            randomize_mono(data.mono_settings);
-            data.mono_settings.style = MonoStyle::MonoSixteenths;
+            release_step_14(data);
         }
         break;
     case BSP_STEP_15:
-        if (value == 0)
-        {
-            if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_16)) > SHORT_PRESS_TIME)
-            {
-                if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_16)))
-                {
-                    randomize_mono_dub(data.mono_dub_settings);
-                    data.mono_dub_settings.style = MonoDubStyle::MonoDubOctave;
-                }
-                else
-                {
-                    randomize_mono_dub(data.mono_dub_settings);
-                    data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
-                    switch (randi(2))
-                    {
-                    case 0: data.mono_dub_settings.settings.style = MonoStyle::MonoPolyRhythm; break;
-                    case 1: data.mono_dub_settings.settings.style = MonoStyle::MonoLeadPattern; break;
-                    }
-                }
-            }
-        }
-        break;
     case BSP_STEP_16:
         if (value == 0)
         {
-            if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_15)) > SHORT_PRESS_TIME)
-            {
-                if (is_pressed(get_step_state(data.ui_state.step_state, BSP_STEP_15)))
-                {
-                    randomize_mono_dub(data.mono_dub_settings);
-                    data.mono_dub_settings.style = MonoDubStyle::MonoDubOctave;
-                }
-                else
-                {
-                    randomize_mono_dub(data.mono_dub_settings);
-                    data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
-                    data.mono_dub_settings.settings.style = MonoStyle::MonoSixteenths;
-                }
-            }
+            handle_step_release(data, number, BSP_STEP_15, BSP_STEP_16, 
+                release_step_15, release_step_16, release_step_15_and_16);
         }
         break;
     default:
@@ -460,7 +414,7 @@ void handleControlChangePlaying(ApplicationData& data, byte channel, byte number
     }
 }
 
-void handleControlChangeStopped(ApplicationData& data, byte channel, byte number, byte value)
+void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t number, uint8_t value)
 {
     switch (number)
     {
@@ -494,7 +448,7 @@ void handleControlChangeStopped(ApplicationData& data, byte channel, byte number
     }
 }
 
-void handleControlChange(ApplicationData& data, byte channel, byte number, byte value)
+void handleControlChange(ApplicationData& data, uint8_t channel, uint8_t number, uint8_t value)
 {
     if (value > 0)
     {

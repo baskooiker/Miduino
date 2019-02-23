@@ -72,6 +72,7 @@ FuguePlayerSettings init_fugue_player_settings()
     s.length = 4;
     s.type = FuguePlayerType::FugueForward;
     s.interval = NoteInterval::IntervalRoot;
+    s.note_repeat = 1;
 
     return s;
 }

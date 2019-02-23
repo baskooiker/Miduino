@@ -153,5 +153,8 @@
     <ClInclude Include="fugue.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
+    <ClInclude Include="step_callbacks.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

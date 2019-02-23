@@ -131,6 +131,8 @@ typedef struct {
     uint8_t rhythm;
     uint8_t density;
     NoteInterval interval;
+    uint8_t note_interval;
+    uint8_t note_repeat;
 } FuguePlayerSettings;
 
 #define NUMBER_FUGUE_PLAYERS 4
@@ -158,6 +160,7 @@ typedef struct {
     uint8_t note_range_value;
     uint8_t octave_offset;
     uint8_t fugue_id;
+    uint8_t density;
 
     bool kill;
 
@@ -169,6 +172,8 @@ typedef struct {
     NoteInterval note_interval;
     GatePatternAB octave_probs;
     GatePatternAB hit_probs;
+    uint8_t density;
+    uint8_t v_pitch;
     uint8_t fugue_id;
     PitchStorage storage;
 } BassDubSettings;
@@ -282,6 +287,7 @@ typedef struct {
 } MonoSettings;
 
 typedef struct {
+    uint8_t variable_pitch_offset;
     MonoSettings settings;
     MonoDubStyle style;
 } MonoDubSettings;

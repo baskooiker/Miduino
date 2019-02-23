@@ -54,6 +54,14 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
     case 3: player_settings.rhythm = BX0XX; break;
     case 4: player_settings.rhythm = B0XXX; break;
     }
+
+    switch (distribution(32, 4, 4, 4))
+    {
+    case 0: player_settings.note_repeat = 1; break;
+    case 1: player_settings.note_repeat = 2; break;
+    case 2: player_settings.note_repeat = 3; break;
+    case 3: player_settings.note_repeat = 4; break;
+    }
 }
 
 void randomize_fugue(ApplicationData& data)
@@ -90,27 +98,27 @@ void play_fugue(
         bool hit = false;
 
         uint8_t player_length_idx = apply_cv(player_settings.density, 5, player_settings.length - 2);
-        uint8_t player_length = time_intervals[MAX(MIN(player_length_idx, nr_time_intervals), 0)];
+        uint32_t player_length = time_intervals[MAX(MIN(player_length_idx, nr_time_intervals), 0)];
 
         if (player_settings.counter % player_length == 0)
         {
             hit = gate(player_settings.rhythm, player_settings.counter / player_length, 4);
         }
         uint8_t pat_length = fugue_settings.pattern.length;
+        uint32_t hit_count = player_settings.counter % player_length;
 
         if (hit)
         {
-            uint8_t c = player_settings.counter;
+            uint32_t c = hit_count;
             switch (player_settings.type)
             {
             case FuguePlayerType::FugueForward:
-                c = player_settings.counter % pat_length;
+                c = hit_count % pat_length;
                 break;
             case FuguePlayerType::FugueBackward:
                 c = pat_length - (c % pat_length) - 1;
                 break;
             case FuguePlayerType::FugueBackAndForth:
-            {
                 c = c % (pat_length * 2);
                 if (c < pat_length)
                 {
@@ -122,12 +130,8 @@ void play_fugue(
                 }
                 break;
             }
-            }
 
-            uint8_t note_step = cv(
-                fugue_settings.pattern, 
-                c
-            );
+            uint8_t note_step = cv(fugue_settings.pattern, c / player_settings.note_repeat);
 
             uint8_t manual_pitch_offset = (uint8_t)(((uint16_t)player_settings.manual_pitch_offset * 24) / 127);
             uint8_t pitch = apply_scale_offset(

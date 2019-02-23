@@ -7,12 +7,11 @@
 
 void randomize_bass_dub(BassDubSettings& settings)
 {
-    switch (distribution(0, 30, 10, 0))
+    switch (distribution(0, 30, 10))
     {
     case 0: settings.style = BassDubStyle::DubUnison; break;
     case 1: settings.style = BassDubStyle::DubOctave; break;
     case 2: settings.style = BassDubStyle::DubOctProbability; break;
-    case 3: settings.style = BassDubStyle::DubHitProbability; break;
     }
     switch (distribution(60, 10, 20))
     {
@@ -41,21 +40,7 @@ void play_bass_dub(
             dub_settings.storage);
     }
 
-    bool hit = get_bass_hit(settings, time);
-    switch (dub_settings.style)
-    {
-    case BassDubStyle::DubUnison:
-    case BassDubStyle::DubOctave:
-    case BassDubStyle::DubOctProbability:
-        break;
-    case BassDubStyle::DubHitProbability:
-        if (hit)
-        {
-            hit = gate(dub_settings.hit_probs, time);
-        }
-        break;
-    }
-
+    bool hit = get_bass_hit(settings,dub_settings.density, time);
     if (hit)
     {
         uint8_t pitch = get_bass_pitch(settings, harmony, time);
@@ -64,7 +49,6 @@ void play_bass_dub(
         {
         case BassDubStyle::DubUnison:
             break;
-        case BassDubStyle::DubHitProbability:
         case BassDubStyle::DubOctave:
             pitch += 12;
             break;
@@ -77,6 +61,8 @@ void play_bass_dub(
             }
             break;
         }
+
+        pitch = clip_pitch(pitch, apply_cv(dub_settings.v_pitch, 36, 48));
 
         note_on(make_note(pitch, 64, 6, NoteType::Tie), dub_settings.storage);
     }

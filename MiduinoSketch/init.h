@@ -123,7 +123,7 @@ BassSettings init_bass_settings()
     s.style = BassStyle::BassLow;
     s.note_range_prob = init_cv_pattern_ab();
     s.note_range_value = 0;
-
+    s.density = 0;
     s.octave_offset = 2;
     s.kill = false;
 
@@ -140,6 +140,8 @@ BassDubSettings init_bass_dub_settings()
     s.note_interval = NoteInterval::IntervalRoot;
     s.octave_probs = init_gate_pattern_ab();
     s.hit_probs = init_gate_pattern_ab();
+    s.density = 0;
+    s.v_pitch = 0;
     s.storage = init_pitch_storage();
 
     return s;

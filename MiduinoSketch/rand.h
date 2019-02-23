@@ -1,6 +1,18 @@
 #pragma once
 
-uint8_t randi(const uint8_t max)
+#include <math.h>
+
+uint8_t exp(const uint8_t v)
+{
+    return (uint8_t)(127.9 * exp((double)(v / 127.)));
+}
+
+uint8_t log(const uint8_t v)
+{
+    return (uint8_t)(127.9 * log((double)(v / 127.)));
+}
+
+uint8_t randi(const uint8_t max = 128)
 {
     if (max == 0)
     {

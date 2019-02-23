@@ -36,7 +36,7 @@ enum NoteRange {
 enum BassStyle {
     //Whole,
     BassLow,
-    BassSixteenths,
+    //BassSixteenths,
     //Prob,
     BassArpInterval,
     BassEuclid,
@@ -47,7 +47,7 @@ enum BassDubStyle {
     DubUnison,
     DubOctave,
     DubOctProbability,
-    DubHitProbability,
+    //DubHitProbability,
     DubFugue
 };
 
@@ -105,8 +105,7 @@ enum MonoStyle {
 
 enum MonoDubStyle {
     MonoDubLead,
-    MonoDubUnison,
-    MonoDubOctave
+    MonoDubUnison
 };
 
 enum HarmonyType {

@@ -10,11 +10,15 @@
 
 void randomize_bass(BassSettings& settings)
 {
-    CvPatternAB& p_pattern = settings.pitches;
-
     randomize(settings.octaves, 2, randi(4, 6));
     randomize(settings.pitches);
     set_gates_low(settings.low_pattern, 1);
+
+    switch (distribution(10, 10))
+    {
+    case 0: settings.style = BassStyle::BassArpInterval; break;
+    case 1: settings.style = BassStyle::BassEuclid; break;
+    }
 
     uint8_t steps = 5;
     switch (distribution(20, 20))
@@ -25,17 +29,15 @@ void randomize_bass(BassSettings& settings)
     set_euclid(settings.euclid_pattern, 16, steps);
     
     randomize(settings.slides, .15f);
-
     randomize(settings.note_range_prob);
-
     randomize_interval(settings.int_pattern, arp_interval_probs);
-
     randomize(settings.accents, .5f);
     randomize(settings.variable_octaves);
-    settings.note_range_value = randi(128);
+    randomize(settings.probs);
+    settings.note_range_value = exp(randi());
 }
 
-bool get_bass_hit(BassSettings& settings, const TimeStruct& time)
+bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruct& time)
 {
     if (settings.kill)
     {
@@ -54,11 +56,13 @@ bool get_bass_hit(BassSettings& settings, const TimeStruct& time)
     case BassStyle::BassArpInterval:
         hit = interval_hit(settings.int_pattern, time);
         break;
-    case BassStyle::BassSixteenths:
-        hit = interval_hit(TimeDivision::Sixteenth, time);
-        break;
+    //case BassStyle::BassSixteenths:
+    //    hit = interval_hit(TimeDivision::Sixteenth, time);
+    //    break;
     }
-    return hit;
+
+    uint8_t prob = cv(settings.probs, time.step);
+    return hit || ((prob < density) && (prob > 0));
 }
 
 uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
@@ -118,7 +122,7 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
     }
 
     // Get hit
-    bool hit = get_bass_hit(data.bass_settings, time);
+    bool hit = get_bass_hit(data.bass_settings, data.bass_settings.density, time);
 
     if (hit)
     {

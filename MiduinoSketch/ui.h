@@ -31,11 +31,6 @@ void set_pad_state(UiState& state, uint8_t index, bool value)
     }
 }
 
-//bool get_pad_state(const UiState& state, uint8_t index)
-//{
-//    return (((state.bsp_pad_state) & (uint16_t)(0x1 << (uint16_t)(index % 16)))) > 0;
-//}
-
 bool was_pressed_long(ButtonState& state)
 {
     unsigned long t = millis();
