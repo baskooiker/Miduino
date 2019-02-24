@@ -12,10 +12,10 @@ FuguePlayerType random_player_type()
 {
     switch (randi(3))
     {
+    case 0: return FuguePlayerType::FugueForward;
     case 1: return FuguePlayerType::FugueBackward;
     case 2: return FuguePlayerType::FugueBackAndForth;
     }
-    return FuguePlayerType::FugueForward;
 }
 
 void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
@@ -64,24 +64,24 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
     }
 }
 
-void randomize_fugue(ApplicationData& data)
+void randomize_fugue(FugueSettings& settings)
 {
     // Randomize Fugue pattern
     static uint8_t pitch_opts[] = { 0, 4, 2, 3, 6 };
-    data.fugue_settings.pattern.length = 0;
+    settings.pattern.length = 0;
     uint8_t length = randi(64) < 32 ? 4 : 8;
-    while (data.fugue_settings.pattern.length < length)
+    while (settings.pattern.length < length)
     {
         randomize_order(pitch_opts, 5);
-        for (int i = 0; i < 5 && data.fugue_settings.pattern.length < length; i++)
+        for (int i = 0; i < 5 && settings.pattern.length < length; i++)
         {
-            data.fugue_settings.pattern.pattern[data.fugue_settings.pattern.length++] = pitch_opts[i];
+            settings.pattern.pattern[settings.pattern.length++] = pitch_opts[i];
         }
     }
 
     for (int i = 0; i < NUMBER_FUGUE_PLAYERS; i++)
     {
-        randomize_fugue_player(data.fugue_settings, i);
+        randomize_fugue_player(settings, i);
     }
 }
 
@@ -104,8 +104,8 @@ void play_fugue(
         {
             hit = gate(player_settings.rhythm, player_settings.counter / player_length, 4);
         }
-        uint8_t pat_length = fugue_settings.pattern.length;
-        uint32_t hit_count = player_settings.counter % player_length;
+        uint8_t pat_length = fugue_settings.pattern.length * player_settings.note_repeat;
+        uint32_t hit_count = (player_settings.counter / player_length) / player_settings.note_repeat;
 
         if (hit)
         {
@@ -131,14 +131,14 @@ void play_fugue(
                 break;
             }
 
-            uint8_t note_step = cv(fugue_settings.pattern, c / player_settings.note_repeat);
+            uint8_t note_step = cv(fugue_settings.pattern, c);
 
             uint8_t manual_pitch_offset = (uint8_t)(((uint16_t)player_settings.manual_pitch_offset * 24) / 127);
             uint8_t pitch = apply_scale_offset(
                 note_step, 
                 harmony.scale, 
                 player_settings.pitch_offset + manual_pitch_offset, 
-                get_chord_step(harmony, time) + (uint8_t)player_settings.interval
+                player_settings.note_interval
             );
             uint8_t length = MAX(player_length - 1, 1) * TICKS_PER_STEP;
             note_on(make_note(pitch, 64, length, NoteType::Tie), storage);

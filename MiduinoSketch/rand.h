@@ -2,9 +2,10 @@
 
 #include <math.h>
 
-uint8_t exp(const uint8_t v)
+uint8_t quad(const uint8_t v)
 {
-    return (uint8_t)(127.9 * exp((double)(v / 127.)));
+    double d = (double)(v / 127.);
+    return (uint8_t)(127.9 * d * d);
 }
 
 uint8_t log(const uint8_t v)
@@ -63,26 +64,26 @@ uint8_t distribution(
     return 5;
 }
 
-uint8_t get_distributed_range(uint8_t input, const uint8_t dist, const uint8_t ranges)
-{
-    uint8_t ticks_per_range = 128 / ranges;
-    uint8_t ranges_for_dist = dist / ticks_per_range + 1;
-    ticks_per_range = (uint8_t)((float)ticks_per_range * .7f);
-    if (input > 0)
-    {
-        input = MAX(16, input) - 16;
-    }
-    if (input < dist)
-    {
-        for (int i = 0; i < ranges; i++)
-        {
-            if (input < ((i + 1) * ticks_per_range))
-            {
-                return i + 1;
-            }
-        }
-        return ranges;
-        //return input % (ranges_for_dist + 1);
-    }
-    return 0;
-}
+//uint8_t get_distributed_range(uint8_t input, const uint8_t dist, const uint8_t ranges)
+//{
+//    uint8_t ticks_per_range = 128 / ranges;
+//    uint8_t ranges_for_dist = dist / ticks_per_range + 1;
+//    ticks_per_range = (uint8_t)((float)ticks_per_range * .7f);
+//    if (input > 0)
+//    {
+//        input = MAX(16, input) - 16;
+//    }
+//    if (input < dist)
+//    {
+//        for (int i = 0; i < ranges; i++)
+//        {
+//            if (input < ((i + 1) * ticks_per_range))
+//            {
+//                return i + 1;
+//            }
+//        }
+//        return ranges;
+//        //return input % (ranges_for_dist + 1);
+//    }
+//    return 0;
+//}

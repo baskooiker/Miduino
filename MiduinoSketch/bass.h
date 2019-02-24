@@ -34,7 +34,7 @@ void randomize_bass(BassSettings& settings)
     randomize(settings.accents, .5f);
     randomize(settings.variable_octaves);
     randomize(settings.probs);
-    settings.note_range_value = exp(randi());
+    settings.note_range_value = quad(randi());
 }
 
 bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruct& time)
@@ -56,13 +56,11 @@ bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruc
     case BassStyle::BassArpInterval:
         hit = interval_hit(settings.int_pattern, time);
         break;
-    //case BassStyle::BassSixteenths:
-    //    hit = interval_hit(TimeDivision::Sixteenth, time);
-    //    break;
     }
 
     uint8_t prob = cv(settings.probs, time.step);
-    return hit || ((prob < density) && (prob > 0));
+    bool prob_step = (prob < density) && (prob > 0) && interval_hit(TimeDivision::Sixteenth, time);
+    return hit || prob_step;
 }
 
 uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
@@ -93,19 +91,25 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
         }
     }
 
+    const uint8_t pitch_offset = 36;
+
+    uint8_t pitch = apply_scale_offset(
+        note_nr, 
+        harmony.scale, 
+        pitch_offset, 
+        get_chord_step(harmony, time)
+    );
+
     uint8_t octave = cv(settings.octaves, time.step);
-    /*uint8_t variable_octave = cv(settings.variable_octaves, step);
+    uint8_t variable_octave = cv(settings.variable_octaves, time.step);
     if (variable_octave < settings.pitch_range)
     {
-        octave += variable_octave % 3 + 1;
-    }*/
-    octave += get_distributed_range(cv(settings.variable_octaves, time.step), settings.pitch_range, 3);
-
-    uint8_t harmony_step = get_chord_step(harmony, time);
-    uint8_t pitch = apply_scale(note_nr + harmony_step, harmony.scale, octave);
+        pitch += (variable_octave % 3 + 1) * 12;
+    }
+    
+    pitch = clip_pitch(pitch, pitch_offset, apply_cv(variable_octave, 36, pitch_offset + 12));
 
     pitch += settings.octave_offset * 12;
-
     return pitch;
 }
 

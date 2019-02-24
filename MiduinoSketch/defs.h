@@ -109,7 +109,7 @@ typedef struct {
 
 typedef struct {
     uint16_t bsp_button_state;
-    uint16_t bsp_pad_state;
+    //uint16_t bsp_pad_state;
 
     ButtonState pad_state[NR_OF_PADS];
     ButtonState step_state[NR_OF_STEPS];
@@ -119,7 +119,6 @@ typedef struct {
     bool kill_perc;
 
     uint8_t bd_decay_factor;
-    uint8_t poly_pitch_offset;
 } UiState;
 
 typedef struct {

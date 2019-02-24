@@ -31,9 +31,6 @@ void stop_notes_all_instruments(ApplicationData& data)
 {
     stop_notes(data.mfb_503_settings.storage);
 
-    //stop_notes(data.lead_settings.storage);
-    //stop_notes(data.poly_settings.storage);
-
     stop_notes(data.bass_settings.storage);
     stop_notes(data.bass_dub_settings.storage);
 
@@ -56,12 +53,11 @@ void all_notes_off(PitchStorage& storage)
 void randomize_all(ApplicationData& data)
 {
     randomize_harmony(data);
-
+    randomize_fugue(data.fugue_settings);
+    
     randomize_503_seq(data.mfb_503_settings);
-    //randomize_poly(data);
     randomize_bass(data.bass_settings);
     randomize_bass_dub(data.bass_dub_settings);
-    //randomize_lead(data);
 
     randomize_mono(data.mono_settings);
     randomize_mono_dub(data.mono_dub_settings);
@@ -71,7 +67,7 @@ void randomize_all(ApplicationData& data)
 
 void set_fugue(ApplicationData& data)
 {
-    randomize_fugue(data);
+    randomize_fugue(data.fugue_settings);
     data.ui_state.kill_low = true;
     data.ui_state.kill_mid = true;
     data.ui_state.kill_perc = true;

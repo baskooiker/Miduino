@@ -127,7 +127,7 @@ enum PlayState {
 };
 
 enum FuguePlayerType {
-    FugueForward = 0,
-    FugueBackward = 1,
-    FugueBackAndForth = 2
+    FugueForward,
+    FugueBackward,
+    FugueBackAndForth
 };

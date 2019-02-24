@@ -298,10 +298,8 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
     case BSP_KNOB_04:
         break;
     case BSP_KNOB_12:
-        data.ui_state.poly_pitch_offset = value;
         break;
     case BSP_KNOB_05:
-        // TODO: Bass density
         data.bass_settings.density = value;
         data.fugue_settings.player_settings[0].density = value;
         break;

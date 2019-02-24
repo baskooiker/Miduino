@@ -56,7 +56,6 @@ void play_bass_dub(
             if (gate(dub_settings.octave_probs, time))
             {
                 // Make oct pattern into cv for more range
-                //pitch += get_distributed_range(cv(dub_settings.octave_probs), 127, 3) * 12;
                 pitch += 12;
             }
             break;
