@@ -4,15 +4,15 @@
 
 void release_step_1(ApplicationData& data)
 {
-    randomize_503_sound(data);
-    randomize_503_seq(data.mfb_503_settings);
+    randomize_tanzbar_sound(data.tanzbar_settings);
+    randomize_tanzbar(data.tanzbar_settings);
 }
 
 void release_step_2(ApplicationData& data)
 {
-    randomize_503_sound(data);
-    randomize_503_seq(data.mfb_503_settings);
-    randomize_503_kick(data.mfb_503_settings);
+    randomize_tanzbar_sound(data.tanzbar_settings);
+    randomize_tanzbar(data.tanzbar_settings);
+    randomize_tanzbar_kick(data.tanzbar_settings);
 }
 
 void release_step_1_2(ApplicationData& data) {}

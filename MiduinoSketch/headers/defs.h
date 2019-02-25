@@ -113,12 +113,6 @@ typedef struct {
 
     ButtonState pad_state[NR_OF_PADS];
     ButtonState step_state[NR_OF_STEPS];
-
-    bool kill_low;
-    bool kill_mid;
-    bool kill_perc;
-
-    uint8_t bd_decay_factor;
 } UiState;
 
 typedef struct {
@@ -256,12 +250,53 @@ typedef struct {
 
     HatClosedStyle hat_closed_style;
     uint8_t closed_hat_note;
+    
+    bool kill_low;
+    bool kill_mid;
+    bool kill_perc;
     bool kill_hats;
     bool drum_fill;
     uint8_t snare_roll;
+    uint8_t bd_decay_factor;
 
     PitchStorage storage;
 } Mfb503Settings;
+
+typedef struct {
+    GatePatternAB bd_pattern;
+    GatePatternAB sd_pattern;
+    GatePatternAB hh_pattern;
+    GatePatternAB oh_pattern;
+    GatePatternAB cy_pattern;
+    CvPatternAB tom_pattern;
+
+    IntervalPattern hat_int_pattern;
+    CvPatternAB hat_velocity;
+
+    uint8_t bd_decay;
+    bool play_pitch_bd;
+
+    uint8_t volume_cy;
+    HatStyle hat_style;
+
+    uint8_t volume_tom;
+    uint8_t nr_toms;
+    uint8_t toms_offset;
+    GatePatternAB tom_mask;
+
+    HatClosedStyle hat_closed_style;
+    uint8_t closed_hat_note;
+
+    bool kill_low;
+    bool kill_mid;
+    bool kill_perc;
+    bool kill_hats;
+    bool drum_fill;
+    uint8_t snare_roll;
+    uint8_t bd_decay_factor;
+
+    PitchStorage storage;
+} TanzbarSettings;
 
 typedef struct {
     ArpData arp_data;
@@ -297,13 +332,11 @@ typedef struct {
 
     FugueSettings fugue_settings;
 
-    Mfb503Settings mfb_503_settings;
-
+    TanzbarSettings tanzbar_settings;
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;
     MonoSettings mono_settings;
     MonoDubSettings mono_dub_settings;
 
     UiState ui_state;
-
 } ApplicationData;

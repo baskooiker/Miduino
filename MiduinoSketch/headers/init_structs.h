@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defs.h"
+#include "scales.h"
 
 TimeStruct init_time()
 {
@@ -15,14 +16,7 @@ TimeStruct init_time()
 
 UiState init_ui_state()
 {
-    UiState s = { 0 };
-
-    s.kill_perc = false;
-    s.kill_mid = false;
-    s.kill_low = false;
-
-    s.bd_decay_factor = 0;
-    
+    UiState s = { 0 };    
     return s;
 }
 
@@ -59,7 +53,7 @@ HarmonyStruct init_harmony_struct()
     s.high_pattern = init_cv_pattern_ab();
     s.type = HarmonyType::HarmonyConst;
 
-    s.scale = get_scale(AEOLIAN, ROOT_C);
+    s.scale = get_scale(ScaleType::AEOLIAN, ROOT_C);
 
     return s;
 }

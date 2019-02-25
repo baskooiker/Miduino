@@ -140,16 +140,16 @@ void play_roll(Mfb503Settings& settings, const TimeStruct& time)
     }
 }
 
-void play_bd(ApplicationData& data, const TimeStruct& time)
+void play_bd(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct& time)
 {
-    if (gate(data.mfb_503_settings.bd_pattern, time) && !data.ui_state.kill_low)
+    if (gate(settings.bd_pattern, time) && !settings.kill_low)
     {
         uint8_t pitch = NOTE_503_BD;
-        if (data.mfb_503_settings.play_pitch_bd)
+        if (settings.play_pitch_bd)
         {
-            pitch = clip_pitch(get_chord_step(data.harmony, time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
+            pitch = clip_pitch(get_chord_step(harmony, time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
-        note_on(make_note(pitch, 127), data.mfb_503_settings.storage);
+        note_on(make_note(pitch, 127), settings.storage);
     }
 }
 
@@ -213,9 +213,8 @@ void play_hats(Mfb503Settings& settings, const TimeStruct& time)
     }
 }
 
-void play_503(ApplicationData& data, const TimeStruct& time)
+void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct& time)
 {
-    Mfb503Settings& settings = data.mfb_503_settings;
     if (settings.drum_fill)
     {
         return play_fill(settings, time);
@@ -229,10 +228,10 @@ void play_503(ApplicationData& data, const TimeStruct& time)
     uint8_t velocity = 63;
 
     // Play kick
-    play_bd(data, time);
+    play_bd(settings, harmony, time);
 
     // Play snare
-    if (gate(settings.sd_pattern, time) && !data.ui_state.kill_mid)
+    if (gate(settings.sd_pattern, time) && !settings.kill_mid)
     {
         note_on(make_note(NOTE_503_SD, velocity), settings.storage);
     }
@@ -297,13 +296,13 @@ const RandomParam random_503_params[] = {
 };
 const uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
 
-void send_bd_decay(ApplicationData& data)
+void send_bd_decay(Mfb503Settings& settings)
 {
-    uint8_t decay = (uint8_t)((float)data.mfb_503_settings.bd_decay * (.5f + CLIP(data.ui_state.bd_decay_factor, 0, 127) / 127.f));
+    uint8_t decay = (uint8_t)((float)settings.bd_decay * (.5f + CLIP(settings.bd_decay_factor, 0, 127) / 127.f));
     send_cc(BD_DECAY, decay, MIDI_CHANNEL_503);
 }
 
-void randomize_503_sound(ApplicationData& data)
+void randomize_503_sound(Mfb503Settings& settings)
 {
     for (int i = 0; i < nr_random_503_params; i++)
     {
@@ -313,7 +312,7 @@ void randomize_503_sound(ApplicationData& data)
     }
 
     // Randomize other sound settings
-    data.mfb_503_settings.play_pitch_bd = randi(128) < 64;
-    data.mfb_503_settings.bd_decay = randi(32, 64);
-    send_bd_decay(data);
+    settings.play_pitch_bd = randi(128) < 64;
+    settings.bd_decay = randi(32, 64);
+    send_bd_decay(settings);
 }

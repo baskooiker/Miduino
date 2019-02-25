@@ -31,6 +31,32 @@ Mfb503Settings init_503_settings()
     return s;
 }
 
+TanzbarSettings init_tanzbar_settings()
+{
+    TanzbarSettings s = { 0 };
+
+    s.bd_pattern = init_gate_pattern_ab();
+    s.sd_pattern = init_gate_pattern_ab();
+    s.cy_pattern = init_gate_pattern_ab();
+    s.tom_pattern = init_cv_pattern_ab();
+    s.tom_mask = init_gate_pattern_ab();
+
+    s.hh_pattern = init_gate_pattern_ab();
+    s.oh_pattern = init_gate_pattern_ab();
+    s.hat_int_pattern = init_interval_pattern();
+    s.hat_velocity = init_cv_pattern_ab();
+    s.hat_style = HatStyle::HatClosed;
+    s.hat_closed_style = HatClosedStyle::HatClosedRegular;
+    s.volume_cy = 0;
+    s.volume_tom = 0;
+    s.kill_hats = false;
+    s.closed_hat_note = NOTE_503_HH_1;
+
+    s.storage = init_pitch_storage();
+
+    return s;
+}
+
 Mfb522Settings init_522_settings()
 {
     Mfb522Settings s = { 0 };
@@ -159,21 +185,16 @@ ApplicationData init_application_data()
 
     i.fugue_settings = init_fugue_settings();
 
-    i.mfb_503_settings = init_503_settings();
-
-    //i.poly_settings = init_poly_settings();
-    //i.lead_settings = init_lead_settings();
+    i.tanzbar_settings = init_tanzbar_settings();
 
     i.bass_settings = init_bass_settings();
     i.bass_dub_settings = init_bass_dub_settings();
     i.mono_settings = init_mono_settings();
     i.mono_dub_settings = init_mono_dub_settings();
 
-    i.mfb_503_settings.storage.channel = MIDI_CHANNEL_503;
-    //i.lead_settings.storage.channel = MIDI_CHANNEL_LEAD;
+    i.tanzbar_settings.storage.channel = MIDI_CHANNEL_TANZBAR;
     i.mono_settings.storage.channel = MIDI_CHANNEL_MONO;
     i.mono_dub_settings.settings.storage.channel = MIDI_CHANNEL_MONO_2;
-    //i.poly_settings.storage.channel = MIDI_CHANNEL_POLY;
     i.bass_settings.storage.channel = MIDI_CHANNEL_BASS;
     i.bass_dub_settings.storage.channel = MIDI_CHANNEL_BASS_DUB;
 

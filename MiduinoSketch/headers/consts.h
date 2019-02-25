@@ -12,6 +12,7 @@
 #define MIDI_CHANNEL_LEAD     7
 #define MIDI_CHANNEL_503      10
 #define MIDI_CHANNEL_522      12
+#define MIDI_CHANNEL_TANZBAR  13
 
 #define COMMON_DENOMINATOR 240240 // Exept 9
 #define TICKS_PER_STEP 6
@@ -54,6 +55,21 @@
 #define NOTE_522_HI_TOM   48
 #define NOTE_522_HI2_TOM  50
 #define NOTE_522_CYMBAL   49
+
+#define NOTE_TANZBAR_BD1  36
+#define NOTE_TANZBAR_BD2  37
+#define NOTE_TANZBAR_SD   38
+#define NOTE_TANZBAR_SR   39
+#define NOTE_TANZBAR_CY   40
+#define NOTE_TANZBAR_OH   41
+#define NOTE_TANZBAR_HH   42
+#define NOTE_TANZBAR_CL   43
+#define NOTE_TANZBAR_CP   44
+#define NOTE_TANZBAR_LT   45
+#define NOTE_TANZBAR_MT   46
+#define NOTE_TANZBAR_HT   47
+#define NOTE_TANZBAR_CB   48
+#define NOTE_TANZBAR_MA   49
 
 // BSP CC's
 #define BSP_STEP_01 20
@@ -167,3 +183,51 @@
 #define BXX0X 13
 #define BXXX0 14
 #define BXXXX 15
+
+#define TB_BD1_ATTACK       2 
+#define TB_BD1_DECAY        64
+#define TB_BD1_PITCH        65
+#define TB_BD1_TUNE         3 
+#define TB_BD1_NOISE        4 
+#define TB_BD1_FILTER       5 
+#define TB_BD1_DIST         6 
+#define TB_BD1_TRIGGER      66
+#define TB_BD2_DECAY        8 
+#define TB_BD2_TUNE         9 
+#define TB_BD2_TONE         10
+#define TB_SD_TUNE          11
+#define TB_SD_DTUNE         12
+#define TB_SD_SNAPPY        13
+#define TB_SD_SN_DECAY      67
+#define TB_SD_TONE          14
+#define TB_SD_TONE_DECAY    68
+#define TB_SD_PITCH         69
+#define TB_RS_Tune          88
+#define TB_CY_DECAY         70
+#define TB_CY_TONE          15
+#define TB_CY_TUNE          71
+#define TB_OH_DECAY         72
+#define TB_HH_TUNE          73
+#define TB_HH_DECAY         74
+#define TB_CL_TUNE          16
+#define TB_CL_DECAY         17
+#define TB_CP_DECAY         75
+#define TB_CP_FILTER        18
+#define TB_CP_ATTACK        76
+#define TB_CP_TRIGGER       77
+#define TB_HTC_TUNE         19
+#define TB_HTC_DECAY        20
+#define TB_HTC_NOISE_ON_OFF 78
+#define TB_HTC_TOM_CONGA    79
+#define TB_MTC_TUNE         21
+#define TB_MTC_DECAY        22
+#define TB_MTC_NOISE_ON_OFF 80
+#define TB_MTC_TOM_CONGA    81
+#define TB_LTC_TUNE         23
+#define TB_LTC_DECAY        24
+#define TB_LTC_NOISE_ON_OFF 82
+#define TB_LTC_TOM_CONGA    83
+#define TB_TOM_NOISE        84
+#define TB_CB_Tune          85
+#define TB_CB_Decay         86
+#define TB_MA_Decay         87

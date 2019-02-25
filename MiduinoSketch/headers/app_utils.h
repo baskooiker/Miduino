@@ -4,6 +4,7 @@
 
 #include "lead.h"
 #include "mfb_503.h"
+#include "tanzbar.h"
 #include "mfb_522.h"
 #include "mono.h"
 #include "mono_dub.h"
@@ -13,7 +14,8 @@
 
 void play_all(ApplicationData& data)
 {
-    play_503(data, data.time);
+    //play_503(data.mfb_503_settings, data.harmony, data.time);
+    play_tanzbar(data.tanzbar_settings, data.time);
     play_bass(data, data.time);
     play_bass_dub(
         data,
@@ -29,7 +31,7 @@ void play_all(ApplicationData& data)
 
 void stop_notes_all_instruments(ApplicationData& data)
 {
-    stop_notes(data.mfb_503_settings.storage);
+    stop_notes(data.tanzbar_settings.storage);
 
     stop_notes(data.bass_settings.storage);
     stop_notes(data.bass_dub_settings.storage);
@@ -55,23 +57,23 @@ void randomize_all(ApplicationData& data)
     randomize_harmony(data);
     randomize_fugue(data.fugue_settings);
     
-    randomize_503_seq(data.mfb_503_settings);
+    randomize_tanzbar(data.tanzbar_settings);
     randomize_bass(data.bass_settings);
     randomize_bass_dub(data.bass_dub_settings);
 
     randomize_mono(data.mono_settings);
     randomize_mono_dub(data.mono_dub_settings);
 
-    randomize_503_sound(data);
+    randomize_tanzbar_sound(data.tanzbar_settings);
 }
 
 void set_fugue(ApplicationData& data)
 {
     randomize_fugue(data.fugue_settings);
-    data.ui_state.kill_low = true;
-    data.ui_state.kill_mid = true;
-    data.ui_state.kill_perc = true;
-    data.mfb_503_settings.kill_hats = true;
+    data.tanzbar_settings.kill_low = true;
+    data.tanzbar_settings.kill_mid = true;
+    data.tanzbar_settings.kill_perc = true;
+    data.tanzbar_settings.kill_hats = true;
 
     // Set bass
     data.bass_settings.style = BassStyle::BassFugue;

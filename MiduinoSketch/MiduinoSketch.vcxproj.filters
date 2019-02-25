@@ -42,119 +42,125 @@
     <ClInclude Include="__vm\.MiduinoSketch.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mfb_503.h">
+    <ClInclude Include="headers\bass.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="mfb_522.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="defs.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="rhythms.h">
-      <Filter>Header Files\rhythms</Filter>
-    </ClInclude>
-    <ClInclude Include="arp.h">
+    <ClInclude Include="headers\arp.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
-    <ClInclude Include="euclid.h">
+    <ClInclude Include="headers\app_utils.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\bass_dub.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\ab.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\callbacks.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\chords.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\coef.h">
       <Filter>Header Files\rhythms</Filter>
     </ClInclude>
-    <ClInclude Include="lead.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="mono.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="enums.h">
+    <ClInclude Include="headers\consts.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
-    <ClInclude Include="consts.h">
+    <ClInclude Include="headers\cv.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\defs.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
-    <ClInclude Include="cv.h">
-      <Filter>Header Files\utils</Filter>
+    <ClInclude Include="headers\enums.h">
+      <Filter>Header Files\defs</Filter>
     </ClInclude>
-    <ClInclude Include="chords.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="rand.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="gate.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="intervals.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="coef.h">
+    <ClInclude Include="headers\euclid.h">
       <Filter>Header Files\rhythms</Filter>
     </ClInclude>
-    <ClInclude Include="pitch.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="steps.h">
-      <Filter>Header Files\rhythms</Filter>
-    </ClInclude>
-    <ClInclude Include="scales.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="mask.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="midi_io.h">
-      <Filter>Header Files\app</Filter>
-    </ClInclude>
-    <ClInclude Include="ui.h">
-      <Filter>Header Files\app</Filter>
-    </ClInclude>
-    <ClInclude Include="callbacks.h">
-      <Filter>Header Files\app</Filter>
-    </ClInclude>
-    <ClInclude Include="rhythm_time.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="app_utils.h">
-      <Filter>Header Files\app</Filter>
-    </ClInclude>
-    <ClInclude Include="ab.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="init_structs.h">
-      <Filter>Header Files\init</Filter>
-    </ClInclude>
-    <ClInclude Include="init.h">
-      <Filter>Header Files\init</Filter>
-    </ClInclude>
-    <ClInclude Include="init_patterns.h">
-      <Filter>Header Files\init</Filter>
-    </ClInclude>
-    <ClInclude Include="harmony.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="bass.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="poly.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="note_handling.h">
-      <Filter>Header Files\app</Filter>
-    </ClInclude>
-    <ClInclude Include="bass_dub.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="mono_dub.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="fugue.h">
+    <ClInclude Include="headers\fugue.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
-    <ClInclude Include="step_callbacks.h">
+    <ClInclude Include="headers\gate.h">
+      <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\harmony.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\init.h">
+      <Filter>Header Files\init</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\init_patterns.h">
+      <Filter>Header Files\init</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\init_structs.h">
+      <Filter>Header Files\init</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\tanzbar.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mono.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mono_dub.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mfb_522.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mfb_503.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\lead.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\poly.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\steps.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\scales.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rand.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\print.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\pitch.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mask.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\midi_io.h">
       <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\note_handling.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\step_callbacks.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\ui.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\intervals.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rhythms.h">
+      <Filter>Header Files\rhythms</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rhythm_time.h">
+      <Filter>Header Files\rhythms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
