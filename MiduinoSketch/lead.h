@@ -47,7 +47,7 @@ void play_lead(LeadSettings& settings, const HarmonyStruct& harmony, const TimeS
 
     if (hit)
     {
-        settings.arp_data.min = cv(settings.min_pitch_pattern, time.step);
+        settings.arp_data.min = cv(settings.min_pitch_pattern, time);
 
         uint8_t chord = get_chord_step(harmony, time);
         uint8_t pitch = get_next_arp_pitch(settings.arp_data, harmony.scale, chord);

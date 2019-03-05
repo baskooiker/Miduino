@@ -58,7 +58,7 @@ bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruc
         break;
     }
 
-    uint8_t prob = cv(settings.probs, time.step);
+    uint8_t prob = cv(settings.probs, time);
     bool prob_step = (prob < density) && (prob > 0) && interval_hit(TimeDivision::Sixteenth, time);
     return hit || prob_step;
 }
@@ -67,12 +67,12 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
 {
     // TODO: Hier klopt dus niks van...
     uint8_t note_nr = 0;
-    uint8_t note_range_p = cv(settings.note_range_prob, time.step);
+    uint8_t note_range_p = cv(settings.note_range_prob, time);
 
     // TODO: Deze geeft veel te vaak false.
     if (note_range_p < settings.note_range_value)
     {
-        uint8_t pitch_cv = cv(settings.pitches, time.step) % harmony.scale.length;
+        uint8_t pitch_cv = cv(settings.pitches, time) % harmony.scale.length;
 
         if (settings.note_range_value < 64)
         {
@@ -100,8 +100,8 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
         get_chord_step(harmony, time)
     );
 
-    uint8_t octave = cv(settings.octaves, time.step);
-    uint8_t variable_octave = cv(settings.variable_octaves, time.step);
+    uint8_t octave = cv(settings.octaves, time);
+    uint8_t variable_octave = cv(settings.variable_octaves, time);
     if (variable_octave < settings.pitch_range)
     {
         pitch += (variable_octave % 3 + 1) * 12;

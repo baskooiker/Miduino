@@ -243,7 +243,8 @@ void handle_step_release(
     ButtonState other_button = released_button == button_1 ?
         get_step_state(data.ui_state.step_state, button_2) :
         get_step_state(data.ui_state.step_state, button_1);
-    if (time_since_release(get_step_state(data.ui_state.step_state, BSP_STEP_15)) > SHORT_PRESS_TIME)
+
+    if (time_since_release(other_button) > SHORT_PRESS_TIME)
     {
         if (is_pressed(other_button))
         {
@@ -253,7 +254,7 @@ void handle_step_release(
         {   
             if (released_button == button_1)
                 callback_one(data);
-            else
+            else if (released_button == button_2)
                 callback_two(data);
         }
     }

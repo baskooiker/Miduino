@@ -4,15 +4,17 @@
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define CLIP(value,minimum,maximum) (MIN(MAX(value, minimum), maximum))
 
-#define MIDI_CHANNEL_BASS     1
-#define MIDI_CHANNEL_BASS_DUB 4
-#define MIDI_CHANNEL_MONO     2
-#define MIDI_CHANNEL_MONO_2   3
+#define MIDI_CHANNEL_TANZBAR    11
+#define MIDI_CC_CHANNEL_TANZBAR 10
+#define MIDI_CHANNEL_BASS       5
+#define MIDI_CHANNEL_BASS_DUB   6
+#define MIDI_CHANNEL_MONO       7
+#define MIDI_CHANNEL_MONO_2     8
+
 #define MIDI_CHANNEL_POLY     6
 #define MIDI_CHANNEL_LEAD     7
 #define MIDI_CHANNEL_503      10
 #define MIDI_CHANNEL_522      12
-#define MIDI_CHANNEL_TANZBAR  13
 
 #define COMMON_DENOMINATOR 240240 // Exept 9
 #define TICKS_PER_STEP 6
@@ -59,17 +61,20 @@
 #define NOTE_TANZBAR_BD1  36
 #define NOTE_TANZBAR_BD2  37
 #define NOTE_TANZBAR_SD   38
-#define NOTE_TANZBAR_SR   39
+#define NOTE_TANZBAR_RS   39
 #define NOTE_TANZBAR_CY   40
 #define NOTE_TANZBAR_OH   41
 #define NOTE_TANZBAR_HH   42
 #define NOTE_TANZBAR_CL   43
 #define NOTE_TANZBAR_CP   44
 #define NOTE_TANZBAR_LT   45
-#define NOTE_TANZBAR_MT   46
-#define NOTE_TANZBAR_HT   47
-#define NOTE_TANZBAR_CB   48
-#define NOTE_TANZBAR_MA   49
+#define NOTE_TANZBAR_LC   46
+#define NOTE_TANZBAR_MT   47
+#define NOTE_TANZBAR_MC   48
+#define NOTE_TANZBAR_HT   49
+#define NOTE_TANZBAR_HC   50
+#define NOTE_TANZBAR_CB   51
+#define NOTE_TANZBAR_MA   52
 
 // BSP CC's
 #define BSP_STEP_01 20

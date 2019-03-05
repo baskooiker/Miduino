@@ -37,6 +37,8 @@ TanzbarSettings init_tanzbar_settings()
 
     s.bd_pattern = init_gate_pattern_ab();
     s.sd_pattern = init_gate_pattern_ab();
+    s.rs_pattern = init_gate_pattern_ab();
+    s.cp_pattern = init_gate_pattern_ab();
     s.cy_pattern = init_gate_pattern_ab();
     s.tom_pattern = init_cv_pattern_ab();
     s.tom_mask = init_gate_pattern_ab();
@@ -47,10 +49,8 @@ TanzbarSettings init_tanzbar_settings()
     s.hat_velocity = init_cv_pattern_ab();
     s.hat_style = HatStyle::HatClosed;
     s.hat_closed_style = HatClosedStyle::HatClosedRegular;
-    s.volume_cy = 0;
-    s.volume_tom = 0;
+    s.ma_pattern = init_cv_pattern_ab();
     s.kill_hats = false;
-    s.closed_hat_note = NOTE_503_HH_1;
 
     s.storage = init_pitch_storage();
 

@@ -171,7 +171,7 @@ void play_hats_closed(Mfb503Settings& settings, const TimeStruct& time)
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
-            velocity = apply_cv(cv(settings.hat_velocity, time.step), 50, 32);
+            velocity = apply_cv(cv(settings.hat_velocity, time), 50, 32);
             note_on(make_note(settings.closed_hat_note, velocity), settings.storage);
         }
         break;
@@ -240,7 +240,7 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
     play_hats(settings, time);
 
     // Play toms
-    uint8_t tom_prob = cv(settings.tom_pattern, time.step);
+    uint8_t tom_prob = cv(settings.tom_pattern, time);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
         && gate(settings.tom_mask, time)

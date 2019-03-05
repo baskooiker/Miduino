@@ -1,7 +1,5 @@
 #pragma once
 
-#include "mfb_503.h"
-
 #include "ab.h"
 #include "coef.h"
 #include "cv.h"
@@ -30,6 +28,8 @@ void randomize_tanzbar(TanzbarSettings& settings)
     set_coef_kick_pattern(settings.bd_pattern);
 
     set_coef_snare_pattern(settings.sd_pattern);
+    set_coef_snare_pattern(settings.cp_pattern);
+    randomize(settings.rs_pattern);
 
     // Randomize hats
     set_coef_hat_pattern(settings.oh_pattern);
@@ -57,21 +57,29 @@ void randomize_tanzbar(TanzbarSettings& settings)
     case 0: settings.hat_closed_style = HatClosedStyle::HatClosedRegular; break;
     case 1: settings.hat_closed_style = HatClosedStyle::HatClosedInterval; break;
     }
-    switch (distribution(32, 32, 32))
-    {
-    case 0: settings.closed_hat_note = NOTE_503_HH_1; break;
-    case 1: settings.closed_hat_note = NOTE_503_HH_2; break;
-    case 2: settings.closed_hat_note = NOTE_503_HH_3; break;
-    }
+
     randomize_interval_hat(settings.hat_int_pattern);
     randomize(settings.hat_velocity);
+
+    randomize(settings.ma_pattern);
+    switch (distribution(96, 32))
+    {
+    case 0: settings.ma_pattern.time_division = TimeDivision::Sixteenth; break;
+    case 1: settings.ma_pattern.time_division = TimeDivision::Eight; break;
+    }
+    switch (distribution(96, 32))
+    {
+    case 0: settings.ma_pattern.length = 4; break;
+    case 1: settings.ma_pattern.length = 8; break;
+    }
 
     // Randomize Cymbal
     set_coef_kick_pattern(settings.cy_pattern);
 
     // Randomize toms
     randomize(settings.tom_pattern);
-    settings.nr_toms = randi(1, 3);
+    settings.nr_toms = randi(1, 4);
+    settings.nr_toms = 3;
     settings.toms_offset = randi(3);
     randomize_mask_pattern(settings.tom_mask);
 }
@@ -113,16 +121,17 @@ void play_roll(TanzbarSettings& settings, const TimeStruct& time)
 
     if (interval_hit(division, time))
     {
-        note_on(make_note(NOTE_503_SD, settings.snare_roll), settings.storage);
+        note_on(make_note(NOTE_TANZBAR_SD, settings.snare_roll), settings.storage);
     }
 }
 
 void play_bd(TanzbarSettings& settings, const TimeStruct& time)
 {
+    uint8_t velocity = interval_hit(TimeDivision::Quarter, time) ? 127 : 63;
     if (gate(settings.bd_pattern, time) && !settings.kill_low)
     {
-        uint8_t pitch = NOTE_503_BD;
-        note_on(make_note(pitch, 127), settings.storage);
+        uint8_t pitch = NOTE_TANZBAR_BD1;
+        note_on(make_note(pitch, velocity), settings.storage);
     }
 }
 
@@ -138,20 +147,20 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
 
         if (interval_hit(settings.hat_int_pattern, time))
         {
-            note_on(make_note(NOTE_503_HH, velocity), settings.storage);
+            note_on(make_note(NOTE_TANZBAR_HH, velocity), settings.storage);
         }
         break;
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
-            velocity = apply_cv(cv(settings.hat_velocity, time.step), 50, 32);
-            note_on(make_note(settings.closed_hat_note, velocity), settings.storage);
+            velocity = apply_cv(cv(settings.hat_velocity, time), 50, 32);
+            note_on(make_note(NOTE_TANZBAR_HH, velocity), settings.storage);
         }
         break;
     }
 }
 
-void play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
+bool play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
 {
     if (settings.kill_hats)
         return;
@@ -162,8 +171,10 @@ void play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
 
     if (gate(settings.oh_pattern, time))
     {
-        note_on(make_note(NOTE_503_OH, velocity), settings.storage);
+        note_on(make_note(NOTE_TANZBAR_OH, velocity), settings.storage);
+        return true;
     }
+    return false;
 }
 
 void play_hats(TanzbarSettings& settings, const TimeStruct& time)
@@ -177,13 +188,26 @@ void play_hats(TanzbarSettings& settings, const TimeStruct& time)
         play_hats_open(settings, time);
         break;
     case HatStyle::HatBoth:
-        play_hats_closed(settings, time);
-        play_hats_open(settings, time);
+        if (!play_hats_open(settings, time))
+            play_hats_closed(settings, time);
         break;
     case HatStyle::HatClosed:
         play_hats_closed(settings, time);
         break;
     }
+}
+
+bool play_maracas(TanzbarSettings& settings, const TimeStruct& time)
+{
+    if (interval_hit(settings.ma_pattern.time_division, time))
+    {
+        note_on(
+            make_note(NOTE_TANZBAR_MA, apply_cv(cv(settings.ma_pattern, time), 64, 32)), 
+            settings.storage
+        );
+        return true;
+    }
+    return false;
 }
 
 void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
@@ -206,62 +230,76 @@ void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
     // Play snare
     if (gate(settings.sd_pattern, time) && !settings.kill_mid)
     {
-        note_on(make_note(NOTE_503_SD, velocity), settings.storage);
+        note_on(make_note(NOTE_TANZBAR_SD, velocity), settings.storage);
+    }
+
+    // Play rimshot
+    if (gate(settings.rs_pattern, time) && !settings.kill_mid)
+    {
+        note_on(make_note(NOTE_TANZBAR_RS, velocity), settings.storage);
+    }
+
+    // Play clap
+    if (gate(settings.cp_pattern, time) && !settings.kill_mid)
+    {
+        note_on(make_note(NOTE_TANZBAR_CP, velocity), settings.storage);
     }
 
     // Play hats
     play_hats(settings, time);
 
+    play_maracas(settings, time);
+
     // Play toms
-    uint8_t tom_prob = cv(settings.tom_pattern, time.step);
+    uint8_t tom_prob = cv(settings.tom_pattern, time);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
-        && gate(settings.tom_mask, time)
-        && settings.volume_tom > 0)
+        && gate(settings.tom_mask, time))
     {
         uint8_t tom_id = tom_prob % settings.nr_toms;
         tom_id = (tom_id + settings.toms_offset) % 3;
-        uint8_t tom_pitch = NOTE_503_LT;
+        uint8_t tom_pitch = NOTE_TANZBAR_LT;
         if (tom_id == 1)
-            tom_pitch = NOTE_503_MT;
+            tom_pitch = NOTE_TANZBAR_MT;
         else if (tom_id == 2)
-            tom_pitch = NOTE_503_HT;
+            tom_pitch = NOTE_TANZBAR_HT;
         note_on(make_note(tom_pitch, 64), settings.storage);
     }
 
     // Play Cymbal
-    if (settings.volume_cy > 0)
+    if (gate(settings.cy_pattern, time))
     {
-        if (gate(settings.cy_pattern, time))
-        {
-            note_on(make_note(NOTE_503_CY,
-                    settings.volume_cy), 
-                    settings.storage);
-        }
+        note_on(make_note(NOTE_TANZBAR_CY,
+                64), 
+                settings.storage);
     }
 }
 
 const RandomParam random_tanzbar_params[] = {
-    {BD_LEVEL , 126, 127},
-    {BD_TUNE  ,  16, 64 },
-    {BD_PITCH ,  16, 64 },
-    {BD_DRIVE ,   0, 127},
-    {BD_ATTACK,   0, 127},
+    {TB_BD1_ATTACK ,  0, 127},
+    {TB_BD1_DECAY  , 32,  96},
+    {TB_BD1_PITCH  , 32,  96},
+    {TB_BD1_TUNE   , 32,  96},
+    {TB_BD1_NOISE  ,  0, 127},
+    {TB_BD1_FILTER ,  0, 127},
+    {TB_BD1_DIST   ,  0, 127},
+    {TB_BD1_TRIGGER,  0, 127},
 
-    {SD_LEVEL , 126, 127},
-    {SD_TUNE  ,   0, 127},
-    {SD_DECAY ,   0, 64},
-    {SD_NOISE ,  64, 127},
+    {TB_SD_TUNE      ,  0, 127},
+    {TB_SD_DTUNE     ,  0, 127},
+    {TB_SD_SNAPPY    , 64, 127},
+    {TB_SD_SN_DECAY  , 64, 127},
+    {TB_SD_TONE      ,  0, 127},
+    {TB_SD_TONE_DECAY,  0,  64},
+    {TB_SD_PITCH     ,  0, 127},
 
-    {HH_LEVEL , 126, 127},
-    {HH_MIX   ,   0, 127},
-    {OH_DECAY ,  32, 84 },
-    {HH_DECAY ,   0, 64 },
+    {TB_OH_DECAY,  0,  96},
+    {TB_HH_TUNE ,  0, 127},
+    {TB_HH_DECAY,  0, 127},
 
-    //{MFB_503_CY_LEVEL, 126, 127},
-    {MFB_503_CY_MIX  , 100, 127},
-    {MFB_503_CY_DECAY, 120, 127},
-    {MFB_503_CY_TUNE , 100, 127},
+    {TB_CY_DECAY,  64, 127},
+    {TB_CY_TONE ,   0, 127},
+    {TB_CY_TUNE ,   0, 127},
 };
 const uint8_t nr_random_tanzbar_params = sizeof(random_tanzbar_params) / sizeof(RandomParam);
 
@@ -271,9 +309,6 @@ void randomize_tanzbar_sound(TanzbarSettings& settings)
     {
         send_cc(random_tanzbar_params[i].note, 
                 randi(random_tanzbar_params[i].min, random_tanzbar_params[i].max), 
-                MIDI_CHANNEL_TANZBAR);
+                MIDI_CC_CHANNEL_TANZBAR);
     }
-
-    // Randomize other sound settings
-    settings.bd_decay = randi(32, 64);
 }

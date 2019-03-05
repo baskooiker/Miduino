@@ -26,10 +26,10 @@ uint8_t cv(const CvPattern16& pattern, const uint32_t step)
     return pattern.pattern[step % MAX(MIN(pattern.length, 16), 1)];
 }
 
-uint8_t cv(const CvPatternAB& pattern, const uint32_t step)
+uint8_t cv(const CvPatternAB& pattern, const TimeStruct time)
 {
     uint8_t pat_length = MIN(pattern.length, 16);
-    uint32_t count = get_count(pattern.time_division, step, 0) % (pattern.length <= 16 ? pat_length * 4 : 64);
+    uint32_t count = get_count(pattern.time_division, time.step, time.tick) % (pattern.length <= 16 ? pat_length * 4 : 64);
     return cv(pattern.patterns[pattern.abPattern[count / pat_length]], count % pat_length);
 }
 
