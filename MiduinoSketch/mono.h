@@ -57,11 +57,8 @@ bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
 
 uint8_t get_next_mono_pitch(MonoSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
 {
-    settings.arp_data.min = settings.pitch_offset
-        + (uint8_t)(((uint16_t)settings.variable_pitch_offset * 24) / 128);
-    uint8_t pitch = get_next_arp_pitch(settings.arp_data,
-        harmony.scale,
-        get_chord_step(harmony, time));
+    settings.arp_data.min = apply_cv(settings.variable_pitch_offset, 48, settings.pitch_offset);
+    uint8_t pitch = get_next_arp_pitch(settings.arp_data, harmony.scale, get_chord_step(harmony, time));
     return pitch;
 }
 

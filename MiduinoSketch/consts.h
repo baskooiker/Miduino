@@ -207,7 +207,7 @@
 #define TB_SD_TONE          14
 #define TB_SD_TONE_DECAY    68
 #define TB_SD_PITCH         69
-#define TB_RS_Tune          88
+#define TB_RS_TUNE          88
 #define TB_CY_DECAY         70
 #define TB_CY_TONE          15
 #define TB_CY_TUNE          71

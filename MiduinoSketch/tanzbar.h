@@ -67,10 +67,20 @@ void randomize_tanzbar(TanzbarSettings& settings)
     case 0: settings.ma_pattern.time_division = TimeDivision::Sixteenth; break;
     case 1: settings.ma_pattern.time_division = TimeDivision::Eight; break;
     }
-    switch (distribution(96, 32))
+    switch (distribution(32, 32, 32))
     {
-    case 0: settings.ma_pattern.length = 4; break;
-    case 1: settings.ma_pattern.length = 8; break;
+    case 0: settings.ma_pattern.length = 2; break;
+    case 1: settings.ma_pattern.length = 4; break;
+    case 2: settings.ma_pattern.length = 8; break;
+    }
+    if (randi(64) < 32)
+    {
+        settings.modulate_ma_offset = randi(0, 16);
+        settings.modulate_ma_range = randi(16, 32);
+    }
+    else
+    {
+        settings.modulate_ma_range = 0;
     }
 
     // Randomize Cymbal
@@ -81,6 +91,11 @@ void randomize_tanzbar(TanzbarSettings& settings)
     settings.nr_toms = randi(1, 4);
     settings.nr_toms = 3;
     settings.toms_offset = randi(3);
+    switch (distribution(32, 32))
+    {
+        settings.percussion_type = PercussionType::PercussionToms; break;
+        settings.percussion_type = PercussionType::PercussionCongas; break;
+    }
     randomize_mask_pattern(settings.tom_mask);
 }
 
@@ -127,11 +142,17 @@ void play_roll(TanzbarSettings& settings, const TimeStruct& time)
 
 void play_bd(TanzbarSettings& settings, const TimeStruct& time)
 {
-    uint8_t velocity = interval_hit(TimeDivision::Quarter, time) ? 127 : 63;
+    bool quarter_hit = interval_hit(TimeDivision::Quarter, time);
+    uint8_t velocity = quarter_hit ? 127 : 63;
     if (gate(settings.bd_pattern, time) && !settings.kill_low)
     {
         uint8_t pitch = NOTE_TANZBAR_BD1;
         note_on(make_note(pitch, velocity), settings.storage);
+    }
+
+    if (quarter_hit && !settings.kill_low)
+    {
+        note_on(make_note(NOTE_TANZBAR_BD2, velocity), settings.storage);
     }
 }
 
@@ -201,6 +222,18 @@ bool play_maracas(TanzbarSettings& settings, const TimeStruct& time)
 {
     if (interval_hit(settings.ma_pattern.time_division, time))
     {
+        if (settings.modulate_ma_range > 0)
+        {
+            send_cc(
+                TB_MA_Decay, 
+                apply_cv(
+                    cv(settings.ma_pattern, time), 
+                    settings.modulate_ma_range, 
+                    settings.modulate_ma_offset
+                ),
+                MIDI_CC_CHANNEL_TANZBAR
+            );
+        }
         note_on(
             make_note(NOTE_TANZBAR_MA, apply_cv(cv(settings.ma_pattern, time), 64, 32)), 
             settings.storage
@@ -276,14 +309,18 @@ void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
 }
 
 const RandomParam random_tanzbar_params[] = {
-    {TB_BD1_ATTACK ,  0, 127},
-    {TB_BD1_DECAY  , 32,  96},
-    {TB_BD1_PITCH  , 32,  96},
-    {TB_BD1_TUNE   , 32,  96},
-    {TB_BD1_NOISE  ,  0, 127},
-    {TB_BD1_FILTER ,  0, 127},
-    {TB_BD1_DIST   ,  0, 127},
-    {TB_BD1_TRIGGER,  0, 127},
+    {TB_BD1_ATTACK   ,  0, 127},
+    {TB_BD1_DECAY    , 32,  96},
+    {TB_BD1_PITCH    , 32,  96},
+    {TB_BD1_TUNE     , 32,  96},
+    {TB_BD1_NOISE    ,  0, 127},
+    {TB_BD1_FILTER   ,  0, 127},
+    {TB_BD1_DIST     ,  0, 127},
+    {TB_BD1_TRIGGER  ,  0, 127},
+                     
+    {TB_BD2_DECAY    , 32,  96},
+    {TB_BD2_TUNE     , 32,  96},
+    {TB_BD2_TONE     , 32,  96},
 
     {TB_SD_TUNE      ,  0, 127},
     {TB_SD_DTUNE     ,  0, 127},
@@ -293,6 +330,8 @@ const RandomParam random_tanzbar_params[] = {
     {TB_SD_TONE_DECAY,  0,  64},
     {TB_SD_PITCH     ,  0, 127},
 
+    {TB_RS_TUNE      ,  0, 127},
+
     {TB_OH_DECAY,  0,  96},
     {TB_HH_TUNE ,  0, 127},
     {TB_HH_DECAY,  0, 127},
@@ -300,6 +339,29 @@ const RandomParam random_tanzbar_params[] = {
     {TB_CY_DECAY,  64, 127},
     {TB_CY_TONE ,   0, 127},
     {TB_CY_TUNE ,   0, 127},
+
+    {TB_CL_TUNE           , 32,  96},
+    {TB_CL_DECAY          , 32,  96},
+    {TB_CP_DECAY          , 32,  96},
+    {TB_CP_FILTER         , 32,  96},
+    {TB_CP_ATTACK         , 32,  96},
+    {TB_CP_TRIGGER        , 32,  96},
+    {TB_HTC_TUNE          , 32,  96},
+    {TB_HTC_DECAY         , 32,  96},
+    {TB_HTC_NOISE_ON_OFF  , 32,  96},
+    {TB_HTC_TOM_CONGA     , 32,  96},
+    {TB_MTC_TUNE          , 32,  96},
+    {TB_MTC_DECAY         , 32,  96},
+    {TB_MTC_NOISE_ON_OFF  , 32,  96},
+    {TB_MTC_TOM_CONGA     , 32,  96},
+    {TB_LTC_TUNE          , 32,  96},
+    {TB_LTC_DECAY         , 32,  96},
+    {TB_LTC_NOISE_ON_OFF  , 32,  96},
+    {TB_LTC_TOM_CONGA     , 32,  96},
+    {TB_TOM_NOISE         , 32,  96},
+    {TB_CB_Tune           , 32,  96},
+    {TB_CB_Decay          , 32,  96},
+    {TB_MA_Decay          , 32,  96},
 };
 const uint8_t nr_random_tanzbar_params = sizeof(random_tanzbar_params) / sizeof(RandomParam);
 

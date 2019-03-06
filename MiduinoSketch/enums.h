@@ -131,3 +131,8 @@ enum FuguePlayerType {
     FugueBackward,
     FugueBackAndForth
 };
+
+enum PercussionType {
+    PercussionToms,
+    PercussionCongas
+};

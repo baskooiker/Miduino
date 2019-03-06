@@ -51,7 +51,7 @@ TanzbarSettings init_tanzbar_settings()
     s.hat_closed_style = HatClosedStyle::HatClosedRegular;
     s.ma_pattern = init_cv_pattern_ab();
     s.kill_hats = false;
-
+    s.percussion_type = PercussionType::PercussionToms;
     s.storage = init_pitch_storage();
 
     return s;

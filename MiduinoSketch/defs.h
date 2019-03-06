@@ -281,8 +281,12 @@ typedef struct {
 
     HatStyle hat_style;
 
+    uint8_t modulate_ma_range;
+    uint8_t modulate_ma_offset;
+
     uint8_t nr_toms;
     uint8_t toms_offset;
+    PercussionType percussion_type;
     GatePatternAB tom_mask;
 
     HatClosedStyle hat_closed_style;
