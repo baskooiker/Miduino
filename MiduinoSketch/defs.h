@@ -313,6 +313,8 @@ typedef struct {
     IntervalPattern lead_pattern;
 
     uint8_t variable_pitch_offset;
+    uint8_t variable_density;
+
     uint8_t pitch_offset;
     uint8_t fugue_id;
 

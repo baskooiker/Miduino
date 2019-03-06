@@ -87,7 +87,7 @@ void randomize_interval_lead(IntervalPattern& pattern)
             uint8_t start_beat = randi(0, 5-fill_length);
             for (int beat = start_beat; beat < start_beat+fill_length; beat++)
             {
-                TimeDivision time_division = randi(2) < 1 ? 
+                TimeDivision time_division = randi(64) < 8 ? 
                     TimeDivision::Sixteenth : 
                     TimeDivision::Eight;
                 pattern.pattern[bar * 4 + beat] = time_division;

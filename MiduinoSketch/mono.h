@@ -36,8 +36,15 @@ bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
     switch (settings.style)
     {
     case MonoStyle::MonoSixteenths:
-        hit = interval_hit(TimeDivision::Sixteenth, time);
+    {
+        TimeDivision time_division =
+            settings.variable_density < 32 ? TimeDivision::Quarter :
+            settings.variable_density < 64 ? TimeDivision::DottedEight :
+            settings.variable_density < 96 ? TimeDivision::Eight :
+            TimeDivision::Sixteenth;
+        hit = interval_hit(time_division, time);
         break;
+    }
     case MonoStyle::MonoPolyRhythm:
         hit = gate(settings.euclid_pattern, time);
         break;

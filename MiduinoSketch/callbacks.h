@@ -310,6 +310,7 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         break;
     case BSP_KNOB_07:
         data.fugue_settings.player_settings[2].density = value;
+        data.mono_settings.variable_density = value;
         break;
     case BSP_KNOB_15:
         data.mono_settings.variable_pitch_offset = value;
@@ -317,6 +318,7 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         break;
     case BSP_KNOB_08:
         data.fugue_settings.player_settings[3].density = value;
+        data.mono_dub_settings.settings.variable_density = value;
         break;
     case BSP_KNOB_16:
         data.mono_dub_settings.settings.variable_pitch_offset = value;
