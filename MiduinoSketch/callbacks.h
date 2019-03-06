@@ -290,15 +290,8 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
     case BSP_KNOB_09:
         break;
     case BSP_KNOB_02:
-        if (value < 42)
-            data.tanzbar_settings.hat_style = HatStyle::HatClosed;
-        else if (value < 84)
-            data.tanzbar_settings.hat_style = HatStyle::HatBoth;
-        else
-            data.tanzbar_settings.hat_style = HatStyle::HatOpen;
         break;
     case BSP_KNOB_10:
-        data.tanzbar_settings.hats_shuffle = value;
         break;
     case BSP_KNOB_03:
         if (value < 10)

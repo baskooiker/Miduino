@@ -6,6 +6,7 @@ void release_step_1(ApplicationData& data)
 {
     randomize_tanzbar_sound(data.tanzbar_settings);
     randomize_tanzbar(data.tanzbar_settings);
+    data.time.global_shuffle = randi(96);
 }
 
 void release_step_2(ApplicationData& data)
@@ -13,6 +14,7 @@ void release_step_2(ApplicationData& data)
     randomize_tanzbar_sound(data.tanzbar_settings);
     randomize_tanzbar(data.tanzbar_settings);
     randomize_tanzbar_kick(data.tanzbar_settings);
+    data.time.global_shuffle = randi(96);
 }
 
 void release_step_1_2(ApplicationData& data) {}

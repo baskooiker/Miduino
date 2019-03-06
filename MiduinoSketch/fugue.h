@@ -141,7 +141,11 @@ void play_fugue(
                 player_settings.note_interval
             );
             uint8_t length = MAX(player_length - 1, 1) * TICKS_PER_STEP;
-            note_on(make_note(pitch, 64, length, NoteType::Tie), storage);
+            note_on(
+                make_note(pitch, 64, length, NoteType::Tie), 
+                storage, 
+                get_shuffle_delay(time)
+            );
         }
         
         player_settings.counter++;

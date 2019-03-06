@@ -136,6 +136,10 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
         uint8_t length = 5;
 
         // Play it!
-        note_on(make_note(pitch, 64, length, NoteType::Tie), data.bass_settings.storage);
+        note_on(
+            make_note(pitch, 64, length, NoteType::Tie), 
+            data.bass_settings.storage, 
+            get_shuffle_delay(time)
+        );
     }
 }

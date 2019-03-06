@@ -19,7 +19,6 @@ Mfb503Settings init_503_settings()
     s.oh_pattern = init_gate_pattern_ab();
     s.hat_int_pattern = init_interval_pattern();
     s.hat_velocity = init_cv_pattern_ab();
-    s.hat_style = HatStyle::HatClosed;
     s.hat_closed_style = HatClosedStyle::HatClosedRegular;
     s.volume_cy = 0;
     s.volume_tom = 0;
@@ -47,7 +46,6 @@ TanzbarSettings init_tanzbar_settings()
     s.oh_pattern = init_gate_pattern_ab();
     s.hat_int_pattern = init_interval_pattern();
     s.hat_velocity = init_cv_pattern_ab();
-    s.hat_style = HatStyle::HatClosed;
     s.hat_closed_style = HatClosedStyle::HatClosedRegular;
     s.ma_pattern = init_cv_pattern_ab();
     s.kill_hats = false;

@@ -63,6 +63,10 @@ void play_bass_dub(
 
         pitch = clip_pitch(pitch, apply_cv(dub_settings.v_pitch, 36, 48));
 
-        note_on(make_note(pitch, 64, 6, NoteType::Tie), dub_settings.storage);
+        note_on(
+            make_note(pitch, 64, 6, NoteType::Tie), 
+            dub_settings.storage, 
+            get_shuffle_delay(time)
+        );
     }
 }

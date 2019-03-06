@@ -9,6 +9,7 @@ typedef struct {
     PlayState state;
     uint32_t last_pulse_time;
     float average_pulse_time;
+    uint8_t global_shuffle;
 } TimeStruct;
 
 typedef struct {
@@ -252,7 +253,6 @@ typedef struct {
     bool play_pitch_bd;
 
     uint8_t volume_cy;
-    HatStyle hat_style;
 
     uint8_t volume_tom;
     uint8_t nr_toms;
@@ -290,8 +290,6 @@ typedef struct {
     uint8_t bd_decay;
     bool play_pitch_bd;
 
-    HatStyle hat_style;
-
     uint8_t modulate_ma_range;
     uint8_t modulate_ma_offset;
 
@@ -308,7 +306,7 @@ typedef struct {
     bool kill_hats;
     bool drum_fill;
     uint8_t snare_roll;
-    uint8_t hats_shuffle;
+    int8_t hats_shuffle;
 
     PitchStorage storage;
 } TanzbarSettings;

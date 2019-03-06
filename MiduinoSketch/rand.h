@@ -22,7 +22,15 @@ uint8_t randi(const uint8_t max = 128)
     return rand() % max;
 }
 
-uint16_t randi16(const uint16_t max = 0xFFFF)
+int8_t randi8(int8_t max_, int8_t min_ = 0)
+{
+    int16_t min_v = MIN(max_, min_);
+    int16_t max_v = MAX(max_, min_);
+    int16_t range = max_v - min_v;
+    return (rand() % range) + min_v;
+}
+
+uint16_t randui16(const uint16_t max = 0xFFFF)
 {
     if (max == 0)
     {
@@ -59,7 +67,7 @@ uint8_t distribution(
     const uint8_t f = 0)
 {
     uint16_t total = (uint16_t)a + (uint16_t)b + (uint16_t)c + (uint16_t)d + (uint16_t)e + (uint16_t)f;
-    uint16_t r = randi16(total);
+    uint16_t r = randui16(total);
     if (r < a)
         return 0;
     if (r < (a + b))

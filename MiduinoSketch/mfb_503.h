@@ -198,19 +198,8 @@ void play_hats(Mfb503Settings& settings, const TimeStruct& time)
     if (settings.kill_hats)
         return;
 
-    switch (settings.hat_style)
-    {
-    case HatStyle::HatOpen:
-        play_hats_open(settings, time);
-        break;
-    case HatStyle::HatBoth:
-        play_hats_closed(settings, time);
-        play_hats_open(settings, time);
-        break;
-    case HatStyle::HatClosed:
-        play_hats_closed(settings, time);
-        break;
-    }
+    play_hats_closed(settings, time);
+    play_hats_open(settings, time);
 }
 
 void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct& time)

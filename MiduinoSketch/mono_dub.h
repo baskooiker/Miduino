@@ -41,6 +41,10 @@ void play_mono_dub(
 
         pitch = clip_pitch(pitch, apply_cv(settings.variable_pitch_offset, 48, 60));
 
-        note_on(make_note(pitch, 64, 6, NoteType::Tie), settings.settings.storage);
+        note_on(
+            make_note(pitch, 64, 6, NoteType::Tie), 
+            settings.settings.storage, 
+            get_shuffle_delay(time)
+        );
     }
 }
