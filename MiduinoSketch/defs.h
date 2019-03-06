@@ -7,6 +7,8 @@ typedef struct {
     uint32_t step;
     uint8_t tick;
     PlayState state;
+    uint32_t last_pulse_time;
+    float average_pulse_time;
 } TimeStruct;
 
 typedef struct {
@@ -79,11 +81,20 @@ typedef struct {
     NoteType type;
 } NoteStruct;
 
-#define STORAGE_SIZE 16
+typedef struct {
+    NoteStruct note;
+    uint32_t time;
+} NoteEvent;
+
+#define STORAGE_SIZE 8
 
 typedef struct {
     NoteStruct data[STORAGE_SIZE];
     uint8_t size;
+
+    NoteEvent events[STORAGE_SIZE];
+    uint8_t nr_of_events;
+
     uint8_t channel;
 } PitchStorage;
 
@@ -297,6 +308,7 @@ typedef struct {
     bool kill_hats;
     bool drum_fill;
     uint8_t snare_roll;
+    uint8_t hats_shuffle;
 
     PitchStorage storage;
 } TanzbarSettings;

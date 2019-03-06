@@ -98,6 +98,21 @@ void note_on(const NoteStruct note, PitchStorage& storage)
     add_to_storage(note, storage);
 }
 
+void note_on(const NoteStruct note, PitchStorage& storage, const uint32_t delay)
+{
+    if (delay == 0)
+        return note_on(note, storage);
+
+    if (storage.nr_of_events < STORAGE_SIZE)
+    {
+        NoteEvent new_event = {};
+        new_event.note = note;
+        new_event.time = millis() + delay;
+
+        storage.events[storage.nr_of_events++] = new_event;
+    }
+}
+
 void note_on(const NoteStruct* notes, const uint8_t length, PitchStorage& storage)
 {
     untie_notes(storage);

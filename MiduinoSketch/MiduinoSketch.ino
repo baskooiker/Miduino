@@ -1,5 +1,6 @@
 #include <MIDI.h>
 
+#include "app_utils.h"
 #include "callbacks.h"
 
 MIDI_CREATE_DEFAULT_INSTANCE();
@@ -50,6 +51,7 @@ void setup() {
 
 void loop() {
     MIDI.read();
+    process_events(data);
 }
 
 //////////////////////////////////////////////////

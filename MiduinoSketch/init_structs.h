@@ -24,6 +24,7 @@ PitchStorage init_pitch_storage()
 {
     PitchStorage p = { 0 };
     p.size = 0;
+    p.nr_of_events = 0;
     return p;
 }
 

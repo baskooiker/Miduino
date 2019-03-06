@@ -11,6 +11,7 @@
 #include "midi_io.h"
 #include "rand.h"
 #include "rhythms.h"
+#include "rhythm_time.h"
 #include "scales.h"
 #include "step_callbacks.h"
 #include "ui.h"
@@ -220,6 +221,26 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
 void handleClock(ApplicationData& data)
 {
     data.time.state = PlayState::Playing;
+
+    if (interval_hit(TimeDivision::Quarter, data.time))
+    {
+        uint32_t now = millis();
+        if (data.time.last_pulse_time > 0)
+        {
+            float time_diff = (float)(now - data.time.last_pulse_time);
+            if (data.time.average_pulse_time < .1)
+            {
+                data.time.average_pulse_time = time_diff;
+            }
+            else
+            {
+                data.time.average_pulse_time = .9f * data.time.average_pulse_time +
+                    .1f * time_diff;
+            }
+        }
+        data.time.last_pulse_time = now;
+    }
+
     stop_notes_all_instruments(data);
     play_all(data);
 
@@ -277,6 +298,7 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
             data.tanzbar_settings.hat_style = HatStyle::HatOpen;
         break;
     case BSP_KNOB_10:
+        data.tanzbar_settings.hats_shuffle = value;
         break;
     case BSP_KNOB_03:
         if (value < 10)
@@ -469,9 +491,7 @@ void handleStop(ApplicationData& data)
     all_notes_off(data.mono_settings.storage);
     all_notes_off(data.mono_dub_settings.settings.storage);
 
-    data.time.step = 0;
-    data.time.tick = 0;
-    data.time.state = PlayState::Stopped;
+    reset_time(data.time);
 
     reset(data.fugue_settings);
 }

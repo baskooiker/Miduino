@@ -93,8 +93,8 @@ void randomize_tanzbar(TanzbarSettings& settings)
     settings.toms_offset = randi(3);
     switch (distribution(32, 32))
     {
-        settings.percussion_type = PercussionType::PercussionToms; break;
-        settings.percussion_type = PercussionType::PercussionCongas; break;
+        case 0: settings.percussion_type = PercussionType::PercussionToms; break;
+        case 1: settings.percussion_type = PercussionType::PercussionCongas; break;
     }
     randomize_mask_pattern(settings.tom_mask);
 }
@@ -168,14 +168,14 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
 
         if (interval_hit(settings.hat_int_pattern, time))
         {
-            note_on(make_note(NOTE_TANZBAR_HH, velocity), settings.storage);
+            note_on(make_note(NOTE_TANZBAR_HH, velocity), settings.storage, get_shuffle_delay(settings.hats_shuffle, time));
         }
         break;
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
             velocity = apply_cv(cv(settings.hat_velocity, time), 50, 32);
-            note_on(make_note(NOTE_TANZBAR_HH, velocity), settings.storage);
+            note_on(make_note(NOTE_TANZBAR_HH, velocity), settings.storage, get_shuffle_delay(settings.hats_shuffle, time));
         }
         break;
     }
@@ -184,7 +184,7 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
 bool play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
 {
     if (settings.kill_hats)
-        return;
+        return false;
 
     uint8_t velocity = 63;
     if (time.step % 4 == 2)
@@ -192,7 +192,11 @@ bool play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
 
     if (gate(settings.oh_pattern, time))
     {
-        note_on(make_note(NOTE_TANZBAR_OH, velocity), settings.storage);
+        note_on(
+            make_note(NOTE_TANZBAR_OH, velocity), 
+            settings.storage,
+            get_shuffle_delay(settings.hats_shuffle, time)
+        );
         return true;
     }
     return false;
@@ -235,8 +239,9 @@ bool play_maracas(TanzbarSettings& settings, const TimeStruct& time)
             );
         }
         note_on(
-            make_note(NOTE_TANZBAR_MA, apply_cv(cv(settings.ma_pattern, time), 64, 32)), 
-            settings.storage
+            make_note(NOTE_TANZBAR_MA, apply_cv(cv(settings.ma_pattern, time), 96, 16)), 
+            settings.storage,
+            get_shuffle_delay(settings.hats_shuffle, time)
         );
         return true;
     }
