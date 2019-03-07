@@ -164,7 +164,7 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
     switch (settings.hat_closed_style)
     {
     case HatClosedStyle::HatClosedInterval:
-        if (time.step % 4 == 0)
+        if ((time.tick / TICKS_PER_STEP) % 4 == 0)
             velocity = 127;
 
         if (interval_hit(settings.hat_int_pattern, time))
@@ -196,7 +196,7 @@ bool play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
         return false;
 
     uint8_t velocity = 63;
-    if (time.step % 4 == 2)
+    if ((time.tick / TICKS_PER_STEP) % 4 == 2)
         velocity = 127;
 
     if (gate(settings.oh_pattern, time))

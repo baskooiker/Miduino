@@ -56,7 +56,7 @@ void play_poly(PolySettings& settings, const HarmonyStruct& harmony, const TimeS
         if (gate(settings.tie_pattern, time) 
             || settings.type == PolyType::PolyLow)
         {
-            length = ticks_left_in_bar(time.step, time.tick);
+            length = ticks_left_in_bar(time);
         }
 
         NoteStruct note_structs[MAX_CHORD_NOTES] = { 0 };

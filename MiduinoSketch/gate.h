@@ -13,7 +13,7 @@ bool gate(const BinaryPattern& pattern, const uint32_t step, const uint8_t lengt
 bool gate(const GatePattern16& pattern, const TimeStruct& time)
 {
     if (time.tick % TICKS_PER_STEP != 0) return false;
-    return gate(pattern.pattern, time.step % pattern.length);
+    return gate(pattern.pattern, (time.tick / TICKS_PER_STEP) % pattern.length);
 }
 
 bool gate(const GatePatternAB& pattern, const TimeStruct& time)
@@ -21,7 +21,7 @@ bool gate(const GatePatternAB& pattern, const TimeStruct& time)
     if (!interval_hit(pattern.time_division, time)) return false;
 
     uint8_t pat_length = MIN(pattern.length, 16);
-    uint32_t count = get_count(pattern.time_division, time.step, time.tick) % (pattern.length <= 16 ? pat_length * 4 : 64);
+    uint32_t count = get_count(pattern.time_division, time) % (pattern.length <= 16 ? pat_length * 4 : 64);
     return gate(pattern.patterns[pattern.abPattern[count / pat_length]], count % pat_length);
 }
 

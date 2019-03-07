@@ -4,11 +4,13 @@
 #include "enums.h"
 
 typedef struct {
-    uint32_t step;
-    uint8_t tick;
+    uint32_t tick;
+
     PlayState state;
+
     uint32_t last_pulse_time;
     float average_pulse_time;
+
     uint8_t global_shuffle;
 } TimeStruct;
 

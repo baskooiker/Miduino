@@ -7,6 +7,7 @@
 #include "pitch.h"
 #include "scales.h"
 #include "rand.h"
+#include "utils.h"
 
 void randomize_bass(BassSettings& settings)
 {
@@ -172,30 +173,43 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
 
 void play_bass(ApplicationData& data, const TimeStruct& time)
 {
-    if (data.bass_settings.style == BassStyle::BassFugue && time.tick == 0)
+    BassSettings& settings = data.bass_settings;
+
+    //TimeStruct time_copy = time;
+    //time_copy.tick = time.tick + 12;
+    //if (get_bass_hit(settings, settings.density, time_copy))
+    //{
+    //    all_notes_off(settings.storage);
+    //}
+
+    if (settings.style == BassStyle::BassFugue && (time.tick % TICKS_PER_STEP) == 0)
     {
         return play_fugue(
             data.fugue_settings,
-            data.bass_settings.fugue_id, 
+            settings.fugue_id, 
             data.harmony, 
             time, 
             data.bass_settings.storage);
     }
 
     // Get hit
-    bool hit = get_bass_hit(data.bass_settings, data.bass_settings.density, time);
+    bool hit = get_bass_hit(settings, settings.density, time);
 
     if (hit)
     {
-        uint8_t pitch = get_bass_pitch(data.bass_settings, data.harmony, time);
+        uint8_t pitch = get_bass_pitch(settings, data.harmony, time);
 
         // Note length
-        uint8_t length = gate(data.bass_settings.accents, time) ? 6 : 2;
+        uint8_t length = gate(settings.accents, time) ? 6 : 2;
+        if (gate(settings.slides, time))
+        {
+            length = ticks_left_in_bar(time);
+        }
 
         // Play it!
         note_on(
             make_note(pitch, 64, length, NoteType::Tie), 
-            data.bass_settings.storage, 
+            settings.storage, 
             get_shuffle_delay(time)
         );
     }

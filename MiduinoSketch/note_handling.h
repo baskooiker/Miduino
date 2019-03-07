@@ -19,25 +19,25 @@ void add_to_storage(const NoteStruct& note, PitchStorage& storage)
     storage.size++;
 }
 
-NoteStruct pop_from_storage(PitchStorage& s)
+NoteStruct pop_from_storage(PitchStorage& storage)
 {
-    if (s.size > 0) {
-        NoteStruct v = s.data[s.size];
-        s.data[s.size--] = { 0, 0, 0 };
-        return v;
+    if (storage.size > 0) {
+        NoteStruct note = storage.data[storage.size-1];
+        storage.size--;
+        return note;
     }
     return { 0, 0, 0 };
 }
 
-NoteStruct pop_from_storage(PitchStorage& s, uint8_t pitch)
+NoteStruct pop_from_storage(PitchStorage& storage, uint8_t pitch)
 {
-    for (uint8_t i = 0; i < s.size; i++)
+    for (uint8_t i = 0; i < storage.size; i++)
     {
-        if (s.data[i].pitch == pitch) {
-            NoteStruct v = s.data[i];
-            s.data[i] = s.data[s.size - 1];
-            s.size--;
-            return v;
+        if (storage.data[i].pitch == pitch) {
+            NoteStruct note = storage.data[i];
+            storage.data[i] = storage.data[storage.size - 1];
+            storage.size--;
+            return note;
         }
     }
     return { 0, 0, 0 };

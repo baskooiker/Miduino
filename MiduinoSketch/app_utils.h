@@ -40,18 +40,6 @@ void stop_notes_all_instruments(ApplicationData& data)
     stop_notes(data.mono_dub_settings.settings.storage);
 }
 
-void all_notes_off(PitchStorage& storage)
-{
-    NoteStruct p = { 0, 0, 0 };
-    do {
-        p = pop_from_storage(storage);
-        if (p.pitch > 0)
-        {
-            note_off(p.pitch, storage);
-        }
-    } while (p.pitch != 0);
-}
-
 void randomize_all(ApplicationData& data)
 {
     randomize_harmony(data);

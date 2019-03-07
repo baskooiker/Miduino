@@ -7,7 +7,6 @@ TimeStruct init_time()
 {
     TimeStruct s = {};
 
-    s.step = 0;
     s.tick = 0;
     s.state = PlayState::Stopped;
 

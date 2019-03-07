@@ -245,11 +245,6 @@ void handleClock(ApplicationData& data)
     play_all(data);
 
     data.time.tick += 1;
-    if (data.time.tick >= TICKS_PER_STEP)
-    {
-        data.time.tick = 0;
-        data.time.step = (data.time.step + 1) % COMMON_DENOMINATOR;
-    }
 }
 
 void handle_step_release(
