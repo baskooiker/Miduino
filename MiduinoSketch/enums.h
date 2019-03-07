@@ -34,10 +34,7 @@ enum NoteRange {
 };
 
 enum BassStyle {
-    //Whole,
     BassLow,
-    //BassSixteenths,
-    //Prob,
     BassArpInterval,
     BassEuclid,
     BassFugue
@@ -104,7 +101,6 @@ enum MonoDubStyle {
 
 enum HarmonyType {
     HarmonyConst,
-    HarmonyLow,
     HarmonyHigh
 };
 
@@ -129,4 +125,10 @@ enum FuguePlayerType {
 enum PercussionType {
     PercussionToms,
     PercussionCongas
+};
+
+enum ScaleType {
+    IONIAN,
+    DORIAN,
+    AEOLIAN
 };

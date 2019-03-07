@@ -228,11 +228,11 @@ typedef struct {
     uint8_t notes[8];
     uint8_t length;
     Root root;
+    ScaleType type;
 } Scale;
 
 typedef struct {
     CvPatternAB const_pattern;
-    CvPatternAB low_pattern;
     CvPatternAB high_pattern;
     HarmonyType type;
     Scale scale;

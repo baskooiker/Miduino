@@ -102,6 +102,18 @@ void release_step_14(ApplicationData& data)
     data.mono_settings.style = MonoStyle::MonoSixteenths;
 }
 
+void release_step_13_and_14(ApplicationData& data)
+{
+    randomize_mono(data.mono_settings);
+    switch (randi(2))
+    {
+    case 0: data.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
+    case 1: data.mono_settings.style = MonoStyle::MonoLeadPattern; break;
+    }
+
+    data.mono_settings.arp_data.type = ArpType::CLOSEST;
+}
+
 void release_step_15(ApplicationData& data)
 {
     randomize_mono_dub(data.mono_dub_settings);

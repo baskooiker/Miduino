@@ -50,7 +50,6 @@ HarmonyStruct init_harmony_struct()
     HarmonyStruct s = {0};
 
     s.const_pattern = init_cv_pattern_ab();
-    s.low_pattern = init_cv_pattern_ab();
     s.high_pattern = init_cv_pattern_ab();
     s.type = HarmonyType::HarmonyConst;
 

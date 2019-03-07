@@ -54,9 +54,6 @@
     <ClInclude Include="cv.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="harmony.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="intervals.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
@@ -161,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="ui.h">
       <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="harmony.h">
+      <Filter>Header Files\generators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,15 +2,14 @@
 
 #include "defs.h"
 
-enum ScaleType {
-    IONIAN,
-    DORIAN,
-    AEOLIAN
-};
+const uint8_t ionian[]        = { 0, 2, 4, 5, 7, 9, 11 }; // 1 2  3 4 5 6   7
+const uint8_t ionian_penta[]  = { 0, 2, 4,    7, 9     }; // 1 2  3 4 5 6   7
+                              
+const uint8_t dorian[]        = { 0, 2, 3, 5, 7, 9, 10 }; // 1 2 b3 4 5 6  b7
+const uint8_t dorian_penta[]  = { 0,    3, 5, 7,    10 }; // 1 2 b3 4 5 6  b7
 
-const uint8_t ionian[] = { 0, 2, 4, 5, 7, 9, 11 }; // 1 2  3 4 5 6   7
-const uint8_t dorian[] = { 0, 2, 3, 5, 7, 9, 10 }; // 1 2 b3 4 5 6  b7
-const uint8_t aeolian[] = { 0, 2, 3, 5, 7, 8, 10 }; // 1 2 b3 4 5 b6 b7 Natural Minor
+const uint8_t aeolian[]       = { 0, 2, 3, 5, 7, 8, 10 }; // 1 2 b3 4 5 b6 b7 Natural Minor
+const uint8_t aeolian_penta[] = { 0,    3, 5, 7,    10 }; // 1 2 b3 4 5 b6 b7 Natural Minor
 
 void set_scale(Scale& scale, const ScaleType type)
 {
@@ -36,6 +35,7 @@ void set_scale(Scale& scale, const ScaleType type)
     {
         scale.notes[i] = notes_ptr[i];
     }
+    scale.type = type;
 }
 
 const Scale get_scale(const ScaleType scale_type, const Root root = ROOT_C)
@@ -44,6 +44,7 @@ const Scale get_scale(const ScaleType scale_type, const Root root = ROOT_C)
 
     scale.root = root;
     set_scale(scale, scale_type);
+    scale.type = scale_type;
 
     return scale;
 }
