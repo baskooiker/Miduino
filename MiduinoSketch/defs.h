@@ -137,8 +137,7 @@ typedef struct {
     uint32_t counter;
     uint8_t rhythm;
     uint8_t density;
-    NoteInterval interval;
-    uint8_t note_interval;
+    NoteInterval note_interval;
     uint8_t note_repeat;
 } FuguePlayerSettings;
 
@@ -276,6 +275,23 @@ typedef struct {
 } Mfb503Settings;
 
 typedef struct {
+    int8_t shuffle_off;
+    uint8_t delay;
+} MicroTimingStruct;
+
+typedef struct {
+    MicroTimingStruct bd;
+    MicroTimingStruct sd;
+    MicroTimingStruct cp;
+    MicroTimingStruct hh;
+    MicroTimingStruct tc;
+    MicroTimingStruct ma;
+    MicroTimingStruct cl;
+    MicroTimingStruct cb;
+    MicroTimingStruct cy;
+} TanzbarTimeSettings;
+
+typedef struct {
     GatePatternAB bd_pattern;
     GatePatternAB sd_pattern;
     GatePatternAB rs_pattern;
@@ -283,6 +299,8 @@ typedef struct {
     GatePatternAB hh_pattern;
     GatePatternAB oh_pattern;
     GatePatternAB cy_pattern;
+    GatePatternAB cl_pattern;
+    GatePatternAB cb_pattern;
     CvPatternAB tom_pattern;
     CvPatternAB ma_pattern;
 
@@ -295,7 +313,6 @@ typedef struct {
     uint8_t modulate_ma_range;
     uint8_t modulate_ma_offset;
 
-    uint8_t nr_toms;
     uint8_t toms_offset;
     PercussionType percussion_type;
     GatePatternAB tom_mask;
@@ -308,7 +325,8 @@ typedef struct {
     bool kill_hats;
     bool drum_fill;
     uint8_t snare_roll;
-    int8_t hats_shuffle;
+
+    TanzbarTimeSettings time_settings;
 
     PitchStorage storage;
 } TanzbarSettings;

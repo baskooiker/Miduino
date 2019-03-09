@@ -23,25 +23,44 @@ void randomize_tanzbar_kick(TanzbarSettings& settings)
     set_kick_fill(settings.bd_pattern.patterns[bar], half * 8);
 }
 
+void randomize_timing(MicroTimingStruct& settings)
+{
+    settings.delay = randi();
+    settings.shuffle_off = randi8(-20, 20);
+}
+
+void randomize_timing(TanzbarTimeSettings& settings)
+{
+    randomize_timing(settings.bd);
+    randomize_timing(settings.cb);
+    randomize_timing(settings.cl);
+    randomize_timing(settings.cp);
+    randomize_timing(settings.cy);
+    randomize_timing(settings.hh);
+    randomize_timing(settings.ma);
+    randomize_timing(settings.sd);
+    randomize_timing(settings.tc);
+}
+
 void randomize_tanzbar(TanzbarSettings& settings)
 {
     set_coef_kick_pattern(settings.bd_pattern);
 
     set_coef_snare_pattern(settings.sd_pattern);
     set_coef_snare_pattern(settings.cp_pattern);
+
     randomize(settings.rs_pattern);
 
     // Randomize hats
     set_coef_hat_pattern(settings.oh_pattern);
     uint8_t four_pat = 0;
-    switch (distribution(10, 10, 10, 10, 10, 10))
+    switch (distribution(32, 10, 10, 10, 10))
     {
     case 0: four_pat = BXXXX; break;
     case 1: four_pat = BXXX0; break;
     case 2: four_pat = BXX0X; break;
     case 3: four_pat = BX0XX; break;
     case 4: four_pat = B0XXX; break;
-    case 5: four_pat = BX0X0; break;
     }
     for (int i = 0; i < 3; i++)
     {
@@ -57,40 +76,41 @@ void randomize_tanzbar(TanzbarSettings& settings)
     case 0: settings.hat_closed_style = HatClosedStyle::HatClosedRegular; break;
     case 1: settings.hat_closed_style = HatClosedStyle::HatClosedInterval; break;
     }
-    settings.hats_shuffle = randi8(-20, 20);
 
     randomize_interval_hat(settings.hat_int_pattern);
     randomize(settings.hat_velocity);
 
+    // Randomize Maracas
     randomize(settings.ma_pattern);
-    switch (distribution(96, 32))
-    {
-    case 0: settings.ma_pattern.time_division = TimeDivision::Sixteenth; break;
-    case 1: settings.ma_pattern.time_division = TimeDivision::Eight; break;
-    }
+    settings.ma_pattern.time_division = TimeDivision::Sixteenth; 
     switch (distribution(32, 32, 32))
     {
     case 0: settings.ma_pattern.length = 2; break;
     case 1: settings.ma_pattern.length = 4; break;
     case 2: settings.ma_pattern.length = 8; break;
     }
-    if (randi(64) < 32)
-    {
-        settings.modulate_ma_offset = randi(0, 16);
-        settings.modulate_ma_range = randi(16, 32);
-    }
-    else
-    {
-        settings.modulate_ma_range = 0;
-    }
+    settings.modulate_ma_offset = randi(0, 64);
+    settings.modulate_ma_range = randi(16, 64);
 
     // Randomize Cymbal
-    set_coef_kick_pattern(settings.cy_pattern);
+    switch (distribution(16, 16, 16))
+    {
+    case 0: 
+        set_coef_kick_pattern(settings.cy_pattern);
+        settings.cy_pattern.length = 16;
+        break;
+    case 1:
+        set_euclid(settings.cy_pattern, 8, 3);
+        settings.cy_pattern.length = 8;
+        break;
+    case 2:
+        set_coef_hat_pattern(settings.cy_pattern);
+        settings.cy_pattern.length = 16;
+        break;
+    }
 
     // Randomize toms
     randomize(settings.tom_pattern);
-    settings.nr_toms = randi(1, 4);
-    settings.nr_toms = 3;
     settings.toms_offset = randi(3);
     switch (distribution(32, 32))
     {
@@ -98,6 +118,13 @@ void randomize_tanzbar(TanzbarSettings& settings)
         case 1: settings.percussion_type = PercussionType::PercussionCongas; break;
     }
     randomize_mask_pattern(settings.tom_mask);
+
+    // Randomize other percussion
+    randomize(settings.cl_pattern);
+    randomize(settings.cb_pattern);
+
+    // Randomize micro-timing
+    randomize_timing(settings.time_settings);
 }
 
 void play_fill(TanzbarSettings& settings, const TimeStruct time)
@@ -137,7 +164,7 @@ void play_roll(TanzbarSettings& settings, const TimeStruct& time)
 
     if (interval_hit(division, time))
     {
-        note_on(make_note(NOTE_TANZBAR_SD, settings.snare_roll), settings.storage, get_shuffle_delay(time));
+        note_on(make_note(NOTE_TANZBAR_SD, settings.snare_roll), settings.storage, get_shuffle_delay(time, settings.time_settings.sd));
     }
 }
 
@@ -148,12 +175,12 @@ void play_bd(TanzbarSettings& settings, const TimeStruct& time)
     if (gate(settings.bd_pattern, time) && !settings.kill_low)
     {
         uint8_t pitch = NOTE_TANZBAR_BD1;
-        note_on(make_note(pitch, velocity), settings.storage, get_shuffle_delay(time));
+        note_on(make_note(pitch, velocity), settings.storage, get_shuffle_delay(time, settings.time_settings.bd));
     }
 
     if (quarter_hit && !settings.kill_low)
     {
-        note_on(make_note(NOTE_TANZBAR_BD2, velocity), settings.storage, get_shuffle_delay(time));
+        note_on(make_note(NOTE_TANZBAR_BD2, velocity), settings.storage, get_shuffle_delay(time, settings.time_settings.bd));
     }
 }
 
@@ -172,7 +199,7 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
             note_on(
                 make_note(NOTE_TANZBAR_HH, velocity), 
                 settings.storage, 
-                get_shuffle_delay(time, settings.hats_shuffle)
+                get_shuffle_delay(time, settings.time_settings.hh)
             );
         }
         break;
@@ -183,7 +210,7 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
             note_on(
                 make_note(NOTE_TANZBAR_HH, velocity), 
                 settings.storage, 
-                get_shuffle_delay(time, settings.hats_shuffle)
+                get_shuffle_delay(time, settings.time_settings.hh)
             );
         }
         break;
@@ -204,7 +231,7 @@ bool play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
         note_on(
             make_note(NOTE_TANZBAR_OH, velocity), 
             settings.storage,
-            get_shuffle_delay(time, settings.hats_shuffle)
+            get_shuffle_delay(time, settings.time_settings.hh)
         );
         return true;
     }
@@ -217,33 +244,46 @@ void play_hats(TanzbarSettings& settings, const TimeStruct& time)
         return;
 
     if (!play_hats_open(settings, time))
+    {
         play_hats_closed(settings, time);
+    }
 }
 
 bool play_maracas(TanzbarSettings& settings, const TimeStruct& time)
 {
     if (interval_hit(settings.ma_pattern.time_division, time))
     {
-        if (settings.modulate_ma_range > 0)
-        {
-            send_cc(
-                TB_MA_Decay, 
-                apply_cv(
-                    cv(settings.ma_pattern, time), 
-                    settings.modulate_ma_range, 
-                    settings.modulate_ma_offset
-                ),
-                MIDI_CC_CHANNEL_TANZBAR
-            );
-        }
+        send_cc(
+            TB_MA_Decay, 
+            quad(apply_cv(
+                cv(settings.ma_pattern, time), 
+                settings.modulate_ma_range, 
+                settings.modulate_ma_offset
+            )),
+            MIDI_CC_CHANNEL_TANZBAR
+        );
         note_on(
             make_note(NOTE_TANZBAR_MA, apply_cv(cv(settings.ma_pattern, time), 96, 16)), 
             settings.storage,
-            get_shuffle_delay(time, settings.hats_shuffle)
+            get_shuffle_delay(time, settings.time_settings.ma)
         );
         return true;
     }
     return false;
+}
+
+uint8_t get_tc_pitch(uint8_t id, PercussionType type)
+{
+    static const uint8_t t_pitches[3] = { NOTE_TANZBAR_LT, NOTE_TANZBAR_MT, NOTE_TANZBAR_HT };
+    static const uint8_t c_pitches[3] = { NOTE_TANZBAR_LC, NOTE_TANZBAR_MC, NOTE_TANZBAR_HC };
+    switch (type)
+    {
+    case PercussionType::PercussionToms:
+        return t_pitches[id % 3];
+    case PercussionType::PercussionCongas:
+    default:
+        return c_pitches[id % 3];
+    }
 }
 
 void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
@@ -266,19 +306,47 @@ void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
     // Play snare
     if (gate(settings.sd_pattern, time) && !settings.kill_mid)
     {
-        note_on(make_note(NOTE_TANZBAR_SD, velocity), settings.storage, get_shuffle_delay(time));
+        note_on(
+            make_note(NOTE_TANZBAR_SD, velocity), 
+            settings.storage, 
+            get_shuffle_delay(time, settings.time_settings.sd)
+        );
     }
 
     // Play rimshot
     if (gate(settings.rs_pattern, time) && !settings.kill_mid)
     {
-        note_on(make_note(NOTE_TANZBAR_RS, velocity), settings.storage, get_shuffle_delay(time));
+        note_on(
+            make_note(NOTE_TANZBAR_RS, velocity), 
+            settings.storage, 
+            get_shuffle_delay(time, settings.time_settings.sd)
+        );
     }
 
     // Play clap
     if (gate(settings.cp_pattern, time) && !settings.kill_mid)
     {
-        note_on(make_note(NOTE_TANZBAR_CP, velocity), settings.storage, get_shuffle_delay(time));
+        note_on(make_note(NOTE_TANZBAR_CP, velocity), settings.storage, get_shuffle_delay(time, settings.time_settings.cp));
+    }
+
+    // Play clave
+    if (gate(settings.cl_pattern, time))
+    {
+        note_on(
+            make_note(NOTE_TANZBAR_CL, velocity),
+            settings.storage,
+            get_shuffle_delay(time, settings.time_settings.cl)
+        );
+    }
+
+    // Play clave
+    if (gate(settings.cb_pattern, time))
+    {
+        note_on(
+            make_note(NOTE_TANZBAR_CB, velocity),
+            settings.storage,
+            get_shuffle_delay(time, settings.time_settings.cb)
+        );
     }
 
     // Play hats
@@ -292,22 +360,23 @@ void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
         && tom_prob < 100
         && gate(settings.tom_mask, time))
     {
-        uint8_t tom_id = tom_prob % settings.nr_toms;
+        uint8_t tom_id = tom_prob % 3;
         tom_id = (tom_id + settings.toms_offset) % 3;
-        uint8_t tom_pitch = NOTE_TANZBAR_LT;
-        if (tom_id == 1)
-            tom_pitch = NOTE_TANZBAR_MT;
-        else if (tom_id == 2)
-            tom_pitch = NOTE_TANZBAR_HT;
-        note_on(make_note(tom_pitch, 64), settings.storage, get_shuffle_delay(time));
+        note_on(
+            make_note(get_tc_pitch(tom_id, settings.percussion_type), 64),
+            settings.storage, 
+            get_shuffle_delay(time, settings.time_settings.tc)
+        );
     }
 
     // Play Cymbal
     if (gate(settings.cy_pattern, time))
     {
-        note_on(make_note(NOTE_TANZBAR_CY,
-                64), 
-                settings.storage, get_shuffle_delay(time));
+        note_on(
+            make_note(NOTE_TANZBAR_CY, 64), 
+            settings.storage, 
+            get_shuffle_delay(time, settings.time_settings.cy)
+        );
     }
 }
 

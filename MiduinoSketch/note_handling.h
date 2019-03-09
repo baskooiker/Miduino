@@ -111,6 +111,10 @@ void note_on(const NoteStruct note, PitchStorage& storage, const uint32_t delay)
 
         storage.events[storage.nr_of_events++] = new_event;
     }
+    else
+    {
+        note_on(note, storage);
+    }
 }
 
 void note_on(const NoteStruct* notes, const uint8_t length, PitchStorage& storage)

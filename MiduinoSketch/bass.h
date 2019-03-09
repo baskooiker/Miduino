@@ -175,13 +175,6 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
 {
     BassSettings& settings = data.bass_settings;
 
-    //TimeStruct time_copy = time;
-    //time_copy.tick = time.tick + 12;
-    //if (get_bass_hit(settings, settings.density, time_copy))
-    //{
-    //    all_notes_off(settings.storage);
-    //}
-
     if (settings.style == BassStyle::BassFugue && (time.tick % TICKS_PER_STEP) == 0)
     {
         return play_fugue(

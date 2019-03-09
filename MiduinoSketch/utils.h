@@ -35,7 +35,7 @@ void randomize_order(uint8_t* array, uint8_t length)
 
 NoteInterval random_note_interval()
 {
-    switch (randi(3))
+    switch (distribution(16, 16, 16))
     {
     case 0:
         return NoteInterval::IntervalFifth;

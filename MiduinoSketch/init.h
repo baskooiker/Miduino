@@ -41,6 +41,8 @@ TanzbarSettings init_tanzbar_settings()
     s.cy_pattern = init_gate_pattern_ab();
     s.tom_pattern = init_cv_pattern_ab();
     s.tom_mask = init_gate_pattern_ab();
+    s.cl_pattern = init_gate_pattern_ab();
+    s.cb_pattern = init_gate_pattern_ab();
 
     s.hh_pattern = init_gate_pattern_ab();
     s.oh_pattern = init_gate_pattern_ab();

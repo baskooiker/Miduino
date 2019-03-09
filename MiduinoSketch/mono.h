@@ -30,19 +30,22 @@ void randomize_mono(MonoSettings& settings)
     randomize_interval_lead(settings.lead_pattern);
 }
 
+TimeDivision get_time_division(const MonoSettings& settings)
+{
+    return settings.variable_density < 32 ? TimeDivision::Quarter :
+        settings.variable_density < 64 ? TimeDivision::DottedEight :
+        settings.variable_density < 96 ? TimeDivision::Eight :
+        TimeDivision::Sixteenth;
+}
+
 bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
 {
     bool hit = false;
     switch (settings.style)
     {
     case MonoStyle::MonoSixteenths:
-    {
-        TimeDivision time_division =
-            settings.variable_density < 32 ? TimeDivision::Quarter :
-            settings.variable_density < 64 ? TimeDivision::DottedEight :
-            settings.variable_density < 96 ? TimeDivision::Eight :
-            TimeDivision::Sixteenth;
-        hit = interval_hit(time_division, time);
+    {            
+        hit = interval_hit(get_time_division(settings), time);
         break;
     }
     case MonoStyle::MonoPolyRhythm:
@@ -89,10 +92,14 @@ void play_mono(
     {
         uint8_t pitch = get_next_mono_pitch(settings, harmony, time);
 
-        uint8_t length = 3;
+        uint8_t length = 6;
         if (settings.style == MonoStyle::MonoLeadPattern)
         {
-            length = 9;
+            length = ticks_left_in_bar(time);
+        }
+        else if (settings.style == MonoStyle::MonoSixteenths)
+        {
+            length = get_time_division(settings);
         }
 
         note_on(
