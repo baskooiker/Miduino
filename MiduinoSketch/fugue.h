@@ -4,14 +4,13 @@
 #include "defs.h"
 #include "harmony_struct.h"
 #include "gate.h"
-#include "scales.h"
 
 uint8_t time_intervals[] = { 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16 };
 uint8_t nr_time_intervals = sizeof(time_intervals) / sizeof(*time_intervals);
 
 FuguePlayerType random_player_type()
 {
-    switch (randi(3))
+    switch (randui8(3))
     {
     default:
     case 0: return FuguePlayerType::FugueForward;
@@ -44,7 +43,7 @@ void randomize_fugue_player(FugueSettings& settings, const uint8_t id)
     FuguePlayerSettings& player_settings = settings.player_settings[id % NUMBER_FUGUE_PLAYERS];
 
     player_settings.pitch_offset = pitch_offsets[0];
-    player_settings.length = randi(2, nr_time_intervals - 1);
+    player_settings.length = randui8(2, nr_time_intervals - 1);
     player_settings.type = random_player_type();
     player_settings.note_interval = intervals[0];
 
@@ -71,7 +70,7 @@ void randomize_fugue(FugueSettings& settings)
     // Randomize Fugue pattern
     static uint8_t pitch_opts[] = { 0, 4, 2, 3, 6 };
     settings.pattern.length = 0;
-    uint8_t length = randi(64) < 32 ? 4 : 8;
+    uint8_t length = randui8(64) < 32 ? 4 : 8;
     while (settings.pattern.length < length)
     {
         randomize_order(pitch_opts, 5);

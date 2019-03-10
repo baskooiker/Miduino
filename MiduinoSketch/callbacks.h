@@ -12,7 +12,6 @@
 #include "rand.h"
 #include "rhythms.h"
 #include "rhythm_time.h"
-#include "scales.h"
 #include "step_callbacks.h"
 #include "ui.h"
 

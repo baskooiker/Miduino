@@ -11,7 +11,7 @@
 void randomize_lead(LeadSettings& settings)
 {
     randomize(settings.min_pitch_pattern, 60, 78);
-    switch (randi(3))
+    switch (randui8(3))
     {
     case 0: settings.min_pitch_pattern.time_division = TimeDivision::Quarter; break;
     case 1: settings.min_pitch_pattern.time_division = TimeDivision::Half; break;
@@ -28,7 +28,7 @@ void randomize_lead(LeadSettings& settings)
     set_coef_slow_pattern(settings.pattern_slow);
 }
 
-void play_lead(LeadSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
+void play_lead(LeadSettings& settings, HarmonyStruct& harmony, const TimeStruct& time)
 {
     bool hit = false;
     uint8_t length = 6;

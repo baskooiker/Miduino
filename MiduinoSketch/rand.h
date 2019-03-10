@@ -13,7 +13,7 @@ uint8_t log(const uint8_t v)
     return (uint8_t)(127.9 * log((double)(v / 127.)));
 }
 
-uint8_t randi(const uint8_t max = 128)
+uint8_t randui8(const uint8_t max = 128)
 {
     if (max == 0)
     {
@@ -39,11 +39,11 @@ uint16_t randui16(const uint16_t max = 0xFFFF)
     return rand() % max;
 }
 
-uint8_t randi(const uint8_t min, const uint8_t max)
+uint8_t randui8(const uint8_t min, const uint8_t max)
 {
     uint8_t _min = MIN(min, max);
     uint8_t _max = MAX(min, max);
-    return _min + randi(_max - _min);
+    return _min + randui8(_max - _min);
 }
 
 float randf(const float max = 1.f)

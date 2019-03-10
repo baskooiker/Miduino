@@ -24,7 +24,8 @@ public:
     ~TimeStruct() {}
 };
 
-typedef struct {
+class Coefficients {
+public:
     float one;
     float two;
     float three;
@@ -32,13 +33,14 @@ typedef struct {
     float eights;
     float up;
     float down;
-} Coefficients;
+};
 
-typedef struct {
+class RandomParam {
+public:
   uint8_t note;
   uint8_t min;
   uint8_t max;  
-} RandomParam;
+};
 
 #define STEPS_IN_BAR (16)
 #define TICKS_IN_BAR (96)
@@ -54,11 +56,6 @@ public:
         length = 16;
     }
 };
-
-typedef struct {
-    uint8_t pattern[64];
-    uint8_t length;
-} CvPattern64;
 
 class CvPatternAB 
 {
@@ -94,11 +91,6 @@ public:
     ~GatePattern16() {}
 };
 
-typedef struct {
-    BinaryPattern patterns[4];
-    uint8_t length;
-} GatePattern64;
-
  class GatePatternAB 
  {
  public:
@@ -119,17 +111,21 @@ typedef struct {
     ~GatePatternAB() {};
 };
 
-typedef struct {
+class NoteStruct 
+{
+public:
     uint8_t pitch;
     uint8_t velocity;
     uint8_t length;
     NoteType type;
-} NoteStruct;
+};
 
-typedef struct {
+class NoteEvent 
+{
+public:
     NoteStruct note;
     uint32_t time;
-} NoteEvent;
+};
 
 #define STORAGE_SIZE 8
 
@@ -168,19 +164,24 @@ public:
     }
 };
 
-typedef struct {
+class IntervalProbs 
+{
+public:
     uint8_t p_4;
     uint8_t p_8;
     uint8_t p_16;
     uint8_t p_32;
     uint8_t p_t8;
-} IntervalProbs;
+};
+
 static const IntervalProbs arp_interval_probs = { 25, 25, 25, 0,  0 };
 
-typedef struct {
+class ButtonState
+{
+public:
     unsigned long last_pressed;
     unsigned long last_released;
-} ButtonState;
+};
 
 class UiState {
 public:
@@ -261,7 +262,6 @@ class BassDubSettings {
 public:
     BassDubStyle style;
     NoteInterval note_interval;
-    GatePatternAB octave_probs;
     GatePatternAB hit_probs;
     uint8_t density;
     uint8_t v_pitch;
@@ -394,12 +394,16 @@ public:
     }
 };
 
-typedef struct {
+class MicroTimingStruct 
+{
+public:
     int8_t shuffle_off;
     uint8_t delay;
-} MicroTimingStruct;
+};
 
-typedef struct {
+class TanzbarTimeSettings 
+{
+public:
     MicroTimingStruct bd;
     MicroTimingStruct sd;
     MicroTimingStruct cp;
@@ -409,7 +413,7 @@ typedef struct {
     MicroTimingStruct cl;
     MicroTimingStruct cb;
     MicroTimingStruct cy;
-} TanzbarTimeSettings;
+};
 
 class TanzbarSettings {
 public:

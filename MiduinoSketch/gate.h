@@ -25,7 +25,7 @@ bool gate(const GatePatternAB& pattern, const TimeStruct& time)
     return gate(pattern.patterns[pattern.abPattern[count / pat_length]], count % pat_length);
 }
 
-void set_gate(BinaryPattern& pattern, const uint8_t index, const bool value = true)
+void set_gate(BinaryPattern& pattern, const uint8_t index, const bool value)
 {
     if (value)
         pattern |= (1 << index);
@@ -40,23 +40,39 @@ void set_all(GatePatternAB& pattern, bool _value)
         pattern.patterns[i] = value;
 }
 
-void set_gates_low(BinaryPattern& pattern, const uint8_t _nr)
+#define NR_OF_TWO_PATTERNS 14
+const uint8_t pattern_twos[NR_OF_TWO_PATTERNS][2] = {
+    {0,  6},
+    {0,  7},
+    {0, 10},
+    {0, 11},
+    {0, 12},
+    {0, 12},
+    {0, 15},
+    {2,  6},
+    {2,  7},
+    {2, 10},
+    {2, 11},
+    {2, 12},
+    {2, 12},
+    {2, 15},
+};
+
+void set_gates_low(BinaryPattern& pattern)
 {
     pattern = 0x00;
-    uint8_t options[] = { 0, 2, 4, 6 };
-    uint8_t nr = MIN(4, _nr);
-    randomize_order(options, 4);
-    for (int i = 0; i < nr; i++)
+    uint8_t pattern_id = randui8(NR_OF_TWO_PATTERNS);
+    for (int i = 0; i < 2; i++)
     {
-        set_gate(pattern, options[i]);
+        set_gate(pattern, pattern_twos[pattern_id][i], true);
     }
 }
 
-void set_gates_low(GatePatternAB& pattern, const uint8_t nr)
+void set_gates_low(GatePatternAB& pattern)
 {
     for (int i = 0; i < 3; i++)
     {
-        set_gates_low(pattern.patterns[i], nr);
+        set_gates_low(pattern.patterns[i]);
     }
     set_ab_pattern(pattern.abPattern);
 }

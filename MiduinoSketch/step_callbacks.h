@@ -6,7 +6,7 @@ void release_step_1(ApplicationData& data)
 {
     randomize_tanzbar_sound(data.tanzbar_settings);
     randomize_tanzbar(data.tanzbar_settings);
-    data.time.global_shuffle = randi(64);
+    data.time.global_shuffle = randui8(64);
 }
 
 void release_step_2(ApplicationData& data)
@@ -14,7 +14,7 @@ void release_step_2(ApplicationData& data)
     randomize_tanzbar_sound(data.tanzbar_settings);
     randomize_tanzbar(data.tanzbar_settings);
     randomize_tanzbar_kick(data.tanzbar_settings);
-    data.time.global_shuffle = randi(64);
+    data.time.global_shuffle = randui8(64);
 }
 
 void release_step_1_2(ApplicationData& data) {}
@@ -66,7 +66,10 @@ void release_step_10(ApplicationData& data)
     randomize_bass(data.bass_settings);
 }
 
-void release_step_9_10s(ApplicationData& data) {}
+void release_step_9_10s(ApplicationData& data) 
+{
+    randomize_bass(data.bass_settings);
+}
 
 void release_step_11(ApplicationData& data)
 {
@@ -89,7 +92,7 @@ void release_step_11_and_12(ApplicationData& data)
 void release_step_13(ApplicationData& data)
 {
     randomize_mono(data.mono_settings);
-    switch (randi(2))
+    switch (randui8(2))
     {
     case 0: data.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
     case 1: data.mono_settings.style = MonoStyle::MonoLeadPattern; break;
@@ -105,7 +108,7 @@ void release_step_14(ApplicationData& data)
 void release_step_13_and_14(ApplicationData& data)
 {
     randomize_mono(data.mono_settings);
-    switch (randi(2))
+    switch (randui8(2))
     {
     case 0: data.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
     case 1: data.mono_settings.style = MonoStyle::MonoLeadPattern; break;
@@ -118,7 +121,7 @@ void release_step_15(ApplicationData& data)
 {
     randomize_mono_dub(data.mono_dub_settings);
     data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
-    switch (randi(2))
+    switch (randui8(2))
     {
     case 0: data.mono_dub_settings.settings.style = MonoStyle::MonoPolyRhythm; break;
     case 1: data.mono_dub_settings.settings.style = MonoStyle::MonoLeadPattern; break;

@@ -5,7 +5,7 @@
 void set_ab_pattern(uint8_t* ab_pattern)
 {
     ab_pattern[0] = 0;
-    switch (randi(8))
+    switch (randui8(8))
     {
     case 0: // AAAA
         ab_pattern[1] = 0;
@@ -66,7 +66,7 @@ void set_ab_pattern_const(uint8_t* ab_pattern, const uint8_t value = 0)
 void set_ab_pattern_low(uint8_t* ab_pattern)
 {
     ab_pattern[0] = 0;
-    switch (randi(4))
+    switch (randui8(4))
     {
     case 0: // AAAB
         ab_pattern[1] = 0;
@@ -94,7 +94,7 @@ void set_ab_pattern_low(uint8_t* ab_pattern)
 void set_ab_pattern_high(uint8_t* ab_pattern)
 {
     ab_pattern[0] = 0;
-    switch (randi(5))
+    switch (randui8(5))
     {
     case 0: // ABAB 
         ab_pattern[1] = 1;

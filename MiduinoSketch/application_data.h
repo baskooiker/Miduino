@@ -21,7 +21,6 @@ public:
 
     ApplicationData()
     {
-        // TODO: This is setup
         tanzbar_settings.storage.channel = MIDI_CHANNEL_TANZBAR;
         mono_settings.storage.channel = MIDI_CHANNEL_MONO;
         mono_dub_settings.settings.storage.channel = MIDI_CHANNEL_MONO_2;

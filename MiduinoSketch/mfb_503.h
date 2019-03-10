@@ -44,7 +44,7 @@ void randomize_503_kick(Mfb503Settings& settings)
     // Fill in first or second half of bar
     uint8_t half = distribution(64, 64);
 
-    uint8_t bar = settings.bd_pattern.abPattern[randi(4)];
+    uint8_t bar = settings.bd_pattern.abPattern[randui8(4)];
     set_kick_fill(settings.bd_pattern.patterns[bar], half * 8);
 }
 
@@ -94,8 +94,8 @@ void randomize_503_seq(Mfb503Settings& settings)
 
     // Randomize toms
     randomize(settings.tom_pattern);
-    settings.nr_toms = randi(1, 3);
-    settings.toms_offset = randi(3);
+    settings.nr_toms = randui8(1, 3);
+    settings.toms_offset = randui8(3);
     randomize_mask_pattern(settings.tom_mask);
 }
 
@@ -105,7 +105,7 @@ void play_fill(Mfb503Settings& settings, const TimeStruct time)
         return;
 
     uint8_t p = 0;
-    switch (randi(7))
+    switch (randui8(7))
     {
     case 0: p = NOTE_503_BD; break;
     case 1: p = NOTE_503_SD; break;
@@ -123,7 +123,7 @@ void play_roll(Mfb503Settings& settings, const TimeStruct& time)
     static TimeDivision division = TimeDivision::Sixteenth;
     if (interval_hit(TimeDivision::Sixteenth, time))
     {
-        uint8_t r = randi(16);
+        uint8_t r = randui8(16);
         if (r < 3)
         {
             division = TimeDivision::Thirtysecond;
@@ -296,12 +296,12 @@ void randomize_503_sound(Mfb503Settings& settings)
     for (int i = 0; i < nr_random_503_params; i++)
     {
         send_cc(random_503_params[i].note, 
-                randi(random_503_params[i].min, random_503_params[i].max), 
+                randui8(random_503_params[i].min, random_503_params[i].max), 
                 MIDI_CHANNEL_503);
     }
 
     // Randomize other sound settings
-    settings.play_pitch_bd = randi(128) < 64;
-    settings.bd_decay = randi(32, 64);
+    settings.play_pitch_bd = randui8(128) < 64;
+    settings.bd_decay = randui8(32, 64);
     send_bd_decay(settings);
 }

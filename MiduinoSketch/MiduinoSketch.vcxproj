@@ -114,7 +114,6 @@
     <ClInclude Include="rhythms.h" />
     <ClInclude Include="rhythm_time.h" />
     <ClInclude Include="scale.h" />
-    <ClInclude Include="scales.h" />
     <ClInclude Include="steps.h" />
     <ClInclude Include="step_callbacks.h" />
     <ClInclude Include="tanzbar.h" />

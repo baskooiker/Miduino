@@ -20,7 +20,7 @@ void set_euclid(BinaryPattern& pattern, const uint8_t _length, const uint8_t _st
     uint8_t c = 0;
     for (int i = 0; i < steps; i++)
     {
-        set_gate(pattern, c);
+        set_gate(pattern, c, true);
         c += counters[i];
     }
 }

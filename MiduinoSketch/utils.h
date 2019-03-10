@@ -30,7 +30,7 @@ void randomize_order(uint8_t* array, uint8_t length)
 {
     for (uint8_t i = 0; i < length; i++)
     {
-        swap(array, i, randi(length));
+        swap(array, i, randui8(length));
     }
 }
 
@@ -59,7 +59,7 @@ void randomize_order(NoteInterval* array, uint8_t length)
 {
     for (uint8_t i = 0; i < length; i++)
     {
-        swap(array, i, randi(length));
+        swap(array, i, randui8(length));
     }
 }
 
@@ -99,4 +99,14 @@ void all_notes_off(PitchStorage& storage)
             note_off(p.pitch, storage);
         }
     } while (p.pitch != 0);
+}
+
+bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (pitch == set[i])
+            return true;
+    }
+    return false;
 }

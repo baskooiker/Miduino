@@ -5,14 +5,13 @@
 #include "harmony.h"
 #include "midi_io.h"
 #include "pitch.h"
-#include "scales.h"
 #include "rand.h"
 #include "utils.h"
 
 void randomize_bass(BassSettings& settings)
 {
     // Randomize octaves
-    randomize(settings.octaves, 2, randi(4, 6));
+    randomize(settings.octaves, 2, randui8(4, 6));
     switch (distribution(16, 16, 16, 32))
     {
     case 0: settings.octaves.length = 2; break;
@@ -48,7 +47,7 @@ void randomize_bass(BassSettings& settings)
     }
 
     // Randomize gates
-    set_gates_low(settings.low_pattern, 1);
+    set_gates_low(settings.low_pattern);
     randomize(settings.probs);
     switch (distribution(16, 16, 32))
     {
@@ -58,10 +57,11 @@ void randomize_bass(BassSettings& settings)
     }
 
     // Randomize style
-    switch (distribution(10, 10))
+    switch (distribution(16, 16, 16))
     {
     case 0: settings.style = BassStyle::BassArpInterval; break;
     case 1: settings.style = BassStyle::BassEuclid; break;
+    case 2: settings.style = BassStyle::BassLow; break;
     }
 
     // Randomize euclid
@@ -92,7 +92,7 @@ void randomize_bass(BassSettings& settings)
     randomize_interval(settings.int_pattern, arp_interval_probs);
     randomize(settings.slides, .15f);
     randomize(settings.accents, randf(.15f, 1.f));
-    settings.note_range_value = quad(randi()) / 2;
+    settings.note_range_value = quad(randui8()) / 2;
 }
 
 bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruct& time)
@@ -121,7 +121,12 @@ bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruc
     return hit || prob_step;
 }
 
-uint8_t get_bass_pitch(const BassSettings& settings, HarmonyStruct& harmony, const TimeStruct& time)
+uint8_t get_bass_pitch(
+    const BassSettings& settings, 
+    HarmonyStruct& harmony, 
+    const TimeStruct& time,
+    const uint8_t variable_pitch,
+    const uint8_t note_offset)
 {
     // TODO: Hier klopt dus niks van...
     uint8_t note_nr = 0;
@@ -130,7 +135,7 @@ uint8_t get_bass_pitch(const BassSettings& settings, HarmonyStruct& harmony, con
     // TODO: Deze geeft veel te vaak false.
     if (note_range_p < settings.note_range_value)
     {
-        uint8_t pitch_cv = cv(settings.pitches, time) % harmony.scale.length;
+        uint8_t pitch_cv = harmony.scale.get_note(cv(settings.pitches, time));
 
         if (settings.note_range_value < 64)
         {
@@ -154,17 +159,16 @@ uint8_t get_bass_pitch(const BassSettings& settings, HarmonyStruct& harmony, con
     uint8_t pitch = harmony.scale.apply_scale_offset(
         note_nr, 
         pitch_offset, 
-        get_chord_step(harmony, time)
+        get_chord_step(harmony, time) + note_offset
     );
 
     uint8_t octave = cv(settings.octaves, time);
-    uint8_t variable_octave = cv(settings.variable_octaves, time);
-    if (variable_octave < settings.pitch_range)
+    if (variable_pitch < settings.pitch_range)
     {
-        pitch += (variable_octave % 3 + 1) * 12;
+        pitch += (variable_pitch % 3 + 1) * 12;
     }
     
-    pitch = clip_pitch(pitch, pitch_offset, apply_cv(variable_octave, 36, pitch_offset + 12));
+    pitch = clip_pitch(pitch, pitch_offset, apply_cv(variable_pitch, 36, pitch_offset + 12));
 
     pitch += settings.octave_offset * 12;
     return pitch;
@@ -189,7 +193,13 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
 
     if (hit)
     {
-        uint8_t pitch = get_bass_pitch(settings, data.harmony, time);
+        uint8_t pitch = get_bass_pitch(
+            settings, 
+            data.harmony, 
+            time, 
+            cv(settings.variable_octaves, time),
+            NoteInterval::IntervalRoot
+        );
 
         // Note length
         uint8_t length = gate(settings.accents, time) ? 6 : 2;

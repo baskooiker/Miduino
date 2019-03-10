@@ -37,7 +37,7 @@ void randomize(CvPattern& pattern, const uint8_t max = 128, const uint8_t min = 
 {
     for (int i = 0; i < 16; i++)
     {
-        pattern[i] = randi(min, max);
+        pattern[i] = randui8(min, max);
     }
 }
 

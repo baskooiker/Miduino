@@ -97,3 +97,9 @@ void process_events(ApplicationData& data)
     process_events(data.mono_settings.storage);
     process_events(data.mono_dub_settings.settings.storage);
 }
+
+void initialize_application(ApplicationData& data)
+{
+    // Initialize patterns
+    randomize_all(data);
+}

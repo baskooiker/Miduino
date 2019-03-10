@@ -6,10 +6,10 @@
 
 void randomize_mono(MonoSettings& settings)
 {
-    settings.pitch_offset = randi(24, 48);
-    settings.arp_data.range = randi(12, 24);
+    settings.pitch_offset = randui8(24, 48);
+    settings.arp_data.range = randui8(12, 24);
 
-    switch (randi(4))
+    switch (randui8(4))
     {
     case 0: settings.arp_data.type = ArpType::UP;
     case 1: settings.arp_data.type = ArpType::DOWN;
@@ -17,14 +17,14 @@ void randomize_mono(MonoSettings& settings)
     case 3: settings.arp_data.type = ArpType::PICKING_IN;
     }
 
-    switch (randi(3))
+    switch (randui8(3))
     {
     case 0: settings.style = MonoStyle::MonoSixteenths; break;
     case 1: settings.style = MonoStyle::MonoPolyRhythm; break;
     case 2: settings.style = MonoStyle::MonoLeadPattern; break;
     }
 
-    set_euclid(settings.euclid_pattern, randi(5, 8), 1);
+    set_euclid(settings.euclid_pattern, randui8(5, 8), 1);
     settings.euclid_pattern.time_division = TimeDivision::Sixteenth;
 
     randomize_interval_lead(settings.lead_pattern);

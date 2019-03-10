@@ -11,10 +11,10 @@
 void randomize_poly(PolySettings& settings)
 {    
     // Set pattern low
-    set_gates_low(settings.gates_low, randi(1, 4));
+    set_gates_low(settings.gates_low);
 
     // Set pattern high
-    uint8_t steps = randi(5, 11);
+    uint8_t steps = randui8(5, 11);
     set_euclid(settings.gates, 16, steps);
     set_ab_pattern(settings.gates.abPattern);
 
@@ -22,10 +22,10 @@ void randomize_poly(PolySettings& settings)
     randomize(settings.tie_pattern, randf(.1f, .4f));
 
     // Randomize pitch range
-    settings.pitch_offset = randi(42, 54);
+    settings.pitch_offset = randui8(42, 54);
 }
 
-void play_poly(PolySettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
+void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct& time)
 { 
     uint8_t velocity = 64;
 

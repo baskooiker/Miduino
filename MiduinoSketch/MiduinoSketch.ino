@@ -43,8 +43,7 @@ void setup() {
 
     srand(analogRead(A0));
 
-    // Initialize patterns
-    randomize_all(data);
+    initialize_application(data);
 }
 
 void loop() {

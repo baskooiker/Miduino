@@ -82,7 +82,7 @@ uint8_t get_arp_pitch(
     case CLOSEST_EXC:
         return get_closest(arp_data, arp_data.arp_notes, arp_data.arp_notes_length, false, last_note);
     case RANDOM:
-        return arp_data.arp_notes[randi(arp_data.arp_notes_length)];
+        return arp_data.arp_notes[randui8(arp_data.arp_notes_length)];
     }
     return 0;
 }
@@ -92,10 +92,11 @@ void get_arp_pitches_by_range(ArpData& arp_data, const Scale& scale, const uint8
     arp_data.arp_notes_length = 0;
     for (int i = arp_data.min; i < arp_data.min + arp_data.range; i++)
     {
-        if (is_in_chord(i, scale, chord))
+        if (scale.chord_contains(i, chord))
             arp_data.arp_notes[arp_data.arp_notes_length++] = i;
     }
 }
+
 void get_arp_pitches_by_count(ArpData& arp_data, const Scale& scale, const uint8_t chord)
 {
     int i = arp_data.min;
@@ -103,7 +104,7 @@ void get_arp_pitches_by_count(ArpData& arp_data, const Scale& scale, const uint8
     while (arp_data.arp_notes_length < arp_data.range_count
         && i < 128)
     {
-        if (is_in_chord(i, scale, chord))
+        if (scale.chord_contains(i, chord))
             arp_data.arp_notes[arp_data.arp_notes_length++] = i;
         i++;
     }

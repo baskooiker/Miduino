@@ -80,14 +80,14 @@ void randomize_interval_lead(IntervalPattern& pattern)
     for (int bar = 0; bar < 4; bar++)
     {
         // 50% chance for fill in each far
-        if (randi(4) < 3)
+        if (randui8(4) < 3)
         {
             // Starting fill of length 1 or two. Randomize position in bar.
-            uint8_t fill_length = randi(1,3);
-            uint8_t start_beat = randi(0, 5-fill_length);
+            uint8_t fill_length = randui8(1,3);
+            uint8_t start_beat = randui8(0, 5-fill_length);
             for (int beat = start_beat; beat < start_beat+fill_length; beat++)
             {
-                TimeDivision time_division = randi(64) < 8 ? 
+                TimeDivision time_division = randui8(64) < 8 ? 
                     TimeDivision::Sixteenth : 
                     TimeDivision::Eight;
                 pattern.pattern[bar * 4 + beat] = time_division;
@@ -101,9 +101,9 @@ void randomize_interval_hat(IntervalPattern& pattern)
 {
     IntervalProbs probs = { 0,  20, 50, 15, 10 };
     probs.p_4 = 0;
-    probs.p_8 = randi(30);
+    probs.p_8 = randui8(30);
     probs.p_16 = 50;
-    probs.p_32 = randi(64) < 32 ? randi(15) : 0;
-    probs.p_t8 = randi(64) < 16 ? randi(15) : 0;
+    probs.p_32 = randui8(64) < 32 ? randui8(15) : 0;
+    probs.p_t8 = randui8(64) < 16 ? randui8(15) : 0;
     randomize_interval(pattern, probs);
 }

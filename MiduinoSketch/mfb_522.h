@@ -34,11 +34,11 @@ void randomize_522_seq(Mfb522Settings& settings)
     {
         uint8_t steps[8] = { 6, 7, 8, 10, 12, 14, 15, 16 };
         randomize_order(steps, 8);
-        uint8_t gates = randi(MAX((uint8_t)(steps[0] * .3), 2), (uint8_t)(steps[0] * .8));
+        uint8_t gates = randui8(MAX((uint8_t)(steps[0] * .3), 2), (uint8_t)(steps[0] * .8));
         set_euclid(settings.hh_522_pattern.patterns[0], steps[0], gates);
         settings.hh_522_pattern.length = steps[0];
         
-        gates = randi(MAX((uint8_t)(steps[1] * .3), 2), (uint8_t)(steps[1] * .8));
+        gates = randui8(MAX((uint8_t)(steps[1] * .3), 2), (uint8_t)(steps[1] * .8));
         set_euclid(settings.hh_522_pattern.patterns[0], steps[1], gates);
         settings.hh_522_pattern.length = steps[1];
         settings.use_hh_int = false;

@@ -19,13 +19,13 @@ void randomize_tanzbar_kick(TanzbarSettings& settings)
     // Fill in first or second half of bar
     uint8_t half = distribution(64, 64);
 
-    uint8_t bar = settings.bd_pattern.abPattern[randi(4)];
+    uint8_t bar = settings.bd_pattern.abPattern[randui8(4)];
     set_kick_fill(settings.bd_pattern.patterns[bar], half * 8);
 }
 
 void randomize_timing(MicroTimingStruct& settings)
 {
-    settings.delay = randi();
+    settings.delay = randui8();
     settings.shuffle_off = randi8(-20, 20);
 }
 
@@ -89,8 +89,8 @@ void randomize_tanzbar(TanzbarSettings& settings)
     case 1: settings.ma_pattern.length = 4; break;
     case 2: settings.ma_pattern.length = 8; break;
     }
-    settings.modulate_ma_offset = randi(0, 64);
-    settings.modulate_ma_range = randi(16, 64);
+    settings.modulate_ma_offset = randui8(0, 64);
+    settings.modulate_ma_range = randui8(16, 64);
 
     // Randomize Cymbal
     switch (distribution(16, 16, 16))
@@ -111,7 +111,7 @@ void randomize_tanzbar(TanzbarSettings& settings)
 
     // Randomize toms
     randomize(settings.tom_pattern);
-    settings.toms_offset = randi(3);
+    settings.toms_offset = randui8(3);
     switch (distribution(32, 32))
     {
         case 0: settings.percussion_type = PercussionType::PercussionToms; break;
@@ -133,7 +133,7 @@ void play_fill(TanzbarSettings& settings, const TimeStruct time)
         return;
 
     uint8_t p = 0;
-    switch (randi(7))
+    switch (randui8(7))
     {
     case 0: p = NOTE_TANZBAR_BD1; break;
     case 1: p = NOTE_TANZBAR_SD; break;
@@ -151,7 +151,7 @@ void play_roll(TanzbarSettings& settings, const TimeStruct& time)
     static TimeDivision division = TimeDivision::Sixteenth;
     if (interval_hit(TimeDivision::Sixteenth, time))
     {
-        uint8_t r = randi(16);
+        uint8_t r = randui8(16);
         if (r < 3)
         {
             division = TimeDivision::Thirtysecond;
@@ -442,7 +442,7 @@ void randomize_tanzbar_sound(TanzbarSettings& settings)
     for (int i = 0; i < nr_random_tanzbar_params; i++)
     {
         send_cc(random_tanzbar_params[i].note, 
-                randi(random_tanzbar_params[i].min, random_tanzbar_params[i].max), 
+                randui8(random_tanzbar_params[i].min, random_tanzbar_params[i].max), 
                 MIDI_CC_CHANNEL_TANZBAR);
     }
 }

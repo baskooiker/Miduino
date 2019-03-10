@@ -69,10 +69,12 @@ void print_storage(PitchStorage& storage)
 
 void print_scale(const Scale& scale)
 {
+    uint8_t length = 0;
+    uint8_t* notes = scale.get_scale_notes(length);
     printf("Root = %d\n", scale.root);
-    for (int i = 0; i < scale.length; i++)
+    for (int i = 0; i < length; i++)
     {
-        printf("%-2d  ", scale.notes[i]);
+        printf("%-2d  ", notes[i]);
     }
     printf("\n");
 }
