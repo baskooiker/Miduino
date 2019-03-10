@@ -2,6 +2,7 @@
 
 #include "cv.h"
 #include "defs.h"
+#include "harmony_struct.h"
 #include "gate.h"
 #include "scales.h"
 
@@ -12,6 +13,7 @@ FuguePlayerType random_player_type()
 {
     switch (randi(3))
     {
+    default:
     case 0: return FuguePlayerType::FugueForward;
     case 1: return FuguePlayerType::FugueBackward;
     case 2: return FuguePlayerType::FugueBackAndForth;
@@ -88,7 +90,7 @@ void randomize_fugue(FugueSettings& settings)
 void play_fugue(
     FugueSettings& fugue_settings,
     const uint8_t player_id, 
-    const HarmonyStruct& harmony,
+    HarmonyStruct& harmony,
     const TimeStruct& time, 
     PitchStorage& storage)
 {
@@ -134,9 +136,8 @@ void play_fugue(
             uint8_t note_step = cv(fugue_settings.pattern, c);
 
             uint8_t pitch_offset = apply_cv(player_settings.manual_pitch_offset, 36, player_settings.pitch_offset);
-            uint8_t pitch = apply_scale_offset(
+            uint8_t pitch = harmony.scale.apply_scale_offset(
                 note_step, 
-                harmony.scale, 
                 pitch_offset,
                 player_settings.note_interval
             );

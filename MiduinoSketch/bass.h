@@ -121,7 +121,7 @@ bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruc
     return hit || prob_step;
 }
 
-uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
+uint8_t get_bass_pitch(const BassSettings& settings, HarmonyStruct& harmony, const TimeStruct& time)
 {
     // TODO: Hier klopt dus niks van...
     uint8_t note_nr = 0;
@@ -151,9 +151,8 @@ uint8_t get_bass_pitch(const BassSettings& settings, const HarmonyStruct& harmon
 
     const uint8_t pitch_offset = 36;
 
-    uint8_t pitch = apply_scale_offset(
+    uint8_t pitch = harmony.scale.apply_scale_offset(
         note_nr, 
-        harmony.scale, 
         pitch_offset, 
         get_chord_step(harmony, time)
     );

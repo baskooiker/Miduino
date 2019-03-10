@@ -3,11 +3,11 @@
 #include "defs.h"
 
 #include "app_utils.h"
+#include "application_data.h"
 #include "chords.h"
 #include "cv.h"
 #include "defs.h"
 #include "harmony.h"
-#include "init.h"
 #include "midi_io.h"
 #include "rand.h"
 #include "rhythms.h"
@@ -121,10 +121,10 @@ void handleNoteOnStopped(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         data.harmony.scale.root = Root::ROOT_A_SHARP;
         break;
     case BSP_PAD_15: 
-        set_scale(data.harmony.scale, ScaleType::AEOLIAN);
+        data.harmony.scale.set_scale(ScaleType::AEOLIAN);
         break;
     case BSP_PAD_16:
-        set_scale(data.harmony.scale, ScaleType::IONIAN); 
+        data.harmony.scale.set_scale(ScaleType::IONIAN);
         break;
     }
 }

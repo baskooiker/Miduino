@@ -2,6 +2,7 @@
 
 #include "cv.h"
 #include "rhythms.h"
+#include "scale.h"
 #include "utils.h"
 
 void set_chord_pattern_ab(CvPatternAB& pattern)

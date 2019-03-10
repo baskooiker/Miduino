@@ -11,8 +11,8 @@ void play_mono_dub(
     ApplicationData& data,
     MonoDubSettings& settings, 
     const MonoSettings& lead_settings, 
-    const HarmonyStruct& harmony, 
-    const TimeStruct time)
+    HarmonyStruct& harmony, 
+    TimeStruct time)
 {
     bool hit = false;
     switch (settings.style)

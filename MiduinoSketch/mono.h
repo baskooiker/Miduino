@@ -73,7 +73,7 @@ uint8_t get_mono_pitch(const MonoSettings& settings, const HarmonyStruct& harmon
 void play_mono(
     ApplicationData& data,
     MonoSettings& settings, 
-    const HarmonyStruct& harmony, 
+    HarmonyStruct& harmony, 
     const TimeStruct& time)
 {
     if (settings.style == MonoStyle::MonoFugue)

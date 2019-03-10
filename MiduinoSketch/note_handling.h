@@ -48,7 +48,7 @@ void stop_notes(PitchStorage& storage)
     if (storage.size == 0) return;
     for (uint8_t i = 0; i < storage.size; i++)
     {
-        if (storage.data[i].length != HOLD_NOTE
+        if (storage.data[i].length != 0xFF
             && storage.data[i].length > 0)
         {
             storage.data[i].length -= 1;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "application_data.h"
 #include "cv.h"
 
 void randomize_harmony(ApplicationData& data)

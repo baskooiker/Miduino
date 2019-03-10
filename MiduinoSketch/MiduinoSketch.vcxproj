@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ab.h" />
+    <ClInclude Include="application_data.h" />
     <ClInclude Include="app_utils.h" />
     <ClInclude Include="arp.h" />
     <ClInclude Include="bass.h" />
@@ -96,9 +97,7 @@
     <ClInclude Include="fugue.h" />
     <ClInclude Include="gate.h" />
     <ClInclude Include="harmony.h" />
-    <ClInclude Include="init.h" />
-    <ClInclude Include="init_patterns.h" />
-    <ClInclude Include="init_structs.h" />
+    <ClInclude Include="harmony_struct.h" />
     <ClInclude Include="intervals.h" />
     <ClInclude Include="lead.h" />
     <ClInclude Include="mask.h" />
@@ -114,6 +113,7 @@
     <ClInclude Include="rand.h" />
     <ClInclude Include="rhythms.h" />
     <ClInclude Include="rhythm_time.h" />
+    <ClInclude Include="scale.h" />
     <ClInclude Include="scales.h" />
     <ClInclude Include="steps.h" />
     <ClInclude Include="step_callbacks.h" />

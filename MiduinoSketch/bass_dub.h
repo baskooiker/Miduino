@@ -27,8 +27,8 @@ void play_bass_dub(
     ApplicationData& data,
     BassSettings& settings, 
     BassDubSettings& dub_settings, 
-    const HarmonyStruct harmony,
-    const TimeStruct& time)
+    HarmonyStruct harmony,
+    TimeStruct& time)
 {
     if (dub_settings.style == BassDubStyle::DubFugue)
     {

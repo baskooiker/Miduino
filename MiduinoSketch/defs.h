@@ -3,16 +3,26 @@
 #include "consts.h"
 #include "enums.h"
 
-typedef struct {
+class TimeStruct 
+{
+public:
     uint32_t tick;
-
     PlayState state;
-
     uint32_t last_pulse_time;
     float average_pulse_time;
-
     uint8_t global_shuffle;
-} TimeStruct;
+
+    TimeStruct()
+    {
+        tick = 0;
+        state = PlayState::Stopped;
+        last_pulse_time = 0;
+        average_pulse_time = 500.f;
+        global_shuffle = 0;
+    }
+
+    ~TimeStruct() {}
+};
 
 typedef struct {
     float one;
@@ -30,52 +40,84 @@ typedef struct {
   uint8_t max;  
 } RandomParam;
 
-typedef struct {
-    uint8_t data[16];
-    uint8_t length;
-} RhythmPattern;
-
 #define STEPS_IN_BAR (16)
 #define TICKS_IN_BAR (96)
 typedef uint8_t CvPattern[STEPS_IN_BAR];
 
-typedef struct {
+class CvPattern16 {
+public:
     uint8_t pattern[16];
     uint8_t length;
-} CvPattern16;
+
+    CvPattern16()
+    {
+        length = 16;
+    }
+};
 
 typedef struct {
     uint8_t pattern[64];
     uint8_t length;
 } CvPattern64;
 
-typedef struct {
+class CvPatternAB 
+{
+public:
     CvPattern patterns[3];
     uint8_t abPattern[4];
     TimeDivision time_division;
     uint8_t length;
-} CvPatternAB;
+
+    CvPatternAB()
+    {
+        length = 64;
+        time_division = TimeDivision::Sixteenth;
+    }
+
+    ~CvPatternAB() {}
+};
 
 typedef uint16_t BinaryPattern;
 
-typedef struct {
+class GatePattern16
+{
+public:
     BinaryPattern pattern;
     uint8_t length;
-} GatePattern16;
+
+    GatePattern16()
+    {
+        pattern = 0x00;
+        length = 16;
+    }
+
+    ~GatePattern16() {}
+};
 
 typedef struct {
     BinaryPattern patterns[4];
     uint8_t length;
 } GatePattern64;
 
-typedef struct {
+ class GatePatternAB 
+ {
+ public:
     BinaryPattern patterns[3];
     uint8_t abPattern[4];
     TimeDivision time_division;
     uint8_t length;
-} GatePatternAB;
 
-#define HOLD_NOTE 0xFF
+    GatePatternAB()
+    {
+        patterns[0] = 0x00;
+        patterns[1] = 0x00;
+        patterns[2] = 0x00;
+        length = 64;
+        time_division = TimeDivision::Sixteenth;
+    }
+
+    ~GatePatternAB() {};
+};
 
 typedef struct {
     uint8_t pitch;
@@ -91,7 +133,9 @@ typedef struct {
 
 #define STORAGE_SIZE 8
 
-typedef struct {
+class PitchStorage
+{
+public:
     NoteStruct data[STORAGE_SIZE];
     uint8_t size;
 
@@ -99,13 +143,30 @@ typedef struct {
     uint8_t nr_of_events;
 
     uint8_t channel;
-} PitchStorage;
 
-typedef struct {
+    PitchStorage()
+    {
+        size = 0;
+        nr_of_events = 0;
+    }
+};
+
+class IntervalPattern {
+public:
     TimeDivision pattern[16];
     TimeDivision time_division;
     uint8_t length;
-} IntervalPattern;
+
+    IntervalPattern()
+    {
+        length = 16;
+        for (int i = 0; i < length; i++)
+        {
+            pattern[i] = TimeDivision::Sixteenth;
+        }
+        time_division = TimeDivision::Eight;
+    }
+};
 
 typedef struct {
     uint8_t p_4;
@@ -121,15 +182,16 @@ typedef struct {
     unsigned long last_released;
 } ButtonState;
 
-typedef struct {
+class UiState {
+public:
     uint16_t bsp_button_state;
-    //uint16_t bsp_pad_state;
 
     ButtonState pad_state[NR_OF_PADS];
     ButtonState step_state[NR_OF_STEPS];
-} UiState;
+};
 
-typedef struct {
+class FuguePlayerSettings {
+public:
     uint8_t pitch_offset;
     uint8_t manual_pitch_offset;
     uint8_t length;
@@ -139,16 +201,28 @@ typedef struct {
     uint8_t density;
     NoteInterval note_interval;
     uint8_t note_repeat;
-} FuguePlayerSettings;
+
+    FuguePlayerSettings()
+    {
+        pitch_offset = 36;
+        length = 4;
+        type = FuguePlayerType::FugueForward;
+        note_interval = NoteInterval::IntervalRoot;
+        note_repeat = 1;
+    }
+};
 
 #define NUMBER_FUGUE_PLAYERS 4
 
-typedef struct {
+class FugueSettings {
+public:
     CvPattern16 pattern;
     FuguePlayerSettings player_settings[NUMBER_FUGUE_PLAYERS];
-} FugueSettings;
+};
 
-typedef struct {
+class BassSettings 
+{
+public:
     GatePatternAB accents;
     CvPatternAB pitches;
     CvPatternAB octaves;
@@ -171,9 +245,20 @@ typedef struct {
     bool kill;
 
     PitchStorage storage;
-} BassSettings;
 
-typedef struct {
+    BassSettings()
+    {
+        pitch_range = 0;
+        style = BassStyle::BassLow;
+        note_range_value = 0;
+        density = 0;
+        octave_offset = 2;
+        kill = false;
+    }
+};
+
+class BassDubSettings {
+public:
     BassDubStyle style;
     NoteInterval note_interval;
     GatePatternAB octave_probs;
@@ -182,9 +267,19 @@ typedef struct {
     uint8_t v_pitch;
     uint8_t fugue_id;
     PitchStorage storage;
-} BassDubSettings;
 
-typedef struct {
+    BassDubSettings()
+    {
+        style = BassDubStyle::DubOctave;
+        note_interval = NoteInterval::IntervalRoot;
+        density = 0;
+        v_pitch = 0;
+    }
+};
+
+class Mfb522Settings 
+{
+public:
     GatePattern16 ac_522_pattern;
     GatePatternAB bd_522_pattern;
     GatePattern16 lo_tom_522_pattern;
@@ -201,9 +296,16 @@ typedef struct {
     IntervalPattern hh_int_pattern;
 
     PitchStorage storage;
-} Mfb522Settings;
 
-typedef struct {
+    Mfb522Settings()
+    {
+        use_hh_int = false;
+    }
+};
+
+class ArpData
+{
+public:
     uint8_t min;
     uint8_t range;
     uint8_t range_count;
@@ -214,32 +316,41 @@ typedef struct {
 
     uint8_t arp_notes[32];
     uint8_t arp_notes_length;
-} ArpData;
 
-typedef struct {
+    ArpData()
+    {
+        min = 36;
+        range = 12;
+        range_count = 3;
+        counter = 0;
+        type = ArpType::UP;
+        range_type = RangeType::Range;
+        last_note = 0;
+
+        arp_notes_length = 0;
+    }
+};
+
+class PolySettings 
+{
+public:
     GatePatternAB gates_low;
     GatePatternAB gates;
     GatePatternAB tie_pattern;
     uint8_t pitch_offset;
     PolyType type;
     PitchStorage storage;
-} PolySettings;
 
-typedef struct {
-    uint8_t notes[8];
-    uint8_t length;
-    Root root;
-    ScaleType type;
-} Scale;
+    PolySettings()
+    {
+        pitch_offset = 48;
+        type = PolyType::PolyLow;
+    }
+};
 
-typedef struct {
-    CvPatternAB const_pattern;
-    CvPatternAB high_pattern;
-    HarmonyType type;
-    Scale scale;
-} HarmonyStruct;
-
-typedef struct {
+class Mfb503Settings 
+{
+public:
     GatePatternAB bd_pattern;
     GatePatternAB sd_pattern;
     GatePatternAB hh_pattern;
@@ -272,7 +383,16 @@ typedef struct {
     uint8_t bd_decay_factor;
 
     PitchStorage storage;
-} Mfb503Settings;
+
+    Mfb503Settings()
+    {
+        hat_closed_style = HatClosedStyle::HatClosedRegular;
+        volume_cy = 0;
+        volume_tom = 0;
+        kill_hats = false;
+        closed_hat_note = NOTE_503_HH_1;
+    }
+};
 
 typedef struct {
     int8_t shuffle_off;
@@ -291,7 +411,8 @@ typedef struct {
     MicroTimingStruct cy;
 } TanzbarTimeSettings;
 
-typedef struct {
+class TanzbarSettings {
+public:
     GatePatternAB bd_pattern;
     GatePatternAB sd_pattern;
     GatePatternAB rs_pattern;
@@ -306,9 +427,6 @@ typedef struct {
 
     IntervalPattern hat_int_pattern;
     CvPatternAB hat_velocity;
-
-    uint8_t bd_decay;
-    bool play_pitch_bd;
 
     uint8_t modulate_ma_range;
     uint8_t modulate_ma_offset;
@@ -329,17 +447,33 @@ typedef struct {
     TanzbarTimeSettings time_settings;
 
     PitchStorage storage;
-} TanzbarSettings;
 
-typedef struct {
+    TanzbarSettings()
+    {
+        hat_closed_style = HatClosedStyle::HatClosedRegular;
+        kill_hats = false;
+        percussion_type = PercussionType::PercussionToms;
+    }
+};
+
+class LeadSettings 
+{
+public:
     ArpData arp_data;
     CvPatternAB min_pitch_pattern;
     GatePatternAB pattern_slow;
     LeadStyle style;
     PitchStorage storage;
-} LeadSettings;
 
-typedef struct {
+    LeadSettings()
+    {
+        style = LeadStyle::LeadSlow;
+    }
+};
+
+class MonoSettings 
+{
+public:
     MonoStyle style;
     ArpData arp_data;
     IntervalPattern int_pattern;
@@ -353,25 +487,24 @@ typedef struct {
     uint8_t fugue_id;
 
     PitchStorage storage;
-} MonoSettings;
 
-typedef struct {
+    MonoSettings()
+    {
+        style = MonoStyle::MonoSixteenths;
+        fugue_id = 0;
+    }
+};
+
+class MonoDubSettings 
+{
+public:
     uint8_t variable_pitch_offset;
     MonoSettings settings;
     MonoDubStyle style;
-} MonoDubSettings;
 
-typedef struct {
-    TimeStruct time;
-    HarmonyStruct harmony;
-
-    FugueSettings fugue_settings;
-
-    TanzbarSettings tanzbar_settings;
-    BassSettings bass_settings;
-    BassDubSettings bass_dub_settings;
-    MonoSettings mono_settings;
-    MonoDubSettings mono_dub_settings;
-
-    UiState ui_state;
-} ApplicationData;
+    MonoDubSettings()
+    {
+        variable_pitch_offset = 0;
+        style = MonoDubStyle::MonoDubLead;
+    }
+};

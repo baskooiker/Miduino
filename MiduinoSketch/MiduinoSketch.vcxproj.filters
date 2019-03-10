@@ -31,9 +31,6 @@
     <Filter Include="Header Files\app">
       <UniqueIdentifier>{9bccd42c-049c-40b6-a4d4-cbc47aaffdf3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\init">
-      <UniqueIdentifier>{960e0301-93f6-407f-85bf-79afd30c0300}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="MiduinoSketch.ino" />
@@ -117,15 +114,6 @@
     <ClInclude Include="poly.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="init_structs.h">
-      <Filter>Header Files\init</Filter>
-    </ClInclude>
-    <ClInclude Include="init_patterns.h">
-      <Filter>Header Files\init</Filter>
-    </ClInclude>
-    <ClInclude Include="init.h">
-      <Filter>Header Files\init</Filter>
-    </ClInclude>
     <ClInclude Include="arp.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
@@ -161,6 +149,15 @@
     </ClInclude>
     <ClInclude Include="harmony.h">
       <Filter>Header Files\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="scale.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="harmony_struct.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="application_data.h">
+      <Filter>Header Files\defs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

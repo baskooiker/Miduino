@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "defs.h"
+#include "note_handling.h"
 #include "rand.h"
 
 void swap(uint8_t* array, uint8_t x, uint8_t y)
@@ -37,6 +38,7 @@ NoteInterval random_note_interval()
 {
     switch (distribution(16, 16, 16))
     {
+    default:
     case 0:
         return NoteInterval::IntervalFifth;
     case 1:

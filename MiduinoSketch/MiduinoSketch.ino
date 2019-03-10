@@ -5,7 +5,7 @@
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-static ApplicationData data = { 0 };
+static ApplicationData data;
 
 void handleNoteOnCallback(byte channel, byte pitch, byte velocity)
 {
@@ -42,8 +42,6 @@ void setup() {
     MIDI.begin(MIDI_CHANNEL_OMNI);
 
     srand(analogRead(A0));
-
-    data = init_application_data();
 
     // Initialize patterns
     randomize_all(data);
