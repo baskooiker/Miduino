@@ -9,9 +9,9 @@ void set_chord_pattern_ab(CvPatternAB& pattern)
 {
     uint8_t options[] = {2, 3, 4, 5};
     randomize_order(options, 4);
-    set_all(pattern.patterns[0], 0);
-    set_all(pattern.patterns[1], options[0]);
-    set_all(pattern.patterns[2], options[1]);
+    pattern.patterns[0].set_all(0);
+    pattern.patterns[1].set_all(options[0]);
+    pattern.patterns[2].set_all(options[1]);
     set_ab_pattern(pattern.abPattern);
 }
 

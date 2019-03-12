@@ -156,5 +156,8 @@
     <ClInclude Include="application_data.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
+    <ClInclude Include="modulators.h">
+      <Filter>Header Files\generators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

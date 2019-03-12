@@ -104,6 +104,7 @@
     <ClInclude Include="mfb_503.h" />
     <ClInclude Include="mfb_522.h" />
     <ClInclude Include="midi_io.h" />
+    <ClInclude Include="modulators.h" />
     <ClInclude Include="mono.h" />
     <ClInclude Include="mono_dub.h" />
     <ClInclude Include="note_handling.h" />

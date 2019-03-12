@@ -2,6 +2,7 @@
 
 #include "consts.h"
 #include "enums.h"
+#include "rand.h"
 
 class TimeStruct 
 {
@@ -21,7 +22,10 @@ public:
         global_shuffle = 0;
     }
 
-    ~TimeStruct() {}
+    uint32_t step() const
+    {
+        return this->tick / TICKS_PER_STEP;
+    }
 };
 
 class Coefficients {
@@ -44,16 +48,60 @@ public:
 
 #define STEPS_IN_BAR (16)
 #define TICKS_IN_BAR (96)
-typedef uint8_t CvPattern[STEPS_IN_BAR];
+
+class CvPattern
+{
+public:
+    uint8_t pattern[STEPS_IN_BAR];
+
+    void randomize(const uint8_t maximum = 128, const uint8_t minimum = 0)
+    {
+        for (int i = 0; i < STEPS_IN_BAR; i++)
+        {
+            this->pattern[i] = randui8(minimum, maximum);
+        }
+    }
+
+    void set(const uint8_t i, const uint8_t value)
+    {
+        this->pattern[i] = value;
+    }
+
+    void set_all(const uint8_t value)
+    {
+        for (int i = 0; i < STEPS_IN_BAR; i++)
+            this->pattern[i] = value;
+    }
+
+    uint8_t cv(const uint8_t step) const
+    {
+        return this->pattern[step % STEPS_IN_BAR];
+    }
+};
 
 class CvPattern16 {
 public:
-    uint8_t pattern[16];
+    CvPattern pattern;
     uint8_t length;
 
     CvPattern16()
     {
-        length = 16;
+        length = STEPS_IN_BAR;
+    }
+
+    void randomize(const uint8_t maximum = 128, const uint8_t minimum = 0)
+    {
+        this->pattern.randomize(maximum, minimum);
+    }
+
+    uint8_t cv(const TimeStruct& time)
+    {
+        return this->cv(time.step());
+    }
+
+    uint8_t cv(const uint8_t step)
+    {
+        return pattern.pattern[step % MAX(MIN(length, 16), 1)];
     }
 };
 

@@ -30,13 +30,16 @@ int8_t randi8(int8_t max_, int8_t min_ = 0)
     return (rand() % range) + min_v;
 }
 
-uint16_t randui16(const uint16_t max = 0xFFFF)
+uint16_t randui16(const uint16_t maximum = 0xFFFF, uint16_t minimum = 0)
 {
-    if (max == 0)
+    uint16_t _min = MIN(minimum, maximum);
+    uint16_t _max = MAX(minimum, maximum);
+    uint16_t range = _max - _min;
+    if (range == 0)
     {
         return 0;
     }
-    return rand() % max;
+    return _min + (rand() % range);
 }
 
 uint8_t randui8(const uint8_t min, const uint8_t max)

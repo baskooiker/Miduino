@@ -76,7 +76,7 @@ void randomize_fugue(FugueSettings& settings)
         randomize_order(pitch_opts, 5);
         for (int i = 0; i < 5 && settings.pattern.length < length; i++)
         {
-            settings.pattern.pattern[settings.pattern.length++] = pitch_opts[i];
+            settings.pattern.pattern.set(settings.pattern.length++, pitch_opts[i]);
         }
     }
 
@@ -132,7 +132,7 @@ void play_fugue(
                 break;
             }
 
-            uint8_t note_step = cv(fugue_settings.pattern, c);
+            uint8_t note_step = fugue_settings.pattern.cv(c);
 
             uint8_t pitch_offset = apply_cv(player_settings.manual_pitch_offset, 36, player_settings.pitch_offset);
             uint8_t pitch = harmony.scale.apply_scale_offset(
