@@ -159,5 +159,32 @@
     <ClInclude Include="modulators.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
+    <ClInclude Include="tanzbar_settings.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="cv_patterns.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="time_struct.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="midi_channel.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="bass_settings.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="fugue_settings.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="mfb_503_settings.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="lead_settings.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="note_struct.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

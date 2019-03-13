@@ -1,7 +1,11 @@
 #pragma once
 
+#include "bass_settings.h"
 #include "defs.h"
+#include "fugue_settings.h"
 #include "harmony_struct.h"
+#include "modulators.h"
+#include "tanzbar_settings.h"
 
 class ApplicationData 
 {
@@ -10,6 +14,7 @@ public:
     HarmonyStruct harmony;
 
     FugueSettings fugue_settings;
+    Modulators modulators;
 
     TanzbarSettings tanzbar_settings;
     BassSettings bass_settings;
@@ -32,6 +37,4 @@ public:
         mono_settings.fugue_id = 2;
         mono_dub_settings.settings.fugue_id = 3;
     }
-
-    ~ApplicationData() {};
 };

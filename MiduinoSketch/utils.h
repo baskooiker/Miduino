@@ -5,6 +5,7 @@
 
 #include "defs.h"
 #include "note_handling.h"
+#include "time_struct.h"
 #include "rand.h"
 
 void swap(uint8_t* array, uint8_t x, uint8_t y)
@@ -109,4 +110,9 @@ bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size)
             return true;
     }
     return false;
+}
+
+uint32_t get_count(const TimeDivision time_division, const TimeStruct& time)
+{
+    return time.tick / (uint32_t)time_division;
 }

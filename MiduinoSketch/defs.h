@@ -2,31 +2,9 @@
 
 #include "consts.h"
 #include "enums.h"
+#include "note_struct.h"
+#include "midi_channel.h"
 #include "rand.h"
-
-class TimeStruct 
-{
-public:
-    uint32_t tick;
-    PlayState state;
-    uint32_t last_pulse_time;
-    float average_pulse_time;
-    uint8_t global_shuffle;
-
-    TimeStruct()
-    {
-        tick = 0;
-        state = PlayState::Stopped;
-        last_pulse_time = 0;
-        average_pulse_time = 500.f;
-        global_shuffle = 0;
-    }
-
-    uint32_t step() const
-    {
-        return this->tick / TICKS_PER_STEP;
-    }
-};
 
 class Coefficients {
 public:
@@ -44,82 +22,6 @@ public:
   uint8_t note;
   uint8_t min;
   uint8_t max;  
-};
-
-#define STEPS_IN_BAR (16)
-#define TICKS_IN_BAR (96)
-
-class CvPattern
-{
-public:
-    uint8_t pattern[STEPS_IN_BAR];
-
-    void randomize(const uint8_t maximum = 128, const uint8_t minimum = 0)
-    {
-        for (int i = 0; i < STEPS_IN_BAR; i++)
-        {
-            this->pattern[i] = randui8(minimum, maximum);
-        }
-    }
-
-    void set(const uint8_t i, const uint8_t value)
-    {
-        this->pattern[i] = value;
-    }
-
-    void set_all(const uint8_t value)
-    {
-        for (int i = 0; i < STEPS_IN_BAR; i++)
-            this->pattern[i] = value;
-    }
-
-    uint8_t cv(const uint8_t step) const
-    {
-        return this->pattern[step % STEPS_IN_BAR];
-    }
-};
-
-class CvPattern16 {
-public:
-    CvPattern pattern;
-    uint8_t length;
-
-    CvPattern16()
-    {
-        length = STEPS_IN_BAR;
-    }
-
-    void randomize(const uint8_t maximum = 128, const uint8_t minimum = 0)
-    {
-        this->pattern.randomize(maximum, minimum);
-    }
-
-    uint8_t cv(const TimeStruct& time)
-    {
-        return this->cv(time.step());
-    }
-
-    uint8_t cv(const uint8_t step)
-    {
-        return pattern.pattern[step % MAX(MIN(length, 16), 1)];
-    }
-};
-
-class CvPatternAB 
-{
-public:
-    CvPattern patterns[3];
-    uint8_t abPattern[4];
-    TimeDivision time_division;
-    uint8_t length;
-
-    CvPatternAB()
-    {
-        length = 64;
-        time_division = TimeDivision::Sixteenth;
-    }
-
-    ~CvPatternAB() {}
 };
 
 typedef uint16_t BinaryPattern;
@@ -154,44 +56,6 @@ public:
         patterns[2] = 0x00;
         length = 64;
         time_division = TimeDivision::Sixteenth;
-    }
-
-    ~GatePatternAB() {};
-};
-
-class NoteStruct 
-{
-public:
-    uint8_t pitch;
-    uint8_t velocity;
-    uint8_t length;
-    NoteType type;
-};
-
-class NoteEvent 
-{
-public:
-    NoteStruct note;
-    uint32_t time;
-};
-
-#define STORAGE_SIZE 8
-
-class PitchStorage
-{
-public:
-    NoteStruct data[STORAGE_SIZE];
-    uint8_t size;
-
-    NoteEvent events[STORAGE_SIZE];
-    uint8_t nr_of_events;
-
-    uint8_t channel;
-
-    PitchStorage()
-    {
-        size = 0;
-        nr_of_events = 0;
     }
 };
 
@@ -258,51 +122,6 @@ public:
         type = FuguePlayerType::FugueForward;
         note_interval = NoteInterval::IntervalRoot;
         note_repeat = 1;
-    }
-};
-
-#define NUMBER_FUGUE_PLAYERS 4
-
-class FugueSettings {
-public:
-    CvPattern16 pattern;
-    FuguePlayerSettings player_settings[NUMBER_FUGUE_PLAYERS];
-};
-
-class BassSettings 
-{
-public:
-    GatePatternAB accents;
-    CvPatternAB pitches;
-    CvPatternAB octaves;
-    CvPatternAB variable_octaves;
-    GatePatternAB slides;
-
-    CvPatternAB probs;
-    IntervalPattern int_pattern;
-    GatePatternAB euclid_pattern;
-    GatePatternAB low_pattern;
-
-    uint8_t pitch_range;
-    BassStyle style;
-    CvPatternAB note_range_prob;
-    uint8_t note_range_value;
-    uint8_t octave_offset;
-    uint8_t fugue_id;
-    uint8_t density;
-
-    bool kill;
-
-    PitchStorage storage;
-
-    BassSettings()
-    {
-        pitch_range = 0;
-        style = BassStyle::BassLow;
-        note_range_value = 0;
-        density = 0;
-        octave_offset = 2;
-        kill = false;
     }
 };
 
@@ -396,52 +215,6 @@ public:
     }
 };
 
-class Mfb503Settings 
-{
-public:
-    GatePatternAB bd_pattern;
-    GatePatternAB sd_pattern;
-    GatePatternAB hh_pattern;
-    GatePatternAB oh_pattern;
-    GatePatternAB cy_pattern;
-    CvPatternAB tom_pattern;
-
-    IntervalPattern hat_int_pattern;
-    CvPatternAB hat_velocity;
-
-    uint8_t bd_decay;
-    bool play_pitch_bd;
-
-    uint8_t volume_cy;
-
-    uint8_t volume_tom;
-    uint8_t nr_toms;
-    uint8_t toms_offset;
-    GatePatternAB tom_mask;
-
-    HatClosedStyle hat_closed_style;
-    uint8_t closed_hat_note;
-    
-    bool kill_low;
-    bool kill_mid;
-    bool kill_perc;
-    bool kill_hats;
-    bool drum_fill;
-    uint8_t snare_roll;
-    uint8_t bd_decay_factor;
-
-    PitchStorage storage;
-
-    Mfb503Settings()
-    {
-        hat_closed_style = HatClosedStyle::HatClosedRegular;
-        volume_cy = 0;
-        volume_tom = 0;
-        kill_hats = false;
-        closed_hat_note = NOTE_503_HH_1;
-    }
-};
-
 class MicroTimingStruct 
 {
 public:
@@ -461,66 +234,6 @@ public:
     MicroTimingStruct cl;
     MicroTimingStruct cb;
     MicroTimingStruct cy;
-};
-
-class TanzbarSettings {
-public:
-    GatePatternAB bd_pattern;
-    GatePatternAB sd_pattern;
-    GatePatternAB rs_pattern;
-    GatePatternAB cp_pattern;
-    GatePatternAB hh_pattern;
-    GatePatternAB oh_pattern;
-    GatePatternAB cy_pattern;
-    GatePatternAB cl_pattern;
-    GatePatternAB cb_pattern;
-    CvPatternAB tom_pattern;
-    CvPatternAB ma_pattern;
-
-    IntervalPattern hat_int_pattern;
-    CvPatternAB hat_velocity;
-
-    uint8_t modulate_ma_range;
-    uint8_t modulate_ma_offset;
-
-    uint8_t toms_offset;
-    PercussionType percussion_type;
-    GatePatternAB tom_mask;
-
-    HatClosedStyle hat_closed_style;
-
-    bool kill_low;
-    bool kill_mid;
-    bool kill_perc;
-    bool kill_hats;
-    bool drum_fill;
-    uint8_t snare_roll;
-
-    TanzbarTimeSettings time_settings;
-
-    PitchStorage storage;
-
-    TanzbarSettings()
-    {
-        hat_closed_style = HatClosedStyle::HatClosedRegular;
-        kill_hats = false;
-        percussion_type = PercussionType::PercussionToms;
-    }
-};
-
-class LeadSettings 
-{
-public:
-    ArpData arp_data;
-    CvPatternAB min_pitch_pattern;
-    GatePatternAB pattern_slow;
-    LeadStyle style;
-    PitchStorage storage;
-
-    LeadSettings()
-    {
-        style = LeadStyle::LeadSlow;
-    }
 };
 
 class MonoSettings 

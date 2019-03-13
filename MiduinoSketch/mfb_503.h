@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mfb_503_settings.h"
+
 #include "coef.h"
 #include "cv.h"
 #include "defs.h"
@@ -9,6 +11,7 @@
 #include "intervals.h"
 #include "mask.h"
 #include "midi_io.h"
+#include "note_handling.h"
 #include "pitch.h"
 #include "rand.h"
 #include "rhythms.h"
@@ -87,13 +90,13 @@ void randomize_503_seq(Mfb503Settings& settings)
     case 2: settings.closed_hat_note = NOTE_503_HH_3; break;
     }
     randomize_interval_hat(settings.hat_int_pattern);
-    randomize(settings.hat_velocity);
+    settings.hat_velocity.randomize();
 
     // Randomize Cymbal
     set_coef_kick_pattern(settings.cy_pattern);
 
     // Randomize toms
-    randomize(settings.tom_pattern);
+    settings.tom_pattern.randomize();
     settings.nr_toms = randui8(1, 3);
     settings.toms_offset = randui8(3);
     randomize_mask_pattern(settings.tom_mask);
@@ -171,7 +174,7 @@ void play_hats_closed(Mfb503Settings& settings, const TimeStruct& time)
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
-            velocity = apply_cv(cv(settings.hat_velocity, time), 50, 32);
+            velocity = apply_cv(settings.hat_velocity.cv(time), 50, 32);
             note_on(make_note(settings.closed_hat_note, velocity), settings.storage);
         }
         break;
@@ -229,7 +232,7 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
     play_hats(settings, time);
 
     // Play toms
-    uint8_t tom_prob = cv(settings.tom_pattern, time);
+    uint8_t tom_prob = settings.tom_pattern.cv(time);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
         && gate(settings.tom_mask, time)

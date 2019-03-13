@@ -14,8 +14,7 @@
 
 void play_all(ApplicationData& data)
 {
-    //play_503(data.mfb_503_settings, data.harmony, data.time);
-    play_tanzbar(data.tanzbar_settings, data.time);
+    play_tanzbar(data.tanzbar_settings, data.modulators, data.time);
     play_bass(data, data.time);
     play_bass_dub(
         data,
@@ -23,8 +22,6 @@ void play_all(ApplicationData& data)
         data.bass_dub_settings, 
         data.harmony, 
         data.time);
-    //play_poly(data, data.time);
-    //play_lead(data, data.time);
     play_mono(data, data.mono_settings, data.harmony, data.time);
     play_mono_dub(data, data.mono_dub_settings, data.mono_settings, data.harmony, data.time);
 }
@@ -100,6 +97,5 @@ void process_events(ApplicationData& data)
 
 void initialize_application(ApplicationData& data)
 {
-    // Initialize patterns
     randomize_all(data);
 }

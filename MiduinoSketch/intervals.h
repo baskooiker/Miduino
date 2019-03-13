@@ -2,11 +2,7 @@
 
 #include "defs.h"
 #include "rand.h"
-
-uint32_t get_count(const TimeDivision time_division, const TimeStruct& time)
-{
-    return time.tick / (uint32_t)time_division;
-}
+#include "utils.h"
 
 TimeDivision interval(const IntervalPattern& pattern, const TimeStruct& time)
 {

@@ -78,10 +78,10 @@ void randomize_tanzbar(TanzbarSettings& settings)
     }
 
     randomize_interval_hat(settings.hat_int_pattern);
-    randomize(settings.hat_velocity);
+    settings.hat_velocity.randomize();
 
     // Randomize Maracas
-    randomize(settings.ma_pattern);
+    settings.ma_pattern.randomize();
     settings.ma_pattern.time_division = TimeDivision::Sixteenth; 
     switch (distribution(32, 32, 32))
     {
@@ -89,8 +89,6 @@ void randomize_tanzbar(TanzbarSettings& settings)
     case 1: settings.ma_pattern.length = 4; break;
     case 2: settings.ma_pattern.length = 8; break;
     }
-    settings.modulate_ma_offset = randui8(0, 64);
-    settings.modulate_ma_range = randui8(16, 64);
 
     // Randomize Cymbal
     switch (distribution(16, 16, 16))
@@ -110,7 +108,7 @@ void randomize_tanzbar(TanzbarSettings& settings)
     }
 
     // Randomize toms
-    randomize(settings.tom_pattern);
+    settings.tom_pattern.randomize();
     settings.toms_offset = randui8(3);
     switch (distribution(32, 32))
     {
@@ -125,6 +123,9 @@ void randomize_tanzbar(TanzbarSettings& settings)
 
     // Randomize micro-timing
     randomize_timing(settings.time_settings);
+
+    // Randomize modulators
+    settings.modulators.randomize();
 }
 
 void play_fill(TanzbarSettings& settings, const TimeStruct time)
@@ -206,7 +207,7 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
-            velocity = apply_cv(cv(settings.hat_velocity, time), 50, 32);
+            velocity = apply_cv(settings.hat_velocity.cv(time), 50, 32);
             note_on(
                 make_note(NOTE_TANZBAR_HH, velocity), 
                 settings.storage, 
@@ -249,21 +250,21 @@ void play_hats(TanzbarSettings& settings, const TimeStruct& time)
     }
 }
 
-bool play_maracas(TanzbarSettings& settings, const TimeStruct& time)
+bool play_maracas(
+    TanzbarSettings& settings, 
+    const Modulators& modulators,
+    const TimeStruct& time)
 {
     if (interval_hit(settings.ma_pattern.time_division, time))
     {
         send_cc(
             TB_MA_Decay, 
-            quad(apply_cv(
-                cv(settings.ma_pattern, time), 
-                settings.modulate_ma_range, 
-                settings.modulate_ma_offset
-            )),
+            settings.modulators.ma_dec.get_value(modulators, time), 
             MIDI_CC_CHANNEL_TANZBAR
         );
+
         note_on(
-            make_note(NOTE_TANZBAR_MA, apply_cv(cv(settings.ma_pattern, time), 96, 16)), 
+            make_note(NOTE_TANZBAR_MA, apply_cv(settings.ma_pattern.cv(time), 96, 16)), 
             settings.storage,
             get_shuffle_delay(time, settings.time_settings.ma)
         );
@@ -286,7 +287,10 @@ uint8_t get_tc_pitch(uint8_t id, PercussionType type)
     }
 }
 
-void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
+void play_tanzbar(
+    TanzbarSettings& settings, 
+    const Modulators& modulators,
+    const TimeStruct& time)
 {
     if (settings.drum_fill)
     {
@@ -332,6 +336,11 @@ void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
     // Play clave
     if (gate(settings.cl_pattern, time))
     {
+        uint8_t value = 0;
+        if (settings.modulators.cl_pitch.get_value(modulators, time, value))
+        {
+            send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+        }
         note_on(
             make_note(NOTE_TANZBAR_CL, velocity),
             settings.storage,
@@ -352,10 +361,10 @@ void play_tanzbar(TanzbarSettings& settings, const TimeStruct& time)
     // Play hats
     play_hats(settings, time);
 
-    play_maracas(settings, time);
+    play_maracas(settings, modulators, time);
 
     // Play toms
-    uint8_t tom_prob = cv(settings.tom_pattern, time);
+    uint8_t tom_prob = settings.tom_pattern.cv(time);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
         && gate(settings.tom_mask, time))

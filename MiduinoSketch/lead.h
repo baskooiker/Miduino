@@ -1,5 +1,7 @@
 #pragma once
 
+#include "lead_settings.h"
+
 #include "arp.h"
 #include "coef.h"
 #include "cv.h"
@@ -10,7 +12,7 @@
 
 void randomize_lead(LeadSettings& settings)
 {
-    randomize(settings.min_pitch_pattern, 60, 78);
+    settings.min_pitch_pattern.randomize(60, 78);
     switch (randui8(3))
     {
     case 0: settings.min_pitch_pattern.time_division = TimeDivision::Quarter; break;
@@ -47,7 +49,7 @@ void play_lead(LeadSettings& settings, HarmonyStruct& harmony, const TimeStruct&
 
     if (hit)
     {
-        settings.arp_data.min = cv(settings.min_pitch_pattern, time);
+        settings.arp_data.min = settings.min_pitch_pattern.cv(time);
 
         uint8_t chord = get_chord_step(harmony, time);
         uint8_t pitch = get_next_arp_pitch(settings.arp_data, harmony.scale, chord);

@@ -20,6 +20,9 @@
 #define TICKS_PER_STEP 6
 #define SHORT_PRESS_TIME 500
 
+#define STEPS_IN_BAR (16)
+#define TICKS_IN_BAR (96)
+
 // MIDI 503
 #define NOTE_503_BD 36
 #define NOTE_503_SD 38
