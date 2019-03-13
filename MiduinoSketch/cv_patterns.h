@@ -31,7 +31,7 @@ public:
             this->pattern[i] = value;
     }
 
-    uint8_t cv(const uint8_t step) const
+    uint8_t value(const uint8_t step) const
     {
         return this->pattern[step % STEPS_IN_BAR];
     }
@@ -52,12 +52,12 @@ public:
         this->pattern.randomize(maximum, minimum);
     }
 
-    uint8_t cv(const TimeStruct& time) const
+    uint8_t value(const TimeStruct& time) const
     {
-        return this->cv(time.step());
+        return this->value(time.step());
     }
 
-    uint8_t cv(const uint8_t step) const
+    uint8_t value(const uint8_t step) const
     {
         return pattern.pattern[step % MAX(MIN(length, 16), 1)];
     }
@@ -77,11 +77,11 @@ public:
         time_division = TimeDivision::Sixteenth;
     }
 
-    uint8_t cv(const TimeStruct& time) const
+    uint8_t value(const TimeStruct& time) const
     {
         uint8_t pat_length = MIN(this->length, 16);
         uint32_t count = get_count(this->time_division, time) % (this->length <= 16 ? pat_length * 4 : 64);
-        return this->patterns[this->abPattern[count / pat_length]].cv(count % pat_length);
+        return this->patterns[this->abPattern[count / pat_length]].value(count % pat_length);
     }
 
     void set_all(const uint8_t value)

@@ -98,7 +98,7 @@ void play_fugue(
         FuguePlayerSettings& player_settings = fugue_settings.player_settings[player_id % NUMBER_FUGUE_PLAYERS];
         bool hit = false;
 
-        uint8_t player_length_idx = apply_cv(player_settings.density, 5, player_settings.length - 2);
+        uint8_t player_length_idx = rerange(player_settings.density, 5, player_settings.length - 2);
         uint32_t player_length = time_intervals[MAX(MIN(player_length_idx, nr_time_intervals), 0)];
 
         if (player_settings.counter % player_length == 0)
@@ -132,9 +132,9 @@ void play_fugue(
                 break;
             }
 
-            uint8_t note_step = fugue_settings.pattern.cv(c);
+            uint8_t note_step = fugue_settings.pattern.value(c);
 
-            uint8_t pitch_offset = apply_cv(player_settings.manual_pitch_offset, 36, player_settings.pitch_offset);
+            uint8_t pitch_offset = rerange(player_settings.manual_pitch_offset, 36, player_settings.pitch_offset);
             uint8_t pitch = harmony.scale.apply_scale_offset(
                 note_step, 
                 pitch_offset,

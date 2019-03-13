@@ -26,7 +26,7 @@ void print_pattern(const CvPattern& pattern)
 {
     for (int i = 0; i < 16; i++)
     {
-        printf("%-3d ", pattern.cv(i));
+        printf("%-3d ", pattern.value(i));
     }
     printf("\n");
 }

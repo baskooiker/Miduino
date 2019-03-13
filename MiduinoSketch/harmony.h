@@ -33,9 +33,9 @@ uint8_t get_chord_step(const HarmonyStruct& harmony, const TimeStruct& time)
     switch (harmony.type)
     {
     case HarmonyType::HarmonyConst:
-        return harmony.const_pattern.cv(time);
+        return harmony.const_pattern.value(time);
     case HarmonyType::HarmonyHigh:
-        return harmony.high_pattern.cv(time);
+        return harmony.high_pattern.value(time);
     }
     return 0;
 }

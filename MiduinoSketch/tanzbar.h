@@ -207,7 +207,7 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
-            velocity = apply_cv(settings.hat_velocity.cv(time), 50, 32);
+            velocity = rerange(settings.hat_velocity.value(time), 50, 32);
             note_on(
                 make_note(NOTE_TANZBAR_HH, velocity), 
                 settings.storage, 
@@ -259,12 +259,12 @@ bool play_maracas(
     {
         send_cc(
             TB_MA_Decay, 
-            settings.modulators.ma_dec.get_value(modulators, time), 
+            settings.modulators.ma_dec.value(modulators, time), 
             MIDI_CC_CHANNEL_TANZBAR
         );
 
         note_on(
-            make_note(NOTE_TANZBAR_MA, apply_cv(settings.ma_pattern.cv(time), 96, 16)), 
+            make_note(NOTE_TANZBAR_MA, rerange(settings.ma_pattern.value(time), 96, 16)), 
             settings.storage,
             get_shuffle_delay(time, settings.time_settings.ma)
         );
@@ -320,6 +320,11 @@ void play_tanzbar(
     // Play rimshot
     if (gate(settings.rs_pattern, time) && !settings.kill_mid)
     {
+        uint8_t value = 0;
+        if (settings.modulators.rs_tune.value(modulators, time))
+        {
+            send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+        }
         note_on(
             make_note(NOTE_TANZBAR_RS, velocity), 
             settings.storage, 
@@ -330,6 +335,11 @@ void play_tanzbar(
     // Play clap
     if (gate(settings.cp_pattern, time) && !settings.kill_mid)
     {
+        uint8_t value = 0;
+        if (settings.modulators.cp_trig.value(modulators, time))
+        {
+            send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
+        }
         note_on(make_note(NOTE_TANZBAR_CP, velocity), settings.storage, get_shuffle_delay(time, settings.time_settings.cp));
     }
 
@@ -337,7 +347,7 @@ void play_tanzbar(
     if (gate(settings.cl_pattern, time))
     {
         uint8_t value = 0;
-        if (settings.modulators.cl_pitch.get_value(modulators, time, value))
+        if (settings.modulators.cl_pitch.value(modulators, time, value))
         {
             send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
         }
@@ -348,9 +358,14 @@ void play_tanzbar(
         );
     }
 
-    // Play clave
+    // Play cowbell
     if (gate(settings.cb_pattern, time))
     {
+        uint8_t value = 0;
+        if (settings.modulators.cb_tune.value(modulators, time))
+        {
+            send_cc(TB_CB_Tune, value, MIDI_CC_CHANNEL_TANZBAR);
+        }
         note_on(
             make_note(NOTE_TANZBAR_CB, velocity),
             settings.storage,
@@ -364,7 +379,7 @@ void play_tanzbar(
     play_maracas(settings, modulators, time);
 
     // Play toms
-    uint8_t tom_prob = settings.tom_pattern.cv(time);
+    uint8_t tom_prob = settings.tom_pattern.value(time);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
         && gate(settings.tom_mask, time))
@@ -381,6 +396,11 @@ void play_tanzbar(
     // Play Cymbal
     if (gate(settings.cy_pattern, time))
     {
+        uint8_t value = 0;
+        if (settings.modulators.cy_tune.value(modulators, time))
+        {
+            send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+        }
         note_on(
             make_note(NOTE_TANZBAR_CY, 64), 
             settings.storage, 

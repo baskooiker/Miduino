@@ -127,7 +127,7 @@ public:
     uint8_t range;
     ModulationType type;
 
-    bool get_value(
+    bool value(
         const Modulators& modulators, 
         const TimeStruct& time,
         uint8_t& value) const
@@ -155,12 +155,12 @@ public:
             value = 127 - value;
             break;
         case ModulationType::ModPatA:
-            value = modulators.pattern_a.cv(time);
+            value = modulators.pattern_a.value(time);
         case ModulationType::ModPatAInv:
             value = 127 - value;
             break;
         case ModulationType::ModPatB:
-            value = modulators.pattern_b.cv(time);
+            value = modulators.pattern_b.value(time);
         case ModulationType::ModPatBInv:
             value = 127 - value;
             break;
@@ -171,15 +171,15 @@ public:
             return false;
         }
 
-        value = apply_cv(value, this->range, this->minimum);
+        value = rerange(value, this->range, this->minimum);
 
         return true;
     }
 
-    uint8_t get_value(const Modulators& modulators, const TimeStruct& time)
+    uint8_t value(const Modulators& modulators, const TimeStruct& time)
     {
         uint8_t value = 0;
-        this->get_value(modulators, time, value);
+        this->value(modulators, time, value);
         return value;
     }
 

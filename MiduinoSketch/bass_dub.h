@@ -71,10 +71,10 @@ void play_bass_dub(
         default:
         case BassDubStyle::DubUnison:
         case BassDubStyle::DubOctave:
-            pitch = clip_pitch(pitch, apply_cv(dub_settings.v_pitch, 36, 48));
+            pitch = clip_pitch(pitch, rerange(dub_settings.v_pitch, 36, 48));
             break;
         case BassDubStyle::DubOctProbability:
-            pitch = clip_pitch(pitch, 36, apply_cv(dub_settings.v_pitch, 36, 48));
+            //pitch = clip_pitch(pitch, 36, rerange(dub_settings.v_pitch, 36, 48));
             break;
         }
 
