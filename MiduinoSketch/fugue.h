@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cv.h"
 #include "defs.h"
 #include "harmony_struct.h"
 #include "gate.h"

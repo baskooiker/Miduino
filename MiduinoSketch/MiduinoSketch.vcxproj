@@ -91,7 +91,6 @@
     <ClInclude Include="chords.h" />
     <ClInclude Include="coef.h" />
     <ClInclude Include="consts.h" />
-    <ClInclude Include="cv.h" />
     <ClInclude Include="cv_patterns.h" />
     <ClInclude Include="defs.h" />
     <ClInclude Include="enums.h" />

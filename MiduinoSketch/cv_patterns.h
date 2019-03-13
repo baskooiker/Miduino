@@ -41,10 +41,12 @@ class CvPattern16 {
 public:
     CvPattern pattern;
     uint8_t length;
+    TimeDivision time_division;
 
     CvPattern16()
     {
-        length = STEPS_IN_BAR;
+        this->length = STEPS_IN_BAR;
+        this->time_division = TimeDivision::Sixteenth;
     }
 
     void randomize(const uint8_t maximum = 128, const uint8_t minimum = 0)
@@ -54,12 +56,22 @@ public:
 
     uint8_t value(const TimeStruct& time) const
     {
-        return this->value(time.step());
+        return this->value(get_count(this->time_division, time));
     }
 
     uint8_t value(const uint8_t step) const
     {
-        return pattern.pattern[step % MAX(MIN(length, 16), 1)];
+        return this->pattern.value(step % MAX(MIN(this->length, 16), 1));
+    }
+
+    void set_all(const uint8_t value)
+    {
+        this->pattern.set_all(value);
+    }
+
+    void set(const uint8_t index, const uint8_t value)
+    {
+        this->pattern.set(index, value);
     }
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include "consts.h"
 
 uint8_t quad(const uint8_t v)
 {

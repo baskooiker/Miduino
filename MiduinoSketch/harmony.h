@@ -1,7 +1,6 @@
 #pragma once
 
 #include "application_data.h"
-#include "cv.h"
 
 void randomize_harmony(ApplicationData& data)
 {
@@ -10,21 +9,22 @@ void randomize_harmony(ApplicationData& data)
     data.harmony.const_pattern.time_division = TimeDivision::Sixteenth;
 
     // Set high pattern
-    set_chord_pattern_ab(data.harmony.high_pattern);
-    if (distribution(16, 16))
-    {
-        set_ab_pattern_low(data.harmony.high_pattern.abPattern);
-    }
-    else
-    {
-        set_ab_pattern_high(data.harmony.high_pattern.abPattern);
-    }
+    set_chord_pattern(data.harmony.high_pattern);
+    //set_chord_pattern_ab(data.harmony.high_pattern);
+    //if (distribution(16, 16))
+    //{
+    //    set_ab_pattern_low(data.harmony.high_pattern.abPattern);
+    //}
+    //else
+    //{
+    //    set_ab_pattern_high(data.harmony.high_pattern.abPattern);
+    //}
 
-    switch (distribution(10, 10))
+    switch (distribution(10, 10, 10))
     {
-    case 0: data.harmony.high_pattern.time_division = TimeDivision::Sixteenth; break;
-    case 1: data.harmony.high_pattern.time_division = TimeDivision::Eight; break;
-    case 2: data.harmony.high_pattern.time_division = TimeDivision::Quarter; break;
+    case 0: data.harmony.high_pattern.time_division = TimeDivision::Quarter; break;
+    case 1: data.harmony.high_pattern.time_division = TimeDivision::Half; break;
+    case 2: data.harmony.high_pattern.time_division = TimeDivision::Whole; break;
     }
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cv.h"
 #include "defs.h"
 #include "gate.h"
 #include "intervals.h"

@@ -2,7 +2,6 @@
 
 #include "ab.h"
 #include "coef.h"
-#include "cv.h"
 #include "defs.h"
 #include "euclid.h"
 #include "gate.h"

@@ -5,8 +5,8 @@
 
 class HarmonyStruct {
 public:
-    CvPatternAB const_pattern;
-    CvPatternAB high_pattern;
+    CvPattern16 const_pattern;
+    CvPattern16 high_pattern;
     HarmonyType type;
     Scale scale;
 

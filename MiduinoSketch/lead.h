@@ -4,7 +4,6 @@
 
 #include "arp.h"
 #include "coef.h"
-#include "cv.h"
 #include "harmony.h"
 #include "intervals.h"
 #include "midi_io.h"
