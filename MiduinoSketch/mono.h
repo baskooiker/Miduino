@@ -61,7 +61,7 @@ bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
 uint8_t get_next_mono_pitch(MonoSettings& settings, const HarmonyStruct& harmony, const TimeStruct& time)
 {
     settings.arp_data.min = rerange(settings.variable_pitch_offset, 48, settings.pitch_offset);
-    uint8_t pitch = get_next_arp_pitch(settings.arp_data, harmony.scale, get_chord_step(harmony, time));
+    uint8_t pitch = get_next_arp_pitch(settings.arp_data, harmony.scale, harmony.get_chord_step(time));
     return pitch;
 }
 

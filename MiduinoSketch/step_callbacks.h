@@ -35,16 +35,24 @@ void release_step_3_4(ApplicationData& data) {}
 
 void release_step_5(ApplicationData& data)
 {
-    randomize_harmony(data);
+    data.harmony.randomize();
+    data.harmony.type = HarmonyType::HarmonyConst;
+    data.harmony.const_value = 0;
 }
 
 void release_step_6(ApplicationData& data)
 {
-
+    data.harmony.randomize();
+    data.harmony.type = HarmonyType::HarmonyConst;
+    data.harmony.switch_const_chord();
 }
 
 
-void release_step_5_6(ApplicationData& data) {}
+void release_step_5_and_6(ApplicationData& data) 
+{
+    data.harmony.randomize();
+    data.harmony.type = HarmonyType::HarmonyHigh;
+}
 
 void release_step_7(ApplicationData& data)
 {

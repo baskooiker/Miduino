@@ -49,37 +49,41 @@ void get_chord_seq(uint8_t* options, uint8_t length, uint8_t* seq)
         set_ab_pattern_high(ab_pat);
         for (int i = 0; i < 4; i++)
         {
-            uint8_t idx = ab_pat[i];
-            if (idx == 0)
-                seq[i] = 0;
-            else
-                seq[i] = options[idx - 1];
+            seq[i] = options[ab_pat[i]];
         }
     }
     else
     {
-        seq[0] = 0;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
-            seq[i + 1] = options[i];
+            seq[i] = options[i];
         }
     }
 }
 
-void set_chord_pattern(CvPattern16& pattern)
+void set_chord_pattern(
+    CvPattern16& pattern, 
+    const Scale& scale, 
+    const uint8_t start_chord = 0)
 {
-    uint8_t options[] = { 2, 3, 4, 5 };
-    randomize_order(options, 4);
+    uint8_t options[8] = { 0 };
+    uint8_t options_length = 0;
+    scale.get_available_chords_indices(options, options_length);
+    randomize_order(options, options_length);
 
-    uint8_t length = 0;
+    uint8_t start_chord_idx = 0;
+    find_item(start_chord, options, options_length, start_chord_idx);
+    swap(options, start_chord_idx, 0);
+
+    uint8_t time_pattern_length = 0;
     uint8_t chord_time_pattern[4] = { 0, 0, 0, 0 };
-    get_chord_time_pattern(chord_time_pattern, length);
+    get_chord_time_pattern(chord_time_pattern, time_pattern_length);
 
     uint8_t seq[4] = { 0, 0, 0, 0 };
-    get_chord_seq(options, length, seq);
+    get_chord_seq(options, time_pattern_length, seq);
 
     uint8_t c = 0;
-    for (int i = 0; i < length && i < 4; i++)
+    for (int i = 0; i < time_pattern_length && i < 4; i++)
     {
         for (int j = 0; j < chord_time_pattern[i]; j++)
         {

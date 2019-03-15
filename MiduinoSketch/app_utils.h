@@ -39,7 +39,8 @@ void stop_notes_all_instruments(ApplicationData& data)
 
 void randomize_all(ApplicationData& data)
 {
-    randomize_harmony(data);
+    data.harmony.randomize();
+
     randomize_fugue(data.fugue_settings);
     
     randomize_tanzbar(data.tanzbar_settings);

@@ -287,10 +287,6 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
     case BSP_KNOB_10:
         break;
     case BSP_KNOB_03:
-        if (value < 64)
-            data.harmony.type = HarmonyType::HarmonyConst;
-        else 
-            data.harmony.type = HarmonyType::HarmonyHigh;
         break;
     case BSP_KNOB_11:
         break;
@@ -351,9 +347,11 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         }
         break;
     case BSP_STEP_05:
+    case BSP_STEP_06:
         if (value == 0)
         {
-            release_step_5(data);
+            handle_step_release(data, number, BSP_STEP_05, BSP_STEP_06,
+                release_step_5, release_step_6, release_step_5_and_6);
         }
         break;
     case BSP_STEP_07:

@@ -159,7 +159,7 @@ uint8_t get_bass_pitch(
     uint8_t pitch = harmony.scale.apply_scale_offset(
         note_nr, 
         pitch_offset, 
-        get_chord_step(harmony, time) + note_offset
+        harmony.get_chord_step(time) + note_offset
     );
 
     uint8_t octave = settings.octaves.value(time);

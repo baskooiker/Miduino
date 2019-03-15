@@ -69,7 +69,7 @@ public:
         return note;
     }
 
-    bool contains(const uint8_t pitch)
+    bool contains(const uint8_t pitch) const
     {
         uint8_t length = 0;
         uint8_t* notes = get_scale_notes(length);
@@ -95,6 +95,20 @@ public:
         uint8_t length = 0;
         uint8_t* notes = get_scale_notes(length);
         return notes[v % length];
+    }
+
+    void get_available_chords_indices(uint8_t* chords, uint8_t& length) const
+    {
+        length = 0;
+        uint8_t scale_length = 0;
+        uint8_t* notes = this->get_scale_notes(scale_length);
+        for (int i = 0; i < scale_length; i++)
+        {
+            if (this->contains(notes[i] + 7))
+            {
+                chords[length++] = i;
+            }
+        }
     }
 
 };

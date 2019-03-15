@@ -149,7 +149,7 @@ void play_bd(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct& 
         uint8_t pitch = NOTE_503_BD;
         if (settings.play_pitch_bd)
         {
-            pitch = clip_pitch(get_chord_step(harmony, time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
+            pitch = clip_pitch(harmony.get_chord_step(time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
         note_on(make_note(pitch, 127), settings.storage);
     }

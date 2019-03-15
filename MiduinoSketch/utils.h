@@ -15,7 +15,7 @@ void swap(uint8_t* array, uint8_t x, uint8_t y)
     array[y] = mem;
 }
 
-void remove(uint8_t item, uint8_t* array, uint8_t& length)
+void remove(const uint8_t item, uint8_t* array, uint8_t& length)
 {
     for (int i = 0; i < length; i++)
     {
@@ -32,6 +32,18 @@ void randomize_order(uint8_t* array, uint8_t length)
     for (uint8_t i = 0; i < length; i++)
     {
         swap(array, i, randui8(length));
+    }
+}
+
+void find_item(const uint8_t item, const uint8_t* array, const uint8_t length, uint8_t& idx)
+{
+    for (uint8_t i = 0; i < length; i++)
+    {
+        if (item == array[i])
+        {
+            idx = i;
+            return;
+        }
     }
 }
 
