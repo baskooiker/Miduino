@@ -61,52 +61,52 @@ void play_522(Mfb522Settings& settings, const TimeStruct& time)
 
     if (gate(settings.bd_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_BD_LONG, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_BD_LONG, velocity));
     }
     if (gate(settings.lo_tom_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_LO_TOM, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_LO_TOM, velocity));
     }
     if (gate(settings.mi_tom_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_HI_TOM, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_HI_TOM, velocity));
     }
     if (gate(settings.rs_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_RS, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_RS, velocity));
     }
     if (gate(settings.clave_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_CLAVE, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_CLAVE, velocity));
     }
     if (gate(settings.clap_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_CP_LONG, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_CP_LONG, velocity));
     }
     if (gate(settings.oh_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_OH, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_OH, velocity));
     }
     if (gate(settings.cy_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_CYMBAL, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_CYMBAL, velocity));
     }
     if (gate(settings.sd_522_pattern, time))
     {
-        note_on(make_note(NOTE_522_SN, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_522_SN, velocity));
     }
     if (!settings.use_hh_int)
     {
         if (gate(settings.hh_522_pattern, time))
         {
-            note_on(make_note(NOTE_522_HH, velocity), settings.storage);
+            settings.storage.note_on(make_note(NOTE_522_HH, velocity));
         }
     }
     else
     {
         if (interval_hit(settings.hh_int_pattern, time))
         {
-            note_on(make_note(NOTE_522_HH, velocity), settings.storage);
+            settings.storage.note_on(make_note(NOTE_522_HH, velocity));
         }
     }
 }

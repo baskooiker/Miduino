@@ -117,7 +117,7 @@ void play_fill(Mfb503Settings& settings, const TimeStruct time)
     case 5: p = NOTE_503_OH; break;
     case 6: p = NOTE_503_HH; break;
     }
-    note_on(make_note(p, 127), settings.storage);
+    settings.storage.note_on(make_note(p, 127));
 }
 
 void play_roll(Mfb503Settings& settings, const TimeStruct& time)
@@ -138,7 +138,7 @@ void play_roll(Mfb503Settings& settings, const TimeStruct& time)
 
     if (interval_hit(division, time))
     {
-        note_on(make_note(NOTE_503_SD, settings.snare_roll), settings.storage);
+        settings.storage.note_on(make_note(NOTE_503_SD, settings.snare_roll));
     }
 }
 
@@ -151,7 +151,7 @@ void play_bd(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct& 
         {
             pitch = clip_pitch(harmony.get_chord_step(time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
         }
-        note_on(make_note(pitch, 127), settings.storage);
+        settings.storage.note_on(make_note(pitch, 127));
     }
 }
 
@@ -167,14 +167,14 @@ void play_hats_closed(Mfb503Settings& settings, const TimeStruct& time)
 
         if (interval_hit(settings.hat_int_pattern, time))
         {
-            note_on(make_note(NOTE_503_HH, velocity), settings.storage);
+            settings.storage.note_on(make_note(NOTE_503_HH, velocity));
         }
         break;
     case HatClosedStyle::HatClosedRegular:
         if (gate(settings.hh_pattern, time))
         {
             velocity = rerange(settings.hat_velocity.value(time), 50, 32);
-            note_on(make_note(settings.closed_hat_note, velocity), settings.storage);
+            settings.storage.note_on(make_note(settings.closed_hat_note, velocity));
         }
         break;
     }
@@ -191,7 +191,7 @@ void play_hats_open(Mfb503Settings& settings, const TimeStruct& time)
 
     if (gate(settings.oh_pattern, time))
     {
-        note_on(make_note(NOTE_503_OH, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_503_OH, velocity));
     }
 }
 
@@ -224,7 +224,7 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
     // Play snare
     if (gate(settings.sd_pattern, time) && !settings.kill_mid)
     {
-        note_on(make_note(NOTE_503_SD, velocity), settings.storage);
+        settings.storage.note_on(make_note(NOTE_503_SD, velocity));
     }
 
     // Play hats
@@ -244,7 +244,7 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
             tom_pitch = NOTE_503_MT;
         else if (tom_id == 2)
             tom_pitch = NOTE_503_HT;
-        note_on(make_note(tom_pitch, 64), settings.storage);
+        settings.storage.note_on(make_note(tom_pitch, 64));
     }
 
     // Play Cymbal
@@ -252,9 +252,10 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
     {
         if (gate(settings.cy_pattern, time))
         {
-            note_on(make_note(NOTE_503_CY,
-                    settings.volume_cy), 
-                    settings.storage);
+            settings.storage.note_on(
+                make_note(NOTE_503_CY,
+                settings.volume_cy)
+            );
         }
     }
 }

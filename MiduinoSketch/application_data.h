@@ -26,11 +26,11 @@ public:
 
     ApplicationData()
     {
-        tanzbar_settings.storage.channel = MIDI_CHANNEL_TANZBAR;
-        mono_settings.storage.channel = MIDI_CHANNEL_MONO;
-        mono_dub_settings.settings.storage.channel = MIDI_CHANNEL_MONO_2;
-        bass_settings.storage.channel = MIDI_CHANNEL_BASS;
-        bass_dub_settings.storage.channel = MIDI_CHANNEL_BASS_DUB;
+        tanzbar_settings.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+        mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
+        mono_dub_settings.settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
+        bass_settings.storage.set_channel(MIDI_CHANNEL_BASS);
+        bass_dub_settings.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
 
         bass_settings.fugue_id = 0;
         bass_dub_settings.fugue_id = 1;

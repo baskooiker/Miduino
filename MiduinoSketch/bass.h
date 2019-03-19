@@ -209,9 +209,8 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
         }
 
         // Play it!
-        note_on(
+        settings.storage.note_on(
             make_note(pitch, 64, length, NoteType::Tie), 
-            settings.storage, 
             get_shuffle_delay(time)
         );
     }

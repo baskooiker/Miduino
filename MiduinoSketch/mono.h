@@ -102,9 +102,8 @@ void play_mono(
             length = get_time_division(settings);
         }
 
-        note_on(
-            make_note(pitch, 64, length, NoteType::Tie), 
-            settings.storage, get_shuffle_delay(time)
+        settings.storage.note_on(
+            make_note(pitch, 64, length, NoteType::Tie), get_shuffle_delay(time)
         );
     }
 }

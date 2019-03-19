@@ -52,6 +52,6 @@ void play_lead(LeadSettings& settings, HarmonyStruct& harmony, const TimeStruct&
 
         uint8_t chord = harmony.get_chord_step(time);
         uint8_t pitch = get_next_arp_pitch(settings.arp_data, harmony.scale, chord);
-        note_on(make_note(pitch, 64, length), settings.storage);
+        settings.storage.note_on(make_note(pitch, 64, length));
     }
 }

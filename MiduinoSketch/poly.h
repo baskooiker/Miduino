@@ -68,6 +68,6 @@ void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct&
             note_structs[i].length = length;
         }
 
-        note_on(note_structs, size, settings.storage);
+        settings.storage.note_on(note_structs, size);
     }
 }

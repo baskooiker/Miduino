@@ -78,5 +78,6 @@ public:
         kill_hats = false;
         percussion_type = PercussionType::PercussionToms;
     }
+
 };
 

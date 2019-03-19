@@ -42,7 +42,7 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         data.bass_settings.kill = !data.bass_settings.kill;
         if (data.bass_settings.kill)
         {
-            stop_notes(data.bass_settings.storage);
+            data.bass_settings.storage.stop_notes();
         }
         break;
     case BSP_PAD_06:
@@ -463,11 +463,11 @@ void handleControlChange(ApplicationData& data, uint8_t channel, uint8_t number,
 
 void handleStop(ApplicationData& data)
 {
-    all_notes_off(data.tanzbar_settings.storage);
-    all_notes_off(data.bass_settings.storage);
-    all_notes_off(data.bass_dub_settings.storage);
-    all_notes_off(data.mono_settings.storage);
-    all_notes_off(data.mono_dub_settings.settings.storage);
+    data.tanzbar_settings.storage.all_notes_off();
+    data.bass_settings.storage.all_notes_off();
+    data.bass_dub_settings.storage.all_notes_off();
+    data.mono_settings.storage.all_notes_off();
+    data.mono_dub_settings.settings.storage.all_notes_off();
 
     reset_time(data.time);
 

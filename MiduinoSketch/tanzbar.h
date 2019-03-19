@@ -143,7 +143,7 @@ void play_fill(TanzbarSettings& settings, const TimeStruct time)
     case 5: p = NOTE_TANZBAR_OH; break;
     case 6: p = NOTE_TANZBAR_HH; break;
     }
-    note_on(make_note(p, 127), settings.storage, get_shuffle_delay(time));
+    settings.storage.note_on(make_note(p, 127), get_shuffle_delay(time));
 }
 
 void play_roll(TanzbarSettings& settings, const TimeStruct& time)
@@ -164,7 +164,10 @@ void play_roll(TanzbarSettings& settings, const TimeStruct& time)
 
     if (interval_hit(division, time))
     {
-        note_on(make_note(NOTE_TANZBAR_SD, settings.snare_roll), settings.storage, get_shuffle_delay(time, settings.time_settings.sd));
+        settings.storage.note_on(
+            make_note(NOTE_TANZBAR_SD, settings.snare_roll), 
+            get_shuffle_delay(time, settings.time_settings.sd)
+        );
     }
 }
 
@@ -175,12 +178,18 @@ void play_bd(TanzbarSettings& settings, const TimeStruct& time)
     if (gate(settings.bd_pattern, time) && !settings.kill_low)
     {
         uint8_t pitch = NOTE_TANZBAR_BD1;
-        note_on(make_note(pitch, velocity), settings.storage, get_shuffle_delay(time, settings.time_settings.bd));
+        settings.storage.note_on(
+            make_note(pitch, velocity), 
+            get_shuffle_delay(time, settings.time_settings.bd)
+        );
     }
 
     if (quarter_hit && !settings.kill_low)
     {
-        note_on(make_note(NOTE_TANZBAR_BD2, velocity), settings.storage, get_shuffle_delay(time, settings.time_settings.bd));
+        settings.storage.note_on(
+            make_note(NOTE_TANZBAR_BD2, velocity), 
+            get_shuffle_delay(time, settings.time_settings.bd)
+        );
     }
 }
 
@@ -196,9 +205,8 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
 
         if (interval_hit(settings.hat_int_pattern, time))
         {
-            note_on(
+            settings.storage.note_on(
                 make_note(NOTE_TANZBAR_HH, velocity), 
-                settings.storage, 
                 get_shuffle_delay(time, settings.time_settings.hh)
             );
         }
@@ -207,9 +215,8 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
         if (gate(settings.hh_pattern, time))
         {
             velocity = rerange(settings.hat_velocity.value(time), 50, 32);
-            note_on(
+            settings.storage.note_on(
                 make_note(NOTE_TANZBAR_HH, velocity), 
-                settings.storage, 
                 get_shuffle_delay(time, settings.time_settings.hh)
             );
         }
@@ -228,9 +235,8 @@ bool play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
 
     if (gate(settings.oh_pattern, time))
     {
-        note_on(
+        settings.storage.note_on(
             make_note(NOTE_TANZBAR_OH, velocity), 
-            settings.storage,
             get_shuffle_delay(time, settings.time_settings.hh)
         );
         return true;
@@ -262,9 +268,8 @@ bool play_maracas(
             MIDI_CC_CHANNEL_TANZBAR
         );
 
-        note_on(
+        settings.storage.note_on(
             make_note(NOTE_TANZBAR_MA, rerange(settings.ma_pattern.value(time), 96, 16)), 
-            settings.storage,
             get_shuffle_delay(time, settings.time_settings.ma)
         );
         return true;
@@ -309,9 +314,8 @@ void play_tanzbar(
     // Play snare
     if (gate(settings.sd_pattern, time) && !settings.kill_mid)
     {
-        note_on(
+        settings.storage.note_on(
             make_note(NOTE_TANZBAR_SD, velocity), 
-            settings.storage, 
             get_shuffle_delay(time, settings.time_settings.sd)
         );
     }
@@ -324,9 +328,8 @@ void play_tanzbar(
         {
             send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
         }
-        note_on(
+        settings.storage.note_on(
             make_note(NOTE_TANZBAR_RS, velocity), 
-            settings.storage, 
             get_shuffle_delay(time, settings.time_settings.sd)
         );
     }
@@ -339,7 +342,10 @@ void play_tanzbar(
         {
             send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
         }
-        note_on(make_note(NOTE_TANZBAR_CP, velocity), settings.storage, get_shuffle_delay(time, settings.time_settings.cp));
+        settings.storage.note_on(
+            make_note(NOTE_TANZBAR_CP, velocity), 
+            get_shuffle_delay(time, settings.time_settings.cp)
+        );
     }
 
     // Play clave
@@ -350,9 +356,8 @@ void play_tanzbar(
         {
             send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
         }
-        note_on(
+        settings.storage.note_on(
             make_note(NOTE_TANZBAR_CL, velocity),
-            settings.storage,
             get_shuffle_delay(time, settings.time_settings.cl)
         );
     }
@@ -365,9 +370,8 @@ void play_tanzbar(
         {
             send_cc(TB_CB_Tune, value, MIDI_CC_CHANNEL_TANZBAR);
         }
-        note_on(
+        settings.storage.note_on(
             make_note(NOTE_TANZBAR_CB, velocity),
-            settings.storage,
             get_shuffle_delay(time, settings.time_settings.cb)
         );
     }
@@ -385,9 +389,8 @@ void play_tanzbar(
     {
         uint8_t tom_id = tom_prob % 3;
         tom_id = (tom_id + settings.toms_offset) % 3;
-        note_on(
+        settings.storage.note_on(
             make_note(get_tc_pitch(tom_id, settings.percussion_type), 64),
-            settings.storage, 
             get_shuffle_delay(time, settings.time_settings.tc)
         );
     }
@@ -400,9 +403,8 @@ void play_tanzbar(
         {
             send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
         }
-        note_on(
+        settings.storage.note_on(
             make_note(NOTE_TANZBAR_CY, 64), 
-            settings.storage, 
             get_shuffle_delay(time, settings.time_settings.cy)
         );
     }

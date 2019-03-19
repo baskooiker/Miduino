@@ -102,18 +102,6 @@ NoteStruct make_note(const uint8_t pitch, const uint8_t velocity, const uint8_t 
     return n;
 }
 
-void all_notes_off(PitchStorage& storage)
-{
-    NoteStruct p = { 0, 0, 0 };
-    do {
-        p = pop_from_storage(storage);
-        if (p.pitch > 0)
-        {
-            note_off(p.pitch, storage);
-        }
-    } while (p.pitch != 0);
-}
-
 bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size)
 {
     for (int i = 0; i < size; i++)

@@ -78,9 +78,8 @@ void play_bass_dub(
             break;
         }
 
-        note_on(
+        dub_settings.storage.note_on(
             make_note(pitch, 64, 6, NoteType::Tie), 
-            dub_settings.storage, 
             get_shuffle_delay(time)
         );
     }

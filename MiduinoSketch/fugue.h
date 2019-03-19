@@ -139,9 +139,8 @@ void play_fugue(
                 pitch_offset,
                 player_settings.note_interval
             );
-            note_on(
+            storage.note_on(
                 make_note(pitch, 64, player_length * TICKS_PER_STEP, NoteType::Tie),
-                storage, 
                 get_shuffle_delay(time)
             );
         }

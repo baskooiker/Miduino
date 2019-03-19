@@ -28,13 +28,11 @@ void play_all(ApplicationData& data)
 
 void stop_notes_all_instruments(ApplicationData& data)
 {
-    stop_notes(data.tanzbar_settings.storage);
-
-    stop_notes(data.bass_settings.storage);
-    stop_notes(data.bass_dub_settings.storage);
-
-    stop_notes(data.mono_settings.storage);
-    stop_notes(data.mono_dub_settings.settings.storage);
+    data.tanzbar_settings.storage.stop_notes();
+    data.bass_settings.storage.stop_notes();
+    data.bass_dub_settings.storage.stop_notes();
+    data.mono_settings.storage.stop_notes();
+    data.mono_dub_settings.settings.storage.stop_notes();
 }
 
 void randomize_all(ApplicationData& data)
@@ -72,28 +70,13 @@ void set_fugue(ApplicationData& data)
     data.mono_dub_settings.settings.style = MonoStyle::MonoFugue;
 }
 
-void process_events(PitchStorage& storage)
-{
-    uint32_t time = millis();
-    for (int i = storage.nr_of_events - 1; i >= 0; i--)
-    {
-        NoteEvent event_i = storage.events[i];
-        if (event_i.time <= time)
-        {
-            note_on(event_i.note, storage);
-            storage.events[i] = storage.events[storage.nr_of_events - 1];
-            storage.nr_of_events--;
-        }
-    }
-}
-
 void process_events(ApplicationData& data)
 {
-    process_events(data.tanzbar_settings.storage);
-    process_events(data.bass_settings.storage);
-    process_events(data.bass_dub_settings.storage);
-    process_events(data.mono_settings.storage);
-    process_events(data.mono_dub_settings.settings.storage);
+    data.tanzbar_settings.storage.process_events();
+    data.bass_settings.storage.process_events();
+    data.bass_dub_settings.storage.process_events();
+    data.mono_settings.storage.process_events();
+    data.mono_dub_settings.settings.storage.process_events();
 }
 
 void initialize_application(ApplicationData& data)
