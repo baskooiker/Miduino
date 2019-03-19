@@ -83,7 +83,8 @@ void untie_notes(PitchStorage& storage)
 
 void note_off(uint8_t pitch, PitchStorage& storage)
 {
-    send_note_off(pitch, storage.channel);
+    // TODO: remove this intermediate function
+    storage.note_off(pitch + storage.channel.pitch_offset);
     NoteStruct stored = pop_from_storage(storage, pitch);
 }
 
@@ -95,7 +96,7 @@ void note_on(const NoteStruct note, PitchStorage& storage)
     {
         note_off(note.pitch, storage);
     }
-    send_note_on(note.pitch, note.velocity, storage.channel);
+    storage.note_on(note.pitch, note.velocity);
     add_to_storage(note, storage);
 }
 
@@ -128,7 +129,7 @@ void note_on(const NoteStruct* notes, const uint8_t length, PitchStorage& storag
         {
             note_off(notes[i].pitch, storage);
         }
-        send_note_on(notes[i].pitch, notes[i].velocity, storage.channel);
+        storage.note_on(notes[i].pitch, notes[i].velocity);
     }
     for (int i = 0; i < length; i++)
     {
