@@ -1,5 +1,6 @@
 #pragma once
 
+#include "defs.h"
 #include "rand.h"
 
 void set_ab_pattern(uint8_t* ab_pattern)

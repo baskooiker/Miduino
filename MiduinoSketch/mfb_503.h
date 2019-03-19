@@ -5,15 +5,12 @@
 #include "coef.h"
 #include "defs.h"
 #include "euclid.h"
-#include "gate.h"
 #include "harmony.h"
 #include "intervals.h"
 #include "mask.h"
 #include "midi_io.h"
-#include "note_handling.h"
 #include "pitch.h"
 #include "rand.h"
-#include "rhythms.h"
 
 void set_kick_fill(BinaryPattern& pattern, uint8_t offset)
 {
@@ -36,7 +33,7 @@ void set_kick_fill(BinaryPattern& pattern, uint8_t offset)
         uint8_t index = offset + i;
         if (index < 16)
         {
-            set_gate(pattern, index, fill[i]);
+            pattern.set_gate(index, fill[i]);
         }
     }
 }
@@ -72,7 +69,7 @@ void randomize_503_seq(Mfb503Settings& settings)
     {
         for (int step = 0; step < 4; step++)
         {
-            set_gate(settings.hh_pattern.patterns[i], step, gate(four_pat, step));
+            settings.hh_pattern.patterns[i].set_gate(step, gate(four_pat, step));
         }
         settings.hh_pattern.length = 4;
         set_ab_pattern(settings.hh_pattern.abPattern);
@@ -144,7 +141,7 @@ void play_roll(Mfb503Settings& settings, const TimeStruct& time)
 
 void play_bd(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct& time)
 {
-    if (gate(settings.bd_pattern, time) && !settings.kill_low)
+    if (settings.bd_pattern.gate(time) && !settings.kill_low)
     {
         uint8_t pitch = NOTE_503_BD;
         if (settings.play_pitch_bd)
@@ -171,7 +168,7 @@ void play_hats_closed(Mfb503Settings& settings, const TimeStruct& time)
         }
         break;
     case HatClosedStyle::HatClosedRegular:
-        if (gate(settings.hh_pattern, time))
+        if (settings.hh_pattern.gate(time))
         {
             velocity = rerange(settings.hat_velocity.value(time), 50, 32);
             settings.storage.note_on(make_note(settings.closed_hat_note, velocity));
@@ -189,7 +186,7 @@ void play_hats_open(Mfb503Settings& settings, const TimeStruct& time)
     if ((time.tick / TICKS_PER_STEP) % 4 == 2)
         velocity = 127;
 
-    if (gate(settings.oh_pattern, time))
+    if (settings.oh_pattern.gate(time))
     {
         settings.storage.note_on(make_note(NOTE_503_OH, velocity));
     }
@@ -222,7 +219,7 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
     play_bd(settings, harmony, time);
 
     // Play snare
-    if (gate(settings.sd_pattern, time) && !settings.kill_mid)
+    if (settings.sd_pattern.gate(time) && !settings.kill_mid)
     {
         settings.storage.note_on(make_note(NOTE_503_SD, velocity));
     }
@@ -234,7 +231,7 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
     uint8_t tom_prob = settings.tom_pattern.value(time);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
-        && gate(settings.tom_mask, time)
+        && settings.tom_mask.gate(time)
         && settings.volume_tom > 0)
     {
         uint8_t tom_id = tom_prob % settings.nr_toms;
@@ -248,15 +245,13 @@ void play_503(Mfb503Settings& settings, HarmonyStruct harmony, const TimeStruct&
     }
 
     // Play Cymbal
-    if (settings.volume_cy > 0)
+    // TODO: variable velociy
+    if (settings.cy_pattern.gate(time))
     {
-        if (gate(settings.cy_pattern, time))
-        {
-            settings.storage.note_on(
-                make_note(NOTE_503_CY,
-                settings.volume_cy)
-            );
-        }
+        settings.storage.note_on(
+            make_note(NOTE_503_CY,
+            64)
+        );
     }
 }
 

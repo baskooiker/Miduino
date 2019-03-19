@@ -1,7 +1,5 @@
 #pragma once
 
-#include "note_handling.h"
-
 #include "lead.h"
 #include "mfb_503.h"
 #include "tanzbar.h"
@@ -15,7 +13,12 @@
 void play_all(ApplicationData& data)
 {
     play_tanzbar(data.tanzbar_settings, data.modulators, data.time);
-    play_bass(data, data.time);
+    play_bass(
+        data.bass_settings, 
+        data.harmony,
+        data.fugue_settings,
+        data.time
+    );
     play_bass_dub(
         data,
         data.bass_settings, 
@@ -42,7 +45,7 @@ void randomize_all(ApplicationData& data)
     randomize_fugue(data.fugue_settings);
     
     randomize_tanzbar(data.tanzbar_settings);
-    randomize_bass(data.bass_settings);
+    data.bass_settings.randomize();
     randomize_bass_dub(data.bass_dub_settings);
 
     randomize_mono(data.mono_settings);

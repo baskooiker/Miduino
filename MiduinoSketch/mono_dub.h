@@ -2,6 +2,8 @@
 
 #include "defs.h"
 
+#include "mono_dub_settings.h"
+
 void randomize_mono_dub(MonoDubSettings& settings)
 {
     randomize_mono(settings.settings);

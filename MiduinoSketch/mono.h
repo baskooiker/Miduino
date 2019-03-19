@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mono_settings.h"
+
 #include "fugue.h"
 #include "harmony.h"
 #include "rhythm_time.h"
@@ -49,7 +51,7 @@ bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
         break;
     }
     case MonoStyle::MonoPolyRhythm:
-        hit = gate(settings.euclid_pattern, time);
+        hit = settings.euclid_pattern.gate(time);
         break;
     case MonoStyle::MonoLeadPattern:
         hit = interval_hit(settings.lead_pattern, time);

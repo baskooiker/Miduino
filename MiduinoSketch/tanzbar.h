@@ -4,14 +4,12 @@
 #include "coef.h"
 #include "defs.h"
 #include "euclid.h"
-#include "gate.h"
 #include "harmony.h"
 #include "intervals.h"
 #include "mask.h"
 #include "midi_io.h"
 #include "pitch.h"
 #include "rand.h"
-#include "rhythms.h"
 
 void randomize_tanzbar_kick(TanzbarSettings& settings)
 {
@@ -48,7 +46,7 @@ void randomize_tanzbar(TanzbarSettings& settings)
     set_coef_snare_pattern(settings.sd_pattern);
     set_coef_snare_pattern(settings.cp_pattern);
 
-    randomize(settings.rs_pattern);
+    settings.rs_pattern.randomize();
 
     // Randomize hats
     set_coef_hat_pattern(settings.oh_pattern);
@@ -65,7 +63,7 @@ void randomize_tanzbar(TanzbarSettings& settings)
     {
         for (int step = 0; step < 4; step++)
         {
-            set_gate(settings.hh_pattern.patterns[i], step, gate(four_pat, step));
+            settings.hh_pattern.patterns[i].set_gate(step, gate(four_pat, step));
         }
         settings.hh_pattern.length = 4;
         set_ab_pattern(settings.hh_pattern.abPattern);
@@ -117,8 +115,8 @@ void randomize_tanzbar(TanzbarSettings& settings)
     randomize_mask_pattern(settings.tom_mask);
 
     // Randomize other percussion
-    randomize(settings.cl_pattern);
-    randomize(settings.cb_pattern);
+    settings.cl_pattern.randomize();
+    settings.cb_pattern.randomize();
 
     // Randomize micro-timing
     randomize_timing(settings.time_settings);
@@ -175,7 +173,7 @@ void play_bd(TanzbarSettings& settings, const TimeStruct& time)
 {
     bool quarter_hit = interval_hit(TimeDivision::Quarter, time);
     uint8_t velocity = quarter_hit ? 127 : 63;
-    if (gate(settings.bd_pattern, time) && !settings.kill_low)
+    if (settings.bd_pattern.gate(time) && !settings.kill_low)
     {
         uint8_t pitch = NOTE_TANZBAR_BD1;
         settings.storage.note_on(
@@ -212,7 +210,7 @@ void play_hats_closed(TanzbarSettings& settings, const TimeStruct& time)
         }
         break;
     case HatClosedStyle::HatClosedRegular:
-        if (gate(settings.hh_pattern, time))
+        if (settings.hh_pattern.gate(time))
         {
             velocity = rerange(settings.hat_velocity.value(time), 50, 32);
             settings.storage.note_on(
@@ -233,7 +231,7 @@ bool play_hats_open(TanzbarSettings& settings, const TimeStruct& time)
     if ((time.tick / TICKS_PER_STEP) % 4 == 2)
         velocity = 127;
 
-    if (gate(settings.oh_pattern, time))
+    if (settings.oh_pattern.gate(time))
     {
         settings.storage.note_on(
             make_note(NOTE_TANZBAR_OH, velocity), 
@@ -312,7 +310,7 @@ void play_tanzbar(
     play_bd(settings, time);
 
     // Play snare
-    if (gate(settings.sd_pattern, time) && !settings.kill_mid)
+    if (settings.sd_pattern.gate(time) && !settings.kill_mid)
     {
         settings.storage.note_on(
             make_note(NOTE_TANZBAR_SD, velocity), 
@@ -321,7 +319,7 @@ void play_tanzbar(
     }
 
     // Play rimshot
-    if (gate(settings.rs_pattern, time) && !settings.kill_mid)
+    if (settings.rs_pattern.gate(time) && !settings.kill_mid)
     {
         uint8_t value = 0;
         if (settings.modulators.rs_tune.value(modulators, time))
@@ -335,7 +333,7 @@ void play_tanzbar(
     }
 
     // Play clap
-    if (gate(settings.cp_pattern, time) && !settings.kill_mid)
+    if (settings.cp_pattern.gate(time) && !settings.kill_mid)
     {
         uint8_t value = 0;
         if (settings.modulators.cp_trig.value(modulators, time))
@@ -349,7 +347,7 @@ void play_tanzbar(
     }
 
     // Play clave
-    if (gate(settings.cl_pattern, time))
+    if (settings.cl_pattern.gate(time))
     {
         uint8_t value = 0;
         if (settings.modulators.cl_pitch.value(modulators, time, value))
@@ -363,7 +361,7 @@ void play_tanzbar(
     }
 
     // Play cowbell
-    if (gate(settings.cb_pattern, time))
+    if (settings.cb_pattern.gate(time))
     {
         uint8_t value = 0;
         if (settings.modulators.cb_tune.value(modulators, time))
@@ -385,7 +383,7 @@ void play_tanzbar(
     uint8_t tom_prob = settings.tom_pattern.value(time);
     if (interval_hit(TimeDivision::Sixteenth, time) 
         && tom_prob < 100
-        && gate(settings.tom_mask, time))
+        && settings.tom_mask.gate(time))
     {
         uint8_t tom_id = tom_prob % 3;
         tom_id = (tom_id + settings.toms_offset) % 3;
@@ -396,7 +394,7 @@ void play_tanzbar(
     }
 
     // Play Cymbal
-    if (gate(settings.cy_pattern, time))
+    if (settings.cy_pattern.gate(time))
     {
         uint8_t value = 0;
         if (settings.modulators.cy_tune.value(modulators, time))

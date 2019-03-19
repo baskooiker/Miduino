@@ -1,9 +1,10 @@
 #pragma once
 
+#include "bass_dub_settings.h"
+
 #include "defs.h"
 #include "bass.h"
 #include "midi_io.h"
-#include "rhythms.h"
 
 void randomize_bass_dub(BassDubSettings& settings)
 {
@@ -28,7 +29,7 @@ void randomize_bass_dub(BassDubSettings& settings)
         settings.note_interval = NoteInterval::IntervalFifth; 
         break;
     }
-    randomize(settings.hit_probs, randf(.25f, .75f));
+    settings.hit_probs.randomize(randf(.25f, .75f));
 }
 
 void play_bass_dub(

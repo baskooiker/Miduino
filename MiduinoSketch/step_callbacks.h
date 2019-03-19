@@ -68,17 +68,17 @@ void release_step_7_8(ApplicationData& data) {}
 
 void release_step_9(ApplicationData& data)
 {
-    randomize_bass(data.bass_settings);
+    data.bass_settings.randomize();
 }
 
 void release_step_10(ApplicationData& data)
 {
-    randomize_bass(data.bass_settings);
+    data.bass_settings.randomize();
 }
 
 void release_step_9_10s(ApplicationData& data) 
 {
-    randomize_bass(data.bass_settings);
+    data.bass_settings.randomize();
 }
 
 void release_step_11(ApplicationData& data)

@@ -41,7 +41,7 @@ void play_lead(LeadSettings& settings, HarmonyStruct& harmony, const TimeStruct&
         length = TICKS_IN_BAR;
         break;
     case LeadStyle::LeadSlow:
-        hit = gate(settings.pattern_slow, time);
+        hit = settings.pattern_slow.gate(time);
         length = ticks_left_in_bar(time);
         break;
     }

@@ -6,6 +6,7 @@
 
 #define MIDI_CHANNEL_TANZBAR    11
 #define MIDI_CC_CHANNEL_TANZBAR 10
+#define MIDI_CHANNEL_ROCKET     4
 #define MIDI_CHANNEL_BASS       5
 #define MIDI_CHANNEL_BASS_DUB   6
 #define MIDI_CHANNEL_MONO       7

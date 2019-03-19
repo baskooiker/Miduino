@@ -1,22 +1,20 @@
 #pragma once
 
-#include "rhythms.h"
 #include "defs.h"
-#include "gate.h"
 #include "rand.h"
 
 void set_coef_pattern(BinaryPattern& pattern, const Coefficients coef)
 {
-    set_gate(pattern, 0, randf() < coef.one);
-    set_gate(pattern, 4, randf() < coef.two);
-    set_gate(pattern, 8, randf() < coef.three);
-    set_gate(pattern, 12, randf() < coef.four);
+    pattern.set_gate(0, randf() < coef.one);
+    pattern.set_gate(4, randf() < coef.two);
+    pattern.set_gate(8, randf() < coef.three);
+    pattern.set_gate(12, randf() < coef.four);
     for (int i = 2; i < 16; i+=4)
-        set_gate(pattern, i, randf() < coef.eights);
+        pattern.set_gate(i, randf() < coef.eights);
     for (int i = 1; i < 16; i += 4)
-        set_gate(pattern, i, randf() < coef.down);
+        pattern.set_gate(i, randf() < coef.down);
     for (int i = 3; i < 16; i += 4)
-        set_gate(pattern, i, randf() < coef.up);
+        pattern.set_gate(i, randf() < coef.up);
 }
 
 void set_coef_pattern(GatePatternAB& pattern, const Coefficients coef)

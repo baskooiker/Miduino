@@ -1,15 +1,13 @@
 #pragma once
 
 #include "defs.h"
-#include "gate.h"
-#include "rhythms.h"
 
 void set_euclid(BinaryPattern& pattern, const uint8_t _length, const uint8_t _steps)
 {
     uint8_t length = MIN(_length, 16);
     uint8_t steps = MIN(_steps, length);
 
-    pattern = 0x00;
+    pattern.pattern = 0x00;
 
     uint8_t counters[16] = { 0 };
     for (int i = 0; i < length; i++)
@@ -20,7 +18,7 @@ void set_euclid(BinaryPattern& pattern, const uint8_t _length, const uint8_t _st
     uint8_t c = 0;
     for (int i = 0; i < steps; i++)
     {
-        set_gate(pattern, c, true);
+        pattern.set_gate(c, true);
         c += counters[i];
     }
 }

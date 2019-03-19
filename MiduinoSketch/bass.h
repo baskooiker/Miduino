@@ -8,93 +8,6 @@
 #include "rand.h"
 #include "utils.h"
 
-void randomize_bass(BassSettings& settings)
-{
-    // Randomize octaves
-    settings.octaves.randomize(2, randui8(4, 6));
-    switch (distribution(16, 16, 16, 32))
-    {
-    case 0: settings.octaves.length = 2; break;
-    case 1: settings.octaves.length = 4; break;
-    case 2: settings.octaves.length = 8; break;
-    case 3: settings.octaves.length = 16; break;
-    }
-    settings.variable_octaves.randomize();
-    switch (distribution(16, 16, 16, 32))
-    {
-    case 0: settings.variable_octaves.length = 2; break;
-    case 1: settings.variable_octaves.length = 4; break;
-    case 2: settings.variable_octaves.length = 8; break;
-    case 3: settings.variable_octaves.length = 16; break;
-    }
-
-    // Randomize pitches
-    settings.pitches.randomize();
-    switch (distribution(16, 16, 16, 32))
-    {
-    case 0: settings.pitches.length = 2; break;
-    case 1: settings.pitches.length = 4; break;
-    case 2: settings.pitches.length = 8; break;
-    case 3: settings.pitches.length = 16; break;
-    }
-    settings.note_range_prob.randomize();
-    switch (distribution(16, 16, 16, 32))
-    {
-    case 0: settings.note_range_prob.length = 2; break;
-    case 1: settings.note_range_prob.length = 4; break;
-    case 2: settings.note_range_prob.length = 8; break;
-    case 3: settings.note_range_prob.length = 16; break;
-    }
-
-    // Randomize gates
-    set_gates_low(settings.low_pattern);
-    settings.probs.randomize();
-    switch (distribution(16, 16, 32))
-    {
-    case 0: settings.note_range_prob.length = 4; break;
-    case 1: settings.note_range_prob.length = 8; break;
-    case 2: settings.note_range_prob.length = 16; break;
-    }
-
-    // Randomize style
-    switch (distribution(16, 16, 16))
-    {
-    case 0: settings.style = BassStyle::BassArpInterval; break;
-    case 1: settings.style = BassStyle::BassEuclid; break;
-    case 2: settings.style = BassStyle::BassLow; break;
-    }
-
-    // Randomize euclid
-    uint8_t steps = 5;
-    uint8_t step_dist = distribution(20, 20);
-    if (step_dist == 0)
-    {
-        switch (distribution(40, 20))
-        {
-        case 0: steps = 3;  break;
-        case 1: steps = 5;  break;
-        }
-        set_euclid(settings.euclid_pattern, 16, steps);
-        settings.euclid_pattern.length = 16;
-    }
-    else if (step_dist == 1)
-    {
-        switch (distribution(40, 20))
-        {
-        case 0: steps = 3;  break;
-        case 1: steps = 4;  break;
-        }
-        set_euclid(settings.euclid_pattern, 8, steps);
-        settings.euclid_pattern.length = 8;
-    }
-    
-    // Randomize others
-    randomize_interval(settings.int_pattern, arp_interval_probs);
-    randomize(settings.slides, .15f);
-    randomize(settings.accents, randf(.15f, 1.f));
-    settings.note_range_value = quad(randui8()) / 2;
-}
-
 bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruct& time)
 {
     if (settings.kill)
@@ -106,10 +19,10 @@ bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruc
     switch (settings.style)
     {
     case BassStyle::BassLow:
-        hit = gate(settings.low_pattern, time);
+        hit = settings.low_pattern.gate(time);
         break;
     case BassStyle::BassEuclid:
-        hit = gate(settings.euclid_pattern, time);
+        hit = settings.euclid_pattern.gate(time);
         break;
     case BassStyle::BassArpInterval:
         hit = interval_hit(settings.int_pattern, time);
@@ -123,7 +36,7 @@ bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruc
 
 uint8_t get_bass_pitch(
     const BassSettings& settings, 
-    HarmonyStruct& harmony, 
+    const HarmonyStruct& harmony, 
     const TimeStruct& time,
     const uint8_t variable_pitch,
     const uint8_t note_offset)
@@ -174,18 +87,20 @@ uint8_t get_bass_pitch(
     return pitch;
 }
 
-void play_bass(ApplicationData& data, const TimeStruct& time)
+void play_bass(
+    BassSettings& settings, 
+    const HarmonyStruct& harmony, 
+    FugueSettings& fugue,
+    const TimeStruct& time)
 {
-    BassSettings& settings = data.bass_settings;
-
     if (settings.style == BassStyle::BassFugue && (time.tick % TICKS_PER_STEP) == 0)
     {
         return play_fugue(
-            data.fugue_settings,
+            fugue,
             settings.fugue_id, 
-            data.harmony, 
+            harmony, 
             time, 
-            data.bass_settings.storage);
+            settings.storage);
     }
 
     // Get hit
@@ -195,15 +110,15 @@ void play_bass(ApplicationData& data, const TimeStruct& time)
     {
         uint8_t pitch = get_bass_pitch(
             settings, 
-            data.harmony, 
+            harmony, 
             time, 
             settings.variable_octaves.value(time),
             NoteInterval::IntervalRoot
         );
 
         // Note length
-        uint8_t length = gate(settings.accents, time) ? 6 : 2;
-        if (gate(settings.slides, time))
+        uint8_t length = settings.accents.gate(time) ? 6 : 2;
+        if (settings.slides.gate(time))
         {
             length = ticks_left_in_bar(time);
         }

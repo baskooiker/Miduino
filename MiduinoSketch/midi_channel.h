@@ -2,6 +2,7 @@
 
 #include "defs.h"
 #include "midi_io.h"
+#include "note_struct.h"
 
 #define STORAGE_SIZE 8
 
@@ -28,22 +29,14 @@ public:
 
 class PitchStorage
 {
-public:
+protected:
     NoteStruct data[STORAGE_SIZE];
     uint8_t size;
 
-protected:
     NoteEvent events[STORAGE_SIZE];
     uint8_t nr_of_events;
 
     ChannelStruct channels[MAX_NUMBER_OF_CHANNELS];
-
-public:
-    PitchStorage()
-    {
-        size = 0;
-        nr_of_events = 0;
-    }
 
     void _send_note_on(const uint8_t pitch, const uint8_t velocity)
     {
@@ -67,6 +60,13 @@ public:
         }
     }
 
+public:
+    PitchStorage()
+    {
+        size = 0;
+        nr_of_events = 0;
+    }
+
     void set_channel(const uint8_t channel, const int8_t offset = 0)
     {
         for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
@@ -74,6 +74,7 @@ public:
             if (this->channels[i].channel == 0)
             {
                 this->channels[i] = ChannelStruct(channel, offset);
+                return;
             }
         }
     }
@@ -235,6 +236,30 @@ public:
                 this->note_off(p.pitch);
             }
         } while (p.pitch != 0);
+    }
+
+    void get_channels(ChannelStruct* channels, uint8_t& length)
+    {
+        length = 0;
+        for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
+        {
+            if (this->channels[i].channel > 0)
+            {
+                channels[length++] = this->channels[i];
+            }
+        }
+    }
+
+    void print_storage()
+    {
+        printf("\nStorage size: %d\n", this->size);
+        for (int i = 0; i < this->size; i++)
+        {
+            printf("%2d, %3d, %d\n",
+                this->data[i].pitch,
+                this->data[i].length,
+                this->data[i].type);
+        }
     }
 
 };

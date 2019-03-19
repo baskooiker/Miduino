@@ -4,7 +4,6 @@
 #include <stdlib.h>
 
 #include "defs.h"
-#include "note_handling.h"
 #include "time_struct.h"
 #include "rand.h"
 
@@ -92,16 +91,6 @@ void sort(uint8_t* ar, uint8_t length)
     }
 }
 
-NoteStruct make_note(const uint8_t pitch, const uint8_t velocity, const uint8_t length = 1, const NoteType type = NoteType::Tie)
-{
-    NoteStruct n = { 0 };
-    n.pitch = pitch;
-    n.velocity = velocity;
-    n.length = length;
-    n.type = type;
-    return n;
-}
-
 bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size)
 {
     for (int i = 0; i < size; i++)
@@ -120,4 +109,9 @@ uint32_t get_count(const TimeDivision time_division, const TimeStruct& time)
 uint8_t rerange(uint8_t input, uint8_t range, int8_t offset)
 {
     return (uint8_t)(MIN(MAX(((((int16_t)input) * range) / 128 + offset), 0), 127));
+}
+
+bool gate(const uint16_t value, const uint8_t index, const uint8_t length = 16)
+{
+    return (value >> (index % length)) & 0x1;
 }

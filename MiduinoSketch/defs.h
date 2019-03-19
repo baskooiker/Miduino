@@ -2,9 +2,8 @@
 
 #include "consts.h"
 #include "enums.h"
-#include "note_struct.h"
-#include "midi_channel.h"
-#include "rand.h"
+//#include "note_struct.h"
+//#include "midi_channel.h"
 
 class Coefficients {
 public:
@@ -22,41 +21,6 @@ public:
   uint8_t note;
   uint8_t min;
   uint8_t max;  
-};
-
-typedef uint16_t BinaryPattern;
-
-class GatePattern16
-{
-public:
-    BinaryPattern pattern;
-    uint8_t length;
-
-    GatePattern16()
-    {
-        pattern = 0x00;
-        length = 16;
-    }
-
-    ~GatePattern16() {}
-};
-
- class GatePatternAB 
- {
- public:
-    BinaryPattern patterns[3];
-    uint8_t abPattern[4];
-    TimeDivision time_division;
-    uint8_t length;
-
-    GatePatternAB()
-    {
-        patterns[0] = 0x00;
-        patterns[1] = 0x00;
-        patterns[2] = 0x00;
-        length = 64;
-        time_division = TimeDivision::Sixteenth;
-    }
 };
 
 class IntervalPattern {
@@ -125,51 +89,6 @@ public:
     }
 };
 
-class BassDubSettings {
-public:
-    BassDubStyle style;
-    NoteInterval note_interval;
-    GatePatternAB hit_probs;
-    uint8_t density;
-    uint8_t v_pitch;
-    uint8_t fugue_id;
-    PitchStorage storage;
-
-    BassDubSettings()
-    {
-        style = BassDubStyle::DubOctave;
-        note_interval = NoteInterval::IntervalRoot;
-        density = 0;
-        v_pitch = 0;
-    }
-};
-
-class Mfb522Settings 
-{
-public:
-    GatePattern16 ac_522_pattern;
-    GatePatternAB bd_522_pattern;
-    GatePattern16 lo_tom_522_pattern;
-    GatePattern16 mi_tom_522_pattern;
-    GatePattern16 rs_522_pattern;
-    GatePatternAB clave_522_pattern;
-    GatePatternAB clap_522_pattern;
-    GatePatternAB hh_522_pattern;
-    GatePatternAB oh_522_pattern;
-    GatePatternAB cy_522_pattern;
-    GatePatternAB sd_522_pattern;
-
-    bool use_hh_int;
-    IntervalPattern hh_int_pattern;
-
-    PitchStorage storage;
-
-    Mfb522Settings()
-    {
-        use_hh_int = false;
-    }
-};
-
 class ArpData
 {
 public:
@@ -198,23 +117,6 @@ public:
     }
 };
 
-class PolySettings 
-{
-public:
-    GatePatternAB gates_low;
-    GatePatternAB gates;
-    GatePatternAB tie_pattern;
-    uint8_t pitch_offset;
-    PolyType type;
-    PitchStorage storage;
-
-    PolySettings()
-    {
-        pitch_offset = 48;
-        type = PolyType::PolyLow;
-    }
-};
-
 class MicroTimingStruct 
 {
 public:
@@ -234,42 +136,4 @@ public:
     MicroTimingStruct cl;
     MicroTimingStruct cb;
     MicroTimingStruct cy;
-};
-
-class MonoSettings 
-{
-public:
-    MonoStyle style;
-    ArpData arp_data;
-    IntervalPattern int_pattern;
-    GatePatternAB euclid_pattern;
-    IntervalPattern lead_pattern;
-
-    uint8_t variable_pitch_offset;
-    uint8_t variable_density;
-
-    uint8_t pitch_offset;
-    uint8_t fugue_id;
-
-    PitchStorage storage;
-
-    MonoSettings()
-    {
-        style = MonoStyle::MonoSixteenths;
-        fugue_id = 0;
-    }
-};
-
-class MonoDubSettings 
-{
-public:
-    uint8_t variable_pitch_offset;
-    MonoSettings settings;
-    MonoDubStyle style;
-
-    MonoDubSettings()
-    {
-        variable_pitch_offset = 0;
-        style = MonoDubStyle::MonoDubLead;
-    }
 };

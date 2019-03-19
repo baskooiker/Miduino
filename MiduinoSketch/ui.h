@@ -1,7 +1,5 @@
 #pragma once
 
-#include "rhythms.h"
-
 void set_button_state(UiState& state, uint8_t index, bool value)
 {
     if (value)

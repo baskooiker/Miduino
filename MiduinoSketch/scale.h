@@ -57,7 +57,7 @@ public:
         return note;
     }
 
-    uint8_t apply_scale_offset(uint8_t note_nr, uint8_t offset, uint8_t chord_step)
+    uint8_t apply_scale_offset(uint8_t note_nr, uint8_t offset, uint8_t chord_step) const
     {
         uint8_t length = 0;
         uint8_t* notes = get_scale_notes(length);
@@ -90,7 +90,7 @@ public:
         return false;
     }
 
-    uint8_t get_note(const uint8_t v)
+    uint8_t get_note(const uint8_t v) const
     {
         uint8_t length = 0;
         uint8_t* notes = get_scale_notes(length);

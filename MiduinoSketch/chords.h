@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cv_patterns.h"
-#include "rhythms.h"
 #include "scale.h"
 #include "utils.h"
 

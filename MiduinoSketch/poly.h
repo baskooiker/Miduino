@@ -7,11 +7,12 @@
 #include "harmony.h"
 #include "midi_io.h"
 #include "rhythm_time.h"
+#include "poly_settings.h"
 
 void randomize_poly(PolySettings& settings)
 {    
     // Set pattern low
-    set_gates_low(settings.gates_low);
+    settings.gates_low.set_gates_low();
 
     // Set pattern high
     uint8_t steps = randui8(5, 11);
@@ -19,7 +20,7 @@ void randomize_poly(PolySettings& settings)
     set_ab_pattern(settings.gates.abPattern);
 
     // Set Tie Pattern
-    randomize(settings.tie_pattern, randf(.1f, .4f));
+    settings.tie_pattern.randomize(randf(.1f, .4f));
 
     // Randomize pitch range
     settings.pitch_offset = randui8(42, 54);
@@ -32,8 +33,8 @@ void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct&
     bool hit = false;
     switch (settings.type)
     {
-    case PolyType::PolyLow: hit = gate(settings.gates_low, time); break;
-    case PolyType::PolyHigh: hit = gate(settings.gates, time); break;
+    case PolyType::PolyLow: hit = settings.gates_low.gate(time); break;
+    case PolyType::PolyHigh: hit = settings.gates.gate(time); break;
     }
 
     if (hit)
@@ -53,7 +54,7 @@ void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct&
         get_chord(chord_nr, harmony.scale, pitch_offset, chord_notes, size);
 
         uint8_t length = 6;
-        if (gate(settings.tie_pattern, time) 
+        if (settings.tie_pattern.gate(time)
             || settings.type == PolyType::PolyLow)
         {
             length = ticks_left_in_bar(time);

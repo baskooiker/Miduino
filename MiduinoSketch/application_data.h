@@ -6,6 +6,9 @@
 #include "harmony_struct.h"
 #include "modulators.h"
 #include "tanzbar_settings.h"
+#include "bass_dub_settings.h"
+#include "mono_settings.h"
+#include "mono_dub_settings.h"
 
 class ApplicationData 
 {
@@ -29,7 +32,10 @@ public:
         tanzbar_settings.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
         mono_dub_settings.settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
+
         bass_settings.storage.set_channel(MIDI_CHANNEL_BASS);
+        bass_settings.storage.set_channel(MIDI_CHANNEL_ROCKET, -24);
+
         bass_dub_settings.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
 
         bass_settings.fugue_id = 0;

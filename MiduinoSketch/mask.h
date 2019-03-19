@@ -9,7 +9,7 @@ void randomize_mask_pattern(GatePatternAB& pattern)
         uint8_t from = randui8(4, 7);
         for (int step = 0; step < 8; step++)
         {
-            set_gate(pattern.patterns[i], step, step > from);
+            pattern.patterns[i].set_gate(step, step > from);
         }
     }
 

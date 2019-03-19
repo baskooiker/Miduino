@@ -1,6 +1,8 @@
 #pragma once
 
 #include "cv_patterns.h"
+#include "gate_patterns.h"
+#include "midi_channel.h"
 
 class LeadSettings
 {

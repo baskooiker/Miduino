@@ -2,7 +2,6 @@
 
 #include "defs.h"
 #include "harmony_struct.h"
-#include "gate.h"
 
 uint8_t time_intervals[] = { 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16 };
 uint8_t nr_time_intervals = sizeof(time_intervals) / sizeof(*time_intervals);
@@ -88,7 +87,7 @@ void randomize_fugue(FugueSettings& settings)
 void play_fugue(
     FugueSettings& fugue_settings,
     const uint8_t player_id, 
-    HarmonyStruct& harmony,
+    const HarmonyStruct& harmony,
     const TimeStruct& time, 
     PitchStorage& storage)
 {
