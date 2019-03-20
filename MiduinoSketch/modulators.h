@@ -176,6 +176,7 @@ public:
         return true;
     }
 
+protected:
     uint8_t value(const Modulators& modulators, const TimeStruct& time)
     {
         uint8_t value = 0;
@@ -183,6 +184,7 @@ public:
         return value;
     }
 
+public:
     void randomize()
     {
         switch (randui8(13))

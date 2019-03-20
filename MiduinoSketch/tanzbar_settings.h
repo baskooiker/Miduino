@@ -5,7 +5,7 @@
 #include "mfb_503.h"
 #include "timing_structs.h"
 
-#define MODULATOR_PROB (.2f)
+#define MODULATOR_PROB (.3f)
 
 const RandomParam random_tanzbar_params[] = {
     {TB_BD1_ATTACK   ,  0, 127},
@@ -73,6 +73,8 @@ public:
     ModulationReceiver cb_tune;
     ModulationReceiver cp_trig;
     ModulationReceiver cy_tune;
+    ModulationReceiver cy_vel;
+    ModulationReceiver hats_vel;
 
     void randomize()
     {
@@ -92,6 +94,12 @@ public:
 
         range = randui8(128);
         this->cy_tune.randomize(range, 127 - range, MODULATOR_PROB);
+
+        range = randui8(16, 64);
+        this->hats_vel.randomize(range, 127 - range);
+
+        range = randui8(16, 64);
+        this->cy_vel.randomize(range, 127 - range);
     }
 };
 
@@ -312,7 +320,7 @@ public:
         }
     }
 
-    void play_hats_closed(const TimeStruct& time)
+    void play_hats_closed(const Modulators& modulators, const TimeStruct& time)
     {
         uint8_t velocity = 63;
 
@@ -321,6 +329,8 @@ public:
         case HatClosedStyle::HatClosedInterval:
             if ((time.tick / TICKS_PER_STEP) % 4 == 0)
                 velocity = 127;
+
+            this->modulators.hats_vel.value(modulators, time, velocity);
 
             if (interval_hit(this->hat_int_pattern, time))
             {
@@ -343,7 +353,7 @@ public:
         }
     }
 
-    bool play_hats_open(const TimeStruct& time)
+    bool play_hats_open(const Modulators& modulators, const TimeStruct& time)
     {
         if (this->kill_hats)
             return false;
@@ -363,14 +373,16 @@ public:
         return false;
     }
 
-    void play_hats(const TimeStruct& time)
+    void play_hats(
+        const Modulators& modulators,
+        const TimeStruct& time)
     {
         if (this->kill_hats)
             return;
 
-        if (!play_hats_open(time))
+        if (!play_hats_open(modulators, time))
         {
-            play_hats_closed(time);
+            play_hats_closed(modulators, time);
         }
     }
 
@@ -380,9 +392,11 @@ public:
     {
         if (interval_hit(this->ma_pattern.time_division, time))
         {
+            uint8_t value = 64;
+            this->modulators.ma_dec.value(modulators, time, value);
             send_cc(
                 TB_MA_Decay,
-                this->modulators.ma_dec.value(modulators, time),
+                quad(value) / 2,
                 MIDI_CC_CHANNEL_TANZBAR
             );
 
@@ -441,7 +455,7 @@ public:
         if (this->rs_pattern.gate(time) && !this->kill_mid)
         {
             uint8_t value = 0;
-            if (this->modulators.rs_tune.value(modulators, time))
+            if (this->modulators.rs_tune.value(modulators, time, value))
             {
                 send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
@@ -455,7 +469,7 @@ public:
         if (this->cp_pattern.gate(time) && !this->kill_mid)
         {
             uint8_t value = 0;
-            if (this->modulators.cp_trig.value(modulators, time))
+            if (this->modulators.cp_trig.value(modulators, time, value))
             {
                 send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
             }
@@ -483,7 +497,7 @@ public:
         if (this->cb_pattern.gate(time))
         {
             uint8_t value = 0;
-            if (this->modulators.cb_tune.value(modulators, time))
+            if (this->modulators.cb_tune.value(modulators, time, value))
             {
                 send_cc(TB_CB_Tune, value, MIDI_CC_CHANNEL_TANZBAR);
             }
@@ -494,7 +508,7 @@ public:
         }
 
         // Play hats
-        this->play_hats(time);
+        this->play_hats(modulators, time);
 
         this->play_maracas(modulators, time);
 
@@ -516,10 +530,12 @@ public:
         if (this->cy_pattern.gate(time))
         {
             uint8_t value = 0;
-            if (this->modulators.cy_tune.value(modulators, time))
+            if (this->modulators.cy_tune.value(modulators, time, value))
             {
                 send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
+            uint8_t velocity = 100;
+            this->modulators.cy_vel.value(modulators, time, velocity);
             this->storage.note_on(
                 make_note(NOTE_TANZBAR_CY, 64),
                 time.get_shuffle_delay(this->time_settings.cy)
