@@ -2,8 +2,6 @@
 
 #include "consts.h"
 #include "enums.h"
-//#include "note_struct.h"
-//#include "midi_channel.h"
 
 class Coefficients {
 public:
@@ -115,25 +113,4 @@ public:
 
         arp_notes_length = 0;
     }
-};
-
-class MicroTimingStruct 
-{
-public:
-    int8_t shuffle_off;
-    uint8_t delay;
-};
-
-class TanzbarTimeSettings 
-{
-public:
-    MicroTimingStruct bd;
-    MicroTimingStruct sd;
-    MicroTimingStruct cp;
-    MicroTimingStruct hh;
-    MicroTimingStruct tc;
-    MicroTimingStruct ma;
-    MicroTimingStruct cl;
-    MicroTimingStruct cb;
-    MicroTimingStruct cy;
 };

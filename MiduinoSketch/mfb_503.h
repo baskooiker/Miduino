@@ -7,7 +7,6 @@
 #include "euclid.h"
 #include "harmony.h"
 #include "intervals.h"
-#include "mask.h"
 #include "midi_io.h"
 #include "pitch.h"
 #include "rand.h"
@@ -95,7 +94,7 @@ void randomize_503_seq(Mfb503Settings& settings)
     settings.tom_pattern.randomize();
     settings.nr_toms = randui8(1, 3);
     settings.toms_offset = randui8(3);
-    randomize_mask_pattern(settings.tom_mask);
+    settings.tom_mask.randomize_mask_pattern();
 }
 
 void play_fill(Mfb503Settings& settings, const TimeStruct time)

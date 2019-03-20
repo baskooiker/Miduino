@@ -137,4 +137,32 @@ public:
         set_ab_pattern(this->abPattern);
     }
 
+    void randomize_mask_pattern()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            uint8_t from = randui8(4, 7);
+            for (int step = 0; step < 8; step++)
+            {
+                this->patterns[i].set_gate(step, step > from);
+            }
+        }
+
+        uint8_t r = randui8(3);
+        if (r < 1)
+        {
+            this->time_division = TimeDivision::Quarter;
+        }
+        else if (r < 2)
+        {
+            this->time_division = TimeDivision::Eight;
+        }
+        else
+        {
+            this->time_division = TimeDivision::Sixteenth;
+        }
+        this->length = 8;
+        set_ab_pattern(this->abPattern);
+    }
+
 };

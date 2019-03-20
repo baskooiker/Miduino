@@ -2,7 +2,6 @@
 
 #include "lead.h"
 #include "mfb_503.h"
-#include "tanzbar.h"
 #include "mfb_522.h"
 #include "mono.h"
 #include "mono_dub.h"
@@ -12,7 +11,7 @@
 
 void play_all(ApplicationData& data)
 {
-    play_tanzbar(data.tanzbar_settings, data.modulators, data.time);
+    data.tanzbar_settings.play(data.modulators, data.time);
     play_bass(
         data.bass_settings, 
         data.harmony,
@@ -44,14 +43,14 @@ void randomize_all(ApplicationData& data)
 
     randomize_fugue(data.fugue_settings);
     
-    randomize_tanzbar(data.tanzbar_settings);
+    data.tanzbar_settings.randomize_tanzbar();
     data.bass_settings.randomize();
     randomize_bass_dub(data.bass_dub_settings);
 
     randomize_mono(data.mono_settings);
     randomize_mono_dub(data.mono_dub_settings);
 
-    randomize_tanzbar_sound(data.tanzbar_settings);
+    data.tanzbar_settings.randomize_tanzbar_sound();
 }
 
 void set_fugue(ApplicationData& data)

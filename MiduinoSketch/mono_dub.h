@@ -45,7 +45,7 @@ void play_mono_dub(
 
         settings.settings.storage.note_on(
             make_note(pitch, 64, 6, NoteType::Tie), 
-            get_shuffle_delay(time)
+            time.get_shuffle_delay()
         );
     }
 }

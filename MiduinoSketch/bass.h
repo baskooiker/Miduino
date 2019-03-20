@@ -126,7 +126,7 @@ void play_bass(
         // Play it!
         settings.storage.note_on(
             make_note(pitch, 64, length, NoteType::Tie), 
-            get_shuffle_delay(time)
+            time.get_shuffle_delay()
         );
     }
 }

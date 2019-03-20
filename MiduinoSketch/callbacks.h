@@ -433,7 +433,7 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
     case BSP_STEP_16:
         if (value == 0)
         {
-            randomize_tanzbar_sound(data.tanzbar_settings);
+            data.tanzbar_settings.randomize_tanzbar_sound();
             set_fugue(data);
         }
         break;

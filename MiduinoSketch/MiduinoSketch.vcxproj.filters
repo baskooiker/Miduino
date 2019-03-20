@@ -51,9 +51,6 @@
     <ClInclude Include="intervals.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="mask.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="pitch.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
@@ -88,9 +85,6 @@
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
     <ClInclude Include="mfb_522.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="tanzbar.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
     <ClInclude Include="mono_dub.h">
@@ -190,6 +184,9 @@
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="mono_dub_settings.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
+    <ClInclude Include="timing_structs.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
   </ItemGroup>

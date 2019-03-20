@@ -140,7 +140,7 @@ void play_fugue(
             );
             storage.note_on(
                 make_note(pitch, 64, player_length * TICKS_PER_STEP, NoteType::Tie),
-                get_shuffle_delay(time)
+                time.get_shuffle_delay()
             );
         }
         
