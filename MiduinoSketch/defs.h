@@ -21,23 +21,6 @@ public:
   uint8_t max;  
 };
 
-class IntervalPattern {
-public:
-    TimeDivision pattern[16];
-    TimeDivision time_division;
-    uint8_t length;
-
-    IntervalPattern()
-    {
-        length = 16;
-        for (int i = 0; i < length; i++)
-        {
-            pattern[i] = TimeDivision::Sixteenth;
-        }
-        time_division = TimeDivision::Eight;
-    }
-};
-
 class IntervalProbs 
 {
 public:

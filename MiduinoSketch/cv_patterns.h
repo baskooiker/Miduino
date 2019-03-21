@@ -56,7 +56,7 @@ public:
 
     uint8_t value(const TimeStruct& time) const
     {
-        return this->value(get_count(this->time_division, time));
+        return this->value(time.get_count(this->time_division));
     }
 
     uint8_t value(const uint8_t step) const
@@ -92,7 +92,7 @@ public:
     uint8_t value(const TimeStruct& time) const
     {
         uint8_t pat_length = MIN(this->length, 16);
-        uint32_t count = get_count(this->time_division, time) % (this->length <= 16 ? pat_length * 4 : 64);
+        uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
         return this->patterns[this->abPattern[count / pat_length]].value(count % pat_length);
     }
 

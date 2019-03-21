@@ -43,7 +43,7 @@ void randomize_522_seq(Mfb522Settings& settings)
     }
     else
     {
-        randomize_interval_hat(settings.hh_int_pattern);
+        settings.hh_int_pattern.randomize_interval_hat();
         settings.use_hh_int = true;
     }
 
@@ -103,7 +103,7 @@ void play_522(Mfb522Settings& settings, const TimeStruct& time)
     }
     else
     {
-        if (interval_hit(settings.hh_int_pattern, time))
+        if (settings.hh_int_pattern.hit(time))
         {
             settings.storage.note_on(make_note(NOTE_522_HH, velocity));
         }

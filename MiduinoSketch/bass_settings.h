@@ -3,6 +3,7 @@
 #include "cv_patterns.h"
 #include "euclid.h"
 #include "gate_patterns.h"
+#include "interval_pattern.h"
 
 class BassSettings
 {
@@ -121,10 +122,10 @@ public:
         }
 
         // Randomize others
-        randomize_interval(this->int_pattern, arp_interval_probs);
+        this->int_pattern.randomize_interval(arp_interval_probs);
         this->slides.randomize(.15f);
         this->accents.randomize(randf(.15f, 1.f));
-        this->note_range_value = quad(randui8()) / 2;
+        //this->note_range_value = quad(randui8()) / 2;
     }
 
 };

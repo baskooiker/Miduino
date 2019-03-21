@@ -25,7 +25,7 @@ bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruc
         hit = settings.euclid_pattern.gate(time);
         break;
     case BassStyle::BassArpInterval:
-        hit = interval_hit(settings.int_pattern, time);
+        hit = settings.int_pattern.hit(time);
         break;
     }
 

@@ -189,5 +189,8 @@
     <ClInclude Include="timing_structs.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
+    <ClInclude Include="interval_pattern.h">
+      <Filter>Header Files\defs</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

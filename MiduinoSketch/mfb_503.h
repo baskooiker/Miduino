@@ -84,7 +84,7 @@ void randomize_503_seq(Mfb503Settings& settings)
     case 1: settings.closed_hat_note = NOTE_503_HH_2; break;
     case 2: settings.closed_hat_note = NOTE_503_HH_3; break;
     }
-    randomize_interval_hat(settings.hat_int_pattern);
+    settings.hat_int_pattern.randomize_interval_hat();
     settings.hat_velocity.randomize();
 
     // Randomize Cymbal
@@ -161,7 +161,7 @@ void play_hats_closed(Mfb503Settings& settings, const TimeStruct& time)
         if ((time.tick / TICKS_PER_STEP) % 4 == 0)
             velocity = 127;
 
-        if (interval_hit(settings.hat_int_pattern, time))
+        if (settings.hat_int_pattern.hit(time))
         {
             settings.storage.note_on(make_note(NOTE_503_HH, velocity));
         }

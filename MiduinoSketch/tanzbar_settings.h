@@ -4,6 +4,7 @@
 #include "modulators.h"
 #include "mfb_503.h"
 #include "timing_structs.h"
+#include "interval_pattern.h"
 
 #define MODULATOR_PROB (.3f)
 
@@ -203,7 +204,7 @@ public:
         case 1: this->hat_closed_style = HatClosedStyle::HatClosedInterval; break;
         }
 
-        randomize_interval_hat(this->hat_int_pattern);
+        this->hat_int_pattern.randomize_interval_hat();
         this->hat_velocity.randomize();
 
         // Randomize Maracas
@@ -332,7 +333,7 @@ public:
 
             this->modulators.hats_vel.value(modulators, time, velocity);
 
-            if (interval_hit(this->hat_int_pattern, time))
+            if (this->hat_int_pattern.hit(time))
             {
                 this->storage.note_on(
                     make_note(NOTE_TANZBAR_HH, velocity),

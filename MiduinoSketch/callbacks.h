@@ -292,6 +292,7 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
     case BSP_KNOB_04:
         break;
     case BSP_KNOB_12:
+        data.bass_settings.note_range_value = value;
         break;
     case BSP_KNOB_05:
         data.bass_settings.density = value;

@@ -29,7 +29,7 @@ void randomize_mono(MonoSettings& settings)
     set_euclid(settings.euclid_pattern, randui8(5, 8), 1);
     settings.euclid_pattern.time_division = TimeDivision::Sixteenth;
 
-    randomize_interval_lead(settings.lead_pattern);
+    settings.lead_pattern.randomize_interval_lead();
 }
 
 TimeDivision get_time_division(const MonoSettings& settings)
@@ -54,7 +54,7 @@ bool get_mono_hit(const MonoSettings& settings, const TimeStruct& time)
         hit = settings.euclid_pattern.gate(time);
         break;
     case MonoStyle::MonoLeadPattern:
-        hit = interval_hit(settings.lead_pattern, time);
+        hit = settings.lead_pattern.hit(time);
         break;
     }
     return hit;

@@ -45,5 +45,10 @@ public:
         return this->get_shuffle_delay(micro.shuffle_off, micro.delay);
     }
 
+    uint32_t get_count(const TimeDivision time_division) const
+    {
+        return this->tick / (uint32_t)time_division;
+    }
+
 };
 

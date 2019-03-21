@@ -101,11 +101,6 @@ bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size)
     return false;
 }
 
-uint32_t get_count(const TimeDivision time_division, const TimeStruct& time)
-{
-    return time.tick / (uint32_t)time_division;
-}
-
 uint8_t rerange(uint8_t input, uint8_t range, int8_t offset)
 {
     return (uint8_t)(MIN(MAX(((((int16_t)input) * range) / 128 + offset), 0), 127));

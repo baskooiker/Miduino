@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cv_patterns.h"
+#include "interval_pattern.h"
 
 class Mfb503Settings
 {

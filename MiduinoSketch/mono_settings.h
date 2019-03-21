@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gate_patterns.h"
+#include "interval_pattern.h"
 
 class MonoSettings
 {
