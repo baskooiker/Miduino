@@ -45,10 +45,13 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         }
         break;
     case BSP_PAD_06:
+        data.bass_dub_settings.kill = !data.bass_dub_settings.kill;
         break;
     case BSP_PAD_07:
+        data.mono_settings.kill = !data.mono_settings.kill;
         break;
     case BSP_PAD_08:
+        data.mono_dub_settings.kill = !data.mono_dub_settings.kill;
         break;
     case BSP_PAD_09:
         data.tanzbar_settings.drum_fill = true;
@@ -329,21 +332,19 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         break;
 
     case BSP_STEP_01:
-        if (value == 0)
-        {
-            release_step_1(data);
-        }
-        break;
     case BSP_STEP_02:
         if (value == 0)
         {
-            release_step_2(data);
+            handle_step_release(data, number, BSP_STEP_01, BSP_STEP_02,
+                release_step_1, release_step_2, release_step_1_2);
         }
         break;
     case BSP_STEP_03:
+    case BSP_STEP_04:
         if (value == 0)
         {
-            release_step_3(data);
+            handle_step_release(data, number, BSP_STEP_03, BSP_STEP_04,
+                release_step_3, release_step_4, release_step_3_4);
         }
         break;
     case BSP_STEP_05:

@@ -8,7 +8,7 @@
 
 #define MODULATOR_PROB (.3f)
 
-const RandomParam random_tanzbar_params[] = {
+const RandomParam tanzbar_low_params[] = {
     {TB_BD1_ATTACK   ,  0, 127},
     {TB_BD1_DECAY    , 32,  96},
     {TB_BD1_PITCH    , 32,  96},
@@ -20,8 +20,10 @@ const RandomParam random_tanzbar_params[] = {
 
     {TB_BD2_DECAY    , 32,  96},
     {TB_BD2_TUNE     , 32,  96},
-    {TB_BD2_TONE     , 32,  96},
+    {TB_BD2_TONE     , 32,  96}
+};
 
+const RandomParam tanzbar_mid_params[] = {
     {TB_SD_TUNE      ,  0, 127},
     {TB_SD_DTUNE     ,  0, 127},
     {TB_SD_SNAPPY    , 64, 127},
@@ -31,21 +33,26 @@ const RandomParam random_tanzbar_params[] = {
     {TB_SD_PITCH     ,  0, 127},
 
     {TB_RS_TUNE      ,  0, 127},
+    {TB_CP_DECAY     , 32,  96},
+    {TB_CP_FILTER    , 32,  96},
+    {TB_CP_ATTACK    , 32,  96},
+    {TB_CP_TRIGGER   , 32,  96}
+};
 
+const RandomParam tanzbar_hi_params[] = {
     {TB_OH_DECAY,  0,  96},
     {TB_HH_TUNE ,  0, 127},
     {TB_HH_DECAY,  0, 127},
 
     {TB_CY_DECAY,  64, 127},
     {TB_CY_TONE ,   0, 127},
-    {TB_CY_TUNE ,   0, 127},
+    {TB_CY_TUNE ,   0, 127}
+};
+
+const RandomParam tanzbar_perc_params[] = {
 
     {TB_CL_TUNE           , 32,  96},
     {TB_CL_DECAY          , 32,  96},
-    {TB_CP_DECAY          , 32,  96},
-    {TB_CP_FILTER         , 32,  96},
-    {TB_CP_ATTACK         , 32,  96},
-    {TB_CP_TRIGGER        , 32,  96},
     {TB_HTC_TUNE          , 32,  96},
     {TB_HTC_DECAY         , 32,  96},
     {TB_HTC_NOISE_ON_OFF  , 32,  96},
@@ -63,7 +70,10 @@ const RandomParam random_tanzbar_params[] = {
     {TB_CB_Decay          , 32,  96},
     {TB_MA_Decay          , 32,  96},
 };
-const uint8_t nr_random_tanzbar_params = sizeof(random_tanzbar_params) / sizeof(RandomParam);
+const uint8_t nr_tanzbar_low_params = sizeof(tanzbar_low_params) / sizeof(RandomParam);
+const uint8_t nr_tanzbar_mid_params = sizeof(tanzbar_mid_params) / sizeof(RandomParam);
+const uint8_t nr_tanzbar_perc_params = sizeof(tanzbar_perc_params) / sizeof(RandomParam);
+const uint8_t nr_tanzbar_hi_params = sizeof(tanzbar_hi_params) / sizeof(RandomParam);
 
 class TanzbarModulators
 {
@@ -169,15 +179,44 @@ public:
         this->time_settings.tc.randomize();
     }
 
-    void randomize_tanzbar()
+    void randomize_low_seq()
     {
         set_coef_kick_pattern(this->bd_pattern);
 
+        if (distribution(32, 12))
+        {
+            this->randomize_tanzbar_kick();
+        }
+    }
+
+    void randomize_mid_seq()
+    {
         set_coef_snare_pattern(this->sd_pattern);
         set_coef_snare_pattern(this->cp_pattern);
 
         this->rs_pattern.randomize();
 
+    }
+
+    void randomize_perc_seq()
+    {
+        // Randomize toms
+        this->tom_pattern.randomize();
+        this->toms_offset = randui8(3);
+        switch (distribution(32, 32))
+        {
+        case 0: this->percussion_type = PercussionType::PercussionToms; break;
+        case 1: this->percussion_type = PercussionType::PercussionCongas; break;
+        }
+        this->tom_mask.randomize_mask_pattern();
+
+        // Randomize other percussion
+        this->cl_pattern.randomize();
+        this->cb_pattern.randomize();
+    }
+
+    void randomize_hi_seq()
+    {
         // Randomize hats
         set_coef_hat_pattern(this->oh_pattern);
         uint8_t four_pat = 0;
@@ -233,20 +272,14 @@ public:
             this->cy_pattern.length = 16;
             break;
         }
+    }
 
-        // Randomize toms
-        this->tom_pattern.randomize();
-        this->toms_offset = randui8(3);
-        switch (distribution(32, 32))
-        {
-        case 0: this->percussion_type = PercussionType::PercussionToms; break;
-        case 1: this->percussion_type = PercussionType::PercussionCongas; break;
-        }
-        this->tom_mask.randomize_mask_pattern();
-
-        // Randomize other percussion
-        this->cl_pattern.randomize();
-        this->cb_pattern.randomize();
+    void randomize_tanzbar()
+    {
+        randomize_low_seq();
+        randomize_mid_seq();
+        randomize_perc_seq();
+        randomize_hi_seq();
 
         // Randomize micro-timing
         this->randomize_timing();
@@ -294,7 +327,7 @@ public:
         {
             this->storage.note_on(
                 make_note(NOTE_TANZBAR_SD, this->snare_roll),
-                time.get_shuffle_delay(this->time_settings.sd)
+                time.get_shuffle_delay()
             );
         }
     }
@@ -544,14 +577,46 @@ public:
         }
     }
 
-    void randomize_tanzbar_sound()
+    void randomize_parameters(const RandomParam* list, const uint8_t length)
     {
-        for (int i = 0; i < nr_random_tanzbar_params; i++)
+        for (int i = 0; i < length; i++)
         {
-            send_cc(random_tanzbar_params[i].note,
-                randui8(random_tanzbar_params[i].min, random_tanzbar_params[i].max),
+            send_cc(list[i].note,
+                randui8(list[i].min, list[i].max),
                 MIDI_CC_CHANNEL_TANZBAR);
         }
+    }
+
+    void randomize_tanzbar_sound()
+    {
+        randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params);
+        randomize_parameters(tanzbar_mid_params, nr_tanzbar_mid_params);
+        randomize_parameters(tanzbar_perc_params, nr_tanzbar_perc_params);
+        randomize_parameters(tanzbar_hi_params, nr_tanzbar_hi_params);
+    }
+
+    void randomize_low()
+    {
+        randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params);
+        randomize_low_seq();
+    }
+
+    void randomize_mid()
+    {
+        randomize_parameters(tanzbar_mid_params, nr_tanzbar_mid_params);
+        randomize_mid_seq();
+    }
+
+    void randomize_perc()
+    {
+        randomize_parameters(tanzbar_perc_params, nr_tanzbar_perc_params);
+        randomize_perc_seq();
+    }
+
+    void randomize_hi()
+    {
+        randomize_parameters(tanzbar_hi_params, nr_tanzbar_hi_params);
+        randomize_hi_seq();
     }
 
 };

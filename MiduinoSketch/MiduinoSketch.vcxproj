@@ -101,6 +101,7 @@
     <ClInclude Include="gate_patterns.h" />
     <ClInclude Include="harmony.h" />
     <ClInclude Include="harmony_struct.h" />
+    <ClInclude Include="instrument_base.h" />
     <ClInclude Include="intervals.h" />
     <ClInclude Include="interval_pattern.h" />
     <ClInclude Include="lead.h" />

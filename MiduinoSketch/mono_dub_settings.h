@@ -2,7 +2,7 @@
 
 #include "mono_settings.h"
 
-class MonoDubSettings
+class MonoDubSettings : public InstrumentBase
 {
 public:
     uint8_t variable_pitch_offset;

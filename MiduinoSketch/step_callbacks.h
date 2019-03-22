@@ -4,31 +4,37 @@
 
 void release_step_1(ApplicationData& data)
 {
-    data.tanzbar_settings.randomize_tanzbar_sound();
-    data.tanzbar_settings.randomize_tanzbar();
-    data.time.global_shuffle = randui8(64);
+    data.tanzbar_settings.randomize_low();
+
+    data.time.randomize_shuffle();
     data.modulators.randomize();
 }
 
 void release_step_2(ApplicationData& data)
 {
+    data.tanzbar_settings.randomize_mid();
+}
+
+void release_step_1_2(ApplicationData& data) 
+{
     data.tanzbar_settings.randomize_tanzbar_sound();
     data.tanzbar_settings.randomize_tanzbar();
-    data.tanzbar_settings.randomize_tanzbar_kick();
-    data.time.global_shuffle = randui8(64);
+
+    data.time.randomize_shuffle();
     data.modulators.randomize();
 }
 
-void release_step_1_2(ApplicationData& data) {}
-
 void release_step_3(ApplicationData& data)
 {
-
+    data.tanzbar_settings.randomize_perc();
 }
 
 void release_step_4(ApplicationData& data)
 {
+    data.tanzbar_settings.randomize_hi();
 
+    data.time.randomize_shuffle();
+    data.modulators.randomize();
 }
 
 void release_step_3_4(ApplicationData& data) {}

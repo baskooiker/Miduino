@@ -10,8 +10,10 @@ public:
     PlayState state;
     uint32_t last_pulse_time;
     float average_pulse_time;
+protected:
     uint8_t global_shuffle;
 
+public:
     TimeStruct()
     {
         tick = 0;
@@ -31,7 +33,7 @@ public:
         const uint8_t global_delay = 0) const
     {
         uint32_t delay = (uint32_t)((this->average_pulse_time / 40.) * (global_delay / 127.));
-        if ((this->tick / TICKS_PER_STEP) % 2 == 1)
+        if ((this->tick + TICKS_PER_STEP) % (2 * TICKS_PER_STEP) == 0)
         {
             uint8_t amount = (uint8_t)CLIP((int8_t)this->global_shuffle + shuffle_offset, 0, 127);
             return (uint32_t)((this->average_pulse_time / 8.) * (amount / 127.)) + delay;
@@ -50,5 +52,12 @@ public:
         return this->tick / (uint32_t)time_division;
     }
 
+    void randomize_shuffle()
+    {
+        const int8_t rand_range = 32;
+        int8_t min_ = MAX((int8_t)this->global_shuffle - rand_range, 0);
+        int8_t max_ = MIN((int8_t)this->global_shuffle + rand_range, 128);
+        this->global_shuffle = randui8(min_, max_);
+    }
 };
 

@@ -3,7 +3,7 @@
 #include "gate_patterns.h"
 #include "interval_pattern.h"
 
-class MonoSettings
+class MonoSettings : public InstrumentBase
 {
 public:
     MonoStyle style;

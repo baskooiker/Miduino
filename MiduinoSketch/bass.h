@@ -10,11 +10,6 @@
 
 bool get_bass_hit(BassSettings& settings, const uint8_t density, const TimeStruct& time)
 {
-    if (settings.kill)
-    {
-        return false;
-    }
-
     bool hit = false;
     switch (settings.style)
     {
@@ -93,6 +88,11 @@ void play_bass(
     FugueSettings& fugue,
     const TimeStruct& time)
 {
+    if (settings.kill)
+    {
+        return;
+    }
+
     if (settings.style == BassStyle::BassFugue && (time.tick % TICKS_PER_STEP) == 0)
     {
         return play_fugue(

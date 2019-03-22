@@ -1,8 +1,9 @@
 #pragma once
 
 #include "gate_patterns.h"
+#include "instrument_base.h"
 
-class BassDubSettings {
+class BassDubSettings : public InstrumentBase {
 public:
     BassDubStyle style;
     NoteInterval note_interval;

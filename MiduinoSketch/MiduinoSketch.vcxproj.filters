@@ -192,5 +192,8 @@
     <ClInclude Include="interval_pattern.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
+    <ClInclude Include="instrument_base.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,6 +16,9 @@ void play_mono_dub(
     HarmonyStruct& harmony, 
     TimeStruct time)
 {
+    if (settings.kill)
+        return;
+
     bool hit = false;
     switch (settings.style)
     {

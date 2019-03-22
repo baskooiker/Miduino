@@ -39,6 +39,11 @@ void play_bass_dub(
     HarmonyStruct harmony,
     TimeStruct& time)
 {
+    if (dub_settings.kill)
+    {
+        return;
+    }
+
     if (dub_settings.style == BassDubStyle::DubFugue)
     {
         return play_fugue(
