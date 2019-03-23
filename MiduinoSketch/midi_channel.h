@@ -44,7 +44,7 @@ protected:
         {
             if (this->channels[i].channel > 0)
             {
-                send_note_on(pitch + this->channels[i].pitch_offset, velocity, this->channels[i].channel);
+                MidiIO::send_note_on(pitch + this->channels[i].pitch_offset, velocity, this->channels[i].channel);
             }
         }
     }
@@ -55,7 +55,7 @@ protected:
         {
             if (this->channels[i].channel > 0)
             {
-                send_note_off(pitch + this->channels[i].pitch_offset, this->channels[i].channel);
+                MidiIO::send_note_off(pitch + this->channels[i].pitch_offset, this->channels[i].channel);
             }
         }
     }
@@ -121,10 +121,7 @@ public:
 
         if (this->nr_of_events < STORAGE_SIZE)
         {
-            NoteEvent new_event = {};
-            new_event.note = note;
-            new_event.time = millis() + delay;
-
+            NoteEvent new_event(note, millis() + delay);
             this->events[this->nr_of_events++] = new_event;
         }
         else
@@ -252,6 +249,7 @@ public:
 
     void print_storage()
     {
+#ifndef ARDUINO
         printf("\nStorage size: %d\n", this->size);
         for (int i = 0; i < this->size; i++)
         {
@@ -260,6 +258,7 @@ public:
                 this->data[i].length,
                 this->data[i].type);
         }
+#endif
     }
 
 };

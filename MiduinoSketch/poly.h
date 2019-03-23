@@ -14,15 +14,15 @@ void randomize_poly(PolySettings& settings)
     settings.gates_low.set_gates_low();
 
     // Set pattern high
-    uint8_t steps = randui8(5, 11);
-    set_euclid(settings.gates, 16, steps);
-    set_ab_pattern(settings.gates.abPattern);
+    uint8_t steps = Rand::randui8(5, 11);
+    settings.gates.set_euclid(16, steps);
+    settings.gates.abPattern.set_ab_pattern();
 
     // Set Tie Pattern
-    settings.tie_pattern.randomize(randf(.1f, .4f));
+    settings.tie_pattern.randomize(Rand::randf(.1f, .4f));
 
     // Randomize pitch range
-    settings.pitch_offset = randui8(42, 54);
+    settings.pitch_offset = Rand::randui8(42, 54);
 }
 
 void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct& time)
@@ -50,7 +50,7 @@ void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct&
         uint8_t pitch_offset = settings.pitch_offset 
             + (((uint16_t)poly_pitch_offset * 24) / 128) 
             - 12;
-        get_chord(chord_nr, harmony.scale, pitch_offset, chord_notes, size);
+        ChordUtils::get_chord(chord_nr, harmony.scale, pitch_offset, chord_notes, size);
 
         uint8_t length = 6;
         if (settings.tie_pattern.gate(time)
@@ -59,7 +59,7 @@ void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct&
             length = time.ticks_left_in_bar();
         }
 
-        NoteStruct note_structs[MAX_CHORD_NOTES] = { 0 };
+        NoteStruct note_structs[MAX_CHORD_NOTES];
         for (int i = 0; i < size; i++)
         {
             note_structs[i].pitch = chord_notes[i];

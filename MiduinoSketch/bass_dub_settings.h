@@ -37,7 +37,7 @@ public:
 
     void randomize()
     {
-        switch (distribution(0, 30, 10))
+        switch (Rand::distribution(0, 30, 10))
         {
         case 0:
             this->style = BassDubStyle::DubUnison;
@@ -49,7 +49,7 @@ public:
             this->style = BassDubStyle::DubOctProbability;
             break;
         }
-        switch (distribution(60, 60))
+        switch (Rand::distribution(60, 60))
         {
         case 0:
             this->note_interval = NoteInterval::IntervalThird;
@@ -58,7 +58,7 @@ public:
             this->note_interval = NoteInterval::IntervalFifth;
             break;
         }
-        this->hit_probs.randomize(randf(.25f, .75f));
+        this->hit_probs.randomize(Rand::randf(.25f, .75f));
     }
 
     void play()
@@ -70,8 +70,7 @@ public:
 
         if (this->style == BassDubStyle::DubFugue)
         {
-            return play_fugue(
-                this->fugue_settings,
+            return this->fugue_settings.play_fugue(
                 this->fugue_id,
                 harmony,
                 time,
@@ -98,15 +97,15 @@ public:
             default:
             case BassDubStyle::DubUnison:
             case BassDubStyle::DubOctave:
-                pitch = clip_pitch(pitch, rerange(this->v_pitch, 36, 48));
+                pitch = Utils::clip_pitch(pitch, Utils::rerange(this->v_pitch, 36, 48));
                 break;
             case BassDubStyle::DubOctProbability:
-                //pitch = clip_pitch(pitch, 36, rerange(this->v_pitch, 36, 48));
+                //pitch = Utils::clip_pitch(pitch, 36, rerange(this->v_pitch, 36, 48));
                 break;
             }
 
             this->storage.note_on(
-                make_note(pitch, 64, 6, NoteType::Tie),
+                NoteStruct(pitch, 64, 6, NoteType::Tie),
                 time.get_shuffle_delay()
             );
         }

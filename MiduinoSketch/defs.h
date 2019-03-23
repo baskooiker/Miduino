@@ -3,6 +3,10 @@
 #include "consts.h"
 #include "enums.h"
 
+#ifndef ARDUINO
+uint32_t millis();
+#endif
+
 class Coefficients {
 public:
     float one;
@@ -67,33 +71,5 @@ public:
         type = FuguePlayerType::FugueForward;
         note_interval = NoteInterval::IntervalRoot;
         note_repeat = 1;
-    }
-};
-
-class ArpData
-{
-public:
-    uint8_t min;
-    uint8_t range;
-    uint8_t range_count;
-    uint8_t counter;
-    ArpType type;
-    RangeType range_type;
-    uint8_t last_note;
-
-    uint8_t arp_notes[32];
-    uint8_t arp_notes_length;
-
-    ArpData()
-    {
-        min = 36;
-        range = 12;
-        range_count = 3;
-        counter = 0;
-        type = ArpType::UP;
-        range_type = RangeType::Range;
-        last_note = 0;
-
-        arp_notes_length = 0;
     }
 };

@@ -82,7 +82,6 @@
   <ItemGroup>
     <ClInclude Include="ab.h" />
     <ClInclude Include="application_data.h" />
-    <ClInclude Include="app_utils.h" />
     <ClInclude Include="arp.h" />
     <ClInclude Include="bass_dub_settings.h" />
     <ClInclude Include="bass_settings.h" />
@@ -105,7 +104,6 @@
     <ClInclude Include="lead.h" />
     <ClInclude Include="lead_settings.h" />
     <ClInclude Include="mfb_503.h" />
-    <ClInclude Include="mfb_503_settings.h" />
     <ClInclude Include="mfb_522.h" />
     <ClInclude Include="mfb_522_settings.h" />
     <ClInclude Include="midi_channel.h" />
@@ -114,7 +112,6 @@
     <ClInclude Include="mono_dub_settings.h" />
     <ClInclude Include="mono_settings.h" />
     <ClInclude Include="note_struct.h" />
-    <ClInclude Include="pitch.h" />
     <ClInclude Include="poly.h" />
     <ClInclude Include="poly_settings.h" />
     <ClInclude Include="print.h" />

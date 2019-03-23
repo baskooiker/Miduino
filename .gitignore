@@ -7,5 +7,7 @@
 **/Debug
 **/x64
 **/.vs
+**/bin
+**/obj
 
 MiduinoSketch/CppProperties.json

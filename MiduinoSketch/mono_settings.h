@@ -3,6 +3,7 @@
 #include "gate_patterns.h"
 #include "interval_pattern.h"
 #include "fugue_settings.h"
+#include "arp.h"
 
 class MonoSettings : public InstrumentBase
 {
@@ -26,7 +27,8 @@ public:
 
     PitchStorage storage;
 
-    MonoSettings(FugueSettings& fugue_settings_ref,
+    MonoSettings(
+        FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref,
         TimeStruct& time_ref) :
         fugue_settings(fugue_settings_ref),
@@ -39,10 +41,10 @@ public:
 
     void randomize()
     {
-        this->pitch_offset = randui8(24, 48);
-        this->arp_data.range = randui8(12, 24);
+        this->pitch_offset = Rand::randui8(24, 48);
+        this->arp_data.range = Rand::randui8(12, 24);
 
-        switch (randui8(4))
+        switch (Rand::randui8(4))
         {
         case 0: this->arp_data.type = ArpType::UP;
         case 1: this->arp_data.type = ArpType::DOWN;
@@ -50,14 +52,14 @@ public:
         case 3: this->arp_data.type = ArpType::PICKING_IN;
         }
 
-        switch (randui8(3))
+        switch (Rand::randui8(3))
         {
         case 0: this->style = MonoStyle::MonoSixteenths; break;
         case 1: this->style = MonoStyle::MonoPolyRhythm; break;
         case 2: this->style = MonoStyle::MonoLeadPattern; break;
         }
 
-        set_euclid(this->euclid_pattern, randui8(5, 8), 1);
+        this->euclid_pattern.set_euclid(Rand::randui8(5, 8), 1);
         this->euclid_pattern.time_division = TimeDivision::Sixteenth;
 
         this->lead_pattern.randomize_interval_lead();
@@ -78,7 +80,7 @@ public:
         {
         case MonoStyle::MonoSixteenths:
         {
-            hit = interval_hit(this->get_time_division(), time);
+            hit = Utils::interval_hit(this->get_time_division(), time);
             break;
         }
         case MonoStyle::MonoPolyRhythm:
@@ -93,22 +95,21 @@ public:
 
     uint8_t get_next_mono_pitch()
     {
-        this->arp_data.min = rerange(this->variable_pitch_offset, 48, this->pitch_offset);
-        uint8_t pitch = get_next_arp_pitch(this->arp_data, harmony.scale, harmony.get_chord_step(time));
+        this->arp_data.min = Utils::rerange(this->variable_pitch_offset, 48, this->pitch_offset);
+        uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, harmony.get_chord_step(time));
         return pitch;
     }
 
     uint8_t get_mono_pitch() const
     {
-        return get_arp_pitch(this->arp_data);
+        return this->arp_data.get_arp_pitch();
     }
 
     void play()
     {
         if (this->style == MonoStyle::MonoFugue && !this->kill)
         {
-            return play_fugue(
-                this->fugue_settings,
+            return this->fugue_settings.play_fugue(
                 this->fugue_id,
                 harmony,
                 time,
@@ -134,7 +135,7 @@ public:
             if (!this->kill)
             {
                 this->storage.note_on(
-                    make_note(pitch, 64, length, NoteType::Tie),
+                    NoteStruct(pitch, 64, length, NoteType::Tie),
                     time.get_shuffle_delay()
                 );
             }

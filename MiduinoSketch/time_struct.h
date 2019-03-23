@@ -57,7 +57,7 @@ public:
         const int8_t rand_range = 32;
         int8_t min_ = MAX((int8_t)this->global_shuffle - rand_range, 0);
         int8_t max_ = MIN((int8_t)this->global_shuffle + rand_range, 128);
-        this->global_shuffle = randui8(min_, max_);
+        this->global_shuffle = Rand::randui8(min_, max_);
     }
 
     uint8_t ticks_left_in_bar() const

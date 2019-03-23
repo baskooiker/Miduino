@@ -33,7 +33,7 @@ public:
     {
         for (uint8_t j = 0; j < 16; j++)
         {
-            set_gate(j, randf() < prob);
+            set_gate(j, Rand::randf() < prob);
         }
     }
 
@@ -53,11 +53,72 @@ public:
     void set_gates_low()
     {
         this->pattern = 0x00;
-        uint8_t pattern_id = randui8(NR_OF_TWO_PATTERNS);
+        uint8_t pattern_id = Rand::randui8(NR_OF_TWO_PATTERNS);
         for (int i = 0; i < 2; i++)
         {
             this->set_gate(pattern_twos[pattern_id][i], true);
         }
+    }
+
+    void set_kick_fill(uint8_t offset)
+    {
+        static const uint8_t fill_a[] = { 1, 0, 0, 1, 0, 0, 1, 0 };
+        static const uint8_t fill_b[] = { 1, 0, 1, 0, 0, 1, 0, 0 };
+        static const uint8_t fill_c[] = { 0, 1, 0, 1, 0, 0, 1, 0 };
+        static const uint8_t fill_d[] = { 0, 1, 0, 0, 1, 0, 1, 0 };
+
+        const uint8_t* fill = 0;
+        switch (Rand::distribution(10, 10, 10, 10))
+        {
+        case 0: fill = fill_a; break;
+        case 1: fill = fill_b; break;
+        case 2: fill = fill_c; break;
+        case 3: fill = fill_d; break;
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            uint8_t index = offset + i;
+            if (index < 16)
+            {
+                this->set_gate(index, fill[i]);
+            }
+        }
+    }
+
+    void set_euclid(const uint8_t _length, const uint8_t _steps)
+    {
+        uint8_t length = MIN(_length, 16);
+        uint8_t steps = MIN(_steps, length);
+
+        this->pattern = 0x00;
+
+        uint8_t counters[16] = { 0 };
+        for (int i = 0; i < length; i++)
+            counters[i%steps]++;
+
+        Utils::randomize_order(counters, steps);
+
+        uint8_t c = 0;
+        for (int i = 0; i < steps; i++)
+        {
+            this->set_gate(c, true);
+            c += counters[i];
+        }
+    }
+
+    void set_coef_pattern(const Coefficients coef)
+    {
+        this->set_gate(0, Rand::randf() < coef.one);
+        this->set_gate(4, Rand::randf() < coef.two);
+        this->set_gate(8, Rand::randf() < coef.three);
+        this->set_gate(12, Rand::randf() < coef.four);
+        for (int i = 2; i < 16; i += 4)
+            this->set_gate(i, Rand::randf() < coef.eights);
+        for (int i = 1; i < 16; i += 4)
+            this->set_gate(i, Rand::randf() < coef.down);
+        for (int i = 3; i < 16; i += 4)
+            this->set_gate(i, Rand::randf() < coef.up);
     }
 
 };
@@ -92,7 +153,7 @@ class GatePatternAB
 {
 public:
     BinaryPattern patterns[3];
-    uint8_t abPattern[4];
+    AbPattern abPattern;
     TimeDivision time_division;
     uint8_t length;
 
@@ -107,11 +168,11 @@ public:
 
     bool gate(const TimeStruct& time) const
     {
-        if (!interval_hit(this->time_division, time)) return false;
+        if (!Utils::interval_hit(this->time_division, time)) return false;
 
         uint8_t pat_length = MIN(this->length, 16);
         uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
-        return this->patterns[this->abPattern[count / pat_length]].gate(count % pat_length);
+        return this->patterns[this->abPattern.ab_pattern[count / pat_length]].gate(count % pat_length);
     }
 
     void set_all(bool _value)
@@ -127,28 +188,28 @@ public:
         {
             this->patterns[i].set_gates_low();
         }
-        set_ab_pattern(this->abPattern);
+        this->abPattern.set_ab_pattern();
     }
 
     void randomize(float prob = .5f)
     {
         for (int i = 0; i < 3; i++)
             this->patterns[i].randomize(prob);
-        set_ab_pattern(this->abPattern);
+        this->abPattern.set_ab_pattern();
     }
 
     void randomize_mask_pattern()
     {
         for (int i = 0; i < 3; i++)
         {
-            uint8_t from = randui8(4, 7);
+            uint8_t from = Rand::randui8(4, 7);
             for (int step = 0; step < 8; step++)
             {
                 this->patterns[i].set_gate(step, step > from);
             }
         }
 
-        uint8_t r = randui8(3);
+        uint8_t r = Rand::randui8(3);
         if (r < 1)
         {
             this->time_division = TimeDivision::Quarter;
@@ -162,7 +223,64 @@ public:
             this->time_division = TimeDivision::Sixteenth;
         }
         this->length = 8;
-        set_ab_pattern(this->abPattern);
+        this->abPattern.set_ab_pattern();
+    }
+
+    void set_euclid(const uint8_t length, const uint8_t steps)
+    {
+        for (int i = 0; i < 3; i++)
+            this->patterns[i].set_euclid(length, steps);
+        this->abPattern.set_ab_pattern();
+    }
+
+    void set_coef_pattern(const Coefficients coef)
+    {
+        for (int i = 0; i < 3; i++)
+            this->patterns[i].set_coef_pattern(coef);
+        this->abPattern.set_ab_pattern();
+    }
+
+    void set_coef_kick_pattern()
+    {
+        Coefficients coef = { 0 };
+        coef.one = 1.f;
+        coef.two = 1.f;
+        coef.three = 1.f;
+        coef.four = 1.f;
+        coef.eights = Rand::randf(.25);
+        coef.up = Rand::randf(.125);
+        coef.down = Rand::randf(.125);
+        set_coef_pattern(coef);
+    }
+
+    void set_coef_snare_pattern()
+    {
+        Coefficients coef = { 0 };
+        coef.two = Rand::randf(.5f, .75f);
+        coef.four = Rand::randf(.5f, .75f);
+        coef.eights = Rand::randf(.125);
+        coef.up = Rand::randf(.125);
+        coef.down = Rand::randf(.125);
+        set_coef_pattern(coef);
+    }
+
+    void set_coef_hat_pattern()
+    {
+        Coefficients coef = { 0 };
+        coef.eights = 1.f;
+        coef.up = Rand::randf(.25);
+        coef.down = Rand::randf(.25);
+        set_coef_pattern(coef);
+    }
+
+    void set_coef_slow_pattern()
+    {
+        Coefficients coef = { 0 };
+        coef.one = 1.f;
+        coef.two = Rand::randf(.5f, 1.f);
+        coef.three = Rand::randf(.5f, 1.f);
+        coef.four = Rand::randf(.5f, 1.f);
+        this->set_coef_pattern(coef);
     }
 
 };

@@ -2,6 +2,7 @@
 
 #include "defs.h"
 #include "scale.h"
+#include "chords.h"
 
 class HarmonyStruct {
 public:
@@ -29,20 +30,20 @@ public:
     void randomize()
     {
         // Set const pattern
-        switch (distribution(64, 16))
+        switch (Rand::distribution(64, 16))
         {
         case 0: this->const_value = 0; break;
         case 1: this->const_value = 4; break;
         }
 
         // Set high pattern
-        switch (distribution(64, 16))
+        switch (Rand::distribution(64, 16))
         {
-        case 0: set_chord_pattern(this->high_pattern, this->scale, 0); break;
-        case 1: set_chord_pattern(this->high_pattern, this->scale, 4); break;
+        case 0: this->high_pattern.set_chord_pattern(this->scale, 0); break;
+        case 1: this->high_pattern.set_chord_pattern(this->scale, 4); break;
         }
 
-        switch (distribution(10, 10, 10))
+        switch (Rand::distribution(10, 10, 10))
         {
         case 0: this->high_pattern.time_division = TimeDivision::Quarter; break;
         case 1: this->high_pattern.time_division = TimeDivision::Half; break;
@@ -55,9 +56,9 @@ public:
         uint8_t options[8] = { 0 };
         uint8_t length = 0;
         this->scale.get_available_chords_indices(options, length);
-        remove(this->const_value, options, length);
-        remove(0, options, length);
-        this->const_value = options[randui8(length)];
+        Utils::remove(this->const_value, options, length);
+        Utils::remove(0, options, length);
+        this->const_value = options[Rand::randui8(length)];
     }
 
 };

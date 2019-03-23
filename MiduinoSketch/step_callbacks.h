@@ -108,7 +108,7 @@ void release_step_11_and_12(ApplicationData& data)
 void release_step_13(ApplicationData& data)
 {
     data.mono_settings.randomize();
-    switch (randui8(2))
+    switch (Rand::randui8(2))
     {
     case 0: data.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
     case 1: data.mono_settings.style = MonoStyle::MonoLeadPattern; break;
@@ -124,7 +124,7 @@ void release_step_14(ApplicationData& data)
 void release_step_13_and_14(ApplicationData& data)
 {
     data.mono_settings.randomize();
-    switch (randui8(2))
+    switch (Rand::randui8(2))
     {
     case 0: data.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
     case 1: data.mono_settings.style = MonoStyle::MonoLeadPattern; break;
@@ -136,23 +136,23 @@ void release_step_13_and_14(ApplicationData& data)
 void release_step_15(ApplicationData& data)
 {
     data.mono_dub_settings.randomize_mono_dub();
-    data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
-    switch (randui8(2))
+    data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
+    switch (Rand::randui8(2))
     {
-    case 0: data.mono_dub_settings.mono_settings.style = MonoStyle::MonoPolyRhythm; break;
-    case 1: data.mono_dub_settings.mono_settings.style = MonoStyle::MonoLeadPattern; break;
+    case 0: data.mono_dub_settings.style = MonoStyle::MonoPolyRhythm; break;
+    case 1: data.mono_dub_settings.style = MonoStyle::MonoLeadPattern; break;
     }
 }
 
 void release_step_16(ApplicationData& data)
 {
     data.mono_dub_settings.randomize_mono_dub();
-    data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
-    data.mono_dub_settings.mono_settings.style = MonoStyle::MonoSixteenths;
+    data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
+    data.mono_dub_settings.style = MonoStyle::MonoSixteenths;
 }
 
 void release_step_15_and_16(ApplicationData& data)
 {
     data.mono_dub_settings.randomize_mono_dub();
-    data.mono_dub_settings.style = MonoDubStyle::MonoDubUnison;
+    data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubUnison;
 }

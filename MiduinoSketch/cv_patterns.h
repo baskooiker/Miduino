@@ -6,6 +6,8 @@
 #include "rand.h"
 #include "time_struct.h"
 #include "utils.h"
+#include "scale.h"
+#include "chords.h"
 
 class CvPattern
 {
@@ -16,7 +18,7 @@ public:
     {
         for (int i = 0; i < STEPS_IN_BAR; i++)
         {
-            this->pattern[i] = randui8(minimum, maximum);
+            this->pattern[i] = Rand::randui8(minimum, maximum);
         }
     }
 
@@ -73,13 +75,46 @@ public:
     {
         this->pattern.set(index, value);
     }
+
+    // TODO: Move to separate ChordPattern class
+    void set_chord_pattern(
+        const Scale& scale,
+        const uint8_t start_chord = 0)
+    {
+        uint8_t options[8] = { 0 };
+        uint8_t options_length = 0;
+        scale.get_available_chords_indices(options, options_length);
+        Utils::randomize_order(options, options_length);
+
+        uint8_t start_chord_idx = 0;
+        Utils::find_item(start_chord, options, options_length, start_chord_idx);
+        Utils::swap(options, start_chord_idx, 0);
+
+        uint8_t time_pattern_length = 0;
+        uint8_t chord_time_pattern[4] = { 0, 0, 0, 0 };
+        ChordUtils::get_chord_time_pattern(chord_time_pattern, time_pattern_length);
+
+        uint8_t seq[4] = { 0, 0, 0, 0 };
+        ChordUtils::get_chord_seq(options, time_pattern_length, seq);
+
+        uint8_t c = 0;
+        for (int i = 0; i < time_pattern_length && i < 4; i++)
+        {
+            for (int j = 0; j < chord_time_pattern[i]; j++)
+            {
+                this->set(c, seq[i]);
+                c += 1;
+            }
+        }
+    }
+
 };
 
 class CvPatternAB
 {
 public:
     CvPattern patterns[3];
-    uint8_t abPattern[4];
+    AbPattern abPattern;
     TimeDivision time_division;
     uint8_t length;
 
@@ -93,7 +128,7 @@ public:
     {
         uint8_t pat_length = MIN(this->length, 16);
         uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
-        return this->patterns[this->abPattern[count / pat_length]].value(count % pat_length);
+        return this->patterns[this->abPattern.ab_pattern[count / pat_length]].value(count % pat_length);
     }
 
     void set_all(const uint8_t value)
@@ -108,7 +143,6 @@ public:
         {
             this->patterns[i].randomize(max, min);
         }
-        set_ab_pattern(this->abPattern);
+        this->abPattern.set_ab_pattern();
     }
-
 };

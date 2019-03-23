@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pitch.h"
 #include "utils.h"
 
 const uint8_t ionian[] = { 0, 2, 4, 5, 7, 9, 11 }; // 1 2  3 4 5 6   7
@@ -64,7 +63,7 @@ public:
         uint8_t octave = note_nr / length;
         uint8_t note = notes[(note_nr + chord_step) % length]; // Actual pitch
         note += root; // Transpose to correct root note
-        note = clip_pitch(note, offset, 127);
+        note = Utils::clip_pitch(note, offset, 127);
         note += octave * 12; // Transpose octaves
         return note;
     }
@@ -73,7 +72,7 @@ public:
     {
         uint8_t length = 0;
         uint8_t* notes = get_scale_notes(length);
-        return is_in_set((pitch + 12 - this->root) % 12, notes, length);
+        return Utils::is_in_set((pitch + 12 - this->root) % 12, notes, length);
     }
 
     bool chord_contains(const uint8_t pitch, const uint8_t chord) const 

@@ -89,27 +89,27 @@ public:
 
     void randomize()
     {
-        uint8_t range = randui8(128, 64);
+        uint8_t range = Rand::randui8(128, 64);
         this->cl_pitch.randomize(range, 127 - range, MODULATOR_PROB);
 
-        this->ma_dec.randomize(randui8(128, 64), 0);
+        this->ma_dec.randomize(Rand::randui8(128, 64), 0);
 
-        range = randui8(128);
+        range = Rand::randui8(128);
         this->rs_tune.randomize(range, 127 - range, MODULATOR_PROB);
 
-        range = randui8(128);
+        range = Rand::randui8(128);
         this->cb_tune.randomize(range, 127 - range, MODULATOR_PROB);
 
-        range = randui8(128);
+        range = Rand::randui8(128);
         this->cp_trig.randomize(range, 127 - range, MODULATOR_PROB);
 
-        range = randui8(128);
+        range = Rand::randui8(128);
         this->cy_tune.randomize(range, 127 - range, MODULATOR_PROB);
 
-        range = randui8(16, 64);
+        range = Rand::randui8(16, 64);
         this->hats_vel.randomize(range, 127 - range);
 
-        range = randui8(16, 64);
+        range = Rand::randui8(16, 64);
         this->cy_vel.randomize(range, 127 - range);
     }
 };
@@ -160,10 +160,10 @@ public:
     void randomize_tanzbar_kick()
     {
         // Fill in first or second half of bar
-        uint8_t half = distribution(64, 64);
+        uint8_t half = Rand::distribution(64, 64);
 
-        uint8_t bar = this->bd_pattern.abPattern[randui8(4)];
-        set_kick_fill(this->bd_pattern.patterns[bar], half * 8);
+        uint8_t bar = this->bd_pattern.abPattern.ab_pattern[Rand::randui8(4)];
+        this->bd_pattern.patterns[bar].set_kick_fill(half * 8);
     }
 
     void randomize_timing()
@@ -181,9 +181,9 @@ public:
 
     void randomize_low_seq()
     {
-        set_coef_kick_pattern(this->bd_pattern);
+        this->bd_pattern.set_coef_kick_pattern();
 
-        if (distribution(32, 12))
+        if (Rand::distribution(32, 12))
         {
             this->randomize_tanzbar_kick();
         }
@@ -191,8 +191,8 @@ public:
 
     void randomize_mid_seq()
     {
-        set_coef_snare_pattern(this->sd_pattern);
-        set_coef_snare_pattern(this->cp_pattern);
+        this->sd_pattern.set_coef_snare_pattern();
+        this->cp_pattern.set_coef_snare_pattern();
 
         this->rs_pattern.randomize();
 
@@ -202,8 +202,8 @@ public:
     {
         // Randomize toms
         this->tom_pattern.randomize();
-        this->toms_offset = randui8(3);
-        switch (distribution(32, 32))
+        this->toms_offset = Rand::randui8(3);
+        switch (Rand::distribution(32, 32))
         {
         case 0: this->percussion_type = PercussionType::PercussionToms; break;
         case 1: this->percussion_type = PercussionType::PercussionCongas; break;
@@ -218,9 +218,9 @@ public:
     void randomize_hi_seq()
     {
         // Randomize hats
-        set_coef_hat_pattern(this->oh_pattern);
+        this->oh_pattern.set_coef_hat_pattern();
         uint8_t four_pat = 0;
-        switch (distribution(32, 10, 10, 10, 10))
+        switch (Rand::distribution(32, 10, 10, 10, 10))
         {
         case 0: four_pat = BXXXX; break;
         case 1: four_pat = BXXX0; break;
@@ -232,12 +232,12 @@ public:
         {
             for (int step = 0; step < 4; step++)
             {
-                this->hh_pattern.patterns[i].set_gate(step, gate(four_pat, step));
+                this->hh_pattern.patterns[i].set_gate(step, Utils::gate(four_pat, step));
             }
             this->hh_pattern.length = 4;
-            set_ab_pattern(this->hh_pattern.abPattern);
+            this->hh_pattern.abPattern.set_ab_pattern();
         }
-        switch (distribution(32, 32))
+        switch (Rand::distribution(32, 32))
         {
         case 0: this->hat_closed_style = HatClosedStyle::HatClosedRegular; break;
         case 1: this->hat_closed_style = HatClosedStyle::HatClosedInterval; break;
@@ -249,7 +249,7 @@ public:
         // Randomize Maracas
         this->ma_pattern.randomize();
         this->ma_pattern.time_division = TimeDivision::Sixteenth;
-        switch (distribution(32, 32, 32))
+        switch (Rand::distribution(32, 32, 32))
         {
         case 0: this->ma_pattern.length = 2; break;
         case 1: this->ma_pattern.length = 4; break;
@@ -257,18 +257,18 @@ public:
         }
 
         // Randomize Cymbal
-        switch (distribution(16, 16, 16))
+        switch (Rand::distribution(16, 16, 16))
         {
         case 0:
-            set_coef_kick_pattern(this->cy_pattern);
+            this->cy_pattern.set_coef_kick_pattern();
             this->cy_pattern.length = 16;
             break;
         case 1:
-            set_euclid(this->cy_pattern, 8, 3);
+            this->cy_pattern.set_euclid(8, 3);
             this->cy_pattern.length = 8;
             break;
         case 2:
-            set_coef_hat_pattern(this->cy_pattern);
+            this->cy_pattern.set_coef_hat_pattern();
             this->cy_pattern.length = 16;
             break;
         }
@@ -290,11 +290,11 @@ public:
 
     void play_fill(const TimeStruct time)
     {
-        if (!interval_hit(TimeDivision::Sixteenth, time))
+        if (!Utils::interval_hit(TimeDivision::Sixteenth, time))
             return;
 
         uint8_t p = 0;
-        switch (randui8(7))
+        switch (Rand::randui8(7))
         {
         case 0: p = NOTE_TANZBAR_BD1; break;
         case 1: p = NOTE_TANZBAR_SD; break;
@@ -304,15 +304,15 @@ public:
         case 5: p = NOTE_TANZBAR_OH; break;
         case 6: p = NOTE_TANZBAR_HH; break;
         }
-        this->storage.note_on(make_note(p, 127), time.get_shuffle_delay());
+        this->storage.note_on(NoteStruct(p, 127), time.get_shuffle_delay());
     }
 
     void play_roll(const TimeStruct& time)
     {
         static TimeDivision division = TimeDivision::Sixteenth;
-        if (interval_hit(TimeDivision::Sixteenth, time))
+        if (Utils::interval_hit(TimeDivision::Sixteenth, time))
         {
-            uint8_t r = randui8(16);
+            uint8_t r = Rand::randui8(16);
             if (r < 3)
             {
                 division = TimeDivision::Thirtysecond;
@@ -323,10 +323,10 @@ public:
             }
         }
 
-        if (interval_hit(division, time))
+        if (Utils::interval_hit(division, time))
         {
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_SD, this->snare_roll),
+                NoteStruct(NOTE_TANZBAR_SD, this->snare_roll),
                 time.get_shuffle_delay()
             );
         }
@@ -334,13 +334,13 @@ public:
 
     void play_bd(const TimeStruct& time)
     {
-        bool quarter_hit = interval_hit(TimeDivision::Quarter, time);
+        bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
         uint8_t velocity = quarter_hit ? 127 : 63;
         if (this->bd_pattern.gate(time) && !this->kill_low)
         {
             uint8_t pitch = NOTE_TANZBAR_BD1;
             this->storage.note_on(
-                make_note(pitch, velocity),
+                NoteStruct(pitch, velocity),
                 time.get_shuffle_delay(this->time_settings.bd)
             );
         }
@@ -348,7 +348,7 @@ public:
         if (quarter_hit && !this->kill_low)
         {
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_BD2, velocity),
+                NoteStruct(NOTE_TANZBAR_BD2, velocity),
                 time.get_shuffle_delay(this->time_settings.bd)
             );
         }
@@ -369,7 +369,7 @@ public:
             if (this->hat_int_pattern.hit(time))
             {
                 this->storage.note_on(
-                    make_note(NOTE_TANZBAR_HH, velocity),
+                    NoteStruct(NOTE_TANZBAR_HH, velocity),
                     time.get_shuffle_delay(this->time_settings.hh)
                 );
             }
@@ -377,9 +377,9 @@ public:
         case HatClosedStyle::HatClosedRegular:
             if (this->hh_pattern.gate(time))
             {
-                velocity = rerange(this->hat_velocity.value(time), 50, 32);
+                velocity = Utils::rerange(this->hat_velocity.value(time), 50, 32);
                 this->storage.note_on(
-                    make_note(NOTE_TANZBAR_HH, velocity),
+                    NoteStruct(NOTE_TANZBAR_HH, velocity),
                     time.get_shuffle_delay(this->time_settings.hh)
                 );
             }
@@ -399,7 +399,7 @@ public:
         if (this->oh_pattern.gate(time))
         {
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_OH, velocity),
+                NoteStruct(NOTE_TANZBAR_OH, velocity),
                 time.get_shuffle_delay(this->time_settings.hh)
             );
             return true;
@@ -424,18 +424,18 @@ public:
         const Modulators& modulators,
         const TimeStruct& time)
     {
-        if (interval_hit(this->ma_pattern.time_division, time))
+        if (Utils::interval_hit(this->ma_pattern.time_division, time))
         {
             uint8_t value = 64;
             this->modulators.ma_dec.value(modulators, time, value);
-            send_cc(
+            MidiIO::send_cc(
                 TB_MA_Decay,
-                quad(value) / 2,
+                Utils::quad(value) / 2,
                 MIDI_CC_CHANNEL_TANZBAR
             );
 
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_MA, rerange(this->ma_pattern.value(time), 96, 16)),
+                NoteStruct(NOTE_TANZBAR_MA, Utils::rerange(this->ma_pattern.value(time), 96, 16)),
                 time.get_shuffle_delay(this->time_settings.ma)
             );
             return true;
@@ -480,7 +480,7 @@ public:
         if (this->sd_pattern.gate(time) && !this->kill_mid)
         {
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_SD, velocity),
+                NoteStruct(NOTE_TANZBAR_SD, velocity),
                 time.get_shuffle_delay(this->time_settings.sd)
             );
         }
@@ -491,10 +491,10 @@ public:
             uint8_t value = 0;
             if (this->modulators.rs_tune.value(modulators, time, value))
             {
-                send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                MidiIO::send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_RS, velocity),
+                NoteStruct(NOTE_TANZBAR_RS, velocity),
                 time.get_shuffle_delay(this->time_settings.sd)
             );
         }
@@ -505,10 +505,10 @@ public:
             uint8_t value = 0;
             if (this->modulators.cp_trig.value(modulators, time, value))
             {
-                send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
+                MidiIO::send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
             }
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_CP, velocity),
+                NoteStruct(NOTE_TANZBAR_CP, velocity),
                 time.get_shuffle_delay(this->time_settings.cp)
             );
         }
@@ -519,10 +519,10 @@ public:
             uint8_t value = 0;
             if (this->modulators.cl_pitch.value(modulators, time, value))
             {
-                send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                MidiIO::send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_CL, velocity),
+                NoteStruct(NOTE_TANZBAR_CL, velocity),
                 time.get_shuffle_delay(this->time_settings.cl)
             );
         }
@@ -533,10 +533,10 @@ public:
             uint8_t value = 0;
             if (this->modulators.cb_tune.value(modulators, time, value))
             {
-                send_cc(TB_CB_Tune, value, MIDI_CC_CHANNEL_TANZBAR);
+                MidiIO::send_cc(TB_CB_Tune, value, MIDI_CC_CHANNEL_TANZBAR);
             }
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_CB, velocity),
+                NoteStruct(NOTE_TANZBAR_CB, velocity),
                 time.get_shuffle_delay(this->time_settings.cb)
             );
         }
@@ -548,14 +548,14 @@ public:
 
         // Play toms
         uint8_t tom_prob = this->tom_pattern.value(time);
-        if (interval_hit(TimeDivision::Sixteenth, time)
+        if (Utils::interval_hit(TimeDivision::Sixteenth, time)
             && tom_prob < 100
             && this->tom_mask.gate(time))
         {
             uint8_t tom_id = tom_prob % 3;
             tom_id = (tom_id + this->toms_offset) % 3;
             this->storage.note_on(
-                make_note(get_tc_pitch(tom_id, this->percussion_type), 64),
+                NoteStruct(get_tc_pitch(tom_id, this->percussion_type), 64),
                 time.get_shuffle_delay(this->time_settings.tc)
             );
         }
@@ -566,12 +566,12 @@ public:
             uint8_t value = 0;
             if (this->modulators.cy_tune.value(modulators, time, value))
             {
-                send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                MidiIO::send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
             uint8_t velocity = 100;
             this->modulators.cy_vel.value(modulators, time, velocity);
             this->storage.note_on(
-                make_note(NOTE_TANZBAR_CY, 64),
+                NoteStruct(NOTE_TANZBAR_CY, 64),
                 time.get_shuffle_delay(this->time_settings.cy)
             );
         }
@@ -581,8 +581,8 @@ public:
     {
         for (int i = 0; i < length; i++)
         {
-            send_cc(list[i].note,
-                randui8(list[i].min, list[i].max),
+            MidiIO::send_cc(list[i].note,
+                Rand::randui8(list[i].min, list[i].max),
                 MIDI_CC_CHANNEL_TANZBAR);
         }
     }

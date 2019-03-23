@@ -28,12 +28,12 @@ public:
 
     void randomize_offset()
     {
-        this->offset = randui16(TICKS_IN_BAR);
+        this->offset = Rand::randui16(TICKS_IN_BAR);
     }
 
     void randomize_sync_high()
     {
-        switch (distribution(8, 8, 8, 8))
+        switch (Rand::distribution(8, 8, 8, 8))
         {
         case 0: this->rate = TICKS_IN_BAR / 8;
         case 1: this->rate = TICKS_IN_BAR / 4;
@@ -45,7 +45,7 @@ public:
 
     void randomize_sync_low()
     {
-        switch (distribution(8, 8, 8))
+        switch (Rand::distribution(8, 8, 8))
         {
         case 0: this->rate = TICKS_IN_BAR;
         case 1: this->rate = TICKS_IN_BAR * 2;
@@ -56,19 +56,19 @@ public:
 
     void randomize_high()
     {
-        this->rate = randui16(TICKS_IN_BAR, TICKS_PER_STEP * 2);
+        this->rate = Rand::randui16(TICKS_IN_BAR, TICKS_PER_STEP * 2);
         randomize_offset();
     }
 
     void randomize_low()
     {
-        this->rate = randui16(TICKS_IN_BAR * 4, TICKS_IN_BAR);
+        this->rate = Rand::randui16(TICKS_IN_BAR * 4, TICKS_IN_BAR);
         randomize_offset();
     }
 
     void randomize()
     {
-        switch (distribution(16, 16, 16, 16))
+        switch (Rand::distribution(16, 16, 16, 16))
         {
         case 0: this->randomize_low(); break;
         case 1: this->randomize_high(); break;
@@ -165,13 +165,13 @@ public:
             value = 127 - value;
             break;
         case ModulationType::ModRandom:
-            value = randui8();
+            value = Rand::randui8();
             break;
         case ModulationType::ModOff:
             return false;
         }
 
-        value = rerange(value, this->range, this->minimum);
+        value = Utils::rerange(value, this->range, this->minimum);
 
         return true;
     }
@@ -187,7 +187,7 @@ protected:
 public:
     void randomize()
     {
-        switch (randui8(13))
+        switch (Rand::randui8(13))
         {
         default:
         case 0:  this->type = ModLfoA;    break;
@@ -208,7 +208,7 @@ public:
 
     void randomize(const uint8_t range, const uint8_t offset, const float prob = 2.f)
     {
-        if (randf() < prob)
+        if (Rand::randf() < prob)
         {
             this->randomize();
         }

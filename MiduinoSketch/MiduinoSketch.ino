@@ -1,6 +1,6 @@
 #include <MIDI.h>
 
-#include "app_utils.h"
+#include "application_data.h"
 #include "callbacks.h"
 
 MIDI_CREATE_DEFAULT_INSTANCE();
@@ -39,33 +39,34 @@ void setup() {
     MIDI.setHandleControlChange(handleControlChangeCallback);
     MIDI.setHandleStop(handleStopCallback);
 
+    MIDI.turnThruOff();
     MIDI.begin(MIDI_CHANNEL_OMNI);
 
     srand(analogRead(A0));
 
-    initialize_application(data);
+    data.randomize_all();
 }
 
 void loop() {
     MIDI.read();
-    process_events(data);
+    data.process_events();
 }
 
 //////////////////////////////////////////////////
 // MIDI IO ///////////////////////////////////////
 //////////////////////////////////////////////////
 
-void send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
+void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
 {
     MIDI.sendNoteOn(pitch, velocity, channel);
 }
 
-void send_note_off(const uint8_t pitch, const uint8_t channel)
+void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel)
 {
     MIDI.sendNoteOff(pitch, 0, channel);
 }
 
-void send_cc(uint8_t cc, uint8_t value, uint8_t channel)
+void MidiIO::send_cc(uint8_t cc, uint8_t value, uint8_t channel)
 {
     MIDI.sendControlChange(cc, value, channel);
 }

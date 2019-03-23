@@ -39,9 +39,6 @@
     <ClInclude Include="__vm\.MiduinoSketch.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="app_utils.h">
-      <Filter>Header Files\app</Filter>
-    </ClInclude>
     <ClInclude Include="ab.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
@@ -49,9 +46,6 @@
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="intervals.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="pitch.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="print.h">
@@ -136,9 +130,6 @@
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="fugue_settings.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="mfb_503_settings.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="lead_settings.h">

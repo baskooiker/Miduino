@@ -39,7 +39,8 @@ public:
 
     PitchStorage storage;
 
-    BassSettings(FugueSettings& fugue_settings_ref,
+    BassSettings(
+        FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref,
         TimeStruct& time_ref) :
         fugue_settings(fugue_settings_ref),
@@ -57,8 +58,8 @@ public:
     void randomize()
     {
         // Randomize octaves
-        this->octaves.randomize(2, randui8(4, 6));
-        switch (distribution(16, 16, 16, 32))
+        this->octaves.randomize(2, Rand::randui8(4, 6));
+        switch (Rand::distribution(16, 16, 16, 32))
         {
         case 0: this->octaves.length = 2; break;
         case 1: this->octaves.length = 4; break;
@@ -66,7 +67,7 @@ public:
         case 3: this->octaves.length = 16; break;
         }
         this->variable_octaves.randomize();
-        switch (distribution(16, 16, 16, 32))
+        switch (Rand::distribution(16, 16, 16, 32))
         {
         case 0: this->variable_octaves.length = 2; break;
         case 1: this->variable_octaves.length = 4; break;
@@ -76,7 +77,7 @@ public:
 
         // Randomize pitches
         this->pitches.randomize();
-        switch (distribution(16, 16, 16, 32))
+        switch (Rand::distribution(16, 16, 16, 32))
         {
         case 0: this->pitches.length = 2; break;
         case 1: this->pitches.length = 4; break;
@@ -84,7 +85,7 @@ public:
         case 3: this->pitches.length = 16; break;
         }
         this->note_range_prob.randomize();
-        switch (distribution(16, 16, 16, 32))
+        switch (Rand::distribution(16, 16, 16, 32))
         {
         case 0: this->note_range_prob.length = 2; break;
         case 1: this->note_range_prob.length = 4; break;
@@ -95,7 +96,7 @@ public:
         // Randomize gates
         this->low_pattern.set_gates_low();
         this->probs.randomize();
-        switch (distribution(16, 16, 32))
+        switch (Rand::distribution(16, 16, 32))
         {
         case 0: this->note_range_prob.length = 4; break;
         case 1: this->note_range_prob.length = 8; break;
@@ -103,7 +104,7 @@ public:
         }
 
         // Randomize style
-        switch (distribution(16, 16, 16))
+        switch (Rand::distribution(16, 16, 16))
         {
         case 0: this->style = BassStyle::BassArpInterval; break;
         case 1: this->style = BassStyle::BassEuclid; break;
@@ -112,32 +113,32 @@ public:
 
         // Randomize euclid
         uint8_t steps = 5;
-        uint8_t step_dist = distribution(20, 20);
+        uint8_t step_dist = Rand::distribution(20, 20);
         if (step_dist == 0)
         {
-            switch (distribution(40, 20))
+            switch (Rand::distribution(40, 20))
             {
             case 0: steps = 3;  break;
             case 1: steps = 5;  break;
             }
-            set_euclid(this->euclid_pattern, 16, steps);
+            this->euclid_pattern.set_euclid(16, steps);
             this->euclid_pattern.length = 16;
         }
         else if (step_dist == 1)
         {
-            switch (distribution(40, 20))
+            switch (Rand::distribution(40, 20))
             {
             case 0: steps = 3;  break;
             case 1: steps = 4;  break;
             }
-            set_euclid(this->euclid_pattern, 8, steps);
+            this->euclid_pattern.set_euclid(8, steps);
             this->euclid_pattern.length = 8;
         }
 
         // Randomize others
         this->int_pattern.randomize_interval(arp_interval_probs);
         this->slides.randomize(.15f);
-        this->accents.randomize(randf(.15f, 1.f));
+        this->accents.randomize(Rand::randf(.15f, 1.f));
         //this->note_range_value = quad(randui8()) / 2;
     }
 
@@ -158,7 +159,7 @@ public:
         }
 
         uint8_t prob = this->probs.value(time);
-        bool prob_step = (prob < density) && (prob > 0) && interval_hit(TimeDivision::Sixteenth, time);
+        bool prob_step = (prob < density) && (prob > 0) && Utils::interval_hit(TimeDivision::Sixteenth, time);
         return hit || prob_step;
     }
 
@@ -177,7 +178,7 @@ public:
 
             if (this->note_range_value < 64)
             {
-                note_nr = to_chord_order(pitch_cv);
+                note_nr = Utils::to_chord_order(pitch_cv);
             }
             else
             {
@@ -187,7 +188,7 @@ public:
                 }
                 else
                 {
-                    note_nr = to_chord_order(pitch_cv);
+                    note_nr = Utils::to_chord_order(pitch_cv);
                 }
             }
         }
@@ -206,7 +207,7 @@ public:
             pitch += (variable_pitch % 3 + 1) * 12;
         }
 
-        pitch = clip_pitch(pitch, pitch_offset, rerange(variable_pitch, 36, pitch_offset + 12));
+        pitch = Utils::clip_pitch(pitch, pitch_offset, Utils::rerange(variable_pitch, 36, pitch_offset + 12));
 
         pitch += this->octave_offset * 12;
         return pitch;
@@ -221,8 +222,7 @@ public:
 
         if (this->style == BassStyle::BassFugue && (time.tick % TICKS_PER_STEP) == 0)
         {
-            return play_fugue(
-                this->fugue_settings,
+            return this->fugue_settings.play_fugue(
                 this->fugue_id,
                 harmony,
                 time,
@@ -248,7 +248,7 @@ public:
 
             // Play it!
             this->storage.note_on(
-                make_note(pitch, 64, length, NoteType::Tie),
+                NoteStruct(pitch, 64, length, NoteType::Tie),
                 time.get_shuffle_delay()
             );
         }
