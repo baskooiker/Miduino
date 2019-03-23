@@ -6,7 +6,6 @@
 #include "euclid.h"
 #include "harmony.h"
 #include "midi_io.h"
-#include "rhythm_time.h"
 #include "poly_settings.h"
 
 void randomize_poly(PolySettings& settings)
@@ -57,7 +56,7 @@ void play_poly(PolySettings& settings, HarmonyStruct& harmony, const TimeStruct&
         if (settings.tie_pattern.gate(time)
             || settings.type == PolyType::PolyLow)
         {
-            length = ticks_left_in_bar(time);
+            length = time.ticks_left_in_bar();
         }
 
         NoteStruct note_structs[MAX_CHORD_NOTES] = { 0 };

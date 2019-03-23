@@ -7,7 +7,6 @@
 #include "harmony.h"
 #include "intervals.h"
 #include "midi_io.h"
-#include "rhythm_time.h"
 
 void randomize_lead(LeadSettings& settings)
 {
@@ -42,7 +41,7 @@ void play_lead(LeadSettings& settings, HarmonyStruct& harmony, const TimeStruct&
         break;
     case LeadStyle::LeadSlow:
         hit = settings.pattern_slow.gate(time);
-        length = ticks_left_in_bar(time);
+        length = time.ticks_left_in_bar();
         break;
     }
 

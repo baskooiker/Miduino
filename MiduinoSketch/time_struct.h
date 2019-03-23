@@ -59,5 +59,20 @@ public:
         int8_t max_ = MIN((int8_t)this->global_shuffle + rand_range, 128);
         this->global_shuffle = randui8(min_, max_);
     }
+
+    uint8_t ticks_left_in_bar() const
+    {
+        uint32_t tick_in_local_bar = this->tick % TICKS_IN_BAR;
+        return TICKS_IN_BAR - tick_in_local_bar;
+    }
+
+    void reset()
+    {
+        this->tick = 0;
+        this->state = PlayState::Stopped;
+        this->last_pulse_time = 0;
+        this->average_pulse_time = 500.f;
+    }
+
 };
 

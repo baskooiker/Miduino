@@ -2,8 +2,14 @@
 
 #include "gate_patterns.h"
 #include "instrument_base.h"
+#include "fugue.h"
 
 class BassDubSettings : public InstrumentBase {
+    BassSettings& bass_settings;
+    FugueSettings& fugue_settings;
+    HarmonyStruct& harmony;
+    TimeStruct& time;
+
 public:
     BassDubStyle style;
     NoteInterval note_interval;
@@ -13,11 +19,96 @@ public:
     uint8_t fugue_id;
     PitchStorage storage;
 
-    BassDubSettings()
+    BassDubSettings(
+        BassSettings& bass_settings_ref, 
+        FugueSettings& fugue_settings_ref,
+        HarmonyStruct& harmony_ref, 
+        TimeStruct& time_ref):
+        bass_settings(bass_settings_ref),
+        fugue_settings(fugue_settings_ref),
+        harmony(harmony_ref),
+        time(time_ref)
     {
         style = BassDubStyle::DubOctave;
         note_interval = NoteInterval::IntervalRoot;
         density = 0;
         v_pitch = 0;
+    }
+
+    void randomize()
+    {
+        switch (distribution(0, 30, 10))
+        {
+        case 0:
+            this->style = BassDubStyle::DubUnison;
+            break;
+        case 1:
+            this->style = BassDubStyle::DubOctave;
+            break;
+        case 2:
+            this->style = BassDubStyle::DubOctProbability;
+            break;
+        }
+        switch (distribution(60, 60))
+        {
+        case 0:
+            this->note_interval = NoteInterval::IntervalThird;
+            break;
+        case 1:
+            this->note_interval = NoteInterval::IntervalFifth;
+            break;
+        }
+        this->hit_probs.randomize(randf(.25f, .75f));
+    }
+
+    void play()
+    {
+        if (this->kill)
+        {
+            return;
+        }
+
+        if (this->style == BassDubStyle::DubFugue)
+        {
+            return play_fugue(
+                this->fugue_settings,
+                this->fugue_id,
+                harmony,
+                time,
+                this->storage);
+        }
+
+        bool hit = this->bass_settings.get_bass_hit(this->density, time);
+        if (hit)
+        {
+            NoteInterval note_interval = NoteInterval::IntervalRoot;
+            switch (this->style)
+            {
+            case BassDubStyle::DubOctave: note_interval = this->note_interval; break;
+            default: break;
+            }
+
+            uint8_t pitch = this->bass_settings.get_bass_pitch(
+                this->v_pitch,
+                note_interval
+            );
+
+            switch (this->style)
+            {
+            default:
+            case BassDubStyle::DubUnison:
+            case BassDubStyle::DubOctave:
+                pitch = clip_pitch(pitch, rerange(this->v_pitch, 36, 48));
+                break;
+            case BassDubStyle::DubOctProbability:
+                //pitch = clip_pitch(pitch, 36, rerange(this->v_pitch, 36, 48));
+                break;
+            }
+
+            this->storage.note_on(
+                make_note(pitch, 64, 6, NoteType::Tie),
+                time.get_shuffle_delay()
+            );
+        }
     }
 };

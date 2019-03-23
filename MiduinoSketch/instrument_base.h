@@ -9,4 +9,6 @@ public:
     {
         kill = false;
     }
+
+    virtual void play() = 0;
 };

@@ -20,6 +20,7 @@ public:
     Modulators modulators;
 
     TanzbarSettings tanzbar_settings;
+
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;
     MonoSettings mono_settings;
@@ -27,11 +28,15 @@ public:
 
     UiState ui_state;
 
-    ApplicationData()
+    ApplicationData():
+        bass_settings(fugue_settings, harmony, time),
+        bass_dub_settings(bass_settings, fugue_settings, harmony, time),
+        mono_settings(fugue_settings, harmony, time),
+        mono_dub_settings(mono_settings, fugue_settings, harmony, time)
     {
         tanzbar_settings.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
-        mono_dub_settings.settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
+        mono_dub_settings.mono_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
 
         bass_settings.storage.set_channel(MIDI_CHANNEL_BASS);
         bass_settings.storage.set_channel(MIDI_CHANNEL_ROCKET, -24);
@@ -41,6 +46,6 @@ public:
         bass_settings.fugue_id = 0;
         bass_dub_settings.fugue_id = 1;
         mono_settings.fugue_id = 2;
-        mono_dub_settings.settings.fugue_id = 3;
+        mono_dub_settings.mono_settings.fugue_id = 3;
     }
 };

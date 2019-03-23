@@ -9,17 +9,13 @@
 #include "harmony.h"
 #include "midi_io.h"
 #include "rand.h"
-#include "rhythm_time.h"
 #include "step_callbacks.h"
 #include "ui.h"
 
 #include "lead.h"
 #include "mfb_503.h"
 #include "mfb_522.h"
-#include "mono.h"
-#include "mono_dub.h"
 #include "poly.h"
-#include "bass.h"
 
 void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
 {
@@ -210,7 +206,7 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
     case BSP_PAD_16:
         randomize_fugue_player(data.fugue_settings, 3);
         data.mono_dub_settings.style = MonoDubStyle::MonoDubLead;
-        data.mono_dub_settings.settings.style = MonoStyle::MonoFugue;
+        data.mono_dub_settings.mono_settings.style = MonoStyle::MonoFugue;
         break;
     default:
         break;
@@ -323,10 +319,10 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         break;
     case BSP_KNOB_08:
         data.fugue_settings.player_settings[3].density = value;
-        data.mono_dub_settings.settings.variable_density = value;
+        data.mono_dub_settings.mono_settings.variable_density = value;
         break;
     case BSP_KNOB_16:
-        data.mono_dub_settings.settings.variable_pitch_offset = value;
+        data.mono_dub_settings.mono_settings.variable_pitch_offset = value;
         data.mono_dub_settings.variable_pitch_offset = value;
         data.fugue_settings.player_settings[3].manual_pitch_offset = value;
         break;
@@ -468,9 +464,9 @@ void handleStop(ApplicationData& data)
     data.bass_settings.storage.all_notes_off();
     data.bass_dub_settings.storage.all_notes_off();
     data.mono_settings.storage.all_notes_off();
-    data.mono_dub_settings.settings.storage.all_notes_off();
+    data.mono_dub_settings.mono_settings.storage.all_notes_off();
 
-    reset_time(data.time);
+    data.time.reset();
 
     reset(data.fugue_settings);
 }

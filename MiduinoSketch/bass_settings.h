@@ -4,9 +4,17 @@
 #include "euclid.h"
 #include "gate_patterns.h"
 #include "interval_pattern.h"
+#include "fugue_settings.h"
+#include "harmony_struct.h"
+#include "fugue.h"
 
 class BassSettings
 {
+protected:
+    FugueSettings& fugue_settings;
+    HarmonyStruct& harmony;
+    TimeStruct& time;
+
 public:
     GatePatternAB accents;
     CvPatternAB pitches;
@@ -31,7 +39,12 @@ public:
 
     PitchStorage storage;
 
-    BassSettings()
+    BassSettings(FugueSettings& fugue_settings_ref,
+        HarmonyStruct& harmony_ref,
+        TimeStruct& time_ref) :
+        fugue_settings(fugue_settings_ref),
+        harmony(harmony_ref),
+        time(time_ref)
     {
         pitch_range = 0;
         style = BassStyle::BassLow;
@@ -126,6 +139,119 @@ public:
         this->slides.randomize(.15f);
         this->accents.randomize(randf(.15f, 1.f));
         //this->note_range_value = quad(randui8()) / 2;
+    }
+
+    bool get_bass_hit(const uint8_t density, const TimeStruct& time)
+    {
+        bool hit = false;
+        switch (this->style)
+        {
+        case BassStyle::BassLow:
+            hit = this->low_pattern.gate(time);
+            break;
+        case BassStyle::BassEuclid:
+            hit = this->euclid_pattern.gate(time);
+            break;
+        case BassStyle::BassArpInterval:
+            hit = this->int_pattern.hit(time);
+            break;
+        }
+
+        uint8_t prob = this->probs.value(time);
+        bool prob_step = (prob < density) && (prob > 0) && interval_hit(TimeDivision::Sixteenth, time);
+        return hit || prob_step;
+    }
+
+    uint8_t get_bass_pitch(
+        const uint8_t variable_pitch,
+        const uint8_t note_offset)
+    {
+        // TODO: Hier klopt dus niks van...
+        uint8_t note_nr = 0;
+        uint8_t note_range_p = this->note_range_prob.value(time);
+
+        // TODO: Deze geeft veel te vaak false.
+        if (note_range_p < this->note_range_value)
+        {
+            uint8_t pitch_cv = harmony.scale.get_note(this->pitches.value(time));
+
+            if (this->note_range_value < 64)
+            {
+                note_nr = to_chord_order(pitch_cv);
+            }
+            else
+            {
+                if (note_range_p % 64 < this->note_range_value % 64)
+                {
+                    note_nr = pitch_cv;
+                }
+                else
+                {
+                    note_nr = to_chord_order(pitch_cv);
+                }
+            }
+        }
+
+        const uint8_t pitch_offset = 36;
+
+        uint8_t pitch = harmony.scale.apply_scale_offset(
+            note_nr,
+            pitch_offset,
+            harmony.get_chord_step(time) + note_offset
+        );
+
+        uint8_t octave = this->octaves.value(time);
+        if (variable_pitch < this->pitch_range)
+        {
+            pitch += (variable_pitch % 3 + 1) * 12;
+        }
+
+        pitch = clip_pitch(pitch, pitch_offset, rerange(variable_pitch, 36, pitch_offset + 12));
+
+        pitch += this->octave_offset * 12;
+        return pitch;
+    }
+
+    void play()
+    {
+        if (this->kill)
+        {
+            return;
+        }
+
+        if (this->style == BassStyle::BassFugue && (time.tick % TICKS_PER_STEP) == 0)
+        {
+            return play_fugue(
+                this->fugue_settings,
+                this->fugue_id,
+                harmony,
+                time,
+                this->storage);
+        }
+
+        // Get hit
+        bool hit = this->get_bass_hit(this->density, time);
+
+        if (hit)
+        {
+            uint8_t pitch = get_bass_pitch(
+                this->variable_octaves.value(time),
+                NoteInterval::IntervalRoot
+            );
+
+            // Note length
+            uint8_t length = this->accents.gate(time) ? 6 : 2;
+            if (this->slides.gate(time))
+            {
+                length = time.ticks_left_in_bar();
+            }
+
+            // Play it!
+            this->storage.note_on(
+                make_note(pitch, 64, length, NoteType::Tie),
+                time.get_shuffle_delay()
+            );
+        }
     }
 
 };

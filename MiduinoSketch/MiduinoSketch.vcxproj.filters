@@ -69,15 +69,6 @@
     <ClInclude Include="euclid.h">
       <Filter>Header Files\rhythms</Filter>
     </ClInclude>
-    <ClInclude Include="rhythm_time.h">
-      <Filter>Header Files\rhythms</Filter>
-    </ClInclude>
-    <ClInclude Include="bass.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="bass_dub.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
     <ClInclude Include="lead.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
@@ -85,12 +76,6 @@
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
     <ClInclude Include="mfb_522.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="mono_dub.h">
-      <Filter>Header Files\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="mono.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
     <ClInclude Include="poly.h">
@@ -141,9 +126,6 @@
     <ClInclude Include="modulators.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
-    <ClInclude Include="tanzbar_settings.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
     <ClInclude Include="cv_patterns.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
@@ -151,9 +133,6 @@
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="midi_channel.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="bass_settings.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="fugue_settings.h">
@@ -171,19 +150,10 @@
     <ClInclude Include="gate_patterns.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
-    <ClInclude Include="bass_dub_settings.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
     <ClInclude Include="mfb_522_settings.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="poly_settings.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="mono_settings.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="mono_dub_settings.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="timing_structs.h">
@@ -193,6 +163,21 @@
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="instrument_base.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="tanzbar_settings.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="bass_dub_settings.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="bass_settings.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="mono_settings.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="mono_dub_settings.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
   </ItemGroup>
