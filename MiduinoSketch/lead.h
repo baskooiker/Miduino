@@ -3,8 +3,6 @@
 #include "lead_settings.h"
 
 #include "arp.h"
-#include "coef.h"
-#include "harmony.h"
 #include "intervals.h"
 #include "midi_io.h"
 

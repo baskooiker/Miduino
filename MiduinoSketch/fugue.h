@@ -9,6 +9,28 @@ static const uint8_t nr_time_intervals = sizeof(time_intervals) / sizeof(*time_i
 
 #define NUMBER_FUGUE_PLAYERS 4
 
+class FuguePlayerSettings {
+public:
+    uint8_t pitch_offset;
+    uint8_t manual_pitch_offset;
+    uint8_t length;
+    FuguePlayerType type;
+    uint32_t counter;
+    uint8_t rhythm;
+    uint8_t density;
+    NoteInterval note_interval;
+    uint8_t note_repeat;
+
+    FuguePlayerSettings()
+    {
+        pitch_offset = 36;
+        length = 4;
+        type = FuguePlayerType::FugueForward;
+        note_interval = NoteInterval::IntervalRoot;
+        note_repeat = 1;
+    }
+};
+
 class FugueSettings {
 public:
     CvPattern16 pattern;

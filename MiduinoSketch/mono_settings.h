@@ -2,7 +2,6 @@
 
 #include "gate_patterns.h"
 #include "interval_pattern.h"
-#include "fugue_settings.h"
 #include "arp.h"
 
 class MonoSettings : public InstrumentBase

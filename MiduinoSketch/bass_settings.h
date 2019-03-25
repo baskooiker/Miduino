@@ -4,7 +4,6 @@
 #include "euclid.h"
 #include "gate_patterns.h"
 #include "interval_pattern.h"
-#include "fugue_settings.h"
 #include "harmony_struct.h"
 #include "fugue.h"
 

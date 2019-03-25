@@ -2,7 +2,6 @@
 
 #include "bass_settings.h"
 #include "defs.h"
-#include "fugue_settings.h"
 #include "harmony_struct.h"
 #include "modulators.h"
 #include "tanzbar_settings.h"

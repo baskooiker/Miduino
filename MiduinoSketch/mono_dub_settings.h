@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mono_settings.h"
-#include "fugue_settings.h"
 
 class MonoDubSettings : public MonoSettings
 {

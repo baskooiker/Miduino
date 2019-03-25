@@ -11,6 +11,7 @@
     <RootNamespace>
     </RootNamespace>
     <ProjectName>MiduinoSketch</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -87,16 +88,12 @@
     <ClInclude Include="bass_settings.h" />
     <ClInclude Include="callbacks.h" />
     <ClInclude Include="chords.h" />
-    <ClInclude Include="coef.h" />
     <ClInclude Include="consts.h" />
     <ClInclude Include="cv_patterns.h" />
     <ClInclude Include="defs.h" />
     <ClInclude Include="enums.h" />
-    <ClInclude Include="euclid.h" />
     <ClInclude Include="fugue.h" />
-    <ClInclude Include="fugue_settings.h" />
     <ClInclude Include="gate_patterns.h" />
-    <ClInclude Include="harmony.h" />
     <ClInclude Include="harmony_struct.h" />
     <ClInclude Include="instrument_base.h" />
     <ClInclude Include="intervals.h" />

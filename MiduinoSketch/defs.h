@@ -51,25 +51,3 @@ public:
     ButtonState pad_state[NR_OF_PADS];
     ButtonState step_state[NR_OF_STEPS];
 };
-
-class FuguePlayerSettings {
-public:
-    uint8_t pitch_offset;
-    uint8_t manual_pitch_offset;
-    uint8_t length;
-    FuguePlayerType type;
-    uint32_t counter;
-    uint8_t rhythm;
-    uint8_t density;
-    NoteInterval note_interval;
-    uint8_t note_repeat;
-
-    FuguePlayerSettings()
-    {
-        pitch_offset = 36;
-        length = 4;
-        type = FuguePlayerType::FugueForward;
-        note_interval = NoteInterval::IntervalRoot;
-        note_repeat = 1;
-    }
-};

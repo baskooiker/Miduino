@@ -1,9 +1,7 @@
 #pragma once
 
-#include "coef.h"
 #include "defs.h"
 #include "euclid.h"
-#include "harmony.h"
 #include "intervals.h"
 #include "midi_io.h"
 #include "rand.h"

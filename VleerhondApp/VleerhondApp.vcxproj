@@ -194,7 +194,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\iOSVersionDetection.h" />
@@ -220,7 +220,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTypes.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.h" />
-    <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\VleerhondApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

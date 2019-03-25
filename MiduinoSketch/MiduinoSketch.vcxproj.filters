@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\rhythms">
-      <UniqueIdentifier>{a97d2616-c254-4f39-ad2c-3e60e4d8ad0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\utils">
       <UniqueIdentifier>{2cec88fe-edc8-4cbb-a32e-54e785ee18a5}</UniqueIdentifier>
     </Filter>
@@ -56,12 +53,6 @@
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="coef.h">
-      <Filter>Header Files\rhythms</Filter>
-    </ClInclude>
-    <ClInclude Include="euclid.h">
-      <Filter>Header Files\rhythms</Filter>
     </ClInclude>
     <ClInclude Include="lead.h">
       <Filter>Header Files\instruments</Filter>
@@ -105,9 +96,6 @@
     <ClInclude Include="ui.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
-    <ClInclude Include="harmony.h">
-      <Filter>Header Files\generators</Filter>
-    </ClInclude>
     <ClInclude Include="scale.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
@@ -127,9 +115,6 @@
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="midi_channel.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="fugue_settings.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="lead_settings.h">

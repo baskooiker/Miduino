@@ -5,7 +5,6 @@
 #include "application_data.h"
 #include "chords.h"
 #include "defs.h"
-#include "harmony.h"
 #include "midi_io.h"
 #include "rand.h"
 #include "step_callbacks.h"
@@ -40,13 +39,13 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         }
         break;
     case BSP_PAD_06:
-        //data.bass_dub_settings.kill = !data.bass_dub_settings.kill;
+        data.bass_dub_settings.kill = !data.bass_dub_settings.kill;
         break;
     case BSP_PAD_07:
         data.mono_settings.kill = !data.mono_settings.kill;
         break;
     case BSP_PAD_08:
-        //data.mono_dub_settings.kill = !data.mono_dub_settings.kill;
+        data.mono_dub_settings.kill = !data.mono_dub_settings.kill;
         break;
     case BSP_PAD_09:
         data.tanzbar_settings.drum_fill = true;
@@ -196,7 +195,7 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
         break;
     case BSP_PAD_14:
         data.fugue_settings.randomize_fugue_player(1);
-        //data.bass_dub_settings.style = BassDubStyle::DubFugue;
+        data.bass_dub_settings.style = BassDubStyle::DubFugue;
         break;
     case BSP_PAD_15:
         data.fugue_settings.randomize_fugue_player(2);
@@ -204,8 +203,8 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
         break;
     case BSP_PAD_16:
         data.fugue_settings.randomize_fugue_player(3);
-        //data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
-        //data.mono_dub_settings.style = MonoStyle::MonoFugue;
+        data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
+        data.mono_dub_settings.style = MonoStyle::MonoFugue;
         break;
     default:
         break;
@@ -301,11 +300,11 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         data.fugue_settings.player_settings[0].manual_pitch_offset = value;
         break;
     case BSP_KNOB_06:
-        //data.bass_dub_settings.density = value;
+        data.bass_dub_settings.density = value;
         data.fugue_settings.player_settings[1].density = value;
         break;
     case BSP_KNOB_14:
-        //data.bass_dub_settings.v_pitch = value;
+        data.bass_dub_settings.v_pitch = value;
         data.fugue_settings.player_settings[1].manual_pitch_offset = value;
         break;
     case BSP_KNOB_07:
@@ -318,11 +317,11 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         break;
     case BSP_KNOB_08:
         data.fugue_settings.player_settings[3].density = value;
-        //data.mono_dub_settings.variable_density = value;
+        data.mono_dub_settings.variable_density = value;
         break;
     case BSP_KNOB_16:
-        //data.mono_dub_settings.variable_pitch_offset = value;
-        //data.mono_dub_settings.variable_pitch_offset = value;
+        data.mono_dub_settings.variable_pitch_offset = value;
+        data.mono_dub_settings.variable_pitch_offset = value;
         data.fugue_settings.player_settings[3].manual_pitch_offset = value;
         break;
 
@@ -461,9 +460,9 @@ void handleStop(ApplicationData& data)
 {
     data.tanzbar_settings.storage.all_notes_off();
     data.bass_settings.storage.all_notes_off();
-    //data.bass_dub_settings.storage.all_notes_off();
+    data.bass_dub_settings.storage.all_notes_off();
     data.mono_settings.storage.all_notes_off();
-    //data.mono_dub_settings.storage.all_notes_off();
+    data.mono_dub_settings.storage.all_notes_off();
 
     data.time.reset();
 

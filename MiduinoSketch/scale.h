@@ -1,5 +1,6 @@
 #pragma once
 
+#include "defs.h"
 #include "utils.h"
 
 const uint8_t ionian[] = { 0, 2, 4, 5, 7, 9, 11 }; // 1 2  3 4 5 6   7

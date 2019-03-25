@@ -1,15 +1,18 @@
 #pragma once
 
+#include "ofxMidiMessage.h"
+
 #include "ofMain.h"
 #include "print_midi.h"
 
 #include "application_data.h"
 
-class ofApp : public ofBaseApp{
-    ApplicationData data;
-    uint32_t start_time;
-
+class VleerhondApp : 
+    public ofBaseApp,
+    public ofxMidiListener {
 	public:
+        ApplicationData data;
+
 		void setup();
 		void update();
 		void draw();
@@ -25,5 +28,5 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+        void newMidiMessage(ofxMidiMessage& message);
 };

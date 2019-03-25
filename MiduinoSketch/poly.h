@@ -4,7 +4,6 @@
 #include "chords.h"
 #include "defs.h"
 #include "euclid.h"
-#include "harmony.h"
 #include "midi_io.h"
 #include "poly_settings.h"
 

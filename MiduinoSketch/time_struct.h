@@ -10,7 +10,6 @@ public:
     PlayState state;
     uint32_t last_pulse_time;
     float average_pulse_time;
-protected:
     uint8_t global_shuffle;
 
 public:

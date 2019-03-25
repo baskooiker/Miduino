@@ -5,7 +5,7 @@
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-static ApplicationData data;
+ApplicationData data;
 
 void handleNoteOnCallback(byte channel, byte pitch, byte velocity)
 {
@@ -39,7 +39,7 @@ void setup() {
     MIDI.setHandleControlChange(handleControlChangeCallback);
     MIDI.setHandleStop(handleStopCallback);
 
-    MIDI.turnThruOff();
+    //MIDI.turnThruOff();
     MIDI.begin(MIDI_CHANNEL_OMNI);
 
     srand(analogRead(A0));
@@ -56,7 +56,7 @@ void loop() {
 // MIDI IO ///////////////////////////////////////
 //////////////////////////////////////////////////
 
-void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
+void MidiIOsend_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
 {
     MIDI.sendNoteOn(pitch, velocity, channel);
 }
