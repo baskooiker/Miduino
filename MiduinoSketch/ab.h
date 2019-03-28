@@ -5,10 +5,10 @@
 
 class AbPattern
 {
-public:
-    // TODO: protect this
+protected:
     uint8_t ab_pattern[4];
 
+public:
     void set_ab_pattern()
     {
         ab_pattern[0] = 0;
@@ -129,5 +129,10 @@ public:
             ab_pattern[3] = 0;
             break;
         }
+    }
+
+    uint8_t value(const uint8_t index) const
+    {
+        return this->ab_pattern[index % 4];
     }
 };

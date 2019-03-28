@@ -41,7 +41,7 @@ public:
             ab_pat.set_ab_pattern_high();
             for (int i = 0; i < 4; i++)
             {
-                seq[i] = options[ab_pat.ab_pattern[i]];
+                seq[i] = options[ab_pat.value(i)];
             }
         }
         else

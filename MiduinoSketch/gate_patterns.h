@@ -172,7 +172,7 @@ public:
 
         uint8_t pat_length = MIN(this->length, 16);
         uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
-        return this->patterns[this->abPattern.ab_pattern[count / pat_length]].gate(count % pat_length);
+        return this->patterns[this->abPattern.value(count / pat_length)].gate(count % pat_length);
     }
 
     void set_all(bool _value)

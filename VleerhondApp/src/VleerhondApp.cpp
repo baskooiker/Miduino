@@ -4,29 +4,18 @@
 #include "ofxMidiOut.h"
 #include "ofxMidiIn.h"
 
-#include "Rompler909.h"
-
 #include "callbacks.h"
 
 ofxMidiOut midi_out_a;
 ofxMidiOut midi_out_b;
 ofxMidiIn midi_in;
 
-Rompler909 rompler909;
-
 bool virtual_ports;
-uint64_t time_0;
-uint64_t counter;
 
 void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
 {
     midi_out_a.sendNoteOn(channel, pitch, velocity);
     midi_out_b.sendNoteOn(channel, pitch, velocity);
-    switch (channel)
-    {
-    case MIDI_CHANNEL_TANZBAR:
-        rompler909.play(pitch, velocity);
-    }
 }
 
 void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel)
@@ -111,18 +100,8 @@ void initialize_midi_ports()
     }
 }
 
-//--------------------------------------------------------------
-
 void VleerhondApp::setup(){
-    time_0 = 0;
-    counter = 0;
-
     initialize_midi_ports();
-
-    if (virtual_ports)
-    {
-        rompler909.load_sounds();
-    }
 
     if (!midi_in.isOpen() || !midi_out_a.isOpen() || !midi_out_b.isOpen())
     {
@@ -137,8 +116,8 @@ void VleerhondApp::setup(){
     midi_in.setVerbose(true);
 
     ofAddListener(this->bpm.beatEvent, this, &VleerhondApp::play);
-    bpm.setBpm(120 * 24);
-    bpm.start();
+    bpm.setBpm(120);
+    bpm.setBeatPerBar(4 * TICKS_PER_STEP);
 
     // Init app
     data.randomize_all();
@@ -151,27 +130,20 @@ void VleerhondApp::play()
     data.time.tick++;
 }
 
-//--------------------------------------------------------------
 void VleerhondApp::update()
 {
     data.process_events();
 }
 
-//--------------------------------------------------------------
 void VleerhondApp::draw(){
 
 }
-
-//--------------------------------------------------------------
 
 void VleerhondApp::keyPressed(int key){
     switch (key)
     {
     case 'q':
         ofExit();
-        break;
-    case 'i':
-        rompler909.play(NOTE_TANZBAR_BD1, 64);
         break;
     case 'p':
         bpm.start();
@@ -266,6 +238,5 @@ void VleerhondApp::dragEvent(ofDragInfo dragInfo){
 
 void VleerhondApp::exit()
 {
-    printf("Calling Exit\n");
     bpm.stop();
 }

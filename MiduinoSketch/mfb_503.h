@@ -84,7 +84,7 @@ public:
         // Fill in first or second half of bar
         uint8_t half = Rand::distribution(64, 64);
 
-        uint8_t bar = this->bd_pattern.abPattern.ab_pattern[Rand::randui8(4)];
+        uint8_t bar = this->bd_pattern.abPattern.value(Rand::randui8(4));
         this->bd_pattern.patterns[bar].set_kick_fill(half * 8);
     }
 
