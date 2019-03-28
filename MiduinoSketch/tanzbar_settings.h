@@ -5,6 +5,7 @@
 #include "mfb_503.h"
 #include "timing_structs.h"
 #include "interval_pattern.h"
+#include "instrument_base.h"
 
 #define MODULATOR_PROB (.3f)
 
@@ -118,8 +119,11 @@ public:
     }
 };
 
-class TanzbarSettings 
+class TanzbarSettings : public InstrumentBase
 {
+    Modulators& modulators;
+    TimeStruct& time;
+
 public:
     GatePatternAB bd_pattern;
     GatePatternAB sd_pattern;
@@ -149,12 +153,14 @@ public:
     bool drum_fill;
     uint8_t snare_roll;
 
-    TanzbarModulators modulators;
+    TanzbarModulators mod_receivers;
     TanzbarTimeSettings time_settings;
 
     PitchStorage storage;
 
-    TanzbarSettings()
+    TanzbarSettings(Modulators& modulators_ref, TimeStruct& time_ref) :
+        modulators(modulators_ref),
+        time(time_ref)
     {
         hat_closed_style = HatClosedStyle::HatClosedRegular;
         kill_hats = false;
@@ -289,7 +295,7 @@ public:
         this->randomize_timing();
 
         // Randomize modulators
-        this->modulators.randomize();
+        this->mod_receivers.randomize();
     }
 
     void play_fill(const TimeStruct time)
@@ -358,7 +364,7 @@ public:
         }
     }
 
-    void play_hats_closed(const Modulators& modulators, const TimeStruct& time)
+    void play_hats_closed()
     {
         uint8_t velocity = 63;
 
@@ -368,7 +374,7 @@ public:
             if ((time.tick / TICKS_PER_STEP) % 4 == 0)
                 velocity = 127;
 
-            this->modulators.hats_vel.value(modulators, time, velocity);
+            this->mod_receivers.hats_vel.value(modulators, time, velocity);
 
             if (this->hat_int_pattern.hit(time))
             {
@@ -391,7 +397,7 @@ public:
         }
     }
 
-    bool play_hats_open(const Modulators& modulators, const TimeStruct& time)
+    bool play_hats_open()
     {
         if (this->kill_hats)
             return false;
@@ -411,27 +417,23 @@ public:
         return false;
     }
 
-    void play_hats(
-        const Modulators& modulators,
-        const TimeStruct& time)
+    void play_hats()
     {
         if (this->kill_hats)
             return;
 
-        if (!play_hats_open(modulators, time))
+        if (!play_hats_open())
         {
-            play_hats_closed(modulators, time);
+            play_hats_closed();
         }
     }
 
-    bool play_maracas(
-        const Modulators& modulators,
-        const TimeStruct& time)
+    bool play_maracas()
     {
         if (Utils::interval_hit(this->ma_pattern.time_division, time))
         {
             uint8_t value = 64;
-            this->modulators.ma_dec.value(modulators, time, value);
+            this->mod_receivers.ma_dec.value(modulators, time, value);
             MidiIO::send_cc(
                 TB_MA_Decay,
                 Utils::quad(value) / 2,
@@ -461,9 +463,7 @@ public:
         }
     }
 
-    void play(
-        const Modulators& modulators,
-        const TimeStruct& time)
+    void play()
     {
         if (this->drum_fill)
         {
@@ -493,7 +493,7 @@ public:
         if (this->rs_pattern.gate(time) && !this->kill_mid)
         {
             uint8_t value = 0;
-            if (this->modulators.rs_tune.value(modulators, time, value))
+            if (this->mod_receivers.rs_tune.value(modulators, time, value))
             {
                 MidiIO::send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
@@ -507,7 +507,7 @@ public:
         if (this->cp_pattern.gate(time) && !this->kill_mid)
         {
             uint8_t value = 0;
-            if (this->modulators.cp_trig.value(modulators, time, value))
+            if (this->mod_receivers.cp_trig.value(modulators, time, value))
             {
                 MidiIO::send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
             }
@@ -521,7 +521,7 @@ public:
         if (this->cl_pattern.gate(time))
         {
             uint8_t value = 0;
-            if (this->modulators.cl_pitch.value(modulators, time, value))
+            if (this->mod_receivers.cl_pitch.value(modulators, time, value))
             {
                 MidiIO::send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
@@ -535,7 +535,7 @@ public:
         if (this->cb_pattern.gate(time))
         {
             uint8_t value = 0;
-            if (this->modulators.cb_tune.value(modulators, time, value))
+            if (this->mod_receivers.cb_tune.value(modulators, time, value))
             {
                 MidiIO::send_cc(TB_CB_Tune, value, MIDI_CC_CHANNEL_TANZBAR);
             }
@@ -546,9 +546,9 @@ public:
         }
 
         // Play hats
-        this->play_hats(modulators, time);
+        this->play_hats();
 
-        this->play_maracas(modulators, time);
+        this->play_maracas();
 
         // Play toms
         uint8_t tom_prob = this->tom_pattern.value(time);
@@ -558,7 +558,7 @@ public:
         {
             uint8_t tom_id = this->toms_offset % 3;
             uint8_t velocity = 100;
-            this->modulators.tom_vel.value(modulators, time, velocity);
+            this->mod_receivers.tom_vel.value(modulators, time, velocity);
 
             this->storage.note_on(
                 NoteStruct(get_tc_pitch(tom_id, this->percussion_type), velocity),
@@ -570,12 +570,12 @@ public:
         if (this->cy_pattern.gate(time))
         {
             uint8_t value = 0;
-            if (this->modulators.cy_tune.value(modulators, time, value))
+            if (this->mod_receivers.cy_tune.value(modulators, time, value))
             {
                 MidiIO::send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
             uint8_t velocity = 100;
-            this->modulators.cy_vel.value(modulators, time, velocity);
+            this->mod_receivers.cy_vel.value(modulators, time, velocity);
             this->storage.note_on(
                 NoteStruct(NOTE_TANZBAR_CY, 64),
                 time.get_shuffle_delay(this->time_settings.cy)

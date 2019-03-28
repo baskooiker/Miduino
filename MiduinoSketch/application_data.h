@@ -8,6 +8,8 @@
 #include "bass_dub_settings.h"
 #include "mono_settings.h"
 #include "mono_dub_settings.h"
+#include "poly.h"
+#include "lead.h"
 
 class ApplicationData 
 {
@@ -25,13 +27,19 @@ public:
     MonoSettings mono_settings;
     MonoDubSettings mono_dub_settings;
 
+    PolySettings poly_settings;
+    LeadSettings lead_settings;
+
     UiState ui_state;
 
     ApplicationData():
+        tanzbar_settings(modulators, time),
         bass_settings(fugue_settings, harmony, time),
         bass_dub_settings(bass_settings, fugue_settings, harmony, time),
         mono_settings(fugue_settings, harmony, time),
-        mono_dub_settings(mono_settings, fugue_settings, harmony, time)
+        mono_dub_settings(mono_settings, fugue_settings, harmony, time),
+        poly_settings(harmony, time),
+        lead_settings(harmony, time)
     {
         tanzbar_settings.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
@@ -41,6 +49,9 @@ public:
         bass_settings.storage.set_channel(MIDI_CHANNEL_ROCKET, -24);
 
         bass_dub_settings.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
+
+        this->poly_settings.storage.set_channel(MIDI_CHANNEL_POLY);
+        this->lead_settings.storage.set_channel(MIDI_CHANNEL_LEAD);
 
         bass_settings.fugue_id = 0;
         bass_dub_settings.fugue_id = 1;
@@ -52,11 +63,14 @@ public:
 
     void play_all()
     {
-        this->tanzbar_settings.play(this->modulators, this->time);
+        this->tanzbar_settings.play();
         this->bass_settings.play();
         this->bass_dub_settings.play();
         this->mono_settings.play();
         this->mono_dub_settings.play();
+
+        poly_settings.play();
+        lead_settings.play();
     }
 
     void stop_notes_all_instruments()
@@ -66,6 +80,8 @@ public:
         this->bass_dub_settings.storage.stop_notes();
         this->mono_settings.storage.stop_notes();
         this->mono_dub_settings.storage.stop_notes();
+        poly_settings.storage.stop_notes();
+        lead_settings.storage.stop_notes();
     }
 
     void randomize_all()
@@ -82,6 +98,9 @@ public:
         this->mono_dub_settings.randomize_mono_dub();
 
         this->tanzbar_settings.randomize_tanzbar_sound();
+
+        poly_settings.randomize();
+        lead_settings.randomize();
     }
 
     void set_fugue()
@@ -110,6 +129,14 @@ public:
         this->bass_dub_settings.storage.process_events();
         this->mono_settings.storage.process_events();
         this->mono_dub_settings.storage.process_events();
+        poly_settings.storage.process_events();
+        lead_settings.storage.process_events();
     }
 
+    void get_instrument_ptrs(InstrumentBase** ptrs, uint8_t& length)
+    {
+        // TODO: Add all instruments
+        length = 0;
+        ptrs[length++] = &this->tanzbar_settings;
+    }
 };

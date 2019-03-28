@@ -117,9 +117,6 @@
     <ClInclude Include="midi_channel.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
-    <ClInclude Include="lead_settings.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
     <ClInclude Include="note_struct.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
@@ -127,9 +124,6 @@
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="mfb_522_settings.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="poly_settings.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="timing_structs.h">

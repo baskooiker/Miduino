@@ -1,54 +1,77 @@
 #pragma once
 
-#include "lead_settings.h"
-
 #include "arp.h"
 #include "intervals.h"
 #include "midi_io.h"
 
-void randomize_lead(LeadSettings& settings)
+#include "cv_patterns.h"
+#include "gate_patterns.h"
+#include "midi_channel.h"
+
+class LeadSettings
 {
-    settings.min_pitch_pattern.randomize(60, 78);
-    switch (Rand::randui8(3))
+protected:
+    HarmonyStruct& harmony;
+    TimeStruct& time;
+
+public:
+    ArpData arp_data;
+    CvPatternAB min_pitch_pattern;
+    GatePatternAB pattern_slow;
+    LeadStyle style;
+    PitchStorage storage;
+
+    LeadSettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
+        harmony(harmony_ref),
+        time(time_ref)
     {
-    case 0: settings.min_pitch_pattern.time_division = TimeDivision::Quarter; break;
-    case 1: settings.min_pitch_pattern.time_division = TimeDivision::Half; break;
-    case 2: settings.min_pitch_pattern.time_division = TimeDivision::Whole; break;
+        style = LeadStyle::LeadSlow;
     }
 
-    switch (Rand::distribution(10, 30))
+    void randomize()
     {
-    case 0: settings.arp_data.type = ArpType::CLOSEST; break;
-    case 1: settings.arp_data.type = ArpType::CLOSEST_EXC; break;
-    }
-    settings.arp_data.range = 12;
+        this->min_pitch_pattern.randomize(60, 78);
+        switch (Rand::randui8(3))
+        {
+        case 0: this->min_pitch_pattern.time_division = TimeDivision::Quarter; break;
+        case 1: this->min_pitch_pattern.time_division = TimeDivision::Half; break;
+        case 2: this->min_pitch_pattern.time_division = TimeDivision::Whole; break;
+        }
 
-    settings.pattern_slow.set_coef_slow_pattern();
-}
+        switch (Rand::distribution(10, 30))
+        {
+        case 0: this->arp_data.type = ArpType::CLOSEST; break;
+        case 1: this->arp_data.type = ArpType::CLOSEST_EXC; break;
+        }
+        this->arp_data.range = 12;
 
-void play_lead(LeadSettings& settings, HarmonyStruct& harmony, const TimeStruct& time)
-{
-    bool hit = false;
-    uint8_t length = 6;
-
-    switch (settings.style)
-    {
-    case LeadStyle::LeadWhole:
-        hit = Utils::interval_hit(TimeDivision::Whole, time);
-        length = TICKS_IN_BAR;
-        break;
-    case LeadStyle::LeadSlow:
-        hit = settings.pattern_slow.gate(time);
-        length = time.ticks_left_in_bar();
-        break;
+        this->pattern_slow.set_coef_slow_pattern();
     }
 
-    if (hit)
+    void play()
     {
-        settings.arp_data.min = settings.min_pitch_pattern.value(time);
+        bool hit = false;
+        uint8_t length = 6;
 
-        uint8_t chord = harmony.get_chord_step(time);
-        uint8_t pitch = settings.arp_data.get_next_arp_pitch(harmony.scale, chord);
-        settings.storage.note_on(NoteStruct(pitch, 64, length));
+        switch (this->style)
+        {
+        case LeadStyle::LeadWhole:
+            hit = Utils::interval_hit(TimeDivision::Whole, time);
+            length = TICKS_IN_BAR;
+            break;
+        case LeadStyle::LeadSlow:
+            hit = this->pattern_slow.gate(time);
+            length = time.ticks_left_in_bar();
+            break;
+        }
+
+        if (hit)
+        {
+            this->arp_data.min = this->min_pitch_pattern.value(time);
+
+            uint8_t chord = harmony.get_chord_step(time);
+            uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, chord);
+            this->storage.note_on(NoteStruct(pitch, 64, length));
+        }
     }
-}
+};

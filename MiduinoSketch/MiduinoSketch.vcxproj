@@ -99,7 +99,6 @@
     <ClInclude Include="intervals.h" />
     <ClInclude Include="interval_pattern.h" />
     <ClInclude Include="lead.h" />
-    <ClInclude Include="lead_settings.h" />
     <ClInclude Include="mfb_503.h" />
     <ClInclude Include="mfb_522.h" />
     <ClInclude Include="mfb_522_settings.h" />
@@ -110,7 +109,6 @@
     <ClInclude Include="mono_settings.h" />
     <ClInclude Include="note_struct.h" />
     <ClInclude Include="poly.h" />
-    <ClInclude Include="poly_settings.h" />
     <ClInclude Include="print.h" />
     <ClInclude Include="rand.h" />
     <ClInclude Include="scale.h" />

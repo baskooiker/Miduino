@@ -18,8 +18,8 @@
 #define MIDI_CHANNEL_MONO       7
 #define MIDI_CHANNEL_MONO_2     8
 
-#define MIDI_CHANNEL_POLY     6
-#define MIDI_CHANNEL_LEAD     7
+#define MIDI_CHANNEL_POLY     13
+#define MIDI_CHANNEL_LEAD     14
 #define MIDI_CHANNEL_503      10
 #define MIDI_CHANNEL_522      12
 
