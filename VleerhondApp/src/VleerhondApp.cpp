@@ -146,7 +146,6 @@ void VleerhondApp::setup(){
 
 void VleerhondApp::play()
 {
-    data.process_events();
     data.stop_notes_all_instruments();
     data.play_all();
     data.time.tick++;
@@ -155,16 +154,7 @@ void VleerhondApp::play()
 //--------------------------------------------------------------
 void VleerhondApp::update()
 {
-    //data.process_events();
-    //// 20000 us = 20 ms -> 120 bpm
-    //uint64_t new_count = (ofGetSystemTimeMicros() - time_0) / 20000;
-    //if (new_count > counter)
-    //{
-    //    data.stop_notes_all_instruments();
-    //    data.play_all();
-    //    counter = new_count;
-    //    data.time.tick++;
-    //}
+    data.process_events();
 }
 
 //--------------------------------------------------------------
@@ -200,6 +190,7 @@ void VleerhondApp::newMidiMessage(ofxMidiMessage& message)
     switch (message.status)
     {
     case MIDI_TIME_CLOCK:
+        bpm.stop();
         handleClock(this->data);
         break;
     case MIDI_STOP:
