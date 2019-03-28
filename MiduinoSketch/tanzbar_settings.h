@@ -11,7 +11,7 @@
 const RandomParam tanzbar_low_params[] = {
     {TB_BD1_ATTACK   ,  0, 127},
     {TB_BD1_DECAY    , 32,  96},
-    {TB_BD1_PITCH    , 32,  96},
+    {TB_BD1_PITCH    , 64,  96},
     {TB_BD1_TUNE     , 32,  96},
     {TB_BD1_NOISE    ,  0, 127},
     {TB_BD1_FILTER   ,  0, 127},
@@ -26,7 +26,7 @@ const RandomParam tanzbar_low_params[] = {
 const RandomParam tanzbar_mid_params[] = {
     {TB_SD_TUNE      ,  0, 127},
     {TB_SD_DTUNE     ,  0, 127},
-    {TB_SD_SNAPPY    , 64, 127},
+    {TB_SD_SNAPPY    , 96, 127},
     {TB_SD_SN_DECAY  , 64, 127},
     {TB_SD_TONE      ,  0, 127},
     {TB_SD_TONE_DECAY,  0,  64},
@@ -86,6 +86,7 @@ public:
     ModulationReceiver cy_tune;
     ModulationReceiver cy_vel;
     ModulationReceiver hats_vel;
+    ModulationReceiver tom_vel;
 
     void randomize()
     {
@@ -111,6 +112,9 @@ public:
 
         range = Rand::randui8(16, 64);
         this->cy_vel.randomize(range, 127 - range);
+
+        range = Rand::randui8(16, 64);
+        this->tom_vel.randomize(range, 127 - range);
     }
 };
 
@@ -443,7 +447,7 @@ public:
         return false;
     }
 
-    uint8_t get_tc_pitch(uint8_t id, PercussionType type)
+    uint8_t get_tc_pitch(const uint8_t id, const PercussionType type)
     {
         static const uint8_t t_pitches[3] = { NOTE_TANZBAR_LT, NOTE_TANZBAR_MT, NOTE_TANZBAR_HT };
         static const uint8_t c_pitches[3] = { NOTE_TANZBAR_LC, NOTE_TANZBAR_MC, NOTE_TANZBAR_HC };
@@ -552,10 +556,12 @@ public:
             && tom_prob < 100
             && this->tom_mask.gate(time))
         {
-            uint8_t tom_id = tom_prob % 3;
-            tom_id = (tom_id + this->toms_offset) % 3;
+            uint8_t tom_id = this->toms_offset % 3;
+            uint8_t velocity = 100;
+            this->modulators.tom_vel.value(modulators, time, velocity);
+
             this->storage.note_on(
-                NoteStruct(get_tc_pitch(tom_id, this->percussion_type), 64),
+                NoteStruct(get_tc_pitch(tom_id, this->percussion_type), velocity),
                 time.get_shuffle_delay(this->time_settings.tc)
             );
         }

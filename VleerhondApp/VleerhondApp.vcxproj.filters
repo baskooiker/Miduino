@@ -40,6 +40,12 @@
     <ClCompile Include="src\VleerhondApp.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rompler909.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src\ofxBpm.cpp">
+      <Filter>addons\ofxBpm\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -74,6 +80,12 @@
     </Filter>
     <Filter Include="addons\ofxMidi\libs\rtmidi">
       <UniqueIdentifier>{2bd549d5-f2eb-4c61-97aa-d5af8bc7995a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxBpm">
+      <UniqueIdentifier>{fea3c084-9704-4f88-817c-3fc11f225bf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxBpm\src">
+      <UniqueIdentifier>{2f17189d-d86f-4404-a53a-e72dee098407}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="src\VleerhondApp.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rompler909.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src\ofxBpm.h">
+      <Filter>addons\ofxBpm\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

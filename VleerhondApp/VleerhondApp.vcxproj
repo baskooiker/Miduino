@@ -96,7 +96,8 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;
+C:\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -115,12 +116,8 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;
+C:\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -139,7 +136,8 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;
+C:\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -161,12 +159,8 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;
-C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;
+C:\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -182,6 +176,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src\ofxBpm.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi\RtMidi.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop\ofxRtMidiIn.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop\ofxRtMidiOut.cpp" />
@@ -194,9 +189,11 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Rompler909.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src\ofxBpm.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\iOSVersionDetection.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\PGArc.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\PGMidi.h" />
@@ -220,6 +217,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTypes.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.h" />
+    <ClInclude Include="src\Rompler909.h" />
     <ClInclude Include="src\VleerhondApp.h" />
   </ItemGroup>
   <ItemGroup>
