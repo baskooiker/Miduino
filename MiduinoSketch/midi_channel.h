@@ -186,7 +186,7 @@ public:
         return { 0, 0, 0 };
     }
 
-    void stop_notes()
+    void process_active_notes()
     {
         if (this->size == 0) return;
         for (uint8_t i = 0; i < this->size; i++)

@@ -10,6 +10,7 @@
 #include "mono_dub_settings.h"
 #include "poly.h"
 #include "lead.h"
+#include "drone.h"
 
 class ApplicationData 
 {
@@ -20,12 +21,13 @@ public:
     FugueSettings fugue_settings;
     Modulators modulators;
 
-    TanzbarSettings tanzbar_settings;
+    Tanzbar tanzbar;
 
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;
     MonoSettings mono_settings;
     MonoDubSettings mono_dub_settings;
+    Drone drone;
 
     PolySettings poly_settings;
     LeadSettings lead_settings;
@@ -33,22 +35,25 @@ public:
     UiState ui_state;
 
     ApplicationData():
-        tanzbar_settings(modulators, time),
+        tanzbar(modulators, harmony, time),
         bass_settings(fugue_settings, harmony, time),
         bass_dub_settings(bass_settings, fugue_settings, harmony, time),
         mono_settings(fugue_settings, harmony, time),
         mono_dub_settings(mono_settings, fugue_settings, harmony, time),
         poly_settings(harmony, time),
-        lead_settings(harmony, time)
+        lead_settings(harmony, time),
+        drone(harmony, time)
     {
-        tanzbar_settings.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+        tanzbar.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
         mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
 
         bass_settings.storage.set_channel(MIDI_CHANNEL_BASS);
         bass_settings.storage.set_channel(MIDI_CHANNEL_ROCKET, -24);
 
-        bass_dub_settings.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
+        drone.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
+
+        //bass_dub_settings.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
 
         this->poly_settings.storage.set_channel(MIDI_CHANNEL_POLY);
         this->lead_settings.storage.set_channel(MIDI_CHANNEL_LEAD);
@@ -63,25 +68,26 @@ public:
 
     void play_all()
     {
-        this->tanzbar_settings.play();
-        this->bass_settings.play();
-        this->bass_dub_settings.play();
-        this->mono_settings.play();
-        this->mono_dub_settings.play();
+        InstrumentBase* instruments[16];
+        uint8_t length = 0;
+        get_instrument_ptrs(instruments, length);
 
-        poly_settings.play();
-        lead_settings.play();
+        for (int i = 0; i < length; i++)
+        {
+            instruments[i]->play();
+        }
     }
 
-    void stop_notes_all_instruments()
+    void process_active_notes()
     {
-        this->tanzbar_settings.storage.stop_notes();
-        this->bass_settings.storage.stop_notes();
-        this->bass_dub_settings.storage.stop_notes();
-        this->mono_settings.storage.stop_notes();
-        this->mono_dub_settings.storage.stop_notes();
-        poly_settings.storage.stop_notes();
-        lead_settings.storage.stop_notes();
+        this->tanzbar.storage.process_active_notes();
+        this->bass_settings.storage.process_active_notes();
+        this->bass_dub_settings.storage.process_active_notes();
+        this->drone.storage.process_active_notes();
+        this->mono_settings.storage.process_active_notes();
+        this->mono_dub_settings.storage.process_active_notes();
+        poly_settings.storage.process_active_notes();
+        lead_settings.storage.process_active_notes();
     }
 
     void randomize_all()
@@ -90,14 +96,15 @@ public:
 
         this->fugue_settings.randomize_fugue();
 
-        this->tanzbar_settings.randomize_tanzbar();
+        this->tanzbar.randomize_tanzbar();
         this->bass_settings.randomize();
+        this->drone.randomize();
         this->bass_dub_settings.randomize();
 
         this->mono_settings.randomize();
         this->mono_dub_settings.randomize_mono_dub();
 
-        this->tanzbar_settings.randomize_tanzbar_sound();
+        this->tanzbar.randomize_tanzbar_sound();
 
         poly_settings.randomize();
         lead_settings.randomize();
@@ -106,10 +113,10 @@ public:
     void set_fugue()
     {
         this->fugue_settings.randomize_fugue();
-        this->tanzbar_settings.kill_low = true;
-        this->tanzbar_settings.kill_mid = true;
-        this->tanzbar_settings.kill_perc = true;
-        this->tanzbar_settings.kill_hats = true;
+        this->tanzbar.kill_low = true;
+        this->tanzbar.kill_mid = true;
+        this->tanzbar.kill_perc = true;
+        this->tanzbar.kill_hats = true;
 
         // Set bass
         this->bass_settings.style = BassStyle::BassFugue;
@@ -124,19 +131,38 @@ public:
 
     void process_events()
     {
-        this->tanzbar_settings.storage.process_events();
-        this->bass_settings.storage.process_events();
-        this->bass_dub_settings.storage.process_events();
-        this->mono_settings.storage.process_events();
-        this->mono_dub_settings.storage.process_events();
-        poly_settings.storage.process_events();
-        lead_settings.storage.process_events();
+        InstrumentBase* instruments[16];
+        uint8_t length = 0;
+        get_instrument_ptrs(instruments, length);
+        for (int i = 0; i < length; i++)
+        {
+            instruments[i]->process_events();
+        }
     }
 
     void get_instrument_ptrs(InstrumentBase** ptrs, uint8_t& length)
     {
         // TODO: Add all instruments
         length = 0;
-        ptrs[length++] = &this->tanzbar_settings;
+        ptrs[length++] = (InstrumentBase*)&this->tanzbar;
+        ptrs[length++] = (InstrumentBase*)&this->bass_settings;
+        ptrs[length++] = (InstrumentBase*)&this->bass_dub_settings;
+        ptrs[length++] = (InstrumentBase*)&this->mono_settings;
+        ptrs[length++] = (InstrumentBase*)&this->mono_dub_settings;
+        ptrs[length++] = (InstrumentBase*)&this->poly_settings;
+        ptrs[length++] = (InstrumentBase*)&this->lead_settings;
+        ptrs[length++] = (InstrumentBase*)&this->drone;
+    }
+
+    void stop_all()
+    {
+
+        InstrumentBase* instruments[16];
+        uint8_t length = 0;
+        get_instrument_ptrs(instruments, length);
+        for (int i = 0; i < length; i++)
+        {
+            instruments[i]->stop_notes();
+        }
     }
 };

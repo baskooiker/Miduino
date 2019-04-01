@@ -16,6 +16,32 @@ void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uin
 {
     midi_out_a.sendNoteOn(channel, pitch, velocity);
     midi_out_b.sendNoteOn(channel, pitch, velocity);
+    switch (channel)
+    {
+    case MIDI_CHANNEL_TANZBAR:
+        switch (pitch)
+        {
+        case NOTE_TANZBAR_HT:
+            //printf("Hi tom\n");
+            break;
+        case NOTE_TANZBAR_MT:
+            //printf("Mid tom\n");
+            break;
+        case NOTE_TANZBAR_LT:
+            //printf("Lo tom\n");
+            break;
+        case NOTE_TANZBAR_HC:
+            //printf("Hi Conga\n");
+            break;
+        case NOTE_TANZBAR_MC:
+            //printf("Mid Conga\n");
+            break;
+        case NOTE_TANZBAR_LC:
+            //printf("Lo Conga\n");
+            break;
+        }
+        break;
+    }
 }
 
 void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel)
@@ -116,8 +142,8 @@ void VleerhondApp::setup(){
     midi_in.setVerbose(true);
 
     ofAddListener(this->bpm.beatEvent, this, &VleerhondApp::play);
-    bpm.setBpm(120);
-    bpm.setBeatPerBar(4 * TICKS_PER_STEP);
+    bpm.setBpm(120 * 24);
+    bpm.setBeatPerBar(4);
 
     // Init app
     data.randomize_all();
@@ -125,7 +151,7 @@ void VleerhondApp::setup(){
 
 void VleerhondApp::play()
 {
-    data.stop_notes_all_instruments();
+    data.process_active_notes();
     data.play_all();
     data.time.tick++;
 }
@@ -146,10 +172,19 @@ void VleerhondApp::keyPressed(int key){
         ofExit();
         break;
     case 'p':
+        printf("Play\n");
         bpm.start();
         break;
     case 's':
+        printf("Stop\n");
         bpm.stop();
+        break;
+    case 'r':
+        printf("Randomize\n");
+        data.randomize_all();
+        break;
+    case 'c' :
+        //gate_ctrl.trigger(1.0f);
         break;
     default:
         printf("Unhandled key pressed: %3d\n", key);

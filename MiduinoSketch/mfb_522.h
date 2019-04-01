@@ -3,109 +3,138 @@
 #include "defs.h"
 #include "intervals.h"
 #include "midi_io.h"
-#include "mfb_522_settings.h"
 
-void randomize_522_seq(Mfb522Settings& settings)
+#include "gate_patterns.h"
+#include "interval_pattern.h"
+#include "instrument_base.h"
+
+class Mfb522Settings : public InstrumentBase
 {
-    settings.ac_522_pattern.randomize(.25f);
+public:
+    GatePattern16 ac_522_pattern;
+    GatePatternAB bd_522_pattern;
+    GatePattern16 lo_tom_522_pattern;
+    GatePattern16 mi_tom_522_pattern;
+    GatePattern16 rs_522_pattern;
+    GatePatternAB clave_522_pattern;
+    GatePatternAB clap_522_pattern;
+    GatePatternAB hh_522_pattern;
+    GatePatternAB oh_522_pattern;
+    GatePatternAB cy_522_pattern;
+    GatePatternAB sd_522_pattern;
 
-    settings.bd_522_pattern.set_coef_kick_pattern();
-    settings.cy_522_pattern.set_coef_kick_pattern();
+    bool use_hh_int;
+    IntervalPattern hh_int_pattern;
 
-    settings.lo_tom_522_pattern.randomize(.25f);
-    settings.mi_tom_522_pattern.randomize(.25f);
-    settings.rs_522_pattern.randomize(.25f);
-    settings.clave_522_pattern.randomize(.25);
-    settings.sd_522_pattern.randomize(.50);
-
-    settings.clap_522_pattern.set_coef_snare_pattern();
-
-    float r = Rand::randf();
-    if (r < .25)
+    Mfb522Settings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
+        InstrumentBase(harmony_ref, time_ref)
     {
-        settings.hh_522_pattern.randomize(.25f);
-        settings.oh_522_pattern.randomize(.25f);
-
-        settings.use_hh_int = false;
-    }
-    else if (r < .5)
-    {
-        uint8_t steps[8] = { 6, 7, 8, 10, 12, 14, 15, 16 };
-        Utils::randomize_order(steps, 8);
-        uint8_t gates = Rand::randui8(MAX((uint8_t)(steps[0] * .3), 2), (uint8_t)(steps[0] * .8));
-        settings.hh_522_pattern.patterns[0].set_euclid(steps[0], gates);
-        settings.hh_522_pattern.length = steps[0];
-        
-        gates = Rand::randui8(MAX((uint8_t)(steps[1] * .3), 2), (uint8_t)(steps[1] * .8));
-        settings.hh_522_pattern.patterns[0].set_euclid(steps[1], gates);
-        settings.hh_522_pattern.length = steps[1];
-        settings.use_hh_int = false;
-    }
-    else
-    {
-        settings.hh_int_pattern.randomize_interval_hat();
-        settings.use_hh_int = true;
+        use_hh_int = false;
     }
 
-}
+    void randomize_522_seq()
+    {
+        this->ac_522_pattern.randomize(.25f);
 
-void play_522(Mfb522Settings& settings, const TimeStruct& time)
-{
-    uint8_t velocity = 63;
+        this->bd_522_pattern.set_coef_kick_pattern();
+        this->cy_522_pattern.set_coef_kick_pattern();
 
-    if (settings.ac_522_pattern.gate(time))
-    {
-        velocity = 127;
-    }
+        this->lo_tom_522_pattern.randomize(.25f);
+        this->mi_tom_522_pattern.randomize(.25f);
+        this->rs_522_pattern.randomize(.25f);
+        this->clave_522_pattern.randomize(.25);
+        this->sd_522_pattern.randomize(.50);
 
-    if (settings.bd_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_BD_LONG, velocity));
-    }
-    if (settings.lo_tom_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_LO_TOM, velocity));
-    }
-    if (settings.mi_tom_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_HI_TOM, velocity));
-    }
-    if (settings.rs_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_RS, velocity));
-    }
-    if (settings.clave_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_CLAVE, velocity));
-    }
-    if (settings.clap_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_CP_LONG, velocity));
-    }
-    if (settings.oh_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_OH, velocity));
-    }
-    if (settings.cy_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_CYMBAL, velocity));
-    }
-    if (settings.sd_522_pattern.gate(time))
-    {
-        settings.storage.note_on(NoteStruct(NOTE_522_SN, velocity));
-    }
-    if (!settings.use_hh_int)
-    {
-        if (settings.hh_522_pattern.gate(time))
+        this->clap_522_pattern.set_coef_snare_pattern();
+
+        float r = Rand::randf();
+        if (r < .25)
         {
-            settings.storage.note_on(NoteStruct(NOTE_522_HH, velocity));
+            this->hh_522_pattern.randomize(.25f);
+            this->oh_522_pattern.randomize(.25f);
+
+            this->use_hh_int = false;
+        }
+        else if (r < .5)
+        {
+            uint8_t steps[8] = { 6, 7, 8, 10, 12, 14, 15, 16 };
+            Utils::randomize_order(steps, 8);
+            uint8_t gates = Rand::randui8(MAX((uint8_t)(steps[0] * .3), 2), (uint8_t)(steps[0] * .8));
+            this->hh_522_pattern.patterns[0].set_euclid(steps[0], gates);
+            this->hh_522_pattern.length = steps[0];
+
+            gates = Rand::randui8(MAX((uint8_t)(steps[1] * .3), 2), (uint8_t)(steps[1] * .8));
+            this->hh_522_pattern.patterns[0].set_euclid(steps[1], gates);
+            this->hh_522_pattern.length = steps[1];
+            this->use_hh_int = false;
+        }
+        else
+        {
+            this->hh_int_pattern.randomize_interval_hat();
+            this->use_hh_int = true;
+        }
+
+    }
+
+    void play()
+    {
+        uint8_t velocity = 63;
+
+        if (this->ac_522_pattern.gate(time))
+        {
+            velocity = 127;
+        }
+
+        if (this->bd_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_BD_LONG, velocity));
+        }
+        if (this->lo_tom_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_LO_TOM, velocity));
+        }
+        if (this->mi_tom_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_HI_TOM, velocity));
+        }
+        if (this->rs_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_RS, velocity));
+        }
+        if (this->clave_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_CLAVE, velocity));
+        }
+        if (this->clap_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_CP_LONG, velocity));
+        }
+        if (this->oh_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_OH, velocity));
+        }
+        if (this->cy_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_CYMBAL, velocity));
+        }
+        if (this->sd_522_pattern.gate(time))
+        {
+            this->storage.note_on(NoteStruct(NOTE_522_SN, velocity));
+        }
+        if (!this->use_hh_int)
+        {
+            if (this->hh_522_pattern.gate(time))
+            {
+                this->storage.note_on(NoteStruct(NOTE_522_HH, velocity));
+            }
+        }
+        else
+        {
+            if (this->hh_int_pattern.hit(time))
+            {
+                this->storage.note_on(NoteStruct(NOTE_522_HH, velocity));
+            }
         }
     }
-    else
-    {
-        if (settings.hh_int_pattern.hit(time))
-        {
-            settings.storage.note_on(NoteStruct(NOTE_522_HH, velocity));
-        }
-    }
-}
+
+};

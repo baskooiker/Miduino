@@ -4,6 +4,9 @@
 
 class MonoDubSettings : public MonoSettings
 {
+protected:
+    NoteInterval note_interval;
+
 public:
     MonoDubStyle dub_style;
     MonoSettings& lead_settings;
@@ -22,15 +25,22 @@ public:
     void randomize_mono_dub()
     {
         this->randomize();
+        switch (Rand::distribution(16, 16, 16))
+        {
+        case 0: this->note_interval = NoteInterval::IntervalRoot; break;
+        case 1: this->note_interval = NoteInterval::IntervalThird; break;
+        case 2: this->note_interval = NoteInterval::IntervalFifth; break;
+        }
     }
 
     void play()
     {
+        this->check_arp_reset();
         if (this->kill)
             return;
 
         bool hit = false;
-        switch (this->style)
+        switch (this->dub_style)
         {
         case MonoDubStyle::MonoDubLead:
             hit = get_mono_hit();
@@ -44,17 +54,18 @@ public:
         {
             uint8_t pitch = 0;
 
-            switch (this->style)
+            switch (this->dub_style)
             {
             case MonoDubStyle::MonoDubLead:
                 pitch = this->get_next_mono_pitch();
                 break;
             case MonoDubStyle::MonoDubUnison:
                 pitch = lead_settings.get_mono_pitch();
+                pitch = this->harmony.scale.get_ascending(pitch, note_interval);
+                pitch = Utils::clip_pitch(pitch, Utils::rerange(this->variable_pitch_offset, 24, 36));
                 break;
             }
 
-            pitch = Utils::clip_pitch(pitch, Utils::rerange(this->variable_pitch_offset, 48, 60));
 
             this->storage.note_on(
                 NoteStruct(pitch, 64, 6, NoteType::Tie),

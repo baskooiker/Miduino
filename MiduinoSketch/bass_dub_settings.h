@@ -7,8 +7,6 @@
 class BassDubSettings : public InstrumentBase {
     BassSettings& bass_settings;
     FugueSettings& fugue_settings;
-    HarmonyStruct& harmony;
-    TimeStruct& time;
 
 public:
     BassDubStyle style;
@@ -17,17 +15,15 @@ public:
     uint8_t density;
     uint8_t v_pitch;
     uint8_t fugue_id;
-    PitchStorage storage;
 
     BassDubSettings(
         BassSettings& bass_settings_ref, 
         FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref, 
         TimeStruct& time_ref):
+        InstrumentBase(harmony_ref, time_ref),
         bass_settings(bass_settings_ref),
-        fugue_settings(fugue_settings_ref),
-        harmony(harmony_ref),
-        time(time_ref)
+        fugue_settings(fugue_settings_ref)
     {
         style = BassDubStyle::DubOctave;
         note_interval = NoteInterval::IntervalRoot;

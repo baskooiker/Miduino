@@ -6,13 +6,12 @@
 #include "interval_pattern.h"
 #include "harmony_struct.h"
 #include "fugue.h"
+#include "instrument_base.h"
 
-class BassSettings
+class BassSettings : public InstrumentBase
 {
 protected:
     FugueSettings& fugue_settings;
-    HarmonyStruct& harmony;
-    TimeStruct& time;
 
 public:
     GatePatternAB accents;
@@ -34,17 +33,12 @@ public:
     uint8_t fugue_id;
     uint8_t density;
 
-    bool kill;
-
-    PitchStorage storage;
-
     BassSettings(
         FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref,
         TimeStruct& time_ref) :
-        fugue_settings(fugue_settings_ref),
-        harmony(harmony_ref),
-        time(time_ref)
+        InstrumentBase(harmony_ref, time_ref),
+        fugue_settings(fugue_settings_ref)
     {
         pitch_range = 0;
         style = BassStyle::BassLow;
@@ -240,14 +234,16 @@ public:
 
             // Note length
             uint8_t length = this->accents.gate(time) ? 6 : 2;
+            NoteType note_type = NoteType::Tie;
             if (this->slides.gate(time))
             {
                 length = time.ticks_left_in_bar();
+                note_type = NoteType::Slide;
             }
 
             // Play it!
             this->storage.note_on(
-                NoteStruct(pitch, 64, length, NoteType::Tie),
+                NoteStruct(pitch, 64, length, note_type),
                 time.get_shuffle_delay()
             );
         }

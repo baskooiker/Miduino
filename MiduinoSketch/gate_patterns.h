@@ -121,6 +121,23 @@ public:
             this->set_gate(i, Rand::randf() < coef.up);
     }
 
+    void remove_one()
+    {
+        uint8_t indices[16];
+        for (int i = 0; i < 16; i++)
+        {
+            indices[i] = i;
+        }
+        Utils::randomize_order(indices, 16);
+        for (int i = 0; i < 16; i++)
+        {
+            if (gate(i))
+            {
+                set_gate(i, false);
+                return;
+            }
+        }
+    }
 };
 
 class GatePattern16
@@ -216,7 +233,7 @@ public:
         }
         else if (r < 2)
         {
-            this->time_division = TimeDivision::Eight;
+            this->time_division = TimeDivision::Eighth;
         }
         else
         {
@@ -283,4 +300,11 @@ public:
         this->set_coef_pattern(coef);
     }
 
+    void remove_one()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            patterns[i].remove_one();
+        }
+    }
 };

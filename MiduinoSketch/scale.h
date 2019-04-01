@@ -111,4 +111,25 @@ public:
         }
     }
 
+    uint8_t get_ascending(const uint8_t pitch, const NoteInterval note_interval)
+    {
+        uint8_t rv = pitch;
+        uint8_t steps = note_interval;
+        for (int i = pitch; i < 128; i++)
+        {
+            if (this->contains(i))
+            {
+                if (steps > 0)
+                {
+                    steps--;
+                }
+                if (steps == 0)
+                {
+                    return i;
+                }
+            }
+        }
+        return rv;
+    }
+
 };

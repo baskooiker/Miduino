@@ -1,2 +1,4 @@
+ofxAudioFile
 ofxBpm
+ofxPDSP
 ofxSamplePlayer

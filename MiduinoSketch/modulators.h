@@ -122,10 +122,19 @@ typedef enum
 
 class ModulationReceiver
 {
+protected:
+    Modulators& modulators;
+
 public:
     uint8_t minimum;
     uint8_t range;
     ModulationType type;
+
+    ModulationReceiver(Modulators& modulators_ref) :
+        modulators(modulators_ref)
+    {
+
+    }
 
     bool value(
         const Modulators& modulators, 

@@ -10,21 +10,15 @@
 
 class PolySettings : public InstrumentBase
 {
-protected:
-    HarmonyStruct& harmony;
-    TimeStruct& time;
-
 public:
     GatePatternAB gates_low;
     GatePatternAB gates;
     GatePatternAB tie_pattern;
     uint8_t pitch_offset;
     PolyType type;
-    PitchStorage storage;
 
     PolySettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        harmony(harmony_ref),
-        time(time_ref)
+        InstrumentBase(harmony_ref, time_ref)
     {
         pitch_offset = 48;
         type = PolyType::PolyLow;

@@ -6,17 +6,19 @@
 
 class ArpData
 {
+protected:
+    uint8_t arp_notes[32];
+    uint8_t arp_notes_length;
+
+    RangeType range_type;
+    uint8_t last_note;
+
 public:
     uint8_t min;
     uint8_t range;
     uint8_t range_count;
     uint8_t counter;
     ArpType type;
-    RangeType range_type;
-    uint8_t last_note;
-
-    uint8_t arp_notes[32];
-    uint8_t arp_notes_length;
 
     ArpData()
     {
@@ -134,7 +136,7 @@ public:
             i++;
         }
     }
-    // TODO: Move these to ArpData
+
     uint8_t get_next_arp_pitch(const Scale& scale, const uint8_t chord)
     {
         switch (this->range_type)

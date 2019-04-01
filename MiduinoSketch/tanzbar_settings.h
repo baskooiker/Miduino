@@ -89,6 +89,20 @@ public:
     ModulationReceiver hats_vel;
     ModulationReceiver tom_vel;
 
+    TanzbarModulators(Modulators& modulators) :
+        cl_pitch(modulators),
+        ma_dec(modulators),
+        rs_tune(modulators),
+        cb_tune(modulators),
+        cp_trig(modulators),
+        cy_tune(modulators),
+        cy_vel(modulators),
+        hats_vel(modulators),
+        tom_vel(modulators)
+    {
+
+    }
+
     void randomize()
     {
         uint8_t range = Rand::randui8(128, 64);
@@ -119,10 +133,9 @@ public:
     }
 };
 
-class TanzbarSettings : public InstrumentBase
+class Tanzbar : public InstrumentBase
 {
     Modulators& modulators;
-    TimeStruct& time;
 
 public:
     GatePatternAB bd_pattern;
@@ -139,8 +152,7 @@ public:
 
     IntervalPattern hat_int_pattern;
     CvPatternAB hat_velocity;
-
-    uint8_t toms_offset;
+    
     PercussionType percussion_type;
     GatePatternAB tom_mask;
 
@@ -156,11 +168,10 @@ public:
     TanzbarModulators mod_receivers;
     TanzbarTimeSettings time_settings;
 
-    PitchStorage storage;
-
-    TanzbarSettings(Modulators& modulators_ref, TimeStruct& time_ref) :
+    Tanzbar(Modulators& modulators_ref, HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
+        InstrumentBase(harmony_ref, time_ref),
         modulators(modulators_ref),
-        time(time_ref)
+        mod_receivers(modulators)
     {
         hat_closed_style = HatClosedStyle::HatClosedRegular;
         kill_hats = false;
@@ -212,7 +223,6 @@ public:
     {
         // Randomize toms
         this->tom_pattern.randomize();
-        this->toms_offset = Rand::randui8(3);
         switch (Rand::distribution(32, 32))
         {
         case 0: this->percussion_type = PercussionType::PercussionToms; break;
@@ -556,7 +566,7 @@ public:
             && tom_prob < 100
             && this->tom_mask.gate(time))
         {
-            uint8_t tom_id = this->toms_offset % 3;
+            uint8_t tom_id = tom_prob % 3;
             uint8_t velocity = 100;
             this->mod_receivers.tom_vel.value(modulators, time, velocity);
 

@@ -3,72 +3,83 @@
 #include "gate_patterns.h"
 #include "interval_pattern.h"
 #include "arp.h"
+#include "rand.h"
 
 class MonoSettings : public InstrumentBase
 {
 protected:
     FugueSettings& fugue_settings;
-    HarmonyStruct& harmony;
-    TimeStruct& time;
 
 public:
     MonoStyle style;
     ArpData arp_data;
-    IntervalPattern int_pattern;
-    GatePatternAB euclid_pattern;
+
+    GatePatternAB gate_pattern;
     IntervalPattern lead_pattern;
 
     uint8_t variable_pitch_offset;
     uint8_t variable_density;
+    TimeDivision arp_reset_interval;
 
     uint8_t pitch_offset;
     uint8_t fugue_id;
-
-    PitchStorage storage;
 
     MonoSettings(
         FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref,
         TimeStruct& time_ref) :
-        fugue_settings(fugue_settings_ref),
-        harmony(harmony_ref),
-        time(time_ref)
+        InstrumentBase(harmony_ref, time_ref),
+        fugue_settings(fugue_settings_ref)
     {
         style = MonoStyle::MonoSixteenths;
         fugue_id = 0;
+        arp_reset_interval = TimeDivision::Whole;
     }
 
     void randomize()
     {
         this->pitch_offset = Rand::randui8(24, 48);
-        this->arp_data.range = Rand::randui8(12, 24);
+        this->arp_data.range = Rand::randui8(12, 36);
 
         switch (Rand::randui8(4))
         {
-        case 0: this->arp_data.type = ArpType::UP;
-        case 1: this->arp_data.type = ArpType::DOWN;
-        case 2: this->arp_data.type = ArpType::UPDOWN;
-        case 3: this->arp_data.type = ArpType::PICKING_IN;
+        case 0: this->arp_data.type = ArpType::UP; break;
+        case 1: this->arp_data.type = ArpType::DOWN; break;
+        case 2: this->arp_data.type = ArpType::UPDOWN; break;
+        case 3: this->arp_data.type = ArpType::PICKING_IN; break;
         }
 
-        switch (Rand::randui8(3))
+        switch (Rand::distribution(16, 16, 16))
         {
         case 0: this->style = MonoStyle::MonoSixteenths; break;
         case 1: this->style = MonoStyle::MonoPolyRhythm; break;
         case 2: this->style = MonoStyle::MonoLeadPattern; break;
         }
 
-        this->euclid_pattern.set_euclid(Rand::randui8(5, 8), 1);
-        this->euclid_pattern.time_division = TimeDivision::Sixteenth;
+        this->gate_pattern.set_euclid(Rand::randui8(5, 8), 1);
+        this->gate_pattern.time_division = TimeDivision::Sixteenth;
+        if (Rand::distribution(16, 16) > 0)
+        {
+            gate_pattern.remove_one();
+        }
 
         this->lead_pattern.randomize_interval_lead();
+
+        switch (Rand::distribution(16, 16, 16, 16))
+        {
+        case 0: arp_reset_interval = TimeDivision::Whole; break;
+        case 1: arp_reset_interval = TimeDivision::Two; break;
+        case 2: arp_reset_interval = TimeDivision::Four; break;
+        case 3: arp_reset_interval = TimeDivision::Eight; break;
+        }
+        
     }
 
     TimeDivision get_time_division() const
     {
         return this->variable_density < 32 ? TimeDivision::Quarter :
             this->variable_density < 64 ? TimeDivision::DottedEight :
-            this->variable_density < 96 ? TimeDivision::Eight :
+            this->variable_density < 96 ? TimeDivision::Eighth :
             TimeDivision::Sixteenth;
     }
 
@@ -83,7 +94,7 @@ public:
             break;
         }
         case MonoStyle::MonoPolyRhythm:
-            hit = this->euclid_pattern.gate(time);
+            hit = this->gate_pattern.gate(time);
             break;
         case MonoStyle::MonoLeadPattern:
             hit = this->lead_pattern.hit(time);
@@ -106,6 +117,8 @@ public:
 
     void play()
     {
+        this->check_arp_reset();
+
         if (this->style == MonoStyle::MonoFugue && !this->kill)
         {
             return this->fugue_settings.play_fugue(
@@ -141,4 +154,11 @@ public:
         }
     }
 
+    void check_arp_reset()
+    {
+        if (Utils::interval_hit(this->arp_reset_interval, time))
+        {
+            arp_data.counter = 0;
+        }
+    }
 };

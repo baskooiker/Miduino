@@ -8,6 +8,7 @@
 
 #include "cv_patterns.h"
 #include "interval_pattern.h"
+#include "instrument_base.h"
 
 static const RandomParam random_503_params[] = {
     {BD_LEVEL , 126, 127},
@@ -37,7 +38,7 @@ static const RandomParam random_503_params[] = {
 };
 static const uint8_t nr_random_503_params = sizeof(random_503_params) / sizeof(RandomParam);
 
-class Mfb503Settings
+class Mfb503Settings : public InstrumentBase
 {
 public:
     GatePatternAB bd_pattern;
@@ -69,9 +70,8 @@ public:
     uint8_t snare_roll;
     uint8_t bd_decay_factor;
 
-    PitchStorage storage;
-
-    Mfb503Settings()
+    Mfb503Settings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
+        InstrumentBase(harmony_ref, time_ref)
     {
         hat_closed_style = HatClosedStyle::HatClosedRegular;
         volume_tom = 0;
@@ -242,7 +242,7 @@ public:
         play_hats_open(time);
     }
 
-    void play_503(HarmonyStruct harmony, const TimeStruct& time)
+    void play()
     {
         if (this->drum_fill)
         {

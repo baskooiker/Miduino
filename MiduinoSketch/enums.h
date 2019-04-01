@@ -19,12 +19,15 @@ enum TimeDivision {
     Thirtysecond = 3,
     Sixteenth = 6,
     TripletEight = 8,
-    Eight = 12,
+    Eighth = 12,
     DottedEight = 18,
     Quarter = 24,
     DottedQuarter = 36,
     Half = 48,
     Whole = 96,
+    Two = 192,
+    Four = 384,
+    Eight = 768
 };
 
 enum NoteRange {

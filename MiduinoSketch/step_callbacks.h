@@ -4,7 +4,7 @@
 
 void release_step_1(ApplicationData& data)
 {
-    data.tanzbar_settings.randomize_low();
+    data.tanzbar.randomize_low();
 
     data.time.randomize_shuffle();
     data.modulators.randomize();
@@ -12,13 +12,13 @@ void release_step_1(ApplicationData& data)
 
 void release_step_2(ApplicationData& data)
 {
-    data.tanzbar_settings.randomize_mid();
+    data.tanzbar.randomize_mid();
 }
 
 void release_step_1_2(ApplicationData& data) 
 {
-    data.tanzbar_settings.randomize_tanzbar_sound();
-    data.tanzbar_settings.randomize_tanzbar();
+    data.tanzbar.randomize_tanzbar_sound();
+    data.tanzbar.randomize_tanzbar();
 
     data.time.randomize_shuffle();
     data.modulators.randomize();
@@ -26,12 +26,12 @@ void release_step_1_2(ApplicationData& data)
 
 void release_step_3(ApplicationData& data)
 {
-    data.tanzbar_settings.randomize_perc();
+    data.tanzbar.randomize_perc();
 }
 
 void release_step_4(ApplicationData& data)
 {
-    data.tanzbar_settings.randomize_hi();
+    data.tanzbar.randomize_hi();
 
     data.time.randomize_shuffle();
     data.modulators.randomize();
@@ -62,15 +62,21 @@ void release_step_5_and_6(ApplicationData& data)
 
 void release_step_7(ApplicationData& data)
 {
-
+    data.poly_settings.randomize();
+    data.lead_settings.randomize();
 }
 
 void release_step_8(ApplicationData& data)
 {
-
+    data.poly_settings.randomize();
+    data.lead_settings.randomize();
 }
 
-void release_step_7_8(ApplicationData& data) {}
+void release_step_7_8(ApplicationData& data) 
+{
+    data.poly_settings.randomize();
+    data.lead_settings.randomize();
+}
 
 void release_step_9(ApplicationData& data)
 {
@@ -89,18 +95,21 @@ void release_step_9_10s(ApplicationData& data)
 
 void release_step_11(ApplicationData& data)
 {
+    data.drone.randomize();
     data.bass_dub_settings.randomize();
     data.bass_dub_settings.style = BassDubStyle::DubUnison;
 }
 
 void release_step_12(ApplicationData& data)
 {
+    data.drone.randomize();
     data.bass_dub_settings.randomize();
     data.bass_dub_settings.style = BassDubStyle::DubOctave;
 }
 
 void release_step_11_and_12(ApplicationData& data)
 {
+    data.drone.randomize();
     data.bass_dub_settings.randomize();
     data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
 }
@@ -137,18 +146,12 @@ void release_step_15(ApplicationData& data)
 {
     data.mono_dub_settings.randomize_mono_dub();
     data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
-    switch (Rand::randui8(2))
-    {
-    case 0: data.mono_dub_settings.style = MonoStyle::MonoPolyRhythm; break;
-    case 1: data.mono_dub_settings.style = MonoStyle::MonoLeadPattern; break;
-    }
 }
 
 void release_step_16(ApplicationData& data)
 {
     data.mono_dub_settings.randomize_mono_dub();
     data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
-    data.mono_dub_settings.style = MonoStyle::MonoSixteenths;
 }
 
 void release_step_15_and_16(ApplicationData& data)

@@ -102,9 +102,6 @@
     <ClInclude Include="harmony_struct.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
-    <ClInclude Include="application_data.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
     <ClInclude Include="modulators.h">
       <Filter>Header Files\generators</Filter>
     </ClInclude>
@@ -121,9 +118,6 @@
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="gate_patterns.h">
-      <Filter>Header Files\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="mfb_522_settings.h">
       <Filter>Header Files\defs</Filter>
     </ClInclude>
     <ClInclude Include="timing_structs.h">
@@ -148,6 +142,12 @@
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
     <ClInclude Include="mono_dub_settings.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="application_data.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="drone.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
   </ItemGroup>

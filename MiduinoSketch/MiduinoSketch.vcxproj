@@ -91,6 +91,7 @@
     <ClInclude Include="consts.h" />
     <ClInclude Include="cv_patterns.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="drone.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="fugue.h" />
     <ClInclude Include="gate_patterns.h" />
@@ -101,7 +102,6 @@
     <ClInclude Include="lead.h" />
     <ClInclude Include="mfb_503.h" />
     <ClInclude Include="mfb_522.h" />
-    <ClInclude Include="mfb_522_settings.h" />
     <ClInclude Include="midi_channel.h" />
     <ClInclude Include="midi_io.h" />
     <ClInclude Include="modulators.h" />

@@ -8,22 +8,16 @@
 #include "gate_patterns.h"
 #include "midi_channel.h"
 
-class LeadSettings
+class LeadSettings : public InstrumentBase
 {
-protected:
-    HarmonyStruct& harmony;
-    TimeStruct& time;
-
 public:
     ArpData arp_data;
     CvPatternAB min_pitch_pattern;
     GatePatternAB pattern_slow;
     LeadStyle style;
-    PitchStorage storage;
 
     LeadSettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        harmony(harmony_ref),
-        time(time_ref)
+        InstrumentBase(harmony_ref, time_ref)
     {
         style = LeadStyle::LeadSlow;
     }

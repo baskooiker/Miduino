@@ -15,7 +15,7 @@ public:
         {
             pattern[i] = TimeDivision::Sixteenth;
         }
-        time_division = TimeDivision::Eight;
+        time_division = TimeDivision::Eighth;
     }
 
     TimeDivision interval(const TimeStruct& time) const
@@ -39,7 +39,7 @@ public:
                 switch (Rand::distribution(probs.p_4, probs.p_8 * 2, probs.p_16 * 2, probs.p_32 * 2, probs.p_t8 * 2))
                 {
                 case 0: this->pattern[i] = TimeDivision::Quarter; break;
-                case 1: this->pattern[i] = TimeDivision::Eight; break;
+                case 1: this->pattern[i] = TimeDivision::Eighth; break;
                 case 2: this->pattern[i] = TimeDivision::Sixteenth; break;
                 case 3: this->pattern[i] = TimeDivision::Thirtysecond; break;
                 case 4: this->pattern[i] = TimeDivision::TripletEight; break;
@@ -50,7 +50,7 @@ public:
                 // Alles behalve triplets en kwarten
                 switch (Rand::distribution(probs.p_8, probs.p_16, probs.p_32))
                 {
-                case 0: this->pattern[i] = TimeDivision::Eight; break;
+                case 0: this->pattern[i] = TimeDivision::Eighth; break;
                 case 1: this->pattern[i] = TimeDivision::Sixteenth; break;
                 case 2: this->pattern[i] = TimeDivision::Thirtysecond; break;
                 }
@@ -61,7 +61,7 @@ public:
                 switch (Rand::distribution(probs.p_4, probs.p_8 * 2, probs.p_16 * 2, probs.p_32 * 2))
                 {
                 case 0: this->pattern[i] = TimeDivision::Quarter; break;
-                case 1: this->pattern[i] = TimeDivision::Eight; break;
+                case 1: this->pattern[i] = TimeDivision::Eighth; break;
                 case 2: this->pattern[i] = TimeDivision::Sixteenth; break;
                 case 3: this->pattern[i] = TimeDivision::Thirtysecond; break;
                 }
@@ -94,7 +94,7 @@ public:
                 {
                     TimeDivision time_division = Rand::randui8(64) < 8 ?
                         TimeDivision::Sixteenth :
-                        TimeDivision::Eight;
+                        TimeDivision::Eighth;
                     this->pattern[bar * 4 + beat] = time_division;
                 }
             }

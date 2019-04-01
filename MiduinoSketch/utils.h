@@ -125,13 +125,13 @@ public:
         return 0;
     }
 
-    static uint8_t clip_pitch(const uint8_t pitch, const uint8_t min, const uint8_t _max)
+    static uint8_t clip_pitch(const uint8_t pitch, const uint8_t minimum, uint8_t maximum)
     {
-        uint8_t max = MAX(min + 12, _max);
-        if (pitch < min)
-            return clip_pitch(pitch + 12, min, max);
-        if (pitch > max)
-            return clip_pitch(pitch - 12, min, max);
+        maximum = MAX(minimum + 12, maximum);
+        if (pitch < minimum)
+            return clip_pitch(pitch + 12, minimum, maximum);
+        if (pitch >= maximum)
+            return clip_pitch(pitch - 12, minimum, maximum);
         return pitch;
     }
 
