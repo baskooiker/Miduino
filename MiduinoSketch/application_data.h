@@ -21,7 +21,11 @@ public:
     FugueSettings fugue_settings;
     Modulators modulators;
 
+    TanzbarModulators tanzbar_modulators;
+    TanzbarTimeSettings tanzbar_time;
+
     Tanzbar tanzbar;
+    TanzbarHi tanzbar_hi;
 
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;
@@ -35,7 +39,9 @@ public:
     UiState ui_state;
 
     ApplicationData():
+        tanzbar_modulators(modulators),
         tanzbar(modulators, harmony, time),
+        tanzbar_hi(tanzbar_modulators, tanzbar_time, time),
         bass_settings(fugue_settings, harmony, time),
         bass_dub_settings(bass_settings, fugue_settings, harmony, time),
         mono_settings(fugue_settings, harmony, time),
@@ -96,7 +102,7 @@ public:
 
         this->fugue_settings.randomize_fugue();
 
-        this->tanzbar.randomize_tanzbar();
+        this->tanzbar.randomize();
         this->bass_settings.randomize();
         this->drone.randomize();
         this->bass_dub_settings.randomize();
@@ -116,7 +122,8 @@ public:
         this->tanzbar.kill_low = true;
         this->tanzbar.kill_mid = true;
         this->tanzbar.kill_perc = true;
-        this->tanzbar.kill_hats = true;
+
+        this->tanzbar_hi.kill = true;
 
         // Set bass
         this->bass_settings.style = BassStyle::BassFugue;

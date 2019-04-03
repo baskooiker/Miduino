@@ -29,7 +29,7 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         data.tanzbar.kill_perc = !data.tanzbar.kill_perc;
         break;
     case BSP_PAD_04:
-        data.tanzbar.kill_hats = !data.tanzbar.kill_hats;
+        data.tanzbar_hi.kill = !data.tanzbar_hi.kill;
         break;
     case BSP_PAD_05:
         data.bass_settings.kill = !data.bass_settings.kill;
@@ -165,7 +165,7 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
     case BSP_PAD_04:
         if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
-            data.tanzbar.kill_hats = false;
+            data.tanzbar_hi.kill = false;
         }
         break;
     case BSP_PAD_05:
@@ -415,7 +415,7 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
             data.tanzbar.kill_low  = false;
             data.tanzbar.kill_mid  = false;
             data.tanzbar.kill_perc = false;
-            data.tanzbar.kill_hats = false;
+            data.tanzbar_hi.kill = false;
         }
         break;
     case BSP_STEP_02:
@@ -425,7 +425,7 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
             data.tanzbar.kill_low = true;
             data.tanzbar.kill_mid = true;
             data.tanzbar.kill_perc = true;
-            data.tanzbar.kill_hats = true;
+            data.tanzbar_hi.kill = true;
         }
         break;
     case BSP_STEP_16:

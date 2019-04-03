@@ -17,11 +17,6 @@ void release_step_2(ApplicationData& data)
 
 void release_step_1_2(ApplicationData& data) 
 {
-    data.tanzbar.randomize_tanzbar_sound();
-    data.tanzbar.randomize_tanzbar();
-
-    data.time.randomize_shuffle();
-    data.modulators.randomize();
 }
 
 void release_step_3(ApplicationData& data)
@@ -31,7 +26,7 @@ void release_step_3(ApplicationData& data)
 
 void release_step_4(ApplicationData& data)
 {
-    data.tanzbar.randomize_hi();
+    data.tanzbar_hi.randomize();
 
     data.time.randomize_shuffle();
     data.modulators.randomize();

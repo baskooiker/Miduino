@@ -137,7 +137,6 @@ public:
     }
 
     bool value(
-        const Modulators& modulators, 
         const TimeStruct& time,
         uint8_t& value) const
     {
@@ -189,7 +188,7 @@ protected:
     uint8_t value(const Modulators& modulators, const TimeStruct& time)
     {
         uint8_t value = 0;
-        this->value(modulators, time, value);
+        this->value(time, value);
         return value;
     }
 

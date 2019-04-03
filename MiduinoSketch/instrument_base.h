@@ -16,6 +16,7 @@ public:
     }
 
     virtual void play() = 0;
+    virtual void randomize() = 0;
 
     void process_events()
     {
