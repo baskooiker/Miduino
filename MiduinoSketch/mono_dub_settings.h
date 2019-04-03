@@ -22,14 +22,13 @@ public:
         dub_style = MonoDubStyle::MonoDubLead;
     }
 
-    void randomize_mono_dub()
+    void randomize()
     {
-        this->randomize();
-        switch (Rand::distribution(16, 16, 16))
+        MonoSettings::randomize();
+        switch (Rand::distribution(16, 16))
         {
         case 0: this->note_interval = NoteInterval::IntervalRoot; break;
-        case 1: this->note_interval = NoteInterval::IntervalThird; break;
-        case 2: this->note_interval = NoteInterval::IntervalFifth; break;
+        case 1: this->note_interval = NoteInterval::IntervalFifth; break;
         }
     }
 

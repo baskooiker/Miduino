@@ -40,6 +40,7 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         break;
     case BSP_PAD_06:
         data.bass_dub_settings.kill = !data.bass_dub_settings.kill;
+        data.drone.kill = !data.drone.kill;
         break;
     case BSP_PAD_07:
         data.mono_settings.kill = !data.mono_settings.kill;

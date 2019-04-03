@@ -102,7 +102,7 @@ public:
         this->bass_dub_settings.randomize();
 
         this->mono_settings.randomize();
-        this->mono_dub_settings.randomize_mono_dub();
+        this->mono_dub_settings.randomize();
 
         this->tanzbar.randomize_tanzbar_sound();
 

@@ -5,6 +5,7 @@
 class Drone : public InstrumentBase
 {
     GatePatternAB gate_pattern;
+    CvPatternAB interval_pattern;
 
 public:
     uint8_t variable_pitch_range;
@@ -23,6 +24,28 @@ public:
         {
             gate_pattern.remove_one();
         }
+
+        interval_pattern.set_all(0);
+        for (int i = 0; i < 3; i++)
+        {
+            uint8_t fill_start = Rand::randui8(5, 8);
+            for (int step = fill_start; step < 8; step++)
+            {
+                uint8_t rand_int = Rand::randui8(2, 5);
+                interval_pattern.patterns[i].set(step, rand_int);
+            }
+        }
+        switch (Rand::distribution(16, 16))
+        {
+        case 0: interval_pattern.time_division = TimeDivision::Sixteenth; break;
+        case 1: interval_pattern.time_division = TimeDivision::Eight; break;
+        }
+        switch (Rand::distribution(16, 16))
+        {
+        case 0: interval_pattern.length = 8; break;
+        case 1: interval_pattern.length = 16; break;
+        }
+        
     }
 
     void play()
@@ -35,8 +58,9 @@ public:
         if (gate_pattern.gate(time))
         {
             uint8_t chord_step = harmony.get_chord_step(time);
+            uint8_t pitch_interval = interval_pattern.value(time);
             uint8_t pitch = harmony.scale.apply_scale_offset(
-                0, 
+                pitch_interval, 
                 Utils::rerange(this->variable_pitch_range, 36, 36),
                 chord_step
             );

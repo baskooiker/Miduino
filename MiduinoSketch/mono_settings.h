@@ -127,10 +127,6 @@ public:
             {
                 length = time.ticks_left_in_bar();
             }
-            else if (this->style == MonoStyle::MonoSixteenths)
-            {
-                length = this->get_time_division();
-            }
 
             if (!this->kill)
             {

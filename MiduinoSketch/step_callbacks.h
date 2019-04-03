@@ -144,18 +144,18 @@ void release_step_13_and_14(ApplicationData& data)
 
 void release_step_15(ApplicationData& data)
 {
-    data.mono_dub_settings.randomize_mono_dub();
+    data.mono_dub_settings.randomize();
     data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
 }
 
 void release_step_16(ApplicationData& data)
 {
-    data.mono_dub_settings.randomize_mono_dub();
+    data.mono_dub_settings.randomize();
     data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
 }
 
 void release_step_15_and_16(ApplicationData& data)
 {
-    data.mono_dub_settings.randomize_mono_dub();
+    data.mono_dub_settings.randomize();
     data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubUnison;
 }
