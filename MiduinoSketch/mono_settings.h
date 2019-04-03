@@ -38,7 +38,7 @@ public:
 
     void randomize()
     {
-        this->pitch_offset = Rand::randui8(24, 48);
+        this->pitch_offset = Rand::randui8(36, 48);
         this->arp_data.range = Rand::randui8(12, 36);
 
         switch (Rand::randui8(4))
@@ -75,24 +75,14 @@ public:
         
     }
 
-    TimeDivision get_time_division() const
-    {
-        return this->variable_density < 32 ? TimeDivision::Quarter :
-            this->variable_density < 64 ? TimeDivision::DottedEight :
-            this->variable_density < 96 ? TimeDivision::Eighth :
-            TimeDivision::Sixteenth;
-    }
-
     bool get_mono_hit() const
     {
         bool hit = false;
         switch (this->style)
         {
         case MonoStyle::MonoSixteenths:
-        {
-            hit = Utils::interval_hit(this->get_time_division(), time);
+            hit = Utils::interval_hit(TimeDivision::Sixteenth, time);
             break;
-        }
         case MonoStyle::MonoPolyRhythm:
             hit = this->gate_pattern.gate(time);
             break;
@@ -128,9 +118,7 @@ public:
                 this->storage);
         }
 
-        bool hit = this->get_mono_hit();
-
-        if (hit)
+        if (this->get_mono_hit())
         {
             uint8_t pitch = this->get_next_mono_pitch();
 

@@ -131,7 +131,7 @@ void initialize_midi_ports()
 void VleerhondApp::setup()
 {
     ofLogToConsole();
-    //ofLogToDebugView();
+
     initialize_midi_ports();
 
     if (!midi_in.isOpen() || !midi_out_a.isOpen() || !midi_out_b.isOpen())
@@ -167,9 +167,7 @@ void VleerhondApp::update()
     data.process_events();
 }
 
-void VleerhondApp::draw(){
-
-}
+void VleerhondApp::draw(){}
 
 void VleerhondApp::keyPressed(int key){
     switch (key)
@@ -228,55 +226,16 @@ void VleerhondApp::newMidiMessage(ofxMidiMessage& message)
     }
 }
 
-//--------------------------------------------------------------
-void VleerhondApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void VleerhondApp::dragEvent(ofDragInfo dragInfo){ 
-
-}
+void VleerhondApp::keyReleased(int key){}
+void VleerhondApp::mouseMoved(int x, int y ){}
+void VleerhondApp::mouseDragged(int x, int y, int button){}
+void VleerhondApp::mousePressed(int x, int y, int button){}
+void VleerhondApp::mouseReleased(int x, int y, int button){}
+void VleerhondApp::mouseEntered(int x, int y){}
+void VleerhondApp::mouseExited(int x, int y){}
+void VleerhondApp::windowResized(int w, int h){}
+void VleerhondApp::gotMessage(ofMessage msg){}
+void VleerhondApp::dragEvent(ofDragInfo dragInfo){ }
 
 void VleerhondApp::exit()
 {
