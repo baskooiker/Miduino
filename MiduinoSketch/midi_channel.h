@@ -44,6 +44,10 @@ protected:
         {
             if (this->channels[i].channel > 0)
             {
+                if (this->channels[i].channel == MIDI_CHANNEL_ROCKET)
+                {
+                    //printf("Rocket note on : %3d\n", pitch);
+                }
                 MidiIO::send_note_on(pitch + this->channels[i].pitch_offset, velocity, this->channels[i].channel);
             }
         }
@@ -55,6 +59,10 @@ protected:
         {
             if (this->channels[i].channel > 0)
             {
+                if (this->channels[i].channel == MIDI_CHANNEL_ROCKET)
+                {
+                    //printf("Rocket note off: %3d\n", pitch);
+                }
                 MidiIO::send_note_off(pitch + this->channels[i].pitch_offset, this->channels[i].channel);
             }
         }
@@ -100,7 +108,7 @@ public:
         NoteStruct stored = this->pop_from_storage(pitch);
     }
 
-    void note_on(const NoteStruct note)
+    void note_on(const NoteStruct& note)
     {
         // TODO: remove this intermediate function
         this->untie_notes();
@@ -113,13 +121,9 @@ public:
         this->add_to_storage(note);
     }
 
-    void note_on(const NoteStruct note, const uint32_t delay)
+    void note_on(const NoteStruct& note, const uint32_t delay)
     {
-        // TODO: remove this intermediate function
-        if (delay == 0)
-            return this->note_on(note);
-
-        if (this->nr_of_events < STORAGE_SIZE)
+        if (this->nr_of_events < STORAGE_SIZE && delay > 0)
         {
             NoteEvent new_event(note, millis() + delay);
             this->events[this->nr_of_events++] = new_event;
@@ -162,16 +166,6 @@ public:
         this->size++;
     }
 
-    NoteStruct pop_from_storage()
-    {
-        if (this->size > 0) {
-            NoteStruct note = this->data[this->size - 1];
-            this->size--;
-            return note;
-        }
-        return { 0, 0, 0 };
-    }
-
     NoteStruct pop_from_storage(uint8_t pitch)
     {
         for (uint8_t i = 0; i < this->size; i++)
@@ -183,7 +177,7 @@ public:
                 return note;
             }
         }
-        return { 0, 0, 0 };
+        return NoteStruct();
     }
 
     void process_active_notes()
@@ -191,14 +185,13 @@ public:
         if (this->size == 0) return;
         for (uint8_t i = 0; i < this->size; i++)
         {
-            if (this->data[i].length != 0xFF
-                && this->data[i].length > 0)
+            if (this->data[i].length > 0)
             {
                 this->data[i].length -= 1;
             }
         }
 
-        for (int i = this->size - 1; i >= 0; i--)
+        for (int i = (int)this->size - 1; i >= 0; i--)
         {
             if (this->data[i].length == 0)
             {
@@ -209,7 +202,7 @@ public:
 
     void untie_notes()
     {
-        for (int i = this->size - 1; i >= 0; i--)
+        for (int i = (int)this->size - 1; i >= 0; i--)
         {
             switch (this->data[i].type)
             {
@@ -225,14 +218,10 @@ public:
 
     void all_notes_off()
     {
-        NoteStruct p = { 0, 0, 0 };
-        do {
-            p = this->pop_from_storage();
-            if (p.pitch > 0)
-            {
-                this->note_off(p.pitch);
-            }
-        } while (p.pitch != 0);
+        for (int i = (int)this->size - 1; i >= 0; i--)
+        {
+            note_off(this->data[i].pitch);
+        }
     }
 
     void get_channels(ChannelStruct* channels, uint8_t& length)

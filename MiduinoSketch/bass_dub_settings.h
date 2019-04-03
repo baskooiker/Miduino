@@ -96,7 +96,7 @@ public:
                 pitch = Utils::clip_pitch(pitch, Utils::rerange(this->v_pitch, 36, 48));
                 break;
             case BassDubStyle::DubOctProbability:
-                //pitch = Utils::clip_pitch(pitch, 36, rerange(this->v_pitch, 36, 48));
+                pitch = Utils::clip_pitch(pitch, 36, Utils::rerange(this->v_pitch, 36, 48));
                 break;
             }
 

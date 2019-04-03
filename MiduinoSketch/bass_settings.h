@@ -29,7 +29,6 @@ public:
     BassStyle style;
     CvPatternAB note_range_prob;
     uint8_t note_range_value;
-    uint8_t octave_offset;
     uint8_t fugue_id;
     uint8_t density;
 
@@ -44,7 +43,6 @@ public:
         style = BassStyle::BassLow;
         note_range_value = 0;
         density = 0;
-        octave_offset = 2;
         kill = false;
     }
 
@@ -52,6 +50,7 @@ public:
     {
         // Randomize octaves
         this->octaves.randomize(2, Rand::randui8(4, 6));
+        this->octaves.patterns[0].set(0, 0);
         switch (Rand::distribution(16, 16, 16, 32))
         {
         case 0: this->octaves.length = 2; break;
@@ -70,6 +69,10 @@ public:
 
         // Randomize pitches
         this->pitches.randomize();
+        for (int i = 0; i < 3; i++)
+        {
+            this->pitches.patterns[i].set(0, 0);
+        }
         switch (Rand::distribution(16, 16, 16, 32))
         {
         case 0: this->pitches.length = 2; break;
@@ -132,7 +135,6 @@ public:
         this->int_pattern.randomize_interval(arp_interval_probs);
         this->slides.randomize(.15f);
         this->accents.randomize(Rand::randf(.15f, 1.f));
-        //this->note_range_value = quad(randui8()) / 2;
     }
 
     bool get_bass_hit(const uint8_t density, const TimeStruct& time)
@@ -200,9 +202,8 @@ public:
             pitch += (variable_pitch % 3 + 1) * 12;
         }
 
-        pitch = Utils::clip_pitch(pitch, pitch_offset, Utils::rerange(variable_pitch, 36, pitch_offset + 12));
+        pitch = Utils::clip_pitch(pitch, pitch_offset, Utils::rerange(variable_pitch, pitch_offset + 12, 36));
 
-        pitch += this->octave_offset * 12;
         return pitch;
     }
 
@@ -238,7 +239,7 @@ public:
             if (this->slides.gate(time))
             {
                 length = time.ticks_left_in_bar();
-                note_type = NoteType::Slide;
+                note_type = NoteType::Tie;
             }
 
             // Play it!

@@ -62,7 +62,7 @@ public:
             case MonoDubStyle::MonoDubUnison:
                 pitch = lead_settings.get_mono_pitch();
                 pitch = this->harmony.scale.get_ascending(pitch, note_interval);
-                pitch = Utils::clip_pitch(pitch, Utils::rerange(this->variable_pitch_offset, 24, 36));
+                pitch = Utils::clip_pitch(pitch, Utils::rerange(this->variable_pitch_offset, 36, 36));
                 break;
             }
 

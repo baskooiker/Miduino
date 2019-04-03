@@ -15,7 +15,7 @@ void print_pattern(const GatePatternAB& pattern)
 {
     for (int i = 0; i < 4; i++)
     {
-        print_pattern(pattern.patterns[pattern.abPattern.ab_pattern[i]], 16);
+        print_pattern(pattern.patterns[pattern.abPattern.value(i)], 16);
     }
     printf("\n");
 }
@@ -39,7 +39,7 @@ void print_pattern(const CvPatternAB& pattern)
 {
     for (int i = 0; i < 4; i++)
     {
-        print_pattern(pattern.patterns[pattern.abPattern.ab_pattern[i]]);
+        print_pattern(pattern.patterns[pattern.abPattern.value(i)]);
     }
     printf("\n");
 }

@@ -381,9 +381,6 @@ public:
         switch (this->hat_closed_style)
         {
         case HatClosedStyle::HatClosedInterval:
-            if ((time.tick / TICKS_PER_STEP) % 4 == 0)
-                velocity = 127;
-
             this->mod_receivers.hats_vel.value(modulators, time, velocity);
 
             if (this->hat_int_pattern.hit(time))
@@ -440,6 +437,9 @@ public:
 
     bool play_maracas()
     {
+        if (kill_hats)
+            return false;
+
         if (Utils::interval_hit(this->ma_pattern.time_division, time))
         {
             uint8_t value = 64;
@@ -542,7 +542,7 @@ public:
         }
 
         // Play cowbell
-        if (this->cb_pattern.gate(time))
+        if (this->cb_pattern.gate(time) && !kill_perc)
         {
             uint8_t value = 0;
             if (this->mod_receivers.cb_tune.value(modulators, time, value))
@@ -564,7 +564,8 @@ public:
         uint8_t tom_prob = this->tom_pattern.value(time);
         if (Utils::interval_hit(TimeDivision::Sixteenth, time)
             && tom_prob < 100
-            && this->tom_mask.gate(time))
+            && this->tom_mask.gate(time)
+            && !kill_perc)
         {
             uint8_t tom_id = tom_prob % 3;
             uint8_t velocity = 100;
@@ -577,7 +578,7 @@ public:
         }
 
         // Play Cymbal
-        if (this->cy_pattern.gate(time))
+        if (this->cy_pattern.gate(time) && !kill_hats)
         {
             uint8_t value = 0;
             if (this->mod_receivers.cy_tune.value(modulators, time, value))

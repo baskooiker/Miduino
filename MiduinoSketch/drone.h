@@ -37,7 +37,7 @@ public:
             uint8_t chord_step = harmony.get_chord_step(time);
             uint8_t pitch = harmony.scale.apply_scale_offset(
                 0, 
-                Utils::rerange(this->variable_pitch_range, 36, 72),
+                Utils::rerange(this->variable_pitch_range, 36, 36),
                 chord_step
             );
             storage.note_on(

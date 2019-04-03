@@ -10,6 +10,8 @@ ofxMidiOut midi_out_a;
 ofxMidiOut midi_out_b;
 ofxMidiIn midi_in;
 
+const char MODULE[] = "VleerhondApp";
+
 bool virtual_ports;
 
 void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
@@ -126,7 +128,10 @@ void initialize_midi_ports()
     }
 }
 
-void VleerhondApp::setup(){
+void VleerhondApp::setup()
+{
+    ofLogToConsole();
+    //ofLogToDebugView();
     initialize_midi_ports();
 
     if (!midi_in.isOpen() || !midi_out_a.isOpen() || !midi_out_b.isOpen())
@@ -151,6 +156,7 @@ void VleerhondApp::setup(){
 
 void VleerhondApp::play()
 {
+    data.time.state = PlayState::Playing;
     data.process_active_notes();
     data.play_all();
     data.time.tick++;
@@ -172,22 +178,23 @@ void VleerhondApp::keyPressed(int key){
         ofExit();
         break;
     case 'p':
-        printf("Play\n");
+        ofLogNotice(MODULE, "Play!");
         bpm.start();
         break;
     case 's':
-        printf("Stop\n");
+        ofLogNotice(MODULE, "Stop.");
         bpm.stop();
+        data.time.state = PlayState::Stopped;
         break;
     case 'r':
-        printf("Randomize\n");
+        ofLogNotice(MODULE, "Randomize");
         data.randomize_all();
         break;
     case 'c' :
         //gate_ctrl.trigger(1.0f);
         break;
     default:
-        printf("Unhandled key pressed: %3d\n", key);
+        ofLogNotice(MODULE, "Unhandled key pressed: %3d\n", key);
         break;
     }
 }

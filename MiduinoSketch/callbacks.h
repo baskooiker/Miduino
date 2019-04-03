@@ -290,7 +290,6 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
         break;
     case BSP_KNOB_12:
         data.bass_settings.note_range_value = value;
-        data.drone.variable_pitch_range = value;
         break;
     case BSP_KNOB_05:
         data.bass_settings.density = value;
@@ -307,6 +306,7 @@ void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t 
     case BSP_KNOB_14:
         data.bass_dub_settings.v_pitch = value;
         data.fugue_settings.player_settings[1].manual_pitch_offset = value;
+        data.drone.variable_pitch_range = value;
         break;
     case BSP_KNOB_07:
         data.fugue_settings.player_settings[2].density = value;

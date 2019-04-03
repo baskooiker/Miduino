@@ -48,8 +48,8 @@ public:
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
         mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
 
-        bass_settings.storage.set_channel(MIDI_CHANNEL_BASS);
-        bass_settings.storage.set_channel(MIDI_CHANNEL_ROCKET, -24);
+        bass_settings.storage.set_channel(MIDI_CHANNEL_BASS, 24);
+        bass_settings.storage.set_channel(MIDI_CHANNEL_ROCKET);
 
         drone.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
 
