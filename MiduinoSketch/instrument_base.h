@@ -3,15 +3,13 @@
 class InstrumentBase
 {
 protected:
-    HarmonyStruct& harmony;
     TimeStruct& time;
 
 public:
     PitchStorage storage;
     bool kill;
 
-    InstrumentBase(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        harmony(harmony_ref),
+    InstrumentBase(TimeStruct& time_ref) :
         time(time_ref)
     {
         kill = false;
@@ -27,5 +25,18 @@ public:
     void stop_notes()
     {
         storage.all_notes_off();
+    }
+};
+
+class TonalInstrumentBase : public InstrumentBase
+{
+protected:
+    HarmonyStruct& harmony;
+
+public:
+    TonalInstrumentBase(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
+        InstrumentBase(time_ref),
+        harmony(harmony_ref)
+    {
     }
 };

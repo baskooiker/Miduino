@@ -8,7 +8,7 @@
 
 #include "gate_patterns.h"
 
-class PolySettings : public InstrumentBase
+class PolySettings : public TonalInstrumentBase
 {
 public:
     GatePatternAB gates_low;
@@ -18,7 +18,7 @@ public:
     PolyType type;
 
     PolySettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        InstrumentBase(harmony_ref, time_ref)
+        TonalInstrumentBase(harmony_ref, time_ref)
     {
         pitch_offset = 48;
         type = PolyType::PolyLow;

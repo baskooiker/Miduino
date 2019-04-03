@@ -2,7 +2,7 @@
 
 #include "instrument_base.h"
 
-class Drone : public InstrumentBase
+class Drone : public TonalInstrumentBase
 {
     GatePatternAB gate_pattern;
     CvPatternAB interval_pattern;
@@ -12,7 +12,7 @@ public:
 
     Drone(HarmonyStruct& harmony_ref,
         TimeStruct& time_ref) :
-        InstrumentBase(harmony_ref, time_ref)
+        TonalInstrumentBase(harmony_ref, time_ref)
     {
     }
 

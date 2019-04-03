@@ -8,7 +8,7 @@
 #include "gate_patterns.h"
 #include "midi_channel.h"
 
-class LeadSettings : public InstrumentBase
+class LeadSettings : public TonalInstrumentBase
 {
 public:
     ArpData arp_data;
@@ -17,7 +17,7 @@ public:
     LeadStyle style;
 
     LeadSettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        InstrumentBase(harmony_ref, time_ref)
+        TonalInstrumentBase(harmony_ref, time_ref)
     {
         style = LeadStyle::LeadSlow;
     }

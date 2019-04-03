@@ -26,8 +26,8 @@ public:
     bool use_hh_int;
     IntervalPattern hh_int_pattern;
 
-    Mfb522Settings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        InstrumentBase(harmony_ref, time_ref)
+    Mfb522Settings(TimeStruct& time_ref) :
+        InstrumentBase(time_ref)
     {
         use_hh_int = false;
     }

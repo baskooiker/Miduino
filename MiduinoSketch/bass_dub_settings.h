@@ -4,7 +4,7 @@
 #include "instrument_base.h"
 #include "fugue.h"
 
-class BassDubSettings : public InstrumentBase {
+class BassDubSettings : public TonalInstrumentBase {
     BassSettings& bass_settings;
     FugueSettings& fugue_settings;
 
@@ -21,7 +21,7 @@ public:
         FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref, 
         TimeStruct& time_ref):
-        InstrumentBase(harmony_ref, time_ref),
+        TonalInstrumentBase(harmony_ref, time_ref),
         bass_settings(bass_settings_ref),
         fugue_settings(fugue_settings_ref)
     {

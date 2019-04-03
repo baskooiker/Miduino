@@ -169,7 +169,7 @@ public:
     TanzbarTimeSettings time_settings;
 
     Tanzbar(Modulators& modulators_ref, HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        InstrumentBase(harmony_ref, time_ref),
+        InstrumentBase(time_ref),
         modulators(modulators_ref),
         mod_receivers(modulators)
     {

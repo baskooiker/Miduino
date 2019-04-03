@@ -5,7 +5,7 @@
 #include "arp.h"
 #include "rand.h"
 
-class MonoSettings : public InstrumentBase
+class MonoSettings : public TonalInstrumentBase
 {
 protected:
     FugueSettings& fugue_settings;
@@ -28,7 +28,7 @@ public:
         FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref,
         TimeStruct& time_ref) :
-        InstrumentBase(harmony_ref, time_ref),
+        TonalInstrumentBase(harmony_ref, time_ref),
         fugue_settings(fugue_settings_ref)
     {
         style = MonoStyle::MonoSixteenths;
