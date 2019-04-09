@@ -150,5 +150,17 @@
     <ClInclude Include="drone.h">
       <Filter>Header Files\instruments</Filter>
     </ClInclude>
+    <ClInclude Include="tanzbar_hi.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="tanzbar_perc.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="tanzbar_lo.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="tanzbar_mid.h">
+      <Filter>Header Files\instruments</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

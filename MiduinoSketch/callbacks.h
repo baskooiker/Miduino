@@ -20,13 +20,13 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
     switch (pitch)
     {
     case BSP_PAD_01:
-        data.tanzbar.kill_low = !data.tanzbar.kill_low;
+        data.tanzbar_lo.kill = !data.tanzbar_lo.kill;
         break;
     case BSP_PAD_02:
-        data.tanzbar.kill_mid = !data.tanzbar.kill_mid;
+        data.tanzbar_mid.kill = !data.tanzbar_mid.kill;
         break;
     case BSP_PAD_03:
-        data.tanzbar.kill_perc = !data.tanzbar.kill_perc;
+        data.tanzbar_perc.kill = !data.tanzbar_perc.kill;
         break;
     case BSP_PAD_04:
         data.tanzbar_hi.kill = !data.tanzbar_hi.kill;
@@ -49,10 +49,9 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         data.mono_dub_settings.kill = !data.mono_dub_settings.kill;
         break;
     case BSP_PAD_09:
-        data.tanzbar.drum_fill = true;
         break;
     case BSP_PAD_10:
-        data.tanzbar.snare_roll = velocity;
+        data.tanzbar_mid.snare_roll = velocity;
         break;
     case BSP_PAD_11:
         break;
@@ -147,19 +146,19 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
     case BSP_PAD_01:
         if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
-            data.tanzbar.kill_low = false;
+            data.tanzbar_lo.kill = false;
         }
     break;
     case BSP_PAD_02:
         if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
-            data.tanzbar.kill_mid = false;
+            data.tanzbar_mid.kill = false;
         }
     break;
     case BSP_PAD_03:
         if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
         {
-            data.tanzbar.kill_perc = false;
+            data.tanzbar_perc.kill = false;
         }
         break;
     case BSP_PAD_04:
@@ -181,10 +180,9 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
     case BSP_PAD_08:
         break;
     case BSP_PAD_09:
-        data.tanzbar.drum_fill = false;
         break;
     case BSP_PAD_10:
-        data.tanzbar.snare_roll = false;
+        data.tanzbar_mid.snare_roll = false;
         break;
     case BSP_PAD_11:
         break;
@@ -412,9 +410,9 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
         if (value == 0)
         {
             data.randomize_all();
-            data.tanzbar.kill_low  = false;
-            data.tanzbar.kill_mid  = false;
-            data.tanzbar.kill_perc = false;
+            data.tanzbar_lo.kill = false;
+            data.tanzbar_mid.kill = false;
+            data.tanzbar_perc.kill = false;
             data.tanzbar_hi.kill = false;
         }
         break;
@@ -422,16 +420,19 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
         if (value == 0)
         {
             data.randomize_all();
-            data.tanzbar.kill_low = true;
-            data.tanzbar.kill_mid = true;
-            data.tanzbar.kill_perc = true;
+            data.tanzbar_lo.kill = true;
+            data.tanzbar_mid.kill = true;
+            data.tanzbar_perc.kill = true;
             data.tanzbar_hi.kill = true;
         }
         break;
     case BSP_STEP_16:
         if (value == 0)
         {
-            data.tanzbar.randomize_tanzbar_sound();
+            data.tanzbar_lo.randomize();
+            data.tanzbar_mid.randomize();
+            data.tanzbar_perc.randomize();
+            data.tanzbar_hi.randomize();
             data.set_fugue();
         }
         break;

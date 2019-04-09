@@ -5,6 +5,10 @@
 #include "harmony_struct.h"
 #include "modulators.h"
 #include "tanzbar_settings.h"
+#include "tanzbar_lo.h"
+#include "tanzbar_mid.h"
+#include "tanzbar_perc.h"
+#include "tanzbar_hi.h"
 #include "bass_dub_settings.h"
 #include "mono_settings.h"
 #include "mono_dub_settings.h"
@@ -24,7 +28,10 @@ public:
     TanzbarModulators tanzbar_modulators;
     TanzbarTimeSettings tanzbar_time;
 
-    Tanzbar tanzbar;
+    //Tanzbar tanzbar;
+    TanzbarLo tanzbar_lo;
+    TanzbarMid tanzbar_mid;
+    TanzbarPerc tanzbar_perc;
     TanzbarHi tanzbar_hi;
 
     BassSettings bass_settings;
@@ -40,7 +47,10 @@ public:
 
     ApplicationData():
         tanzbar_modulators(modulators),
-        tanzbar(modulators, harmony, time),
+        //tanzbar(modulators, harmony, time),
+        tanzbar_lo(tanzbar_modulators, tanzbar_time, time),
+        tanzbar_mid(tanzbar_modulators, tanzbar_time, time),
+        tanzbar_perc(tanzbar_modulators, tanzbar_time, time),
         tanzbar_hi(tanzbar_modulators, tanzbar_time, time),
         bass_settings(fugue_settings, harmony, time),
         bass_dub_settings(bass_settings, fugue_settings, harmony, time),
@@ -50,7 +60,11 @@ public:
         lead_settings(harmony, time),
         drone(harmony, time)
     {
-        tanzbar.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+        tanzbar_lo.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+        tanzbar_mid.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+        tanzbar_perc.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+        tanzbar_hi.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
         mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
 
@@ -86,7 +100,11 @@ public:
 
     void process_active_notes()
     {
-        this->tanzbar.storage.process_active_notes();
+        this->tanzbar_lo.storage.process_active_notes();
+        this->tanzbar_mid.storage.process_active_notes();
+        this->tanzbar_perc.storage.process_active_notes();
+        this->tanzbar_hi.storage.process_active_notes();
+
         this->bass_settings.storage.process_active_notes();
         this->bass_dub_settings.storage.process_active_notes();
         this->drone.storage.process_active_notes();
@@ -102,15 +120,17 @@ public:
 
         this->fugue_settings.randomize_fugue();
 
-        this->tanzbar.randomize();
+        this->tanzbar_lo.randomize();
+        this->tanzbar_mid.randomize();
+        this->tanzbar_perc.randomize();
+        this->tanzbar_hi.randomize();
+
         this->bass_settings.randomize();
         this->drone.randomize();
         this->bass_dub_settings.randomize();
 
         this->mono_settings.randomize();
         this->mono_dub_settings.randomize();
-
-        this->tanzbar.randomize_tanzbar_sound();
 
         poly_settings.randomize();
         lead_settings.randomize();
@@ -119,10 +139,10 @@ public:
     void set_fugue()
     {
         this->fugue_settings.randomize_fugue();
-        this->tanzbar.kill_low = true;
-        this->tanzbar.kill_mid = true;
-        this->tanzbar.kill_perc = true;
 
+        this->tanzbar_lo.kill = true;
+        this->tanzbar_mid.kill = true;
+        this->tanzbar_perc.kill = true;
         this->tanzbar_hi.kill = true;
 
         // Set bass
@@ -151,7 +171,10 @@ public:
     {
         // TODO: Add all instruments
         length = 0;
-        ptrs[length++] = (InstrumentBase*)&this->tanzbar;
+        ptrs[length++] = (InstrumentBase*)&this->tanzbar_lo;
+        ptrs[length++] = (InstrumentBase*)&this->tanzbar_mid;
+        ptrs[length++] = (InstrumentBase*)&this->tanzbar_perc;
+        ptrs[length++] = (InstrumentBase*)&this->tanzbar_hi;
         ptrs[length++] = (InstrumentBase*)&this->bass_settings;
         ptrs[length++] = (InstrumentBase*)&this->bass_dub_settings;
         ptrs[length++] = (InstrumentBase*)&this->mono_settings;

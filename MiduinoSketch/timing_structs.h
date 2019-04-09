@@ -28,4 +28,17 @@ public:
     MicroTimingStruct cl;
     MicroTimingStruct cb;
     MicroTimingStruct cy;
+
+    void randomize()
+    {
+        this->bd.randomize();
+        this->cb.randomize();
+        this->cl.randomize();
+        this->cp.randomize();
+        this->cy.randomize();
+        this->hh.randomize();
+        this->ma.randomize();
+        this->sd.randomize();
+        this->tc.randomize();
+    }
 };
