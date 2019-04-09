@@ -1,13 +1,16 @@
 *.o
 *.d
 *.suo
+*.dll
+*.exe
+*.lib
+*.exp
 
 **/Release
 **/__vm
 **/Debug
 **/x64
 **/.vs
-**/bin
 **/obj
 
 MiduinoSketch/CppProperties.json
