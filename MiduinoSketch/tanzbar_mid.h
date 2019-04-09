@@ -25,6 +25,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         Tanzbar::randomize_parameters(tanzbar_mid_params, nr_tanzbar_mid_params);
 
         this->sd_pattern.set_coef_snare_pattern();

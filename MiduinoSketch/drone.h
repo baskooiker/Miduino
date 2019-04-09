@@ -18,6 +18,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         uint8_t steps = Rand::randui8(5, 10);
         gate_pattern.set_euclid(16, steps);
         if (Rand::distribution(16, 16))

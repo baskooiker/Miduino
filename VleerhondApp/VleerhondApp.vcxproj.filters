@@ -40,9 +40,6 @@
     <ClCompile Include="src\VleerhondApp.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Rompler909.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src\ofxBpm.cpp">
       <Filter>addons\ofxBpm\src</Filter>
     </ClCompile>
@@ -882,9 +879,6 @@
       <Filter>addons\ofxMidi\libs\rtmidi</Filter>
     </ClInclude>
     <ClInclude Include="src\VleerhondApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Rompler909.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src\ofxBpm.h">

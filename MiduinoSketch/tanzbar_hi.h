@@ -30,6 +30,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         Tanzbar::randomize_parameters(tanzbar_hi_params, nr_tanzbar_hi_params);
 
         randomize_hi_seq();

@@ -381,7 +381,6 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalI
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core\activate.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core\allocator.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Rompler909.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -676,7 +675,6 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalI
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\ofxSIMDFloats.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\vectors\vect_ops.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\vectors\vect_transform.h" />
-    <ClInclude Include="src\Rompler909.h" />
     <ClInclude Include="src\VleerhondApp.h" />
   </ItemGroup>
   <ItemGroup>

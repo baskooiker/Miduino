@@ -38,6 +38,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         this->pitch_offset = Rand::randui8(36, 48);
         this->arp_data.range = Rand::randui8(12, 36);
 

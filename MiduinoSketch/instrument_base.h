@@ -5,6 +5,8 @@ class InstrumentBase
 protected:
     TimeStruct& time;
 
+    uint32_t last_randomized_time;
+
 public:
     PitchStorage storage;
     bool kill;
@@ -26,6 +28,11 @@ public:
     void stop_notes()
     {
         storage.all_notes_off();
+    }
+    
+    uint32_t randomized_time()
+    {
+        return last_randomized_time;
     }
 };
 

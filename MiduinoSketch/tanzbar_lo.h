@@ -22,6 +22,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         Tanzbar::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params);
 
         this->bd_pattern.set_coef_kick_pattern();

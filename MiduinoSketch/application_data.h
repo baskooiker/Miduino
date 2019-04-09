@@ -28,7 +28,6 @@ public:
     TanzbarModulators tanzbar_modulators;
     TanzbarTimeSettings tanzbar_time;
 
-    //Tanzbar tanzbar;
     TanzbarLo tanzbar_lo;
     TanzbarMid tanzbar_mid;
     TanzbarPerc tanzbar_perc;
@@ -47,7 +46,6 @@ public:
 
     ApplicationData():
         tanzbar_modulators(modulators),
-        //tanzbar(modulators, harmony, time),
         tanzbar_lo(tanzbar_modulators, tanzbar_time, time),
         tanzbar_mid(tanzbar_modulators, tanzbar_time, time),
         tanzbar_perc(tanzbar_modulators, tanzbar_time, time),
@@ -86,12 +84,43 @@ public:
         this->randomize_all();
     }
 
-    void play_all()
+    void probability_randomize()
     {
+        if (!Utils::interval_hit(TimeDivision::Four, time))
+        {
+            return;
+        }
+
         InstrumentBase* instruments[16];
         uint8_t length = 0;
         get_instrument_ptrs(instruments, length);
 
+        InstrumentBase* latest_randomize_ptr = instruments[0];
+        for (int i = 0; i < length; i++)
+        {
+            if (instruments[i]->randomized_time() < latest_randomize_ptr->randomized_time())
+            {
+                latest_randomize_ptr = instruments[i];
+            }
+        }
+
+        if (millis() - latest_randomize_ptr->randomized_time() < 30000)
+        {
+            if (Rand::distribution(32, 96) == 0)
+            {
+                latest_randomize_ptr->randomize();
+            }
+        }
+
+    }
+
+    void play_all()
+    {
+        probability_randomize();
+
+        InstrumentBase* instruments[16];
+        uint8_t length = 0;
+        get_instrument_ptrs(instruments, length);
         for (int i = 0; i < length; i++)
         {
             instruments[i]->play();
@@ -100,40 +129,27 @@ public:
 
     void process_active_notes()
     {
-        this->tanzbar_lo.storage.process_active_notes();
-        this->tanzbar_mid.storage.process_active_notes();
-        this->tanzbar_perc.storage.process_active_notes();
-        this->tanzbar_hi.storage.process_active_notes();
-
-        this->bass_settings.storage.process_active_notes();
-        this->bass_dub_settings.storage.process_active_notes();
-        this->drone.storage.process_active_notes();
-        this->mono_settings.storage.process_active_notes();
-        this->mono_dub_settings.storage.process_active_notes();
-        poly_settings.storage.process_active_notes();
-        lead_settings.storage.process_active_notes();
+        InstrumentBase* instruments[16];
+        uint8_t length = 0;
+        get_instrument_ptrs(instruments, length);
+        for (int i = 0; i < length; i++)
+        {
+            instruments[i]->storage.process_active_notes();
+        }
     }
 
     void randomize_all()
     {
+        InstrumentBase* instruments[16];
+        uint8_t length = 0;
+        get_instrument_ptrs(instruments, length);
+        for (int i = 0; i < length; i++)
+        {
+            instruments[i]->randomize();
+        }
+
         this->harmony.randomize();
-
         this->fugue_settings.randomize_fugue();
-
-        this->tanzbar_lo.randomize();
-        this->tanzbar_mid.randomize();
-        this->tanzbar_perc.randomize();
-        this->tanzbar_hi.randomize();
-
-        this->bass_settings.randomize();
-        this->drone.randomize();
-        this->bass_dub_settings.randomize();
-
-        this->mono_settings.randomize();
-        this->mono_dub_settings.randomize();
-
-        poly_settings.randomize();
-        lead_settings.randomize();
     }
 
     void set_fugue()

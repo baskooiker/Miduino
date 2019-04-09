@@ -24,6 +24,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         MonoSettings::randomize();
         switch (Rand::distribution(16, 16))
         {

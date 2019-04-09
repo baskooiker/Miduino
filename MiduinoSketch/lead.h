@@ -24,6 +24,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         this->min_pitch_pattern.randomize(60, 78);
         switch (Rand::randui8(3))
         {

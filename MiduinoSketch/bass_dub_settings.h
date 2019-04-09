@@ -33,6 +33,7 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
         switch (Rand::distribution(0, 30, 10))
         {
         case 0:

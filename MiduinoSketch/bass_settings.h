@@ -48,6 +48,8 @@ public:
 
     void randomize()
     {
+        last_randomized_time = millis();
+
         // Randomize octaves
         this->octaves.randomize(2, Rand::randui8(4, 6));
         this->octaves.patterns[0].set(0, 0);
