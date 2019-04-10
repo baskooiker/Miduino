@@ -5,7 +5,7 @@
 *.exe
 *.lib
 *.exp
-*.odb
+*.pdb
 *.iobj
 *.ipdb
 
