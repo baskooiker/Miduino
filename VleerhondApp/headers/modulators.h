@@ -68,6 +68,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("modulators", "randomize()");
         switch (Rand::distribution(16, 16, 16, 16))
         {
         case 0: this->randomize_low(); break;
@@ -92,6 +93,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("modulators", "randomize()");
         lfo_a.randomize();
         lfo_b.randomize();
         lfo_c.randomize();
@@ -195,6 +197,7 @@ protected:
 public:
     void randomize()
     {
+        ofLogNotice("modulators", "randomize()");
         switch (Rand::randui8(13))
         {
         default:

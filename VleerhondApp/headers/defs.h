@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include "consts.h"
 #include "enums.h"
 

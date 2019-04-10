@@ -6,9 +6,8 @@ protected:
     TanzbarModulators& tanzbar_modulators;
     TanzbarTimeSettings& tanzbar_time;
 
-    GatePatternAB bd_pattern;
-
 public:
+    GatePatternAB bd_pattern;
 
     TanzbarLo(
         TanzbarModulators& tanzbar_modulators_ref,
@@ -22,6 +21,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("tanzbar_lo", "randomize()");
         last_randomized_time = millis();
 
         Tanzbar::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params);

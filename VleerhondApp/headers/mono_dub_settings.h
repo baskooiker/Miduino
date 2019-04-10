@@ -24,6 +24,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("mono_dub", "randomize()");
         last_randomized_time = millis();
 
         MonoSettings::randomize();

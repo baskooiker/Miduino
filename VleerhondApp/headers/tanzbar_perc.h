@@ -28,6 +28,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("tanzbar_perc", "randomize()");
         last_randomized_time = millis();
 
         Tanzbar::randomize_parameters(tanzbar_perc_params, nr_tanzbar_perc_params);

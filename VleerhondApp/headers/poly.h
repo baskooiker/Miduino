@@ -26,6 +26,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("poly", "randomize()");
         last_randomized_time = millis();
 
         // Set pattern low

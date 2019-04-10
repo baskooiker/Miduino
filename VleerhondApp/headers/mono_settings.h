@@ -38,6 +38,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("mono", "randomize()");
         last_randomized_time = millis();
 
         this->pitch_offset = Rand::randui8(36, 48);

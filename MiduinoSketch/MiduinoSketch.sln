@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MiduinoSketch", "MiduinoSketch.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DevApp", "..\DevApp\DevApp.vcxproj", "{F2FB6F5D-413D-4169-99DC-3C0DC7213041}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5837595D-ACA9-485C-8E76-729040CE4B0B} = {5837595D-ACA9-485C-8E76-729040CE4B0B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "openFrameworksLib", "..\..\..\..\OF\of_v0.10.1_vs2017_release\libs\openFrameworksCompiled\project\vs\openFrameworksLib.vcxproj", "{5837595D-ACA9-485C-8E76-729040CE4B0B}"
 EndProject

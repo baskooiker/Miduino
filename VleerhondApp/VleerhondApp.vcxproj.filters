@@ -807,6 +807,9 @@
     <Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
       <UniqueIdentifier>{2a00fb95-5d8b-46c1-a596-0e2d486d8a3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers">
+      <UniqueIdentifier>{2d240f40-f3e7-4693-96c8-4904b9333fc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.h">
@@ -1684,6 +1687,135 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\ab.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\application_data.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\arp.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\bass_dub_settings.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\bass_settings.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\callbacks.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\chords.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\consts.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\cv_patterns.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\defs.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\drone.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\enums.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\euclid.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\fugue.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\gate_patterns.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\harmony_struct.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instrument_base.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\interval_pattern.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\intervals.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\lead.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mfb_503.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mfb_522.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\midi_channel.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\midi_io.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\modulators.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mono_dub_settings.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\mono_settings.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\note_struct.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\poly.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\print.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rand.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\scale.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\step_callbacks.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\steps.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\tanzbar_hi.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\tanzbar_lo.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\tanzbar_mid.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\tanzbar_perc.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\tanzbar_settings.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\time_struct.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\timing_structs.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\ui.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils.h">
+      <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

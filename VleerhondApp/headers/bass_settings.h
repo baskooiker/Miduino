@@ -48,6 +48,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("bass", "randomize()");
         last_randomized_time = millis();
 
         // Randomize octaves

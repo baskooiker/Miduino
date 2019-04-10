@@ -105,6 +105,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("tanzbar", "randomize()");
         uint8_t range = Rand::randui8(128, 64);
         this->cl_pitch.randomize(range, 127 - range, MODULATOR_PROB);
 

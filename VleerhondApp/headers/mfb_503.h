@@ -88,6 +88,13 @@ public:
         this->bd_pattern.patterns[bar].set_kick_fill(half * 8);
     }
 
+    void randomize()
+    {
+        ofLogNotice("mfb_503", "randomize()");
+        randomize_503_seq();
+        randomize_503_sound();
+    }
+
     void randomize_503_seq()
     {
         this->bd_pattern.set_coef_kick_pattern();

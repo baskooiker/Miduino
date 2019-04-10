@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ofMain.h"
+
 class InstrumentBase
 {
 protected:

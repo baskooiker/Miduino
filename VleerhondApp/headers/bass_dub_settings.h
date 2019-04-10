@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ofMain.h"
+
 #include "gate_patterns.h"
 #include "instrument_base.h"
 #include "fugue.h"
@@ -34,6 +36,8 @@ public:
     void randomize()
     {
         last_randomized_time = millis();
+        ofLogNotice("bass_dub", "randomize()");
+
         switch (Rand::distribution(0, 30, 10))
         {
         case 0:

@@ -1,8 +1,12 @@
 #pragma once
 
+#include "ofMain.h"
+
 #include "defs.h"
 #include "scale.h"
 #include "chords.h"
+
+const std::string HARMONY = "harmony";
 
 class HarmonyStruct {
 public:
@@ -29,6 +33,7 @@ public:
     }
     void randomize()
     {
+        ofLogNotice(HARMONY, "randomize()");
         // Set const pattern
         switch (Rand::distribution(64, 16))
         {

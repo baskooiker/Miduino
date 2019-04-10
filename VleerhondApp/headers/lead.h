@@ -24,6 +24,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("lead", "randomize()");
         last_randomized_time = millis();
 
         this->min_pitch_pattern.randomize(60, 78);

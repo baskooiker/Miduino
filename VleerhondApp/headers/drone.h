@@ -18,6 +18,7 @@ public:
 
     void randomize()
     {
+        ofLogNotice("drone", "randomize()");
         last_randomized_time = millis();
 
         uint8_t steps = Rand::randui8(5, 10);
