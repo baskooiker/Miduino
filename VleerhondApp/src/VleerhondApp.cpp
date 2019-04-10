@@ -5,6 +5,8 @@
 #include "ofxMidiIn.h"
 
 #include "callbacks.h"
+#include "defs.h"
+#include "midi_io.h"
 
 ofxMidiOut midi_out_a;
 ofxMidiOut midi_out_b;

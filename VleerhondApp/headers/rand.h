@@ -55,12 +55,12 @@ public:
     }
     
     static uint8_t distribution(
-        const uint8_t a, 
-        const uint8_t b, 
-        const uint8_t c = 0, 
-        const uint8_t d = 0,
-        const uint8_t e = 0,
-        const uint8_t f = 0)
+        const uint16_t a, 
+        const uint16_t b, 
+        const uint16_t c = 0, 
+        const uint16_t d = 0,
+        const uint16_t e = 0,
+        const uint16_t f = 0)
     {
         uint16_t total = (uint16_t)a + (uint16_t)b + (uint16_t)c + (uint16_t)d + (uint16_t)e + (uint16_t)f;
         uint16_t r = randui16(total);

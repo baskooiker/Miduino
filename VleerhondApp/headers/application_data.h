@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+
 #include "bass_settings.h"
 #include "defs.h"
 #include "harmony_struct.h"
@@ -86,7 +88,7 @@ public:
 
     void probability_randomize()
     {
-        if (!Utils::interval_hit(TimeDivision::Four, time))
+        if (!Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP)))
         {
             return;
         }
@@ -104,9 +106,10 @@ public:
             }
         }
 
-        if (millis() - latest_randomize_ptr->randomized_time() < 30000)
+        uint64_t diff = millis() - latest_randomize_ptr->randomized_time();
+        if (diff > 60000)
         {
-            if (Rand::distribution(32, 96) == 0)
+            if(Rand::distribution(diff / 1000, 240) == 0)
             {
                 latest_randomize_ptr->randomize();
             }
@@ -116,8 +119,6 @@ public:
 
     void play_all()
     {
-        probability_randomize();
-
         InstrumentBase* instruments[16];
         uint8_t length = 0;
         get_instrument_ptrs(instruments, length);
@@ -125,6 +126,8 @@ public:
         {
             instruments[i]->play();
         }
+
+        probability_randomize();
     }
 
     void process_active_notes()
@@ -143,9 +146,12 @@ public:
         InstrumentBase* instruments[16];
         uint8_t length = 0;
         get_instrument_ptrs(instruments, length);
-        for (int i = 0; i < length; i++)
+        std::vector<InstrumentBase*> inst_ptrs(instruments, instruments + length);
+        std::random_shuffle(inst_ptrs.begin(), inst_ptrs.end());
+        ofLogNotice("application_data", "%d == %d", length, inst_ptrs.size());
+        for (auto& value : inst_ptrs)
         {
-            instruments[i]->randomize();
+            value->randomize();
         }
 
         this->harmony.randomize();

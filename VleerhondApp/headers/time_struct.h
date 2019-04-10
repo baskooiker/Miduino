@@ -73,5 +73,12 @@ public:
         this->average_pulse_time = 500.f;
     }
 
+    TimeStruct add(const int32_t offset)
+    {
+        TimeStruct time_cp = *this;
+        time_cp.tick += offset;
+        return time_cp;
+    }
+
 };
 
