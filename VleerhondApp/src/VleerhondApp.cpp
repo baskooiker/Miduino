@@ -136,10 +136,13 @@ void VleerhondApp::setup()
 
     initialize_midi_ports();
 
-    if (!midi_in.isOpen() || !midi_out_a.isOpen() || !midi_out_b.isOpen())
+    if (virtual_ports)
     {
-        printf("One or more ports failed to open. EXIT!\n");
-        ofExit();
+        ofSetBackgroundColor(0);
+    }
+    else
+    {
+        ofSetBackgroundColor(128);
     }
 
     // don't ignore sysex, timing, & active sense messages,
@@ -191,10 +194,9 @@ void VleerhondApp::keyPressed(int key){
         data.randomize_all();
         break;
     case 'c' :
-        //gate_ctrl.trigger(1.0f);
         break;
     default:
-        ofLogNotice(MODULE, "Unhandled key pressed: %3d\n", key);
+        //ofLogNotice(MODULE, "Unhandled key pressed: %3d\n", key);
         break;
     }
 }

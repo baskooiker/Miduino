@@ -88,21 +88,17 @@ public:
 
     void probability_randomize()
     {
-        if (!Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP)))
+        if (!Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
         {
             return;
         }
 
-        InstrumentBase* instruments[16];
-        uint8_t length = 0;
-        get_instrument_ptrs(instruments, length);
-
-        InstrumentBase* latest_randomize_ptr = instruments[0];
-        for (int i = 0; i < length; i++)
+        InstrumentBase* latest_randomize_ptr = &tanzbar_hi;
+        for (auto instrument : get_instrument_ptrs())
         {
-            if (instruments[i]->randomized_time() < latest_randomize_ptr->randomized_time())
+            if (instrument->randomized_time() < latest_randomize_ptr->randomized_time())
             {
-                latest_randomize_ptr = instruments[i];
+                latest_randomize_ptr = instrument;
             }
         }
 
@@ -119,12 +115,9 @@ public:
 
     void play_all()
     {
-        InstrumentBase* instruments[16];
-        uint8_t length = 0;
-        get_instrument_ptrs(instruments, length);
-        for (int i = 0; i < length; i++)
+        for (auto instrument : get_instrument_ptrs())
         {
-            instruments[i]->play();
+            instrument->play();
         }
 
         probability_randomize();
@@ -132,23 +125,16 @@ public:
 
     void process_active_notes()
     {
-        InstrumentBase* instruments[16];
-        uint8_t length = 0;
-        get_instrument_ptrs(instruments, length);
-        for (int i = 0; i < length; i++)
+        for (auto instrument : get_instrument_ptrs())
         {
-            instruments[i]->storage.process_active_notes();
+            instrument->storage.process_active_notes();
         }
     }
 
     void randomize_all()
     {
-        InstrumentBase* instruments[16];
-        uint8_t length = 0;
-        get_instrument_ptrs(instruments, length);
-        std::vector<InstrumentBase*> inst_ptrs(instruments, instruments + length);
+        auto inst_ptrs = get_instrument_ptrs();
         std::random_shuffle(inst_ptrs.begin(), inst_ptrs.end());
-        ofLogNotice("application_data", "%d == %d", length, inst_ptrs.size());
         for (auto& value : inst_ptrs)
         {
             value->randomize();
@@ -180,41 +166,34 @@ public:
 
     void process_events()
     {
-        InstrumentBase* instruments[16];
-        uint8_t length = 0;
-        get_instrument_ptrs(instruments, length);
-        for (int i = 0; i < length; i++)
+        for (auto instrument : get_instrument_ptrs())
         {
-            instruments[i]->process_events();
+            instrument->process_events();
         }
     }
 
-    void get_instrument_ptrs(InstrumentBase** ptrs, uint8_t& length)
+    std::vector<InstrumentBase*> get_instrument_ptrs()
     {
-        // TODO: Add all instruments
-        length = 0;
-        ptrs[length++] = (InstrumentBase*)&this->tanzbar_lo;
-        ptrs[length++] = (InstrumentBase*)&this->tanzbar_mid;
-        ptrs[length++] = (InstrumentBase*)&this->tanzbar_perc;
-        ptrs[length++] = (InstrumentBase*)&this->tanzbar_hi;
-        ptrs[length++] = (InstrumentBase*)&this->bass_settings;
-        ptrs[length++] = (InstrumentBase*)&this->bass_dub_settings;
-        ptrs[length++] = (InstrumentBase*)&this->mono_settings;
-        ptrs[length++] = (InstrumentBase*)&this->mono_dub_settings;
-        ptrs[length++] = (InstrumentBase*)&this->poly_settings;
-        ptrs[length++] = (InstrumentBase*)&this->lead_settings;
-        ptrs[length++] = (InstrumentBase*)&this->drone;
+        std::vector<InstrumentBase*> ptrs;
+        ptrs.push_back(&this->tanzbar_lo);
+        ptrs.push_back(&this->tanzbar_mid);
+        ptrs.push_back(&this->tanzbar_perc);
+        ptrs.push_back(&this->tanzbar_hi);
+        ptrs.push_back(&this->bass_settings);
+        ptrs.push_back(&this->bass_dub_settings);
+        ptrs.push_back(&this->mono_settings);
+        ptrs.push_back(&this->mono_dub_settings);
+        ptrs.push_back(&this->poly_settings);
+        ptrs.push_back(&this->lead_settings);
+        ptrs.push_back(&this->drone);
+        return ptrs;
     }
 
     void stop_all()
     {
-
-        InstrumentBase* instruments[16];
-        uint8_t length = 0;
-        get_instrument_ptrs(instruments, length);
-        for (int i = 0; i < length; i++)
+        for (auto instrument: get_instrument_ptrs())
         {
-            instruments[i]->stop_notes();
+            instrument->stop_notes();
         }
     }
 };

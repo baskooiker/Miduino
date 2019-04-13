@@ -28,16 +28,19 @@ public:
         last_randomized_time = millis();
 
         MonoSettings::randomize();
-        switch (Rand::distribution(16, 16))
+
+        switch (Rand::distribution(16, 16, 16))
         {
         case 0: this->note_interval = NoteInterval::IntervalRoot; break;
-        case 1: this->note_interval = NoteInterval::IntervalFifth; break;
+        case 1: this->note_interval = NoteInterval::IntervalThird; break;
+        case 2: this->note_interval = NoteInterval::IntervalFifth; break;
         }
     }
 
     void play()
     {
         this->check_arp_reset();
+
         if (this->kill)
             return;
 

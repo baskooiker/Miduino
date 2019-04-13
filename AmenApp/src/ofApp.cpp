@@ -4,27 +4,30 @@
 #include "rand.h"
 
 std::string MODULE = "ofApp";
+const uint8_t NR_STEPS = 4;
+#define PPQN 24
 
 typedef struct 
 {
     std::string file_name;
-    uint8_t length;
-    uint8_t swing;
+    uint8_t steps_length;
+    uint8_t offset;
+    uint8_t loop_length_;
+    double loop_length_factor;
 } LoopStruct;
 
 LoopStruct samples[] = {
-    {"data/AmenBreak.wav",            64, 0},
-    {"data/slowdown.wav",             32, 0},
-    {"data/stone_fox_chase.wav",      48, 0},
-    {"data/teamo.wav",                32, 0},
-
-    //{"data/lovedrops.wav",            32, 0},
-    //{"data/sexy_coffee_pot.wav",     128, 0},
-    //{"data/soul_chicken.wav",         32, 0},
-    //{"data/speed_kills.wav",          32, 0},
-    //{"data/walk_this_way.wav",        32, 0},
-    //{"data/long_one.wav",             16, 0},
-    //{"data/got_to_get_me_a_job.wav",  32, 0},
+    {"data/AmenBreak.wav",            64, 0, 16, 1.0},
+    {"data/slowdown.wav",             32, 0, 16, 1.0},
+    {"data/stone_fox_chase.wav",      48, 0, 16, 1.0},
+    {"data/teamo.wav",                32, 0, 16, 1.0},
+    {"data/lovedrops.wav",            32, 0, 16, 1.0},
+    {"data/sexy_coffee_pot.wav",     128, 0, 16, 1.0},
+    {"data/soul_chicken.wav",         32, 0, 16, 1.0},
+    {"data/speed_kills.wav",          32, 0, 16, 1.0},
+    {"data/walk_this_way.wav",        32, 0, 16, 1.0},
+    {"data/long_one.wav",             16, 0, 16, 1.0},
+    {"data/got_to_get_me_a_job.wav",  32, 0, 16, 1.0},
 };
 static const uint8_t nr_of_samples = sizeof(samples) / sizeof(*samples);
 
@@ -74,7 +77,7 @@ void ofApp::setup(){
 void ofApp::repitch_sample(float pulse_time)
 {
     // Repitch
-    int samples_per_step = sample_buffer.length / loaded_sample.length;
+    int samples_per_step = (sample_buffer.length * loaded_sample.loop_length_factor) / loaded_sample.steps_length;
     int orig_samples_per_step = (sample_buffer.fileSampleRate * pulse_time) / 1000;
     double cents = 12. * std::log2((double)samples_per_step / (double)orig_samples_per_step) / log2(2);
     pitch_ctrl.set(cents);
@@ -85,15 +88,14 @@ void ofApp::repitch_sample(float pulse_time)
 
 void ofApp::playSample(int index)
 {
-    repitch_sample(avg_pulse_time / 4.);
-    start_ctrl.set((index % loaded_sample.length) / (double)loaded_sample.length);
+    repitch_sample(avg_pulse_time / (double)NR_STEPS);
+    start_ctrl.set((index % loaded_sample.steps_length) / (double)loaded_sample.steps_length);
     gate_ctrl.trigger(1);
 }
 
 void ofApp::play()
 {
-    const int NR_STEPS = 4;
-    if (count % (6 * NR_STEPS) == 0)
+    if (count % PPQN == 0)
     {
         uint64_t t = ofGetSystemTime();
         if (count <= (6 * NR_STEPS) + 1)
@@ -106,13 +108,17 @@ void ofApp::play()
         }
         last_tick = t;
 
+        ofLogVerbose(MODULE, "pulse time : %f", avg_pulse_time);
+    }
+
+    if (count % (6 * NR_STEPS) == 0)
+    {
         float gate_time = (NR_STEPS * avg_pulse_time);
         gate_time * .75 >> env.in_hold();
         gate_time * 1.0 >> env.in_release();
         playSample(count / 6);
-
-        ofLogVerbose(MODULE, "pulse time : %f", avg_pulse_time);
     }
+
     count++;
 }
 

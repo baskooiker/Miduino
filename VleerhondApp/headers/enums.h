@@ -47,7 +47,6 @@ enum BassDubStyle {
     DubUnison,
     DubOctave,
     DubOctProbability,
-    //DubHitProbability,
     DubFugue
 };
 

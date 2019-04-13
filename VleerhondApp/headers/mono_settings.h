@@ -5,6 +5,27 @@
 #include "arp.h"
 #include "rand.h"
 
+class StrUtils
+{
+public:
+    static const std::string get_string(const MonoStyle style)
+    {
+        switch (style)
+        {
+        case MonoStyle::MonoFugue:
+            return "fugue";
+        case MonoStyle::MonoLeadPattern:
+            return "lead_pattern";
+        case MonoStyle::MonoPolyRhythm:
+            return "poly_rhythm";
+        case MonoStyle::MonoSixteenths:
+            return "sixteenths";
+        default:
+            return "invalid style";
+        }
+    }
+};
+
 class MonoSettings : public TonalInstrumentBase
 {
 protected:
@@ -61,10 +82,6 @@ public:
 
         this->gate_pattern.set_euclid(Rand::randui8(5, 8), 1);
         this->gate_pattern.time_division = TimeDivision::Sixteenth;
-        if (Rand::distribution(16, 16) > 0)
-        {
-            gate_pattern.remove_one();
-        }
 
         this->lead_pattern.randomize_interval_lead();
 
@@ -76,6 +93,7 @@ public:
         case 3: arp_reset_interval = TimeDivision::Eight; break;
         }
         
+        ofLogNotice("mono", "mono type = %s", StrUtils::get_string(this->style).c_str());
     }
 
     bool get_mono_hit() const

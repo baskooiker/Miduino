@@ -189,21 +189,12 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
     case BSP_PAD_12:
         break;
     case BSP_PAD_13:
-        data.fugue_settings.randomize_fugue_player(0);
-        data.bass_settings.style = BassStyle::BassFugue;
         break;
     case BSP_PAD_14:
-        data.fugue_settings.randomize_fugue_player(1);
-        data.bass_dub_settings.style = BassDubStyle::DubFugue;
         break;
     case BSP_PAD_15:
-        data.fugue_settings.randomize_fugue_player(2);
-        data.mono_settings.style = MonoStyle::MonoFugue;
         break;
     case BSP_PAD_16:
-        data.fugue_settings.randomize_fugue_player(3);
-        data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
-        data.mono_dub_settings.style = MonoStyle::MonoFugue;
         break;
     default:
         break;

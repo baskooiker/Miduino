@@ -115,7 +115,7 @@ public:
     {
         uint8_t rv = pitch;
         uint8_t steps = note_interval;
-        for (int i = pitch; i < 128; i++)
+        for (int i = pitch + 1; i < 128; i++)
         {
             if (this->contains(i))
             {

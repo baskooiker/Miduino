@@ -128,16 +128,24 @@ public:
         switch (this->hat_closed_style)
         {
         case HatClosedStyle::HatClosedInterval:
+        {
             this->tanzbar_modulators.hats_vel.value(time, velocity);
 
-            if (this->hat_int_pattern.hit(time))
+            TimeDivision div = this->hat_int_pattern.interval(time);
+            if (Utils::interval_hit(div, time))
             {
+                uint8_t shuffle_delay = 0;
+                if (div < TimeDivision::Sixteenth)
+                {
+                    shuffle_delay = time.get_shuffle_delay(this->tanzbar_time.hh);
+                }
                 this->storage.note_on(
                     NoteStruct(NOTE_TANZBAR_HH, velocity),
-                    time.get_shuffle_delay(this->tanzbar_time.hh)
+                    shuffle_delay
                 );
             }
             break;
+        }
         case HatClosedStyle::HatClosedRegular:
             if (this->hh_pattern.gate(time))
             {

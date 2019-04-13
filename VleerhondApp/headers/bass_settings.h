@@ -242,7 +242,14 @@ public:
             if (this->slides.gate(time))
             {
                 length = time.ticks_left_in_bar();
-                note_type = NoteType::Tie;
+                note_type = NoteType::Slide;
+            }
+            else
+            {
+                if (!this->get_bass_hit(this->density, time.add(TICKS_PER_STEP)))
+                {
+                    length = TICKS_PER_STEP * 2;
+                }
             }
 
             // Play it!
