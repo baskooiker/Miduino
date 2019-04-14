@@ -18,7 +18,7 @@ public:
     PolyType type;
 
     PolySettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        TonalInstrumentBase(harmony_ref, time_ref)
+        TonalInstrumentBase(harmony_ref, time_ref, true)
     {
         pitch_offset = 48;
         type = PolyType::PolyLow;

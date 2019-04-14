@@ -8,15 +8,17 @@ protected:
     TimeStruct& time;
 
     uint32_t last_randomized_time;
+    bool randomizable;
 
 public:
     PitchStorage storage;
     bool kill;
 
-    InstrumentBase(TimeStruct& time_ref) :
+    InstrumentBase(TimeStruct& time_ref, const bool is_randomizable) :
         time(time_ref)
     {
         kill = false;
+        randomizable = is_randomizable;
     }
 
     virtual void play() = 0;
@@ -36,6 +38,11 @@ public:
     {
         return last_randomized_time;
     }
+
+    bool is_randomizable()
+    {
+        return randomizable;
+    }
 };
 
 class TonalInstrumentBase : public InstrumentBase
@@ -44,8 +51,8 @@ protected:
     HarmonyStruct& harmony;
 
 public:
-    TonalInstrumentBase(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        InstrumentBase(time_ref),
+    TonalInstrumentBase(HarmonyStruct& harmony_ref, TimeStruct& time_ref, const bool is_randomizable) :
+        InstrumentBase(time_ref, is_randomizable),
         harmony(harmony_ref)
     {
     }

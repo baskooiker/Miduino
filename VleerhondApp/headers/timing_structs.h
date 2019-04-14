@@ -1,5 +1,6 @@
 #pragma once
 
+#include "defs.h"
 #include "rand.h"
 
 class MicroTimingStruct
@@ -22,7 +23,6 @@ public:
     MicroTimingStruct bd;
     MicroTimingStruct sd;
     MicroTimingStruct cp;
-    MicroTimingStruct hh;
     MicroTimingStruct tc;
     MicroTimingStruct ma;
     MicroTimingStruct cl;
@@ -36,7 +36,6 @@ public:
         this->cl.randomize();
         this->cp.randomize();
         this->cy.randomize();
-        this->hh.randomize();
         this->ma.randomize();
         this->sd.randomize();
         this->tc.randomize();

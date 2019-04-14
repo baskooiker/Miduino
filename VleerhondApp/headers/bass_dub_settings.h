@@ -23,7 +23,7 @@ public:
         FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref, 
         TimeStruct& time_ref):
-        TonalInstrumentBase(harmony_ref, time_ref),
+        TonalInstrumentBase(harmony_ref, time_ref, false),
         bass_settings(bass_settings_ref),
         fugue_settings(fugue_settings_ref)
     {

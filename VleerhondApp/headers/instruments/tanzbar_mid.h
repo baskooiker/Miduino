@@ -17,7 +17,7 @@ public:
         TanzbarModulators& tanzbar_modulators_ref,
         TanzbarTimeSettings& tanzbar_time_ref,
         TimeStruct& time_ref) :
-        InstrumentBase(time_ref),
+        InstrumentBase(time_ref, true),
         tanzbar_modulators(tanzbar_modulators_ref),
         tanzbar_time(tanzbar_time_ref)
     {

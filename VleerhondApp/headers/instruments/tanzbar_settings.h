@@ -86,7 +86,6 @@ public:
     ModulationReceiver cp_trig;
     ModulationReceiver cy_tune;
     ModulationReceiver cy_vel;
-    ModulationReceiver hats_vel;
     ModulationReceiver tom_vel;
 
     TanzbarModulators(Modulators& modulators) :
@@ -97,7 +96,6 @@ public:
         cp_trig(modulators),
         cy_tune(modulators),
         cy_vel(modulators),
-        hats_vel(modulators),
         tom_vel(modulators)
     {
 
@@ -122,9 +120,6 @@ public:
 
         range = Rand::randui8(128);
         this->cy_tune.randomize(range, 127 - range, MODULATOR_PROB);
-
-        range = Rand::randui8(16, 64);
-        this->hats_vel.randomize(range, 127 - range);
 
         range = Rand::randui8(16, 64);
         this->cy_vel.randomize(range, 127 - range);

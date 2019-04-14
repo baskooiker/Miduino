@@ -17,7 +17,7 @@ public:
     LeadStyle style;
 
     LeadSettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        TonalInstrumentBase(harmony_ref, time_ref)
+        TonalInstrumentBase(harmony_ref, time_ref, true)
     {
         style = LeadStyle::LeadSlow;
     }

@@ -11,6 +11,7 @@
 #include "tanzbar_mid.h"
 #include "tanzbar_perc.h"
 #include "tanzbar_hi.h"
+#include "tanzbar_hats.h"
 #include "bass_dub_settings.h"
 #include "mono_settings.h"
 #include "mono_dub_settings.h"
@@ -34,6 +35,7 @@ public:
     TanzbarMid tanzbar_mid;
     TanzbarPerc tanzbar_perc;
     TanzbarHi tanzbar_hi;
+    TanzbarHats tanzbar_hats;
 
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;
@@ -52,6 +54,7 @@ public:
         tanzbar_mid(tanzbar_modulators, tanzbar_time, time),
         tanzbar_perc(tanzbar_modulators, tanzbar_time, time),
         tanzbar_hi(tanzbar_modulators, tanzbar_time, time),
+        tanzbar_hats(modulators, time),
         bass_settings(fugue_settings, harmony, time),
         bass_dub_settings(bass_settings, fugue_settings, harmony, time),
         mono_settings(fugue_settings, harmony, time),
@@ -93,8 +96,9 @@ public:
             return;
         }
 
-        InstrumentBase* latest_randomize_ptr = &tanzbar_hi;
-        for (auto instrument : get_instrument_ptrs())
+        std::vector<InstrumentBase*> ptrs = get_instrument_ptrs();
+        InstrumentBase* latest_randomize_ptr = ptrs.at(0);
+        for (auto instrument : ptrs)
         {
             if (instrument->randomized_time() < latest_randomize_ptr->randomized_time())
             {
@@ -179,6 +183,7 @@ public:
         ptrs.push_back(&this->tanzbar_mid);
         ptrs.push_back(&this->tanzbar_perc);
         ptrs.push_back(&this->tanzbar_hi);
+        ptrs.push_back(&this->tanzbar_hats);
         ptrs.push_back(&this->bass_settings);
         ptrs.push_back(&this->bass_dub_settings);
         ptrs.push_back(&this->mono_settings);
@@ -186,6 +191,20 @@ public:
         ptrs.push_back(&this->poly_settings);
         ptrs.push_back(&this->lead_settings);
         ptrs.push_back(&this->drone);
+        return ptrs;
+    }
+
+    std::vector<InstrumentBase*> get_randomizable_instruments()
+    {
+        std::vector<InstrumentBase*> ptrs;
+        std::vector<InstrumentBase*> all_ptrs = get_instrument_ptrs();
+        for (auto ptr : all_ptrs)
+        {
+            if (ptr->is_randomizable())
+            {
+                ptrs.push_back(ptr);
+            }
+        }
         return ptrs;
     }
 

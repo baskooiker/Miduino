@@ -71,7 +71,7 @@ public:
     uint8_t bd_decay_factor;
 
     Mfb503Settings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-        TonalInstrumentBase(harmony_ref, time_ref)
+        TonalInstrumentBase(harmony_ref, time_ref, true)
     {
         hat_closed_style = HatClosedStyle::HatClosedRegular;
         volume_tom = 0;

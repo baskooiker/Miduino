@@ -62,6 +62,8 @@ void MidiIO::send_cc(uint8_t cc, uint8_t value, uint8_t channel)
 
 void initialize_midi_ports()
 {
+    ofSetBackgroundColor(0);
+
     virtual_ports = false;
     uint8_t num_ports = midi_out_a.getNumOutPorts();
     printf("%d\n", num_ports);
@@ -128,13 +130,6 @@ void initialize_midi_ports()
         printf("Virtual port '%s' is open = %d\n", midi_in_name.c_str(), midi_in.isOpen());
         virtual_ports = true;
     }
-}
-
-void VleerhondApp::setup()
-{
-    ofLogToConsole();
-
-    initialize_midi_ports();
 
     if (virtual_ports)
     {
@@ -144,6 +139,14 @@ void VleerhondApp::setup()
     {
         ofSetBackgroundColor(128);
     }
+
+}
+
+void VleerhondApp::setup()
+{
+    ofLogToConsole();
+
+    initialize_midi_ports();
 
     // don't ignore sysex, timing, & active sense messages,
     // these are ignored by default
@@ -192,6 +195,8 @@ void VleerhondApp::keyPressed(int key){
     case 'r':
         ofLogNotice(MODULE, "Randomize");
         data.randomize_all();
+        break;
+    case 'i':
         break;
     case 'c' :
         break;

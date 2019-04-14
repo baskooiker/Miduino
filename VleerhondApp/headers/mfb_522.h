@@ -27,7 +27,7 @@ public:
     IntervalPattern hh_int_pattern;
 
     Mfb522Settings(TimeStruct& time_ref) :
-        InstrumentBase(time_ref)
+        InstrumentBase(time_ref, true)
     {
         use_hh_int = false;
     }

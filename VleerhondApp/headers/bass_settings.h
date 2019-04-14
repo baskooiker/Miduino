@@ -36,7 +36,7 @@ public:
         FugueSettings& fugue_settings_ref,
         HarmonyStruct& harmony_ref,
         TimeStruct& time_ref) :
-        TonalInstrumentBase(harmony_ref, time_ref),
+        TonalInstrumentBase(harmony_ref, time_ref, false),
         fugue_settings(fugue_settings_ref)
     {
         pitch_range = 0;
