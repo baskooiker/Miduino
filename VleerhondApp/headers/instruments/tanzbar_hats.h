@@ -25,6 +25,8 @@ public:
         hats_vel(modulators_ref)
     {
         hat_closed_style = HatClosedStyle::HatClosedRegular;
+        randomize();
+        kill = false;
     }
 
     void randomize()

@@ -197,6 +197,7 @@ void VleerhondApp::keyPressed(int key){
         data.randomize_all();
         break;
     case 'i':
+        initialize_midi_ports();
         break;
     case 'c' :
         break;

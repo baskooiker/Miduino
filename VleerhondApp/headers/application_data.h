@@ -67,6 +67,7 @@ public:
         tanzbar_mid.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         tanzbar_perc.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         tanzbar_hi.storage.set_channel(MIDI_CHANNEL_TANZBAR);
+        tanzbar_hats.storage.set_channel(MIDI_CHANNEL_TANZBAR);
 
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
         mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
