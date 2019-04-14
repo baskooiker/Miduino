@@ -553,6 +553,9 @@
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\tanzbar_cy.cpp">
+      <Filter>src\instruments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -803,6 +806,9 @@
     </Filter>
     <Filter Include="headers">
       <UniqueIdentifier>{2d240f40-f3e7-4693-96c8-4904b9333fc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments">
+      <UniqueIdentifier>{f49d78ea-141d-43c4-a560-e6607c9bae10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1782,21 +1788,6 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\steps.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\tanzbar_hi.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\tanzbar_lo.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\tanzbar_mid.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\tanzbar_perc.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\tanzbar_settings.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\time_struct.h">

@@ -40,16 +40,6 @@ const RandomParam tanzbar_mid_params[] = {
     {TB_CP_TRIGGER   ,  0, 127}
 };
 
-const RandomParam tanzbar_hi_params[] = {
-    {TB_OH_DECAY,  0,  96},
-    {TB_HH_TUNE ,  0, 127},
-    {TB_HH_DECAY,  0, 127},
-
-    {TB_CY_DECAY,  64, 127},
-    {TB_CY_TONE ,   0, 127},
-    {TB_CY_TUNE ,   0, 127}
-};
-
 const RandomParam tanzbar_perc_params[] = {
 
     {TB_CL_TUNE           ,  0, 127},
@@ -74,28 +64,21 @@ const RandomParam tanzbar_perc_params[] = {
 const uint8_t nr_tanzbar_low_params = sizeof(tanzbar_low_params) / sizeof(RandomParam);
 const uint8_t nr_tanzbar_mid_params = sizeof(tanzbar_mid_params) / sizeof(RandomParam);
 const uint8_t nr_tanzbar_perc_params = sizeof(tanzbar_perc_params) / sizeof(RandomParam);
-const uint8_t nr_tanzbar_hi_params = sizeof(tanzbar_hi_params) / sizeof(RandomParam);
 
 class TanzbarModulators
 {
 public:
     ModulationReceiver cl_pitch;
-    ModulationReceiver ma_dec;
     ModulationReceiver rs_tune;
     ModulationReceiver cb_tune;
     ModulationReceiver cp_trig;
-    ModulationReceiver cy_tune;
-    ModulationReceiver cy_vel;
     ModulationReceiver tom_vel;
 
     TanzbarModulators(Modulators& modulators) :
         cl_pitch(modulators),
-        ma_dec(modulators),
         rs_tune(modulators),
         cb_tune(modulators),
         cp_trig(modulators),
-        cy_tune(modulators),
-        cy_vel(modulators),
         tom_vel(modulators)
     {
 
@@ -107,8 +90,6 @@ public:
         uint8_t range = Rand::randui8(128, 64);
         this->cl_pitch.randomize(range, 127 - range, MODULATOR_PROB);
 
-        this->ma_dec.randomize(Rand::randui8(128, 64), 0);
-
         range = Rand::randui8(128);
         this->rs_tune.randomize(range, 127 - range, MODULATOR_PROB);
 
@@ -117,12 +98,6 @@ public:
 
         range = Rand::randui8(128);
         this->cp_trig.randomize(range, 127 - range, MODULATOR_PROB);
-
-        range = Rand::randui8(128);
-        this->cy_tune.randomize(range, 127 - range, MODULATOR_PROB);
-
-        range = Rand::randui8(16, 64);
-        this->cy_vel.randomize(range, 127 - range);
 
         range = Rand::randui8(16, 64);
         this->tom_vel.randomize(range, 127 - range);

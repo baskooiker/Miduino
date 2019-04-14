@@ -2,6 +2,10 @@
 
 #include "ofMain.h"
 
+#include "timing_structs.h"
+#include "midi_channel.h"
+#include "harmony_struct.h"
+
 class InstrumentBase
 {
 protected:

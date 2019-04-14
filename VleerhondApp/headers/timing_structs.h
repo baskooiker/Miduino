@@ -24,10 +24,8 @@ public:
     MicroTimingStruct sd;
     MicroTimingStruct cp;
     MicroTimingStruct tc;
-    MicroTimingStruct ma;
     MicroTimingStruct cl;
     MicroTimingStruct cb;
-    MicroTimingStruct cy;
 
     void randomize()
     {
@@ -35,8 +33,6 @@ public:
         this->cb.randomize();
         this->cl.randomize();
         this->cp.randomize();
-        this->cy.randomize();
-        this->ma.randomize();
         this->sd.randomize();
         this->tc.randomize();
     }

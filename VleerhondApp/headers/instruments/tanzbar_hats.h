@@ -2,6 +2,13 @@
 
 #include "instrument_base.h"
 
+const RandomParam tanzbar_hats_params[] = {
+    {TB_OH_DECAY,  0,  96},
+    {TB_HH_TUNE ,  0, 127},
+    {TB_HH_DECAY,  0, 127},
+};
+const uint8_t nr_of_tanzbar_hats_params = sizeof(tanzbar_hats_params) / sizeof(*tanzbar_hats_params);
+
 class TanzbarHats : public InstrumentBase
 {
 protected:
@@ -24,6 +31,7 @@ public:
         InstrumentBase(time_ref, true),
         hats_vel(modulators_ref)
     {
+        storage.set_channel(MIDI_CHANNEL_TANZBAR);
         hat_closed_style = HatClosedStyle::HatClosedRegular;
         randomize();
         kill = false;
@@ -34,7 +42,7 @@ public:
         ofLogNotice("tanzbar_hi", "randomize()");
         last_randomized_time = millis();
 
-        Tanzbar::randomize_parameters(tanzbar_hi_params, nr_tanzbar_hi_params);
+        Tanzbar::randomize_parameters(tanzbar_hats_params, nr_of_tanzbar_hats_params);
 
         randomize_hi_seq();
 

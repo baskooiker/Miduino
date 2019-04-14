@@ -10,8 +10,9 @@
 #include "tanzbar_lo.h"
 #include "tanzbar_mid.h"
 #include "tanzbar_perc.h"
-#include "tanzbar_hi.h"
+#include "tanzbar_ma.h"
 #include "tanzbar_hats.h"
+#include "tanzbar_cy.h"
 #include "bass_dub_settings.h"
 #include "mono_settings.h"
 #include "mono_dub_settings.h"
@@ -34,8 +35,9 @@ public:
     TanzbarLo tanzbar_lo;
     TanzbarMid tanzbar_mid;
     TanzbarPerc tanzbar_perc;
-    TanzbarHi tanzbar_hi;
     TanzbarHats tanzbar_hats;
+    TanzbarCy tanzbar_cy;
+    TanzbarMa tanzbar_ma;
 
     BassSettings bass_settings;
     BassDubSettings bass_dub_settings;
@@ -53,7 +55,8 @@ public:
         tanzbar_lo(tanzbar_modulators, tanzbar_time, time),
         tanzbar_mid(tanzbar_modulators, tanzbar_time, time),
         tanzbar_perc(tanzbar_modulators, tanzbar_time, time),
-        tanzbar_hi(tanzbar_modulators, tanzbar_time, time),
+        tanzbar_ma(modulators, time),
+        tanzbar_cy(modulators, time),
         tanzbar_hats(modulators, time),
         bass_settings(fugue_settings, harmony, time),
         bass_dub_settings(bass_settings, fugue_settings, harmony, time),
@@ -66,8 +69,6 @@ public:
         tanzbar_lo.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         tanzbar_mid.storage.set_channel(MIDI_CHANNEL_TANZBAR);
         tanzbar_perc.storage.set_channel(MIDI_CHANNEL_TANZBAR);
-        tanzbar_hi.storage.set_channel(MIDI_CHANNEL_TANZBAR);
-        tanzbar_hats.storage.set_channel(MIDI_CHANNEL_TANZBAR);
 
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
         mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
@@ -156,7 +157,10 @@ public:
         this->tanzbar_lo.kill = true;
         this->tanzbar_mid.kill = true;
         this->tanzbar_perc.kill = true;
-        this->tanzbar_hi.kill = true;
+
+        this->tanzbar_hats.kill = true;
+        this->tanzbar_ma.kill = true;
+        this->tanzbar_cy.kill = true;
 
         // Set bass
         this->bass_settings.style = BassStyle::BassFugue;
@@ -180,11 +184,15 @@ public:
     std::vector<InstrumentBase*> get_instrument_ptrs()
     {
         std::vector<InstrumentBase*> ptrs;
+
         ptrs.push_back(&this->tanzbar_lo);
         ptrs.push_back(&this->tanzbar_mid);
         ptrs.push_back(&this->tanzbar_perc);
-        ptrs.push_back(&this->tanzbar_hi);
+
+        ptrs.push_back(&this->tanzbar_ma);
         ptrs.push_back(&this->tanzbar_hats);
+        ptrs.push_back(&this->tanzbar_cy);
+
         ptrs.push_back(&this->bass_settings);
         ptrs.push_back(&this->bass_dub_settings);
         ptrs.push_back(&this->mono_settings);
@@ -192,6 +200,7 @@ public:
         ptrs.push_back(&this->poly_settings);
         ptrs.push_back(&this->lead_settings);
         ptrs.push_back(&this->drone);
+
         return ptrs;
     }
 

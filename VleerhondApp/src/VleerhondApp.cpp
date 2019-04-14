@@ -172,7 +172,18 @@ void VleerhondApp::play()
 
 void VleerhondApp::update()
 {
-    data.process_events();
+    if (virtual_ports 
+        || !midi_in.isOpen() 
+        || !midi_out_a.isOpen() 
+        || !midi_out_b.isOpen())
+    {
+        ofSleepMillis(500);
+        initialize_midi_ports();
+    }
+    else
+    {
+        data.process_events();
+    }
 }
 
 void VleerhondApp::draw(){}

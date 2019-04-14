@@ -21,6 +21,7 @@ public:
         tanzbar_modulators(tanzbar_modulators_ref),
         tanzbar_time(tanzbar_time_ref)
     {
+        storage.set_channel(MIDI_CHANNEL_TANZBAR);
     }
 
     void randomize()

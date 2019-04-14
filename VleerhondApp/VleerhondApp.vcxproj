@@ -84,6 +84,7 @@
     <IntDir>obj\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Users\Bas\Miduino\VleerhondApp\headers\instruments;$(IncludePath)</IncludePath>
+    <SourcePath>C:\Users\Bas\Miduino\VleerhondApp\src\instruments;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>bin\</OutDir>
@@ -370,6 +371,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalI
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core\activate.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core\allocator.cpp" />
+    <ClCompile Include="src\instruments\tanzbar_cy.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
@@ -699,11 +701,6 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalI
     <ClInclude Include="headers\scale.h" />
     <ClInclude Include="headers\steps.h" />
     <ClInclude Include="headers\step_callbacks.h" />
-    <ClInclude Include="headers\tanzbar_hi.h" />
-    <ClInclude Include="headers\tanzbar_lo.h" />
-    <ClInclude Include="headers\tanzbar_mid.h" />
-    <ClInclude Include="headers\tanzbar_perc.h" />
-    <ClInclude Include="headers\tanzbar_settings.h" />
     <ClInclude Include="headers\time_struct.h" />
     <ClInclude Include="headers\timing_structs.h" />
     <ClInclude Include="headers\ui.h" />

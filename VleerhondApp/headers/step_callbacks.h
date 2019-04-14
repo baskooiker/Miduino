@@ -27,7 +27,8 @@ void release_step_3(ApplicationData& data)
 
 void release_step_4(ApplicationData& data)
 {
-    data.tanzbar_hi.randomize();
+    data.tanzbar_cy.randomize();
+    data.tanzbar_ma.randomize();
     data.tanzbar_hats.randomize();
 
     data.time.randomize_shuffle();
