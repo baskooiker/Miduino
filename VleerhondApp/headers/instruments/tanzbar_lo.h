@@ -1,21 +1,33 @@
 #pragma once
 
+const RandomParam tanzbar_low_params[] = {
+    {TB_BD1_ATTACK   ,  0, 127},
+    {TB_BD1_DECAY    , 32,  96},
+    {TB_BD1_PITCH    , 80, 112},
+    {TB_BD1_TUNE     , 32,  96},
+    {TB_BD1_NOISE    ,  0,  64},
+    {TB_BD1_FILTER   ,  0,  64},
+    {TB_BD1_DIST     ,  0, 127},
+    {TB_BD1_TRIGGER  ,  0, 127},
+
+    {TB_BD2_DECAY    , 32,  96},
+    {TB_BD2_TUNE     , 32,  96},
+    {TB_BD2_TONE     , 32,  96}
+};
+const uint8_t nr_tanzbar_low_params = sizeof(tanzbar_low_params) / sizeof(RandomParam);
+
 class TanzbarLo : public InstrumentBase
 {
 protected:
-    TanzbarModulators& tanzbar_modulators;
-    TanzbarTimeSettings& tanzbar_time;
+    MicroTimingStruct bd_timing;
 
 public:
     GatePatternAB bd_pattern;
 
     TanzbarLo(
-        TanzbarModulators& tanzbar_modulators_ref,
-        TanzbarTimeSettings& tanzbar_time_ref,
+        Modulators& modulators_ref,
         TimeStruct& time_ref) :
-        InstrumentBase(time_ref, true),
-        tanzbar_modulators(tanzbar_modulators_ref),
-        tanzbar_time(tanzbar_time_ref)
+        InstrumentBase(time_ref, true)
     {
         storage.set_channel(MIDI_CHANNEL_TANZBAR);
     }
@@ -33,6 +45,8 @@ public:
         {
             this->randomize_tanzbar_kick();
         }
+
+        this->bd_timing.randomize();
     }
 
     void play()
@@ -44,7 +58,7 @@ public:
             uint8_t pitch = NOTE_TANZBAR_BD1;
             this->storage.note_on(
                 NoteStruct(pitch, velocity),
-                time.get_shuffle_delay(this->tanzbar_time.bd)
+                time.get_shuffle_delay(this->bd_timing)
             );
         }
 
@@ -52,7 +66,7 @@ public:
         {
             this->storage.note_on(
                 NoteStruct(NOTE_TANZBAR_BD2, velocity),
-                time.get_shuffle_delay(this->tanzbar_time.bd)
+                time.get_shuffle_delay(this->bd_timing)
             );
         }
     }

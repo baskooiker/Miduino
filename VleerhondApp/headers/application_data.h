@@ -8,8 +8,14 @@
 #include "modulators.h"
 #include "tanzbar_settings.h"
 #include "tanzbar_lo.h"
+
 #include "tanzbar_mid.h"
-#include "tanzbar_perc.h"
+#include "tanzbar_cp.h"
+
+#include "tanzbar_tom.h"
+#include "tanzbar_cb.h"
+#include "tanzbar_cl.h"
+
 #include "tanzbar_ma.h"
 #include "tanzbar_hats.h"
 #include "tanzbar_cy.h"
@@ -29,12 +35,15 @@ public:
     FugueSettings fugue_settings;
     Modulators modulators;
 
-    TanzbarModulators tanzbar_modulators;
-    TanzbarTimeSettings tanzbar_time;
-
     TanzbarLo tanzbar_lo;
+
     TanzbarMid tanzbar_mid;
-    TanzbarPerc tanzbar_perc;
+    TanzbarCp tanzbar_cp;
+
+    TanzbarTom tanzbar_tom;
+    TanzbarCb tanzbar_cb;
+    TanzbarCl tanzbar_cl;
+
     TanzbarHats tanzbar_hats;
     TanzbarCy tanzbar_cy;
     TanzbarMa tanzbar_ma;
@@ -51,10 +60,15 @@ public:
     UiState ui_state;
 
     ApplicationData():
-        tanzbar_modulators(modulators),
-        tanzbar_lo(tanzbar_modulators, tanzbar_time, time),
-        tanzbar_mid(tanzbar_modulators, tanzbar_time, time),
-        tanzbar_perc(tanzbar_modulators, tanzbar_time, time),
+        tanzbar_lo(modulators, time),
+
+        tanzbar_mid(modulators, time),
+        tanzbar_cp(modulators, time),
+
+        tanzbar_tom(modulators, time),
+        tanzbar_cb(modulators, time),
+        tanzbar_cl(modulators, time),
+
         tanzbar_ma(modulators, time),
         tanzbar_cy(modulators, time),
         tanzbar_hats(modulators, time),
@@ -66,10 +80,6 @@ public:
         lead_settings(harmony, time),
         drone(harmony, time)
     {
-        tanzbar_lo.storage.set_channel(MIDI_CHANNEL_TANZBAR);
-        tanzbar_mid.storage.set_channel(MIDI_CHANNEL_TANZBAR);
-        tanzbar_perc.storage.set_channel(MIDI_CHANNEL_TANZBAR);
-
         mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
         mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
 
@@ -155,12 +165,7 @@ public:
         this->fugue_settings.randomize_fugue();
 
         this->tanzbar_lo.kill = true;
-        this->tanzbar_mid.kill = true;
-        this->tanzbar_perc.kill = true;
-
         this->tanzbar_hats.kill = true;
-        this->tanzbar_ma.kill = true;
-        this->tanzbar_cy.kill = true;
 
         // Set bass
         this->bass_settings.style = BassStyle::BassFugue;
@@ -186,8 +191,13 @@ public:
         std::vector<InstrumentBase*> ptrs;
 
         ptrs.push_back(&this->tanzbar_lo);
+
         ptrs.push_back(&this->tanzbar_mid);
-        ptrs.push_back(&this->tanzbar_perc);
+        ptrs.push_back(&this->tanzbar_cp);
+
+        ptrs.push_back(&this->tanzbar_tom);
+        ptrs.push_back(&this->tanzbar_cb);
+        ptrs.push_back(&this->tanzbar_cl);
 
         ptrs.push_back(&this->tanzbar_ma);
         ptrs.push_back(&this->tanzbar_hats);

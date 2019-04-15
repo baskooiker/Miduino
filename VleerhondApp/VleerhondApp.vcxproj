@@ -683,6 +683,17 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalI
     <ClInclude Include="headers\fugue.h" />
     <ClInclude Include="headers\gate_patterns.h" />
     <ClInclude Include="headers\harmony_struct.h" />
+    <ClInclude Include="headers\instruments\tanzbar_cb.h" />
+    <ClInclude Include="headers\instruments\tanzbar_cl.h" />
+    <ClInclude Include="headers\instruments\tanzbar_cp.h" />
+    <ClInclude Include="headers\instruments\tanzbar_cy.h" />
+    <ClInclude Include="headers\instruments\tanzbar_hats.h" />
+    <ClInclude Include="headers\instruments\tanzbar_lo.h" />
+    <ClInclude Include="headers\instruments\tanzbar_ma.h" />
+    <ClInclude Include="headers\instruments\tanzbar_mid.h" />
+    <ClInclude Include="headers\instruments\tanzbar_perc.h" />
+    <ClInclude Include="headers\instruments\tanzbar_settings.h" />
+    <ClInclude Include="headers\instruments\tanzbar_tom.h" />
     <ClInclude Include="headers\instrument_base.h" />
     <ClInclude Include="headers\intervals.h" />
     <ClInclude Include="headers\interval_pattern.h" />

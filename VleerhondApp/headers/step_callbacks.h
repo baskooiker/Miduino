@@ -8,7 +8,6 @@ void release_step_1(ApplicationData& data)
 
     data.time.randomize_shuffle();
     data.modulators.randomize();
-    data.tanzbar_time.randomize();
 }
 
 void release_step_2(ApplicationData& data)
@@ -22,7 +21,9 @@ void release_step_1_2(ApplicationData& data)
 
 void release_step_3(ApplicationData& data)
 {
-    data.tanzbar_perc.randomize();
+    data.tanzbar_tom.randomize();
+    data.tanzbar_cl.randomize();
+    data.tanzbar_cb.randomize();
 }
 
 void release_step_4(ApplicationData& data)
@@ -33,7 +34,6 @@ void release_step_4(ApplicationData& data)
 
     data.time.randomize_shuffle();
     data.modulators.randomize();
-    data.tanzbar_time.randomize();
 }
 
 void release_step_3_4(ApplicationData& data) {}

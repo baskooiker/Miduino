@@ -16,24 +16,3 @@ public:
     }
 
 };
-
-class TanzbarTimeSettings
-{
-public:
-    MicroTimingStruct bd;
-    MicroTimingStruct sd;
-    MicroTimingStruct cp;
-    MicroTimingStruct tc;
-    MicroTimingStruct cl;
-    MicroTimingStruct cb;
-
-    void randomize()
-    {
-        this->bd.randomize();
-        this->cb.randomize();
-        this->cl.randomize();
-        this->cp.randomize();
-        this->sd.randomize();
-        this->tc.randomize();
-    }
-};

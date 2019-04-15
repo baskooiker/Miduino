@@ -26,7 +26,6 @@ void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, 
         data.tanzbar_mid.kill = !data.tanzbar_mid.kill;
         break;
     case BSP_PAD_03:
-        data.tanzbar_perc.kill = !data.tanzbar_perc.kill;
         break;
     case BSP_PAD_04:
         data.tanzbar_hats.kill = !data.tanzbar_hats.kill;
@@ -156,10 +155,6 @@ void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_
         }
     break;
     case BSP_PAD_03:
-        if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
-        {
-            data.tanzbar_perc.kill = false;
-        }
         break;
     case BSP_PAD_04:
         if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
@@ -403,7 +398,6 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
             data.randomize_all();
             data.tanzbar_lo.kill = false;
             data.tanzbar_mid.kill = false;
-            data.tanzbar_perc.kill = false;
 
             data.tanzbar_hats.kill = false;
             data.tanzbar_cy.kill = false;
@@ -416,11 +410,7 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
             data.randomize_all();
             data.tanzbar_lo.kill = true;
             data.tanzbar_mid.kill = true;
-            data.tanzbar_perc.kill = true;
-
             data.tanzbar_hats.kill = true;
-            data.tanzbar_cy.kill = true;
-            data.tanzbar_ma.kill = true;
         }
         break;
     case BSP_STEP_16:
@@ -428,7 +418,9 @@ void handleControlChangeStopped(ApplicationData& data, uint8_t channel, uint8_t 
         {
             data.tanzbar_lo.randomize();
             data.tanzbar_mid.randomize();
-            data.tanzbar_perc.randomize();
+            data.tanzbar_tom.randomize();
+            data.tanzbar_cb.randomize();
+            data.tanzbar_cl.randomize();
             data.tanzbar_hats.randomize();
             data.tanzbar_cy.randomize();
             data.tanzbar_ma.randomize();

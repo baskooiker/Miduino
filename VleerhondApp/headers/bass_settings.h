@@ -242,6 +242,7 @@ public:
             if (this->slides.gate(time))
             {
                 length = time.ticks_left_in_bar();
+                length = TICKS_PER_STEP * 4;
                 note_type = NoteType::Slide;
             }
             else
