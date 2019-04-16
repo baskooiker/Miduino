@@ -6,248 +6,251 @@
 
 #define STORAGE_SIZE 8
 
-class ChannelStruct
+namespace Vleerhond
 {
-public:
-    uint8_t channel;
-    int8_t pitch_offset;
-
-    ChannelStruct()
+    class ChannelStruct
     {
-        this->channel = 0;
-        this->pitch_offset = 0;
-    }
+    public:
+        uint8_t channel;
+        int8_t pitch_offset;
 
-    ChannelStruct(const uint8_t channel, const int8_t pitch_offset = 0)
-    {
-        this->channel = channel;
-        this->pitch_offset = pitch_offset;
-    }
-};
+        ChannelStruct()
+        {
+            this->channel = 0;
+            this->pitch_offset = 0;
+        }
+
+        ChannelStruct(const uint8_t channel, const int8_t pitch_offset = 0)
+        {
+            this->channel = channel;
+            this->pitch_offset = pitch_offset;
+        }
+    };
 
 #define MAX_NUMBER_OF_CHANNELS 2
 
-class PitchStorage
-{
-protected:
-    NoteStruct data[STORAGE_SIZE];
-    uint8_t size;
-
-    NoteEvent events[STORAGE_SIZE];
-    uint8_t nr_of_events;
-
-    ChannelStruct channels[MAX_NUMBER_OF_CHANNELS];
-
-    void _send_note_on(const uint8_t pitch, const uint8_t velocity)
+    class PitchStorage
     {
-        for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
+    protected:
+        NoteStruct data[STORAGE_SIZE];
+        uint8_t size;
+
+        NoteEvent events[STORAGE_SIZE];
+        uint8_t nr_of_events;
+
+        ChannelStruct channels[MAX_NUMBER_OF_CHANNELS];
+
+        void _send_note_on(const uint8_t pitch, const uint8_t velocity)
         {
-            if (this->channels[i].channel > 0)
+            for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
             {
-                if (this->channels[i].channel == MIDI_CHANNEL_ROCKET)
+                if (this->channels[i].channel > 0)
                 {
-                    //printf("Rocket note on : %3d\n", pitch);
+                    if (this->channels[i].channel == MIDI_CHANNEL_ROCKET)
+                    {
+                        //printf("Rocket note on : %3d\n", pitch);
+                    }
+                    MidiIO::send_note_on(pitch + this->channels[i].pitch_offset, velocity, this->channels[i].channel);
                 }
-                MidiIO::send_note_on(pitch + this->channels[i].pitch_offset, velocity, this->channels[i].channel);
             }
         }
-    }
 
-    void _send_note_off(const uint8_t pitch)
-    {
-        for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
+        void _send_note_off(const uint8_t pitch)
         {
-            if (this->channels[i].channel > 0)
+            for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
             {
-                if (this->channels[i].channel == MIDI_CHANNEL_ROCKET)
+                if (this->channels[i].channel > 0)
                 {
-                    //printf("Rocket note off: %3d\n", pitch);
+                    if (this->channels[i].channel == MIDI_CHANNEL_ROCKET)
+                    {
+                        //printf("Rocket note off: %3d\n", pitch);
+                    }
+                    MidiIO::send_note_off(pitch + this->channels[i].pitch_offset, this->channels[i].channel);
                 }
-                MidiIO::send_note_off(pitch + this->channels[i].pitch_offset, this->channels[i].channel);
             }
         }
-    }
 
-public:
-    PitchStorage()
-    {
-        size = 0;
-        nr_of_events = 0;
-    }
-
-    void set_channel(const uint8_t channel, const int8_t offset = 0)
-    {
-        for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
+    public:
+        PitchStorage()
         {
-            if (this->channels[i].channel == 0)
+            size = 0;
+            nr_of_events = 0;
+        }
+
+        void set_channel(const uint8_t channel, const int8_t offset = 0)
+        {
+            for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
             {
-                this->channels[i] = ChannelStruct(channel, offset);
-                return;
+                if (this->channels[i].channel == 0)
+                {
+                    this->channels[i] = ChannelStruct(channel, offset);
+                    return;
+                }
             }
         }
-    }
 
-    void process_events()
-    {
-        uint32_t time = millis();
-        for (int i = this->nr_of_events - 1; i >= 0; i--)
+        void process_events()
         {
-            NoteEvent event_i = this->events[i];
-            if (event_i.time <= time)
+            uint32_t time = millis();
+            for (int i = this->nr_of_events - 1; i >= 0; i--)
             {
-                this->note_on(event_i.note);
-                this->events[i] = this->events[this->nr_of_events - 1];
-                this->nr_of_events--;
+                NoteEvent event_i = this->events[i];
+                if (event_i.time <= time)
+                {
+                    this->note_on(event_i.note);
+                    this->events[i] = this->events[this->nr_of_events - 1];
+                    this->nr_of_events--;
+                }
             }
         }
-    }
 
-    void note_off(uint8_t pitch)
-    {
-        this->_send_note_off(pitch);
-        NoteStruct stored = this->pop_from_storage(pitch);
-    }
-
-    void note_on(const NoteStruct& note)
-    {
-        // TODO: remove this intermediate function
-        this->untie_notes();
-        NoteStruct stored = this->pop_from_storage(note.pitch);
-        if (note.pitch == stored.pitch)
+        void note_off(uint8_t pitch)
         {
-            this->note_off(note.pitch);
+            this->_send_note_off(pitch);
+            NoteStruct stored = this->pop_from_storage(pitch);
         }
-        this->_send_note_on(note.pitch, note.velocity);
-        this->add_to_storage(note);
-    }
 
-    void note_on(const NoteStruct& note, const uint32_t delay)
-    {
-        if (this->nr_of_events < STORAGE_SIZE && delay > 0)
+        void note_on(const NoteStruct& note)
         {
-            NoteEvent new_event(note, millis() + delay);
-            this->events[this->nr_of_events++] = new_event;
-        }
-        else
-        {
-            this->note_on(note);
-        }
-    }
-
-    void note_on(const NoteStruct* notes, const uint8_t length)
-    {
-        this->untie_notes();
-        for (int i = 0; i < length; i++)
-        {
-            NoteStruct stored = this->pop_from_storage(notes[i].pitch);
-            if (notes[i].pitch == stored.pitch)
+            // TODO: remove this intermediate function
+            this->untie_notes();
+            NoteStruct stored = this->pop_from_storage(note.pitch);
+            if (note.pitch == stored.pitch)
             {
-                this->note_off(notes[i].pitch);
+                this->note_off(note.pitch);
             }
-            this->_send_note_on(notes[i].pitch, notes[i].velocity);
+            this->_send_note_on(note.pitch, note.velocity);
+            this->add_to_storage(note);
         }
-        for (int i = 0; i < length; i++)
-        {
-            this->add_to_storage(notes[i]);
-        }
-    }
 
-    void add_to_storage(const NoteStruct& note)
-    {
-        for (uint8_t i = 0; i < this->size; i++)
+        void note_on(const NoteStruct& note, const uint32_t delay)
         {
-            if (this->data[i].pitch == note.pitch)
+            if (this->nr_of_events < STORAGE_SIZE && delay > 0)
             {
-                this->data[i] = note;
-                return;
+                NoteEvent new_event(note, millis() + delay);
+                this->events[this->nr_of_events++] = new_event;
             }
-        }
-        this->data[this->size] = note;
-        this->size++;
-    }
-
-    NoteStruct pop_from_storage(uint8_t pitch)
-    {
-        for (uint8_t i = 0; i < this->size; i++)
-        {
-            if (this->data[i].pitch == pitch) {
-                NoteStruct note = this->data[i];
-                this->data[i] = this->data[this->size - 1];
-                this->size--;
-                return note;
-            }
-        }
-        return NoteStruct();
-    }
-
-    void process_active_notes()
-    {
-        if (this->size == 0) return;
-        for (uint8_t i = 0; i < this->size; i++)
-        {
-            if (this->data[i].length > 0)
+            else
             {
-                this->data[i].length -= 1;
+                this->note_on(note);
             }
         }
 
-        for (int i = (int)this->size - 1; i >= 0; i--)
+        void note_on(const NoteStruct* notes, const uint8_t length)
         {
-            if (this->data[i].length == 0)
+            this->untie_notes();
+            for (int i = 0; i < length; i++)
             {
-                this->note_off(this->data[i].pitch);
+                NoteStruct stored = this->pop_from_storage(notes[i].pitch);
+                if (notes[i].pitch == stored.pitch)
+                {
+                    this->note_off(notes[i].pitch);
+                }
+                this->_send_note_on(notes[i].pitch, notes[i].velocity);
             }
-        }
-    }
-
-    void untie_notes()
-    {
-        for (int i = (int)this->size - 1; i >= 0; i--)
-        {
-            switch (this->data[i].type)
+            for (int i = 0; i < length; i++)
             {
-            case NoteType::Slide:
-                this->data[i].length = 0;
-                break;
-            case NoteType::Tie:
-                this->note_off(this->data[i].pitch);
-                break;
+                this->add_to_storage(notes[i]);
             }
         }
-    }
 
-    void all_notes_off()
-    {
-        for (int i = (int)this->size - 1; i >= 0; i--)
+        void add_to_storage(const NoteStruct& note)
         {
-            note_off(this->data[i].pitch);
-        }
-    }
-
-    void get_channels(ChannelStruct* channels, uint8_t& length)
-    {
-        length = 0;
-        for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
-        {
-            if (this->channels[i].channel > 0)
+            for (uint8_t i = 0; i < this->size; i++)
             {
-                channels[length++] = this->channels[i];
+                if (this->data[i].pitch == note.pitch)
+                {
+                    this->data[i] = note;
+                    return;
+                }
+            }
+            this->data[this->size] = note;
+            this->size++;
+        }
+
+        NoteStruct pop_from_storage(uint8_t pitch)
+        {
+            for (uint8_t i = 0; i < this->size; i++)
+            {
+                if (this->data[i].pitch == pitch) {
+                    NoteStruct note = this->data[i];
+                    this->data[i] = this->data[this->size - 1];
+                    this->size--;
+                    return note;
+                }
+            }
+            return NoteStruct();
+        }
+
+        void process_active_notes()
+        {
+            if (this->size == 0) return;
+            for (uint8_t i = 0; i < this->size; i++)
+            {
+                if (this->data[i].length > 0)
+                {
+                    this->data[i].length -= 1;
+                }
+            }
+
+            for (int i = (int)this->size - 1; i >= 0; i--)
+            {
+                if (this->data[i].length == 0)
+                {
+                    this->note_off(this->data[i].pitch);
+                }
             }
         }
-    }
 
-    void print_storage()
-    {
+        void untie_notes()
+        {
+            for (int i = (int)this->size - 1; i >= 0; i--)
+            {
+                switch (this->data[i].type)
+                {
+                case NoteType::Slide:
+                    this->data[i].length = 0;
+                    break;
+                case NoteType::Tie:
+                    this->note_off(this->data[i].pitch);
+                    break;
+                }
+            }
+        }
+
+        void all_notes_off()
+        {
+            for (int i = (int)this->size - 1; i >= 0; i--)
+            {
+                note_off(this->data[i].pitch);
+            }
+        }
+
+        void get_channels(ChannelStruct* channels, uint8_t& length)
+        {
+            length = 0;
+            for (int i = 0; i < MAX_NUMBER_OF_CHANNELS; i++)
+            {
+                if (this->channels[i].channel > 0)
+                {
+                    channels[length++] = this->channels[i];
+                }
+            }
+        }
+
+        void print_storage()
+        {
 #ifndef ARDUINO
-        printf("\nStorage size: %d\n", this->size);
-        for (int i = 0; i < this->size; i++)
-        {
-            printf("%2d, %3d, %d\n",
-                this->data[i].pitch,
-                this->data[i].length,
-                this->data[i].type);
-        }
+            printf("\nStorage size: %d\n", this->size);
+            for (int i = 0; i < this->size; i++)
+            {
+                printf("%2d, %3d, %d\n",
+                    this->data[i].pitch,
+                    this->data[i].length,
+                    this->data[i].type);
+            }
 #endif
-    }
+        }
 
-};
+    };
+}

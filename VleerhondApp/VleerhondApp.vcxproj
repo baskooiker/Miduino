@@ -709,6 +709,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalI
     <ClInclude Include="headers\poly.h" />
     <ClInclude Include="headers\print.h" />
     <ClInclude Include="headers\rand.h" />
+    <ClInclude Include="headers\sample_and_hold.h" />
     <ClInclude Include="headers\scale.h" />
     <ClInclude Include="headers\steps.h" />
     <ClInclude Include="headers\step_callbacks.h" />

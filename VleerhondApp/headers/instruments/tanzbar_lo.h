@@ -1,84 +1,87 @@
 #pragma once
 
-const RandomParam tanzbar_low_params[] = {
-    {TB_BD1_ATTACK   ,  0, 127},
-    {TB_BD1_DECAY    , 32,  96},
-    {TB_BD1_PITCH    , 80, 112},
-    {TB_BD1_TUNE     , 32,  96},
-    {TB_BD1_NOISE    ,  0,  64},
-    {TB_BD1_FILTER   ,  0,  64},
-    {TB_BD1_DIST     ,  0, 127},
-    {TB_BD1_TRIGGER  ,  0, 127},
-
-    {TB_BD2_DECAY    , 32,  96},
-    {TB_BD2_TUNE     , 32,  96},
-    {TB_BD2_TONE     , 32,  96}
-};
-const uint8_t nr_tanzbar_low_params = sizeof(tanzbar_low_params) / sizeof(RandomParam);
-
-class TanzbarLo : public InstrumentBase
+namespace Vleerhond
 {
-protected:
-    MicroTimingStruct bd_timing;
+    const RandomParam tanzbar_low_params[] = {
+        {TB_BD1_ATTACK   ,  0, 127},
+        {TB_BD1_DECAY    , 32,  96},
+        {TB_BD1_PITCH    , 80, 112},
+        {TB_BD1_TUNE     , 32,  96},
+        {TB_BD1_NOISE    ,  0,  64},
+        {TB_BD1_FILTER   ,  0,  64},
+        {TB_BD1_DIST     ,  0, 127},
+        {TB_BD1_TRIGGER  ,  0, 127},
 
-public:
-    GatePatternAB bd_pattern;
+        {TB_BD2_DECAY    , 32,  96},
+        {TB_BD2_TUNE     , 32,  96},
+        {TB_BD2_TONE     , 32,  96}
+    };
+    const uint8_t nr_tanzbar_low_params = sizeof(tanzbar_low_params) / sizeof(RandomParam);
 
-    TanzbarLo(
-        Modulators& modulators_ref,
-        TimeStruct& time_ref) :
-        InstrumentBase(time_ref, true)
+    class TanzbarLo : public InstrumentBase
     {
-        storage.set_channel(MIDI_CHANNEL_TANZBAR);
-    }
+    protected:
+        MicroTimingStruct bd_timing;
 
-    void randomize()
-    {
-        ofLogNotice("tanzbar_lo", "randomize()");
-        last_randomized_time = millis();
+    public:
+        GatePatternAB bd_pattern;
 
-        Tanzbar::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params);
-
-        this->bd_pattern.set_coef_kick_pattern();
-
-        if (Rand::distribution(32, 12))
+        TanzbarLo(
+            Modulators& modulators_ref,
+            TimeStruct& time_ref) :
+            InstrumentBase(time_ref, true)
         {
-            this->randomize_tanzbar_kick();
+            storage.set_channel(MIDI_CHANNEL_TANZBAR);
         }
 
-        this->bd_timing.randomize();
-    }
-
-    void play()
-    {
-        bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
-        uint8_t velocity = quarter_hit ? 127 : 63;
-        if (this->bd_pattern.gate(time) && !this->kill)
+        void randomize()
         {
-            uint8_t pitch = NOTE_TANZBAR_BD1;
-            this->storage.note_on(
-                NoteStruct(pitch, velocity),
-                time.get_shuffle_delay(this->bd_timing)
-            );
+            ofLogNotice("tanzbar_lo", "randomize()");
+            last_randomized_time = millis();
+
+            Tanzbar::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params);
+
+            this->bd_pattern.set_coef_kick_pattern();
+
+            if (Rand::distribution(32, 12))
+            {
+                this->randomize_tanzbar_kick();
+            }
+
+            this->bd_timing.randomize();
         }
 
-        if (quarter_hit && !this->kill)
+        void play()
         {
-            this->storage.note_on(
-                NoteStruct(NOTE_TANZBAR_BD2, velocity),
-                time.get_shuffle_delay(this->bd_timing)
-            );
+            bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
+            uint8_t velocity = quarter_hit ? 127 : 63;
+            if (this->bd_pattern.gate(time) && !this->kill)
+            {
+                uint8_t pitch = NOTE_TANZBAR_BD1;
+                this->storage.note_on(
+                    NoteStruct(pitch, velocity),
+                    time.get_shuffle_delay(this->bd_timing)
+                );
+            }
+
+            if (quarter_hit && !this->kill)
+            {
+                this->storage.note_on(
+                    NoteStruct(NOTE_TANZBAR_BD2, velocity),
+                    time.get_shuffle_delay(this->bd_timing)
+                );
+            }
         }
-    }
 
-protected:
-    void randomize_tanzbar_kick()
-    {
-        // Fill in first or second half of bar
-        uint8_t half = Rand::distribution(64, 64);
+    protected:
+        void randomize_tanzbar_kick()
+        {
+            // Fill in first or second half of bar
+            uint8_t half = Rand::distribution(64, 64);
 
-        uint8_t bar = this->bd_pattern.abPattern.value(Rand::randui8(4));
-        this->bd_pattern.patterns[bar].set_kick_fill(half * 8);
-    }
+            uint8_t bar = this->bd_pattern.abPattern.value(Rand::randui8(4));
+            this->bd_pattern.patterns[bar].set_kick_fill(half * 8);
+        }
 
-};
+    };
+}

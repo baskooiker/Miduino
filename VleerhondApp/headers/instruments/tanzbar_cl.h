@@ -6,61 +6,64 @@
 #include "gate_patterns.h"
 #include "tanzbar_settings.h"
 
-const RandomParam cl_params[] = {
-
-    {TB_CL_TUNE           ,  0, 127},
-    {TB_CL_DECAY          , 80, 127}
-};
-const uint8_t nr_cl_params = sizeof(cl_params) / sizeof(*cl_params);
-
-class TanzbarCl : public InstrumentBase
+namespace Vleerhond
 {
-protected:
-    MicroTimingStruct cl_timing;
-    ModulationReceiver cl_pitch;
-    GatePatternAB cl_pattern;
+    const RandomParam cl_params[] = {
 
-public:
+        {TB_CL_TUNE           ,  0, 127},
+        {TB_CL_DECAY          , 80, 127}
+    };
+    const uint8_t nr_cl_params = sizeof(cl_params) / sizeof(*cl_params);
 
-    TanzbarCl(
-        Modulators& modulators_ref,
-        TimeStruct& time_ref) :
-        InstrumentBase(time_ref, true),
-        cl_pitch(modulators_ref)
+    class TanzbarCl : public InstrumentBase
     {
-        storage.set_channel(MIDI_CHANNEL_TANZBAR);
-    }
+    protected:
+        MicroTimingStruct cl_timing;
+        ModulationReceiver cl_pitch;
+        GatePatternAB cl_pattern;
 
-    void randomize()
-    {
-        ofLogNotice("tanzbar_perc", "randomize()");
-        last_randomized_time = millis();
+    public:
 
-        Tanzbar::randomize_parameters(cl_params, nr_cl_params);
-
-        this->cl_pattern.randomize();
-
-        // Modulators
-        uint8_t range = Rand::randui8(128, 64);
-        this->cl_pitch.randomize(range, 127 - range, .3);
-
-        this->cl_timing.randomize();
-    }
-
-    void play()
-    {
-        // Play clave
-        if (this->cl_pattern.gate(time))
+        TanzbarCl(
+            Modulators& modulators_ref,
+            TimeStruct& time_ref) :
+            InstrumentBase(time_ref, true),
+            cl_pitch(modulators_ref)
         {
-            uint8_t value = 0;
-            if (this->cl_pitch.value(time, value))
-            {
-                MidiIO::send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
-            }
-            this->storage.note_on(
-                NoteStruct(NOTE_TANZBAR_CL, 64),
-                time.get_shuffle_delay(this->cl_timing)
-            );
+            storage.set_channel(MIDI_CHANNEL_TANZBAR);
         }
-    }
-};
+
+        void randomize()
+        {
+            ofLogNotice("tanzbar_perc", "randomize()");
+            last_randomized_time = millis();
+
+            Tanzbar::randomize_parameters(cl_params, nr_cl_params);
+
+            this->cl_pattern.randomize();
+
+            // Modulators
+            uint8_t range = Rand::randui8(128, 64);
+            this->cl_pitch.randomize(range, 127 - range, .3);
+
+            this->cl_timing.randomize();
+        }
+
+        void play()
+        {
+            // Play clave
+            if (this->cl_pattern.gate(time))
+            {
+                uint8_t value = 0;
+                if (this->cl_pitch.value(time, value))
+                {
+                    MidiIO::send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                }
+                this->storage.note_on(
+                    NoteStruct(NOTE_TANZBAR_CL, 64),
+                    time.get_shuffle_delay(this->cl_timing)
+                );
+            }
+        }
+    };
+}

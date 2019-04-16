@@ -6,64 +6,67 @@
 #include "modulators.h"
 #include "gate_patterns.h"
 
-class TanzbarCy : public InstrumentBase
+namespace Vleerhond
 {
-protected:
-    MicroTimingStruct timing;
-    ModulationReceiver cy_tune;
-    ModulationReceiver cy_vel;
-
-public:
-    GatePatternAB cy_pattern;
-
-    TanzbarCy(
-        Modulators& modulators_ref,
-        TimeStruct& time_ref) :
-        InstrumentBase(time_ref, true),
-        cy_tune(modulators_ref),
-        cy_vel(modulators_ref)
+    class TanzbarCy : public InstrumentBase
     {
-        storage.set_channel(MIDI_CHANNEL_TANZBAR);
-    }
+    protected:
+        MicroTimingStruct timing;
+        ModulationReceiver cy_tune;
+        ModulationReceiver cy_vel;
 
-    void randomize();
+    public:
+        GatePatternAB cy_pattern;
 
-    void randomize_hi_seq()
-    {
-        // Randomize Cymbal
-        switch (Rand::distribution(16, 16, 16))
+        TanzbarCy(
+            Modulators& modulators_ref,
+            TimeStruct& time_ref) :
+            InstrumentBase(time_ref, true),
+            cy_tune(modulators_ref),
+            cy_vel(modulators_ref)
         {
-        case 0:
-            this->cy_pattern.set_coef_kick_pattern();
-            this->cy_pattern.length = 16;
-            break;
-        case 1:
-            this->cy_pattern.set_euclid(8, 3);
-            this->cy_pattern.length = 8;
-            break;
-        case 2:
-            this->cy_pattern.set_coef_hat_pattern();
-            this->cy_pattern.length = 16;
-            break;
+            storage.set_channel(MIDI_CHANNEL_TANZBAR);
         }
-    }
 
-    void play()
-    {
-        // Play Cymbal
-        if (this->cy_pattern.gate(time) && !kill)
+        void randomize();
+
+        void randomize_hi_seq()
         {
-            uint8_t value = 0;
-            if (this->cy_tune.value(time, value))
+            // Randomize Cymbal
+            switch (Rand::distribution(16, 16, 16))
             {
-                MidiIO::send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+            case 0:
+                this->cy_pattern.set_coef_kick_pattern();
+                this->cy_pattern.length = 16;
+                break;
+            case 1:
+                this->cy_pattern.set_euclid(8, 3);
+                this->cy_pattern.length = 8;
+                break;
+            case 2:
+                this->cy_pattern.set_coef_hat_pattern();
+                this->cy_pattern.length = 16;
+                break;
             }
-            uint8_t velocity = 100;
-            this->cy_vel.value(time, velocity);
-            this->storage.note_on(
-                NoteStruct(NOTE_TANZBAR_CY, 64),
-                time.get_shuffle_delay(this->timing)
-            );
         }
-    }
-};
+
+        void play()
+        {
+            // Play Cymbal
+            if (this->cy_pattern.gate(time) && !kill)
+            {
+                uint8_t value = 0;
+                if (this->cy_tune.value(time, value))
+                {
+                    MidiIO::send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                }
+                uint8_t velocity = 100;
+                this->cy_vel.value(time, velocity);
+                this->storage.note_on(
+                    NoteStruct(NOTE_TANZBAR_CY, 64),
+                    time.get_shuffle_delay(this->timing)
+                );
+            }
+        }
+    };
+}
