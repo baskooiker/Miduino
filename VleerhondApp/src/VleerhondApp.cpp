@@ -254,17 +254,13 @@ namespace Vleerhond
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
-            handleNoteOn(this->data, message.channel, message.pitch, message.velocity);
             break;
         case MIDI_NOTE_OFF:
-            handleNoteOff(this->data, message.channel, message.pitch, message.velocity);
             break;
         case MIDI_CONTROL_CHANGE:
             handleControlChange(this->data, message.channel, message.control, message.value);
             break;
         default:
-            //printf(
-            //    "Unknown MIDI message: channel %2d\n", message.channel);
             break;
         }
     }
