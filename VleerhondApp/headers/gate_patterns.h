@@ -246,7 +246,9 @@ public:
     void set_euclid(const uint8_t length, const uint8_t steps)
     {
         for (int i = 0; i < 3; i++)
+        {
             this->patterns[i].set_euclid(length, steps);
+        }
         this->abPattern.set_ab_pattern();
     }
 

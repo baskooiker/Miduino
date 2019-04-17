@@ -1,5 +1,7 @@
 #include "VleerhondApp.h"
 
+#define NOVATION_ZERO_SL
+
 #include "ofLog.h"
 #include "ofxMidiOut.h"
 #include "ofxMidiIn.h"
@@ -62,6 +64,8 @@ namespace Vleerhond
         midi_out_b.sendControlChange(channel, cc, value);
     }
 
+#define NOVATION_ZERO_SL
+
     void initialize_midi_ports()
     {
         ofSetBackgroundColor(0);
@@ -70,8 +74,13 @@ namespace Vleerhond
         uint8_t num_ports = midi_out_a.getNumOutPorts();
         printf("%d\n", num_ports);
 
+#ifdef NOVATION_ZERO_SL
+        std::string midi_a_name = "ZeRO MkII";
+        std::string midi_b_name = "MIDIOUT2 (ZeRO MkII)";
+#else
         std::string midi_a_name = "MIDISPORT 2x2 Anniversary Out A";
         std::string midi_b_name = "MIDISPORT 2x2 Anniversary Out B";
+#endif
 
         int out_a_index = -1;
         int out_b_index = -1;
@@ -82,7 +91,7 @@ namespace Vleerhond
                 out_a_index = i;
             if (port_name.find(midi_b_name) == 0)
                 out_b_index = i;
-            //printf("  %d: %s\n", i, port_name.c_str());
+            printf("  %d: %s\n", i, port_name.c_str());
         }
 
         if (out_a_index != -1)
@@ -111,7 +120,12 @@ namespace Vleerhond
 
         uint8_t num_in_ports = midi_in.getNumInPorts();
         //printf("%d\n", num_in_ports);
+
+#ifdef NOVATION_ZERO_SL
+        std::string midi_in_name = "ZeRO MkII";
+#else
         std::string midi_in_name = "MIDISPORT 2x2 Anniversary In A";
+#endif
 
         int in_index = -1;
         for (int i = 0; i < num_in_ports; i++)
@@ -119,7 +133,7 @@ namespace Vleerhond
             std::string in_port_name = midi_in.getInPortName(i);
             if (in_port_name.find(midi_in_name) == 0 && in_index == -1)
                 in_index = i;
-            //printf("  %d: %s\n", i, in_port_name.c_str());
+            printf("  %d: %s\n", i, in_port_name.c_str());
         }
         if (in_index != -1)
         {
@@ -224,6 +238,7 @@ namespace Vleerhond
 
     void VleerhondApp::newMidiMessage(ofxMidiMessage& message)
     {
+        //ofLogNotice("App", message.getStatusString(message.status).c_str());
         switch (message.status)
         {
         case MIDI_TIME_CLOCK:
@@ -231,9 +246,12 @@ namespace Vleerhond
             handleClock(this->data);
             break;
         case MIDI_STOP:
+            ofLogNotice("Vleerhond", "Stop!");
             handleStop(this->data);
             break;
         case MIDI_START:
+            ofLogNotice("Vleerhond", "Start!");
+            data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
             handleNoteOn(this->data, message.channel, message.pitch, message.velocity);

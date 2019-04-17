@@ -86,7 +86,64 @@
 #define NOTE_TANZBAR_CB   51
 #define NOTE_TANZBAR_MA   52
 
+#define NOVATION_ZERO_SL
+
 // BSP CC's
+#ifdef NOVATION_ZERO_SL
+#define BSP_STEP_01 87
+#define BSP_STEP_02 24
+#define BSP_STEP_03 88
+#define BSP_STEP_04 25
+#define BSP_STEP_05 89
+#define BSP_STEP_06 26
+#define BSP_STEP_07 90
+#define BSP_STEP_08 27
+#define BSP_STEP_09 91
+#define BSP_STEP_10 28
+#define BSP_STEP_11 92
+#define BSP_STEP_12 29
+#define BSP_STEP_13 93
+#define BSP_STEP_14 30
+#define BSP_STEP_15 94
+#define BSP_STEP_16 31
+#define NR_OF_STEPS 16
+
+#define BSP_KNOB_01 78
+#define BSP_KNOB_02 70
+#define BSP_KNOB_03 79
+#define BSP_KNOB_04 71
+#define BSP_KNOB_05 80
+#define BSP_KNOB_06 72
+#define BSP_KNOB_07 81
+#define BSP_KNOB_08 73
+#define BSP_KNOB_09 82
+#define BSP_KNOB_10 74
+#define BSP_KNOB_11 83
+#define BSP_KNOB_12 75
+#define BSP_KNOB_13 84
+#define BSP_KNOB_14 76
+#define BSP_KNOB_15 85
+#define BSP_KNOB_16 77
+#define NR_OF_KNOBS 16
+
+#define BSP_PAD_01 48
+#define BSP_PAD_02 40
+#define BSP_PAD_03 49
+#define BSP_PAD_04 41
+#define BSP_PAD_05 50
+#define BSP_PAD_06 42
+#define BSP_PAD_07 51
+#define BSP_PAD_08 43
+#define BSP_PAD_09 52
+#define BSP_PAD_10 44
+#define BSP_PAD_11 53
+#define BSP_PAD_12 45
+#define BSP_PAD_13 54
+#define BSP_PAD_14 46
+#define BSP_PAD_15 55
+#define BSP_PAD_16 47
+#define NR_OF_PADS 16
+#else
 #define BSP_STEP_01 20
 #define BSP_STEP_02 21
 #define BSP_STEP_03 22
@@ -123,23 +180,24 @@
 #define BSP_KNOB_16 72
 #define NR_OF_KNOBS 16
 
-#define BSP_PAD_01 36
-#define BSP_PAD_02 37
-#define BSP_PAD_03 38
-#define BSP_PAD_04 39
-#define BSP_PAD_05 40
-#define BSP_PAD_06 41
-#define BSP_PAD_07 42
-#define BSP_PAD_08 43
-#define BSP_PAD_09 44
-#define BSP_PAD_10 45
-#define BSP_PAD_11 46
-#define BSP_PAD_12 47
-#define BSP_PAD_13 48
-#define BSP_PAD_14 49
-#define BSP_PAD_15 50
-#define BSP_PAD_16 51
+#define BSP_PAD_01 87
+#define BSP_PAD_02 88
+#define BSP_PAD_03 89
+#define BSP_PAD_04 90
+#define BSP_PAD_05 91
+#define BSP_PAD_06 92
+#define BSP_PAD_07 93
+#define BSP_PAD_08 94
+#define BSP_PAD_09 24
+#define BSP_PAD_10 25
+#define BSP_PAD_11 26
+#define BSP_PAD_12 27
+#define BSP_PAD_13 28
+#define BSP_PAD_14 29
+#define BSP_PAD_15 30
+#define BSP_PAD_16 31
 #define NR_OF_PADS 16
+#endif
 
 // MFB 503 CC's
 #define BD_LEVEL  8 

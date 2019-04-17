@@ -74,9 +74,7 @@ namespace Vleerhond
             }
 
             // Randomize Interval Pattern
-            IntervalProbs interval_probs;
-            interval_probs.p_16 = 32;
-            interval_probs.p_8 = Rand::randui8(32);
+            IntervalProbs interval_probs(0, Rand::randui8(32), 32); 
             interval_pattern.randomize_interval(interval_probs);
             interval_pattern.length = pow(Rand::randui8(3, 5), 2);
 

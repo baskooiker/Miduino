@@ -106,15 +106,14 @@ enum HarmonyType {
     HarmonyHigh
 };
 
-enum NoteType {
+enum class NoteType {
     Normal,
     Tie,
     Slide
 };
 
-enum PlayState {
+enum class PlayState {
     Playing,
-    Paused,
     Stopped
 };
 

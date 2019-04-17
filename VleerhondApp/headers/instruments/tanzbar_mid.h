@@ -38,7 +38,7 @@ namespace Vleerhond
         ModulationReceiver rs_tune;
 
     public:
-        uint8_t snare_roll;
+        bool snare_roll;
 
         TanzbarMid(
             Modulators& modulators_ref,

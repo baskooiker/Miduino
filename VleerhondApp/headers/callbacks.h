@@ -17,60 +17,7 @@
 
 namespace Vleerhond
 {
-    void handleNoteOnPlaying(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
-    {
-        switch (pitch)
-        {
-        case BSP_PAD_01:
-            data.tanzbar_lo.kill = !data.tanzbar_lo.kill;
-            break;
-        case BSP_PAD_02:
-            data.tanzbar_mid.kill = !data.tanzbar_mid.kill;
-            break;
-        case BSP_PAD_03:
-            break;
-        case BSP_PAD_04:
-            data.tanzbar_hats.kill = !data.tanzbar_hats.kill;
-            break;
-        case BSP_PAD_05:
-            data.bass_settings.kill = !data.bass_settings.kill;
-            if (data.bass_settings.kill)
-            {
-                data.bass_settings.storage.process_active_notes();
-            }
-            break;
-        case BSP_PAD_06:
-            data.bass_dub_settings.kill = !data.bass_dub_settings.kill;
-            data.drone.kill = !data.drone.kill;
-            break;
-        case BSP_PAD_07:
-            data.mono_settings.kill = !data.mono_settings.kill;
-            break;
-        case BSP_PAD_08:
-            data.mono_dub_settings.kill = !data.mono_dub_settings.kill;
-            break;
-        case BSP_PAD_09:
-            break;
-        case BSP_PAD_10:
-            data.tanzbar_mid.snare_roll = velocity;
-            break;
-        case BSP_PAD_11:
-            break;
-        case BSP_PAD_12:
-            break;
-        case BSP_PAD_13:
-            break;
-        case BSP_PAD_14:
-            break;
-        case BSP_PAD_15:
-            break;
-        case BSP_PAD_16:
-            break;
-        default:
-            break;
-        }
-    }
-
+    /*
     void handleNoteOnStopped(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
     {
         switch (pitch)
@@ -123,85 +70,14 @@ namespace Vleerhond
             break;
         }
     }
-
-    void handleNoteOn(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
-    {
-        press_pad(data.ui_state.pad_state, pitch);
-        switch (data.time.state)
-        {
-        case PlayState::Playing:
-            handleNoteOnPlaying(data, channel, pitch, velocity);
-            break;
-        case PlayState::Paused:
-        case PlayState::Stopped:
-            handleNoteOnStopped(data, channel, pitch, velocity);
-            break;
-        }
-    }
-
-    void handleNoteOff(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
-    {
-        release_pad(data.ui_state.pad_state, pitch);
-        switch (pitch)
-        {
-        case BSP_PAD_01:
-            if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
-            {
-                data.tanzbar_lo.kill = false;
-            }
-            break;
-        case BSP_PAD_02:
-            if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
-            {
-                data.tanzbar_mid.kill = false;
-            }
-            break;
-        case BSP_PAD_03:
-            break;
-        case BSP_PAD_04:
-            if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
-            {
-                data.tanzbar_hats.kill = false;
-            }
-            break;
-        case BSP_PAD_05:
-            if (time_since_press(get_pad_state(data.ui_state.pad_state, pitch)) > SHORT_PRESS_TIME)
-            {
-                data.bass_settings.kill = false;
-            }
-            break;
-        case BSP_PAD_06:
-            break;
-        case BSP_PAD_07:
-            break;
-        case BSP_PAD_08:
-            break;
-        case BSP_PAD_09:
-            break;
-        case BSP_PAD_10:
-            data.tanzbar_mid.snare_roll = false;
-            break;
-        case BSP_PAD_11:
-            break;
-        case BSP_PAD_12:
-            break;
-        case BSP_PAD_13:
-            break;
-        case BSP_PAD_14:
-            break;
-        case BSP_PAD_15:
-            break;
-        case BSP_PAD_16:
-            break;
-        default:
-            break;
-        }
-        release_pad(data.ui_state.pad_state, pitch);
-    }
-
+    */
+    
     void handleClock(ApplicationData& data)
     {
-        data.time.state = PlayState::Playing;
+        if (data.time.state == PlayState::Stopped)
+        {
+            return;
+        }
 
         if (Utils::interval_hit(TimeDivision::Quarter, data.time))
         {
@@ -385,6 +261,58 @@ namespace Vleerhond
                     release_step_15, release_step_16, release_step_15_and_16);
             }
             break;
+
+        case BSP_PAD_01:
+            if (value > 0)
+            {
+                data.tanzbar_lo.kill = true;
+            }
+            else
+            {
+                data.tanzbar_lo.kill = false;
+            }
+            break;
+        case BSP_PAD_02:
+            break;
+        case BSP_PAD_03:
+            break;
+        case BSP_PAD_04:
+            data.tanzbar_hats.kill = value > 0;
+            break;
+        case BSP_PAD_05:
+            data.bass_settings.kill = value > 0;
+            if (data.bass_settings.kill)
+            {
+                data.bass_settings.storage.process_active_notes();
+            }
+            break;
+        case BSP_PAD_06:
+            data.bass_dub_settings.kill = value > 0;
+            data.drone.kill = value > 0;
+            break;
+        case BSP_PAD_07:
+            data.mono_settings.kill = value > 0;
+            break;
+        case BSP_PAD_08:
+            data.mono_dub_settings.kill = value > 0;
+            break;
+        case BSP_PAD_09:
+            break;
+        case BSP_PAD_10:
+            data.tanzbar_mid.snare_roll = value > 0;
+            break;
+        case BSP_PAD_11:
+            break;
+        case BSP_PAD_12:
+            break;
+        case BSP_PAD_13:
+            break;
+        case BSP_PAD_14:
+            break;
+        case BSP_PAD_15:
+            break;
+        case BSP_PAD_16:
+            break;
         default:
             break;
         }
@@ -446,7 +374,6 @@ namespace Vleerhond
         {
         case PlayState::Playing:
             return handleControlChangePlaying(data, channel, number, value);
-        case PlayState::Paused:
         case PlayState::Stopped:
             return handleControlChangeStopped(data, channel, number, value);
         }

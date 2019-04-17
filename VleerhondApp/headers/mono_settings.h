@@ -35,7 +35,7 @@ namespace Vleerhond
         FugueSettings& fugue_settings;
         SampleAndHold subtract_sh;
         NoteRepeat note_repeat_sh;
-        uint8_t hit_probability;
+        bool proceed_arp_on_note_repeat;
 
     public:
         MonoStyle style;
@@ -70,6 +70,7 @@ namespace Vleerhond
             ofLogNotice("mono", "randomize()");
             last_randomized_time = millis();
 
+            // Randomize pitched
             this->pitch_offset = Rand::randui8(36, 48);
             this->arp_data.range = Rand::randui8(12, 36);
 
@@ -88,9 +89,14 @@ namespace Vleerhond
             case 2: this->style = MonoStyle::MonoLeadPattern; break;
             }
 
-            this->gate_pattern.set_euclid(Rand::randui8(5, 8), 1);
+            // Set Euclid
+            uint8_t euclid_length = Rand::randui8(5, 8);
+            uint8_t euclid_steps = (euclid_length / 2) + Rand::randui8(2);
+            this->gate_pattern.set_euclid(euclid_length, euclid_steps);
+            this->gate_pattern.length = euclid_length;
             this->gate_pattern.time_division = TimeDivision::Sixteenth;
 
+            // Randomize Lead
             this->lead_pattern.randomize_interval_lead();
 
             switch (Rand::distribution(16, 16, 16, 16))
@@ -103,8 +109,10 @@ namespace Vleerhond
 
             ofLogNotice("mono", "mono type = %s", StrUtils::get_string(this->style).c_str());
 
-            hit_probability = Rand::randi8(100, 128);
+            subtract_sh.prob = Rand::randi8(16);
             note_repeat_sh.prob = Rand::randui8(32);
+
+            proceed_arp_on_note_repeat = Rand::distribution(16, 32);
         }
 
         bool get_mono_hit() const
@@ -153,11 +161,17 @@ namespace Vleerhond
             NoteStruct repeat_note = note_repeat_sh.repeat_note(time);
             if (repeat_note.pitch > 0)
             {
-                //ofLogNotice("Mono", "note %d", repeat_note.pitch);
-                if (Utils::interval_hit(note_repeat_sh.get_interval(time), time) && !this->kill)
+                TimeDivision repeat_interval = note_repeat_sh.get_interval(time);
+                ofLogNotice("Mono", "note %3d, interval = %d", repeat_note.pitch, repeat_interval);
+                if (Utils::interval_hit(repeat_interval, time) && !this->kill)
                 {
                     ofLogNotice("Mono", "note_repeating: %d", repeat_note.pitch);
                     storage.note_on(repeat_note, time.get_shuffle_delay());
+
+                    if (this->proceed_arp_on_note_repeat)
+                    {
+                        get_next_mono_pitch();
+                    }
                     return;
                 }
             }
@@ -166,7 +180,7 @@ namespace Vleerhond
 
             if (style == MonoStyle::MonoLeadPattern)
             {
-                hit &= subtract_sh.value(time) > hit_probability;
+                hit &= !subtract_sh.gate(time);
             }
 
             if (hit)

@@ -34,6 +34,20 @@ public:
     uint8_t p_16;
     uint8_t p_32;
     uint8_t p_t8;
+
+    IntervalProbs(
+        const uint8_t p4 = 0, 
+        const uint8_t p8 = 0, 
+        const uint8_t p16 = 0, 
+        const uint8_t p32 = 0, 
+        const uint8_t p8t = 0) :
+        p_4(p4),
+        p_8(p16),
+        p_16(p16),
+        p_32(p32),
+        p_t8(p8t)
+    {
+    }
 };
 
 static const IntervalProbs arp_interval_probs = { 25, 25, 25, 0,  0 };
@@ -49,6 +63,6 @@ class UiState {
 public:
     uint16_t bsp_button_state;
 
-    ButtonState pad_state[NR_OF_PADS];
+    //ButtonState pad_state[NR_OF_PADS];
     ButtonState step_state[NR_OF_STEPS];
 };

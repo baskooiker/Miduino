@@ -70,23 +70,23 @@ uint8_t get_step_index(uint8_t id)
     return 0xFF;
 }
 
-void release_pad(ButtonState* states, uint8_t id)
-{
-    uint8_t idx = get_pad_index(id);
-    if (idx < NR_OF_PADS)
-    {
-        states[idx].last_released = millis();
-    }
-}
+//void release_pad(ButtonState* states, uint8_t id)
+//{
+//    uint8_t idx = get_pad_index(id);
+//    if (idx < NR_OF_PADS)
+//    {
+//        states[idx].last_released = millis();
+//    }
+//}
 
-void press_pad(ButtonState* states, uint8_t id)
-{
-    uint8_t idx = get_pad_index(id);
-    if (idx < NR_OF_PADS)
-    {
-        states[idx].last_pressed = millis();
-    }
-}
+//void press_pad(ButtonState* states, uint8_t id)
+//{
+//    uint8_t idx = get_pad_index(id);
+//    if (idx < NR_OF_PADS)
+//    {
+//        states[idx].last_pressed = millis();
+//    }
+//}
 
 void release_step(ButtonState* states, uint8_t id)
 {
@@ -121,10 +121,10 @@ const ButtonState& get_step_state(const ButtonState* state, uint8_t id)
     return state[get_step_index(id)];
 }
 
-const ButtonState& get_pad_state(const ButtonState* state, uint8_t id)
-{
-    return state[get_pad_index(id)];
-}
+//const ButtonState& get_pad_state(const ButtonState* state, uint8_t id)
+//{
+//    return state[get_pad_index(id)];
+//}
 
 bool is_pressed(const ButtonState& state)
 {

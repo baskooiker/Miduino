@@ -12,7 +12,7 @@ public:
     void randomize()
     {
         this->delay = Rand::randui8();
-        this->shuffle_off = Rand::randi8(-20, 20);
+        this->shuffle_off = Rand::randi8(-10, 10);
     }
 
 };

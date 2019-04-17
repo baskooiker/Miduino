@@ -102,8 +102,6 @@ namespace Vleerhond
     protected:
         void randomize(const TimeStruct& time)
         {
-            SampleAndHold::randomize(time);
-
             if (!Utils::interval_hit(interval, time))
             {
                 return;
@@ -112,7 +110,10 @@ namespace Vleerhond
             {
                 return;
             }
-            switch (Rand::distribution(16, 16))
+
+            SampleAndHold::randomize(time);
+
+            switch (Rand::distribution(16, 0))
             {
             case 0: this->interval_value = TimeDivision::Thirtysecond; break;
             case 1: this->interval_value = TimeDivision::Sixteenth; break;
