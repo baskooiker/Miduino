@@ -37,6 +37,11 @@ namespace Vleerhond
                 for (int step = fill_start; step < 8; step++)
                 {
                     uint8_t rand_int = Rand::randui8(2, 5);
+                    switch (Rand::distribution(16, 16))
+                    {
+                    case 0: rand_int = (uint8_t)NoteInterval::IntervalThird; break;
+                    case 1: rand_int = (uint8_t)NoteInterval::IntervalFifth; break;
+                    }
                     interval_pattern.patterns[i].set(step, rand_int);
                 }
             }

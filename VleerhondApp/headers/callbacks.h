@@ -94,6 +94,7 @@ namespace Vleerhond
                     data.time.average_pulse_time = .9f * data.time.average_pulse_time +
                         .1f * time_diff;
                 }
+                ofLogVerbose("time", "pulse time: %f", time_diff);
             }
             data.time.last_pulse_time = now;
         }
