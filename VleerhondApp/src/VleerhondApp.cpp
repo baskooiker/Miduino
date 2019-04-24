@@ -12,18 +12,20 @@
 
 ofxMidiOut midi_out_a;
 ofxMidiOut midi_out_b;
+ofxMidiOut midi_out_c;
+ofxMidiOut midi_out_d;
 ofxMidiIn midi_in;
 
 namespace Vleerhond
 {
     const char MODULE[] = "VleerhondApp";
 
-    bool virtual_ports;
-
     void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
     {
         midi_out_a.sendNoteOn(channel, pitch, velocity);
-        //midi_out_b.sendNoteOn(channel, pitch, velocity);
+        midi_out_b.sendNoteOn(channel, pitch, velocity);
+        midi_out_c.sendNoteOn(channel, pitch, velocity);
+        midi_out_d.sendNoteOn(channel, pitch, velocity);
         switch (channel)
         {
         case MIDI_CHANNEL_TANZBAR:
@@ -56,103 +58,89 @@ namespace Vleerhond
     {
         midi_out_a.sendNoteOff(channel, pitch);
         midi_out_b.sendNoteOff(channel, pitch);
+        midi_out_c.sendNoteOff(channel, pitch);
+        midi_out_d.sendNoteOff(channel, pitch);
     }
 
     void MidiIO::send_cc(uint8_t cc, uint8_t value, uint8_t channel)
     {
         midi_out_a.sendControlChange(channel, cc, value);
         midi_out_b.sendControlChange(channel, cc, value);
+        midi_out_c.sendControlChange(channel, cc, value);
+        midi_out_d.sendControlChange(channel, cc, value);
     }
 
 #define NOVATION_ZERO_SL
+
+    bool open_port(ofxMidiOut& port, std::string name)
+    {
+        uint8_t num_ports = port.getNumOutPorts();
+
+        int port_index = -1;
+        for (int i = 0; i < num_ports; i++)
+        {
+            std::string port_name = port.getOutPortName(i);
+            int eq = port_name.find(name);
+            ofLogNotice("midi out", "%s, num_ports = %d, eq = %d", port_name.c_str(), num_ports, eq);
+            if (eq >= 0)
+            {
+                ofLogNotice("midi out", port_name);
+                return port.openPort(i);
+            }
+        }
+        return false;
+    }
+
+    bool open_port(ofxMidiIn& port, std::string name)
+    {
+        uint8_t num_ports = port.getNumInPorts();
+
+        int port_index = -1;
+        for (int i = 0; i < num_ports; i++)
+        {
+            std::string port_name = port.getInPortName(i);
+            int eq = port_name.find(name);
+            ofLogNotice("midi in", "%s, num_ports = %d, eq = %d", port_name.c_str(), num_ports, eq);
+            if (eq >= 0)
+            {
+                ofLogNotice("midi in", port_name);
+                return port.openPort(i);
+            }
+        }
+        return false;
+    }
+
+    bool ports_open()
+    {
+        return midi_in.isOpen()
+            && midi_out_a.isOpen()
+            && midi_out_b.isOpen()
+            && midi_out_c.isOpen()
+            && midi_out_d.isOpen();
+    }
 
     void initialize_midi_ports()
     {
         ofSetBackgroundColor(0);
 
-        virtual_ports = false;
-        uint8_t num_ports = midi_out_a.getNumOutPorts();
-        printf("%d\n", num_ports);
-
-
-        //std::string midi_a_name = "ZeRO MkII";
-        //std::string midi_b_name = "MIDIOUT2 (ZeRO MkII)";
-
         std::string midi_a_name = "MIDISPORT 2x2 Anniversary Out A";
         std::string midi_b_name = "MIDISPORT 2x2 Anniversary Out B";
-
-        int out_a_index = -1;
-        int out_b_index = -1;
-        for (int i = 0; i < num_ports; i++)
-        {
-            std::string port_name = midi_out_a.getOutPortName(i);
-            if (port_name.find(midi_a_name) >= 0)
-                out_a_index = i;
-            if (port_name.find(midi_b_name) >= 0)
-                out_b_index = i;
-            printf("  %d: %s\n", i, port_name.c_str());
-        }
-
-        out_a_index = 6;
-        out_b_index = 7;
-
-        if (out_a_index != -1)
-        {
-            midi_out_a.openPort(out_a_index);
-            printf("Port '%d' is open = %d\n", out_a_index, midi_out_a.isOpen());
-        }
-        else
-        {
-            midi_out_a.openVirtualPort(midi_a_name);
-            //printf("Virtual port '%s' is open = %d\n", midi_a_name.c_str(), midi_out_a.isOpen());
-            virtual_ports = true;
-        }
-
-        if (out_b_index != -1)
-        {
-            midi_out_b.openPort(out_b_index);
-            printf("Port '%d' is open = %d\n", out_b_index, midi_out_b.isOpen());
-        }
-        else
-        {
-            midi_out_b.openVirtualPort(midi_b_name);
-            //printf("Virtual port '%s' is open = %d\n", midi_b_name.c_str(), midi_out_b.isOpen());
-            virtual_ports = true;
-        }
-
-        uint8_t num_in_ports = midi_in.getNumInPorts();
-        //printf("%d\n", num_in_ports);
-
+        std::string midi_c_name = "MIDISPORT 2x2 Anniversary Out A";
+        std::string midi_d_name = "MIDISPORT 2x2 Anniversary Out B";
+        midi_a_name = "MIDISPORT 2x4 Out 1";
+        midi_b_name = "MIDISPORT 2x4 Out 2";
+        midi_c_name = "MIDISPORT 2x4 Out 3";
+        midi_d_name = "MIDISPORT 2x4 Out 4";
 
         std::string midi_in_name = "ZeRO MkII";
-        //std::string midi_in_name = "MIDISPORT 2x2 Anniversary In A";
 
-        int in_index = -1;
-        for (int i = 0; i < num_in_ports; i++)
-        {
-            std::string in_port_name = midi_in.getInPortName(i);
-            if (in_port_name.find(midi_in_name) >= 0 && in_index == -1)
-            {
-                in_index = i;
-            }
-            printf("  %d: %s\n", i, in_port_name.c_str());
-        }
+        open_port(midi_in, midi_in_name);
+        open_port(midi_out_a, midi_a_name);
+        open_port(midi_out_b, midi_b_name);
+        open_port(midi_out_c, midi_c_name);
+        open_port(midi_out_d, midi_d_name);
 
-        in_index = 7;
-
-        if (in_index != -1)
-        {
-            midi_in.openPort(in_index);
-            printf("Port '%d' is open = %d\n", in_index, midi_in.isOpen());
-        }
-        else
-        {
-            midi_in.openVirtualPort(midi_in_name);
-            //printf("Virtual port '%s' is open = %d\n", midi_in_name.c_str(), midi_in.isOpen());
-            virtual_ports = true;
-        }
-
-        if (virtual_ports)
+        if (!ports_open())
         {
             ofSetBackgroundColor(0);
         }
@@ -194,10 +182,7 @@ namespace Vleerhond
     void VleerhondApp::update()
     {
         bool MIDI_SETUP = true;
-        if ((virtual_ports
-            || !midi_in.isOpen()
-            || !midi_out_a.isOpen()
-            || !midi_out_b.isOpen()) && MIDI_SETUP && !bpm.isPlaying())
+        if (!ports_open() && MIDI_SETUP && !bpm.isPlaying())
         {
             ofSleepMillis(500);
             initialize_midi_ports();
