@@ -4,7 +4,7 @@
 #include "instrument_base.h"
 #include "modulators.h"
 #include "gate_patterns.h"
-#include "tanzbar_settings.h"
+#include "parameters.h"
 
 namespace Vleerhond
 {
@@ -39,7 +39,7 @@ namespace Vleerhond
             ofLogNotice("tanzbar_perc", "randomize()");
             last_randomized_time = millis();
 
-            Tanzbar::randomize_parameters(cb_params, nr_cb_params);
+            Parameters::randomize_parameters(cb_params, nr_cb_params, MIDI_CC_CHANNEL_TANZBAR);
 
             this->cb_pattern.randomize();
 

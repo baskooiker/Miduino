@@ -47,6 +47,17 @@ public:
         }
     }
 
+    uint8_t* get_penta_notes() const
+    {
+        switch (this->type)
+        {
+        default:
+        case ScaleType::AEOLIAN: return (uint8_t*)aeolian_penta;
+        case ScaleType::DORIAN: return (uint8_t*)dorian_penta;
+        case ScaleType::IONIAN: return (uint8_t*)ionian_penta;
+        }
+    }
+
     uint8_t apply_scale(uint8_t note_nr, uint8_t octave)
     {
         uint8_t length = 0;
@@ -130,6 +141,12 @@ public:
             }
         }
         return rv;
+    }
+
+    uint8_t get_penta(const uint8_t index) const
+    {
+        uint8_t* notes = get_penta_notes();
+        return (notes[index % 5] + root) % 12;
     }
 
 };

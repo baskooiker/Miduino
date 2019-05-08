@@ -113,12 +113,6 @@ typedef enum
     ModLfoD,
     ModPatA,
     ModPatB,
-    ModLfoAInv,
-    ModLfoBInv,
-    ModLfoCInv,
-    ModLfoDInv,
-    ModPatAInv,
-    ModPatBInv,
     ModRandom
 } ModulationType;
 
@@ -131,11 +125,15 @@ public:
     uint8_t minimum;
     uint8_t range;
     ModulationType type;
+    bool inverse;
 
     ModulationReceiver(Modulators& modulators_ref) :
         modulators(modulators_ref)
     {
-
+        minimum = 0;
+        range = 127;
+        inverse = false;
+        type = ModulationType::ModLfoA;
     }
 
     bool value(
@@ -146,39 +144,32 @@ public:
         {
         case ModulationType::ModLfoA:
             value = modulators.lfo_a.value(time);
-        case ModulationType::ModLfoAInv:
-            value = 127 - value;
             break;
         case ModulationType::ModLfoB:
             value = modulators.lfo_b.value(time);
-        case ModulationType::ModLfoBInv:
-            value = 127 - value;
             break;
         case ModulationType::ModLfoC:
             value = modulators.lfo_c.value(time);
-        case ModulationType::ModLfoCInv:
-            value = 127 - value;
             break;
         case ModulationType::ModLfoD:
             value = modulators.lfo_d.value(time);
-        case ModulationType::ModLfoDInv:
-            value = 127 - value;
             break;
         case ModulationType::ModPatA:
             value = modulators.pattern_a.value(time);
-        case ModulationType::ModPatAInv:
-            value = 127 - value;
             break;
         case ModulationType::ModPatB:
             value = modulators.pattern_b.value(time);
-        case ModulationType::ModPatBInv:
-            value = 127 - value;
             break;
         case ModulationType::ModRandom:
             value = Rand::randui8();
             break;
         case ModulationType::ModOff:
             return false;
+        }
+
+        if (this->inverse)
+        {
+            value = 127 - value;
         }
 
         value = Utils::rerange(value, this->range, this->minimum);
@@ -198,7 +189,7 @@ public:
     void randomize()
     {
         ofLogNotice("modulators", "randomize()");
-        switch (Rand::randui8(13))
+        switch (Rand::randui8(7))
         {
         default:
         case 0:  this->type = ModLfoA;    break;
@@ -207,14 +198,9 @@ public:
         case 3:  this->type = ModLfoD;    break;
         case 4:  this->type = ModPatA;    break;
         case 5:  this->type = ModPatB;    break;
-        case 6:  this->type = ModLfoAInv; break;
-        case 7:  this->type = ModLfoBInv; break;
-        case 8:  this->type = ModLfoCInv; break;
-        case 9:  this->type = ModLfoDInv; break;
-        case 10: this->type = ModPatAInv; break;
-        case 11: this->type = ModPatBInv; break;
-        case 12: this->type = ModRandom;  break;
+        case 6: this->type = ModRandom;  break;
         }
+        this->inverse = Rand::randf() < .5;
     }
 
     void randomize(const uint8_t range, const uint8_t offset, const float prob = 2.f)
@@ -222,13 +208,13 @@ public:
         if (Rand::randf() < prob)
         {
             this->randomize();
+            this->range = range;
+            this->minimum = offset;
         }
         else
         {
             this->type = ModulationType::ModOff;
         }
-        this->range = range;
-        this->minimum = offset;
     }
 
 };

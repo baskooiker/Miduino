@@ -147,12 +147,19 @@ namespace Vleerhond
     {
         data.mono_dub_settings.randomize();
         data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
+        
+        switch (Rand::randui8(2))
+        {
+        case 0: data.mono_dub_settings.lead_settings.style = MonoStyle::MonoPolyRhythm; break;
+        case 1: data.mono_dub_settings.lead_settings.style = MonoStyle::MonoLeadPattern; break;
+        }
     }
 
     void release_step_16(ApplicationData& data)
     {
         data.mono_dub_settings.randomize();
         data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
+        data.mono_dub_settings.lead_settings.style = MonoStyle::MonoSixteenths;
     }
 
     void release_step_15_and_16(ApplicationData& data)

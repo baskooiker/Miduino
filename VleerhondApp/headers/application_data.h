@@ -6,10 +6,10 @@
 #include "defs.h"
 #include "harmony_struct.h"
 #include "modulators.h"
-#include "tanzbar_settings.h"
+#include "parameters.h"
 #include "tanzbar_lo.h"
 
-#include "tanzbar_mid.h"
+#include "tanzbar_sd.h"
 #include "tanzbar_cp.h"
 
 #include "tanzbar_tom.h"
@@ -19,6 +19,9 @@
 #include "tanzbar_ma.h"
 #include "tanzbar_hats.h"
 #include "tanzbar_cy.h"
+
+#include "mfb_503.h"
+
 #include "bass_dub_settings.h"
 #include "mono_settings.h"
 #include "mono_dub_settings.h"
@@ -50,6 +53,12 @@ namespace Vleerhond
         TanzbarCy tanzbar_cy;
         TanzbarMa tanzbar_ma;
 
+        Mfb503Kick mfb_503_kick;
+        Mfb503Snare mfb_503_snare;
+        Mfb503Toms mfb_503_toms;
+        Mfb503Hats mfb_503_hats;
+        Mfb503Cymbal mfb_503_cymbal;
+
         BassSettings bass_settings;
         BassDubSettings bass_dub_settings;
         MonoSettings mono_settings;
@@ -74,6 +83,12 @@ namespace Vleerhond
             tanzbar_ma(modulators, time),
             tanzbar_cy(modulators, time),
             tanzbar_hats(modulators, time),
+
+            mfb_503_kick(modulators, harmony, time),
+            mfb_503_hats(modulators, time),
+            mfb_503_snare(modulators, time),
+            mfb_503_toms(modulators, harmony, time),
+            mfb_503_cymbal(modulators, time),
 
             bass_settings(fugue_settings, harmony, time),
             bass_dub_settings(bass_settings, fugue_settings, harmony, time),
@@ -167,9 +182,6 @@ namespace Vleerhond
         {
             this->fugue_settings.randomize_fugue();
 
-            this->tanzbar_lo.kill = true;
-            this->tanzbar_hats.kill = true;
-
             // Set bass
             this->bass_settings.style = BassStyle::BassFugue;
             // Set bass dub
@@ -205,6 +217,12 @@ namespace Vleerhond
             ptrs.push_back(&this->tanzbar_ma);
             ptrs.push_back(&this->tanzbar_hats);
             ptrs.push_back(&this->tanzbar_cy);
+
+            ptrs.push_back(&this->mfb_503_kick);
+            ptrs.push_back(&this->mfb_503_toms);
+            ptrs.push_back(&this->mfb_503_hats);
+            ptrs.push_back(&this->mfb_503_snare);
+            ptrs.push_back(&this->mfb_503_cymbal);
 
             ptrs.push_back(&this->bass_settings);
             ptrs.push_back(&this->bass_dub_settings);

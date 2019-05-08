@@ -10,6 +10,12 @@
 #include "interval_pattern.h"
 #include "instrument_base.h"
 
+#include "mfb_503_kick.h"
+#include "mfb_503_hats.h"
+#include "mfb_503_snare.h"
+#include "mfb_503_toms.h"
+#include "mfb_503_cymbal.h"
+
 namespace Vleerhond
 {
     static const RandomParam random_503_params[] = {

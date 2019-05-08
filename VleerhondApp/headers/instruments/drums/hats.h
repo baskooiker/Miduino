@@ -1,22 +1,20 @@
 #pragma once
 
 #include "instrument_base.h"
+#include "gate_patterns.h"
+#include "modulators.h"
+#include "parameters.h"
+#include "interval_pattern.h"
 
 namespace Vleerhond
 {
-    const RandomParam tanzbar_hats_params[] = {
-        {TB_OH_DECAY,  0,  96},
-        {TB_HH_TUNE ,  0, 127},
-        {TB_HH_DECAY,  0, 127},
-    };
-    const uint8_t nr_of_tanzbar_hats_params = sizeof(tanzbar_hats_params) / sizeof(*tanzbar_hats_params);
-
-    class TanzbarHats : public InstrumentBase
+    class Hats : public InstrumentBase
     {
     protected:
         MicroTimingStruct timing;
-
         ModulationReceiver hats_vel;
+        uint8_t pitch_closed;
+        uint8_t pitch_open;
 
     public:
         GatePatternAB hh_pattern;
@@ -27,26 +25,22 @@ namespace Vleerhond
 
         HatClosedStyle hat_closed_style;
 
-        TanzbarHats(
+        Hats(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
             InstrumentBase(time_ref, true),
             hats_vel(modulators_ref)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
             hat_closed_style = HatClosedStyle::HatClosedRegular;
             randomize();
-            kill = false;
         }
 
-        void randomize()
+        virtual void randomize()
         {
-            ofLogNotice("tanzbar_hi", "randomize()");
+            ofLogNotice("hats", "randomize()");
             last_randomized_time = millis();
 
-            Parameters::randomize_parameters(tanzbar_hats_params, nr_of_tanzbar_hats_params, MIDI_CC_CHANNEL_TANZBAR);
-
-            randomize_hi_seq();
+            randomize_seq();
 
             this->timing.randomize();
 
@@ -55,7 +49,7 @@ namespace Vleerhond
 
         }
 
-        void randomize_hi_seq()
+        virtual void randomize_seq()
         {
             // Randomize hats
             this->oh_pattern.set_coef_hat_pattern();
@@ -87,16 +81,12 @@ namespace Vleerhond
             this->hat_velocity.randomize();
         }
 
-        void play_hats_closed()
+        virtual void play_hats_closed()
         {
-            uint8_t velocity = 63;
-
             switch (this->hat_closed_style)
             {
             case HatClosedStyle::HatClosedInterval:
             {
-                this->hats_vel.value(time, velocity);
-
                 TimeDivision div = this->hat_int_pattern.interval(time);
                 if (Utils::interval_hit(div, time))
                 {
@@ -106,7 +96,7 @@ namespace Vleerhond
                         shuffle_delay = time.get_shuffle_delay(this->timing);
                     }
                     this->storage.note_on(
-                        NoteStruct(NOTE_TANZBAR_HH, velocity),
+                        NoteStruct(pitch_closed, get_velocity()),
                         shuffle_delay
                     );
                 }
@@ -115,9 +105,8 @@ namespace Vleerhond
             case HatClosedStyle::HatClosedRegular:
                 if (this->hh_pattern.gate(time))
                 {
-                    velocity = Utils::rerange(this->hat_velocity.value(time), 50, 32);
                     this->storage.note_on(
-                        NoteStruct(NOTE_TANZBAR_HH, velocity),
+                        NoteStruct(pitch_closed, get_velocity()),
                         time.get_shuffle_delay(this->timing)
                     );
                 }
@@ -125,19 +114,15 @@ namespace Vleerhond
             }
         }
 
-        bool play_hats_open()
+        virtual bool play_hats_open()
         {
             if (this->kill)
                 return false;
 
-            uint8_t velocity = 63;
-            if ((time.tick / TICKS_PER_STEP) % 4 == 2)
-                velocity = 127;
-
             if (this->oh_pattern.gate(time))
             {
                 this->storage.note_on(
-                    NoteStruct(NOTE_TANZBAR_OH, velocity),
+                    NoteStruct(pitch_open, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );
                 return true;
@@ -145,7 +130,7 @@ namespace Vleerhond
             return false;
         }
 
-        void play()
+        virtual void play()
         {
             if (this->kill)
                 return;
@@ -154,6 +139,20 @@ namespace Vleerhond
             {
                 play_hats_closed();
             }
+        }
+
+        virtual uint8_t get_velocity()
+        {
+            uint8_t velocity = 63;
+            if ((time.tick / TICKS_PER_STEP) % 4 == 2)
+            {
+                velocity = 127;
+            }
+            else
+            {
+                velocity = Utils::rerange(this->hat_velocity.value(time), 50, 32);
+            }
+            return velocity;
         }
     };
 }

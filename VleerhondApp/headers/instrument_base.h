@@ -50,6 +50,11 @@ namespace Vleerhond
         {
             return randomizable;
         }
+
+        uint8_t get_velocity()
+        {
+            return 100;
+        }
     };
 
     class TonalInstrumentBase : public InstrumentBase

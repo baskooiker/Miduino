@@ -66,5 +66,4 @@ public:
         Utils::remove(0, options, length);
         this->const_value = options[Rand::randui8(length)];
     }
-
 };

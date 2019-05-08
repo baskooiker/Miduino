@@ -123,11 +123,6 @@ enum FuguePlayerType {
     FugueBackAndForth
 };
 
-enum PercussionType {
-    PercussionToms,
-    PercussionCongas
-};
-
 enum ScaleType {
     IONIAN,
     DORIAN,

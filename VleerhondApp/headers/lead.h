@@ -42,9 +42,15 @@ namespace Vleerhond
             case 0: this->arp_data.type = ArpType::CLOSEST; break;
             case 1: this->arp_data.type = ArpType::CLOSEST_EXC; break;
             }
-            this->arp_data.range = 12;
+            this->arp_data.range = Rand::randui8(12, 24);
 
             this->pattern_slow.set_coef_slow_pattern();
+
+            switch (Rand::distribution(16, 16))
+            {
+            case 0: this->style = LeadStyle::LeadSlow; break;
+            case 1: this->style = LeadStyle::LeadWhole; break;
+            }
         }
 
         void play()

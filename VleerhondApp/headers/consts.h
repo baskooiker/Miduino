@@ -20,7 +20,7 @@
 
 #define MIDI_CHANNEL_POLY     13
 #define MIDI_CHANNEL_LEAD     14
-#define MIDI_CHANNEL_503      10
+#define MIDI_CHANNEL_503      15
 #define MIDI_CHANNEL_522      12
 
 #define COMMON_DENOMINATOR 240240 // Exept 9
@@ -46,6 +46,8 @@
 
 #define NOTE_503_BD_MIN 48
 #define NOTE_503_BD_MAX 59
+#define NOTE_503_SD_MIN 60
+#define NOTE_503_SD_MAX 71
 #define NOTE_503_TOM_MIN 72
 #define NOTE_503_TOM_MAX 83
 #define NOTE_503_CY_MIN 84
@@ -86,10 +88,7 @@
 #define NOTE_TANZBAR_CB   51
 #define NOTE_TANZBAR_MA   52
 
-#define NOVATION_ZERO_SL
-
 // BSP CC's
-#ifdef NOVATION_ZERO_SL
 #define BSP_STEP_01 87
 #define BSP_STEP_02 24
 #define BSP_STEP_03 88
@@ -143,61 +142,15 @@
 #define BSP_PAD_15 46
 #define BSP_PAD_16 47
 #define NR_OF_PADS 16
-#else
-#define BSP_STEP_01 20
-#define BSP_STEP_02 21
-#define BSP_STEP_03 22
-#define BSP_STEP_04 23
-#define BSP_STEP_05 24
-#define BSP_STEP_06 25
-#define BSP_STEP_07 26
-#define BSP_STEP_08 27
-#define BSP_STEP_09 28
-#define BSP_STEP_10 29
-#define BSP_STEP_11 30
-#define BSP_STEP_12 31
-#define BSP_STEP_13 52
-#define BSP_STEP_14 53
-#define BSP_STEP_15 54
-#define BSP_STEP_16 55
-#define NR_OF_STEPS 16
 
-#define BSP_KNOB_01 10
-#define BSP_KNOB_02 74
-#define BSP_KNOB_03 71
-#define BSP_KNOB_04 76
-#define BSP_KNOB_05 77
-#define BSP_KNOB_06 93
-#define BSP_KNOB_07 73
-#define BSP_KNOB_08 75
-#define BSP_KNOB_09 114
-#define BSP_KNOB_10 18
-#define BSP_KNOB_11 19
-#define BSP_KNOB_12 16
-#define BSP_KNOB_13 17
-#define BSP_KNOB_14 91
-#define BSP_KNOB_15 79
-#define BSP_KNOB_16 72
-#define NR_OF_KNOBS 16
-
-#define BSP_PAD_01 87
-#define BSP_PAD_02 88
-#define BSP_PAD_03 89
-#define BSP_PAD_04 90
-#define BSP_PAD_05 91
-#define BSP_PAD_06 92
-#define BSP_PAD_07 93
-#define BSP_PAD_08 94
-#define BSP_PAD_09 24
-#define BSP_PAD_10 25
-#define BSP_PAD_11 26
-#define BSP_PAD_12 27
-#define BSP_PAD_13 28
-#define BSP_PAD_14 29
-#define BSP_PAD_15 30
-#define BSP_PAD_16 31
-#define NR_OF_PADS 16
-#endif
+#define SLIDER_01 16
+#define SLIDER_02 17
+#define SLIDER_03 18
+#define SLIDER_04 19
+#define SLIDER_05 20
+#define SLIDER_06 21
+#define SLIDER_07 22
+#define SLIDER_08 23
 
 // MFB 503 CC's
 #define BD_LEVEL  8 

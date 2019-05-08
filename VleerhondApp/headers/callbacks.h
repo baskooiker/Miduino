@@ -134,6 +134,34 @@ namespace Vleerhond
         }
     }
 
+    void handleControlChangeAlways(ApplicationData& data, uint8_t channel, uint8_t number, uint8_t value)
+    {
+        switch (number)
+        {
+        case SLIDER_01:
+            data.mfb_503_kick.set_volume(value);
+            break;
+        case SLIDER_02:
+            data.mfb_503_snare.set_volume(value);
+            break;
+        case SLIDER_03:
+            data.mfb_503_toms.set_volume(value);
+            break;
+        case SLIDER_04:
+            data.mfb_503_cymbal.set_volume(value);
+            break;
+        case SLIDER_05:
+            data.mfb_503_hats.set_volume(value);
+            break;
+        case SLIDER_06:
+            break;
+        case SLIDER_07:
+            break;
+        case SLIDER_08:
+            break;
+        }
+    }
+
     void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t number, uint8_t value)
     {
         switch (number)
@@ -371,6 +399,7 @@ namespace Vleerhond
         {
             release_step(data.ui_state.step_state, number);
         }
+        handleControlChangeAlways(data, channel, number, value);
         switch (data.time.state)
         {
         case PlayState::Playing:

@@ -44,6 +44,12 @@ namespace Vleerhond
 
             // Randomize pitch range
             this->pitch_offset = Rand::randui8(42, 54);
+
+            switch (Rand::distribution(16, 16))
+            {
+            case 0: this->type = PolyType::PolyHigh; break;
+            case 1: this->type = PolyType::PolyLow; break;
+            }
         }
 
         void play()

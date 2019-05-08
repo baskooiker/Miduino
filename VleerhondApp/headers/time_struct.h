@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ofLog.h"
+
 #include "defs.h"
 #include "timing_structs.h"
 
@@ -35,7 +37,7 @@ public:
         if ((this->tick + TICKS_PER_STEP) % (2 * TICKS_PER_STEP) == 0)
         {
             uint8_t amount = (uint8_t)CLIP((int8_t)this->global_shuffle + shuffle_offset, 0, 127);
-            return max((uint32_t)((this->average_pulse_time / 16.) * (amount / 127.)), delay);
+            return MAX((uint32_t)((this->average_pulse_time / 16.) * (amount / 127.)), delay);
         }
         else
             return delay;

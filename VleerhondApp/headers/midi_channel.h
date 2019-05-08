@@ -119,8 +119,11 @@ namespace Vleerhond
             {
                 this->note_off(note.pitch);
             }
-            this->_send_note_on(note.pitch, note.velocity);
-            this->add_to_storage(note);
+            if (note.velocity > 0)
+            {
+                this->_send_note_on(note.pitch, note.velocity);
+                this->add_to_storage(note);
+            }
         }
 
         void note_on(const NoteStruct& note, const uint32_t delay)

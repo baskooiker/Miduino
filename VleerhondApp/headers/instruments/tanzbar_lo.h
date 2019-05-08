@@ -1,5 +1,8 @@
 #pragma once
 
+#include "parameters.h"
+#include "drums/kick.h"
+
 namespace Vleerhond
 {
     const RandomParam tanzbar_low_params[] = {
@@ -18,7 +21,7 @@ namespace Vleerhond
     };
     const uint8_t nr_tanzbar_low_params = sizeof(tanzbar_low_params) / sizeof(RandomParam);
 
-    class TanzbarLo : public InstrumentBase
+    class TanzbarLo : public Kick
     {
     protected:
         MicroTimingStruct bd_timing;
@@ -29,59 +32,35 @@ namespace Vleerhond
         TanzbarLo(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            InstrumentBase(time_ref, true)
+            Kick(modulators_ref, time_ref)
         {
             storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            pitch = NOTE_TANZBAR_BD1;
         }
 
         void randomize()
         {
             ofLogNotice("tanzbar_lo", "randomize()");
-            last_randomized_time = millis();
-
-            Tanzbar::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params);
-
-            this->bd_pattern.set_coef_kick_pattern();
-
-            if (Rand::distribution(32, 12))
-            {
-                this->randomize_tanzbar_kick();
-            }
-
-            this->bd_timing.randomize();
+            Kick::randomize();
+            Parameters::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params, MIDI_CC_CHANNEL_TANZBAR);
         }
 
         void play()
         {
-            bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
-            uint8_t velocity = quarter_hit ? 127 : 63;
-            if (this->bd_pattern.gate(time) && !this->kill)
+            if (kill)
             {
-                uint8_t pitch = NOTE_TANZBAR_BD1;
-                this->storage.note_on(
-                    NoteStruct(pitch, velocity),
-                    time.get_shuffle_delay(this->bd_timing)
-                );
+                return;
             }
 
+            Kick::play();
+            bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
             if (quarter_hit && !this->kill)
             {
                 this->storage.note_on(
-                    NoteStruct(NOTE_TANZBAR_BD2, velocity),
+                    NoteStruct(NOTE_TANZBAR_BD2, 127),
                     time.get_shuffle_delay(this->bd_timing)
                 );
             }
         }
-
-    protected:
-        void randomize_tanzbar_kick()
-        {
-            // Fill in first or second half of bar
-            uint8_t half = Rand::distribution(64, 64);
-
-            uint8_t bar = this->bd_pattern.abPattern.value(Rand::randui8(4));
-            this->bd_pattern.patterns[bar].set_kick_fill(half * 8);
-        }
-
     };
 }
