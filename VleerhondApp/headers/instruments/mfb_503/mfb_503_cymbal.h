@@ -25,8 +25,11 @@ namespace Vleerhond
             Cymbal(modulators_ref, time_ref)
         {
             storage.set_channel(MIDI_CHANNEL_503);
+
             // TODO: randomize 
-            pitch = NOTE_503_CY_MIN;
+            pitch = NOTE_503_CY_MAX;
+
+            this->randomize();
         }
 
         void randomize()

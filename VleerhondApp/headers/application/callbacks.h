@@ -17,61 +17,6 @@
 
 namespace Vleerhond
 {
-    /*
-    void handleNoteOnStopped(ApplicationData& data, uint8_t channel, uint8_t pitch, uint8_t velocity)
-    {
-        switch (pitch)
-        {
-        case BSP_PAD_01:
-            data.harmony.scale.root = Root::ROOT_C;
-            break;
-        case BSP_PAD_02:
-            data.harmony.scale.root = Root::ROOT_D;
-            break;
-        case BSP_PAD_03:
-            data.harmony.scale.root = Root::ROOT_E;
-            break;
-        case BSP_PAD_04:
-            data.harmony.scale.root = Root::ROOT_F;
-            break;
-        case BSP_PAD_05:
-            data.harmony.scale.root = Root::ROOT_G;
-            break;
-        case BSP_PAD_06:
-            data.harmony.scale.root = Root::ROOT_A;
-            break;
-        case BSP_PAD_07:
-            data.harmony.scale.root = Root::ROOT_B;
-            break;
-        case BSP_PAD_08:
-            break;
-        case BSP_PAD_09:
-            data.harmony.scale.root = Root::ROOT_C_SHARP;
-            break;
-        case BSP_PAD_10:
-            data.harmony.scale.root = Root::ROOT_D_SHARP;
-            break;
-        case BSP_PAD_11:
-            break;
-        case BSP_PAD_12:
-            data.harmony.scale.root = Root::ROOT_F_SHARP;
-            break;
-        case BSP_PAD_13:
-            data.harmony.scale.root = Root::ROOT_G_SHARP;
-            break;
-        case BSP_PAD_14:
-            data.harmony.scale.root = Root::ROOT_A_SHARP;
-            break;
-        case BSP_PAD_15:
-            data.harmony.scale.set_scale(ScaleType::AEOLIAN);
-            break;
-        case BSP_PAD_16:
-            data.harmony.scale.set_scale(ScaleType::IONIAN);
-            break;
-        }
-    }
-    */
-    
     void handleClock(ApplicationData& data)
     {
         if (data.time.state == PlayState::Stopped)
@@ -169,6 +114,7 @@ namespace Vleerhond
         case BSP_KNOB_01:
             break;
         case BSP_KNOB_09:
+            data.mfb_503_kick.set_decay(value);
             break;
         case BSP_KNOB_02:
             break;
@@ -177,19 +123,19 @@ namespace Vleerhond
         case BSP_KNOB_03:
             break;
         case BSP_KNOB_11:
-            break;
-        case BSP_KNOB_04:
-            break;
-        case BSP_KNOB_12:
             data.bass_settings.note_range_value = value;
             break;
-        case BSP_KNOB_05:
+        case BSP_KNOB_04:
             data.bass_settings.density = value;
             data.fugue_settings.player_settings[0].density = value;
             break;
-        case BSP_KNOB_13:
+        case BSP_KNOB_12:
             data.bass_settings.pitch_range = value;
             data.fugue_settings.player_settings[0].manual_pitch_offset = value;
+            break;
+        case BSP_KNOB_05:
+            break;
+        case BSP_KNOB_13:
             break;
         case BSP_KNOB_06:
             data.bass_dub_settings.density = value;
@@ -292,31 +238,30 @@ namespace Vleerhond
             break;
 
         case BSP_PAD_01:
-            if (value > 0)
-            {
-                data.tanzbar_lo.kill = true;
-            }
-            else
-            {
-                data.tanzbar_lo.kill = false;
-            }
+            data.tanzbar_lo.kill = value > 0;
+            data.mfb_503_kick.kill = value > 0;
             break;
         case BSP_PAD_02:
             break;
         case BSP_PAD_03:
+            data.tanzbar_hats.kill = value > 0;
+            data.tanzbar_cy.kill = value > 0;
+            data.tanzbar_ma.kill = value > 0;
+
+            data.mfb_503_hats.kill = value > 0;
+            data.mfb_503_cymbal.kill = value > 0;
+
             break;
         case BSP_PAD_04:
-            data.tanzbar_hats.kill = value > 0;
-            break;
-        case BSP_PAD_05:
             data.bass_settings.kill = value > 0;
             if (data.bass_settings.kill)
             {
                 data.bass_settings.storage.process_active_notes();
             }
             break;
+        case BSP_PAD_05:
+            break;
         case BSP_PAD_06:
-            data.bass_dub_settings.kill = value > 0;
             data.drone.kill = value > 0;
             break;
         case BSP_PAD_07:
@@ -385,6 +330,53 @@ namespace Vleerhond
                 data.tanzbar_ma.randomize();
                 data.set_fugue();
             }
+            break;
+
+        case BSP_PAD_01:
+            data.harmony.scale.set_root(Root::ROOT_C);
+            break;
+        case BSP_PAD_02:
+            data.harmony.scale.set_root(Root::ROOT_D);
+            break;
+        case BSP_PAD_03:
+            data.harmony.scale.set_root(Root::ROOT_E);
+            break;
+        case BSP_PAD_04:
+            data.harmony.scale.set_root(Root::ROOT_F);
+            break;
+        case BSP_PAD_05:
+            data.harmony.scale.set_root(Root::ROOT_G);
+            break;
+        case BSP_PAD_06:
+            data.harmony.scale.set_root(Root::ROOT_A);
+            break;
+        case BSP_PAD_07:
+            data.harmony.scale.set_root(Root::ROOT_B);
+            break;
+        case BSP_PAD_08:
+            break;
+        case BSP_PAD_09:
+            data.harmony.scale.set_root(Root::ROOT_C_SHARP);
+            break;
+        case BSP_PAD_10:
+            data.harmony.scale.set_root(Root::ROOT_D_SHARP);
+            break;
+        case BSP_PAD_11:
+            break;
+        case BSP_PAD_12:
+            data.harmony.scale.set_root(Root::ROOT_F_SHARP);
+            break;
+        case BSP_PAD_13:
+            data.harmony.scale.set_root(Root::ROOT_G_SHARP);
+            break;
+        case BSP_PAD_14:
+            data.harmony.scale.set_root(Root::ROOT_A_SHARP);
+            break;
+        case BSP_PAD_15:
+            data.harmony.scale.set_scale(ScaleType::AEOLIAN);
+            break;
+        case BSP_PAD_16:
+            data.harmony.scale.set_scale(ScaleType::IONIAN);
             break;
         }
     }

@@ -59,5 +59,10 @@ namespace Vleerhond
             uint16_t velocity = quarter_hit ? 127 : 96;
             return (uint8_t)(((uint16_t)volume * velocity) / 127);
         }
+
+        void set_decay(const uint8_t decay)
+        {
+            MidiIO::send_cc(BD_DECAY, decay, MIDI_CHANNEL_503);
+        }
     };
 }

@@ -45,7 +45,16 @@ namespace Vleerhond
 
         uint8_t get_velocity()
         {
-            return (uint8_t)(((uint16_t)volume * (uint16_t)Hats::get_velocity()) / 127);
+            uint16_t velocity = 63;
+            if ((time.tick / TICKS_PER_STEP) % 4 == 2)
+            {
+                velocity = 127;
+            }
+            else
+            {
+                velocity = Utils::rerange(this->hat_velocity.value(time), 64, 63);
+            }
+            return (uint8_t)(((uint16_t)volume * velocity) / 127);
         }
     };
 }

@@ -26,6 +26,8 @@ namespace Vleerhond
         data.tanzbar_tom.randomize();
         data.tanzbar_cl.randomize();
         data.tanzbar_cb.randomize();
+
+        data.tanzbar_hats.randomize();
     }
 
     void release_step_4(ApplicationData& data)
@@ -63,49 +65,39 @@ namespace Vleerhond
 
     void release_step_7(ApplicationData& data)
     {
-        data.poly_settings.randomize();
-        data.lead_settings.randomize();
+        data.bass_settings.randomize();
     }
 
     void release_step_8(ApplicationData& data)
     {
-        data.poly_settings.randomize();
-        data.lead_settings.randomize();
+        data.bass_settings.randomize();
     }
 
     void release_step_7_8(ApplicationData& data)
     {
-        data.poly_settings.randomize();
-        data.lead_settings.randomize();
+        data.bass_settings.randomize();
     }
 
     void release_step_9(ApplicationData& data)
     {
-        data.bass_settings.randomize();
     }
 
     void release_step_10(ApplicationData& data)
     {
-        data.bass_settings.randomize();
     }
 
     void release_step_9_10s(ApplicationData& data)
     {
-        data.bass_settings.randomize();
     }
 
     void release_step_11(ApplicationData& data)
     {
         data.drone.randomize();
-        data.bass_dub_settings.randomize();
-        data.bass_dub_settings.style = BassDubStyle::DubUnison;
     }
 
     void release_step_12(ApplicationData& data)
     {
         data.drone.randomize();
-        data.bass_dub_settings.randomize();
-        data.bass_dub_settings.style = BassDubStyle::DubOctave;
     }
 
     void release_step_11_and_12(ApplicationData& data)

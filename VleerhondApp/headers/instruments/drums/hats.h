@@ -91,7 +91,7 @@ namespace Vleerhond
                 if (Utils::interval_hit(div, time))
                 {
                     uint8_t shuffle_delay = 0;
-                    if (div < TimeDivision::Sixteenth)
+                    if (div > TimeDivision::Thirtysecond)
                     {
                         shuffle_delay = time.get_shuffle_delay(this->timing);
                     }

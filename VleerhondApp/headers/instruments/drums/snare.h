@@ -29,7 +29,20 @@ namespace Vleerhond
         {
             last_randomized_time = millis();
 
-            this->pattern.set_coef_snare_pattern();
+            switch (Rand::distribution(32, 16, 16))
+            {
+            case 0:
+                this->pattern.set_coef_snare_pattern();
+                break;
+            case 1:
+                this->pattern.set_all(0);
+                this->pattern.set(4, true);
+                this->pattern.set(12, true);
+                break;
+            case 2:
+                this->pattern.randomize(.75);
+                break;
+            }
 
             // Timing
             this->timing.randomize();

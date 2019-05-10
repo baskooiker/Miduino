@@ -218,7 +218,14 @@ namespace Vleerhond
         case 'i':
             initialize_midi_ports();
             break;
+        case 'z':
+            MidiIO::send_note_on(87, 100, MIDI_CHANNEL_503);
+            break;
+        case 'x':
+            MidiIO::send_note_on(88, 100, MIDI_CHANNEL_503);
+            break;
         case 'c':
+            MidiIO::send_note_on(89, 100, MIDI_CHANNEL_503);
             break;
         default:
             //ofLogNotice(MODULE, "Unhandled key pressed: %3d\n", key);

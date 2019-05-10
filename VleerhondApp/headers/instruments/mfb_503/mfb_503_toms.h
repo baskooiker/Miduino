@@ -9,9 +9,11 @@ namespace Vleerhond
         {MFB_503_LT_TUNE ,  16,  64},
         {MFB_503_LT_DECAY,  32,  96},
         {MFB_503_LT_PITCH,  32,  96},
+
         {MFB_503_MT_TUNE ,  32,  80},
         {MFB_503_MT_DECAY,  32,  96},
         {MFB_503_MT_PITCH,  32,  96},
+
         {MFB_503_MT_TUNE ,  48,  96},
         {MFB_503_MT_DECAY,  32,  96},
         {MFB_503_MT_PITCH,  32,  96},
