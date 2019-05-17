@@ -123,26 +123,28 @@ namespace Vleerhond
         case BSP_KNOB_03:
             break;
         case BSP_KNOB_11:
-            data.bass_settings.note_range_value = value;
+            data.rocket_bass.note_range_value = value;
             break;
         case BSP_KNOB_04:
-            data.bass_settings.density = value;
-            data.fugue_settings.player_settings[0].density = value;
+            data.rocket_bass.density = value;
             break;
         case BSP_KNOB_12:
-            data.bass_settings.pitch_range = value;
-            data.fugue_settings.player_settings[0].manual_pitch_offset = value;
+            data.rocket_bass.pitch_range = value;
             break;
         case BSP_KNOB_05:
+            data.acid_bass.density = value;
+            data.fugue_settings.player_settings[0].density = value;
             break;
         case BSP_KNOB_13:
+            data.acid_bass.pitch_range = value;
+            data.fugue_settings.player_settings[0].manual_pitch_offset = value;
             break;
         case BSP_KNOB_06:
-            data.bass_dub_settings.density = value;
+            //data.bass_dub_settings.density = value;
             data.fugue_settings.player_settings[1].density = value;
             break;
         case BSP_KNOB_14:
-            data.bass_dub_settings.v_pitch = value;
+            //data.bass_dub_settings.v_pitch = value;
             data.fugue_settings.player_settings[1].manual_pitch_offset = value;
             data.drone.variable_pitch_range = value;
             break;
@@ -253,10 +255,10 @@ namespace Vleerhond
 
             break;
         case BSP_PAD_04:
-            data.bass_settings.kill = value > 0;
-            if (data.bass_settings.kill)
+            data.rocket_bass.kill = value > 0;
+            if (data.rocket_bass.kill)
             {
-                data.bass_settings.storage.process_active_notes();
+                data.rocket_bass.storage.process_active_notes();
             }
             break;
         case BSP_PAD_05:
@@ -318,18 +320,6 @@ namespace Vleerhond
             }
             break;
         case BSP_STEP_16:
-            if (value == 0)
-            {
-                data.tanzbar_lo.randomize();
-                data.tanzbar_mid.randomize();
-                data.tanzbar_tom.randomize();
-                data.tanzbar_cb.randomize();
-                data.tanzbar_cl.randomize();
-                data.tanzbar_hats.randomize();
-                data.tanzbar_cy.randomize();
-                data.tanzbar_ma.randomize();
-                data.set_fugue();
-            }
             break;
 
         case BSP_PAD_01:

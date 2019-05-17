@@ -65,17 +65,17 @@ namespace Vleerhond
 
     void release_step_7(ApplicationData& data)
     {
-        data.bass_settings.randomize();
+        data.rocket_bass.randomize();
     }
 
     void release_step_8(ApplicationData& data)
     {
-        data.bass_settings.randomize();
+        data.rocket_bass.randomize();
     }
 
     void release_step_7_8(ApplicationData& data)
     {
-        data.bass_settings.randomize();
+        data.rocket_bass.randomize();
     }
 
     void release_step_9(ApplicationData& data)
@@ -103,8 +103,8 @@ namespace Vleerhond
     void release_step_11_and_12(ApplicationData& data)
     {
         data.drone.randomize();
-        data.bass_dub_settings.randomize();
-        data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
+        //data.bass_dub_settings.randomize();
+        //data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
     }
 
     void release_step_13(ApplicationData& data)

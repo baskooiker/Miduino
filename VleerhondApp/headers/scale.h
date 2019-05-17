@@ -2,6 +2,7 @@
 
 #include "defs.h"
 #include "utils.h"
+#include "strings.h"
 
 namespace Vleerhond
 {
@@ -34,7 +35,7 @@ namespace Vleerhond
 
         void set_scale(const ScaleType type_)
         {
-            ofLogNotice("scale", "set_type(%s)", Strings::get_string(type_).c_str());
+            ofLogNotice("scale", "set_scale(%s)", Strings::get_string(type_).c_str());
             this->type = type_;
         }
 
@@ -134,7 +135,7 @@ namespace Vleerhond
         uint8_t get_ascending(const uint8_t pitch, const NoteInterval note_interval)
         {
             uint8_t rv = pitch;
-            uint8_t steps = note_interval;
+            uint8_t steps = (uint8_t)note_interval;
             for (int i = pitch + 1; i < 128; i++)
             {
                 if (this->contains(i))

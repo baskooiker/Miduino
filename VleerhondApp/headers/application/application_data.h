@@ -2,7 +2,6 @@
 
 #include <algorithm>
 
-#include "bass_settings.h"
 #include "defs.h"
 #include "harmony_struct.h"
 #include "modulators.h"
@@ -22,6 +21,8 @@
 
 #include "mfb_503.h"
 
+#include "rocket_bass.h"
+#include "acid_bass.h"
 #include "bass_dub_settings.h"
 #include "mono_settings.h"
 #include "mono_dub_settings.h"
@@ -59,8 +60,8 @@ namespace Vleerhond
         Mfb503Hats mfb_503_hats;
         Mfb503Cymbal mfb_503_cymbal;
 
-        BassSettings bass_settings;
-        BassDubSettings bass_dub_settings;
+        RocketBass rocket_bass;
+        AcidBass acid_bass;
         MonoSettings mono_settings;
         MonoDubSettings mono_dub_settings;
         Drone drone;
@@ -90,10 +91,10 @@ namespace Vleerhond
             mfb_503_toms(modulators, harmony, time),
             mfb_503_cymbal(modulators, time),
 
-            bass_settings(fugue_settings, harmony, time),
-            bass_dub_settings(bass_settings, fugue_settings, harmony, time),
-            mono_settings(fugue_settings, harmony, time),
-            mono_dub_settings(mono_settings, fugue_settings, harmony, time),
+            rocket_bass(harmony, time),
+            acid_bass(harmony, time),
+            mono_settings(harmony, time),
+            mono_dub_settings(mono_settings, harmony, time),
             poly_settings(harmony, time),
             lead_settings(harmony, time),
             drone(harmony, time)
@@ -101,20 +102,10 @@ namespace Vleerhond
             mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
             mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
 
-            bass_settings.storage.set_channel(MIDI_CHANNEL_BASS, 24);
-            bass_settings.storage.set_channel(MIDI_CHANNEL_ROCKET);
-
             drone.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
-
-            //bass_dub_settings.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
 
             this->poly_settings.storage.set_channel(MIDI_CHANNEL_POLY);
             this->lead_settings.storage.set_channel(MIDI_CHANNEL_LEAD);
-
-            bass_settings.fugue_id = 0;
-            bass_dub_settings.fugue_id = 1;
-            mono_settings.fugue_id = 2;
-            mono_dub_settings.fugue_id = 3;
 
             this->randomize_all();
         }
@@ -178,21 +169,6 @@ namespace Vleerhond
             this->fugue_settings.randomize_fugue();
         }
 
-        void set_fugue()
-        {
-            this->fugue_settings.randomize_fugue();
-
-            // Set bass
-            this->bass_settings.style = BassStyle::BassFugue;
-            // Set bass dub
-            this->bass_dub_settings.style = BassDubStyle::DubFugue;
-            // Set mono
-            this->mono_settings.style = MonoStyle::MonoFugue;
-            // Set mono dub
-            this->mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
-            this->mono_dub_settings.style = MonoStyle::MonoFugue;
-        }
-
         void process_events()
         {
             for (auto instrument : get_instrument_ptrs())
@@ -224,8 +200,9 @@ namespace Vleerhond
             ptrs.push_back(&this->mfb_503_snare);
             ptrs.push_back(&this->mfb_503_cymbal);
 
-            ptrs.push_back(&this->bass_settings);
-            ptrs.push_back(&this->bass_dub_settings);
+            ptrs.push_back(&this->rocket_bass);
+            ptrs.push_back(&this->acid_bass);
+            //ptrs.push_back(&this->bass_dub_settings);
             ptrs.push_back(&this->mono_settings);
             ptrs.push_back(&this->mono_dub_settings);
             ptrs.push_back(&this->poly_settings);

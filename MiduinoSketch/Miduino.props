@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\VleerhondApp\headers;C:\Users\Bas\Miduino\VleerhondApp\headers\application;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments\drums;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments\mfb_503;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments\tanzbar;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\VleerhondApp\headers;C:\Users\Bas\Miduino\VleerhondApp\headers\application;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments\drums;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments\mfb_503;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments\tanzbar;C:\Users\Bas\Miduino\VleerhondApp\headers\instruments\tonal_instruments;C:\Users\Bas\Miduino\VleerhondApp\headers\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

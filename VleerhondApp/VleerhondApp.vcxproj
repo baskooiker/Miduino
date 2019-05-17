@@ -546,18 +546,28 @@
     <ClInclude Include="headers\fugue.h" />
     <ClInclude Include="headers\gate_patterns.h" />
     <ClInclude Include="headers\harmony_struct.h" />
+    <ClInclude Include="headers\instruments\bass_dub_settings.h" />
+    <ClInclude Include="headers\instruments\bass.h" />
+    <ClInclude Include="headers\instruments\drone.h" />
     <ClInclude Include="headers\instruments\drums\cymbal.h" />
     <ClInclude Include="headers\instruments\drums\hats.h" />
     <ClInclude Include="headers\instruments\drums\kick.h" />
     <ClInclude Include="headers\instruments\drums\percussion.h" />
     <ClInclude Include="headers\instruments\drums\snare.h" />
     <ClInclude Include="headers\instruments\drums\toms.h" />
+    <ClInclude Include="headers\instruments\instrument_base.h" />
+    <ClInclude Include="headers\instruments\lead.h" />
+    <ClInclude Include="headers\instruments\mfb_503.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_cymbal.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_hats.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_kick.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_snare.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_toms.h" />
+    <ClInclude Include="headers\instruments\mfb_522.h" />
+    <ClInclude Include="headers\instruments\mono_dub_settings.h" />
+    <ClInclude Include="headers\instruments\mono_settings.h" />
     <ClInclude Include="headers\instruments\parameters.h" />
+    <ClInclude Include="headers\instruments\poly.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cb.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cl.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cp.h" />
@@ -567,6 +577,8 @@
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_ma.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_sd.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_tom.h" />
+    <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h" />
+    <ClInclude Include="headers\instruments\tonal_instruments\rocket_bass.h" />
     <ClInclude Include="headers\instrument_base.h" />
     <ClInclude Include="headers\intervals.h" />
     <ClInclude Include="headers\interval_pattern.h" />
@@ -584,6 +596,7 @@
     <ClInclude Include="headers\timing_structs.h" />
     <ClInclude Include="headers\ui.h" />
     <ClInclude Include="headers\utils.h" />
+    <ClInclude Include="headers\utils\strings.h" />
     <ClInclude Include="src\VleerhondApp.h" />
   </ItemGroup>
   <ItemGroup>

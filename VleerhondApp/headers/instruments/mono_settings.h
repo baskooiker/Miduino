@@ -8,31 +8,9 @@
 
 namespace Vleerhond
 {
-    class StrUtils
-    {
-    public:
-        static const std::string get_string(const MonoStyle style)
-        {
-            switch (style)
-            {
-            case MonoStyle::MonoFugue:
-                return "fugue";
-            case MonoStyle::MonoLeadPattern:
-                return "lead_pattern";
-            case MonoStyle::MonoPolyRhythm:
-                return "poly_rhythm";
-            case MonoStyle::MonoSixteenths:
-                return "sixteenths";
-            default:
-                return "invalid style";
-            }
-        }
-    };
-
     class MonoSettings : public TonalInstrumentBase
     {
     protected:
-        FugueSettings& fugue_settings;
         SampleAndHold subtract_sh;
         NoteRepeat note_repeat_sh;
         bool proceed_arp_on_note_repeat;
@@ -48,20 +26,14 @@ namespace Vleerhond
         uint8_t variable_density;
         TimeDivision arp_reset_interval;
 
-        uint8_t pitch_offset;
-        uint8_t fugue_id;
-
         MonoSettings(
-            FugueSettings& fugue_settings_ref,
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
             TonalInstrumentBase(harmony_ref, time_ref, false),
-            fugue_settings(fugue_settings_ref),
             subtract_sh(TimeDivision::Sixteenth),
             note_repeat_sh(TimeDivision::Eighth)
         {
             style = MonoStyle::MonoSixteenths;
-            fugue_id = 0;
             arp_reset_interval = TimeDivision::Whole;
         }
 
@@ -71,7 +43,6 @@ namespace Vleerhond
             last_randomized_time = millis();
 
             // Randomize pitched
-            this->pitch_offset = Rand::randui8(36, 48);
             this->arp_data.range = Rand::randui8(12, 36);
 
             switch (Rand::randui8(4))
@@ -107,7 +78,7 @@ namespace Vleerhond
             case 3: arp_reset_interval = TimeDivision::Eight; break;
             }
 
-            ofLogNotice("mono", "mono type = %s", StrUtils::get_string(this->style).c_str());
+            ofLogNotice("mono", "mono type = %s", Strings::get_string(this->style).c_str());
 
             subtract_sh.prob = Rand::randi8(16);
             note_repeat_sh.prob = Rand::randui8(32);
@@ -135,7 +106,7 @@ namespace Vleerhond
 
         uint8_t get_next_mono_pitch()
         {
-            this->arp_data.min = Utils::rerange(this->variable_pitch_offset, 48, this->pitch_offset);
+            this->arp_data.min = Utils::rerange(this->variable_pitch_offset, 48, 36);
             uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, harmony.get_chord_step(time));
             return pitch;
         }
@@ -148,15 +119,6 @@ namespace Vleerhond
         void play()
         {
             this->check_arp_reset();
-
-            if (this->style == MonoStyle::MonoFugue && !this->kill)
-            {
-                return this->fugue_settings.play_fugue(
-                    this->fugue_id,
-                    harmony,
-                    time,
-                    this->storage);
-            }
 
             NoteStruct repeat_note = note_repeat_sh.repeat_note(time);
             if (repeat_note.pitch > 0)

@@ -5,12 +5,12 @@
 #include "gate_patterns.h"
 #include "instrument_base.h"
 #include "fugue.h"
+#include "bass.h"
 
 namespace Vleerhond
 {
     class BassDubSettings : public TonalInstrumentBase {
-        BassSettings& bass_settings;
-        FugueSettings& fugue_settings;
+        Bass& bass_settings;
 
     public:
         BassDubStyle style;
@@ -18,16 +18,13 @@ namespace Vleerhond
         GatePatternAB hit_probs;
         uint8_t density;
         uint8_t v_pitch;
-        uint8_t fugue_id;
 
         BassDubSettings(
-            BassSettings& bass_settings_ref,
-            FugueSettings& fugue_settings_ref,
+            Bass& bass_settings_ref,
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
             TonalInstrumentBase(harmony_ref, time_ref, false),
-            bass_settings(bass_settings_ref),
-            fugue_settings(fugue_settings_ref)
+            bass_settings(bass_settings_ref)
         {
             style = BassDubStyle::DubOctave;
             note_interval = NoteInterval::IntervalRoot;
@@ -71,15 +68,6 @@ namespace Vleerhond
                 return;
             }
 
-            if (this->style == BassDubStyle::DubFugue)
-            {
-                return this->fugue_settings.play_fugue(
-                    this->fugue_id,
-                    harmony,
-                    time,
-                    this->storage);
-            }
-
             bool hit = this->bass_settings.get_bass_hit(this->density, time);
             if (hit)
             {
@@ -92,7 +80,7 @@ namespace Vleerhond
 
                 uint8_t pitch = this->bass_settings.get_bass_pitch(
                     this->v_pitch,
-                    note_interval
+                    (uint8_t)note_interval
                 );
 
                 switch (this->style)

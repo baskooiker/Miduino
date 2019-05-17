@@ -11,10 +11,9 @@
 
 namespace Vleerhond
 {
-    class BassSettings : public TonalInstrumentBase
+    class Bass : public TonalInstrumentBase
     {
     protected:
-        FugueSettings& fugue_settings;
         SampleAndHold octave_sh;
 
     public:
@@ -33,15 +32,12 @@ namespace Vleerhond
         BassStyle style;
         CvPatternAB note_range_prob;
         uint8_t note_range_value;
-        uint8_t fugue_id;
         uint8_t density;
 
-        BassSettings(
-            FugueSettings& fugue_settings_ref,
+        Bass(
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
             TonalInstrumentBase(harmony_ref, time_ref, false),
-            fugue_settings(fugue_settings_ref),
             octave_sh(TimeDivision::Sixteenth)
         {
             pitch_range = 0;
@@ -225,15 +221,6 @@ namespace Vleerhond
                 return;
             }
 
-            if (this->style == BassStyle::BassFugue && (time.tick % TICKS_PER_STEP) == 0)
-            {
-                return this->fugue_settings.play_fugue(
-                    this->fugue_id,
-                    harmony,
-                    time,
-                    this->storage);
-            }
-
             // Get hit
             bool hit = this->get_bass_hit(this->density, time);
 
@@ -241,7 +228,7 @@ namespace Vleerhond
             {
                 uint8_t pitch = get_bass_pitch(
                     this->variable_octaves.value(time),
-                    NoteInterval::IntervalRoot
+                    (uint8_t)NoteInterval::IntervalRoot
                 );
 
                 // Note length

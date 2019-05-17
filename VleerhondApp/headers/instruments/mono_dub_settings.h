@@ -15,10 +15,9 @@ namespace Vleerhond
 
         MonoDubSettings(
             MonoSettings& lead_settings_ref,
-            FugueSettings& fugue_settings_ref,
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
-            MonoSettings(fugue_settings_ref, harmony_ref, time_ref),
+            MonoSettings(harmony_ref, time_ref),
             lead_settings(lead_settings_ref)
         {
             dub_style = MonoDubStyle::MonoDubLead;

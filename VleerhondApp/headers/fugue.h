@@ -163,7 +163,7 @@ namespace Vleerhond
                     uint8_t pitch = harmony.scale.apply_scale_offset(
                         note_step,
                         pitch_offset,
-                        player_settings.note_interval
+                        (uint8_t)player_settings.note_interval
                     );
                     storage.note_on(
                         NoteStruct(pitch, 64, player_length * TICKS_PER_STEP, NoteType::Tie),

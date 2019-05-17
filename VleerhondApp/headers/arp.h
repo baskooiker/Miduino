@@ -88,29 +88,29 @@ namespace Vleerhond
 
             switch (this->type)
             {
-            case UP:
+            case ArpType::UP:
                 arp_counter = arp_counter % this->arp_notes_length;
                 return this->arp_notes[arp_counter++];
-            case DOWN:
+            case ArpType::DOWN:
                 arp_counter = this->counter % this->arp_notes_length;
                 return this->arp_notes[this->arp_notes_length - ++arp_counter];
-            case UPDOWN:
+            case ArpType::UPDOWN:
                 arp_counter = arp_counter % (2 * this->arp_notes_length - 2);
                 if (this->counter < this->arp_notes_length)
                     return this->arp_notes[arp_counter++];
                 else
                     return this->arp_notes[this->arp_notes_length - (arp_counter++ - this->arp_notes_length + 2)];
-            case PICKING_IN:
+            case ArpType::PICKING_IN:
                 arp_counter = arp_counter % this->arp_notes_length;
                 if (this->counter % 2 == 0)
                     return this->arp_notes[arp_counter++ / 2];
                 else
                     return this->arp_notes[this->arp_notes_length - ++arp_counter / 2];
-            case CLOSEST:
+            case ArpType::CLOSEST:
                 return get_closest(this->arp_notes, this->arp_notes_length, true, last_note);
-            case CLOSEST_EXC:
+            case ArpType::CLOSEST_EXC:
                 return get_closest(this->arp_notes, this->arp_notes_length, false, last_note);
-            case RANDOM:
+            case ArpType::RANDOM:
                 return this->arp_notes[Rand::randui8(this->arp_notes_length)];
             }
             return 0;

@@ -17,59 +17,6 @@ namespace Vleerhond
         ROOT_B
     };
 
-    class Strings 
-    {
-    public:
-
-        static std::string get_string(const ScaleType scale)
-        {
-            switch (scale)
-            {
-            case ScaleType::AEOLIAN:
-                return "aeolian";
-            case ScaleType::DORIAN:
-                return "dorian";
-            case ScaleType::IONIAN:
-                return "ionian";
-            default:
-                return "unkown scale";
-            }
-        }
-
-        static std::string get_string(const Root root)
-        {
-            switch (root)
-            {
-            case Root::ROOT_C:
-                return "C";
-            case Root::ROOT_C_SHARP:
-                return "C#";
-            case Root::ROOT_D:
-                return "D";
-            case Root::ROOT_D_SHARP:
-                return "D#";
-            case Root::ROOT_E:
-                return "E";
-            case Root::ROOT_F:
-                return "F";
-            case Root::ROOT_F_SHARP:
-                return "F#";
-            case Root::ROOT_G:
-                return "G";
-            case Root::ROOT_G_SHARP:
-                return "G#";
-            case Root::ROOT_A:
-                return "A";
-            case Root::ROOT_A_SHARP:
-                return "A#";
-            case Root::ROOT_B:
-                return "B";
-            default:
-                return "unkown root";
-            }
-        }
-    };
-
     enum TimeDivision {
         Thirtysecond = 3,
         Sixteenth = 6,
@@ -91,27 +38,25 @@ namespace Vleerhond
         RangeScale
     };
 
-    enum BassStyle {
+    enum class BassStyle {
         BassLow,
         BassArpInterval,
-        BassEuclid,
-        BassFugue
+        BassEuclid
     };
 
-    enum BassDubStyle {
+    enum class BassDubStyle {
         DubUnison,
         DubOctave,
-        DubOctProbability,
-        DubFugue
+        DubOctProbability
     };
 
-    enum NoteInterval {
+    enum class NoteInterval {
         IntervalRoot = 0,
         IntervalThird = 2,
         IntervalFifth = 4
     };
 
-    enum ArpType {
+    enum class ArpType {
         UP,
         DOWN,
         UPDOWN,
@@ -144,11 +89,10 @@ namespace Vleerhond
         HatClosedRegular
     };
 
-    enum MonoStyle {
+    enum class MonoStyle {
         MonoSixteenths,
         MonoPolyRhythm,
-        MonoLeadPattern,
-        MonoFugue
+        MonoLeadPattern
     };
 
     enum MonoDubStyle {
@@ -178,7 +122,7 @@ namespace Vleerhond
         FugueBackAndForth
     };
 
-    enum ScaleType {
+    enum class ScaleType {
         IONIAN,
         DORIAN,
         AEOLIAN

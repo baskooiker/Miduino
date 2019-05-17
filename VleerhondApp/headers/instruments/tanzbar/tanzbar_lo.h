@@ -6,7 +6,7 @@
 namespace Vleerhond
 {
     const RandomParam tanzbar_low_params[] = {
-        {TB_BD1_ATTACK   ,  0, 127},
+        {TB_BD1_ATTACK   ,  0, 100},
         {TB_BD1_DECAY    , 32,  96},
         {TB_BD1_PITCH    , 80, 112},
         {TB_BD1_TUNE     , 32,  96},
