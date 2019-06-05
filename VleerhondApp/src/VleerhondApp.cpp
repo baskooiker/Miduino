@@ -219,16 +219,21 @@ namespace Vleerhond
             initialize_midi_ports();
             break;
         case 'z':
-            MidiIO::send_note_on(87, 100, MIDI_CHANNEL_503);
             break;
         case 'x':
-            MidiIO::send_note_on(88, 100, MIDI_CHANNEL_503);
             break;
         case 'c':
-            MidiIO::send_note_on(89, 100, MIDI_CHANNEL_503);
+            ofLogNotice("Vleerhond", "fugue 1 active: %d", data.fugue_vermona_1.is_active());
+            ofLogNotice("Vleerhond", "fugue 2 active: %d", data.fugue_vermona_2.is_active());
+            ofLogNotice("Vleerhond", "fugue 3 active: %d", data.fugue_vermona_3.is_active());
+            ofLogNotice("Vleerhond", "fugue 4 active: %d", data.fugue_vermona_4.is_active());
+
+            ofLogNotice("Vleerhond", "bass    active: %d", data.acid_bass.is_active());
+            ofLogNotice("Vleerhond", "drone   active: %d", data.drone.is_active());
+            ofLogNotice("Vleerhond", "mono    active: %d", data.mono_settings.is_active());
+            ofLogNotice("Vleerhond", "monodub active: %d", data.mono_dub_settings.is_active());
             break;
         default:
-            //ofLogNotice(MODULE, "Unhandled key pressed: %3d\n", key);
             break;
         }
     }
@@ -240,6 +245,11 @@ namespace Vleerhond
         {
         case MIDI_TIME_CLOCK:
             bpm.stop();
+
+            midi_out_a.sendMidiBytes(message.bytes);
+            midi_out_b.sendMidiBytes(message.bytes);
+            midi_out_c.sendMidiBytes(message.bytes);
+            midi_out_d.sendMidiBytes(message.bytes);
             handleClock(this->data);
             break;
         case MIDI_STOP:
@@ -276,5 +286,11 @@ namespace Vleerhond
     void VleerhondApp::exit()
     {
         bpm.stop();
+
+        midi_in.closePort();
+        midi_out_a.closePort();
+        midi_out_b.closePort();
+        midi_out_c.closePort();
+        midi_out_d.closePort();
     }
 }

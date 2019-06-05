@@ -29,6 +29,7 @@
 #include "poly.h"
 #include "lead.h"
 #include "drone.h"
+#include "fugue_player.h"
 
 namespace Vleerhond
 {
@@ -38,7 +39,7 @@ namespace Vleerhond
         TimeStruct time;
         HarmonyStruct harmony;
 
-        FugueSettings fugue_settings;
+        Fugue fugue;
         Modulators modulators;
 
         TanzbarLo tanzbar_lo;
@@ -69,6 +70,11 @@ namespace Vleerhond
         PolySettings poly_settings;
         LeadSettings lead_settings;
 
+        FuguePlayer fugue_vermona_1;
+        FuguePlayer fugue_vermona_2;
+        FuguePlayer fugue_vermona_3;
+        FuguePlayer fugue_vermona_4;
+
         UiState ui_state;
 
         ApplicationData() :
@@ -97,17 +103,28 @@ namespace Vleerhond
             mono_dub_settings(mono_settings, harmony, time),
             poly_settings(harmony, time),
             lead_settings(harmony, time),
-            drone(harmony, time)
+            drone(harmony, time),
+            fugue_vermona_1(harmony, time, fugue),
+            fugue_vermona_2(harmony, time, fugue),
+            fugue_vermona_3(harmony, time, fugue),
+            fugue_vermona_4(harmony, time, fugue)
         {
             mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
             mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
 
             drone.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
 
-            this->poly_settings.storage.set_channel(MIDI_CHANNEL_POLY);
-            this->lead_settings.storage.set_channel(MIDI_CHANNEL_LEAD);
+            this->poly_settings.storage.set_channel(MIDI_CHANNEL_ROCKET);
+
+            fugue_vermona_1.storage.set_channel(MIDI_CHANNEL_BASS);
+            fugue_vermona_2.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
+            fugue_vermona_3.storage.set_channel(MIDI_CHANNEL_MONO);
+            fugue_vermona_4.storage.set_channel(MIDI_CHANNEL_MONO_2);
+
+            lead_settings.set_active(false);
 
             this->randomize_all();
+            set_regular();
         }
 
         void probability_randomize()
@@ -140,12 +157,21 @@ namespace Vleerhond
 
         void play_all()
         {
-            for (auto instrument : get_instrument_ptrs())
+            for (auto instrument : get_active_instrument())
             {
                 instrument->play();
             }
 
             probability_randomize();
+
+            //if (Utils::interval_hit(TimeDivision::Sixteenth, this->time))
+            //{
+            //    MidiIO::send_note_on(60, 100, MIDI_CHANNEL_TB_CV1);
+            //}
+            //else if (Utils::interval_hit(TimeDivision::Sixteenth, this->time.add(3)))
+            //{
+            //    MidiIO::send_note_off(60, MIDI_CHANNEL_TB_CV1);
+            //}
         }
 
         void process_active_notes()
@@ -166,7 +192,7 @@ namespace Vleerhond
             }
 
             this->harmony.randomize();
-            this->fugue_settings.randomize_fugue();
+            this->fugue.randomize_fugue();
         }
 
         void process_events()
@@ -182,10 +208,8 @@ namespace Vleerhond
             std::vector<InstrumentBase*> ptrs;
 
             ptrs.push_back(&this->tanzbar_lo);
-
             ptrs.push_back(&this->tanzbar_mid);
             ptrs.push_back(&this->tanzbar_cp);
-
             ptrs.push_back(&this->tanzbar_tom);
             ptrs.push_back(&this->tanzbar_cb);
             ptrs.push_back(&this->tanzbar_cl);
@@ -202,20 +226,36 @@ namespace Vleerhond
 
             ptrs.push_back(&this->rocket_bass);
             ptrs.push_back(&this->acid_bass);
-            //ptrs.push_back(&this->bass_dub_settings);
+
             ptrs.push_back(&this->mono_settings);
             ptrs.push_back(&this->mono_dub_settings);
+
             ptrs.push_back(&this->poly_settings);
             ptrs.push_back(&this->lead_settings);
+
             ptrs.push_back(&this->drone);
 
+            ptrs.push_back(&this->fugue_vermona_1);
+            ptrs.push_back(&this->fugue_vermona_2);
+            ptrs.push_back(&this->fugue_vermona_3);
+            ptrs.push_back(&this->fugue_vermona_4);
+
+            return ptrs;
+        }
+
+        std::vector<InstrumentBase*> get_active_instrument()
+        {
+            std::vector<InstrumentBase*> instruments = get_instrument_ptrs();
+            std::vector<InstrumentBase*> ptrs;
+            std::copy_if(instruments.begin(), instruments.end(), std::back_inserter(ptrs), 
+                [](const InstrumentBase* i) {return i->is_active(); });
             return ptrs;
         }
 
         std::vector<InstrumentBase*> get_randomizable_instruments()
         {
             std::vector<InstrumentBase*> ptrs;
-            std::vector<InstrumentBase*> all_ptrs = get_instrument_ptrs();
+            std::vector<InstrumentBase*> all_ptrs = get_active_instrument();
             for (auto ptr : all_ptrs)
             {
                 if (ptr->is_randomizable())
@@ -232,6 +272,32 @@ namespace Vleerhond
             {
                 instrument->stop_notes();
             }
+        }
+
+        void set_regular()
+        {
+            acid_bass.set_active(true);
+            drone.set_active(true);
+            mono_settings.set_active(true);
+            mono_dub_settings.set_active(true);
+
+            fugue_vermona_1.set_active(false);
+            fugue_vermona_2.set_active(false);
+            fugue_vermona_3.set_active(false);
+            fugue_vermona_4.set_active(false);
+        }
+
+        void set_fugue()
+        {
+            fugue_vermona_1.set_active(true);
+            fugue_vermona_2.set_active(true);
+            fugue_vermona_3.set_active(true);
+            fugue_vermona_4.set_active(true);
+
+            acid_bass.set_active(false);
+            drone.set_active(false);
+            mono_settings.set_active(false);
+            mono_dub_settings.set_active(false);
         }
     };
 }

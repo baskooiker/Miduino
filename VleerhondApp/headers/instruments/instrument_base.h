@@ -16,6 +16,7 @@ namespace Vleerhond
 
         uint32_t last_randomized_time;
         bool randomizable;
+        bool active;
 
     public:
         PitchStorage storage;
@@ -26,6 +27,7 @@ namespace Vleerhond
         {
             kill = false;
             randomizable = is_randomizable;
+            active = true;
         }
 
         virtual void play() = 0;
@@ -51,9 +53,19 @@ namespace Vleerhond
             return randomizable;
         }
 
-        uint8_t get_velocity()
+        virtual uint8_t get_velocity()
         {
             return 100;
+        }
+
+        bool is_active() const
+        {
+            return this->active;
+        }
+
+        void set_active(const bool active)
+        {
+            this->active = active;
         }
     };
 

@@ -71,11 +71,11 @@ namespace Vleerhond
                 uint8_t pitch_interval = interval_pattern.value(time);
                 uint8_t pitch = harmony.scale.apply_scale_offset(
                     pitch_interval,
-                    Utils::rerange(this->variable_pitch_range, 36, 36),
+                    Utils::rerange(this->variable_pitch_range, 36, 48),
                     chord_step
                 );
                 storage.note_on(
-                    NoteStruct(pitch, 64, time.ticks_left_in_bar(), NoteType::Tie),
+                    NoteStruct(pitch, this->get_velocity(), time.ticks_left_in_bar(), NoteType::Tie),
                     time.get_shuffle_delay()
                 );
             }

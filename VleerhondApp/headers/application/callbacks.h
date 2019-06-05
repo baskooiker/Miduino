@@ -119,6 +119,7 @@ namespace Vleerhond
         case BSP_KNOB_02:
             break;
         case BSP_KNOB_10:
+            data.poly_settings.variable_pitch_offset = value;
             break;
         case BSP_KNOB_03:
             break;
@@ -133,37 +134,37 @@ namespace Vleerhond
             break;
         case BSP_KNOB_05:
             data.acid_bass.density = value;
-            data.fugue_settings.player_settings[0].density = value;
+            data.fugue_vermona_1.density = value;
             break;
         case BSP_KNOB_13:
             data.acid_bass.pitch_range = value;
-            data.fugue_settings.player_settings[0].manual_pitch_offset = value;
+            data.fugue_vermona_1.manual_pitch_offset = value;
             break;
         case BSP_KNOB_06:
             //data.bass_dub_settings.density = value;
-            data.fugue_settings.player_settings[1].density = value;
+            data.fugue_vermona_2.density = value;
             break;
         case BSP_KNOB_14:
             //data.bass_dub_settings.v_pitch = value;
-            data.fugue_settings.player_settings[1].manual_pitch_offset = value;
+            data.fugue_vermona_2.manual_pitch_offset = value;
             data.drone.variable_pitch_range = value;
             break;
         case BSP_KNOB_07:
-            data.fugue_settings.player_settings[2].density = value;
+            data.fugue_vermona_3.density = value;
             data.mono_settings.variable_density = value;
             break;
         case BSP_KNOB_15:
             data.mono_settings.variable_pitch_offset = value;
-            data.fugue_settings.player_settings[2].manual_pitch_offset = value;
+            data.fugue_vermona_3.manual_pitch_offset = value;
             break;
         case BSP_KNOB_08:
-            data.fugue_settings.player_settings[3].density = value;
+            data.fugue_vermona_4.density = value;
             data.mono_dub_settings.variable_density = value;
             break;
         case BSP_KNOB_16:
             data.mono_dub_settings.variable_pitch_offset = value;
             data.mono_dub_settings.variable_pitch_offset = value;
-            data.fugue_settings.player_settings[3].manual_pitch_offset = value;
+            data.fugue_vermona_4.manual_pitch_offset = value;
             break;
 
         case BSP_STEP_01:
@@ -262,6 +263,11 @@ namespace Vleerhond
             }
             break;
         case BSP_PAD_05:
+            data.acid_bass.kill = value > 0;
+            if (data.acid_bass.kill)
+            {
+                data.acid_bass.storage.process_active_notes();
+            }
             break;
         case BSP_PAD_06:
             data.drone.kill = value > 0;
@@ -318,6 +324,12 @@ namespace Vleerhond
                 data.tanzbar_mid.kill = true;
                 data.tanzbar_hats.kill = true;
             }
+            break;
+        case BSP_STEP_03:
+            data.set_regular();
+            break;
+        case BSP_STEP_04:
+            data.set_fugue();
             break;
         case BSP_STEP_16:
             break;
@@ -397,6 +409,9 @@ namespace Vleerhond
 
         data.time.reset();
 
-        data.fugue_settings.reset();
+        data.fugue_vermona_1.reset();
+        data.fugue_vermona_2.reset();
+        data.fugue_vermona_3.reset();
+        data.fugue_vermona_4.reset();
     }
 }

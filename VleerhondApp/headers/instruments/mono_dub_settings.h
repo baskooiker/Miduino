@@ -30,7 +30,7 @@ namespace Vleerhond
 
             MonoSettings::randomize();
 
-            switch (Rand::distribution(16, 16, 16))
+            switch (Rand::distribution(16, 0, 0))
             {
             case 0: this->note_interval = NoteInterval::IntervalRoot; break;
             case 1: this->note_interval = NoteInterval::IntervalThird; break;

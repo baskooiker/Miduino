@@ -14,7 +14,7 @@ namespace Vleerhond
         {TB_CP_DECAY     ,  0, 127},
         {TB_CP_FILTER    , 32, 127},
         {TB_CP_ATTACK    ,  0, 127},
-        {TB_CP_TRIGGER   ,  0, 127}
+        {TB_CP_TRIGGER   ,  0,  64}
     };
     const uint8_t nr_cp_params = sizeof(cp_params) / sizeof(*cp_params);
 
@@ -22,13 +22,15 @@ namespace Vleerhond
     {
     protected:
         ModulationReceiver cp_trig;
+        ModulationReceiver filter_mod;
 
     public:
         TanzbarCp(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
             Snare(modulators_ref, time_ref),
-            cp_trig(modulators_ref)
+            cp_trig(modulators_ref),
+            filter_mod(modulators_ref)
         {
             storage.set_channel(MIDI_CHANNEL_TANZBAR);
             randomize();
@@ -43,6 +45,11 @@ namespace Vleerhond
             // Modulators
             uint8_t range = Rand::randui8(128);
             this->cp_trig.randomize(range, 127 - range, .3);
+
+            {
+                uint8_t range = Rand::randui8(128);
+                this->filter_mod.randomize(range, 127 - range, .3);
+            }
         }
 
         void play()
@@ -51,6 +58,10 @@ namespace Vleerhond
             if (this->cp_trig.value(time, value))
             {
                 MidiIO::send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
+            }
+            if (this->filter_mod.value(time, value))
+            {
+                MidiIO::send_cc(TB_CP_FILTER, value, MIDI_CC_CHANNEL_TANZBAR);
             }
             Snare::play();
         }

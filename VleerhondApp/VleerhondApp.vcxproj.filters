@@ -1895,6 +1895,9 @@
     <ClInclude Include="headers\instruments\mfb_503.h">
       <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

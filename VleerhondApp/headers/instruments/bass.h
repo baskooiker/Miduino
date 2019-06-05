@@ -255,7 +255,7 @@ namespace Vleerhond
 
                 // Play it!
                 this->storage.note_on(
-                    NoteStruct(pitch, 64, length, note_type),
+                    NoteStruct(pitch, this->get_velocity(), length, note_type),
                     time.get_shuffle_delay()
                 );
             }

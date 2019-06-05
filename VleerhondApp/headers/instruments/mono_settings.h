@@ -124,10 +124,10 @@ namespace Vleerhond
             if (repeat_note.pitch > 0)
             {
                 TimeDivision repeat_interval = note_repeat_sh.get_interval(time);
-                ofLogNotice("Mono", "note %3d, interval = %d", repeat_note.pitch, repeat_interval);
+                ofLogVerbose("Mono", "note %3d, interval = %d", repeat_note.pitch, repeat_interval);
                 if (Utils::interval_hit(repeat_interval, time) && !this->kill)
                 {
-                    ofLogNotice("Mono", "note_repeating: %d", repeat_note.pitch);
+                    ofLogVerbose("Mono", "note_repeating: %d", repeat_note.pitch);
                     storage.note_on(repeat_note, time.get_shuffle_delay());
 
                     if (this->proceed_arp_on_note_repeat)

@@ -12,17 +12,20 @@ namespace Vleerhond
 {
     class PolySettings : public TonalInstrumentBase
     {
-    public:
+    protected:
         GatePatternAB gates_low;
         GatePatternAB gates;
         GatePatternAB tie_pattern;
         uint8_t pitch_offset;
         PolyType type;
 
+    public:
+        uint8_t variable_pitch_offset;
+
         PolySettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
             TonalInstrumentBase(harmony_ref, time_ref, true)
         {
-            pitch_offset = 48;
+            pitch_offset = 36;
             type = PolyType::PolyLow;
         }
 
@@ -43,7 +46,7 @@ namespace Vleerhond
             this->tie_pattern.randomize(Rand::randf(.1f, .4f));
 
             // Randomize pitch range
-            this->pitch_offset = Rand::randui8(42, 54);
+            this->pitch_offset = Rand::randui8(30, 44);
 
             switch (Rand::distribution(16, 16))
             {
@@ -71,13 +74,9 @@ namespace Vleerhond
                 uint8_t size = 0;
                 uint8_t chord_notes[MAX_CHORD_NOTES];
 
-                // TODO: get poly pitch offset into settings 
-                uint8_t poly_pitch_offset = 64;
-
-                uint8_t pitch_offset = this->pitch_offset
-                    + (((uint16_t)poly_pitch_offset * 24) / 128)
-                    - 12;
-                ChordUtils::get_chord(chord_nr, harmony.scale, pitch_offset, chord_notes, size);
+                uint8_t total_pitch_offset = Utils::rerange(this->variable_pitch_offset, 36, this->pitch_offset);
+                ofLogVerbose("poly", "variable pitch offset: %d, pitch_offset: %d", variable_pitch_offset, total_pitch_offset);
+                ChordUtils::get_chord(chord_nr, harmony.scale, total_pitch_offset, chord_notes, size);
 
                 uint8_t length = 6;
                 if (this->tie_pattern.gate(time)

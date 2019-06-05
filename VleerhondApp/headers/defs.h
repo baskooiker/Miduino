@@ -63,6 +63,5 @@ class UiState {
 public:
     uint16_t bsp_button_state;
 
-    //ButtonState pad_state[NR_OF_PADS];
     ButtonState step_state[NR_OF_STEPS];
 };

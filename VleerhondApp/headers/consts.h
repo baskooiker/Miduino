@@ -11,12 +11,14 @@
 #endif
 
 #define MIDI_CHANNEL_TANZBAR    11
+#define MIDI_CHANNEL_TB_CV1     1
 #define MIDI_CC_CHANNEL_TANZBAR 10
 #define MIDI_CHANNEL_ROCKET     4
 #define MIDI_CHANNEL_BASS       5
 #define MIDI_CHANNEL_BASS_DUB   6
 #define MIDI_CHANNEL_MONO       7
 #define MIDI_CHANNEL_MONO_2     8
+#define MIDI_CHANNEL_MINITAUR   9
 
 #define MIDI_CHANNEL_POLY     13
 #define MIDI_CHANNEL_LEAD     14

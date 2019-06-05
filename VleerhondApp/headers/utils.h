@@ -106,7 +106,7 @@ namespace Vleerhond
             return false;
         }
 
-        static uint8_t rerange(uint8_t input, uint8_t range, int8_t offset)
+        static uint8_t rerange(uint8_t input, uint8_t range, int8_t offset = 0)
         {
             return (uint8_t)(MIN(MAX(((((int16_t)input) * range) / 128 + offset), 0), 127));
         }
