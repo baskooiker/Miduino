@@ -11,15 +11,15 @@ namespace Vleerhond
 {
     const RandomParam tom_params[] = {
 
-        {TB_HTC_TUNE          ,  0, 127},
+        {TB_HTC_TUNE          , 64, 127},
         {TB_HTC_DECAY         , 64,  96},
         {TB_HTC_NOISE_ON_OFF  ,  0, 127},
         {TB_HTC_TOM_CONGA     ,  0, 127},
-        {TB_MTC_TUNE          ,  0, 127},
+        {TB_MTC_TUNE          , 64, 127},
         {TB_MTC_DECAY         , 64,  96},
         {TB_MTC_NOISE_ON_OFF  ,  0, 127},
         {TB_MTC_TOM_CONGA     ,  0, 127},
-        {TB_LTC_TUNE          ,  0, 127},
+        {TB_LTC_TUNE          , 64, 127},
         {TB_LTC_DECAY         , 64,  96},
         {TB_LTC_NOISE_ON_OFF  ,  0, 127},
         {TB_LTC_TOM_CONGA     ,  0, 127},
@@ -32,9 +32,9 @@ namespace Vleerhond
     public:
 
         TanzbarTom(
-            Modulators& modulators_ref,
-            TimeStruct& time_ref) :
-            Toms(modulators_ref, time_ref)
+            Modulators& modulators,
+            TimeStruct& time) :
+            Toms(modulators, time)
         {
             storage.set_channel(MIDI_CHANNEL_TANZBAR);
         }
@@ -48,7 +48,7 @@ namespace Vleerhond
             Parameters::randomize_parameters(tom_params, nr_tom_params, MIDI_CC_CHANNEL_TANZBAR);
 
             this->pitches.clear();
-            switch (Rand::distribution(32, 32))
+            switch (Rand::distribution(0, 32))
             {
             case 0:
                 pitches.push_back(NOTE_TANZBAR_LT);

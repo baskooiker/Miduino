@@ -5,9 +5,9 @@
 namespace Vleerhond
 {
     const RandomParam tanzbar_hats_params[] = {
-        {TB_OH_DECAY,  0,  96},
+        //{TB_OH_DECAY,  0,  96},
         {TB_HH_TUNE ,  0, 127},
-        {TB_HH_DECAY,  0, 127},
+        //{TB_HH_DECAY,  0, 127},
     };
     const uint8_t nr_of_tanzbar_hats_params = sizeof(tanzbar_hats_params) / sizeof(*tanzbar_hats_params);
 
@@ -15,8 +15,8 @@ namespace Vleerhond
     {
     protected:
         MicroTimingStruct timing;
-
         ModulationReceiver hats_vel;
+        ModulationReceiver tune_mod;
 
     public:
         GatePatternAB hh_pattern;
@@ -28,15 +28,15 @@ namespace Vleerhond
         HatClosedStyle hat_closed_style;
 
         TanzbarHats(
-            Modulators& modulators_ref,
-            TimeStruct& time_ref) :
-            InstrumentBase(time_ref, true),
-            hats_vel(modulators_ref)
+            Modulators& modulators,
+            TimeStruct& time) :
+            InstrumentBase(time, true),
+            hats_vel(modulators),
+            tune_mod(modulators)
         {
             storage.set_channel(MIDI_CHANNEL_TANZBAR);
             hat_closed_style = HatClosedStyle::HatClosedRegular;
             randomize();
-            kill = false;
         }
 
         void randomize()
@@ -50,8 +50,17 @@ namespace Vleerhond
 
             this->timing.randomize();
 
-            uint8_t range = Rand::randui8(16, 64);
-            this->hats_vel.randomize(range, 127 - range);
+            {
+                uint8_t range = Rand::randui8(16, 64);
+                uint8_t off = Rand::randui8(127 - range);
+                this->hats_vel.randomize(range, 127 - range);
+            }
+
+            {
+                uint8_t range = Rand::randui8(32, 127);
+                uint8_t off = Rand::randui8(127 - range);
+                this->tune_mod.randomize(range, off, .5);
+            }
 
         }
 
@@ -150,6 +159,11 @@ namespace Vleerhond
             if (this->kill)
                 return;
 
+            uint8_t value = 0;
+            if (tune_mod.value(time, value))
+            {
+                MidiIO::send_cc(TB_HH_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+            }
             if (!play_hats_open())
             {
                 play_hats_closed();

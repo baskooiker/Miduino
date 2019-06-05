@@ -308,28 +308,25 @@ namespace Vleerhond
             if (value == 0)
             {
                 data.randomize_all();
-                data.tanzbar_lo.kill = false;
-                data.tanzbar_mid.kill = false;
-
-                data.tanzbar_hats.kill = false;
-                data.tanzbar_cy.kill = false;
-                data.tanzbar_ma.kill = false;
             }
             break;
         case BSP_STEP_02:
             if (value == 0)
             {
                 data.randomize_all();
-                data.tanzbar_lo.kill = true;
-                data.tanzbar_mid.kill = true;
-                data.tanzbar_hats.kill = true;
             }
             break;
         case BSP_STEP_03:
-            data.set_regular();
+            if (value == 0)
+            {
+                data.set_regular();
+            }
             break;
         case BSP_STEP_04:
-            data.set_fugue();
+            if (value == 0)
+            {
+                data.set_fugue();
+            }
             break;
         case BSP_STEP_16:
             break;

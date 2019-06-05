@@ -46,7 +46,7 @@ namespace Vleerhond
             Kick::randomize();
             Parameters::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params, MIDI_CC_CHANNEL_TANZBAR);
 
-            uint8_t range = Rand::randui8(64);
+            uint8_t range = Rand::randui8(96);
             bd2_pitch_mod.randomize(range, 32, .3);
         }
 
