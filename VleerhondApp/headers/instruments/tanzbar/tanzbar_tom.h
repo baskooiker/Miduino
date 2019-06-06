@@ -36,7 +36,7 @@ namespace Vleerhond
             TimeStruct& time) :
             Toms(modulators, time)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
         }
 
         void randomize()

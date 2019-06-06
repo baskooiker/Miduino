@@ -55,7 +55,7 @@ namespace Vleerhond
                 && this->tom_mask.gate(time)
                 && !kill)
             {
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(get_pitch(time), get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );

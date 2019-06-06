@@ -74,7 +74,7 @@ namespace Vleerhond
                     Utils::rerange(this->variable_pitch_range, 36, 48),
                     chord_step
                 );
-                storage.note_on(
+                midi_channel.note_on(
                     NoteStruct(pitch, this->get_velocity(), time.ticks_left_in_bar(), NoteType::Tie),
                     time.get_shuffle_delay()
                 );

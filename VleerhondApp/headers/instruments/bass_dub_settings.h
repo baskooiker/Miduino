@@ -95,7 +95,7 @@ namespace Vleerhond
                     break;
                 }
 
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(pitch, 64, 6, NoteType::Tie),
                     time.get_shuffle_delay()
                 );

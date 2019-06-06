@@ -41,7 +41,7 @@ namespace Vleerhond
             Snare(modulators_ref, time_ref),
             rs_tune(modulators_ref)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             pitch = NOTE_TANZBAR_SD;
         }
 
@@ -73,7 +73,7 @@ namespace Vleerhond
                 {
                     MidiIO::send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
                 }
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(NOTE_TANZBAR_RS, 64),
                     time.get_shuffle_delay(this->rs_timing)
                 );

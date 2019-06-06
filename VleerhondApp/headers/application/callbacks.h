@@ -259,14 +259,14 @@ namespace Vleerhond
             data.rocket_bass.kill = value > 0;
             if (data.rocket_bass.kill)
             {
-                data.rocket_bass.storage.process_active_notes();
+                data.rocket_bass.midi_channel.process_active_notes();
             }
             break;
         case BSP_PAD_05:
             data.acid_bass.kill = value > 0;
             if (data.acid_bass.kill)
             {
-                data.acid_bass.storage.process_active_notes();
+                data.acid_bass.midi_channel.process_active_notes();
             }
             break;
         case BSP_PAD_06:

@@ -25,7 +25,7 @@ namespace Vleerhond
             TimeStruct& time_ref) :
             Snare(modulators_ref, time_ref)
         {
-            storage.set_channel(MIDI_CHANNEL_503);
+            midi_channel.set_channel(MIDI_CHANNEL_503);
             pitch = NOTE_503_SD_MIN;
         }
 

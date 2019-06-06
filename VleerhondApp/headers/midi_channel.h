@@ -29,7 +29,7 @@ namespace Vleerhond
 
 #define MAX_NUMBER_OF_CHANNELS 2
 
-    class PitchStorage
+    class MidiChannel
     {
     protected:
         NoteStruct data[STORAGE_SIZE];
@@ -71,7 +71,7 @@ namespace Vleerhond
         }
 
     public:
-        PitchStorage()
+        MidiChannel()
         {
             size = 0;
             nr_of_events = 0;

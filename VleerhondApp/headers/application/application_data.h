@@ -109,17 +109,17 @@ namespace Vleerhond
             fugue_vermona_3(harmony, time, fugue),
             fugue_vermona_4(harmony, time, fugue)
         {
-            mono_settings.storage.set_channel(MIDI_CHANNEL_MONO);
-            mono_dub_settings.storage.set_channel(MIDI_CHANNEL_MONO_2);
+            mono_settings.midi_channel.set_channel(MIDI_CHANNEL_MONO);
+            mono_dub_settings.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
 
-            drone.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
+            drone.midi_channel.set_channel(MIDI_CHANNEL_BASS_DUB);
 
-            this->poly_settings.storage.set_channel(MIDI_CHANNEL_ROCKET);
+            this->poly_settings.midi_channel.set_channel(MIDI_CHANNEL_ROCKET);
 
-            fugue_vermona_1.storage.set_channel(MIDI_CHANNEL_BASS);
-            fugue_vermona_2.storage.set_channel(MIDI_CHANNEL_BASS_DUB);
-            fugue_vermona_3.storage.set_channel(MIDI_CHANNEL_MONO);
-            fugue_vermona_4.storage.set_channel(MIDI_CHANNEL_MONO_2);
+            fugue_vermona_1.midi_channel.set_channel(MIDI_CHANNEL_BASS);
+            fugue_vermona_2.midi_channel.set_channel(MIDI_CHANNEL_BASS_DUB);
+            fugue_vermona_3.midi_channel.set_channel(MIDI_CHANNEL_MONO);
+            fugue_vermona_4.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
 
             lead_settings.set_active(false);
 
@@ -178,7 +178,7 @@ namespace Vleerhond
         {
             for (auto instrument : get_instrument_ptrs())
             {
-                instrument->storage.process_active_notes();
+                instrument->midi_channel.process_active_notes();
             }
         }
 

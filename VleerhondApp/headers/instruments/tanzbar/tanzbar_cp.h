@@ -32,7 +32,7 @@ namespace Vleerhond
             cp_trig(modulators_ref),
             filter_mod(modulators_ref)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             randomize();
             pitch = NOTE_TANZBAR_CP;
         }

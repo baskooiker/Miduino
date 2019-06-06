@@ -36,7 +36,7 @@ namespace Vleerhond
             Kick(modulators, time),
             bd2_pitch_mod(modulators)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             pitch = NOTE_TANZBAR_BD1;
         }
 
@@ -75,7 +75,7 @@ namespace Vleerhond
 
             //if (quarter_hit && !this->kill)
             //{
-            //    this->storage.note_on(
+            //    this->midi_channel.note_on(
             //        NoteStruct(NOTE_TANZBAR_BD2, 127),
             //        time.get_shuffle_delay(this->bd_timing)
             //    );

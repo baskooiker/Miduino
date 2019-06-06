@@ -19,7 +19,7 @@ namespace Vleerhond
         bool active;
 
     public:
-        PitchStorage storage;
+        MidiChannel midi_channel;
         bool kill;
 
         InstrumentBase(TimeStruct& time_ref, const bool is_randomizable) :
@@ -35,12 +35,12 @@ namespace Vleerhond
 
         void process_events()
         {
-            storage.process_events();
+            midi_channel.process_events();
         }
 
         void stop_notes()
         {
-            storage.all_notes_off();
+            midi_channel.all_notes_off();
         }
 
         uint32_t randomized_time()

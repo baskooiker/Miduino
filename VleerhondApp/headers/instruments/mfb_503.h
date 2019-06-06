@@ -170,7 +170,7 @@ namespace Vleerhond
             case 5: p = NOTE_503_OH; break;
             case 6: p = NOTE_503_HH; break;
             }
-            this->storage.note_on(NoteStruct(p, 127));
+            this->midi_channel.note_on(NoteStruct(p, 127));
         }
 
         void play_roll(const TimeStruct& time)
@@ -191,7 +191,7 @@ namespace Vleerhond
 
             if (Utils::interval_hit(division, time))
             {
-                this->storage.note_on(NoteStruct(NOTE_503_SD, this->snare_roll));
+                this->midi_channel.note_on(NoteStruct(NOTE_503_SD, this->snare_roll));
             }
         }
 
@@ -204,7 +204,7 @@ namespace Vleerhond
                 {
                     pitch = Utils::clip_pitch(harmony.get_chord_step(time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
                 }
-                this->storage.note_on(NoteStruct(pitch, 127));
+                this->midi_channel.note_on(NoteStruct(pitch, 127));
             }
         }
 
@@ -220,14 +220,14 @@ namespace Vleerhond
 
                 if (this->hat_int_pattern.hit(time))
                 {
-                    this->storage.note_on(NoteStruct(NOTE_503_HH, velocity));
+                    this->midi_channel.note_on(NoteStruct(NOTE_503_HH, velocity));
                 }
                 break;
             case HatClosedStyle::HatClosedRegular:
                 if (this->hh_pattern.gate(time))
                 {
                     velocity = Utils::rerange(this->hat_velocity.value(time), 50, 32);
-                    this->storage.note_on(NoteStruct(this->closed_hat_note, velocity));
+                    this->midi_channel.note_on(NoteStruct(this->closed_hat_note, velocity));
                 }
                 break;
             }
@@ -244,7 +244,7 @@ namespace Vleerhond
 
             if (this->oh_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_503_OH, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_503_OH, velocity));
             }
         }
 
@@ -277,7 +277,7 @@ namespace Vleerhond
             // Play snare
             if (this->sd_pattern.gate(time) && !this->kill_mid)
             {
-                this->storage.note_on(NoteStruct(NOTE_503_SD, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_503_SD, velocity));
             }
 
             // Play hats
@@ -297,14 +297,14 @@ namespace Vleerhond
                     tom_pitch = NOTE_503_MT;
                 else if (tom_id == 2)
                     tom_pitch = NOTE_503_HT;
-                this->storage.note_on(NoteStruct(tom_pitch, 64));
+                this->midi_channel.note_on(NoteStruct(tom_pitch, 64));
             }
 
             // Play Cymbal
             // TODO: variable velociy
             if (this->cy_pattern.gate(time))
             {
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(NOTE_503_CY,
                         64)
                 );

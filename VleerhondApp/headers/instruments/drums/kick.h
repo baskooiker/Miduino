@@ -43,7 +43,7 @@ namespace Vleerhond
             if (this->bd_pattern.gate(time) && !this->kill)
             {
                 uint8_t vel = get_velocity();
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(this->pitch, vel),
                     time.get_shuffle_delay(this->timing)
                 );

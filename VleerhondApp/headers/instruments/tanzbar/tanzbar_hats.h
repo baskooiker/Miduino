@@ -34,7 +34,7 @@ namespace Vleerhond
             hats_vel(modulators),
             tune_mod(modulators)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             hat_closed_style = HatClosedStyle::HatClosedRegular;
             randomize();
         }
@@ -114,7 +114,7 @@ namespace Vleerhond
                     {
                         shuffle_delay = time.get_shuffle_delay(this->timing);
                     }
-                    this->storage.note_on(
+                    this->midi_channel.note_on(
                         NoteStruct(NOTE_TANZBAR_HH, velocity),
                         shuffle_delay
                     );
@@ -125,7 +125,7 @@ namespace Vleerhond
                 if (this->hh_pattern.gate(time))
                 {
                     velocity = Utils::rerange(this->hat_velocity.value(time), 50, 32);
-                    this->storage.note_on(
+                    this->midi_channel.note_on(
                         NoteStruct(NOTE_TANZBAR_HH, velocity),
                         time.get_shuffle_delay(this->timing)
                     );
@@ -145,7 +145,7 @@ namespace Vleerhond
 
             if (this->oh_pattern.gate(time))
             {
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(NOTE_TANZBAR_OH, velocity),
                     time.get_shuffle_delay(this->timing)
                 );

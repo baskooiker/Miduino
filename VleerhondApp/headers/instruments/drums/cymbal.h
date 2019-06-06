@@ -64,7 +64,7 @@ namespace Vleerhond
             // Play Cymbal
             if (this->cy_pattern.gate(time) && !kill)
             {
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(pitch, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );

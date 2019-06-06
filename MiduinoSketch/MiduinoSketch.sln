@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MiduinoSketch", "MiduinoSketch.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DevApp", "..\DevApp\DevApp.vcxproj", "{F2FB6F5D-413D-4169-99DC-3C0DC7213041}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5837595D-ACA9-485C-8E76-729040CE4B0B} = {5837595D-ACA9-485C-8E76-729040CE4B0B}
@@ -24,13 +22,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x64.ActiveCfg = Release|Win32
-		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x64.Build.0 = Release|Win32
-		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.ActiveCfg = Release|Win32
-		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.Build.0 = Release|Win32
-		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x64.ActiveCfg = Release|Win32
-		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.ActiveCfg = Release|Win32
-		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.Build.0 = Release|Win32
 		{F2FB6F5D-413D-4169-99DC-3C0DC7213041}.Debug|x64.ActiveCfg = Release|Win32
 		{F2FB6F5D-413D-4169-99DC-3C0DC7213041}.Debug|x64.Build.0 = Release|Win32
 		{F2FB6F5D-413D-4169-99DC-3C0DC7213041}.Debug|x86.ActiveCfg = Release|Win32

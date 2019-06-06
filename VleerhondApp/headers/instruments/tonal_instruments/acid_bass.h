@@ -12,7 +12,7 @@ namespace Vleerhond
             TimeStruct& time) :
             Bass(harmony, time)
         {
-            storage.set_channel(MIDI_CHANNEL_BASS, 24);
+            midi_channel.set_channel(MIDI_CHANNEL_BASS, 24);
         }
 
         virtual void randomize()

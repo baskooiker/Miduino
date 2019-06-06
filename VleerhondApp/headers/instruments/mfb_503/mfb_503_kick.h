@@ -28,7 +28,7 @@ namespace Vleerhond
             Kick(modulators_ref, time_ref),
             harmony(harmony_ref)
         {
-            storage.set_channel(MIDI_CHANNEL_503);
+            midi_channel.set_channel(MIDI_CHANNEL_503);
             pitch = NOTE_503_BD;
         }
 

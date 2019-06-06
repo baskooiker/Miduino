@@ -15,7 +15,7 @@ namespace Vleerhond
             TimeStruct& time) :
             Bass(harmony, time)
         {
-            storage.set_channel(MIDI_CHANNEL_MINITAUR);
+            midi_channel.set_channel(MIDI_CHANNEL_MINITAUR);
             volume = 100;
         }
 

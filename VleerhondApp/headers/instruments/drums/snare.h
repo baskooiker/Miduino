@@ -66,7 +66,7 @@ namespace Vleerhond
 
             if (Utils::interval_hit(division, time))
             {
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(pitch, get_velocity()),
                     time.get_shuffle_delay()
                 );
@@ -83,7 +83,7 @@ namespace Vleerhond
             // Play snare
             if (this->pattern.gate(time) && !this->kill)
             {
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(pitch, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );

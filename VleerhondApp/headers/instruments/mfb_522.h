@@ -89,52 +89,52 @@ namespace Vleerhond
 
             if (this->bd_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_BD_LONG, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_BD_LONG, velocity));
             }
             if (this->lo_tom_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_LO_TOM, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_LO_TOM, velocity));
             }
             if (this->mi_tom_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_HI_TOM, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_HI_TOM, velocity));
             }
             if (this->rs_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_RS, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_RS, velocity));
             }
             if (this->clave_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_CLAVE, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_CLAVE, velocity));
             }
             if (this->clap_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_CP_LONG, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_CP_LONG, velocity));
             }
             if (this->oh_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_OH, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_OH, velocity));
             }
             if (this->cy_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_CYMBAL, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_CYMBAL, velocity));
             }
             if (this->sd_522_pattern.gate(time))
             {
-                this->storage.note_on(NoteStruct(NOTE_522_SN, velocity));
+                this->midi_channel.note_on(NoteStruct(NOTE_522_SN, velocity));
             }
             if (!this->use_hh_int)
             {
                 if (this->hh_522_pattern.gate(time))
                 {
-                    this->storage.note_on(NoteStruct(NOTE_522_HH, velocity));
+                    this->midi_channel.note_on(NoteStruct(NOTE_522_HH, velocity));
                 }
             }
             else
             {
                 if (this->hh_int_pattern.hit(time))
                 {
-                    this->storage.note_on(NoteStruct(NOTE_522_HH, velocity));
+                    this->midi_channel.note_on(NoteStruct(NOTE_522_HH, velocity));
                 }
             }
         }

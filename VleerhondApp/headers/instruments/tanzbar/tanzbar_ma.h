@@ -55,7 +55,7 @@ namespace Vleerhond
             InstrumentBase(time_ref, true),
             decay_mod(modulators_ref)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
         }
 
         void randomize()
@@ -100,7 +100,7 @@ namespace Vleerhond
                     MIDI_CC_CHANNEL_TANZBAR
                 );
 
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(NOTE_TANZBAR_MA, Utils::rerange(this->ma_pattern.value(time), 96, 16)),
                     time.get_shuffle_delay(this->timing)
                 );

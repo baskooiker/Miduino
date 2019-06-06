@@ -128,7 +128,7 @@ namespace Vleerhond
                 if (Utils::interval_hit(repeat_interval, time) && !this->kill)
                 {
                     ofLogVerbose("Mono", "note_repeating: %d", repeat_note.pitch);
-                    storage.note_on(repeat_note, time.get_shuffle_delay());
+                    midi_channel.note_on(repeat_note, time.get_shuffle_delay());
 
                     if (this->proceed_arp_on_note_repeat)
                     {
@@ -159,7 +159,7 @@ namespace Vleerhond
                 {
                     NoteStruct note = NoteStruct(pitch, 64, length, NoteType::Tie);
                     note_repeat_sh.set_repeat_note(note);
-                    this->storage.note_on(note, time.get_shuffle_delay());
+                    this->midi_channel.note_on(note, time.get_shuffle_delay());
                 }
             }
         }

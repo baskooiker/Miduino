@@ -29,7 +29,7 @@ namespace Vleerhond
             Percussion(modulators_ref, time_ref),
             cl_pitch(modulators_ref)
         {
-            storage.set_channel(MIDI_CHANNEL_TANZBAR);
+            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             pitch = NOTE_TANZBAR_CL;
         }
 

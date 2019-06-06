@@ -254,7 +254,7 @@ namespace Vleerhond
                 }
 
                 // Play it!
-                this->storage.note_on(
+                this->midi_channel.note_on(
                     NoteStruct(pitch, this->get_velocity(), length, note_type),
                     time.get_shuffle_delay()
                 );
