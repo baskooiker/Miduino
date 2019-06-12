@@ -111,142 +111,165 @@ namespace Vleerhond
     {
         switch (number)
         {
-        case BSP_KNOB_01:
+        case ROTARY_01:
             break;
-        case BSP_KNOB_09:
+        case KNOB_01:
             data.mfb_503_kick.set_decay(value);
             break;
-        case BSP_KNOB_02:
+        case ROTARY_02:
             break;
-        case BSP_KNOB_10:
+        case KNOB_02:
             data.poly_settings.variable_pitch_offset = value;
             break;
-        case BSP_KNOB_03:
+        case ROTARY_03:
             break;
-        case BSP_KNOB_11:
+        case KNOB_03:
             data.rocket_bass.note_range_value = value;
             break;
-        case BSP_KNOB_04:
+        case ROTARY_04:
             data.rocket_bass.density = value;
             break;
-        case BSP_KNOB_12:
+        case KNOB_04:
             data.rocket_bass.pitch_range = value;
             break;
-        case BSP_KNOB_05:
+        case ROTARY_05:
             data.acid_bass.density = value;
             data.fugue_vermona_1.density = value;
             break;
-        case BSP_KNOB_13:
+        case KNOB_05:
             data.acid_bass.pitch_range = value;
             data.fugue_vermona_1.manual_pitch_offset = value;
             break;
-        case BSP_KNOB_06:
+        case ROTARY_06:
             //data.bass_dub_settings.density = value;
             data.fugue_vermona_2.density = value;
             break;
-        case BSP_KNOB_14:
+        case KNOB_06:
             //data.bass_dub_settings.v_pitch = value;
             data.fugue_vermona_2.manual_pitch_offset = value;
             data.drone.variable_pitch_range = value;
             break;
-        case BSP_KNOB_07:
+        case ROTARY_07:
             data.fugue_vermona_3.density = value;
             data.mono_settings.variable_density = value;
             break;
-        case BSP_KNOB_15:
+        case KNOB_07:
             data.mono_settings.variable_pitch_offset = value;
             data.fugue_vermona_3.manual_pitch_offset = value;
             break;
-        case BSP_KNOB_08:
+        case ROTARY_08:
             data.fugue_vermona_4.density = value;
             data.mono_dub_settings.variable_density = value;
             break;
-        case BSP_KNOB_16:
+        case KNOB_08:
             data.mono_dub_settings.variable_pitch_offset = value;
             data.mono_dub_settings.variable_pitch_offset = value;
             data.fugue_vermona_4.manual_pitch_offset = value;
             break;
 
-        case BSP_STEP_01:
-        case BSP_STEP_02:
+        case BTN_LEFT_TOP_01:
             if (value == 0)
             {
-                handle_step_release(data, number, BSP_STEP_01, BSP_STEP_02,
-                    release_step_1, release_step_2, release_step_1_2);
+                data.harmony.randomize();
+                data.harmony.type = HarmonyType::HarmonyConst;
+                data.harmony.const_value = 0;
             }
             break;
-        case BSP_STEP_03:
-        case BSP_STEP_04:
+        case BTN_LEFT_BTM_01:
             if (value == 0)
             {
-                handle_step_release(data, number, BSP_STEP_03, BSP_STEP_04,
-                    release_step_3, release_step_4, release_step_3_4);
+                data.tanzbar_lo.randomize();
+                data.time.randomize_shuffle();
+                data.modulators.randomize();
             }
             break;
-        case BSP_STEP_05:
-        case BSP_STEP_06:
+        case BTN_LEFT_TOP_02:
             if (value == 0)
             {
-                handle_step_release(data, number, BSP_STEP_05, BSP_STEP_06,
-                    release_step_5, release_step_6, release_step_5_and_6);
+                data.harmony.randomize();
+                data.harmony.type = HarmonyType::HarmonyConst;
+                data.harmony.switch_const_chord();
             }
             break;
-        case BSP_STEP_07:
+        case BTN_LEFT_BTM_02:
             if (value == 0)
             {
-                release_step_7(data);
+                data.tanzbar_cy.randomize();
+                data.tanzbar_ma.randomize();
+                data.tanzbar_hats.randomize();
+                data.time.randomize_shuffle();
+                data.modulators.randomize();
             }
             break;
-        case BSP_STEP_08:
+        case BTN_LEFT_TOP_03:
             if (value == 0)
             {
-                release_step_8(data);
+                data.harmony.randomize();
+                data.harmony.type = HarmonyType::HarmonyHigh;
             }
             break;
-        case BSP_STEP_09:
+        case BTN_LEFT_BTM_03:
             if (value == 0)
             {
-                release_step_9(data);
             }
             break;
-        case BSP_STEP_10:
+        case BTN_LEFT_TOP_04:
             if (value == 0)
             {
-                release_step_10(data);
             }
             break;
-        case BSP_STEP_11:
-        case BSP_STEP_12:
+        case BTN_LEFT_BTM_04:
             if (value == 0)
             {
-                handle_step_release(data, number, BSP_STEP_11, BSP_STEP_12,
-                    release_step_11, release_step_12, release_step_11_and_12);
+                data.rocket_bass.randomize();
             }
             break;
-        case BSP_STEP_13:
-        case BSP_STEP_14:
+        case BTN_LEFT_TOP_05:
             if (value == 0)
             {
-                handle_step_release(data, number, BSP_STEP_13, BSP_STEP_14,
-                    release_step_13, release_step_14, release_step_13_and_14);
             }
             break;
-        case BSP_STEP_15:
-        case BSP_STEP_16:
+        case BTN_LEFT_BTM_05:
             if (value == 0)
             {
-                handle_step_release(data, number, BSP_STEP_15, BSP_STEP_16,
-                    release_step_15, release_step_16, release_step_15_and_16);
+            }
+            break;
+        case BTN_LEFT_TOP_06:
+            if (value == 0)
+            {
+            }
+            break;
+        case BTN_LEFT_BTM_06:
+            if (value == 0)
+            {
+                data.drone.randomize();
+            }
+            break;
+        case BTN_LEFT_TOP_07:
+            break;
+        case BTN_LEFT_BTM_07:
+            if (value == 0)
+            {
+                handle_step_release(data, number, BTN_LEFT_TOP_07, BTN_LEFT_BTM_07,
+                    release_button_left_top_07, release_button_left_btm_07, release_buttons_left_07);
+            }
+            break;
+        case BTN_LEFT_TOP_08:
+        case BTN_LEFT_BTM_08:
+            if (value == 0)
+            {
+                handle_step_release(data, number, BTN_LEFT_TOP_08, BTN_LEFT_BTM_08,
+                    release_button_left_top_08, release_button_left_btm_08, release_buttons_left_08);
             }
             break;
 
-        case BSP_PAD_01:
+        case BTN_RIGHT_BTM_01:
             data.tanzbar_lo.kill = value > 0;
             data.mfb_503_kick.kill = value > 0;
             break;
-        case BSP_PAD_02:
+        case BTN_RIGHT_BTM_02:
             break;
-        case BSP_PAD_03:
+        case BTN_RIGHT_BTM_03:
             data.tanzbar_hats.kill = value > 0;
             data.tanzbar_cy.kill = value > 0;
             data.tanzbar_ma.kill = value > 0;
@@ -255,45 +278,45 @@ namespace Vleerhond
             data.mfb_503_cymbal.kill = value > 0;
 
             break;
-        case BSP_PAD_04:
+        case BTN_RIGHT_BTM_04:
             data.rocket_bass.kill = value > 0;
             if (data.rocket_bass.kill)
             {
                 data.rocket_bass.midi_channel.process_active_notes();
             }
             break;
-        case BSP_PAD_05:
+        case BTN_RIGHT_BTM_05:
             data.acid_bass.kill = value > 0;
             if (data.acid_bass.kill)
             {
                 data.acid_bass.midi_channel.process_active_notes();
             }
             break;
-        case BSP_PAD_06:
+        case BTN_RIGHT_BTM_06:
             data.drone.kill = value > 0;
             break;
-        case BSP_PAD_07:
+        case BTN_RIGHT_BTM_07:
             data.mono_settings.kill = value > 0;
             break;
-        case BSP_PAD_08:
+        case BTN_RIGHT_BTM_08:
             data.mono_dub_settings.kill = value > 0;
             break;
-        case BSP_PAD_09:
+        case BTN_RIGHT_TOP_01:
             break;
-        case BSP_PAD_10:
+        case BTN_RIGHT_TOP_02:
             data.tanzbar_mid.snare_roll = value > 0;
             break;
-        case BSP_PAD_11:
+        case BTN_RIGHT_TOP_03:
             break;
-        case BSP_PAD_12:
+        case BTN_RIGHT_TOP_04:
             break;
-        case BSP_PAD_13:
+        case BTN_RIGHT_TOP_05:
             break;
-        case BSP_PAD_14:
+        case BTN_RIGHT_TOP_06:
             break;
-        case BSP_PAD_15:
+        case BTN_RIGHT_TOP_07:
             break;
-        case BSP_PAD_16:
+        case BTN_RIGHT_TOP_08:
             break;
         default:
             break;
@@ -304,77 +327,75 @@ namespace Vleerhond
     {
         switch (number)
         {
-        case BSP_STEP_01:
+        case BTN_LEFT_TOP_01:
             if (value == 0)
             {
                 data.randomize_all();
             }
             break;
-        case BSP_STEP_02:
+        case BTN_LEFT_BTM_01:
             if (value == 0)
             {
                 data.randomize_all();
             }
             break;
-        case BSP_STEP_03:
+        case BTN_LEFT_TOP_02:
             if (value == 0)
             {
                 data.set_regular();
             }
             break;
-        case BSP_STEP_04:
+        case BTN_LEFT_BTM_02:
             if (value == 0)
             {
                 data.set_fugue();
             }
             break;
-        case BSP_STEP_16:
-            break;
 
-        case BSP_PAD_01:
+        case BTN_RIGHT_BTM_01:
             data.harmony.scale.set_root(Root::ROOT_C);
             break;
-        case BSP_PAD_02:
+        case BTN_RIGHT_BTM_02:
             data.harmony.scale.set_root(Root::ROOT_D);
             break;
-        case BSP_PAD_03:
+        case BTN_RIGHT_BTM_03:
             data.harmony.scale.set_root(Root::ROOT_E);
             break;
-        case BSP_PAD_04:
+        case BTN_RIGHT_BTM_04:
             data.harmony.scale.set_root(Root::ROOT_F);
             break;
-        case BSP_PAD_05:
+        case BTN_RIGHT_BTM_05:
             data.harmony.scale.set_root(Root::ROOT_G);
             break;
-        case BSP_PAD_06:
+        case BTN_RIGHT_BTM_06:
             data.harmony.scale.set_root(Root::ROOT_A);
             break;
-        case BSP_PAD_07:
+        case BTN_RIGHT_BTM_07:
             data.harmony.scale.set_root(Root::ROOT_B);
             break;
-        case BSP_PAD_08:
+        case BTN_RIGHT_BTM_08:
             break;
-        case BSP_PAD_09:
+        case BTN_RIGHT_TOP_01:
             data.harmony.scale.set_root(Root::ROOT_C_SHARP);
             break;
-        case BSP_PAD_10:
+        case BTN_RIGHT_TOP_02:
             data.harmony.scale.set_root(Root::ROOT_D_SHARP);
             break;
-        case BSP_PAD_11:
+        case BTN_RIGHT_TOP_03:
             break;
-        case BSP_PAD_12:
+        case BTN_RIGHT_TOP_04:
             data.harmony.scale.set_root(Root::ROOT_F_SHARP);
             break;
-        case BSP_PAD_13:
+        case BTN_RIGHT_TOP_05:
             data.harmony.scale.set_root(Root::ROOT_G_SHARP);
             break;
-        case BSP_PAD_14:
+        case BTN_RIGHT_TOP_06:
             data.harmony.scale.set_root(Root::ROOT_A_SHARP);
             break;
-        case BSP_PAD_15:
+        case BTN_RIGHT_TOP_07:
             data.harmony.scale.set_scale(ScaleType::AEOLIAN);
             break;
-        case BSP_PAD_16:
+        case BTN_RIGHT_TOP_08:
             data.harmony.scale.set_scale(ScaleType::IONIAN);
             break;
         }

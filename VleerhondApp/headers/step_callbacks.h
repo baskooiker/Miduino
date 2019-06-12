@@ -4,110 +4,7 @@
 
 namespace Vleerhond
 {
-    void release_step_1(ApplicationData& data)
-    {
-        data.tanzbar_lo.randomize();
-
-        data.time.randomize_shuffle();
-        data.modulators.randomize();
-    }
-
-    void release_step_2(ApplicationData& data)
-    {
-        data.tanzbar_mid.randomize();
-    }
-
-    void release_step_1_2(ApplicationData& data)
-    {
-    }
-
-    void release_step_3(ApplicationData& data)
-    {
-        data.tanzbar_tom.randomize();
-        data.tanzbar_cl.randomize();
-        data.tanzbar_cb.randomize();
-
-        data.tanzbar_hats.randomize();
-    }
-
-    void release_step_4(ApplicationData& data)
-    {
-        data.tanzbar_cy.randomize();
-        data.tanzbar_ma.randomize();
-        data.tanzbar_hats.randomize();
-
-        data.time.randomize_shuffle();
-        data.modulators.randomize();
-    }
-
-    void release_step_3_4(ApplicationData& data) {}
-
-    void release_step_5(ApplicationData& data)
-    {
-        data.harmony.randomize();
-        data.harmony.type = HarmonyType::HarmonyConst;
-        data.harmony.const_value = 0;
-    }
-
-    void release_step_6(ApplicationData& data)
-    {
-        data.harmony.randomize();
-        data.harmony.type = HarmonyType::HarmonyConst;
-        data.harmony.switch_const_chord();
-    }
-
-
-    void release_step_5_and_6(ApplicationData& data)
-    {
-        data.harmony.randomize();
-        data.harmony.type = HarmonyType::HarmonyHigh;
-    }
-
-    void release_step_7(ApplicationData& data)
-    {
-        data.rocket_bass.randomize();
-    }
-
-    void release_step_8(ApplicationData& data)
-    {
-        data.rocket_bass.randomize();
-    }
-
-    void release_step_7_8(ApplicationData& data)
-    {
-        data.rocket_bass.randomize();
-    }
-
-    void release_step_9(ApplicationData& data)
-    {
-    }
-
-    void release_step_10(ApplicationData& data)
-    {
-    }
-
-    void release_step_9_10s(ApplicationData& data)
-    {
-    }
-
-    void release_step_11(ApplicationData& data)
-    {
-        data.drone.randomize();
-    }
-
-    void release_step_12(ApplicationData& data)
-    {
-        data.drone.randomize();
-    }
-
-    void release_step_11_and_12(ApplicationData& data)
-    {
-        data.drone.randomize();
-        //data.bass_dub_settings.randomize();
-        //data.bass_dub_settings.style = BassDubStyle::DubOctProbability;
-    }
-
-    void release_step_13(ApplicationData& data)
+    void release_button_left_top_07(ApplicationData& data)
     {
         data.mono_settings.randomize();
         switch (Rand::randui8(2))
@@ -117,13 +14,13 @@ namespace Vleerhond
         }
     }
 
-    void release_step_14(ApplicationData& data)
+    void release_button_left_btm_07(ApplicationData& data)
     {
         data.mono_settings.randomize();
         data.mono_settings.style = MonoStyle::MonoSixteenths;
     }
 
-    void release_step_13_and_14(ApplicationData& data)
+    void release_buttons_left_07(ApplicationData& data)
     {
         data.mono_settings.randomize();
         switch (Rand::randui8(2))
@@ -135,7 +32,7 @@ namespace Vleerhond
         data.mono_settings.arp_data.type = ArpType::CLOSEST;
     }
 
-    void release_step_15(ApplicationData& data)
+    void release_button_left_top_08(ApplicationData& data)
     {
         data.mono_dub_settings.randomize();
         data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
@@ -147,15 +44,16 @@ namespace Vleerhond
         }
     }
 
-    void release_step_16(ApplicationData& data)
+    void release_button_left_btm_08(ApplicationData& data)
     {
         data.mono_dub_settings.randomize();
         data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubLead;
         data.mono_dub_settings.lead_settings.style = MonoStyle::MonoSixteenths;
     }
 
-    void release_step_15_and_16(ApplicationData& data)
+    void release_buttons_left_08(ApplicationData& data)
     {
+        ofLogNotice("step_callbacks", "Release left 08 both");
         data.mono_dub_settings.randomize();
         data.mono_dub_settings.dub_style = MonoDubStyle::MonoDubUnison;
     }

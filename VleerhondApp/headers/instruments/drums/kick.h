@@ -42,7 +42,7 @@ namespace Vleerhond
         {
             if (this->bd_pattern.gate(time) && !this->kill)
             {
-                ofLogNotice("kick", "play kick");
+                //ofLogNotice("kick", "play kick");
                 uint8_t vel = get_velocity();
                 this->midi_channel.note_on(
                     NoteStruct(this->pitch, vel),

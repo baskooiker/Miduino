@@ -61,7 +61,5 @@ public:
 
 class UiState {
 public:
-    uint16_t bsp_button_state;
-
-    ButtonState step_state[NR_OF_STEPS];
+    std::map<uint8_t, ButtonState> step_state;
 };
