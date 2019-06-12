@@ -50,13 +50,13 @@ namespace Vleerhond
 
         void randomize()
         {
+            TonalInstrumentBase::randomize();
             ofLogNotice("bass", "randomize()");
-            last_randomized_time = millis();
 
             // Randomize octaves
             this->octaves.randomize(2, Rand::randui8(4, 6));
             this->octaves.patterns[0].set(0, 0);
-            switch (Rand::distribution(16, 16, 16, 32))
+            switch (Rand::distribution(16, 16, 16, 16))
             {
             case 0: this->octaves.length = 2; break;
             case 1: this->octaves.length = 4; break;
@@ -64,7 +64,7 @@ namespace Vleerhond
             case 3: this->octaves.length = 16; break;
             }
             this->variable_octaves.randomize();
-            switch (Rand::distribution(16, 16, 16, 32))
+            switch (Rand::distribution(16, 16, 16, 16))
             {
             case 0: this->variable_octaves.length = 2; break;
             case 1: this->variable_octaves.length = 4; break;
@@ -78,7 +78,7 @@ namespace Vleerhond
             {
                 this->pitches.patterns[i].set(0, 0);
             }
-            switch (Rand::distribution(16, 16, 16, 32))
+            switch (Rand::distribution(16, 16, 16, 16))
             {
             case 0: this->pitches.length = 2; break;
             case 1: this->pitches.length = 4; break;
@@ -86,7 +86,7 @@ namespace Vleerhond
             case 3: this->pitches.length = 16; break;
             }
             this->note_range_prob.randomize();
-            switch (Rand::distribution(16, 16, 16, 32))
+            switch (Rand::distribution(16, 16, 16, 16))
             {
             case 0: this->note_range_prob.length = 2; break;
             case 1: this->note_range_prob.length = 4; break;
@@ -97,7 +97,7 @@ namespace Vleerhond
             // Randomize gates
             this->low_pattern.set_gates_low();
             this->probs.randomize();
-            switch (Rand::distribution(16, 16, 32))
+            switch (Rand::distribution(16, 16, 16))
             {
             case 0: this->note_range_prob.length = 4; break;
             case 1: this->note_range_prob.length = 8; break;
@@ -138,7 +138,7 @@ namespace Vleerhond
 
             // Randomize others
             this->int_pattern.randomize_interval(arp_interval_probs);
-            this->slides.randomize(.15f);
+            this->slides.randomize(Rand::randf(.15f, .75f));
             this->accents.randomize(Rand::randf(.15f, 1.f));
 
             octave_sh.prob = Rand::randui8(32);
@@ -214,11 +214,11 @@ namespace Vleerhond
             return pitch;
         }
 
-        void play()
+        bool play()
         {
             if (this->kill)
             {
-                return;
+                return false;
             }
 
             // Get hit
@@ -258,7 +258,9 @@ namespace Vleerhond
                     NoteStruct(pitch, this->get_velocity(), length, note_type),
                     time.get_shuffle_delay()
                 );
+                return true;
             }
+            return false;
         }
 
     };

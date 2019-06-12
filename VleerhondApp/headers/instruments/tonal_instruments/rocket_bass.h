@@ -7,26 +7,31 @@ namespace Vleerhond
     class RocketBass : public Bass
     {
     protected:
-        uint16_t volume;
+        ModulationReceiver vel_mod;
 
     public:
         RocketBass(
+            Modulators& modulators,
             HarmonyStruct& harmony,
             TimeStruct& time) :
-            Bass(harmony, time)
+            Bass(harmony, time),
+            vel_mod(modulators)
         {
             midi_channel.set_channel(MIDI_CHANNEL_MINITAUR);
-            volume = 100;
         }
 
-        void set_volume(const uint8_t value)
+        virtual void randomize()
         {
-            this->volume = (uint16_t)value;
+            Bass::randomize();
+            uint8_t range = Rand::randui8(32);
+            vel_mod.randomize(range, 64);
         }
 
         virtual uint8_t get_velocity()
         {
-            return (uint8_t)((uint16_t)Bass::get_velocity() *  this->volume / 127);
+            uint8_t value = 100;
+            vel_mod.value(time, value);
+            return value;
         }
     };
 }

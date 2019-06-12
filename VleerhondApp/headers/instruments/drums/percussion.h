@@ -47,7 +47,7 @@ namespace Vleerhond
             this->timing.randomize();
         }
 
-        void play()
+        bool play()
         {
             if (this->pattern.gate(time))
             {
@@ -55,7 +55,9 @@ namespace Vleerhond
                     NoteStruct(pitch, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );
+                return true;
             }
+            return false;
         }
         virtual uint8_t get_velocity()
         {

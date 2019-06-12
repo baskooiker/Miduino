@@ -38,12 +38,12 @@ namespace Vleerhond
             }
         }
 
-        void play()
+        bool play()
         {
             this->check_arp_reset();
 
             if (this->kill)
-                return;
+                return false;
 
             bool hit = false;
             switch (this->dub_style)
@@ -77,7 +77,9 @@ namespace Vleerhond
                     NoteStruct(pitch, 64, 6, NoteType::Tie),
                     time.get_shuffle_delay()
                 );
+                return true;
             }
+            return false;
         }
     };
 }

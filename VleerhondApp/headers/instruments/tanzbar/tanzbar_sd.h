@@ -10,15 +10,15 @@
 namespace Vleerhond
 {
     const RandomParam sd_params[] = {
-        {TB_SD_TUNE      ,  0, 64},
-        {TB_SD_DTUNE     ,  0, 64},
+        {TB_SD_TUNE      ,  0,  64},
+        {TB_SD_DTUNE     ,  0,  64},
         {TB_SD_SNAPPY    , 64, 127},
         {TB_SD_SN_DECAY  , 64, 127},
-        {TB_SD_TONE      ,  0, 127},
+        {TB_SD_TONE      ,  0,  64},
         {TB_SD_TONE_DECAY,  0,  48},
-        {TB_SD_PITCH     ,  0, 127},
+        {TB_SD_PITCH     ,  0,  64},
 
-        {TB_RS_TUNE      ,  0, 127},
+        {TB_RS_TUNE      ,  0,  64},
     };
     const uint8_t nr_sd_params = sizeof(sd_params) / sizeof(*sd_params);
 
@@ -61,10 +61,9 @@ namespace Vleerhond
             this->rs_timing.randomize();
         }
 
-        void play()
+        bool play()
         {
-            Snare::play();
-
+            bool played = false;
             // Play rimshot
             if (this->rs_pattern.gate(time) && !this->kill)
             {
@@ -77,7 +76,10 @@ namespace Vleerhond
                     NoteStruct(NOTE_TANZBAR_RS, 64),
                     time.get_shuffle_delay(this->rs_timing)
                 );
+                played = true;
             }
+
+            return Snare::play() || played;
         }
     };
 }

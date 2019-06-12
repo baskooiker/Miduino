@@ -33,7 +33,7 @@ namespace Vleerhond
             note_repeat = 1;
         }
 
-        void play()
+        bool play()
         {
             if (Utils::interval_hit(TimeDivision::Sixteenth, time))
             {

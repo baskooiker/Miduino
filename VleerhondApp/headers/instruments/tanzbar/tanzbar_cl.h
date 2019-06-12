@@ -44,14 +44,14 @@ namespace Vleerhond
             this->cl_pitch.randomize(range, 127 - range, .3);
         }
 
-        void play()
+        bool play()
         {
             uint8_t value = 0;
             if (this->cl_pitch.value(time, value))
             {
                 MidiIO::send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
-            Percussion::play();
+            return Percussion::play();
         }
     };
 }

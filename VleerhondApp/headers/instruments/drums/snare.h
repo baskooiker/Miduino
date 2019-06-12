@@ -73,7 +73,7 @@ namespace Vleerhond
             }
         }
 
-        virtual void play()
+        virtual bool play()
         {
             if (this->snare_roll)
             {
@@ -87,7 +87,9 @@ namespace Vleerhond
                     NoteStruct(pitch, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );
+                return true;
             }
+            return false;
         }
 
         virtual uint8_t get_velocity()

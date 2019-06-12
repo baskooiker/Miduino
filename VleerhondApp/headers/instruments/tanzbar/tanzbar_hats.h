@@ -57,7 +57,7 @@ namespace Vleerhond
             }
 
             {
-                uint8_t range = Rand::randui8(32, 127);
+                uint8_t range = Rand::randui8(32, 96);
                 uint8_t off = Rand::randui8(127 - range);
                 this->tune_mod.randomize(range, off, .5);
             }
@@ -96,7 +96,7 @@ namespace Vleerhond
             this->hat_velocity.randomize();
         }
 
-        void play_hats_closed()
+        bool play_hats_closed()
         {
             uint8_t velocity = 63;
 
@@ -118,6 +118,7 @@ namespace Vleerhond
                         NoteStruct(NOTE_TANZBAR_HH, velocity),
                         shuffle_delay
                     );
+                    return true;
                 }
                 break;
             }
@@ -129,9 +130,11 @@ namespace Vleerhond
                         NoteStruct(NOTE_TANZBAR_HH, velocity),
                         time.get_shuffle_delay(this->timing)
                     );
+                    return true;
                 }
                 break;
             }
+            return false;
         }
 
         bool play_hats_open()
@@ -154,19 +157,23 @@ namespace Vleerhond
             return false;
         }
 
-        void play()
+        bool play()
         {
             if (this->kill)
-                return;
+                return false;
 
             uint8_t value = 0;
             if (tune_mod.value(time, value))
             {
                 MidiIO::send_cc(TB_HH_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
-            if (!play_hats_open())
+            if (play_hats_open())
             {
-                play_hats_closed();
+                return true;
+            }
+            else
+            {
+                return play_hats_closed();
             }
         }
     };

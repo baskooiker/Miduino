@@ -61,11 +61,11 @@ namespace Vleerhond
             this->hit_probs.randomize(Rand::randf(.25f, .75f));
         }
 
-        void play()
+        bool play()
         {
             if (this->kill)
             {
-                return;
+                return false;
             }
 
             bool hit = this->bass_settings.get_bass_hit(this->density, time);
@@ -99,7 +99,9 @@ namespace Vleerhond
                     NoteStruct(pitch, 64, 6, NoteType::Tie),
                     time.get_shuffle_delay()
                 );
+                return true;
             }
+            return false;
         }
     };
 }

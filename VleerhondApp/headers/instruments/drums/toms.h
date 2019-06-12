@@ -46,7 +46,7 @@ namespace Vleerhond
             this->timing.randomize();
         }
 
-        virtual void play()
+        virtual bool play()
         {
             // Play toms
             uint8_t tom_prob = this->tom_pattern.value(time);
@@ -59,8 +59,9 @@ namespace Vleerhond
                     NoteStruct(get_pitch(time), get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );
+                return true;
             }
-
+            return false;
         }
 
         virtual uint8_t get_velocity()

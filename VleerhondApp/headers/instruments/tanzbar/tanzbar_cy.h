@@ -43,7 +43,7 @@ namespace Vleerhond
             this->cy_tune.randomize(range, 127 - range, .3);
         }
 
-        void play()
+        bool play()
         {
 
             uint8_t value = 0;
@@ -51,7 +51,7 @@ namespace Vleerhond
             {
                 MidiIO::send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
             }
-            Cymbal::play();
+            return Cymbal::play();
         }
     };
 }

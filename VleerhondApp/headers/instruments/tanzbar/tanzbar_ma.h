@@ -85,10 +85,10 @@ namespace Vleerhond
             this->timing.randomize();
         }
 
-        void play()
+        bool play()
         {
             if (kill)
-                return;
+                return false;
 
             if (interval_pattern.hit(time))
             {
@@ -104,9 +104,9 @@ namespace Vleerhond
                     NoteStruct(NOTE_TANZBAR_MA, Utils::rerange(this->ma_pattern.value(time), 96, 16)),
                     time.get_shuffle_delay(this->timing)
                 );
-                return;
+                return true;
             }
-            return;
+            return false;
         }
     };
 }

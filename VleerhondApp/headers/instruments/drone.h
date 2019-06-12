@@ -58,11 +58,11 @@ namespace Vleerhond
 
         }
 
-        void play()
+        bool play()
         {
             if (this->kill)
             {
-                return;
+                return false;
             }
 
             if (gate_pattern.gate(time))
@@ -77,9 +77,11 @@ namespace Vleerhond
                 midi_channel.note_on(
                     NoteStruct(pitch, this->get_velocity(), time.ticks_left_in_bar(), NoteType::Tie),
                     time.get_shuffle_delay()
-                );
+                ); 
+                return true;
             }
 
+            return false;
         }
     };
 }

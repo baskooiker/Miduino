@@ -39,10 +39,10 @@ namespace Vleerhond
             Parameters::randomize_parameters(mfb_503_kick_params, nr_mfb_503_kick_params, MIDI_CHANNEL_503);
         }
 
-        virtual void play()
+        virtual bool play()
         {
             pitch = Utils::clip_pitch(harmony.get_chord_step(time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
-            Kick::play();
+            return Kick::play();
         }
 
         virtual void set_volume(const uint8_t value)

@@ -59,7 +59,7 @@ namespace Vleerhond
             }
         }
 
-        virtual void play()
+        virtual bool play()
         {
             // Play Cymbal
             if (this->cy_pattern.gate(time) && !kill)
@@ -68,7 +68,9 @@ namespace Vleerhond
                     NoteStruct(pitch, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );
+                return true;
             }
+            return false;
         }
 
         virtual uint8_t get_velocity()

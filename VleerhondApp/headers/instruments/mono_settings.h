@@ -116,7 +116,7 @@ namespace Vleerhond
             return this->arp_data.get_arp_pitch();
         }
 
-        void play()
+        bool play()
         {
             this->check_arp_reset();
 
@@ -134,7 +134,7 @@ namespace Vleerhond
                     {
                         get_next_mono_pitch();
                     }
-                    return;
+                    return true;
                 }
             }
 
@@ -160,8 +160,10 @@ namespace Vleerhond
                     NoteStruct note = NoteStruct(pitch, 64, length, NoteType::Tie);
                     note_repeat_sh.set_repeat_note(note);
                     this->midi_channel.note_on(note, time.get_shuffle_delay());
+                    return true;
                 }
             }
+            return false;
         }
 
         void check_arp_reset()

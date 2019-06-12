@@ -81,7 +81,7 @@ namespace Vleerhond
             this->hat_velocity.randomize();
         }
 
-        virtual void play_hats_closed()
+        virtual bool play_hats_closed()
         {
             switch (this->hat_closed_style)
             {
@@ -99,6 +99,7 @@ namespace Vleerhond
                         NoteStruct(pitch_closed, get_velocity()),
                         shuffle_delay
                     );
+                    return true;
                 }
                 break;
             }
@@ -109,9 +110,11 @@ namespace Vleerhond
                         NoteStruct(pitch_closed, get_velocity()),
                         time.get_shuffle_delay(this->timing)
                     );
+                    return true;
                 }
                 break;
             }
+            return false;
         }
 
         virtual bool play_hats_open()
@@ -130,14 +133,18 @@ namespace Vleerhond
             return false;
         }
 
-        virtual void play()
+        virtual bool play()
         {
             if (this->kill)
-                return;
+                return false;
 
-            if (!play_hats_open())
+            if (play_hats_open())
             {
-                play_hats_closed();
+                return true;
+            }
+            else
+            {
+                return play_hats_closed();
             }
         }
 

@@ -30,8 +30,11 @@ namespace Vleerhond
             active = true;
         }
 
-        virtual void play() = 0;
-        virtual void randomize() = 0;
+        virtual bool play() = 0;
+        virtual void randomize()
+        {
+            last_randomized_time = millis();
+        }
 
         void process_events()
         {

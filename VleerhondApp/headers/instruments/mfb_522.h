@@ -78,7 +78,7 @@ namespace Vleerhond
 
         }
 
-        void play()
+        bool play()
         {
             uint8_t velocity = 63;
 

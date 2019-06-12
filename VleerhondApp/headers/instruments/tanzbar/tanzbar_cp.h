@@ -52,7 +52,7 @@ namespace Vleerhond
             }
         }
 
-        void play()
+        bool play()
         {
             uint8_t value = 0;
             if (this->cp_trig.value(time, value))
@@ -63,7 +63,7 @@ namespace Vleerhond
             {
                 MidiIO::send_cc(TB_CP_FILTER, value, MIDI_CC_CHANNEL_TANZBAR);
             }
-            Snare::play();
+            return Snare::play();
         }
     };
 }

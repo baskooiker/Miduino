@@ -154,10 +154,10 @@ namespace Vleerhond
             this->tom_mask.randomize_mask_pattern();
         }
 
-        void play_fill(const TimeStruct time)
+        bool play_fill(const TimeStruct time)
         {
             if (!Utils::interval_hit(TimeDivision::Sixteenth, time))
-                return;
+                return false;
 
             uint8_t p = 0;
             switch (Rand::randui8(7))
@@ -171,6 +171,7 @@ namespace Vleerhond
             case 6: p = NOTE_503_HH; break;
             }
             this->midi_channel.note_on(NoteStruct(p, 127));
+            return true;
         }
 
         void play_roll(const TimeStruct& time)
@@ -257,7 +258,7 @@ namespace Vleerhond
             play_hats_open(time);
         }
 
-        void play()
+        bool play()
         {
             if (this->drum_fill)
             {

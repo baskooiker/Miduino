@@ -38,16 +38,19 @@ namespace Vleerhond
             this->timing.randomize();
         }
 
-        virtual void play()
+        virtual bool play()
         {
             if (this->bd_pattern.gate(time) && !this->kill)
             {
+                ofLogNotice("kick", "play kick");
                 uint8_t vel = get_velocity();
                 this->midi_channel.note_on(
                     NoteStruct(this->pitch, vel),
                     time.get_shuffle_delay(this->timing)
                 );
+                return true;
             }
+            return false;
         }
 
         virtual uint8_t get_velocity()

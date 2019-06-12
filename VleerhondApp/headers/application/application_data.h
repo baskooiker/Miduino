@@ -97,7 +97,7 @@ namespace Vleerhond
             mfb_503_toms(modulators, harmony, time),
             mfb_503_cymbal(modulators, time),
 
-            rocket_bass(harmony, time),
+            rocket_bass(modulators, harmony, time),
             acid_bass(harmony, time),
             mono_settings(harmony, time),
             mono_dub_settings(mono_settings, harmony, time),
