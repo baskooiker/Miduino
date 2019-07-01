@@ -13,36 +13,34 @@ namespace Vleerhond
     protected:
         SampleAndHold subtract_sh;
         NoteRepeat note_repeat_sh;
-        bool proceed_arp_on_note_repeat;
 
-    public:
-        MonoStyle style;
         ArpData arp_data;
+        TimeDivision arp_reset_interval;
 
         GatePatternAB gate_pattern;
         IntervalPattern lead_pattern;
 
+        MonoStyle style;
+
+    public:
         uint8_t variable_pitch_offset;
         uint8_t variable_density;
-        TimeDivision arp_reset_interval;
 
         MonoSettings(
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
-            TonalInstrumentBase(harmony_ref, time_ref, false),
+            TonalInstrumentBase(harmony_ref, time_ref, true),
             subtract_sh(TimeDivision::Sixteenth),
             note_repeat_sh(TimeDivision::Eighth)
         {
             style = MonoStyle::MonoSixteenths;
             arp_reset_interval = TimeDivision::Whole;
+
+            total_randomize();
         }
 
-        void randomize()
+        void randomize_arp()
         {
-            ofLogNotice("mono", "randomize()");
-            last_randomized_time = millis();
-
-            // Randomize pitched
             this->arp_data.range = Rand::randui8(12, 36);
 
             switch (Rand::randui8(4))
@@ -52,14 +50,10 @@ namespace Vleerhond
             case 2: this->arp_data.type = ArpType::UPDOWN; break;
             case 3: this->arp_data.type = ArpType::PICKING_IN; break;
             }
+        }
 
-            switch (Rand::distribution(16, 16, 16))
-            {
-            case 0: this->style = MonoStyle::MonoSixteenths; break;
-            case 1: this->style = MonoStyle::MonoPolyRhythm; break;
-            case 2: this->style = MonoStyle::MonoLeadPattern; break;
-            }
-
+        void randomize_rhythm()
+        {
             // Set Euclid
             uint8_t euclid_length = Rand::randui8(5, 8);
             uint8_t euclid_steps = (euclid_length / 2) + Rand::randui8(2);
@@ -69,7 +63,10 @@ namespace Vleerhond
 
             // Randomize Lead
             this->lead_pattern.randomize_interval_lead();
+        }
 
+        void randomize_chaos()
+        {
             switch (Rand::distribution(16, 16, 16, 16))
             {
             case 0: arp_reset_interval = TimeDivision::Whole; break;
@@ -78,12 +75,43 @@ namespace Vleerhond
             case 3: arp_reset_interval = TimeDivision::Eight; break;
             }
 
-            ofLogNotice("mono", "mono type = %s", Strings::get_string(this->style).c_str());
-
             subtract_sh.prob = Rand::randi8(16);
-            note_repeat_sh.prob = Rand::randui8(32);
+            note_repeat_sh.prob = Rand::randui8(16);
+        }
 
-            proceed_arp_on_note_repeat = Rand::distribution(16, 32);
+        void randomize()
+        {
+            ofLogVerbose("mono", "randomize()");
+            TonalInstrumentBase::randomize();
+
+            switch (Rand::distribution(16, 16, 16))
+            {
+            case 0:
+                randomize_arp();
+                break;
+            case 1:
+                randomize_rhythm();
+                break;
+            case 2:
+                randomize_chaos();
+                break;
+            }
+        }
+
+        void total_randomize()
+        {
+            TonalInstrumentBase::randomize();
+
+            randomize_arp();
+            randomize_rhythm();
+            randomize_chaos();
+
+            switch (Rand::distribution(16, 16, 16))
+            {
+            case 0: this->style = MonoStyle::MonoSixteenths; break;
+            case 1: this->style = MonoStyle::MonoPolyRhythm; break;
+            case 2: this->style = MonoStyle::MonoLeadPattern; break;
+            }
         }
 
         bool get_mono_hit() const
@@ -129,11 +157,6 @@ namespace Vleerhond
                 {
                     ofLogVerbose("Mono", "note_repeating: %d", repeat_note.pitch);
                     midi_channel.note_on(repeat_note, time.get_shuffle_delay());
-
-                    if (this->proceed_arp_on_note_repeat)
-                    {
-                        get_next_mono_pitch();
-                    }
                     return true;
                 }
             }
@@ -173,5 +196,16 @@ namespace Vleerhond
                 arp_data.counter = 0;
             }
         }
+
+        void set_arp_type(ArpType arp_type)
+        {
+            arp_data.type = arp_type;
+        }
+
+        void set_style(MonoStyle mono_style)
+        {
+            style = mono_style;
+        }
+
     };
 }

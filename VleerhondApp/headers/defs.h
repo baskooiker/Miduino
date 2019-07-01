@@ -21,9 +21,17 @@ public:
 
 class RandomParam {
 public:
-  uint8_t note;
-  uint8_t min;
-  uint8_t max;  
+    uint8_t note;
+    uint8_t min;
+    uint8_t max;
+};
+
+class CcParam {
+public:
+    uint8_t note;
+    uint8_t min;
+    uint8_t max;
+    uint8_t channel;
 };
 
 class IntervalProbs 

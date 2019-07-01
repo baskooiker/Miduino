@@ -122,6 +122,11 @@ namespace Vleerhond
             fugue_vermona_4.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
 
             lead_settings.set_active(false);
+            mfb_503_kick.set_active(false);
+            mfb_503_snare.set_active(false);
+            mfb_503_toms.set_active(false);
+            mfb_503_cymbal.set_active(false);
+            mfb_503_hats.set_active(false);
 
             this->randomize_all();
             set_regular();

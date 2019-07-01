@@ -37,23 +37,20 @@ namespace Vleerhond
         Bass(
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
-            TonalInstrumentBase(harmony_ref, time_ref, false),
+            TonalInstrumentBase(harmony_ref, time_ref, true),
             octave_sh(TimeDivision::Sixteenth)
         {
             pitch_range = 0;
             style = BassStyle::BassLow;
             note_range_value = 0;
             density = 0;
-            kill = false;
             octave_sh.prob = 16;
+
+            total_randomize();
         }
 
-        void randomize()
+        void randomize_octaves()
         {
-            TonalInstrumentBase::randomize();
-            ofLogNotice("bass", "randomize()");
-
-            // Randomize octaves
             this->octaves.randomize(2, Rand::randui8(4, 6));
             this->octaves.patterns[0].set(0, 0);
             switch (Rand::distribution(16, 16, 16, 16))
@@ -71,7 +68,10 @@ namespace Vleerhond
             case 2: this->variable_octaves.length = 8; break;
             case 3: this->variable_octaves.length = 16; break;
             }
+        }
 
+        void randomize_pitches()
+        {
             // Randomize pitches
             this->pitches.randomize();
             for (int i = 0; i < 3; i++)
@@ -93,7 +93,10 @@ namespace Vleerhond
             case 2: this->note_range_prob.length = 8; break;
             case 3: this->note_range_prob.length = 16; break;
             }
+        }
 
+        void randomize_gates()
+        {
             // Randomize gates
             this->low_pattern.set_gates_low();
             this->probs.randomize();
@@ -102,14 +105,6 @@ namespace Vleerhond
             case 0: this->note_range_prob.length = 4; break;
             case 1: this->note_range_prob.length = 8; break;
             case 2: this->note_range_prob.length = 16; break;
-            }
-
-            // Randomize style
-            switch (Rand::distribution(16, 16, 16))
-            {
-            case 0: this->style = BassStyle::BassArpInterval; break;
-            case 1: this->style = BassStyle::BassEuclid; break;
-            case 2: this->style = BassStyle::BassLow; break;
             }
 
             // Randomize euclid
@@ -138,10 +133,48 @@ namespace Vleerhond
 
             // Randomize others
             this->int_pattern.randomize_interval(arp_interval_probs);
+        }
+
+        void randomize_accents()
+        {
             this->slides.randomize(Rand::randf(.15f, .75f));
             this->accents.randomize(Rand::randf(.15f, 1.f));
+        }
+
+        void randomize()
+        {
+            TonalInstrumentBase::randomize();
 
             octave_sh.prob = Rand::randui8(32);
+
+            switch (Rand::distribution(16, 16, 16, 16))
+            {
+            case 0: randomize_octaves(); break;
+            case 1: randomize_pitches(); break;
+            case 2: randomize_gates(); break;
+            case 3: randomize_accents(); break;
+            }
+
+        }
+
+        void total_randomize()
+        {
+            TonalInstrumentBase::randomize();
+
+            octave_sh.prob = Rand::randui8(32);
+
+            randomize_octaves();
+            randomize_pitches();
+            randomize_gates();
+            randomize_accents();
+
+            // Randomize style
+            switch (Rand::distribution(16, 16, 16))
+            {
+            case 0: this->style = BassStyle::BassArpInterval; break;
+            case 1: this->style = BassStyle::BassEuclid; break;
+            case 2: this->style = BassStyle::BassLow; break;
+            }
         }
 
         bool get_bass_hit(const uint8_t density, const TimeStruct& time)

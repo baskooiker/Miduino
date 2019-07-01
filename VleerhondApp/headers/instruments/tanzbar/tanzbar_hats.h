@@ -14,7 +14,6 @@ namespace Vleerhond
     class TanzbarHats : public InstrumentBase
     {
     protected:
-        MicroTimingStruct timing;
         ModulationReceiver hats_vel;
         ModulationReceiver tune_mod;
 
@@ -57,9 +56,9 @@ namespace Vleerhond
             }
 
             {
-                uint8_t range = Rand::randui8(32, 96);
+                uint8_t range = Rand::randui8(16, 96);
                 uint8_t off = Rand::randui8(127 - range);
-                this->tune_mod.randomize(range, off, .5);
+                this->tune_mod.randomize(range, off, .33);
             }
 
         }

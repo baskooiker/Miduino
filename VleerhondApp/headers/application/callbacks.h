@@ -221,7 +221,7 @@ namespace Vleerhond
         case BTN_LEFT_BTM_04:
             if (value == 0)
             {
-                data.rocket_bass.randomize();
+                data.rocket_bass.total_randomize();
             }
             break;
         case BTN_LEFT_TOP_05:

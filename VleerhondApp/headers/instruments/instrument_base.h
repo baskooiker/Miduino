@@ -17,6 +17,7 @@ namespace Vleerhond
         uint32_t last_randomized_time;
         bool randomizable;
         bool active;
+        std::vector<CcParam> params;
 
     public:
         MidiChannel midi_channel;
@@ -34,6 +35,19 @@ namespace Vleerhond
         virtual void randomize()
         {
             last_randomized_time = millis();
+            randomize_parameters();
+        }
+
+        void randomize_parameters()
+        {
+            for (CcParam param : params)
+            {
+                MidiIO::send_cc(
+                    param.note,
+                    Rand::randui8(param.max, param.min),
+                    param.channel
+                );
+            }
         }
 
         void process_events()

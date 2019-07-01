@@ -7,7 +7,6 @@ namespace Vleerhond
     class MonoDubSettings : public MonoSettings
     {
     protected:
-        NoteInterval note_interval;
 
     public:
         MonoDubStyle dub_style;
@@ -23,19 +22,15 @@ namespace Vleerhond
             dub_style = MonoDubStyle::MonoDubLead;
         }
 
+        void total_randomize()
+        {
+            lead_settings.total_randomize();
+        }
+
         void randomize()
         {
-            ofLogNotice("mono_dub", "randomize()");
-            last_randomized_time = millis();
-
-            MonoSettings::randomize();
-
-            switch (Rand::distribution(16, 0, 0))
-            {
-            case 0: this->note_interval = NoteInterval::IntervalRoot; break;
-            case 1: this->note_interval = NoteInterval::IntervalThird; break;
-            case 2: this->note_interval = NoteInterval::IntervalFifth; break;
-            }
+            ofLogVerbose("mono_dub", "randomize()");
+            lead_settings.randomize();
         }
 
         bool play()
@@ -67,7 +62,7 @@ namespace Vleerhond
                     break;
                 case MonoDubStyle::MonoDubUnison:
                     pitch = lead_settings.get_mono_pitch();
-                    pitch = this->harmony.scale.get_ascending(pitch, note_interval);
+                    pitch = this->harmony.scale.get_ascending(pitch);
                     pitch = Utils::clip_pitch(pitch, Utils::rerange(this->variable_pitch_offset, 36, 36));
                     break;
                 }
