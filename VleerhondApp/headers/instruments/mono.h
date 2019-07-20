@@ -9,10 +9,17 @@
 
 namespace Vleerhond
 {
+    class NoteInfo
+    {
+    public:
+        bool hit;
+        uint64_t tick;
+        NoteStruct note;
+    };
+
     class Mono : public TonalInstrumentBase
     {
     protected:
-        SampleAndHold subtract_sh;
         NoteRepeat note_repeat_sh;
 
         ArpData arp_data;
@@ -23,15 +30,16 @@ namespace Vleerhond
 
         MonoStyle style;
 
+        NoteInfo note_event;
+
     public:
         uint8_t variable_pitch_offset;
         uint8_t variable_density;
 
         Mono(
-            HarmonyStruct& harmony_ref,
-            TimeStruct& time_ref) :
-            TonalInstrumentBase(harmony_ref, time_ref, true),
-            subtract_sh(TimeDivision::Sixteenth),
+            HarmonyStruct& harmony,
+            TimeStruct& time) :
+            TonalInstrumentBase(harmony, time, true),
             note_repeat_sh(TimeDivision::Eighth)
         {
             style = MonoStyle::MonoSixteenths;
@@ -76,7 +84,6 @@ namespace Vleerhond
             case 3: arp_reset_interval = TimeDivision::Eight; break;
             }
 
-            subtract_sh.prob = Rand::randi8(16);
             note_repeat_sh.prob = Rand::randui8(16);
         }
 
@@ -145,9 +152,35 @@ namespace Vleerhond
             return this->arp_data.get_arp_pitch();
         }
 
+        NoteInfo get_note_event()
+        {
+            if (time.tick != note_event.tick)
+            {
+                note_event.tick = time.tick;
+                note_event.hit = get_hit();
+                if (note_event.hit)
+                {
+                    uint8_t pitch = this->get_next_mono_pitch();
+
+                    uint8_t length = 6;
+                    if (this->style == MonoStyle::MonoLeadPattern)
+                    {
+                        length = time.ticks_left_in_bar();
+                    }
+
+                    note_event.note = NoteStruct(pitch, 64, length, NoteType::Tie);
+                    note_repeat_sh.set_repeat_note(note_event.note);
+                }
+            }
+            return note_event;
+        }
+
         bool play()
         {
             this->check_arp_reset();
+
+            if (this->kill)
+                return false;
 
             NoteStruct repeat_note = note_repeat_sh.repeat_note(time);
             if (repeat_note.pitch > 0)
@@ -162,30 +195,11 @@ namespace Vleerhond
                 }
             }
 
-            bool hit = this->get_hit();
-
-            if (style == MonoStyle::MonoLeadPattern)
+            NoteInfo new_note_event = get_note_event();
+            if (new_note_event.hit)
             {
-                hit &= !subtract_sh.gate(time);
-            }
-
-            if (hit)
-            {
-                uint8_t pitch = this->get_next_mono_pitch();
-
-                uint8_t length = 6;
-                if (this->style == MonoStyle::MonoLeadPattern)
-                {
-                    length = time.ticks_left_in_bar();
-                }
-
-                if (!this->kill)
-                {
-                    NoteStruct note = NoteStruct(pitch, 64, length, NoteType::Tie);
-                    note_repeat_sh.set_repeat_note(note);
-                    this->midi_channel.note_on(note, time.get_shuffle_delay());
-                    return true;
-                }
+                this->midi_channel.note_on(new_note_event.note, time.get_shuffle_delay());
+                return true;
             }
             return false;
         }
