@@ -26,7 +26,6 @@ namespace Vleerhond
         CvPatternAB probs;
         IntervalPattern int_pattern;
         GatePatternAB euclid_pattern;
-        GatePatternAB low_pattern;
 
         uint8_t pitch_range;
         BassStyle style;
@@ -41,7 +40,7 @@ namespace Vleerhond
             octave_sh(TimeDivision::Sixteenth)
         {
             pitch_range = 0;
-            style = BassStyle::BassLow;
+            style = BassStyle::BassEuclid;
             note_range_value = 0;
             density = 0;
             octave_sh.prob = 16;
@@ -78,13 +77,16 @@ namespace Vleerhond
             {
                 this->pitches.patterns[i].set(0, 0);
             }
-            switch (Rand::distribution(16, 16, 16, 16))
+
+            uint8_t prob_2 = this->pitches.abPattern.isConstant() ? 0 : 32;
+            switch (Rand::distribution(prob_2, 16, 16, 0))
             {
             case 0: this->pitches.length = 2; break;
             case 1: this->pitches.length = 4; break;
             case 2: this->pitches.length = 8; break;
             case 3: this->pitches.length = 16; break;
             }
+
             this->note_range_prob.randomize();
             switch (Rand::distribution(16, 16, 16, 16))
             {
@@ -98,13 +100,13 @@ namespace Vleerhond
         void randomize_gates()
         {
             // Randomize gates
-            this->low_pattern.set_gates_low();
             this->probs.randomize();
-            switch (Rand::distribution(16, 16, 16))
+            switch (Rand::distribution(32, 16, 16))
             {
-            case 0: this->note_range_prob.length = 4; break;
-            case 1: this->note_range_prob.length = 8; break;
-            case 2: this->note_range_prob.length = 16; break;
+            case 0: this->probs.length = 2; break;
+            case 1: this->probs.length = 4; break;
+            case 2: this->probs.length = 8; break;
+            case 3: this->probs.length = 16; break;
             }
 
             // Randomize euclid
@@ -137,8 +139,8 @@ namespace Vleerhond
 
         void randomize_accents()
         {
-            this->slides.randomize(Rand::randf(.15f, .75f));
-            this->accents.randomize(Rand::randf(.15f, 1.f));
+            this->slides.randomize(Rand::randf(.20f, .80f));
+            this->accents.randomize(Rand::randf(.15f, .4f));
         }
 
         void randomize()
@@ -169,11 +171,10 @@ namespace Vleerhond
             randomize_accents();
 
             // Randomize style
-            switch (Rand::distribution(16, 16, 16))
+            switch (Rand::distribution(16, 16))
             {
             case 0: this->style = BassStyle::BassArpInterval; break;
             case 1: this->style = BassStyle::BassEuclid; break;
-            case 2: this->style = BassStyle::BassLow; break;
             }
         }
 
@@ -182,9 +183,6 @@ namespace Vleerhond
             bool hit = false;
             switch (this->style)
             {
-            case BassStyle::BassLow:
-                hit = this->low_pattern.gate(time);
-                break;
             case BassStyle::BassEuclid:
                 hit = this->euclid_pattern.gate(time);
                 break;
@@ -255,9 +253,8 @@ namespace Vleerhond
             }
 
             // Get hit
-            bool hit = this->get_bass_hit(this->density, time);
 
-            if (hit)
+            if (this->get_bass_hit(this->density, time))
             {
                 uint8_t pitch = get_bass_pitch(
                     this->variable_octaves.value(time),
@@ -281,6 +278,7 @@ namespace Vleerhond
                     }
                 }
 
+                // Sample and hold on random octave jumps
                 if (octave_sh.gate(time))
                 {
                     pitch += 12;

@@ -564,8 +564,8 @@
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_snare.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_toms.h" />
     <ClInclude Include="headers\instruments\mfb_522.h" />
-    <ClInclude Include="headers\instruments\mono_dub_settings.h" />
-    <ClInclude Include="headers\instruments\mono_settings.h" />
+    <ClInclude Include="headers\instruments\mono_dub.h" />
+    <ClInclude Include="headers\instruments\mono.h" />
     <ClInclude Include="headers\instruments\parameters.h" />
     <ClInclude Include="headers\instruments\poly.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cb.h" />
@@ -580,6 +580,8 @@
     <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\rocket_bass.h" />
+    <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
+    <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
     <ClInclude Include="headers\instrument_base.h" />
     <ClInclude Include="headers\intervals.h" />
     <ClInclude Include="headers\interval_pattern.h" />

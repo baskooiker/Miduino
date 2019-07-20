@@ -151,19 +151,18 @@ namespace Vleerhond
             break;
         case ROTARY_07:
             data.fugue_vermona_3.density = value;
-            data.mono_settings.variable_density = value;
+            data.mono.variable_density = value;
             break;
         case KNOB_07:
-            data.mono_settings.variable_pitch_offset = value;
+            data.mono.variable_pitch_offset = value;
             data.fugue_vermona_3.manual_pitch_offset = value;
             break;
         case ROTARY_08:
             data.fugue_vermona_4.density = value;
-            data.mono_dub_settings.variable_density = value;
             break;
         case KNOB_08:
-            data.mono_dub_settings.variable_pitch_offset = value;
-            data.mono_dub_settings.variable_pitch_offset = value;
+            data.mono_dub.variable_pitch_offset = value;
+            data.mono_dub.variable_pitch_offset = value;
             data.fugue_vermona_4.manual_pitch_offset = value;
             break;
 
@@ -246,7 +245,6 @@ namespace Vleerhond
             }
             break;
         case BTN_LEFT_TOP_07:
-            break;
         case BTN_LEFT_BTM_07:
             if (value == 0)
             {
@@ -296,10 +294,10 @@ namespace Vleerhond
             data.drone.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_07:
-            data.mono_settings.kill = value > 0;
+            data.mono.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_08:
-            data.mono_dub_settings.kill = value > 0;
+            data.mono_dub.kill = value > 0;
             break;
         case BTN_RIGHT_TOP_01:
             break;

@@ -6,9 +6,9 @@
 namespace Vleerhond
 {
     const RandomParam tanzbar_low_params[] = {
-        {TB_BD1_ATTACK   ,  0,  64},
+        //{TB_BD1_ATTACK   ,  0,  64},
         //{TB_BD1_DECAY    , 32,  96},
-        {TB_BD1_PITCH    , 80, 112},
+        //{TB_BD1_PITCH    , 80, 112},
         {TB_BD1_TUNE     , 32,  96},
         {TB_BD1_NOISE    ,  0,  64},
         {TB_BD1_FILTER   ,  0,  64},
@@ -52,6 +52,7 @@ namespace Vleerhond
             coef.four = 1.f;
             coef.eights = Rand::randf(.25);
             bd_pattern.set_coef_pattern(coef);
+            this->accents = this->bd_pattern;
 
             coef.one = 0.f;
             coef.two = 0.f;

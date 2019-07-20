@@ -24,8 +24,9 @@
 #include "rocket_bass.h"
 #include "acid_bass.h"
 #include "bass_dub_settings.h"
-#include "mono_settings.h"
-#include "mono_dub_settings.h"
+
+#include "vermona_mono.h"
+#include "vermona_mono_dub.h"
 #include "poly.h"
 #include "lead.h"
 #include "drone.h"
@@ -63,8 +64,8 @@ namespace Vleerhond
 
         RocketBass rocket_bass;
         AcidBass acid_bass;
-        MonoSettings mono_settings;
-        MonoDubSettings mono_dub_settings;
+        VermonaMono mono;
+        VermonaMonoDub mono_dub;
         Drone drone;
 
         PolySettings poly_settings;
@@ -99,8 +100,8 @@ namespace Vleerhond
 
             rocket_bass(modulators, harmony, time),
             acid_bass(harmony, time),
-            mono_settings(harmony, time),
-            mono_dub_settings(mono_settings, harmony, time),
+            mono(harmony, modulators, time),
+            mono_dub(mono, harmony, time, modulators),
             poly_settings(harmony, time),
             lead_settings(harmony, time),
             drone(harmony, time),
@@ -109,8 +110,7 @@ namespace Vleerhond
             fugue_vermona_3(harmony, time, fugue),
             fugue_vermona_4(harmony, time, fugue)
         {
-            mono_settings.midi_channel.set_channel(MIDI_CHANNEL_MONO);
-            mono_dub_settings.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
+            mono_dub.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
 
             drone.midi_channel.set_channel(MIDI_CHANNEL_BASS_DUB);
 
@@ -168,15 +168,6 @@ namespace Vleerhond
             }
 
             probability_randomize();
-
-            //if (Utils::interval_hit(TimeDivision::Sixteenth, this->time))
-            //{
-            //    MidiIO::send_note_on(60, 100, MIDI_CHANNEL_TB_CV1);
-            //}
-            //else if (Utils::interval_hit(TimeDivision::Sixteenth, this->time.add(3)))
-            //{
-            //    MidiIO::send_note_off(60, MIDI_CHANNEL_TB_CV1);
-            //}
         }
 
         void process_active_notes()
@@ -232,8 +223,8 @@ namespace Vleerhond
             ptrs.push_back(&this->rocket_bass);
             ptrs.push_back(&this->acid_bass);
 
-            ptrs.push_back(&this->mono_settings);
-            ptrs.push_back(&this->mono_dub_settings);
+            ptrs.push_back(&this->mono);
+            ptrs.push_back(&this->mono_dub);
 
             ptrs.push_back(&this->poly_settings);
             ptrs.push_back(&this->lead_settings);
@@ -283,8 +274,8 @@ namespace Vleerhond
         {
             acid_bass.set_active(true);
             drone.set_active(true);
-            mono_settings.set_active(true);
-            mono_dub_settings.set_active(true);
+            mono.set_active(true);
+            mono_dub.set_active(true);
 
             fugue_vermona_1.set_active(false);
             fugue_vermona_2.set_active(false);
@@ -301,8 +292,8 @@ namespace Vleerhond
 
             acid_bass.set_active(false);
             drone.set_active(false);
-            mono_settings.set_active(false);
-            mono_dub_settings.set_active(false);
+            mono.set_active(false);
+            mono_dub.set_active(false);
         }
     };
 }

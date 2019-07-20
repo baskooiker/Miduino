@@ -5,10 +5,11 @@
 #include "arp.h"
 #include "rand.h"
 #include "sample_and_hold.h"
+#include "instrument_base.h"
 
 namespace Vleerhond
 {
-    class MonoSettings : public TonalInstrumentBase
+    class Mono : public TonalInstrumentBase
     {
     protected:
         SampleAndHold subtract_sh;
@@ -26,7 +27,7 @@ namespace Vleerhond
         uint8_t variable_pitch_offset;
         uint8_t variable_density;
 
-        MonoSettings(
+        Mono(
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
             TonalInstrumentBase(harmony_ref, time_ref, true),
@@ -114,7 +115,7 @@ namespace Vleerhond
             }
         }
 
-        bool get_mono_hit() const
+        bool get_hit() const
         {
             bool hit = false;
             switch (this->style)
@@ -161,7 +162,7 @@ namespace Vleerhond
                 }
             }
 
-            bool hit = this->get_mono_hit();
+            bool hit = this->get_hit();
 
             if (style == MonoStyle::MonoLeadPattern)
             {

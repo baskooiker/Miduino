@@ -19,9 +19,9 @@
 #define MIDI_CHANNEL_MONO       7
 #define MIDI_CHANNEL_MONO_2     8
 #define MIDI_CHANNEL_MINITAUR   9
+#define VERMONA_CONTROL_CHANNEL 14
 
 #define MIDI_CHANNEL_POLY     13
-#define MIDI_CHANNEL_LEAD     14
 #define MIDI_CHANNEL_503      15
 #define MIDI_CHANNEL_522      12
 
@@ -31,6 +31,8 @@
 
 #define STEPS_IN_BAR (16)
 #define TICKS_IN_BAR (96)
+
+#define MODULATION_WHEEL_CC 1
 
 // MIDI 503
 #define NOTE_503_BD 36
@@ -259,3 +261,9 @@
 #define TB_CB_Tune          85
 #define TB_CB_Decay         86
 #define TB_MA_Decay         87
+
+// Vermona
+#define VERMONA_SYNTH_1_MOD_WHEEL 88
+#define VERMONA_SYNTH_2_MOD_WHEEL 89
+#define VERMONA_SYNTH_3_MOD_WHEEL 90
+#define VERMONA_SYNTH_4_MOD_WHEEL 91

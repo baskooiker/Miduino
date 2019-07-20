@@ -35,7 +35,7 @@ namespace Vleerhond
 
             params.push_back({ MINITAUR_CC_LFO_MIDI_SYNC  ,   0,  63, MIDI_CHANNEL_MINITAUR }); // MidiSync off
             params.push_back({ MINITAUR_CC_LFO_KEY_TRIGGER,   0, 127, MIDI_CHANNEL_MINITAUR });
-            params.push_back({ MINITAUR_CC_MOD_SOURCE     ,   0, 127, MIDI_CHANNEL_MINITAUR });
+            params.push_back({ MINITAUR_CC_MOD_SOURCE     ,   0,  64, MIDI_CHANNEL_MINITAUR }); // No ADSR or SnH
             params.push_back({ MINITAUR_CC_VCO1_WAVE      ,   0, 127, MIDI_CHANNEL_MINITAUR });
             params.push_back({ MINITAUR_CC_VCO2_WAVE      ,   0, 127, MIDI_CHANNEL_MINITAUR });
             params.push_back({ MINITAUR_CC_VCO2_HARD_SYNC ,   0, 127, MIDI_CHANNEL_MINITAUR });
@@ -51,6 +51,12 @@ namespace Vleerhond
             Bass::randomize();
             uint8_t range = Rand::randui8(32);
             vel_mod.randomize(range, 64);
+        }
+
+        virtual void total_randomize()
+        {
+            randomize_parameters();
+            Bass::total_randomize();
         }
 
         virtual uint8_t get_velocity()

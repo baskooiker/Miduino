@@ -39,7 +39,6 @@ namespace Vleerhond
     };
 
     enum class BassStyle {
-        BassLow,
         BassArpInterval,
         BassEuclid
     };
@@ -93,11 +92,6 @@ namespace Vleerhond
         MonoSixteenths,
         MonoPolyRhythm,
         MonoLeadPattern
-    };
-
-    enum MonoDubStyle {
-        MonoDubLead,
-        MonoDubUnison
     };
 
     enum HarmonyType {

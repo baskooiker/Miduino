@@ -135,4 +135,11 @@ public:
     {
         return this->ab_pattern[index % 4];
     }
+
+    bool isConstant()
+    {
+        return ab_pattern[0] == 0
+            && ab_pattern[1] == 0
+            && ab_pattern[2] == 0;
+    }
 };

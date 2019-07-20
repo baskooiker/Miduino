@@ -825,6 +825,9 @@
     <Filter Include="headers\instruments\tonal_instruments">
       <UniqueIdentifier>{aac24837-038d-4b28-806b-29225085ca5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\instruments\vermona">
+      <UniqueIdentifier>{e9e79043-405b-4114-93eb-8666debf476e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.h">
@@ -1880,12 +1883,6 @@
     <ClInclude Include="headers\instruments\mfb_522.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mono_dub_settings.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mono_settings.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\poly.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
@@ -1896,6 +1893,18 @@
       <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
     <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\vermona\vermona_mono.h">
+      <Filter>headers\instruments\vermona</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\mono.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h">
+      <Filter>headers\instruments\vermona</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\mono_dub.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
   </ItemGroup>

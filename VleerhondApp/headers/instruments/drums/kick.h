@@ -15,6 +15,7 @@ namespace Vleerhond
 
     public:
         GatePatternAB bd_pattern;
+        GatePatternAB accents;
 
         Kick(
             Modulators& modulators_ref,
@@ -34,6 +35,7 @@ namespace Vleerhond
             {
                 this->randomize_kick();
             }
+            this->accents = bd_pattern;
 
             this->timing.randomize();
         }
@@ -55,8 +57,7 @@ namespace Vleerhond
 
         virtual uint8_t get_velocity()
         {
-            bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
-            return quarter_hit ? 127 : 63;
+            return accents.gate(this->time) ? 127 : 63;
         }
 
     protected:
