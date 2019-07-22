@@ -110,8 +110,7 @@ namespace Vleerhond
             fugue_vermona_3(harmony, time, fugue),
             fugue_vermona_4(harmony, time, fugue)
         {
-            mono_dub.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
-
+            //mono_dub.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
             drone.midi_channel.set_channel(MIDI_CHANNEL_BASS_DUB);
 
             this->poly_settings.midi_channel.set_channel(MIDI_CHANNEL_ROCKET);
@@ -122,6 +121,7 @@ namespace Vleerhond
             fugue_vermona_4.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
 
             lead_settings.set_active(false);
+            poly_settings.set_active(false);
             mfb_503_kick.set_active(false);
             mfb_503_snare.set_active(false);
             mfb_503_toms.set_active(false);
@@ -214,11 +214,11 @@ namespace Vleerhond
             ptrs.push_back(&this->tanzbar_hats);
             ptrs.push_back(&this->tanzbar_cy);
 
-            ptrs.push_back(&this->mfb_503_kick);
-            ptrs.push_back(&this->mfb_503_toms);
-            ptrs.push_back(&this->mfb_503_hats);
-            ptrs.push_back(&this->mfb_503_snare);
-            ptrs.push_back(&this->mfb_503_cymbal);
+            //ptrs.push_back(&this->mfb_503_kick);
+            //ptrs.push_back(&this->mfb_503_toms);
+            //ptrs.push_back(&this->mfb_503_hats);
+            //ptrs.push_back(&this->mfb_503_snare);
+            //ptrs.push_back(&this->mfb_503_cymbal);
 
             ptrs.push_back(&this->rocket_bass);
             ptrs.push_back(&this->acid_bass);
@@ -226,8 +226,8 @@ namespace Vleerhond
             ptrs.push_back(&this->mono);
             ptrs.push_back(&this->mono_dub);
 
-            ptrs.push_back(&this->poly_settings);
-            ptrs.push_back(&this->lead_settings);
+            //ptrs.push_back(&this->poly_settings);
+            //ptrs.push_back(&this->lead_settings);
 
             ptrs.push_back(&this->drone);
 

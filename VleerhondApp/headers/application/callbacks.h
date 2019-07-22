@@ -79,34 +79,6 @@ namespace Vleerhond
         }
     }
 
-    void handleControlChangeAlways(ApplicationData& data, uint8_t channel, uint8_t number, uint8_t value)
-    {
-        switch (number)
-        {
-        case SLIDER_01:
-            data.mfb_503_kick.set_volume(value);
-            break;
-        case SLIDER_02:
-            data.mfb_503_snare.set_volume(value);
-            break;
-        case SLIDER_03:
-            data.mfb_503_toms.set_volume(value);
-            break;
-        case SLIDER_04:
-            data.mfb_503_cymbal.set_volume(value);
-            break;
-        case SLIDER_05:
-            data.mfb_503_hats.set_volume(value);
-            break;
-        case SLIDER_06:
-            break;
-        case SLIDER_07:
-            break;
-        case SLIDER_08:
-            break;
-        }
-    }
-
     void handleControlChangePlaying(ApplicationData& data, uint8_t channel, uint8_t number, uint8_t value)
     {
         switch (number)
@@ -114,54 +86,67 @@ namespace Vleerhond
         case ROTARY_01:
             break;
         case KNOB_01:
-            data.mfb_503_kick.set_decay(value);
             break;
         case ROTARY_02:
             break;
         case KNOB_02:
-            data.poly_settings.variable_pitch_offset = value;
             break;
         case ROTARY_03:
             break;
         case KNOB_03:
-            data.rocket_bass.note_range_value = value;
             break;
         case ROTARY_04:
-            data.rocket_bass.density = value;
             break;
         case KNOB_04:
-            data.rocket_bass.pitch_range = value;
+            data.rocket_bass.density = value;
             break;
         case ROTARY_05:
+            break;
+        case KNOB_05:
             data.acid_bass.density = value;
             data.fugue_vermona_1.density = value;
             break;
-        case KNOB_05:
+        case ROTARY_06:
+            break;
+        case KNOB_06:
+            data.fugue_vermona_2.density = value;
+            break;
+        case ROTARY_07:
+            break;
+        case KNOB_07:
+            data.fugue_vermona_3.density = value;
+            data.mono.variable_density = value;
+            break;
+        case ROTARY_08:
+            break;
+        case KNOB_08:
+            data.fugue_vermona_4.density = value;
+            break;
+
+        case SLIDER_01:
+            break;
+        case SLIDER_02:
+            break;
+        case SLIDER_03:
+            data.rocket_bass.note_range_value = value;
+            break;
+        case SLIDER_04:
+            data.rocket_bass.pitch_range = value;
+            break;
+        case SLIDER_05:
             data.acid_bass.pitch_range = value;
             data.fugue_vermona_1.manual_pitch_offset = value;
             break;
-        case ROTARY_06:
-            //data.bass_dub_settings.density = value;
-            data.fugue_vermona_2.density = value;
-            break;
-        case KNOB_06:
+        case SLIDER_06:
             //data.bass_dub_settings.v_pitch = value;
             data.fugue_vermona_2.manual_pitch_offset = value;
             data.drone.variable_pitch_range = value;
             break;
-        case ROTARY_07:
-            data.fugue_vermona_3.density = value;
-            data.mono.variable_density = value;
-            break;
-        case KNOB_07:
+        case SLIDER_07:
             data.mono.variable_pitch_offset = value;
             data.fugue_vermona_3.manual_pitch_offset = value;
             break;
-        case ROTARY_08:
-            data.fugue_vermona_4.density = value;
-            break;
-        case KNOB_08:
-            data.mono_dub.variable_pitch_offset = value;
+        case SLIDER_08:
             data.mono_dub.variable_pitch_offset = value;
             data.fugue_vermona_4.manual_pitch_offset = value;
             break;
@@ -409,7 +394,7 @@ namespace Vleerhond
         {
             release_step(data.ui_state.step_state, number);
         }
-        handleControlChangeAlways(data, channel, number, value);
+
         switch (data.time.state)
         {
         case PlayState::Playing:

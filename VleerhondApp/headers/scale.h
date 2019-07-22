@@ -132,17 +132,18 @@ namespace Vleerhond
             }
         }
 
-        uint8_t get_ascending(const uint8_t pitch, const NoteInterval note_interval = NoteInterval::IntervalRoot)
+        uint8_t get_ascending(const uint8_t pitch, const int8_t note_interval)
         {
             uint8_t rv = pitch;
-            uint8_t steps = (uint8_t)note_interval;
-            for (int i = pitch + 1; i < 128; i++)
+            int8_t steps = note_interval;
+            int8_t sign = note_interval >= 0 ? 1 : -1;
+            for (int i = pitch + sign; i < 128 && i >= 0; i++)
             {
                 if (this->contains(i))
                 {
                     if (steps > 0)
                     {
-                        steps--;
+                        steps -= sign;
                     }
                     if (steps == 0)
                     {
