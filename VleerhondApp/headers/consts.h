@@ -1,14 +1,8 @@
 #pragma once
 
-#ifndef MIN
 #define MIN(a,b) (((a)<(b))?(a):(b))
-#endif
-#ifndef MAX
 #define MAX(a,b) (((a)>(b))?(a):(b))
-#endif
-#ifndef CLIP
 #define CLIP(value,minimum,maximum) (MIN(MAX(value, minimum), maximum))
-#endif
 
 #define MIDI_CHANNEL_TANZBAR    11
 #define MIDI_CHANNEL_TB_CV1     1

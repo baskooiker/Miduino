@@ -1,4 +1,7 @@
 #include "ofMain.h"
+
+#include "ofAppNoWindow.h"
+
 #include "VleerhondApp.h"
 
 uint32_t millis()

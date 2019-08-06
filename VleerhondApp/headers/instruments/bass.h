@@ -52,7 +52,7 @@ namespace Vleerhond
         {
             this->octaves.randomize(2, Rand::randui8(4, 6));
             this->octaves.patterns[0].set(0, 0);
-            switch (Rand::distribution(16, 16, 16, 16))
+            switch (Rand::distribution(16, 16, 16, 0))
             {
             case 0: this->octaves.length = 2; break;
             case 1: this->octaves.length = 4; break;
@@ -60,7 +60,7 @@ namespace Vleerhond
             case 3: this->octaves.length = 16; break;
             }
             this->variable_octaves.randomize();
-            switch (Rand::distribution(16, 16, 16, 16))
+            switch (Rand::distribution(16, 16, 16, 0))
             {
             case 0: this->variable_octaves.length = 2; break;
             case 1: this->variable_octaves.length = 4; break;
