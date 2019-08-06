@@ -55,7 +55,7 @@ namespace Vleerhond
         {
             //printf("Mfb503Kick::get_velocity()\n");
 
-            bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
+            bool quarter_hit = time.interval_hit(TimeDivision::Quarter);
             uint16_t velocity = quarter_hit ? 127 : 96;
             return (uint8_t)(((uint16_t)volume * velocity) / 127);
         }

@@ -192,7 +192,7 @@ namespace Vleerhond
             }
 
             uint8_t prob = this->probs.value(time);
-            bool prob_step = (prob < density) && (prob > 0) && Utils::interval_hit(TimeDivision::Sixteenth, time);
+            bool prob_step = (prob < density) && (prob > 0) && time.interval_hit(TimeDivision::Sixteenth);
             return hit || prob_step;
         }
 

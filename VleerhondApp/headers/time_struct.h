@@ -4,6 +4,7 @@
 
 #include "defs.h"
 #include "timing_structs.h"
+#include "utils.h"
 
 namespace Vleerhond
 {
@@ -38,7 +39,7 @@ namespace Vleerhond
             uint32_t delay = (uint32_t)((this->average_pulse_time / 40.) * (global_delay / 127.));
             if ((this->tick + TICKS_PER_STEP) % (2 * TICKS_PER_STEP) == 0)
             {
-                uint8_t amount = (uint8_t)CLIP((int8_t)this->global_shuffle + shuffle_offset, 0, 127);
+                uint8_t amount = Utils::clip((int8_t)this->global_shuffle + shuffle_offset, (int8_t)0, (int8_t)127);
                 return MAX((uint32_t)((this->average_pulse_time / 16.) * (amount / 127.)), delay);
             }
             else
@@ -83,6 +84,11 @@ namespace Vleerhond
             TimeStruct time_cp = *this;
             time_cp.tick += offset;
             return time_cp;
+        }
+
+        bool interval_hit(const TimeDivision time_division) const
+        {
+            return this->tick % (uint32_t)time_division == 0;
         }
 
     };

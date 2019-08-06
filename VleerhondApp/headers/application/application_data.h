@@ -134,7 +134,7 @@ namespace Vleerhond
 
         void probability_randomize()
         {
-            if (!Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
+            if (!time.add(TICKS_PER_STEP / 2).interval_hit(TimeDivision::Four))
             {
                 return;
             }

@@ -4,7 +4,6 @@
 #include <stdlib.h>
 
 #include "defs.h"
-#include "time_struct.h"
 #include "rand.h"
 
 namespace Vleerhond
@@ -153,10 +152,27 @@ namespace Vleerhond
             return (uint8_t)(127.9 * log(((double)v / 127.)));
         }
 
-        static bool interval_hit(const TimeDivision time_division, const TimeStruct& time)
+        /*
+        char min(char a, char b)
         {
-            return time.tick % (uint32_t)time_division == 0;
+            return a < b ? a : b;
         }
+
+        char max(char a, char b)
+        {
+            return a > b ? a : b;
+        }
+        */
+
+        static int32_t clip(int32_t value, int32_t minimum, int32_t maximum)
+        {
+            return std::min(std::max(value, minimum), maximum);
+        }
+
+        //static int8_t clip(int8_t value, int8_t minimum, int8_t maximum)
+        //{
+        //    return std::min(std::max(value, minimum), maximum);
+        //}
 
     };
 }

@@ -61,7 +61,7 @@ namespace Vleerhond
             switch (this->style)
             {
             case LeadStyle::LeadWhole:
-                hit = Utils::interval_hit(TimeDivision::Whole, time);
+                hit = time.interval_hit(TimeDivision::Whole);
                 length = TICKS_IN_BAR;
                 break;
             case LeadStyle::LeadSlow:

@@ -50,7 +50,7 @@ namespace Vleerhond
         {
             // Play toms
             uint8_t tom_prob = this->tom_pattern.value(time);
-            if (Utils::interval_hit(TimeDivision::Sixteenth, time)
+            if (time.interval_hit(TimeDivision::Sixteenth)
                 && tom_prob < 100
                 && this->tom_mask.gate(time)
                 && !kill)

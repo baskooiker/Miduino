@@ -35,7 +35,7 @@ namespace Vleerhond
 
         bool play()
         {
-            if (Utils::interval_hit(TimeDivision::Sixteenth, time))
+            if (time.interval_hit(TimeDivision::Sixteenth))
             {
                 bool hit = false;
 

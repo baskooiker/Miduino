@@ -156,7 +156,7 @@ namespace Vleerhond
 
         bool play_fill(const TimeStruct time)
         {
-            if (!Utils::interval_hit(TimeDivision::Sixteenth, time))
+            if (!time.interval_hit(TimeDivision::Sixteenth))
                 return false;
 
             uint8_t p = 0;
@@ -177,7 +177,7 @@ namespace Vleerhond
         void play_roll(const TimeStruct& time)
         {
             static TimeDivision division = TimeDivision::Sixteenth;
-            if (Utils::interval_hit(TimeDivision::Sixteenth, time))
+            if (time.interval_hit(TimeDivision::Sixteenth))
             {
                 uint8_t r = Rand::randui8(16);
                 if (r < 3)
@@ -190,7 +190,7 @@ namespace Vleerhond
                 }
             }
 
-            if (Utils::interval_hit(division, time))
+            if (time.interval_hit(division))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_503_SD, this->snare_roll));
             }
@@ -286,7 +286,7 @@ namespace Vleerhond
 
             // Play toms
             uint8_t tom_prob = this->tom_pattern.value(time);
-            if (Utils::interval_hit(TimeDivision::Sixteenth, time)
+            if (time.interval_hit(TimeDivision::Sixteenth)
                 && tom_prob < 100
                 && this->tom_mask.gate(time)
                 && this->volume_tom > 0)
@@ -314,7 +314,7 @@ namespace Vleerhond
 
         void send_bd_decay()
         {
-            uint8_t decay = (uint8_t)((float)this->bd_decay * (.5f + CLIP(this->bd_decay_factor, 0, 127) / 127.f));
+            uint8_t decay = (uint8_t)((float)this->bd_decay * (.5f + Utils::clip(this->bd_decay_factor, 0, 127) / 127.f));
             MidiIO::send_cc(BD_DECAY, decay, MIDI_CHANNEL_503);
         }
 

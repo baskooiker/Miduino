@@ -37,7 +37,7 @@ namespace Vleerhond
         void randomize(const TimeStruct time)
         {
 
-            if (!Utils::interval_hit(interval, time))
+            if (!time.interval_hit(interval))
             {
                 return;
             }
@@ -67,7 +67,7 @@ namespace Vleerhond
 
         TimeDivision get_interval(const TimeStruct& time)
         {
-            if (Utils::interval_hit(interval, time))
+            if (time.interval_hit(interval))
             {
                 randomize(time);
             }
@@ -102,7 +102,7 @@ namespace Vleerhond
     protected:
         void randomize(const TimeStruct& time)
         {
-            if (!Utils::interval_hit(interval, time))
+            if (!time.interval_hit(interval))
             {
                 return;
             }

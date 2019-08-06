@@ -88,7 +88,7 @@ namespace Vleerhond
             case HatClosedStyle::HatClosedInterval:
             {
                 TimeDivision div = this->hat_int_pattern.interval(time);
-                if (Utils::interval_hit(div, time))
+                if (time.interval_hit(div))
                 {
                     uint8_t shuffle_delay = 0;
                     if (div > TimeDivision::Thirtysecond)

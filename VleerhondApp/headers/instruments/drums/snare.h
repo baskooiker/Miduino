@@ -51,7 +51,7 @@ namespace Vleerhond
         virtual void play_roll(const TimeStruct& time)
         {
             static TimeDivision division = TimeDivision::Sixteenth;
-            if (Utils::interval_hit(TimeDivision::Sixteenth, time))
+            if (time.interval_hit(TimeDivision::Sixteenth))
             {
                 uint8_t r = Rand::randui8(16);
                 if (r < 3)
@@ -64,7 +64,7 @@ namespace Vleerhond
                 }
             }
 
-            if (Utils::interval_hit(division, time))
+            if (time.interval_hit(division))
             {
                 this->midi_channel.note_on(
                     NoteStruct(pitch, get_velocity()),

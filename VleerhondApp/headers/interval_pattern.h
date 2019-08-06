@@ -28,7 +28,7 @@ namespace Vleerhond
 
         bool hit(const TimeStruct& time) const
         {
-            return Utils::interval_hit(this->interval(time), time);
+            return time.interval_hit(this->interval(time));
         }
 
         void randomize_interval(const IntervalProbs probs)

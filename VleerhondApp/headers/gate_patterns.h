@@ -188,7 +188,7 @@ namespace Vleerhond
 
         bool gate(const TimeStruct& time) const
         {
-            if (!Utils::interval_hit(this->time_division, time)) return false;
+            if (!time.interval_hit(this->time_division)) return false;
 
             uint8_t pat_length = MIN(this->length, 16);
             uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);

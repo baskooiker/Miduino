@@ -24,7 +24,7 @@ namespace Vleerhond
             return;
         }
 
-        if (Utils::interval_hit(TimeDivision::Quarter, data.time))
+        if (data.time.interval_hit(TimeDivision::Quarter))
         {
             uint32_t now = millis();
             if (data.time.last_pulse_time > 0)

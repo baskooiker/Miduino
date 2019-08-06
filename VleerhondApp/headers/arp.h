@@ -41,7 +41,7 @@ namespace Vleerhond
             const bool include_current,
             uint8_t& last_note) const
         {
-            last_note = CLIP(this->last_note, this->min, this->min + this->range);
+            last_note = Utils::clip(this->last_note, this->min, this->min + this->range);
             if (Utils::is_in_set(this->last_note, arp_pitches, size) && include_current)
                 return this->last_note;
             bool below = false;

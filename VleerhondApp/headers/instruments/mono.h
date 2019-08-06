@@ -128,7 +128,7 @@ namespace Vleerhond
             switch (this->style)
             {
             case MonoStyle::MonoSixteenths:
-                hit = Utils::interval_hit(TimeDivision::Sixteenth, time);
+                hit = time.interval_hit(TimeDivision::Sixteenth);
                 break;
             case MonoStyle::MonoPolyRhythm:
                 hit = this->gate_pattern.gate(time);
@@ -187,7 +187,7 @@ namespace Vleerhond
             {
                 TimeDivision repeat_interval = note_repeat_sh.get_interval(time);
                 ofLogVerbose("Mono", "note %3d, interval = %d", repeat_note.pitch, repeat_interval);
-                if (Utils::interval_hit(repeat_interval, time) && !this->kill)
+                if (time.interval_hit(repeat_interval) && !this->kill)
                 {
                     ofLogVerbose("Mono", "note_repeating: %d", repeat_note.pitch);
                     midi_channel.note_on(repeat_note, time.get_shuffle_delay());
@@ -206,7 +206,7 @@ namespace Vleerhond
 
         void check_arp_reset()
         {
-            if (Utils::interval_hit(this->arp_reset_interval, time))
+            if (time.interval_hit(this->arp_reset_interval))
             {
                 arp_data.counter = 0;
             }
