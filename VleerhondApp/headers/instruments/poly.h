@@ -95,7 +95,9 @@ namespace Vleerhond
                 }
 
                 this->midi_channel.note_on(note_structs, size);
+                return true;
             }
+            return false;
         }
     };
 }

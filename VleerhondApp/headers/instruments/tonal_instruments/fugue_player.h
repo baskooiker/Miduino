@@ -85,10 +85,12 @@ namespace Vleerhond
                         NoteStruct(pitch, 64, player_length * TICKS_PER_STEP, NoteType::Tie),
                         time.get_shuffle_delay()
                     );
+                    return true;
                 }
 
                 this->counter++;
             }
+            return true;
         }
 
         void randomize()
