@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofxMidiMessage.h"
-#include "ofxBpm.h"
 
 #include "ofMain.h"
 #include "print_midi.hpp"
@@ -12,11 +11,8 @@ namespace Vleerhond
 {
     class VleerhondApp :
         public ofBaseApp,
-        public ofxMidiListener {
-
-    protected:
-        ofxBpm bpm;
-
+        public ofxMidiListener 
+    {
     public:
         ApplicationData data;
 

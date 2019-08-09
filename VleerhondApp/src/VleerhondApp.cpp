@@ -127,12 +127,13 @@ namespace Vleerhond
         std::string midi_b_name = "MIDISPORT 2x2 Anniversary Out B";
         std::string midi_c_name = "MIDISPORT 2x2 Anniversary Out A";
         std::string midi_d_name = "MIDISPORT 2x2 Anniversary Out B";
-        midi_a_name = "MIDISPORT 2x4 Out 1";
-        midi_b_name = "MIDISPORT 2x4 Out 2";
-        midi_c_name = "MIDISPORT 2x4 Out 3";
-        midi_d_name = "MIDISPORT 2x4 Out 4";
+        midi_a_name = "MidiSport 2x4:MidiSport 2x4 MIDI 1";
+        midi_b_name = "MidiSport 2x4:MidiSport 2x4 MIDI 2";
+        midi_c_name = "MidiSport 2x4:MidiSport 2x4 MIDI 3";
+        midi_d_name = "MidiSport 2x4:MidiSport 2x4 MIDI 4";
 
         std::string midi_in_name = "ZeRO MkII";
+        midi_in_name = "MidiSport 2x4:MidiSport 2x4 MIDI 1";
 
         open_port(midi_in, midi_in_name);
         open_port(midi_out_a, midi_a_name);
@@ -163,10 +164,6 @@ namespace Vleerhond
         midi_in.addListener(this);
         midi_in.setVerbose(true);
 
-        ofAddListener(this->bpm.beatEvent, this, &VleerhondApp::play);
-        bpm.setBpm(120 * 24);
-        bpm.setBeatPerBar(4);
-
         // Init app
         data.randomize_all();
     }
@@ -182,7 +179,7 @@ namespace Vleerhond
     void VleerhondApp::update()
     {
         bool MIDI_SETUP = true;
-        if (!ports_open() && MIDI_SETUP && !bpm.isPlaying())
+        if (!ports_open() && MIDI_SETUP)
         {
             ofSleepMillis(500);
             initialize_midi_ports();
@@ -199,16 +196,12 @@ namespace Vleerhond
         switch (key)
         {
         case 'q':
-            bpm.stop();
             ofExit();
             break;
         case 'p':
-            ofLogNotice(MODULE, "Play!");
-            bpm.start();
             break;
         case 's':
             ofLogNotice(MODULE, "Stop.");
-            bpm.stop();
             data.time.state = PlayState::Stopped;
             break;
         case 'r':
@@ -244,8 +237,6 @@ namespace Vleerhond
         switch (message.status)
         {
         case MIDI_TIME_CLOCK:
-            bpm.stop();
-
             midi_out_a.sendMidiBytes(message.bytes);
             midi_out_b.sendMidiBytes(message.bytes);
             midi_out_c.sendMidiBytes(message.bytes);
@@ -285,8 +276,6 @@ namespace Vleerhond
 
     void VleerhondApp::exit()
     {
-        bpm.stop();
-
         midi_in.closePort();
         midi_out_a.closePort();
         midi_out_b.closePort();
