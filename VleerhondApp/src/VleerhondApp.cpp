@@ -1,4 +1,4 @@
-#include "VleerhondApp.h"
+#include "VleerhondApp.hpp"
 
 #define NOVATION_ZERO_SL
 
@@ -6,9 +6,9 @@
 #include "ofxMidiOut.h"
 #include "ofxMidiIn.h"
 
-#include "callbacks.h"
-#include "defs.h"
-#include "midi_io.h"
+#include "callbacks.hpp"
+#include "defs.hpp"
+#include "midi_io.hpp"
 
 ofxMidiOut midi_out_a;
 ofxMidiOut midi_out_b;

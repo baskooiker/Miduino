@@ -2,7 +2,7 @@
 
 #include "ofAppNoWindow.h"
 
-#include "VleerhondApp.h"
+#include "VleerhondApp.hpp"
 
 uint32_t millis()
 {

@@ -899,9 +899,6 @@
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi\RtMidi.h">
       <Filter>addons\ofxMidi\libs\rtmidi</Filter>
     </ClInclude>
-    <ClInclude Include="src\VleerhondApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src\ofxBpm.h">
       <Filter>addons\ofxBpm\src</Filter>
     </ClInclude>
@@ -1706,206 +1703,206 @@
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="headers\step_callbacks.h">
-      <Filter>headers\app</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\drums\kick.h">
-      <Filter>headers\instruments\drums</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_503\mfb_503_kick.h">
-      <Filter>headers\instruments\mfb_503</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_503\mfb_503_hats.h">
-      <Filter>headers\instruments\mfb_503</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\drums\hats.h">
-      <Filter>headers\instruments\drums</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\drums\toms.h">
-      <Filter>headers\instruments\drums</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_503\mfb_503_toms.h">
-      <Filter>headers\instruments\mfb_503</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\drums\snare.h">
-      <Filter>headers\instruments\drums</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_503\mfb_503_snare.h">
-      <Filter>headers\instruments\mfb_503</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_503\mfb_503_cymbal.h">
-      <Filter>headers\instruments\mfb_503</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\drums\cymbal.h">
-      <Filter>headers\instruments\drums</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cb.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cl.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cp.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cy.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_hats.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_lo.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_ma.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_sd.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\tanzbar\tanzbar_tom.h">
-      <Filter>headers\instruments\tanzbar</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\drums\percussion.h">
-      <Filter>headers\instruments\drums</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\application\application_data.h">
-      <Filter>headers\app</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\application\callbacks.h">
-      <Filter>headers\app</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\utils.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\ab.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\arp.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\chords.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\consts.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\cv_patterns.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\defs.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\enums.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\euclid.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\fugue.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\gate_patterns.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\harmony_struct.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instrument_base.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\interval_pattern.h">
+    <ClInclude Include="headers\ab.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\intervals.h">
+    <ClInclude Include="headers\arp.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\midi_channel.h">
+    <ClInclude Include="headers\chords.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\midi_io.h">
+    <ClInclude Include="headers\consts.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\modulators.h">
+    <ClInclude Include="headers\cv_patterns.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\note_struct.h">
+    <ClInclude Include="headers\defs.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\print.h">
+    <ClInclude Include="headers\enums.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\rand.h">
+    <ClInclude Include="headers\fugue.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\sample_and_hold.h">
+    <ClInclude Include="headers\gate_patterns.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\scale.h">
+    <ClInclude Include="headers\harmony_struct.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\steps.h">
+    <ClInclude Include="headers\interval_pattern.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\time_struct.h">
+    <ClInclude Include="headers\midi_channel.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\timing_structs.h">
+    <ClInclude Include="headers\midi_io.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\ui.h">
+    <ClInclude Include="headers\modulators.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\utils\strings.h">
+    <ClInclude Include="headers\note_struct.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\print.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\rand.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\sample_and_hold.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\scale.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\steps.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\time_struct.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\timing_structs.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\ui.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VleerhondApp.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils\strings.hpp">
       <Filter>headers\utils</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\instrument_base.h">
+    <ClInclude Include="headers\instruments\parameters.hpp">
       <Filter>headers\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\parameters.h">
+    <ClInclude Include="headers\instruments\instrument_base.hpp">
       <Filter>headers\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\tonal_instruments\rocket_bass.h">
+    <ClInclude Include="headers\instruments\vermona\vermona_mono.hpp">
+      <Filter>headers\instruments\vermona</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.hpp">
+      <Filter>headers\instruments\vermona</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\bass.h">
+    <ClInclude Include="headers\instruments\bass.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\bass_dub_settings.h">
+    <ClInclude Include="headers\instruments\bass_dub_settings.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\drone.h">
+    <ClInclude Include="headers\instruments\drone.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\lead.h">
+    <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_522.h">
+    <ClInclude Include="headers\instruments\lead.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\poly.h">
+    <ClInclude Include="headers\instruments\mfb_522.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h">
+    <ClInclude Include="headers\instruments\mono.hpp">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_503.h">
+    <ClInclude Include="headers\instruments\mono_dub.hpp">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\poly.hpp">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\rocket_bass.hpp">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cb.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cl.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cp.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cy.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_hats.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_lo.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_ma.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_sd.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_tom.hpp">
+      <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\mfb_503.hpp">
       <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_cymbal.hpp">
+      <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\vermona\vermona_mono.h">
-      <Filter>headers\instruments\vermona</Filter>
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_hats.hpp">
+      <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mono.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_kick.hpp">
+      <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h">
-      <Filter>headers\instruments\vermona</Filter>
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_snare.hpp">
+      <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mono_dub.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_toms.hpp">
+      <Filter>headers\instruments\mfb_503</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\drums\cymbal.hpp">
+      <Filter>headers\instruments\drums</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\drums\hats.hpp">
+      <Filter>headers\instruments\drums</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\drums\kick.hpp">
+      <Filter>headers\instruments\drums</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\drums\percussion.hpp">
+      <Filter>headers\instruments\drums</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\drums\snare.hpp">
+      <Filter>headers\instruments\drums</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\drums\toms.hpp">
+      <Filter>headers\instruments\drums</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\application\application_data.hpp">
+      <Filter>headers\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\application\callbacks.hpp">
+      <Filter>headers\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\step_callbacks.hpp">
+      <Filter>headers\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\print_midi.hpp">
+      <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
