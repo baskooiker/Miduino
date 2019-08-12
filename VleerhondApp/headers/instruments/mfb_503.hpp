@@ -258,6 +258,8 @@ namespace Vleerhond
 
         bool play()
         {
+            // TODO: get return value right
+            bool rv = false;
             if (this->drum_fill)
             {
                 return play_fill(time);
@@ -277,6 +279,7 @@ namespace Vleerhond
             if (this->sd_pattern.gate(time) && !this->kill_mid)
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_503_SD, velocity));
+                rv = true;
             }
 
             // Play hats
@@ -297,6 +300,7 @@ namespace Vleerhond
                 else if (tom_id == 2)
                     tom_pitch = NOTE_503_HT;
                 this->midi_channel.note_on(NoteStruct(tom_pitch, 64));
+                rv = true;
             }
 
             // Play Cymbal
@@ -307,7 +311,9 @@ namespace Vleerhond
                     NoteStruct(NOTE_503_CY,
                         64)
                 );
+                rv = true;
             }
+            return rv;
         }
 
         void send_bd_decay()

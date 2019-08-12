@@ -80,6 +80,7 @@ namespace Vleerhond
         bool play()
         {
             uint8_t velocity = 63;
+            bool rv = false;
 
             if (this->ac_522_pattern.gate(time))
             {
@@ -89,44 +90,54 @@ namespace Vleerhond
             if (this->bd_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_BD_LONG, velocity));
+                rv = true;
             }
             if (this->lo_tom_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_LO_TOM, velocity));
+                rv = true;
             }
             if (this->mi_tom_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_HI_TOM, velocity));
+                rv = true;
             }
             if (this->rs_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_RS, velocity));
+                rv = true;
             }
             if (this->clave_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_CLAVE, velocity));
+                rv = true;
             }
             if (this->clap_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_CP_LONG, velocity));
+                rv = true;
             }
             if (this->oh_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_OH, velocity));
+                rv = true;
             }
             if (this->cy_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_CYMBAL, velocity));
+                rv = true;
             }
             if (this->sd_522_pattern.gate(time))
             {
                 this->midi_channel.note_on(NoteStruct(NOTE_522_SN, velocity));
+                rv = true;
             }
             if (!this->use_hh_int)
             {
                 if (this->hh_522_pattern.gate(time))
                 {
                     this->midi_channel.note_on(NoteStruct(NOTE_522_HH, velocity));
+                    rv = true;
                 }
             }
             else
@@ -134,8 +145,10 @@ namespace Vleerhond
                 if (this->hh_int_pattern.hit(time))
                 {
                     this->midi_channel.note_on(NoteStruct(NOTE_522_HH, velocity));
+                    rv = true;
                 }
             }
+            return rv;
         }
 
     };
