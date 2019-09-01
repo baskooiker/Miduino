@@ -26,6 +26,6 @@ namespace Vleerhond
         static bool addMidiOut(std::string& name);
         
         // TODO: Remove?
-        static bool MidiIO::portsOpen();
+        static bool portsOpen();
     };
 }
