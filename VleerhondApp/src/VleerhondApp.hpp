@@ -1,9 +1,14 @@
 #pragma once
 
+#include <vector>
+
 #include "ofxMidiMessage.h"
 
 #include "ofMain.h"
 #include "print_midi.hpp"
+
+#include "ofxMidiIn.h"
+#include "ofxMidiOut.h"
 
 #include "application_data.hpp"
 
@@ -15,6 +20,8 @@ namespace Vleerhond
     {
     public:
         ApplicationData data;
+	std::vector<ofxMidiOut> midi_out;
+	std::vector<ofxMidiIn> midi_in;
 
         void setup();
         void play();
