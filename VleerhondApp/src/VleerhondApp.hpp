@@ -20,8 +20,8 @@ namespace Vleerhond
     {
     public:
         ApplicationData data;
-	std::vector<ofxMidiOut> midi_out;
-	std::vector<ofxMidiIn> midi_in;
+        
+        bool initializeMidiPorts();
 
         void setup();
         void play();

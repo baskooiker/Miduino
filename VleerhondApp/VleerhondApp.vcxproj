@@ -238,6 +238,7 @@
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src\ofxSamplePlayer.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core\activate.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core\allocator.cpp" />
+    <ClCompile Include="midi_io.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
