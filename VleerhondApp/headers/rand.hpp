@@ -17,16 +17,16 @@ public:
     
     static int8_t randi8(int8_t max_, int8_t min_ = 0)
     {
-        int16_t min_v = MIN(max_, min_);
-        int16_t max_v = MAX(max_, min_);
+        int16_t min_v = std::min(max_, min_);
+        int16_t max_v = std::max(max_, min_);
         int16_t range = max_v - min_v;
         return (rand() % range) + min_v;
     }
     
     static uint16_t randui16(const uint16_t maximum = 0xFFFF, uint16_t minimum = 0)
     {
-        uint16_t _min = MIN(minimum, maximum);
-        uint16_t _max = MAX(minimum, maximum);
+        uint16_t _min = std::min(minimum, maximum);
+        uint16_t _max = std::max(minimum, maximum);
         uint16_t range = _max - _min;
         if (range == 0)
         {
@@ -37,8 +37,8 @@ public:
     
     static uint8_t randui8(const uint8_t min, const uint8_t max)
     {
-        uint8_t _min = MIN(min, max);
-        uint8_t _max = MAX(min, max);
+        uint8_t _min = std::min(min, max);
+        uint8_t _max = std::max(min, max);
         return _min + randui8(_max - _min);
     }
     
@@ -49,8 +49,8 @@ public:
     
     static float randf(const float min, const float max)
     {
-        float _min = MIN(min, max);
-        float _max = MAX(min, max);
+        float _min = std::min(min, max);
+        float _max = std::max(min, max);
         return _min + randf(_max - _min);
     }
     

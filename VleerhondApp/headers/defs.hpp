@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include <stdint.h>
 #include "consts.hpp"
 #include "enums.hpp"

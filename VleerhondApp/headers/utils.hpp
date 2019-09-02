@@ -107,7 +107,7 @@ namespace Vleerhond
 
         static uint8_t rerange(uint8_t input, uint8_t range, int8_t offset = 0)
         {
-            return (uint8_t)(MIN(MAX(((((int16_t)input) * range) / 128 + offset), 0), 127));
+            return (uint8_t)(std::min(std::max(((((int16_t)input) * range) / 128 + offset), 0), 127));
         }
 
         static bool gate(const uint16_t value, const uint8_t index, const uint8_t length = 16)
@@ -128,7 +128,7 @@ namespace Vleerhond
 
         static uint8_t clip_pitch(const uint8_t pitch, const uint8_t minimum, uint8_t maximum)
         {
-            maximum = MAX(minimum + 12, maximum);
+            maximum = std::min((uint8_t)(minimum + 12), maximum);
             if (pitch < minimum)
                 return clip_pitch(pitch + 12, minimum, maximum);
             if (pitch >= maximum)

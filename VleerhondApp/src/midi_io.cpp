@@ -2,6 +2,8 @@
 
 #include "ofLog.h"
 
+#include "utils.hpp"
+
 namespace Vleerhond
 {
 
@@ -28,7 +30,12 @@ namespace Vleerhond
     {
         for (ofxMidiOut& out : midi_out)
         {
-            out.sendControlChange(channel, cc, value);
+            ofLogNotice("MidiIO", "send_cc(cc=%d, value=%d, channel=%d)", cc, value, channel);
+            out.sendControlChange(
+                channel, 
+                Utils::clip(cc, 0 ,127), 
+                Utils::clip(value,0 , 127)
+            );
         }
     }
 
