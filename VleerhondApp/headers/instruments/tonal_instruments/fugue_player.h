@@ -115,7 +115,7 @@ namespace Vleerhond
             //}
 
             this->pitch_offset = pitch_offsets[0];
-            this->length = Rand::randui8(2, time_intervals.size() - 1);
+            this->length = Rand::randui8(2, (uint8_t)time_intervals.size() - 1);
             //player_settings.note_interval = intervals[0];
             this->note_interval = NoteInterval::IntervalRoot;
 

@@ -22,6 +22,12 @@ namespace Vleerhond
         printf("\n");
     }
 
+    void print_pattern(const GatePattern16& pattern)
+    {
+        print_pattern(pattern.pattern, 16);
+        printf("\n");
+    }
+
     void print_pattern(const CvPattern& pattern)
     {
         for (int i = 0; i < 16; i++)

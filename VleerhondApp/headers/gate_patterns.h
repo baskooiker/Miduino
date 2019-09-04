@@ -110,6 +110,50 @@ namespace Vleerhond
             }
         }
 
+        std::vector<uint8_t> distribute(uint8_t size, uint8_t amount)
+        {
+            ofLogVerbose("PATTERNS", "distribute(size=%d, amount=%d)", size, amount);
+            std::vector<uint8_t> sets;
+
+            for (int i = 0; i < size; i++)
+            {
+                sets.push_back(1);
+                if (amount > 0)
+                    amount -= 1;
+            }
+
+            for (int i = 0; i < amount; i++)
+            {
+                sets[Rand::randui8(size)] += 1;
+            }
+
+            return sets;
+        }
+
+        void set_diddles(const float f)
+        {
+            int8_t nr_hits = (uint8_t)((f * 16.) + .5);
+            uint8_t max_nr_diddles = nr_hits / 2;
+            uint8_t nr_diddles = Rand::randui8(2, max_nr_diddles+1);
+            std::vector<uint8_t> sets = distribute(nr_diddles, nr_hits);
+            std::vector<uint8_t> spaces = distribute(nr_diddles, 16 - nr_hits);
+
+            ofLogVerbose("GatePatterns", "set_diddles(nr_hits=%d, nr_diddles=%d, max_nr=%d)", nr_hits, nr_diddles, max_nr_diddles);
+
+            uint8_t count = 0;
+            for (int i = 0; i < nr_diddles; i++)
+            {
+                for (int j = 0; j < sets[i]; j++)
+                {
+                    this->set_gate(count++, true);
+                }
+                for (int j = 0; j < spaces[i]; j++)
+                {
+                    this->set_gate(count++, false);
+                }
+            }
+        }
+
         void set_coef_pattern(const Coefficients coef)
         {
             this->set_gate(0, Rand::randf() < coef.one);
@@ -259,6 +303,15 @@ namespace Vleerhond
             for (int i = 0; i < 3; i++)
             {
                 this->patterns[i].set_euclid(length, steps);
+            }
+            this->abPattern.set_ab_pattern();
+        }
+
+        void set_diddles(const float f)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                this->patterns[i].set_diddles(f);
             }
             this->abPattern.set_ab_pattern();
         }

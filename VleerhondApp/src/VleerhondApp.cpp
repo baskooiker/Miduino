@@ -133,6 +133,7 @@ namespace Vleerhond
         midi_d_name = "MIDISPORT 2x4 Out 4";
 
         std::string midi_in_name = "ZeRO MkII";
+        midi_in_name = "MIDISPORT 2x4 In 1";
 
         open_port(midi_in, midi_in_name);
         open_port(midi_out_a, midi_a_name);

@@ -103,17 +103,17 @@ namespace Vleerhond
             this->probs.randomize();
             switch (Rand::distribution(32, 16, 16))
             {
-            case 0: this->probs.length = 2; break;
-            case 1: this->probs.length = 4; break;
-            case 2: this->probs.length = 8; break;
-            case 3: this->probs.length = 16; break;
+            case 0: this->probs.length = 4; break;
+            case 1: this->probs.length = 8; break;
+            case 2: this->probs.length = 16; break;
             }
 
-            // Randomize euclid
-            uint8_t steps = 5;
-            uint8_t step_dist = Rand::distribution(20, 20);
-            if (step_dist == 0)
+            switch (Rand::distribution(16, 8, 16, 32))
             {
+            case 0:
+            {
+                // Euclid length 16
+                uint8_t steps = 3;
                 switch (Rand::distribution(40, 20))
                 {
                 case 0: steps = 3;  break;
@@ -121,20 +121,39 @@ namespace Vleerhond
                 }
                 this->euclid_pattern.set_euclid(16, steps);
                 this->euclid_pattern.length = 16;
+                style = BassStyle::BassEuclid;
+                break;
             }
-            else if (step_dist == 1)
+            case 1:
             {
+                // Euclid length 8
+                uint8_t steps = 3;
                 switch (Rand::distribution(40, 20))
                 {
                 case 0: steps = 3;  break;
                 case 1: steps = 4;  break;
                 }
                 this->euclid_pattern.set_euclid(8, steps);
-                this->euclid_pattern.length = 8;
+                this->euclid_pattern.length = 8; 
+                style = BassStyle::BassEuclid;
+                break;
+            }
+            case 2:
+            {
+                // Settings interval pattern
+                this->int_pattern.randomize_interval(arp_interval_probs);
+                style = BassStyle::BassArpInterval;
+                break;
+            }
+            case 3:
+            {
+                // Setting diddles
+                euclid_pattern.set_diddles(Rand::randf(.5, .75));
+                style = BassStyle::BassEuclid;
+                break;
+            }
             }
 
-            // Randomize others
-            this->int_pattern.randomize_interval(arp_interval_probs);
         }
 
         void randomize_accents()
@@ -169,13 +188,6 @@ namespace Vleerhond
             randomize_pitches();
             randomize_gates();
             randomize_accents();
-
-            // Randomize style
-            switch (Rand::distribution(16, 16))
-            {
-            case 0: this->style = BassStyle::BassArpInterval; break;
-            case 1: this->style = BassStyle::BassEuclid; break;
-            }
         }
 
         bool get_bass_hit(const uint8_t density, const TimeStruct& time)

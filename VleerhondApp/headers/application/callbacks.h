@@ -216,6 +216,7 @@ namespace Vleerhond
         case BTN_LEFT_BTM_05:
             if (value == 0)
             {
+                data.acid_bass.total_randomize();
             }
             break;
         case BTN_LEFT_TOP_06:
