@@ -12,7 +12,7 @@ public:
     void set_ab_pattern()
     {
         ab_pattern[0] = 0;
-        switch (Rand::randui8(8))
+        switch (Rand::randui8(5))
         {
         case 0: // AAAA
             ab_pattern[1] = 0;

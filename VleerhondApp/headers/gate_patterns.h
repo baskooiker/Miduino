@@ -130,7 +130,7 @@ namespace Vleerhond
             return sets;
         }
 
-        void set_diddles(const float f)
+        void set_diddles(const float f, const bool starts_with)
         {
             int8_t nr_hits = (uint8_t)((f * 16.) + .5);
             uint8_t max_nr_diddles = nr_hits / 2;
@@ -145,11 +145,11 @@ namespace Vleerhond
             {
                 for (int j = 0; j < sets[i]; j++)
                 {
-                    this->set_gate(count++, true);
+                    this->set_gate(count++, starts_with);
                 }
                 for (int j = 0; j < spaces[i]; j++)
                 {
-                    this->set_gate(count++, false);
+                    this->set_gate(count++, !starts_with);
                 }
             }
         }
@@ -184,6 +184,70 @@ namespace Vleerhond
                     return;
                 }
             }
+        }
+
+        void shift_one()
+        {
+            if (Rand::randf() < .5)
+            {
+                if (!shift_down())
+                {
+                    shift_up();
+                }
+
+            }
+            else
+            {
+                if (!shift_up())
+                {
+                    shift_down();
+                }
+            }
+        }
+
+        bool shift_down()
+        {
+            ofLogVerbose("PATTERNS", "shift_down");
+            std::vector<uint8_t> shiftable;
+            for (int i = 0; i < 16; i++)
+            {
+                if (gate(i) && !gate(i+15) && !gate(i+14))
+                {
+                    shiftable.push_back(i);
+                }
+            }
+            if (shiftable.size() == 0)
+            {
+                return false;
+            }
+            uint8_t idx = shiftable[Rand::randui8((uint8_t)shiftable.size())];
+            ofLogVerbose("PATTERNS", "shift_down: %d", idx);
+            this->set_gate(idx, false);
+            this->set_gate(idx+15, true);
+            return true;
+        }
+
+        bool shift_up()
+        {
+            ofLogVerbose("PATTERNS", "shift_up");
+            std::vector<uint8_t> shiftable;
+            for (int i = 0; i < 16; i++)
+            {
+                if (gate(i) && !gate(i + 1) && !gate(i + 2))
+                {
+                    shiftable.push_back(i);
+                    ofLogVerbose("PATTERNS", "add_shiftable: %d", i);
+                }
+            }
+            if (shiftable.size() == 0)
+            {
+                return false;
+            }
+            uint8_t idx = shiftable[Rand::randui8((uint8_t)shiftable.size())];
+            ofLogVerbose("PATTERNS", "shift_up: {}", idx);
+            this->set_gate(idx, false);
+            this->set_gate(idx + 1, true);
+            return true;
         }
     };
 
@@ -307,11 +371,11 @@ namespace Vleerhond
             this->abPattern.set_ab_pattern();
         }
 
-        void set_diddles(const float f)
+        void set_diddles(const float f, const bool starts_with)
         {
             for (int i = 0; i < 3; i++)
             {
-                this->patterns[i].set_diddles(f);
+                this->patterns[i].set_diddles(f, starts_with);
             }
             this->abPattern.set_ab_pattern();
         }

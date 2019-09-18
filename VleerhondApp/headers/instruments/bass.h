@@ -114,10 +114,13 @@ namespace Vleerhond
             {
                 // Euclid length 16
                 uint8_t steps = 3;
-                switch (Rand::distribution(40, 20))
+                switch (Rand::distribution(16, 16, 16, 16, 16))
                 {
-                case 0: steps = 3;  break;
-                case 1: steps = 5;  break;
+                case 0: steps = 5;  break;
+                case 1: steps = 6;  break;
+                case 2: steps = 7;  break;
+                case 3: steps = 9;  break;
+                case 4: steps = 11;  break;
                 }
                 this->euclid_pattern.set_euclid(16, steps);
                 this->euclid_pattern.length = 16;
@@ -148,7 +151,7 @@ namespace Vleerhond
             case 3:
             {
                 // Setting diddles
-                euclid_pattern.set_diddles(Rand::randf(.5, .75));
+                euclid_pattern.set_diddles(Rand::randf(.5, .75), true);
                 style = BassStyle::BassEuclid;
                 break;
             }

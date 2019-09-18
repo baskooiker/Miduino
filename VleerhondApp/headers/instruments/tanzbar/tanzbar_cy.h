@@ -39,7 +39,7 @@ namespace Vleerhond
             Parameters::randomize_parameters(tanzbar_cy_params, nr_of_tanzbar_cy_params, MIDI_CC_CHANNEL_TANZBAR);
 
             // Modulators
-            uint8_t range = Rand::randui8(128);
+            uint8_t range = Rand::randui8(32);
             this->cy_tune.randomize(range, 127 - range, .3);
         }
 

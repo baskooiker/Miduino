@@ -40,7 +40,7 @@ namespace Vleerhond
             this->tom_mask.randomize_mask_pattern();
 
             // Modulators
-            uint8_t range = Rand::randui8(16, 32);
+            uint8_t range = Rand::randui8(16);
             this->tom_vel.randomize(range, 127 - range);
 
             this->timing.randomize();
