@@ -30,17 +30,4 @@ namespace Vleerhond
         }
         data.mono.set_arp_type(ArpType::CLOSEST);
     }
-
-    void release_button_left_top_08(ApplicationData& data)
-    {
-    }
-
-    void release_button_left_btm_08(ApplicationData& data)
-    {
-    }
-
-    void release_buttons_left_08(ApplicationData& data)
-    {
-        data.mono_dub.total_randomize();
-    }
 }

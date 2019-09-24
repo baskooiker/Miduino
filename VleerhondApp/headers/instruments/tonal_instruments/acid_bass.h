@@ -28,6 +28,9 @@ namespace Vleerhond
 
         virtual bool play()
         {
+            if (kill)
+                return false;
+
             if (this->get_bass_hit(this->density, time))
             {
                 uint8_t value = 0;

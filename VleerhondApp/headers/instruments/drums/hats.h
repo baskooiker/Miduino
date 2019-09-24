@@ -156,7 +156,7 @@ namespace Vleerhond
 
         virtual uint8_t get_velocity()
         {
-            uint8_t velocity = 63;
+            uint8_t velocity = 96;
             if ((time.tick / TICKS_PER_STEP) % 4 == 2)
             {
                 velocity = 127;

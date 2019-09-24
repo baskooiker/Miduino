@@ -161,7 +161,7 @@ namespace Vleerhond
 
         void randomize_accents()
         {
-            this->slides.randomize(Rand::randf(.20f, .80f));
+            this->slides.randomize(Rand::randf(.50f, .80f));
             this->accents.randomize(Rand::randf(.15f, .4f));
         }
 
@@ -292,6 +292,8 @@ namespace Vleerhond
                         length = TICKS_PER_STEP * 2;
                     }
                 }
+
+                length = TICKS_PER_STEP * 4;
 
                 // Sample and hold on random octave jumps
                 if (octave_sh.gate(time))

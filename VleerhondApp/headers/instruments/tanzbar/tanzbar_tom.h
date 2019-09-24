@@ -29,12 +29,19 @@ namespace Vleerhond
 
     class TanzbarTom : public Toms
     {
+        ModulationReceiver low_pitch;
+        ModulationReceiver mid_pitch;
+        ModulationReceiver high_pitch;
+
     public:
 
         TanzbarTom(
             Modulators& modulators,
             TimeStruct& time) :
-            Toms(modulators, time)
+            Toms(modulators, time),
+            low_pitch(modulators),
+            mid_pitch(modulators),
+            high_pitch(modulators)
         {
             midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
         }
@@ -48,19 +55,64 @@ namespace Vleerhond
             Parameters::randomize_parameters(tom_params, nr_tom_params, MIDI_CC_CHANNEL_TANZBAR);
 
             this->pitches.clear();
-            switch (Rand::distribution(0, 32))
+            switch (Rand::distribution(32, 32))
             {
             case 0:
                 pitches.push_back(NOTE_TANZBAR_LT);
-                pitches.push_back(NOTE_TANZBAR_MT);
-                pitches.push_back(NOTE_TANZBAR_HT);
                 break;
             case 1:
                 pitches.push_back(NOTE_TANZBAR_LC);
+                break;
+            }
+            switch (Rand::distribution(32, 32))
+            {
+            case 0:
+                pitches.push_back(NOTE_TANZBAR_MT);
+                break;
+            case 1:
                 pitches.push_back(NOTE_TANZBAR_MC);
+                break;
+            }
+            switch (Rand::distribution(32, 32))
+            {
+            case 0:
+                pitches.push_back(NOTE_TANZBAR_HT);
+                break;
+            case 1:
                 pitches.push_back(NOTE_TANZBAR_HC);
                 break;
             }
+
+            {
+                uint8_t range = Rand::randui8(64, 128);
+                low_pitch.randomize(range, Rand::randui8(127 - range), .5);
+            }
+            {
+                uint8_t range = Rand::randui8(64, 128);
+                mid_pitch.randomize(range, Rand::randui8(127 - range), .5);
+            }
+            {
+                uint8_t range = Rand::randui8(64, 128);
+                high_pitch.randomize(range, Rand::randui8(127 - range), .5);
+            }
+        }
+
+        bool play()
+        {
+            uint8_t value = 0;
+            if (low_pitch.value(time, value))
+            {
+                MidiIO::send_cc(TB_LTC_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+            }
+            if (mid_pitch.value(time, value))
+            {
+                MidiIO::send_cc(TB_MTC_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+            }
+            if (high_pitch.value(time, value))
+            {
+                MidiIO::send_cc(TB_HTC_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+            }
+            return Toms::play();
         }
     };
 }

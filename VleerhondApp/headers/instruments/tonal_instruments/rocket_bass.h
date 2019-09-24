@@ -42,8 +42,8 @@ namespace Vleerhond
             params.push_back({ MINITAUR_CC_VCO2_MODULATION,  64, 127, MIDI_CHANNEL_MINITAUR }); // Pitch mod only on VCO2
             params.push_back({ MINITAUR_CC_GLIDE_TYPE     ,   0, 127, MIDI_CHANNEL_MINITAUR });
             params.push_back({ MINITAUR_CC_LEGATO_GLIDE   ,  64, 127, MIDI_CHANNEL_MINITAUR }); // Only on legato notes
-            params.push_back({ MINITAUR_CC_FILTER_VELOCITY,   0,  64, MIDI_CHANNEL_MINITAUR });
-            params.push_back({ MINITAUR_CC_VOLUME_VELOCITY,   0,  64, MIDI_CHANNEL_MINITAUR });
+            params.push_back({ MINITAUR_CC_FILTER_VELOCITY,   0, 127, MIDI_CHANNEL_MINITAUR });
+            params.push_back({ MINITAUR_CC_VOLUME_VELOCITY,   0, 127, MIDI_CHANNEL_MINITAUR });
         }
 
         virtual void randomize()

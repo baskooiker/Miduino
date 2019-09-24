@@ -178,9 +178,12 @@ namespace Vleerhond
         case BTN_LEFT_BTM_02:
             if (value == 0)
             {
-                data.tanzbar_cy.randomize();
-                data.tanzbar_ma.randomize();
-                data.tanzbar_hats.randomize();
+                data.tanzbar_tom.randomize();
+                data.tanzbar_cl.randomize();
+                data.tanzbar_cb.randomize();
+                data.tanzbar_cp.randomize();
+                data.tanzbar_mid.randomize();
+
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
             }
@@ -195,6 +198,14 @@ namespace Vleerhond
         case BTN_LEFT_BTM_03:
             if (value == 0)
             {
+                if (value == 0)
+                {
+                    data.tanzbar_cy.randomize();
+                    data.tanzbar_ma.randomize();
+                    data.tanzbar_hats.randomize();
+                    data.time.randomize_shuffle();
+                    data.modulators.randomize();
+                }
             }
             break;
         case BTN_LEFT_TOP_04:
@@ -231,19 +242,14 @@ namespace Vleerhond
             }
             break;
         case BTN_LEFT_TOP_07:
-        case BTN_LEFT_BTM_07:
-            if (value == 0)
-            {
-                handle_step_release(data, number, BTN_LEFT_TOP_07, BTN_LEFT_BTM_07,
-                    release_button_left_top_07, release_button_left_btm_07, release_buttons_left_07);
-            }
-            break;
         case BTN_LEFT_TOP_08:
+            break;
+        case BTN_LEFT_BTM_07:
         case BTN_LEFT_BTM_08:
             if (value == 0)
             {
-                handle_step_release(data, number, BTN_LEFT_TOP_08, BTN_LEFT_BTM_08,
-                    release_button_left_top_08, release_button_left_btm_08, release_buttons_left_08);
+                handle_step_release(data, number, BTN_LEFT_BTM_07, BTN_LEFT_BTM_08,
+                    release_button_left_top_07, release_button_left_btm_07, release_buttons_left_07);
             }
             break;
 
@@ -252,6 +258,11 @@ namespace Vleerhond
             data.mfb_503_kick.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_02:
+            data.tanzbar_tom.kill = value > 0;
+            data.tanzbar_cl .kill = value > 0;
+            data.tanzbar_cb .kill = value > 0;
+            data.tanzbar_cp .kill = value > 0;
+            data.tanzbar_mid.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_03:
             data.tanzbar_hats.kill = value > 0;

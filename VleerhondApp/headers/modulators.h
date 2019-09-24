@@ -70,7 +70,7 @@ namespace Vleerhond
 
         void randomize()
         {
-            ofLogNotice("modulators", "randomize()");
+            ofLogVerbose("modulators", "randomize()");
             switch (Rand::distribution(16, 16, 16, 16))
             {
             case 0: this->randomize_low(); break;

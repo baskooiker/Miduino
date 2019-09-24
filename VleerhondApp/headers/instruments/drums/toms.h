@@ -17,7 +17,6 @@ namespace Vleerhond
 
         CvPatternAB tom_pattern;
 
-        GatePatternAB tom_mask;
         std::vector<uint8_t> pitches;
 
     public:
@@ -37,7 +36,6 @@ namespace Vleerhond
 
             // Randomize toms
             this->tom_pattern.randomize();
-            this->tom_mask.randomize_mask_pattern();
 
             // Modulators
             uint8_t range = Rand::randui8(16);
@@ -48,12 +46,13 @@ namespace Vleerhond
 
         virtual bool play()
         {
+            if (kill)
+                return false;
+
             // Play toms
             uint8_t tom_prob = this->tom_pattern.value(time);
             if (Utils::interval_hit(TimeDivision::Sixteenth, time)
-                && tom_prob < 100
-                && this->tom_mask.gate(time)
-                && !kill)
+                && tom_prob < 100)
             {
                 this->midi_channel.note_on(
                     NoteStruct(get_pitch(time), get_velocity()),

@@ -164,10 +164,6 @@ namespace Vleerhond
         midi_in.addListener(this);
         midi_in.setVerbose(true);
 
-        ofAddListener(this->bpm.beatEvent, this, &VleerhondApp::play);
-        bpm.setBpm(120 * 24);
-        bpm.setBeatPerBar(4);
-
         // Init app
         data.randomize_all();
     }
@@ -182,8 +178,7 @@ namespace Vleerhond
 
     void VleerhondApp::update()
     {
-        bool MIDI_SETUP = true;
-        if (!ports_open() && MIDI_SETUP && !bpm.isPlaying())
+        if (!ports_open())
         {
             ofSleepMillis(500);
             initialize_midi_ports();
@@ -200,16 +195,12 @@ namespace Vleerhond
         switch (key)
         {
         case 'q':
-            bpm.stop();
             ofExit();
             break;
         case 'p':
-            ofLogNotice(MODULE, "Play!");
-            bpm.start();
             break;
         case 's':
             ofLogNotice(MODULE, "Stop.");
-            bpm.stop();
             data.time.state = PlayState::Stopped;
             break;
         case 'r':
@@ -245,8 +236,6 @@ namespace Vleerhond
         switch (message.status)
         {
         case MIDI_TIME_CLOCK:
-            bpm.stop();
-
             midi_out_a.sendMidiBytes(message.bytes);
             midi_out_b.sendMidiBytes(message.bytes);
             midi_out_c.sendMidiBytes(message.bytes);
@@ -266,6 +255,7 @@ namespace Vleerhond
         case MIDI_NOTE_OFF:
             break;
         case MIDI_CONTROL_CHANGE:
+            ofLogNotice("MIDIIN", "CC in: %d, %d", message.control, message.value);
             handleControlChange(this->data, message.channel, message.control, message.value);
             break;
         default:
@@ -286,8 +276,6 @@ namespace Vleerhond
 
     void VleerhondApp::exit()
     {
-        bpm.stop();
-
         midi_in.closePort();
         midi_out_a.closePort();
         midi_out_b.closePort();
