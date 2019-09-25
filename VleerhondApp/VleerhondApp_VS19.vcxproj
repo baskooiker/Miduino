@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>VleerhondApp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="C:\OF\of_v0.10.1_vs2017_release\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+    <Import Project="..\MiduinoSketch\Miduino.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Bas\Miduino\VleerhondApp\headers\instruments;$(IncludePath)</IncludePath>
+    <SourcePath>C:\Users\Bas\Miduino\VleerhondApp\src\instruments;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>__WIN32__;__WIN32;WIN32__;_WIN32_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <AdditionalIncludeDirectories>.\headers\instruments;.\headers;..\DevApp;..\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\control;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\convolution;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\core;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\delays;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\dynamics;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\envelopes;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\envelopes\stages;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\filters;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\filters\biquads;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\helpers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\antialiased;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\antialiased\BLEP;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\base;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\cheap;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\fm;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\phasors;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\wavetable;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\random;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\resamplers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\samplers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\samplers\grain;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\signal;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\utility;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\dsphelpers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\fft;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\interpolation;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\random;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\tables;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\trig;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\messages;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\dynamics;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\effects;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\equalizers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\filters;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\oscillators;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\reverbs;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\samplers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\signal;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\sources;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\ofx;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\ofx\helper;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\sequencer;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\libs\audiofft;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\functions;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\functions\mathfun;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\kernels;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\vectors;C:\OF\of_v0.10.1_vs2017_release\addons\ofxAudioFile\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxAudioFile\libs;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\ip;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\ip\win32;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi\RtMidi.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop\ofxRtMidiIn.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop\ofxRtMidiOut.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxBaseMidi.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidi.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiClock.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiIn.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiMessage.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiOut.cpp" />
+    <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\VleerhondApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\iOSVersionDetection.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\PGArc.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\PGMidi.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\PGMidiAllSources.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi\PGMidiFind.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi\RtMidi.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop\ofxRtMidiIn.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop\ofxRtMidiOut.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios\ofxPGMidiContext.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios\ofxPGMidiDelegate.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios\ofxPGMidiIn.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios\ofxPGMidiOut.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios\ofxPGMidiSourceDelegate.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxBaseMidi.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidi.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiClock.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiConstants.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiIn.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiMessage.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiOut.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.h" />
+    <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTypes.h" />
+    <ClInclude Include="headers\ab.h" />
+    <ClInclude Include="headers\application\application_data.h" />
+    <ClInclude Include="headers\application\callbacks.h" />
+    <ClInclude Include="headers\arp.h" />
+    <ClInclude Include="headers\chords.h" />
+    <ClInclude Include="headers\consts.h" />
+    <ClInclude Include="headers\cv_patterns.h" />
+    <ClInclude Include="headers\defs.h" />
+    <ClInclude Include="headers\enums.h" />
+    <ClInclude Include="headers\euclid.h" />
+    <ClInclude Include="headers\fugue.h" />
+    <ClInclude Include="headers\gate_patterns.h" />
+    <ClInclude Include="headers\harmony_struct.h" />
+    <ClInclude Include="headers\instruments\bass_dub_settings.h" />
+    <ClInclude Include="headers\instruments\bass.h" />
+    <ClInclude Include="headers\instruments\drone.h" />
+    <ClInclude Include="headers\instruments\drums\cymbal.h" />
+    <ClInclude Include="headers\instruments\drums\hats.h" />
+    <ClInclude Include="headers\instruments\drums\kick.h" />
+    <ClInclude Include="headers\instruments\drums\percussion.h" />
+    <ClInclude Include="headers\instruments\drums\snare.h" />
+    <ClInclude Include="headers\instruments\drums\toms.h" />
+    <ClInclude Include="headers\instruments\instrument_base.h" />
+    <ClInclude Include="headers\instruments\lead.h" />
+    <ClInclude Include="headers\instruments\mfb_503.h" />
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_cymbal.h" />
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_hats.h" />
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_kick.h" />
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_snare.h" />
+    <ClInclude Include="headers\instruments\mfb_503\mfb_503_toms.h" />
+    <ClInclude Include="headers\instruments\mfb_522.h" />
+    <ClInclude Include="headers\instruments\mono_dub.h" />
+    <ClInclude Include="headers\instruments\mono.h" />
+    <ClInclude Include="headers\instruments\parameters.h" />
+    <ClInclude Include="headers\instruments\poly.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cb.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cl.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cp.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_cy.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_hats.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_lo.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_ma.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_sd.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_tom.h" />
+    <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h" />
+    <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h" />
+    <ClInclude Include="headers\instruments\tonal_instruments\rocket_bass.h" />
+    <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
+    <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
+    <ClInclude Include="headers\instrument_base.h" />
+    <ClInclude Include="headers\intervals.h" />
+    <ClInclude Include="headers\interval_pattern.h" />
+    <ClInclude Include="headers\midi_channel.h" />
+    <ClInclude Include="headers\midi_io.h" />
+    <ClInclude Include="headers\modulators.h" />
+    <ClInclude Include="headers\note_struct.h" />
+    <ClInclude Include="headers\print.h" />
+    <ClInclude Include="headers\rand.h" />
+    <ClInclude Include="headers\sample_and_hold.h" />
+    <ClInclude Include="headers\scale.h" />
+    <ClInclude Include="headers\steps.h" />
+    <ClInclude Include="headers\step_callbacks.h" />
+    <ClInclude Include="headers\time_struct.h" />
+    <ClInclude Include="headers\timing_structs.h" />
+    <ClInclude Include="headers\ui.h" />
+    <ClInclude Include="headers\utils.h" />
+    <ClInclude Include="headers\utils\strings.h" />
+    <ClInclude Include="src\VleerhondApp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
+      <Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc">
+      <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="icon.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
