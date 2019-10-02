@@ -67,16 +67,16 @@ namespace Vleerhond
         {
             static const uint8_t fill_a[] = { 1, 0, 0, 1, 0, 0, 1, 0 };
             static const uint8_t fill_b[] = { 1, 0, 1, 0, 0, 1, 0, 0 };
-            static const uint8_t fill_c[] = { 0, 1, 0, 1, 0, 0, 1, 0 };
-            static const uint8_t fill_d[] = { 0, 1, 0, 0, 1, 0, 1, 0 };
+            //static const uint8_t fill_c[] = { 0, 1, 0, 1, 0, 0, 1, 0 };
+            //static const uint8_t fill_d[] = { 0, 1, 0, 0, 1, 0, 1, 0 };
 
             const uint8_t* fill = 0;
-            switch (Rand::distribution(10, 10, 10, 10))
+            switch (Rand::distribution(10, 10, 0, 0))
             {
             case 0: fill = fill_a; break;
             case 1: fill = fill_b; break;
-            case 2: fill = fill_c; break;
-            case 3: fill = fill_d; break;
+            //case 2: fill = fill_c; break;
+            //case 3: fill = fill_d; break;
             }
 
             for (int i = 0; i < 8; i++)

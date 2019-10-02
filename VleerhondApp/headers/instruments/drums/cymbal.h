@@ -42,9 +42,10 @@ namespace Vleerhond
         virtual void randomize_hi_seq()
         {
             // Randomize Cymbal
-            switch (Rand::distribution(16, 16, 16))
+            switch (Rand::distribution(0, 16, 16))
             {
             case 0:
+                // NOT USING HIS ONE!
                 this->cy_pattern.set_coef_kick_pattern();
                 this->cy_pattern.length = 16;
                 break;
