@@ -30,17 +30,6 @@ namespace Vleerhond
             ofLogNotice("cymbal", "randomize()");
             last_randomized_time = millis();
 
-            randomize_hi_seq();
-
-            // Modulators
-            uint8_t range = Rand::randui8(16, 64);
-            this->cy_vel.randomize(range, 127 - range);
-
-            timing.randomize();
-        }
-
-        virtual void randomize_hi_seq()
-        {
             // Randomize Cymbal
             switch (Rand::distribution(0, 16, 16))
             {
@@ -58,6 +47,12 @@ namespace Vleerhond
                 this->cy_pattern.length = 16;
                 break;
             }
+
+            // Modulators
+            uint8_t range = Rand::randui8(16, 64);
+            this->cy_vel.randomize(range, 127 - range);
+
+            timing.randomize();
         }
 
         virtual bool play()
