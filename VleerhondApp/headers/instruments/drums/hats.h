@@ -53,11 +53,6 @@ namespace Vleerhond
         {
             // Randomize hats
             this->oh_pattern.set_coef_hat_pattern();
-            if (Rand::randf() < .33)
-            {
-                uint8_t ab_idx = this->oh_pattern.abPattern.value(Rand::randui8(4));
-                this->oh_pattern.patterns[ab_idx].shift_one();
-            }
 
             uint8_t four_pat = 0;
             switch (Rand::distribution(32, 10, 10, 10, 10))

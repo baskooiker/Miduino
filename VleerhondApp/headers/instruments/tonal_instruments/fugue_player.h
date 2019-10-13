@@ -5,7 +5,7 @@
 
 namespace Vleerhond
 {
-    static const std::vector<uint8_t> time_intervals{ 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16 };
+    static const std::vector<uint8_t> time_intervals{ 1, 1, 2, 2, 4, 6};
 
     class FuguePlayer : public TonalInstrumentBase
     {
@@ -106,17 +106,8 @@ namespace Vleerhond
             intervals[3] = Utils::random_note_interval();
             Utils::randomize_order(intervals, 4);
 
-            //for (int i = 0; i < this->fugue.players.size(); i++)
-            //{
-            //    if (i != id)
-            //    {
-            //        Utils::remove(this->fugue.players.at(i)->pitch_offset, pitch_offsets, nr_pitch_offsets);
-            //    }
-            //}
-
             this->pitch_offset = pitch_offsets[0];
             this->length = Rand::randui8(2, (uint8_t)time_intervals.size() - 1);
-            //player_settings.note_interval = intervals[0];
             this->note_interval = NoteInterval::IntervalRoot;
 
             switch (Rand::randui8(3))

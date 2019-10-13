@@ -25,6 +25,19 @@ namespace Vleerhond
             midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
         }
 
+        void randomize()
+        {
+            velocity_mod.randomize(Rand::randui8(128), 0, .5);
+            MonoDub::randomize();
+        }
+
+        uint8_t get_velocity()
+        {
+            uint8_t value = 0;
+            velocity_mod.value(time, value);
+            return value;
+        }
+
         bool play()
         {
             if (this->lead.get_hit())

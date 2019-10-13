@@ -26,7 +26,7 @@ namespace Vleerhond
         void randomize()
         {
             Mono::randomize();
-            velocity_mod.randomize(64, 0, .25);
+            velocity_mod.randomize(128, 0, .5);
         }
 
         uint8_t get_velocity()

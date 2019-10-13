@@ -49,7 +49,7 @@ namespace Vleerhond
         virtual void randomize()
         {
             Bass::randomize();
-            uint8_t range = Rand::randui8(32);
+            uint8_t range = Rand::randui8(64);
             vel_mod.randomize(range, 64);
         }
 

@@ -16,6 +16,11 @@ namespace Vleerhond
     protected:
         SampleAndHold octave_sh;
 
+        uint8_t p_euclid_16;
+        uint8_t p_euclid_8;
+        uint8_t p_interval;
+        uint8_t p_diddles;
+
     public:
         GatePatternAB accents;
         CvPatternAB pitches;
@@ -44,6 +49,11 @@ namespace Vleerhond
             note_range_value = 0;
             density = 0;
             octave_sh.prob = 16;
+
+            p_euclid_16 = 16;
+            p_euclid_8 = 8;
+            p_interval = 16;
+            p_diddles = 32;
 
             total_randomize();
         }
@@ -108,7 +118,7 @@ namespace Vleerhond
             case 2: this->probs.length = 16; break;
             }
 
-            switch (Rand::distribution(16, 8, 16, 32))
+            switch (Rand::distribution(p_euclid_16, p_euclid_8, p_interval, p_diddles))
             {
             case 0:
             {
@@ -171,7 +181,7 @@ namespace Vleerhond
 
             octave_sh.prob = Rand::randui8(32);
 
-            switch (Rand::distribution(16, 16, 16, 16))
+            switch (Rand::distribution(16, 16, 0, 16))
             {
             case 0: randomize_octaves(); break;
             case 1: randomize_pitches(); break;

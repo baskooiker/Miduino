@@ -285,12 +285,12 @@ namespace Vleerhond
 
         void set_fugue()
         {
-            fugue_vermona_1.set_active(true);
+            //fugue_vermona_1.set_active(true);
             fugue_vermona_2.set_active(true);
             fugue_vermona_3.set_active(true);
             fugue_vermona_4.set_active(true);
 
-            acid_bass.set_active(false);
+            //acid_bass.set_active(false);
             drone.set_active(false);
             mono.set_active(false);
             mono_dub.set_active(false);

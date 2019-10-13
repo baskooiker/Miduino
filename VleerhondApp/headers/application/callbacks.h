@@ -94,6 +94,7 @@ namespace Vleerhond
         case ROTARY_03:
             break;
         case KNOB_03:
+            data.rocket_bass.note_range_value = value;
             break;
         case ROTARY_04:
             break;
@@ -239,6 +240,7 @@ namespace Vleerhond
             if (value == 0)
             {
                 data.drone.randomize();
+                data.fugue_vermona_2.randomize();
             }
             break;
         case BTN_LEFT_TOP_07:
@@ -289,17 +291,19 @@ namespace Vleerhond
             break;
         case BTN_RIGHT_BTM_06:
             data.drone.kill = value > 0;
+            data.fugue_vermona_2.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_07:
             data.mono.kill = value > 0;
+            data.fugue_vermona_3.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_08:
             data.mono_dub.kill = value > 0;
+            data.fugue_vermona_4.kill = value > 0;
             break;
         case BTN_RIGHT_TOP_01:
             break;
         case BTN_RIGHT_TOP_02:
-            data.tanzbar_mid.snare_roll = value > 0;
             break;
         case BTN_RIGHT_TOP_03:
             break;
@@ -310,8 +314,18 @@ namespace Vleerhond
         case BTN_RIGHT_TOP_06:
             break;
         case BTN_RIGHT_TOP_07:
+            if (value == 0)
+            {
+                ofLogNotice("", "Set Regular");
+                data.set_regular();
+            }
             break;
         case BTN_RIGHT_TOP_08:
+            if (value == 0)
+            {
+                ofLogNotice("", "Set Fugue");
+                data.set_fugue();
+            }
             break;
         default:
             break;
@@ -341,10 +355,6 @@ namespace Vleerhond
             }
             break;
         case BTN_LEFT_BTM_02:
-            if (value == 0)
-            {
-                data.set_fugue();
-            }
             break;
 
         case BTN_RIGHT_BTM_01:
