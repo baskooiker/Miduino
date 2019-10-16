@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.\headers;.\headers\application;.\headers\instruments;.\headers\instruments\drums;.\headers\instruments\mfb_503;.\headers\instruments\tanzbar;.\headers\instruments\vermona;.\headers\instruments\tonal_instruments;.\headers\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\headers;.\headers\application;.\headers\instruments;.\headers\instruments\drums;.\headers\instruments\mfb_522;.\headers\instruments\mfb_503;.\headers\instruments\tanzbar;.\headers\instruments\vermona;.\headers\instruments\tonal_instruments;.\headers\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

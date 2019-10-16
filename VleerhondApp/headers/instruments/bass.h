@@ -16,10 +16,34 @@ namespace Vleerhond
     protected:
         SampleAndHold octave_sh;
 
-        uint8_t p_euclid_16;
-        uint8_t p_euclid_8;
-        uint8_t p_interval;
-        uint8_t p_diddles;
+        struct
+        {
+            struct
+            {
+                uint8_t p_5 = 16;
+                uint8_t p_6 = 16;
+                uint8_t p_7 = 16;
+                uint8_t p_9 = 16;
+                uint8_t p_11 = 16;
+            } euclid_16;
+            uint8_t p_euclid_16 = 16;
+
+            struct
+            {
+                uint8_t p_3 = 40;
+                uint8_t p_4 = 20;
+            } euclid_8;
+            uint8_t p_euclid_8 = 8;
+
+            uint8_t p_interval = 16;
+
+            struct
+            {
+                double p_min = .5;
+                double p_max = .75;
+            } diddles;
+            uint8_t p_diddles = 32;
+        } settings;
 
     public:
         GatePatternAB accents;
@@ -49,11 +73,6 @@ namespace Vleerhond
             note_range_value = 0;
             density = 0;
             octave_sh.prob = 16;
-
-            p_euclid_16 = 16;
-            p_euclid_8 = 8;
-            p_interval = 16;
-            p_diddles = 32;
 
             total_randomize();
         }
@@ -118,13 +137,23 @@ namespace Vleerhond
             case 2: this->probs.length = 16; break;
             }
 
-            switch (Rand::distribution(p_euclid_16, p_euclid_8, p_interval, p_diddles))
+            switch (Rand::distribution(
+                settings.p_euclid_16, 
+                settings.p_euclid_8, 
+                settings.p_interval, 
+                settings.p_diddles
+            ))
             {
             case 0:
             {
                 // Euclid length 16
                 uint8_t steps = 3;
-                switch (Rand::distribution(16, 16, 16, 16, 16))
+                switch (Rand::distribution(
+                    settings.euclid_16.p_5, 
+                    settings.euclid_16.p_6, 
+                    settings.euclid_16.p_7, 
+                    settings.euclid_16.p_9, 
+                    settings.euclid_16.p_11))
                 {
                 case 0: steps = 5;  break;
                 case 1: steps = 6;  break;
@@ -141,7 +170,9 @@ namespace Vleerhond
             {
                 // Euclid length 8
                 uint8_t steps = 3;
-                switch (Rand::distribution(40, 20))
+                switch (Rand::distribution(
+                    settings.euclid_8.p_3, 
+                    settings.euclid_8.p_4))
                 {
                 case 0: steps = 3;  break;
                 case 1: steps = 4;  break;
@@ -161,7 +192,10 @@ namespace Vleerhond
             case 3:
             {
                 // Setting diddles
-                euclid_pattern.set_diddles(Rand::randf(.5, .75), true);
+                euclid_pattern.set_diddles(Rand::randf(
+                    settings.diddles.p_min, 
+                    settings.diddles.p_max
+                ), true);
                 style = BassStyle::BassEuclid;
                 break;
             }

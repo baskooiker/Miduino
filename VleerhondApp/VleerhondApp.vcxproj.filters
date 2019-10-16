@@ -37,6 +37,9 @@
     <ClCompile Include="src\VleerhondApp.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\application\application_data.cpp">
+      <Filter>src\application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -92,6 +95,9 @@
     </Filter>
     <Filter Include="headers\instruments\vermona">
       <UniqueIdentifier>{e9e79043-405b-4114-93eb-8666debf476e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\application">
+      <UniqueIdentifier>{56a16e2c-fd19-4e8e-b3e9-bbc7bd14d7a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -269,9 +275,6 @@
     <ClInclude Include="headers\harmony_struct.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instrument_base.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\interval_pattern.h">
       <Filter>headers</Filter>
     </ClInclude>
@@ -338,9 +341,6 @@
     <ClInclude Include="headers\instruments\lead.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_522.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\poly.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
@@ -364,6 +364,15 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\mono_dub.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\mfb_522\mfb_522.h">
+      <Filter>headers\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\instrument_group.h">
+      <Filter>headers\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar.h">
+      <Filter>headers\instruments\tanzbar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -92,10 +92,11 @@ namespace Vleerhond
         HarmonyStruct& harmony;
 
     public:
-        TonalInstrumentBase(HarmonyStruct& harmony_ref, TimeStruct& time_ref, const bool is_randomizable) :
-            InstrumentBase(time_ref, is_randomizable),
-            harmony(harmony_ref)
+        TonalInstrumentBase(HarmonyStruct& harmony, TimeStruct& time, const bool is_randomizable) :
+            InstrumentBase(time, is_randomizable),
+            harmony(harmony)
         {
         }
+
     };
 }

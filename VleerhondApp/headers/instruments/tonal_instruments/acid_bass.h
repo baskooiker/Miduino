@@ -18,10 +18,19 @@ namespace Vleerhond
             midi_channel.set_channel(MIDI_CHANNEL_BASS, 24);
             MidiIO::send_cc(VERMONA_SYNTH_1_MOD_WHEEL, 127, VERMONA_CONTROL_CHANNEL);
 
-            p_euclid_16 = 16;
-            p_euclid_8 = 0;
-            p_interval = 0;
-            p_diddles = 32;
+            settings.p_euclid_16 = 16;
+            settings.p_euclid_8 = 0;
+            settings.p_interval = 0;
+            settings.p_diddles = 32;
+
+            settings.euclid_16.p_5 = 0;
+            settings.euclid_16.p_6 = 0;
+            settings.euclid_16.p_7 = 0;
+            settings.euclid_16.p_9 = 16;
+            settings.euclid_16.p_11 = 16;
+
+            settings.diddles.p_min = .6;
+            settings.diddles.p_max = .9;
 
         }
 

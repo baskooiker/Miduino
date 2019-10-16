@@ -66,6 +66,7 @@
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiMessage.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiOut.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.cpp" />
+    <ClCompile Include="src\application\application_data.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
@@ -115,6 +116,7 @@
     <ClInclude Include="headers\instruments\drums\snare.h" />
     <ClInclude Include="headers\instruments\drums\toms.h" />
     <ClInclude Include="headers\instruments\instrument_base.h" />
+    <ClInclude Include="headers\instruments\instrument_group.h" />
     <ClInclude Include="headers\instruments\lead.h" />
     <ClInclude Include="headers\instruments\mfb_503.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_cymbal.h" />
@@ -122,11 +124,12 @@
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_kick.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_snare.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_toms.h" />
-    <ClInclude Include="headers\instruments\mfb_522.h" />
+    <ClInclude Include="headers\instruments\mfb_522\mfb_522.h" />
     <ClInclude Include="headers\instruments\mono_dub.h" />
     <ClInclude Include="headers\instruments\mono.h" />
     <ClInclude Include="headers\instruments\parameters.h" />
     <ClInclude Include="headers\instruments\poly.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cb.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cl.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cp.h" />
@@ -141,7 +144,6 @@
     <ClInclude Include="headers\instruments\tonal_instruments\rocket_bass.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
-    <ClInclude Include="headers\instrument_base.h" />
     <ClInclude Include="headers\intervals.h" />
     <ClInclude Include="headers\interval_pattern.h" />
     <ClInclude Include="headers\midi_channel.h" />

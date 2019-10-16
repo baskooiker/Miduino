@@ -11,7 +11,6 @@
 #include "ui.h"
 
 #include "lead.h"
-#include "mfb_503.h"
 #include "mfb_522.h"
 #include "poly.h"
 
@@ -105,7 +104,6 @@ namespace Vleerhond
             break;
         case KNOB_05:
             data.acid_bass.density = value;
-            data.fugue_vermona_1.density = value;
             break;
         case ROTARY_06:
             break;
@@ -136,7 +134,6 @@ namespace Vleerhond
             break;
         case SLIDER_05:
             data.acid_bass.pitch_range = value;
-            data.fugue_vermona_1.manual_pitch_offset = value;
             break;
         case SLIDER_06:
             //data.bass_dub_settings.v_pitch = value;
@@ -163,7 +160,7 @@ namespace Vleerhond
         case BTN_LEFT_BTM_01:
             if (value == 0)
             {
-                data.tanzbar_lo.randomize();
+                data.tanzbar.tanzbar_lo.randomize();
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
             }
@@ -179,11 +176,11 @@ namespace Vleerhond
         case BTN_LEFT_BTM_02:
             if (value == 0)
             {
-                data.tanzbar_tom.randomize();
-                data.tanzbar_cl.randomize();
-                data.tanzbar_cb.randomize();
-                data.tanzbar_cp.randomize();
-                data.tanzbar_mid.randomize();
+                data.tanzbar.tanzbar_tom.randomize();
+                data.tanzbar.tanzbar_cl.randomize();
+                data.tanzbar.tanzbar_cb.randomize();
+                data.tanzbar.tanzbar_cp.randomize();
+                data.tanzbar.tanzbar_mid.randomize();
 
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
@@ -201,9 +198,9 @@ namespace Vleerhond
             {
                 if (value == 0)
                 {
-                    data.tanzbar_cy.randomize();
-                    data.tanzbar_ma.randomize();
-                    data.tanzbar_hats.randomize();
+                    data.tanzbar.tanzbar_cy.randomize();
+                    data.tanzbar.tanzbar_ma.randomize();
+                    data.tanzbar.tanzbar_hats.randomize();
                     data.time.randomize_shuffle();
                     data.modulators.randomize();
                 }
@@ -256,23 +253,19 @@ namespace Vleerhond
             break;
 
         case BTN_RIGHT_BTM_01:
-            data.tanzbar_lo.kill = value > 0;
-            data.mfb_503_kick.kill = value > 0;
+            data.tanzbar.tanzbar_lo.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_02:
-            data.tanzbar_tom.kill = value > 0;
-            data.tanzbar_cl .kill = value > 0;
-            data.tanzbar_cb .kill = value > 0;
-            data.tanzbar_cp .kill = value > 0;
-            data.tanzbar_mid.kill = value > 0;
+            data.tanzbar.tanzbar_tom.kill = value > 0;
+            data.tanzbar.tanzbar_cl .kill = value > 0;
+            data.tanzbar.tanzbar_cb .kill = value > 0;
+            data.tanzbar.tanzbar_cp .kill = value > 0;
+            data.tanzbar.tanzbar_mid.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_03:
-            data.tanzbar_hats.kill = value > 0;
-            data.tanzbar_cy.kill = value > 0;
-            data.tanzbar_ma.kill = value > 0;
-
-            data.mfb_503_hats.kill = value > 0;
-            data.mfb_503_cymbal.kill = value > 0;
+            data.tanzbar.tanzbar_hats.kill = value > 0;
+            data.tanzbar.tanzbar_cy.kill = value > 0;
+            data.tanzbar.tanzbar_ma.kill = value > 0;
 
             break;
         case BTN_RIGHT_BTM_04:
@@ -432,7 +425,6 @@ namespace Vleerhond
 
         data.time.reset();
 
-        data.fugue_vermona_1.reset();
         data.fugue_vermona_2.reset();
         data.fugue_vermona_3.reset();
         data.fugue_vermona_4.reset();

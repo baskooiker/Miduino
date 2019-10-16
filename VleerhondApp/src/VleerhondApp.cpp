@@ -215,15 +215,6 @@ namespace Vleerhond
         case 'x':
             break;
         case 'c':
-            ofLogNotice("Vleerhond", "fugue 1 active: %d", data.fugue_vermona_1.is_active());
-            ofLogNotice("Vleerhond", "fugue 2 active: %d", data.fugue_vermona_2.is_active());
-            ofLogNotice("Vleerhond", "fugue 3 active: %d", data.fugue_vermona_3.is_active());
-            ofLogNotice("Vleerhond", "fugue 4 active: %d", data.fugue_vermona_4.is_active());
-
-            ofLogNotice("Vleerhond", "bass    active: %d", data.acid_bass.is_active());
-            ofLogNotice("Vleerhond", "drone   active: %d", data.drone.is_active());
-            ofLogNotice("Vleerhond", "mono    active: %d", data.mono.is_active());
-            ofLogNotice("Vleerhond", "monodub active: %d", data.mono_dub.is_active());
             break;
         default:
             break;
