@@ -67,6 +67,13 @@
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiOut.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.cpp" />
     <ClCompile Include="src\application\application_data.cpp" />
+    <ClCompile Include="src\instruments\drums\cymbal.cpp" />
+    <ClCompile Include="src\instruments\drums\hats.cpp" />
+    <ClCompile Include="src\instruments\drums\kick.cpp" />
+    <ClCompile Include="src\instruments\drums\percussion.cpp" />
+    <ClCompile Include="src\instruments\drums\snare.cpp" />
+    <ClCompile Include="src\instruments\drums\toms.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>

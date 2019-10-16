@@ -40,6 +40,27 @@
     <ClCompile Include="src\application\application_data.cpp">
       <Filter>src\application</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\drums\cymbal.cpp">
+      <Filter>src\instruments\drums</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\drums\hats.cpp">
+      <Filter>src\instruments\drums</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\drums\kick.cpp">
+      <Filter>src\instruments\drums</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\drums\percussion.cpp">
+      <Filter>src\instruments\drums</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\drums\snare.cpp">
+      <Filter>src\instruments\drums</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\drums\toms.cpp">
+      <Filter>src\instruments\drums</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp">
+      <Filter>src\instruments\tanzbar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -98,6 +119,15 @@
     </Filter>
     <Filter Include="src\application">
       <UniqueIdentifier>{56a16e2c-fd19-4e8e-b3e9-bbc7bd14d7a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments">
+      <UniqueIdentifier>{1dc18057-47c6-454a-bf0d-faa4dcfd67ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\drums">
+      <UniqueIdentifier>{f833a898-644e-4a2d-8562-1c483ac60643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\tanzbar">
+      <UniqueIdentifier>{14563de0-9d18-4ad4-9c97-e31208ca49c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

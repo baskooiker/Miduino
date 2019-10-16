@@ -11,9 +11,8 @@ protected:
 
 public:
     InstrumentGroup(HarmonyStruct& harmony, TimeStruct& time):
-        TonalInstrumentBase(harmony, time, true)
+        TonalInstrumentBase(harmony, time, false)
     {
-
     }
 
     bool play()

@@ -28,27 +28,6 @@ public:
     TanzbarCy tanzbar_cy;
     TanzbarMa tanzbar_ma;
 
-    Tanzbar(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time) :
-        InstrumentGroup(harmony, time),
-        tanzbar_lo(modulators, time),
-        tanzbar_mid(modulators, time),
-        tanzbar_cp(modulators, time),
-        tanzbar_tom(modulators, time),
-        tanzbar_cb(modulators, time),
-        tanzbar_cl(modulators, time),
-        tanzbar_ma(modulators, time),
-        tanzbar_cy(modulators, time),
-        tanzbar_hats(modulators, time)
-    {
-        instruments.push_back(&tanzbar_lo);
-        instruments.push_back(&tanzbar_mid);
-        instruments.push_back(&tanzbar_cp);
-        instruments.push_back(&tanzbar_tom);
-        instruments.push_back(&tanzbar_cb);
-        instruments.push_back(&tanzbar_cl);
-        instruments.push_back(&tanzbar_hats);
-        instruments.push_back(&tanzbar_cy);
-        instruments.push_back(&tanzbar_ma);
-    }
+    Tanzbar(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time);
 };
 }
