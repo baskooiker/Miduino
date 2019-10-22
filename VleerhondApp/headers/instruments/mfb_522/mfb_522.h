@@ -18,27 +18,41 @@ namespace Vleerhond
         Mfb522Kick(Modulators& modulators, TimeStruct& time) :
             Kick(modulators, time)
         {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             // TODO: long & short
             pitch = NOTE_522_BD_LONG;
         }
     };
-    
-    class Mfb522Snare : public Snare 
+
+    class Mfb522Snare : public Snare
     {
     public:
         Mfb522Snare(Modulators& modulators, TimeStruct& time) :
             Snare(modulators, time)
         {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_SN;
         }
     };
-    
+
+    class Mfb522Rimshot : public Percussion
+    {
+    public:
+        Mfb522Rimshot(Modulators& modulators, TimeStruct& time) :
+            Percussion(modulators, time)
+        {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
+            pitch = NOTE_522_RS;
+        }
+    };
+
     class Mfb522Hats : public Hats 
     {
     public:
         Mfb522Hats(Modulators& modulators, TimeStruct& time) :
             Hats(modulators, time)
         {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch_open = NOTE_522_OH;
             pitch_closed = NOTE_522_HH;
         }
@@ -50,6 +64,7 @@ namespace Vleerhond
         Mfb522Clap(Modulators& modulators, TimeStruct& time) :
             Snare(modulators, time)
         {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             // TODO: long & short
             pitch = NOTE_522_CP_LONG;
         }
@@ -61,7 +76,7 @@ namespace Vleerhond
         Mfb522Toms(Modulators& modulators, TimeStruct& time) :
             Toms(modulators, time)
         {
-
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitches = {
                 NOTE_522_LO_TOM,
                 NOTE_522_MI_TOM,
@@ -77,6 +92,7 @@ namespace Vleerhond
         Mfb522Clave(Modulators& modulators, TimeStruct& time) :
             Percussion(modulators, time)
         {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_CLAVE;
         }
     };
@@ -87,6 +103,7 @@ namespace Vleerhond
         Mfb522Cowbell(Modulators& modulators, TimeStruct& time) :
             Percussion(modulators, time)
         {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_CB;
         }
     };
@@ -97,6 +114,7 @@ namespace Vleerhond
         Mfb522Cymbal(Modulators& modulators, TimeStruct& time) :
             Cymbal(modulators, time)
         {
+            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_CYMBAL;
         }
     };
@@ -106,6 +124,7 @@ class Mfb522 : public InstrumentGroup
 public:
     Mfb522Kick kick;
     Mfb522Snare snare;
+    Mfb522Rimshot rimshot;
     Mfb522Clap clap;
     Mfb522Hats hats;
     Mfb522Toms toms;
@@ -117,6 +136,7 @@ public:
         InstrumentGroup(harmony, time),
         kick(modulators, time),
         snare(modulators, time),
+        rimshot(modulators, time),
         clap(modulators, time),
         hats(modulators, time),
         toms(modulators, time),
