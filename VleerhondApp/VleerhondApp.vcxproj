@@ -5,6 +5,10 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
@@ -19,8 +23,19 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="C:\OF\of_v0.10.1_vs2017_release\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+    <Import Project="..\MiduinoSketch\Miduino.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="C:\OF\of_v0.10.1_vs2017_release\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
     <Import Project="..\MiduinoSketch\Miduino.props" />
@@ -29,6 +44,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>bin\</OutDir>
     <IntDir>obj\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Bas\Miduino\VleerhondApp\headers\instruments;$(IncludePath)</IncludePath>
+    <SourcePath>C:\Users\Bas\Miduino\VleerhondApp\src\instruments;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Users\Bas\Miduino\VleerhondApp\headers\instruments;$(IncludePath)</IncludePath>
     <SourcePath>C:\Users\Bas\Miduino\VleerhondApp\src\instruments;$(SourcePath)</SourcePath>
@@ -54,6 +74,27 @@
     </Link>
     <PostBuildEvent>
     </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>__WIN32__;__WIN32;WIN32__;_WIN32_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <AdditionalIncludeDirectories>C:\Users\Bas\Miduino\VleerhondApp\headers\instruments;C:\Users\Bas\Miduino\VleerhondApp\headers;C:\Users\Bas\Miduino\DevApp;C:\Users\Bas\Miduino\MiduinoSketch;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSamplePlayer\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\desktop;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ios;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\pgmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;C:\OF\of_v0.10.1_vs2017_release\addons\ofxBpm\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\control;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\convolution;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\core;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\delays;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\dynamics;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\envelopes;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\envelopes\stages;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\filters;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\filters\biquads;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\helpers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\antialiased;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\antialiased\BLEP;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\base;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\cheap;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\fm;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\phasors;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\oscillators\wavetable;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\random;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\resamplers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\samplers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\samplers\grain;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\signal;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\DSP\utility;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\dsphelpers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\fft;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\interpolation;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\random;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\tables;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\math\trig;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\messages;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\dynamics;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\effects;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\equalizers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\filters;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\oscillators;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\reverbs;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\samplers;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\signal;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\modules\sources;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\ofx;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\ofx\helper;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\src\sequencer;C:\OF\of_v0.10.1_vs2017_release\addons\ofxPDSP\libs\audiofft;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\core;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\functions;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\functions\mathfun;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\kernels;C:\OF\of_v0.10.1_vs2017_release\addons\ofxSIMDFloats\src\vectors;C:\OF\of_v0.10.1_vs2017_release\addons\ofxAudioFile\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxAudioFile\libs;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\ip;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\ip\win32;C:\OF\of_v0.10.1_vs2017_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi\RtMidi.cpp" />

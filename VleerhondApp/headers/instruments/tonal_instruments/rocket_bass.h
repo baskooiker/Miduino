@@ -44,6 +44,24 @@ namespace Vleerhond
             params.push_back({ MINITAUR_CC_LEGATO_GLIDE   ,  64, 127, MIDI_CHANNEL_MINITAUR }); // Only on legato notes
             params.push_back({ MINITAUR_CC_FILTER_VELOCITY,   0, 127, MIDI_CHANNEL_MINITAUR });
             params.push_back({ MINITAUR_CC_VOLUME_VELOCITY,   0, 127, MIDI_CHANNEL_MINITAUR });
+        
+
+            settings.p_euclid_16 = 16;
+            settings.p_euclid_8 = 8;
+            settings.p_interval = 8;
+            settings.p_diddles = 0;
+
+            settings.euclid_16.p_5 = 16;
+            settings.euclid_16.p_6 = 16;
+            settings.euclid_16.p_7 = 8;
+            settings.euclid_16.p_9 = 0;
+            settings.euclid_16.p_11 = 0;
+
+            settings.euclid_8.p_3 = 16;
+            settings.euclid_8.p_4 = 16;
+
+            settings.diddles.p_min = .6;
+            settings.diddles.p_max = .9;
         }
 
         virtual void randomize()
