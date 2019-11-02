@@ -243,7 +243,6 @@ namespace Vleerhond
 
         void print_storage()
         {
-#ifndef ARDUINO
             printf("\nStorage size: %d\n", this->size);
             for (int i = 0; i < this->size; i++)
             {
@@ -252,7 +251,6 @@ namespace Vleerhond
                     this->data[i].length,
                     this->data[i].type);
             }
-#endif
         }
 
     };

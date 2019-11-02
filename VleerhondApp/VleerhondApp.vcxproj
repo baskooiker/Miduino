@@ -115,6 +115,9 @@
     <ClCompile Include="src\instruments\drums\snare.cpp" />
     <ClCompile Include="src\instruments\drums\toms.cpp" />
     <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp" />
+    <ClCompile Include="src\instruments\tonal_instruments\acid_bass.cpp" />
+    <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp" />
+    <ClCompile Include="src\instruments\tonal_instruments\rocket_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
@@ -154,7 +157,6 @@
     <ClInclude Include="headers\fugue.h" />
     <ClInclude Include="headers\gate_patterns.h" />
     <ClInclude Include="headers\harmony_struct.h" />
-    <ClInclude Include="headers\instruments\bass_dub_settings.h" />
     <ClInclude Include="headers\instruments\bass.h" />
     <ClInclude Include="headers\instruments\drone.h" />
     <ClInclude Include="headers\instruments\drums\cymbal.h" />

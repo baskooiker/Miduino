@@ -81,7 +81,7 @@ namespace Vleerhond
         {
             std::string port_name = port.getOutPortName(i);
             int eq = port_name.find(name);
-            ofLogNotice("midi out", "%s, num_ports = %d, eq = %d", port_name.c_str(), num_ports, eq);
+            ofLogNotice("midi out", "%s, num_ports = %d", port_name.c_str(), num_ports);
             if (eq >= 0)
             {
                 ofLogNotice("midi out", port_name);
@@ -100,7 +100,7 @@ namespace Vleerhond
         {
             std::string port_name = port.getInPortName(i);
             int eq = port_name.find(name);
-            ofLogNotice("midi in", "%s, num_ports = %d, eq = %d", port_name.c_str(), num_ports, eq);
+            ofLogNotice("midi in", "%s, num_ports = %d", port_name.c_str(), num_ports);
             if (eq >= 0)
             {
                 ofLogNotice("midi in", port_name);
@@ -178,6 +178,8 @@ namespace Vleerhond
 
     void VleerhondApp::update()
     {
+        static bool _is_trigger_on = false;
+
         if (!ports_open())
         {
             ofSleepMillis(500);
@@ -186,6 +188,16 @@ namespace Vleerhond
         else
         {
             data.process_events();
+
+            if (data.time.state == PlayState::Stopped)
+            {
+                bool trigger_active = (int)ofGetCurrentTime().getAsSeconds() % 2 == 1;
+                if (trigger_active != _is_trigger_on)
+                {
+                    MidiIO::send_cc(MINITAUR_CC_VCO2_WAVE, trigger_active ? 127 : 0, MIDI_CHANNEL_MINITAUR);
+                    _is_trigger_on = trigger_active;
+                }
+            }
         }
     }
 

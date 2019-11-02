@@ -130,13 +130,14 @@ namespace Vleerhond
             return sets;
         }
 
-        void set_diddles(const float f, const bool starts_with)
+        void set_diddles(const float f, const bool starts_with, uint8_t length)
         {
-            int8_t nr_hits = (uint8_t)((f * 16.) + .5);
+            length = length > 16 ? 16 : length;
+            int8_t nr_hits = (uint8_t)((f * length) + .5);
             uint8_t max_nr_diddles = nr_hits / 2;
             uint8_t nr_diddles = Rand::randui8(2, max_nr_diddles+1);
             std::vector<uint8_t> sets = distribute(nr_diddles, nr_hits);
-            std::vector<uint8_t> spaces = distribute(nr_diddles, 16 - nr_hits);
+            std::vector<uint8_t> spaces = distribute(nr_diddles, length - nr_hits);
 
             ofLogVerbose("GatePatterns", "set_diddles(nr_hits=%d, nr_diddles=%d, max_nr=%d)", nr_hits, nr_diddles, max_nr_diddles);
 
@@ -371,11 +372,11 @@ namespace Vleerhond
             this->abPattern.set_ab_pattern();
         }
 
-        void set_diddles(const float f, const bool starts_with)
+        void set_diddles(const float f, const bool starts_with, const uint8_t length)
         {
             for (int i = 0; i < 3; i++)
             {
-                this->patterns[i].set_diddles(f, starts_with);
+                this->patterns[i].set_diddles(f, starts_with, length);
             }
             this->abPattern.set_ab_pattern();
         }
@@ -415,8 +416,8 @@ namespace Vleerhond
         {
             Coefficients coef = { 0 };
             coef.eights = 1.f;
-            coef.up = Rand::randf(.25);
-            coef.down = Rand::randf(.25);
+            coef.up = Rand::randf(.125);
+            coef.down = Rand::randf(.125);
             set_coef_pattern(coef);
         }
 

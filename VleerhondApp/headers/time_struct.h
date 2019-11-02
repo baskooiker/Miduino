@@ -35,6 +35,9 @@ namespace Vleerhond
             const int8_t shuffle_offset = 0,
             const uint8_t global_delay = 0) const
         {
+            // Temporarily turn off delay and shuffle.
+            return 0;
+
             uint32_t delay = (uint32_t)((this->average_pulse_time / 40.) * (global_delay / 127.));
             if ((this->tick + TICKS_PER_STEP) % (2 * TICKS_PER_STEP) == 0)
             {

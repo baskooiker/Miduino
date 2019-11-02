@@ -14,7 +14,6 @@
 
 #include "rocket_bass.h"
 #include "acid_bass.h"
-#include "bass_dub_settings.h"
 
 #include "vermona_mono.h"
 #include "vermona_mono_dub.h"

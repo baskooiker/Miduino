@@ -61,6 +61,15 @@
     <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp">
       <Filter>src\instruments\tanzbar</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\acid_bass.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\rocket_bass.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -128,6 +137,9 @@
     </Filter>
     <Filter Include="src\instruments\tanzbar">
       <UniqueIdentifier>{14563de0-9d18-4ad4-9c97-e31208ca49c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\tonal_instruments">
+      <UniqueIdentifier>{1dc13c48-5357-4ef5-86b4-3af2d5c0ec82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -360,9 +372,6 @@
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
     <ClInclude Include="headers\instruments\bass.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\bass_dub_settings.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
     <ClInclude Include="headers\instruments\drone.h">

@@ -43,6 +43,7 @@ namespace Vleerhond
                 double p_max = .75;
             } diddles;
             uint8_t p_diddles = 32;
+            uint8_t p_octave_sh = 32;
         } settings;
 
     public:
@@ -108,12 +109,11 @@ namespace Vleerhond
             }
 
             uint8_t prob_2 = this->pitches.abPattern.isConstant() ? 0 : 32;
-            switch (Rand::distribution(prob_2, 16, 16, 0))
+            switch (Rand::distribution(prob_2, 16, 16))
             {
             case 0: this->pitches.length = 2; break;
             case 1: this->pitches.length = 4; break;
             case 2: this->pitches.length = 8; break;
-            case 3: this->pitches.length = 16; break;
             }
 
             this->note_range_prob.randomize();
@@ -192,10 +192,13 @@ namespace Vleerhond
             case 3:
             {
                 // Setting diddles
-                euclid_pattern.set_diddles(Rand::randf(
-                    settings.diddles.p_min, 
-                    settings.diddles.p_max
-                ), true);
+                euclid_pattern.set_diddles(
+                    Rand::randf(
+                        settings.diddles.p_min, 
+                        settings.diddles.p_max
+                    ), 
+                    true,
+                    Rand::distribution(16, 16) == 1 ? 16 : 8);
                 style = BassStyle::BassEuclid;
                 break;
             }
@@ -213,7 +216,7 @@ namespace Vleerhond
         {
             TonalInstrumentBase::randomize();
 
-            octave_sh.prob = Rand::randui8(32);
+            octave_sh.prob = Rand::randui8(settings.p_octave_sh);
 
             switch (Rand::distribution(16, 16, 0, 16))
             {
@@ -255,9 +258,7 @@ namespace Vleerhond
             return hit || prob_step;
         }
 
-        uint8_t get_bass_pitch(
-            const uint8_t variable_pitch,
-            const uint8_t note_offset)
+        uint8_t get_bass_pitch(const uint8_t variable_pitch)
         {
             // TODO: Hier klopt dus niks van...
             uint8_t note_nr = 0;
@@ -290,7 +291,7 @@ namespace Vleerhond
             uint8_t pitch = harmony.scale.apply_scale_offset(
                 note_nr,
                 pitch_offset,
-                harmony.get_chord_step(time) + note_offset
+                harmony.get_chord_step(time)
             );
 
             uint8_t octave = this->octaves.value(time);
@@ -315,10 +316,7 @@ namespace Vleerhond
 
             if (this->get_bass_hit(this->density, time))
             {
-                uint8_t pitch = get_bass_pitch(
-                    this->variable_octaves.value(time),
-                    (uint8_t)NoteInterval::IntervalRoot
-                );
+                uint8_t pitch = get_bass_pitch(this->variable_octaves.value(time));
 
                 // Note length
                 uint8_t length = this->accents.gate(time) ? 6 : 2;
