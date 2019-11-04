@@ -119,6 +119,7 @@
     <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\rocket_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\midi\midi_channel.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -196,8 +197,8 @@
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
     <ClInclude Include="headers\intervals.h" />
     <ClInclude Include="headers\interval_pattern.h" />
-    <ClInclude Include="headers\midi_channel.h" />
-    <ClInclude Include="headers\midi_io.h" />
+    <ClInclude Include="headers\midi\midi_channel.h" />
+    <ClInclude Include="headers\midi\midi_io.h" />
     <ClInclude Include="headers\modulators.h" />
     <ClInclude Include="headers\note_struct.h" />
     <ClInclude Include="headers\print.h" />

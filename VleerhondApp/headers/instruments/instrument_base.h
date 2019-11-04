@@ -84,6 +84,7 @@ namespace Vleerhond
         {
             this->active = active;
         }
+
     };
 
     class TonalInstrumentBase : public InstrumentBase

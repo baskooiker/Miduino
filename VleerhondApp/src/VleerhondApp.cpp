@@ -248,6 +248,10 @@ namespace Vleerhond
         case MIDI_STOP:
             ofLogNotice("Vleerhond", "Stop!");
             handleStop(this->data);
+            if (data.time.state == PlayState::Stopped)
+            {
+                ofExit(0);
+            }
             break;
         case MIDI_START:
             ofLogNotice("Vleerhond", "Start!");

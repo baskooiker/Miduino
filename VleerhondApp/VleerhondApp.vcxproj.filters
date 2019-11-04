@@ -70,6 +70,9 @@
     <ClCompile Include="src\instruments\tonal_instruments\rocket_bass.cpp">
       <Filter>src\instruments\tonal_instruments</Filter>
     </ClCompile>
+    <ClCompile Include="src\midi\midi_channel.cpp">
+      <Filter>src\instruments\midi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -140,6 +143,12 @@
     </Filter>
     <Filter Include="src\instruments\tonal_instruments">
       <UniqueIdentifier>{1dc13c48-5357-4ef5-86b4-3af2d5c0ec82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\midi">
+      <UniqueIdentifier>{3442a4c9-b57c-4426-af48-75b4b94e9241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\midi">
+      <UniqueIdentifier>{ce71558f-2963-4d5e-a8ff-68007d7159d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -323,12 +332,6 @@
     <ClInclude Include="headers\intervals.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\midi_channel.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\midi_io.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\modulators.h">
       <Filter>headers</Filter>
     </ClInclude>
@@ -412,6 +415,12 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\tanzbar\tanzbar.h">
       <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\midi\midi_channel.h">
+      <Filter>headers\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\midi\midi_io.h">
+      <Filter>headers\midi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
