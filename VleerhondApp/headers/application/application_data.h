@@ -10,8 +10,10 @@
 #include "tanzbar.h"
 #include "mfb_522.h"
 
-#include "rocket_bass.h"
+#include "303_acid_bass.h"
+#include "moog_bass.h"
 #include "acid_bass.h"
+#include "rocket_mono.h"
 
 #include "vermona_mono.h"
 #include "vermona_mono_dub.h"
@@ -29,10 +31,12 @@ namespace Vleerhond
         Fugue fugue;
         Modulators modulators;
 
-        RocketBass rocket_bass;
+        TB303Bass tb303_bass;
+        MoogBass moog_bass;
         AcidBass acid_bass;
         VermonaMono mono;
         VermonaMonoDub mono_dub;
+        RocketMono rocket_mono;
         Drone drone;
 
         FuguePlayer fugue_vermona_2;

@@ -93,17 +93,18 @@ namespace Vleerhond
         case ROTARY_03:
             break;
         case KNOB_03:
-            data.rocket_bass.note_range_value = value;
+            data.moog_bass.note_range_value = value;
             break;
         case ROTARY_04:
             break;
         case KNOB_04:
-            data.rocket_bass.density = value;
+            data.moog_bass.density = value;
             break;
         case ROTARY_05:
             break;
         case KNOB_05:
             data.acid_bass.density = value;
+            data.tb303_bass.density = value;
             break;
         case ROTARY_06:
             break;
@@ -115,6 +116,7 @@ namespace Vleerhond
         case KNOB_07:
             data.fugue_vermona_3.density = value;
             data.mono.variable_density = value;
+            data.rocket_mono.variable_density = value;
             break;
         case ROTARY_08:
             break;
@@ -127,13 +129,14 @@ namespace Vleerhond
         case SLIDER_02:
             break;
         case SLIDER_03:
-            data.rocket_bass.note_range_value = value;
+            data.moog_bass.note_range_value = value;
             break;
         case SLIDER_04:
-            data.rocket_bass.pitch_range = value;
+            data.moog_bass.pitch_range = value;
             break;
         case SLIDER_05:
             data.acid_bass.pitch_range = value;
+            data.tb303_bass.pitch_range = value;
             break;
         case SLIDER_06:
             //data.bass_dub_settings.v_pitch = value;
@@ -143,6 +146,7 @@ namespace Vleerhond
         case SLIDER_07:
             data.mono.variable_pitch_offset = value;
             data.fugue_vermona_3.manual_pitch_offset = value;
+            data.rocket_mono.variable_pitch_offset = value;
             break;
         case SLIDER_08:
             data.mono_dub.variable_pitch_offset = value;
@@ -168,7 +172,7 @@ namespace Vleerhond
         case BTN_LEFT_TOP_02:
             if (value == 0)
             {
-                data.harmony.randomize();
+                //data.harmony.randomize();
                 data.harmony.type = HarmonyType::HarmonyConst;
                 data.harmony.switch_const_chord();
             }
@@ -214,7 +218,7 @@ namespace Vleerhond
         case BTN_LEFT_BTM_04:
             if (value == 0)
             {
-                data.rocket_bass.total_randomize();
+                data.moog_bass.total_randomize();
             }
             break;
         case BTN_LEFT_TOP_05:
@@ -226,6 +230,7 @@ namespace Vleerhond
             if (value == 0)
             {
                 data.acid_bass.total_randomize();
+                data.tb303_bass.total_randomize();
             }
             break;
         case BTN_LEFT_TOP_06:
@@ -253,33 +258,32 @@ namespace Vleerhond
             break;
 
         case BTN_RIGHT_BTM_01:
-            data.tanzbar.tanzbar_lo.kill = value > 0;
+            data.tanzbar.killLow(value > 0);
+            data.mfb_522.killLow(value > 0);
             break;
         case BTN_RIGHT_BTM_02:
-            data.tanzbar.tanzbar_tom.kill = value > 0;
-            data.tanzbar.tanzbar_cl .kill = value > 0;
-            data.tanzbar.tanzbar_cb .kill = value > 0;
-            data.tanzbar.tanzbar_cp .kill = value > 0;
-            data.tanzbar.tanzbar_mid.kill = value > 0;
+            data.tanzbar.killMid(value > 0);
+            data.mfb_522.killMid(value > 0);
             break;
         case BTN_RIGHT_BTM_03:
-            data.tanzbar.tanzbar_hats.kill = value > 0;
-            data.tanzbar.tanzbar_cy.kill = value > 0;
-            data.tanzbar.tanzbar_ma.kill = value > 0;
-
+            data.tanzbar.killHigh(value > 0);
+            data.mfb_522.killHigh(value > 0);
             break;
         case BTN_RIGHT_BTM_04:
-            data.rocket_bass.kill = value > 0;
-            if (data.rocket_bass.kill)
+            data.moog_bass.kill = value > 0;
+            if (data.moog_bass.kill)
             {
-                data.rocket_bass.midi_channel.process_active_notes();
+                data.moog_bass.stop_notes();
+                data.moog_bass.midi_channel.process_active_notes();
             }
             break;
         case BTN_RIGHT_BTM_05:
             data.acid_bass.kill = value > 0;
-            if (data.acid_bass.kill)
+            data.tb303_bass.kill = value > 0;
+            if (value > 0)
             {
                 data.acid_bass.midi_channel.process_active_notes();
+                data.tb303_bass.midi_channel.process_active_notes();
             }
             break;
         case BTN_RIGHT_BTM_06:
@@ -289,6 +293,7 @@ namespace Vleerhond
         case BTN_RIGHT_BTM_07:
             data.mono.kill = value > 0;
             data.fugue_vermona_3.kill = value > 0;
+            data.rocket_mono.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_08:
             data.mono_dub.kill = value > 0;

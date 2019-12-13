@@ -25,10 +25,9 @@ namespace Vleerhond
         TanzbarCb(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            Percussion(modulators_ref, time_ref),
+            Percussion(modulators_ref, time_ref, MIDI_CHANNEL_TANZBAR),
             cb_tune(modulators_ref)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             pitch = NOTE_TANZBAR_CB;
         }
 

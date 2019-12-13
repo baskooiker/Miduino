@@ -18,12 +18,19 @@ namespace Vleerhond
 
     public:
 
+        struct 
+        {
+            uint8_t p_length_8 = 16;
+            uint8_t p_length_16 = 16;
+        } settings;
+
         Percussion(
             Modulators& modulators_ref,
-            TimeStruct& time_ref
+            TimeStruct& time_ref,
+            const uint8_t midi_channel
         );
-        void randomize();
-        bool play();
+        virtual void randomize();
+        virtual bool play();
         virtual uint8_t get_velocity();
     };
 }

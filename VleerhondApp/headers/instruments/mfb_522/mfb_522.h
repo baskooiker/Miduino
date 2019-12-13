@@ -16,9 +16,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Kick(Modulators& modulators, TimeStruct& time) :
-            Kick(modulators, time)
+            Kick(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             // TODO: long & short
             pitch = NOTE_522_BD_LONG;
         }
@@ -28,10 +27,11 @@ namespace Vleerhond
     {
     public:
         Mfb522Snare(Modulators& modulators, TimeStruct& time) :
-            Snare(modulators, time)
+            Snare(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_SN;
+            settings.p_coef = 0;
+            settings.p_off = 0;
         }
     };
 
@@ -39,9 +39,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Rimshot(Modulators& modulators, TimeStruct& time) :
-            Percussion(modulators, time)
+            Percussion(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_RS;
         }
     };
@@ -50,9 +49,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Hats(Modulators& modulators, TimeStruct& time) :
-            Hats(modulators, time)
+            Hats(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch_open = NOTE_522_OH;
             pitch_closed = NOTE_522_HH;
         }
@@ -62,9 +60,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Clap(Modulators& modulators, TimeStruct& time) :
-            Snare(modulators, time)
+            Snare(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             // TODO: long & short
             pitch = NOTE_522_CP_LONG;
         }
@@ -74,9 +71,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Toms(Modulators& modulators, TimeStruct& time) :
-            Toms(modulators, time)
+            Toms(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitches = {
                 NOTE_522_LO_TOM,
                 NOTE_522_MI_TOM,
@@ -90,9 +86,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Clave(Modulators& modulators, TimeStruct& time) :
-            Percussion(modulators, time)
+            Percussion(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_CLAVE;
         }
     };
@@ -101,9 +96,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Cowbell(Modulators& modulators, TimeStruct& time) :
-            Percussion(modulators, time)
+            Percussion(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_CB;
         }
     };
@@ -112,9 +106,8 @@ namespace Vleerhond
     {
     public:
         Mfb522Cymbal(Modulators& modulators, TimeStruct& time) :
-            Cymbal(modulators, time)
+            Cymbal(modulators, time, MIDI_CHANNEL_522)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_522);
             pitch = NOTE_522_CYMBAL;
         }
     };
@@ -153,5 +146,57 @@ public:
         instruments.push_back(&cowbell);
         instruments.push_back(&cymbal);
     }
+
+    std::vector<InstrumentBase*> getLow()
+    {
+        return {
+            &kick
+        };
+    }
+
+    std::vector<InstrumentBase*> getMid()
+    {
+        return {
+            &snare,
+            &rimshot,
+            &clap,
+            &toms,
+            &clave,
+            &cowbell
+        };
+    }
+
+    std::vector<InstrumentBase*> getHigh()
+    {
+        return {
+            &hats,
+            &cymbal
+        };
+    }
+
+    void killLow(const bool kill)
+    {
+        for (auto p : getLow())
+        {
+            p->kill = kill;
+        }
+    }
+
+    void killMid(const bool kill)
+    {
+        for (auto p : getMid())
+        {
+            p->kill = kill;
+        }
+    }
+
+    void killHigh(const bool kill)
+    {
+        for (auto p : getHigh())
+        {
+            p->kill = kill;
+        }
+    }
+
 };
 }

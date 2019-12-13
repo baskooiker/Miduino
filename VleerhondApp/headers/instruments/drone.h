@@ -14,7 +14,7 @@ namespace Vleerhond
 
         Drone(HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
-            TonalInstrumentBase(harmony_ref, time_ref, true)
+            TonalInstrumentBase(harmony_ref, time_ref, true, MIDI_CHANNEL_BASS_DUB)
         {
         }
 

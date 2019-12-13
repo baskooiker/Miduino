@@ -112,6 +112,9 @@
     <ProjectReference Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\libs\openFrameworksCompiled\project\vs\openFrameworksLib.vcxproj">
       <Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\VleerhondApp\VleerhondApp.vcxproj">
+      <Project>{7fd42df7-442e-479a-ba76-d0022f99702a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,25 +4,25 @@
 
 namespace Vleerhond
 {
-class InstrumentGroup : public TonalInstrumentBase
+
+class InstrumentRack : public InstrumentBase
 {
 protected:
     std::vector<InstrumentBase*> instruments;
+    uint8_t selection = 0;
 
 public:
-    InstrumentGroup(HarmonyStruct& harmony, TimeStruct& time):
-        TonalInstrumentBase(harmony, time, false, 0)
+    InstrumentRack(
+        TimeStruct& time,
+        const uint8_t midi_channel)
+        : InstrumentBase(time, true, midi_channel)
     {
     }
 
+public:
     bool play()
     {
-        bool rv = false;
-        for (InstrumentBase* instrument : instruments)
-        {
-            rv |= instrument->play();
-        }
-        return rv;
+        return instruments[selection % instruments.size()]->play();
     }
 
     void randomize()
@@ -35,8 +35,8 @@ public:
 
     virtual std::vector<InstrumentBase*> get_ptrs()
     {
-        return instruments;
+        return { instruments[selection % instruments.size()] };
     }
-
 };
+
 }

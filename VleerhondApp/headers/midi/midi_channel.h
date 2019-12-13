@@ -33,8 +33,7 @@ namespace Vleerhond
         void _send_note_off(const uint8_t pitch);
 
     public:
-        MidiChannel();
-        void set_channel(const uint8_t channel, const int8_t offset = 0);
+        MidiChannel(const uint8_t channel, const int8_t offset = 0);
         void process_events();
         void note_off(uint8_t pitch);
         void note_on(const NoteStruct& note);

@@ -38,12 +38,11 @@ namespace Vleerhond
         TanzbarTom(
             Modulators& modulators,
             TimeStruct& time) :
-            Toms(modulators, time),
+            Toms(modulators, time, MIDI_CHANNEL_TANZBAR),
             low_pitch(modulators),
             mid_pitch(modulators),
             high_pitch(modulators)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
         }
 
         void randomize()

@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.\headers;.\headers\application;.\headers\instruments;.\headers\instruments\drums;.\headers\instruments\mfb_522;.\headers\instruments\mfb_503;.\headers\instruments\tanzbar;.\headers\instruments\vermona;.\headers\instruments\tonal_instruments;.\headers\midi;.\headers\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\VleerhondApp\headers;..\VleerhondApp\headers\application;..\VleerhondApp\headers\instruments;..\VleerhondApp\headers\instruments\drums;..\VleerhondApp\headers\instruments\mfb_522;..\VleerhondApp\headers\instruments\mfb_503;..\VleerhondApp\headers\instruments\tanzbar;..\VleerhondApp\headers\instruments\vermona;..\VleerhondApp\headers\instruments\tonal_instruments;..\VleerhondApp\headers\midi;..\VleerhondApp\headers\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

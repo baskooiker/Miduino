@@ -20,10 +20,11 @@
 #define MIDI_CHANNEL_MONO_2     8
 #define MIDI_CHANNEL_MINITAUR   9
 #define VERMONA_CONTROL_CHANNEL 14
+#define MIDI_CHANNEL_TB303      14
 
-#define MIDI_CHANNEL_POLY     13
-#define MIDI_CHANNEL_503      15
-#define MIDI_CHANNEL_522      12
+#define MIDI_CHANNEL_POLY       13
+#define MIDI_CHANNEL_503        15
+#define MIDI_CHANNEL_522        12
 
 #define COMMON_DENOMINATOR 240240 // Exept 9
 #define TICKS_PER_STEP 6

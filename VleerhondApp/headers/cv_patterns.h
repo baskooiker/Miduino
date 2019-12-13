@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+
 #include "ab.h"
 #include "consts.h"
 #include "enums.h"
@@ -38,6 +40,16 @@ namespace Vleerhond
         uint8_t value(const uint8_t step) const
         {
             return this->pattern[step % STEPS_IN_BAR];
+        }
+
+        std::string toString(const int length = 16)
+        {
+            std::stringstream ss;
+            for (int i = 0; i < length; i++)
+            {
+                ss << std::to_string(this->value(i)) << " ";
+            }
+            return ss.str();
         }
     };
 
@@ -146,6 +158,16 @@ namespace Vleerhond
                 this->patterns[i].randomize(max, min);
             }
             this->abPattern.set_ab_pattern();
+        }
+
+        std::string toString()
+        {
+            std::stringstream ss;
+            for (int i = 0; i < 4; i++)
+            {
+                ss << this->patterns[this->abPattern.value(i)].toString(this->length) << "\n";
+            }
+            return ss.str();
         }
     };
 }

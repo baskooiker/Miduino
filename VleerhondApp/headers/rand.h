@@ -62,9 +62,11 @@ public:
         const uint16_t e = 0,
         const uint16_t f = 0)
     {
+        // Use std::discrete_ditribution
+        // https://stackoverflow.com/questions/1761626/weighted-random-numbers
         uint16_t total = (uint16_t)a + (uint16_t)b + (uint16_t)c + (uint16_t)d + (uint16_t)e + (uint16_t)f;
         uint16_t r = randui16(total);
-        if (r <= a)
+        if (r < a)
             return 0;
         if (r < (a + b))
             return 1;

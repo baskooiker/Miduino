@@ -21,9 +21,8 @@ namespace Vleerhond
         Mfb503Hats(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            Hats(modulators_ref, time_ref)
+            Hats(modulators_ref, time_ref, MIDI_CHANNEL_503)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_503);
             pitch_closed = NOTE_503_HH;
             pitch_open = NOTE_503_OH;
 

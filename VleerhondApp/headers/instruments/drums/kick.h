@@ -15,11 +15,12 @@ namespace Vleerhond
 
     public:
         GatePatternAB bd_pattern;
-        GatePatternAB accents;
+        GatePatternAB ghost_notes;
 
         Kick(
             Modulators& modulators_ref,
-            TimeStruct& time_ref
+            TimeStruct& time_ref,
+            const uint8_t midi_channel
         );
         virtual void randomize();
         virtual bool play();

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <sstream>
+#include <iostream>
+
 #include "ab.h"
 #include "defs.h"
 #include "rand.h"
@@ -250,6 +253,16 @@ namespace Vleerhond
             this->set_gate(idx + 1, true);
             return true;
         }
+
+        std::string toString()
+        {
+            std::stringstream ss;
+            for (int i = 0; i < 16; i++)
+            {
+                ss << (this->gate(i) == true ? "1" : "0") << " ";
+            }
+            return ss.str();
+        }
     };
 
     class GatePattern16
@@ -438,5 +451,16 @@ namespace Vleerhond
                 patterns[i].remove_one();
             }
         }
+
+        std::string toString()
+        {
+            std::stringstream ss;
+            for (int bar = 0; bar < 4; bar++)
+            {
+                ss << this->patterns[this->abPattern.value(bar)].toString() << std::endl;
+            }
+            return ss.str();
+        }
+
     };
 }

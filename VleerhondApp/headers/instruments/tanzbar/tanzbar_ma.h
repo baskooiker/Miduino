@@ -52,10 +52,9 @@ namespace Vleerhond
         TanzbarMa(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            InstrumentBase(time_ref, true),
+            InstrumentBase(time_ref, true, MIDI_CHANNEL_TANZBAR),
             decay_mod(modulators_ref)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
         }
 
         void randomize()

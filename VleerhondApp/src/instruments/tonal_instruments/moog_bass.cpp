@@ -1,26 +1,24 @@
-#include "rocket_bass.h"
+#include "moog_bass.h"
 
 namespace Vleerhond
 {
-    RocketBass::RocketBass(
+    MoogBass::MoogBass(
         Modulators& modulators,
         HarmonyStruct& harmony,
         TimeStruct& time) :
-        Bass(harmony, time),
+        Bass(harmony, time, MIDI_CHANNEL_MINITAUR),
         vel_mod(modulators)
     {
-        midi_channel.set_channel(MIDI_CHANNEL_MINITAUR);
-
-        params.push_back({ MINITAUR_CC_LFO_MIDI_SYNC  ,   0,  63, MIDI_CHANNEL_MINITAUR }); // MidiSync on
+        params.push_back({ MINITAUR_CC_LFO_MIDI_SYNC  ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_LFO_KEY_TRIGGER,   0, 127, MIDI_CHANNEL_MINITAUR });
-        params.push_back({ MINITAUR_CC_MOD_SOURCE     ,   0,  64, MIDI_CHANNEL_MINITAUR }); // No ADSR or SnH
+        params.push_back({ MINITAUR_CC_MOD_SOURCE     ,   0,   1, MIDI_CHANNEL_MINITAUR }); // Only sine
         params.push_back({ MINITAUR_CC_VCO1_WAVE      ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_VCO2_WAVE      ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_VCO2_HARD_SYNC ,  64, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_VCO2_MODULATION,  64, 127, MIDI_CHANNEL_MINITAUR }); // Pitch mod only on VCO2
         params.push_back({ MINITAUR_CC_GLIDE_TYPE     ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_LEGATO_GLIDE   ,  64, 127, MIDI_CHANNEL_MINITAUR }); // Only on legato notes
-        params.push_back({ MINITAUR_CC_FILTER_VELOCITY,   0, 127, MIDI_CHANNEL_MINITAUR });
+        params.push_back({ MINITAUR_CC_FILTER_VELOCITY,  64,  64, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_VOLUME_VELOCITY,   0, 127, MIDI_CHANNEL_MINITAUR });
         
 
@@ -36,7 +34,8 @@ namespace Vleerhond
         settings.euclid_16.p_11 = 0;
 
         settings.euclid_8.p_3 = 16;
-        settings.euclid_8.p_4 = 16;
+        settings.euclid_8.p_5 = 16;
+        settings.euclid_8.p_7 = 16;
 
         settings.diddles.p_min = .6;
         settings.diddles.p_max = .9;
@@ -44,20 +43,20 @@ namespace Vleerhond
         settings.p_octave_sh = 0;
     }
 
-    void RocketBass::randomize()
+    void MoogBass::randomize()
     {
         Bass::randomize();
         uint8_t range = Rand::randui8(64);
         vel_mod.randomize(range, 64);
     }
 
-    void RocketBass::total_randomize()
+    void MoogBass::total_randomize()
     {
         randomize_parameters();
         Bass::total_randomize();
     }
 
-    uint8_t RocketBass::get_velocity()
+    uint8_t MoogBass::get_velocity()
     {
         uint8_t value = 100;
         //vel_mod.value(time, value);

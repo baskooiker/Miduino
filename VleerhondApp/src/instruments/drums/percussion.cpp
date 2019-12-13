@@ -9,8 +9,9 @@ namespace Vleerhond
 {
     Percussion::Percussion(
         Modulators& modulators_ref,
-        TimeStruct& time_ref) :
-        InstrumentBase(time_ref, true),
+        TimeStruct& time_ref,
+        const uint8_t midi_channel) :
+        InstrumentBase(time_ref, true, midi_channel),
         velocity_mod(modulators_ref)
     {
     }
@@ -19,10 +20,15 @@ namespace Vleerhond
     {
         last_randomized_time = millis();
 
-        switch (Rand::distribution(16, 16))
+        switch (Rand::distribution(32, 16))
         {
         case 0:
             this->pattern.randomize(Rand::randf(.5, 1.0));
+            switch (Rand::distribution(settings.p_length_8, settings.p_length_16))
+            {
+            case 0: pattern.length = 8; break;
+            case 1: pattern.length = 16; break;
+            }
             break;
         case 1:
             this->pattern.set_coef_kick_pattern();

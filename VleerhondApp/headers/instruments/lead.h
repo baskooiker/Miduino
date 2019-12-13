@@ -18,8 +18,8 @@ namespace Vleerhond
         GatePatternAB pattern_slow;
         LeadStyle style;
 
-        LeadSettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-            TonalInstrumentBase(harmony_ref, time_ref, true)
+        LeadSettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref, const uint8_t midi_channel) :
+            TonalInstrumentBase(harmony_ref, time_ref, true, midi_channel)
         {
             style = LeadStyle::LeadSlow;
         }

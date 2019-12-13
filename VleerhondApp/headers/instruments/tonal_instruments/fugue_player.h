@@ -20,7 +20,12 @@ namespace Vleerhond
         NoteInterval note_interval;
         uint8_t note_repeat;
 
-        FuguePlayer(HarmonyStruct& harmony, TimeStruct& time, Fugue& fugue);
+        FuguePlayer(
+            HarmonyStruct& harmony, 
+            TimeStruct& time, 
+            Fugue& fugue, 
+            const uint8_t midi_channel
+        );
         bool play();
         void randomize();
         void reset();

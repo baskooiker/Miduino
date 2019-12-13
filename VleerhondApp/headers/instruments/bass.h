@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+
 #include "cv_patterns.h"
 #include "euclid.h"
 #include "gate_patterns.h"
@@ -16,6 +18,7 @@ namespace Vleerhond
     protected:
         SampleAndHold octave_sh;
 
+    public:
         struct
         {
             struct
@@ -31,7 +34,8 @@ namespace Vleerhond
             struct
             {
                 uint8_t p_3 = 40;
-                uint8_t p_4 = 20;
+                uint8_t p_5 = 20;
+                uint8_t p_7 = 20;
             } euclid_8;
             uint8_t p_euclid_8 = 8;
 
@@ -62,11 +66,15 @@ namespace Vleerhond
         CvPatternAB note_range_prob;
         uint8_t note_range_value;
         uint8_t density;
+        uint8_t variable_octave = 0;
 
         Bass(
             HarmonyStruct& harmony_ref,
-            TimeStruct& time_ref) :
-            TonalInstrumentBase(harmony_ref, time_ref, true),
+            TimeStruct& time_ref,
+            const uint8_t midi_channel,
+            const uint8_t offset=0
+        ) :
+            TonalInstrumentBase(harmony_ref, time_ref, true, midi_channel, offset),
             octave_sh(TimeDivision::Sixteenth)
         {
             pitch_range = 0;
@@ -80,9 +88,10 @@ namespace Vleerhond
 
         void randomize_octaves()
         {
+            ofLogNotice("", "randomize_octaves");
             this->octaves.randomize(2, Rand::randui8(4, 6));
             this->octaves.patterns[0].set(0, 0);
-            switch (Rand::distribution(16, 16, 16, 16))
+            switch (Rand::distribution(0, 16, 16, 16))
             {
             case 0: this->octaves.length = 2; break;
             case 1: this->octaves.length = 4; break;
@@ -101,6 +110,7 @@ namespace Vleerhond
 
         void randomize_pitches()
         {
+            ofLogNotice("", "randomize_pitches");
             // Randomize pitches
             this->pitches.randomize();
             for (int i = 0; i < 3; i++)
@@ -128,6 +138,7 @@ namespace Vleerhond
 
         void randomize_gates()
         {
+            ofLogNotice("", "randomize_gates");
             // Randomize gates
             this->probs.randomize();
             switch (Rand::distribution(32, 16, 16))
@@ -171,11 +182,13 @@ namespace Vleerhond
                 // Euclid length 8
                 uint8_t steps = 3;
                 switch (Rand::distribution(
-                    settings.euclid_8.p_3, 
-                    settings.euclid_8.p_4))
+                    settings.euclid_8.p_3,
+                    settings.euclid_8.p_5,
+                    settings.euclid_8.p_7))
                 {
                 case 0: steps = 3;  break;
-                case 1: steps = 4;  break;
+                case 1: steps = 5;  break;
+                case 2: steps = 7;  break;
                 }
                 this->euclid_pattern.set_euclid(8, steps);
                 this->euclid_pattern.length = 8; 
@@ -192,13 +205,28 @@ namespace Vleerhond
             case 3:
             {
                 // Setting diddles
+                uint8_t length = 8;
+                switch (Rand::distribution(16, 16))
+                {
+                case 0:
+                    length = 8;
+                    break;
+                case 1:
+                    length = 16;
+                    break;
+                }
                 euclid_pattern.set_diddles(
                     Rand::randf(
                         settings.diddles.p_min, 
                         settings.diddles.p_max
                     ), 
                     true,
-                    Rand::distribution(16, 16) == 1 ? 16 : 8);
+                    length
+                );
+                if (length > 8)
+                {
+                    euclid_pattern.abPattern.set_ab_pattern_const(0);
+                }
                 style = BassStyle::BassEuclid;
                 break;
             }
@@ -208,8 +236,21 @@ namespace Vleerhond
 
         void randomize_accents()
         {
+            ofLogNotice("", "randomize_accents");
             this->slides.randomize(Rand::randf(.50f, .80f));
+            slides.length = 8;
+            slides.set(0, false);
+
             this->accents.randomize(Rand::randf(.15f, .4f));
+            switch (Rand::distribution(0, 16))
+            {
+            case 0:
+                this->accents.length = 4;
+                break;
+            case 1:
+                break;
+                this->accents.length = 8;
+            }
         }
 
         void randomize()
@@ -295,12 +336,12 @@ namespace Vleerhond
             );
 
             uint8_t octave = this->octaves.value(time);
-            if (variable_pitch < this->pitch_range)
+            if (variable_octave < this->pitch_range)
             {
-                pitch += (variable_pitch % 3 + 1) * 12;
+                pitch += (variable_octave % 3 + 1) * 12;
             }
 
-            pitch = Utils::clip_pitch(pitch, pitch_offset, Utils::rerange(variable_pitch, pitch_offset + 12, 36));
+            pitch = Utils::clip_pitch(pitch, pitch_offset, Utils::rerange(variable_octave, pitch_offset + 12, 36));
 
             return pitch;
         }
@@ -351,6 +392,18 @@ namespace Vleerhond
                 return true;
             }
             return false;
+        }
+
+        std::string toString()
+        {
+            std::stringstream ss;
+            ss << "gates\n";
+            ss << this->euclid_pattern.toString() << "\n\n";
+            ss << "pitches\n";
+            ss << this->pitches.toString() << "\n";
+            ss << "octaves\n";
+            ss << this->octaves.toString() << "\n";
+            return ss.str();
         }
 
     };

@@ -67,11 +67,11 @@
     <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp">
       <Filter>src\instruments\tonal_instruments</Filter>
     </ClCompile>
-    <ClCompile Include="src\instruments\tonal_instruments\rocket_bass.cpp">
-      <Filter>src\instruments\tonal_instruments</Filter>
-    </ClCompile>
     <ClCompile Include="src\midi\midi_channel.cpp">
       <Filter>src\instruments\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,9 +371,6 @@
     <ClInclude Include="headers\instruments\parameters.h">
       <Filter>headers\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\tonal_instruments\rocket_bass.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\bass.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
@@ -388,9 +385,6 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_503.h">
-      <Filter>headers\instruments\mfb_503</Filter>
     </ClInclude>
     <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
@@ -421,6 +415,18 @@
     </ClInclude>
     <ClInclude Include="headers\midi\midi_io.h">
       <Filter>headers\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\moog_bass.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\rocket_mono.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\303_acid_bass.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\instrument_rack.h">
+      <Filter>headers\instruments</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -29,11 +29,10 @@ namespace Vleerhond
         TanzbarHats(
             Modulators& modulators,
             TimeStruct& time) :
-            Hats(modulators, time),
+            Hats(modulators, time, MIDI_CHANNEL_TANZBAR),
             tune_mod(modulators),
             oh_dec(modulators)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             hat_closed_style = HatClosedStyle::HatClosedRegular;
             randomize();
 

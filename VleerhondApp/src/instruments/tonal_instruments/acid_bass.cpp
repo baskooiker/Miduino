@@ -5,9 +5,8 @@ namespace Vleerhond
     AcidBass::AcidBass(
         HarmonyStruct& harmony,
         TimeStruct& time) :
-        Bass(harmony, time)
+        Bass(harmony, time, MIDI_CHANNEL_BASS, 24)
     {
-        midi_channel.set_channel(MIDI_CHANNEL_BASS, 24);
         MidiIO::send_cc(VERMONA_SYNTH_1_MOD_WHEEL, 127, VERMONA_CONTROL_CHANNEL);
 
         settings.p_euclid_16 = 16;

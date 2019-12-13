@@ -9,8 +9,9 @@ namespace Vleerhond
 {
     Snare::Snare(
         Modulators& modulators_ref,
-        TimeStruct& time_ref) :
-        InstrumentBase(time_ref, true)
+        TimeStruct& time_ref,
+        const uint8_t midi_channel) :
+        InstrumentBase(time_ref, true, midi_channel)
     {
     }
 
@@ -18,18 +19,29 @@ namespace Vleerhond
     {
         last_randomized_time = millis();
 
-        switch (Rand::distribution(16, 32, 16))
+        switch (Rand::distribution(
+            settings.p_coef, 
+            settings.p_off, 
+            settings.p_rand))
         {
-        case 0:
+        case 0: // Coef
+            //ofLogNotice("", "randomize snare coef");
             this->pattern.set_coef_snare_pattern();
             break;
-        case 1:
+        case 1: // Off
+            //ofLogNotice("", "randomize snare off");
             this->pattern.set_all(0);
             this->pattern.set(4, true);
             this->pattern.set(12, true);
             break;
-        case 2:
-            this->pattern.randomize(.75);
+        case 2: // Random
+            //ofLogNotice("", "randomize snare rand");
+            this->pattern.randomize(Rand::randf(settings.p_rand_min, settings.p_rand_max));
+            switch (Rand::distribution(settings.p_length_8, settings.p_length_16))
+            {
+            case 0: pattern.length = 8; break;
+            case 1: pattern.length = 16; break;
+            }
             break;
         }
 
@@ -85,5 +97,10 @@ namespace Vleerhond
     {
         // TODO: use modulator
         return 127;
+    }
+
+    void Snare::printPattern()
+    {
+        ofLogNotice("", "Snare pattern\n%s", pattern.toString());
     }
 }

@@ -19,13 +19,13 @@
 
 namespace Vleerhond
 {
-    class RocketBass : public Bass
+    class MoogBass : public Bass
     {
     protected:
         ModulationReceiver vel_mod;
 
     public:
-        RocketBass(
+        MoogBass(
             Modulators& modulators,
             HarmonyStruct& harmony,
             TimeStruct& time

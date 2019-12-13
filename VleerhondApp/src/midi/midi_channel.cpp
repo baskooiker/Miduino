@@ -38,23 +38,12 @@ namespace Vleerhond
         }
     }
 
-    MidiChannel::MidiChannel()
+    MidiChannel::MidiChannel(const uint8_t midi_channel, const int8_t offset)
     {
         size = 0;
         nr_of_events = 0;
-    }
 
-    void MidiChannel::set_channel(const uint8_t midi_channel, const int8_t offset)
-    {
-        if (channel.channel == 0)
-        {
-            channel = ChannelStruct(midi_channel, offset);
-            return;
-        }
-        else
-        {
-            ofLogWarning("MidiChannel", "Midi channel was already set!");
-        }
+        channel = ChannelStruct(midi_channel, offset);
     }
 
     void MidiChannel::process_events()

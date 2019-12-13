@@ -28,12 +28,11 @@ namespace Vleerhond
         TanzbarCp(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            Snare(modulators_ref, time_ref),
+            Snare(modulators_ref, time_ref, MIDI_CHANNEL_TANZBAR),
             cp_trig(modulators_ref),
             filter_mod(modulators_ref)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
-            randomize();
+            settings.p_rand = 0;
             pitch = NOTE_TANZBAR_CP;
         }
 

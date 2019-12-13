@@ -1,7 +1,5 @@
 #include "VleerhondApp.h"
 
-#define NOVATION_ZERO_SL
-
 #include "ofLog.h"
 #include "ofxMidiOut.h"
 #include "ofxMidiIn.h"
@@ -26,32 +24,6 @@ namespace Vleerhond
         midi_out_b.sendNoteOn(channel, pitch, velocity);
         midi_out_c.sendNoteOn(channel, pitch, velocity);
         midi_out_d.sendNoteOn(channel, pitch, velocity);
-        switch (channel)
-        {
-        case MIDI_CHANNEL_TANZBAR:
-            switch (pitch)
-            {
-            case NOTE_TANZBAR_HT:
-                //printf("Hi tom\n");
-                break;
-            case NOTE_TANZBAR_MT:
-                //printf("Mid tom\n");
-                break;
-            case NOTE_TANZBAR_LT:
-                //printf("Lo tom\n");
-                break;
-            case NOTE_TANZBAR_HC:
-                //printf("Hi Conga\n");
-                break;
-            case NOTE_TANZBAR_MC:
-                //printf("Mid Conga\n");
-                break;
-            case NOTE_TANZBAR_LC:
-                //printf("Lo Conga\n");
-                break;
-            }
-            break;
-        }
     }
 
     void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel)
@@ -69,8 +41,6 @@ namespace Vleerhond
         midi_out_c.sendControlChange(channel, cc, value);
         midi_out_d.sendControlChange(channel, cc, value);
     }
-
-#define NOVATION_ZERO_SL
 
     bool open_port(ofxMidiOut& port, std::string name)
     {
@@ -158,14 +128,29 @@ namespace Vleerhond
 
         initialize_midi_ports();
 
-        // don't ignore sysex, timing, & active sense messages,
-        // these are ignored by default
-        midi_in.ignoreTypes(false, false, false);
-        midi_in.addListener(this);
-        midi_in.setVerbose(true);
+        //ofLogNotice("", "acid p_d: %d", data.acid_bass.settings.p_diddles);
 
-        // Init app
-        data.randomize_all();
+        //for (int i = 0; i < 16; i++)
+        //{
+        //    data.acid_bass.total_randomize();
+        //    ofLogNotice("", "\n%s", data.acid_bass.toString());
+        //}
+
+        if (true)
+        {
+            ofExit();
+        }
+        else
+        {
+            // don't ignore sysex, timing, & active sense messages,
+            // these are ignored by default
+            midi_in.ignoreTypes(false, false, false);
+            midi_in.addListener(this);
+            midi_in.setVerbose(true);
+
+            // Init app
+            data.randomize_all();
+        }
     }
 
     void VleerhondApp::play()
@@ -182,6 +167,7 @@ namespace Vleerhond
 
         if (!ports_open())
         {
+            ofExit(-1);
             ofSleepMillis(500);
             initialize_midi_ports();
         }
@@ -248,7 +234,7 @@ namespace Vleerhond
         case MIDI_STOP:
             ofLogNotice("Vleerhond", "Stop!");
             handleStop(this->data);
-            if (data.time.state == PlayState::Stopped)
+            if (is_pressed(get_step_state(data.ui_state.step_state, BTN_LEFT_BTM_08)))
             {
                 ofExit(0);
             }

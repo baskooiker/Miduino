@@ -19,10 +19,9 @@ namespace Vleerhond
             HarmonyStruct& harmony,
             TimeStruct& time,
             Modulators& modulators) :
-            MonoDub(mono, harmony, time),
+            MonoDub(mono, harmony, time, MIDI_CHANNEL_MONO_2),
             velocity_mod(modulators)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
         }
 
         void randomize()

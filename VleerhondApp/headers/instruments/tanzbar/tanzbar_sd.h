@@ -1,11 +1,11 @@
 #pragma once
 
 #include "defs.h"
-#include "instrument_base.h"
+#include "instruments/instrument_base.h"
 #include "modulators.h"
 #include "gate_patterns.h"
-#include "parameters.h"
-#include "snare.h"
+#include "instruments/parameters.h"
+#include "instruments/drums/snare.h"
 
 namespace Vleerhond
 {
@@ -38,11 +38,12 @@ namespace Vleerhond
         TanzbarMid(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            Snare(modulators_ref, time_ref),
+            Snare(modulators_ref, time_ref, MIDI_CHANNEL_TANZBAR),
             rs_tune(modulators_ref)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_TANZBAR);
             pitch = NOTE_TANZBAR_SD;
+            settings.p_coef = 0;
+            settings.p_off = 0;
         }
 
         void randomize()

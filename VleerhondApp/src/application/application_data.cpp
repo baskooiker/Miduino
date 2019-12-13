@@ -9,10 +9,9 @@
 #include "parameters.h"
 
 #include "tanzbar.h"
-#include "mfb_503.h"
 #include "mfb_522.h"
 
-#include "rocket_bass.h"
+#include "moog_bass.h"
 #include "acid_bass.h"
 
 #include "vermona_mono.h"
@@ -25,20 +24,17 @@ namespace Vleerhond
     ApplicationData::ApplicationData() :
         tanzbar(harmony, modulators, time),
         mfb_522(harmony, modulators, time),
-        rocket_bass(modulators, harmony, time),
+        moog_bass(modulators, harmony, time),
         acid_bass(harmony, time),
         mono(harmony, modulators, time),
         mono_dub(mono, harmony, time, modulators),
         drone(harmony, time),
-        fugue_vermona_2(harmony, time, fugue),
-        fugue_vermona_3(harmony, time, fugue),
-        fugue_vermona_4(harmony, time, fugue)
+        fugue_vermona_2(harmony, time, fugue, MIDI_CHANNEL_BASS_DUB),
+        fugue_vermona_3(harmony, time, fugue, MIDI_CHANNEL_MONO),
+        fugue_vermona_4(harmony, time, fugue, MIDI_CHANNEL_MONO_2),
+        rocket_mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET),
+        tb303_bass(harmony, time)
     {
-        drone.midi_channel.set_channel(MIDI_CHANNEL_BASS_DUB);
-        fugue_vermona_2.midi_channel.set_channel(MIDI_CHANNEL_BASS_DUB);
-        fugue_vermona_3.midi_channel.set_channel(MIDI_CHANNEL_MONO);
-        fugue_vermona_4.midi_channel.set_channel(MIDI_CHANNEL_MONO_2);
-
         this->randomize_all();
         set_regular();
     }
@@ -116,17 +112,19 @@ namespace Vleerhond
 
         ptrs.push_back(&this->tanzbar);
 
-        ptrs.push_back(&this->rocket_bass);
-        ptrs.push_back(&this->acid_bass);
+        ptrs.push_back(&this->tb303_bass);
+        ptrs.push_back(&this->moog_bass);
 
-        ptrs.push_back(&this->mono);
-        ptrs.push_back(&this->mono_dub);
+        ptrs.push_back(&rocket_mono);
 
-        ptrs.push_back(&this->drone);
+        //ptrs.push_back(&this->acid_bass);
+        //ptrs.push_back(&this->mono);
+        //ptrs.push_back(&this->mono_dub);
+        //ptrs.push_back(&this->drone);
 
-        ptrs.push_back(&this->fugue_vermona_2);
-        ptrs.push_back(&this->fugue_vermona_3);
-        ptrs.push_back(&this->fugue_vermona_4);
+        //ptrs.push_back(&this->fugue_vermona_2);
+        //ptrs.push_back(&this->fugue_vermona_3);
+        //ptrs.push_back(&this->fugue_vermona_4);
 
         ptrs.push_back(&this->mfb_522);
 
@@ -145,12 +143,12 @@ namespace Vleerhond
     std::vector<InstrumentBase*> ApplicationData::get_randomizable_instruments()
     {
         std::vector<InstrumentBase*> ptrs;
-        std::vector<InstrumentBase*> all_ptrs = get_active_instrument();
-        for (auto ptr : all_ptrs)
+        for (auto ptr : get_active_instrument())
         {
             if (ptr->is_randomizable())
             {
-                ptrs.push_back(ptr);
+                std::vector<InstrumentBase*> v = ptr->get_ptrs();
+                ptrs.insert(ptrs.end(), v.begin(), v.end());
             }
         }
         return ptrs;

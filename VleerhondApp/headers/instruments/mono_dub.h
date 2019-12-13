@@ -13,8 +13,10 @@ namespace Vleerhond
         MonoDub(
             Mono& lead_settings,
             HarmonyStruct& harmony,
-            TimeStruct& time) :
-            TonalInstrumentBase(harmony, time, true),
+            TimeStruct& time,
+            const uint8_t midi_channel,
+            const uint8_t offset = 0) :
+            TonalInstrumentBase(harmony, time, true, midi_channel, offset),
             lead(lead_settings)
         {
         }

@@ -25,10 +25,9 @@ namespace Vleerhond
             Modulators& modulators_ref,
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref) :
-            Kick(modulators_ref, time_ref),
+            Kick(modulators_ref, time_ref, MIDI_CHANNEL_503),
             harmony(harmony_ref)
         {
-            midi_channel.set_channel(MIDI_CHANNEL_503);
             pitch = NOTE_503_BD;
         }
 

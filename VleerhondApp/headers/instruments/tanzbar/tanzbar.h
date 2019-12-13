@@ -29,5 +29,57 @@ public:
     TanzbarMa tanzbar_ma;
 
     Tanzbar(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time);
+
+    std::vector<InstrumentBase*> getLow()
+    {
+        return {
+            &tanzbar_lo
+        };
+    }
+
+    std::vector<InstrumentBase*> getMid()
+    {
+        return {
+            &tanzbar_mid,
+            &tanzbar_cp,
+            &tanzbar_tom,
+            &tanzbar_cb,
+            &tanzbar_cl
+        };
+    }
+
+    std::vector<InstrumentBase*> getHigh()
+    {
+        return {
+            &tanzbar_hats,
+            &tanzbar_hats,
+            &tanzbar_ma
+        };
+    }
+
+    void killLow(const bool kill)
+    {
+        for (auto p : getLow())
+        {
+            p->kill = kill;
+        }
+    }
+
+    void killMid(const bool kill)
+    {
+        for (auto p : getMid())
+        {
+            p->kill = kill;
+        }
+    }
+
+    void killHigh(const bool kill)
+    {
+        for (auto p: getHigh())
+        {
+            p->kill = kill;
+        }
+    }
+
 };
 }

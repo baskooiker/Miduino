@@ -4,8 +4,12 @@ namespace Vleerhond
 {
     static const std::vector<uint8_t> time_intervals{ 1, 1, 2, 2, 4, 6};
 
-    FuguePlayer::FuguePlayer(HarmonyStruct& harmony, TimeStruct& time, Fugue& fugue) :
-        TonalInstrumentBase(harmony, time, true),
+    FuguePlayer::FuguePlayer(
+        HarmonyStruct& harmony, 
+        TimeStruct& time, 
+        Fugue& fugue,
+        const uint8_t midi_channel) :
+        TonalInstrumentBase(harmony, time, true, midi_channel),
         fugue(fugue)
     {
         pitch_offset = 36;

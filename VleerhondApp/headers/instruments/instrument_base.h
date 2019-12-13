@@ -23,8 +23,13 @@ namespace Vleerhond
         MidiChannel midi_channel;
         bool kill;
 
-        InstrumentBase(TimeStruct& time_ref, const bool is_randomizable) :
-            time(time_ref)
+        InstrumentBase(
+            TimeStruct& time_ref, 
+            const bool is_randomizable,
+            const uint8_t midi_channel,
+            const uint8_t offset=0) :
+            time(time_ref),
+            midi_channel(midi_channel, offset)
         {
             kill = false;
             randomizable = is_randomizable;
@@ -85,6 +90,11 @@ namespace Vleerhond
             this->active = active;
         }
 
+        virtual std::vector<InstrumentBase*> get_ptrs()
+        {
+            return { this };
+        }
+
     };
 
     class TonalInstrumentBase : public InstrumentBase
@@ -93,8 +103,13 @@ namespace Vleerhond
         HarmonyStruct& harmony;
 
     public:
-        TonalInstrumentBase(HarmonyStruct& harmony, TimeStruct& time, const bool is_randomizable) :
-            InstrumentBase(time, is_randomizable),
+        TonalInstrumentBase(
+            HarmonyStruct& harmony, 
+            TimeStruct& time, 
+            const bool is_randomizable,
+            const uint8_t midi_channel,
+            const uint8_t offset=0) :
+            InstrumentBase(time, is_randomizable, midi_channel, offset),
             harmony(harmony)
         {
         }

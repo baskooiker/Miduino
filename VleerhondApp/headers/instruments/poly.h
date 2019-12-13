@@ -22,8 +22,11 @@ namespace Vleerhond
     public:
         uint8_t variable_pitch_offset;
 
-        PolySettings(HarmonyStruct& harmony_ref, TimeStruct& time_ref) :
-            TonalInstrumentBase(harmony_ref, time_ref, true)
+        PolySettings(
+            HarmonyStruct& harmony_ref, 
+            TimeStruct& time_ref, 
+            const uint8_t midi_channel) :
+            TonalInstrumentBase(harmony_ref, time_ref, true, midi_channel)
         {
             pitch_offset = 36;
             type = PolyType::PolyLow;
