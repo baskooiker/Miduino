@@ -4,7 +4,7 @@
 #include "timing_structs.h"
 #include "time_struct.h"
 #include "modulators.h"
-#include "gate_patterns.h"
+#include "patterns/gate_patterns.h"
 #include "cymbal.h"
 
 namespace Vleerhond

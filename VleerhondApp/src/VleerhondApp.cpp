@@ -104,6 +104,7 @@ namespace Vleerhond
 
         std::string midi_in_name = "ZeRO MkII";
         midi_in_name = "MIDISPORT 2x4 In 1";
+        midi_in_name = "MIDISPORT 2x4 In 2";
 
         open_port(midi_in, midi_in_name);
         open_port(midi_out_a, midi_a_name);
@@ -125,19 +126,31 @@ namespace Vleerhond
     void VleerhondApp::setup()
     {
         ofLogToConsole();
+        ofLogToConsole();
 
         initialize_midi_ports();
 
-        //ofLogNotice("", "acid p_d: %d", data.acid_bass.settings.p_diddles);
 
-        //for (int i = 0; i < 16; i++)
-        //{
-        //    data.acid_bass.total_randomize();
-        //    ofLogNotice("", "\n%s", data.acid_bass.toString());
-        //}
-
-        if (true)
+        if (false)
         {
+            //ofLogNotice("", "acid p_d: %d", data.acid_bass.settings.p_diddles);
+
+            data.tb303_bass.pitch_offset = 24;
+            for (uint8_t v : {0, 31, 63, 95, 126})
+            {
+                data.acid_bass.total_randomize();
+                data.tb303_bass.variable_octave = v;
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 16; j++)
+                    {
+                        std::cout << (int)data.tb303_bass.get_pitch() << " ";
+                        data.time.tick += 6;
+                    }
+                    std::cout << std::endl;
+                }
+                std::cout << std::endl;
+            }
             ofExit();
         }
         else
@@ -167,7 +180,7 @@ namespace Vleerhond
 
         if (!ports_open())
         {
-            ofExit(-1);
+            ofExit(0);
             ofSleepMillis(500);
             initialize_midi_ports();
         }
@@ -189,35 +202,7 @@ namespace Vleerhond
 
     void VleerhondApp::draw() {}
 
-    void VleerhondApp::keyPressed(int key) {
-        switch (key)
-        {
-        case 'q':
-            ofExit();
-            break;
-        case 'p':
-            break;
-        case 's':
-            ofLogNotice(MODULE, "Stop.");
-            data.time.state = PlayState::Stopped;
-            break;
-        case 'r':
-            ofLogNotice(MODULE, "Randomize");
-            data.randomize_all();
-            break;
-        case 'i':
-            initialize_midi_ports();
-            break;
-        case 'z':
-            break;
-        case 'x':
-            break;
-        case 'c':
-            break;
-        default:
-            break;
-        }
-    }
+    void VleerhondApp::keyPressed(int key) {}
 
     void VleerhondApp::newMidiMessage(ofxMidiMessage& message)
     {
@@ -234,12 +219,15 @@ namespace Vleerhond
         case MIDI_STOP:
             ofLogNotice("Vleerhond", "Stop!");
             handleStop(this->data);
-            if (is_pressed(get_step_state(data.ui_state.step_state, BTN_LEFT_BTM_08)))
+            stop_counter++;
+            if (stop_counter > 8)
             {
-                ofExit(0);
+                ofExit(shutdown_counter > 0 ? -1 : 0);
             }
             break;
         case MIDI_START:
+            stop_counter = 0;
+            shutdown_counter = 0;
             ofLogNotice("Vleerhond", "Start!");
             data.time.state = PlayState::Playing;
             break;
@@ -249,6 +237,10 @@ namespace Vleerhond
             break;
         case MIDI_CONTROL_CHANGE:
             ofLogNotice("MIDIIN", "CC in: %d, %d", message.control, message.value);
+            if (message.value == BTN_LEFT_BTM_08 && data.time.state == PlayState::Stopped)
+            {
+                shutdown_counter++;
+            }
             handleControlChange(this->data, message.channel, message.control, message.value);
             break;
         default:
@@ -269,6 +261,7 @@ namespace Vleerhond
 
     void VleerhondApp::exit()
     {
+        ofLogNotice("", "Closing MIDI ports. shutdown_counter = %d", shutdown_counter);
         midi_in.closePort();
         midi_out_a.closePort();
         midi_out_b.closePort();

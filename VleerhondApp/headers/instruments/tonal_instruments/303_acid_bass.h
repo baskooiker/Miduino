@@ -13,7 +13,6 @@ namespace Vleerhond
             TimeStruct& time) :
             Bass(harmony, time, MIDI_CHANNEL_TB303)
         {
-
             settings.p_euclid_16 = 16;
             settings.p_euclid_8 = 32;
             settings.p_interval = 0;
@@ -28,6 +27,7 @@ namespace Vleerhond
             settings.diddles.p_min = .6;
             settings.diddles.p_max = .9;
 
+            follow_harmony = false;
         }
 
         void randomize()

@@ -4,8 +4,8 @@
 #include "intervals.h"
 #include "midi_io.h"
 
-#include "cv_patterns.h"
-#include "gate_patterns.h"
+#include "patterns/cv_patterns.h"
+#include "patterns/gate_patterns.h"
 #include "midi_channel.h"
 
 namespace Vleerhond

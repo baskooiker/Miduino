@@ -2,7 +2,7 @@
 
 #include "scale.h"
 #include "utils.h"
-#include "ab.h"
+#include "patterns/ab.h"
 
 namespace Vleerhond
 {

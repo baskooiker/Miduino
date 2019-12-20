@@ -27,7 +27,7 @@ namespace Vleerhond
             TimeStruct& time_ref, 
             const bool is_randomizable,
             const uint8_t midi_channel,
-            const uint8_t offset=0) :
+            const int8_t offset=0) :
             time(time_ref),
             midi_channel(midi_channel, offset)
         {
@@ -108,7 +108,7 @@ namespace Vleerhond
             TimeStruct& time, 
             const bool is_randomizable,
             const uint8_t midi_channel,
-            const uint8_t offset=0) :
+            const int8_t offset=0) :
             InstrumentBase(time, is_randomizable, midi_channel, offset),
             harmony(harmony)
         {

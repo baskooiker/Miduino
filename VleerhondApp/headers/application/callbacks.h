@@ -93,7 +93,6 @@ namespace Vleerhond
         case ROTARY_03:
             break;
         case KNOB_03:
-            data.moog_bass.note_range_value = value;
             break;
         case ROTARY_04:
             break;
@@ -132,14 +131,13 @@ namespace Vleerhond
             data.moog_bass.note_range_value = value;
             break;
         case SLIDER_04:
-            data.moog_bass.pitch_range = value;
+            data.moog_bass.variable_octave = value;
             break;
         case SLIDER_05:
-            data.acid_bass.pitch_range = value;
-            data.tb303_bass.pitch_range = value;
+            data.tb303_bass.variable_octave = value;
             break;
         case SLIDER_06:
-            //data.bass_dub_settings.v_pitch = value;
+            data.tb303_bass.pitch_offset = Utils::rerange(value, 24, 24);
             data.fugue_vermona_2.manual_pitch_offset = value;
             data.drone.variable_pitch_range = value;
             break;

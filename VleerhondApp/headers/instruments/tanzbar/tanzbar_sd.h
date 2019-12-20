@@ -3,7 +3,7 @@
 #include "defs.h"
 #include "instruments/instrument_base.h"
 #include "modulators.h"
-#include "gate_patterns.h"
+#include "patterns/gate_patterns.h"
 #include "instruments/parameters.h"
 #include "instruments/drums/snare.h"
 

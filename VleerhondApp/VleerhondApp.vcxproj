@@ -116,10 +116,13 @@
     <ClCompile Include="src\instruments\drums\toms.cpp" />
     <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\acid_bass.cpp" />
+    <ClCompile Include="src\instruments\tonal_instruments\bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\midi\midi_channel.cpp" />
+    <ClCompile Include="src\patterns\binary_pattern.cpp" />
+    <ClCompile Include="src\patterns\gate_patterns.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,18 +148,13 @@
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiOut.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.h" />
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTypes.h" />
-    <ClInclude Include="headers\ab.h" />
     <ClInclude Include="headers\application\application_data.h" />
     <ClInclude Include="headers\application\callbacks.h" />
     <ClInclude Include="headers\arp.h" />
     <ClInclude Include="headers\chords.h" />
     <ClInclude Include="headers\consts.h" />
-    <ClInclude Include="headers\cv_patterns.h" />
     <ClInclude Include="headers\defs.h" />
     <ClInclude Include="headers\enums.h" />
-    <ClInclude Include="headers\euclid.h" />
-    <ClInclude Include="headers\fugue.h" />
-    <ClInclude Include="headers\gate_patterns.h" />
     <ClInclude Include="headers\harmony_struct.h" />
     <ClInclude Include="headers\instruments\bass.h" />
     <ClInclude Include="headers\instruments\drone.h" />
@@ -198,21 +196,24 @@
     <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
     <ClInclude Include="headers\intervals.h" />
-    <ClInclude Include="headers\interval_pattern.h" />
     <ClInclude Include="headers\midi\midi_channel.h" />
     <ClInclude Include="headers\midi\midi_io.h" />
     <ClInclude Include="headers\modulators.h" />
     <ClInclude Include="headers\note_struct.h" />
+    <ClInclude Include="headers\patterns\ab.h" />
+    <ClInclude Include="headers\patterns\binary_pattern.h" />
+    <ClInclude Include="headers\patterns\cv_patterns.h" />
+    <ClInclude Include="headers\patterns\euclid.h" />
+    <ClInclude Include="headers\patterns\fugue.h" />
+    <ClInclude Include="headers\patterns\gate_patterns.h" />
+    <ClInclude Include="headers\patterns\interval_pattern.h" />
     <ClInclude Include="headers\print.h" />
-    <ClInclude Include="headers\rand.h" />
     <ClInclude Include="headers\sample_and_hold.h" />
     <ClInclude Include="headers\scale.h" />
-    <ClInclude Include="headers\steps.h" />
     <ClInclude Include="headers\step_callbacks.h" />
     <ClInclude Include="headers\time_struct.h" />
     <ClInclude Include="headers\timing_structs.h" />
     <ClInclude Include="headers\ui.h" />
-    <ClInclude Include="headers\utils.h" />
     <ClInclude Include="headers\utils\strings.h" />
     <ClInclude Include="src\VleerhondApp.h" />
   </ItemGroup>

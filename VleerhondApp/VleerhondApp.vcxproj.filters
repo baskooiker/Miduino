@@ -73,6 +73,15 @@
     <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp">
       <Filter>src\instruments\tonal_instruments</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\bass.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\binary_pattern.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\gate_patterns.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -149,6 +158,12 @@
     </Filter>
     <Filter Include="src\instruments\midi">
       <UniqueIdentifier>{ce71558f-2963-4d5e-a8ff-68007d7159d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\patterns">
+      <UniqueIdentifier>{acfb2cea-aa85-40fb-b56a-05478d377764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\patterns">
+      <UniqueIdentifier>{df7a9680-85d7-4910-b3cf-9d85fa0097e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -290,12 +305,6 @@
     <ClInclude Include="headers\application\callbacks.h">
       <Filter>headers\app</Filter>
     </ClInclude>
-    <ClInclude Include="headers\utils.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\ab.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\arp.h">
       <Filter>headers</Filter>
     </ClInclude>
@@ -305,28 +314,13 @@
     <ClInclude Include="headers\consts.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\cv_patterns.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\defs.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\enums.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\euclid.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\fugue.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\gate_patterns.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\harmony_struct.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\interval_pattern.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\intervals.h">
@@ -341,16 +335,10 @@
     <ClInclude Include="headers\print.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\rand.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\sample_and_hold.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\scale.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\steps.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\time_struct.h">
@@ -427,6 +415,27 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\instrument_rack.h">
       <Filter>headers\instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\ab.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\cv_patterns.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\euclid.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\fugue.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\gate_patterns.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\interval_pattern.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\binary_pattern.h">
+      <Filter>headers\patterns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

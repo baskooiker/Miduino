@@ -11,7 +11,7 @@ namespace Vleerhond
     {
         params.push_back({ MINITAUR_CC_LFO_MIDI_SYNC  ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_LFO_KEY_TRIGGER,   0, 127, MIDI_CHANNEL_MINITAUR });
-        params.push_back({ MINITAUR_CC_MOD_SOURCE     ,   0,   1, MIDI_CHANNEL_MINITAUR }); // Only sine
+        params.push_back({ MINITAUR_CC_MOD_SOURCE     ,  16,  16, MIDI_CHANNEL_MINITAUR }); // Only sine
         params.push_back({ MINITAUR_CC_VCO1_WAVE      ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_VCO2_WAVE      ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_VCO2_HARD_SYNC ,  64, 127, MIDI_CHANNEL_MINITAUR });
@@ -19,7 +19,7 @@ namespace Vleerhond
         params.push_back({ MINITAUR_CC_GLIDE_TYPE     ,   0, 127, MIDI_CHANNEL_MINITAUR });
         params.push_back({ MINITAUR_CC_LEGATO_GLIDE   ,  64, 127, MIDI_CHANNEL_MINITAUR }); // Only on legato notes
         params.push_back({ MINITAUR_CC_FILTER_VELOCITY,  64,  64, MIDI_CHANNEL_MINITAUR });
-        params.push_back({ MINITAUR_CC_VOLUME_VELOCITY,   0, 127, MIDI_CHANNEL_MINITAUR });
+        params.push_back({ MINITAUR_CC_VOLUME_VELOCITY,  64,  64, MIDI_CHANNEL_MINITAUR });
         
 
         settings.p_euclid_16 = 16;

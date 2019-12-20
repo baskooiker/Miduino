@@ -28,8 +28,6 @@ namespace Vleerhond
         ModulationReceiver bd2_pitch_mod;
 
     public:
-        GatePatternAB bd2_pattern;
-
         TanzbarLo(
             Modulators& modulators,
             TimeStruct& time) :
@@ -43,32 +41,7 @@ namespace Vleerhond
         {
             ofLogNotice("tanzbar_lo", "randomize()");
             Kick::randomize();
-            //last_randomized_time = millis();
 
-            //Coefficients coef = { 0 };
-            //coef.one = 1.f;
-            //coef.two = 1.f;
-            //coef.three = 1.f;
-            //coef.four = 1.f;
-            //coef.eights = Rand::randf(.25);
-            //bd_pattern.set_coef_pattern(coef);
-            //this->accents = this->bd_pattern;
-
-            Coefficients coef = { 0 };
-            coef.one = 0.f;
-            coef.two = 0.f;
-            coef.three = 0.f;
-            coef.four = 0.f;
-            coef.up = Rand::randf(.125);
-            coef.down = Rand::randf(.06125);
-            bd2_pattern.set_coef_pattern(coef);
-
-            //if (Rand::distribution(32, 12))
-            //{
-            //    this->randomize_kick();
-            //}
-
-            //this->timing.randomize();
             Parameters::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params, MIDI_CC_CHANNEL_TANZBAR);
 
             uint8_t range = Rand::randui8(96);
@@ -82,27 +55,21 @@ namespace Vleerhond
                 return false;
             }
 
-            if (Kick::play())
+            bool rv = Kick::play();
+            if (Utils::interval_hit(TimeDivision::Quarter, time))
             {
-                return true;
-            }
-            else
-            {
-                if (this->bd2_pattern.gate(time))
+                uint8_t value = 0;
+                if (bd2_pitch_mod.value(time, value))
                 {
-                    uint8_t value = 0;
-                    if (bd2_pitch_mod.value(time, value))
-                    {
-                        MidiIO::send_cc(TB_BD2_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
-                    }
-                    this->midi_channel.note_on(
-                        NoteStruct(NOTE_TANZBAR_BD2, get_velocity()),
-                        time.get_shuffle_delay(this->timing)
-                    );
-                    return true;
+                    MidiIO::send_cc(TB_BD2_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
                 }
+                this->midi_channel.note_on(
+                    NoteStruct(NOTE_TANZBAR_BD2, get_velocity()),
+                    time.get_shuffle_delay(this->timing)
+                );
+                rv = true;
             }
-            return false;
+            return rv;
         }
     };
 }

@@ -1,7 +1,7 @@
 #include "kick.h"
 
 #include "instrument_base.h"
-#include "gate_patterns.h"
+#include "patterns/gate_patterns.h"
 #include "modulators.h"
 #include "parameters.h"
 
@@ -22,7 +22,7 @@ namespace Vleerhond
 
         this->bd_pattern.set_coef_kick_pattern();
 
-        switch (Rand::distribution(16, 16))
+        switch (Rand::distribution(16, 16, 64))
         {
         case 0:
         {
@@ -32,12 +32,14 @@ namespace Vleerhond
         case 1:
         {
             Coefficients ghost_coef = { 0 };
-            ghost_coef.eights = Rand::randf(.25);
-            ghost_coef.up = Rand::randf(.125);
-            ghost_coef.down = Rand::randf(.125);
+            ghost_coef.eights = Rand::randf(.125);
+            ghost_coef.up = Rand::randf(.0625);
+            ghost_coef.down = Rand::randf(.0625);
             this->ghost_notes.set_coef_pattern(ghost_coef);
             break;
         }
+        case 2:
+            break;
         }
 
         this->timing.randomize();

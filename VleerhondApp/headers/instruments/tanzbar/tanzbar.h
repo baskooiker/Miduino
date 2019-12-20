@@ -52,7 +52,7 @@ public:
     {
         return {
             &tanzbar_hats,
-            &tanzbar_hats,
+            &tanzbar_cy,
             &tanzbar_ma
         };
     }

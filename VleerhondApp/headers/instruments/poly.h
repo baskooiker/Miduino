@@ -3,10 +3,10 @@
 #include "arp.h"
 #include "chords.h"
 #include "defs.h"
-#include "euclid.h"
+#include "patterns/euclid.h"
 #include "midi_io.h"
 
-#include "gate_patterns.h"
+#include "patterns/gate_patterns.h"
 
 namespace Vleerhond
 {

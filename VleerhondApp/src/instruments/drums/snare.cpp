@@ -1,7 +1,7 @@
 #include "snare.h"
 
 #include "instrument_base.h"
-#include "gate_patterns.h"
+#include "patterns/gate_patterns.h"
 #include "modulators.h"
 #include "parameters.h"
 

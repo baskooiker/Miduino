@@ -1,10 +1,10 @@
 #pragma once
 
 #include "instrument_base.h"
-#include "gate_patterns.h"
+#include "patterns/gate_patterns.h"
 #include "modulators.h"
 #include "parameters.h"
-#include "interval_pattern.h"
+#include "patterns/interval_pattern.h"
 
 namespace Vleerhond
 {

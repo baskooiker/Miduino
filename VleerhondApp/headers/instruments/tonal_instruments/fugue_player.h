@@ -1,7 +1,7 @@
 #pragma once
 
 #include "instrument_base.h"
-#include "fugue.h"
+#include "patterns/fugue.h"
 
 namespace Vleerhond
 {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "cv_patterns.h"
-#include "gate_patterns.h"
-#include "interval_pattern.h"
+#include "patterns/cv_patterns.h"
+#include "patterns/gate_patterns.h"
+#include "patterns/interval_pattern.h"
 #include "arp.h"
 #include "rand.h"
 #include "sample_and_hold.h"
