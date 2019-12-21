@@ -24,21 +24,34 @@ void Bass::randomize_octaves()
 {
     ofLogNotice("", "randomize_octaves");
     this->octaves.randomize();
-    //this->octaves.patterns[0].set(0, 0);
-    switch (Rand::distribution(0, 16, 16, 16))
+    switch (Rand::distribution(16, 16, 16))
     {
-    case 0: this->octaves.length = 2; break;
-    case 1: this->octaves.length = 4; break;
-    case 2: this->octaves.length = 8; break;
-    case 3: this->octaves.length = 16; break;
+    case 0: 
+        this->octaves.length = 4; 
+        break;
+    case 1: 
+        this->octaves.length = 8; 
+        break;
+    case 2: 
+        this->octaves.length = 16; 
+        octaves.abPattern.set_ab_pattern_const();
+        break;
     }
+
+
     this->variable_octaves.randomize();
-    switch (Rand::distribution(16, 16, 16, 16))
+    switch (Rand::distribution(16, 16, 16))
     {
-    case 0: this->variable_octaves.length = 2; break;
-    case 1: this->variable_octaves.length = 4; break;
-    case 2: this->variable_octaves.length = 8; break;
-    case 3: this->variable_octaves.length = 16; break;
+    case 0: 
+        this->variable_octaves.length = 4; 
+        break;
+    case 1: 
+        this->variable_octaves.length = 8; 
+        break;
+    case 2: 
+        this->variable_octaves.length = 16;
+        octaves.abPattern.set_ab_pattern_const();
+        break;
     }
 }
 
@@ -52,21 +65,18 @@ void Bass::randomize_pitches()
         this->pitches.patterns[i].set(0, 0);
     }
 
-    uint8_t prob_2 = this->pitches.abPattern.isConstant() ? 0 : 32;
-    switch (Rand::distribution(prob_2, 16, 16))
+    switch (Rand::distribution(16, 16))
     {
-    case 0: this->pitches.length = 2; break;
-    case 1: this->pitches.length = 4; break;
-    case 2: this->pitches.length = 8; break;
+    case 0: this->pitches.length = 4; break;
+    case 1: this->pitches.length = 8; break;
     }
 
     this->note_range_prob.randomize();
-    switch (Rand::distribution(0, 0, 16, 0))
+    switch (Rand::distribution(0, 16, 0))
     {
-    case 0: this->note_range_prob.length = 2; break;
-    case 1: this->note_range_prob.length = 4; break;
-    case 2: this->note_range_prob.length = 8; break;
-    case 3: this->note_range_prob.length = 16; break;
+    case 0: this->note_range_prob.length = 4; break;
+    case 1: this->note_range_prob.length = 8; break;
+    case 2: this->note_range_prob.length = 16; break;
     }
 }
 
@@ -75,11 +85,14 @@ void Bass::randomize_gates()
     ofLogNotice("", "randomize_gates");
     // Randomize gates
     this->probs.randomize();
-    switch (Rand::distribution(32, 16, 16))
+    switch (Rand::distribution(0, 16))
     {
-    case 0: this->probs.length = 4; break;
-    case 1: this->probs.length = 8; break;
-    case 2: this->probs.length = 16; break;
+    case 0: 
+        this->probs.length = 8; 
+        break;
+    case 1: 
+        this->probs.length = 16; 
+        break;
     }
 
     switch (Rand::distribution(
@@ -108,6 +121,7 @@ void Bass::randomize_gates()
         }
         this->euclid_pattern.set_euclid(16, steps);
         this->euclid_pattern.length = 16;
+        this->euclid_pattern.abPattern.set_ab_pattern_const();
         style = BassStyle::BassEuclid;
         break;
     }

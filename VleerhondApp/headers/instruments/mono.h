@@ -193,8 +193,22 @@ namespace Vleerhond
             return hit;
         }
 
+        uint8_t get_sequence_pitch() const
+        {
+            uint8_t pitch = harmony.scale.get_penta(this->pitch_pattern.value(time));
+            pitch = Utils::clip_pitch(pitch, variable_pitch_offset);
+            uint8_t octave = Utils::rerange(octave_pattern.value(time), this->octave_range);
+            pitch += octave * 12;
+            return pitch;
+        }
+
         uint8_t get_next_mono_pitch()
         {
+            if (pitch_mode == MonoPitchMode::SEQUENCE)
+            {
+                return get_sequence_pitch();
+            }
+            // Else if ARP
             this->arp_data.min = Utils::rerange(this->variable_pitch_offset, 48, 36);
             uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, harmony.get_chord_step(time));
             return pitch;
@@ -204,11 +218,7 @@ namespace Vleerhond
         {
             if (pitch_mode == MonoPitchMode::SEQUENCE)
             {
-                uint8_t pitch = harmony.scale.get_penta(this->pitch_pattern.value(time));
-                pitch = Utils::clip_pitch(pitch, variable_pitch_offset);
-                uint8_t octave = Utils::rerange(octave_pattern.value(time), this->octave_range);
-                pitch += octave * 12;
-                return pitch;
+                return get_sequence_pitch();
             }
             // Else MonoPitchMode::ARP
             return this->arp_data.get_arp_pitch();
@@ -222,7 +232,7 @@ namespace Vleerhond
                 note_event.hit = get_hit();
                 if (note_event.hit)
                 {
-                    uint8_t pitch = this->get_mono_pitch();
+                    uint8_t pitch = this->get_next_mono_pitch();
 
                     uint8_t length = 6;
                     if (this->style == MonoStyle::MonoLeadPattern)

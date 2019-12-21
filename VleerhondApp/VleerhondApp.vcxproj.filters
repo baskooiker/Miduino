@@ -82,6 +82,12 @@
     <ClCompile Include="src\patterns\gate_patterns.cpp">
       <Filter>src\patterns</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\mfb_522.cpp">
+      <Filter>src\instruments</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\cv_patterns.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -164,6 +170,9 @@
     </Filter>
     <Filter Include="src\patterns">
       <UniqueIdentifier>{df7a9680-85d7-4910-b3cf-9d85fa0097e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\instruments\mfb_522">
+      <UniqueIdentifier>{3a49fbe8-9d72-4d12-b637-b67f6c5cde08}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -389,9 +398,6 @@
     <ClInclude Include="headers\instruments\mono_dub.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mfb_522\mfb_522.h">
-      <Filter>headers\instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\instrument_group.h">
       <Filter>headers\instruments</Filter>
     </ClInclude>
@@ -436,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="headers\patterns\binary_pattern.h">
       <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\mfb_522\mfb_522.h">
+      <Filter>headers\instruments\mfb_522</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
