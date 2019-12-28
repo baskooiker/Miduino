@@ -36,7 +36,29 @@ namespace Vleerhond
     void Hats::randomize_seq()
     {
         // Randomize hats
-        this->oh_pattern.set_coef_hat_pattern();
+        switch (Rand::distribution(
+            settings.p_off,
+            settings.p_euclid,
+            settings.p_drop
+        ))
+        {
+        case 0:
+            this->oh_pattern.set_coef_hat_pattern();
+            oh_pattern.length = 16;
+            break;
+        case 1:
+            oh_pattern.set_euclid(8, 3);
+            oh_pattern.length = 8;
+            oh_pattern.abPattern.set_ab_pattern_const(0);
+            break;
+        case 2:
+            oh_pattern.set_all(false);
+            oh_pattern.length = 8;
+            oh_pattern.add_one();
+            oh_pattern.add_one();
+            oh_pattern.abPattern.set_ab_pattern_const(0);
+            break;
+        }
 
         uint8_t four_pat = 0;
         switch (Rand::distribution(32, 10, 10, 10, 10))

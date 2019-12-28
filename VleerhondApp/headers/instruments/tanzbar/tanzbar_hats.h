@@ -21,10 +21,10 @@ namespace Vleerhond
         GatePatternAB hh_pattern;
         GatePatternAB oh_pattern;
 
-        IntervalPattern hat_int_pattern;
-        CvPatternAB hat_velocity;
+        //IntervalPattern hat_int_pattern;
+        //CvPatternAB hat_velocity;
 
-        HatClosedStyle hat_closed_style;
+        //HatClosedStyle hat_closed_style;
 
         TanzbarHats(
             Modulators& modulators,
@@ -33,11 +33,14 @@ namespace Vleerhond
             tune_mod(modulators),
             oh_dec(modulators)
         {
-            hat_closed_style = HatClosedStyle::HatClosedRegular;
+            //hat_closed_style = HatClosedStyle::HatClosedRegular;
             randomize();
 
             pitch_open = NOTE_TANZBAR_OH;
             pitch_closed = NOTE_TANZBAR_HH;
+
+            settings.p_euclid = 0;
+            settings.p_drop = 0;
         }
 
         void randomize()
@@ -65,7 +68,9 @@ namespace Vleerhond
         bool play()
         {
             if (this->kill)
+            {
                 return false;
+            }
 
             uint8_t value = 0;
             if (tune_mod.value(time, value))

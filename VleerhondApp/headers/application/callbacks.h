@@ -115,7 +115,7 @@ namespace Vleerhond
         case KNOB_07:
             data.fugue_vermona_3.density = value;
             data.mono.variable_density = value;
-            data.rocket_mono.variable_density = value;
+            data.neutron_mono.variable_density = value;
             break;
         case ROTARY_08:
             break;
@@ -144,7 +144,7 @@ namespace Vleerhond
         case SLIDER_07:
             data.mono.variable_pitch_offset = value;
             data.fugue_vermona_3.manual_pitch_offset = value;
-            data.rocket_mono.variable_pitch_offset = value;
+            data.neutron_mono.variable_pitch_offset = value;
             break;
         case SLIDER_08:
             data.mono_dub.variable_pitch_offset = value;
@@ -291,7 +291,7 @@ namespace Vleerhond
         case BTN_RIGHT_BTM_07:
             data.mono.kill = value > 0;
             data.fugue_vermona_3.kill = value > 0;
-            data.rocket_mono.kill = value > 0;
+            data.neutron_mono.kill = value > 0;
             break;
         case BTN_RIGHT_BTM_08:
             data.mono_dub.kill = value > 0;

@@ -194,6 +194,7 @@
     <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\moog_bass.h" />
+    <ClInclude Include="headers\instruments\tonal_instruments\neutron_mono.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\rocket_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />

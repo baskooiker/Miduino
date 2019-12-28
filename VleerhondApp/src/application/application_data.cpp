@@ -32,7 +32,7 @@ namespace Vleerhond
         fugue_vermona_2(harmony, time, fugue, MIDI_CHANNEL_BASS_DUB),
         fugue_vermona_3(harmony, time, fugue, MIDI_CHANNEL_MONO),
         fugue_vermona_4(harmony, time, fugue, MIDI_CHANNEL_MONO_2),
-        rocket_mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET),
+        neutron_mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET),
         tb303_bass(harmony, time)
     {
         this->randomize_all();
@@ -111,22 +111,11 @@ namespace Vleerhond
         std::vector<InstrumentBase*> ptrs;
 
         ptrs.push_back(&this->tanzbar);
+        ptrs.push_back(&this->mfb_522);
 
         ptrs.push_back(&this->tb303_bass);
         ptrs.push_back(&this->moog_bass);
-
-        ptrs.push_back(&rocket_mono);
-
-        //ptrs.push_back(&this->acid_bass);
-        //ptrs.push_back(&this->mono);
-        //ptrs.push_back(&this->mono_dub);
-        //ptrs.push_back(&this->drone);
-
-        //ptrs.push_back(&this->fugue_vermona_2);
-        //ptrs.push_back(&this->fugue_vermona_3);
-        //ptrs.push_back(&this->fugue_vermona_4);
-
-        ptrs.push_back(&this->mfb_522);
+        ptrs.push_back(&neutron_mono);
 
         return ptrs;
     }

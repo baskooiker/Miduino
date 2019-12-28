@@ -16,6 +16,12 @@ namespace Vleerhond
         uint8_t pitch_closed;
         uint8_t pitch_open;
 
+        struct {
+            uint8_t p_off = 16;
+            uint8_t p_euclid = 16;
+            uint8_t p_drop = 16;
+        } settings;
+
     public:
         GatePatternAB hh_pattern;
         GatePatternAB oh_pattern;

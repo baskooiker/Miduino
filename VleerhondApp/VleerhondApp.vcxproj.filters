@@ -446,6 +446,9 @@
     <ClInclude Include="headers\instruments\mfb_522\mfb_522.h">
       <Filter>headers\instruments\mfb_522</Filter>
     </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\neutron_mono.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

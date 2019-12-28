@@ -51,11 +51,10 @@ namespace Vleerhond
             case 1: this->high_pattern.set_chord_pattern(this->scale, 4); break;
             }
 
-            switch (Rand::distribution(10, 10, 10))
+            switch (Rand::distribution(10, 10))
             {
             case 0: this->high_pattern.time_division = TimeDivision::Quarter; break;
             case 1: this->high_pattern.time_division = TimeDivision::Half; break;
-            case 2: this->high_pattern.time_division = TimeDivision::Whole; break;
             }
         }
 

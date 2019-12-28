@@ -15,13 +15,13 @@ namespace Vleerhond
         data.mono.set_style(MonoStyle::MonoPolyRhythm);
 
         // Rocket experiment
-        data.rocket_mono.total_randomize();
+        data.neutron_mono.total_randomize();
         //switch (Rand::randui8(2))
         //{
         //case 0: data.rocket_mono.set_style(MonoStyle::MonoPolyRhythm); break;
         //case 1: data.rocket_mono.set_style(MonoStyle::MonoLeadPattern); break;
         //}
-        data.rocket_mono.set_style(MonoStyle::MonoPolyRhythm);
+        data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm);
 
         data.fugue_vermona_3.randomize();
     }
@@ -32,8 +32,8 @@ namespace Vleerhond
         data.mono.set_style(MonoStyle::MonoSixteenths);
 
         // Rocket experiment
-        data.rocket_mono.total_randomize();
-        data.rocket_mono.set_style(MonoStyle::MonoSixteenths);
+        data.neutron_mono.total_randomize();
+        data.neutron_mono.set_style(MonoStyle::MonoSixteenths);
 
         data.fugue_vermona_4.randomize();
     }
@@ -49,12 +49,12 @@ namespace Vleerhond
         data.mono.set_arp_type(ArpType::CLOSEST);
 
         // Rocket experiment
-        data.rocket_mono.total_randomize();
+        data.neutron_mono.total_randomize();
         switch (Rand::randui8(2))
         {
-        case 0: data.rocket_mono.set_style(MonoStyle::MonoPolyRhythm); break;
-        case 1: data.rocket_mono.set_style(MonoStyle::MonoLeadPattern); break;
+        case 0: data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm); break;
+        case 1: data.neutron_mono.set_style(MonoStyle::MonoLeadPattern); break;
         }
-        data.rocket_mono.set_arp_type(ArpType::CLOSEST);
+        data.neutron_mono.set_arp_type(ArpType::CLOSEST);
     }
 }

@@ -22,6 +22,8 @@ namespace Vleerhond
         {
             uint8_t p_length_8 = 16;
             uint8_t p_length_16 = 16;
+            uint8_t p_rand = 16;
+            uint8_t p_drop = 16;
         } settings;
 
         Percussion(

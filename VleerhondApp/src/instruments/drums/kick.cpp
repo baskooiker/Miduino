@@ -19,8 +19,12 @@ namespace Vleerhond
     {
         ofLogNotice("kick", "randomize");
         last_randomized_time = millis();
-
-        this->bd_pattern.set_coef_kick_pattern();
+        
+        bd_pattern.set_all(false);
+        for (int i : {0, 4, 8, 12})
+        {
+            bd_pattern.set(i, true);
+        }
 
         switch (Rand::distribution(16, 16, 64))
         {
@@ -32,7 +36,7 @@ namespace Vleerhond
         case 1:
         {
             Coefficients ghost_coef = { 0 };
-            ghost_coef.eights = Rand::randf(.125);
+            ghost_coef.eights = Rand::randf(.0625);
             ghost_coef.up = Rand::randf(.0625);
             ghost_coef.down = Rand::randf(.0625);
             this->ghost_notes.set_coef_pattern(ghost_coef);

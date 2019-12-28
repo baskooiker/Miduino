@@ -158,6 +158,34 @@ namespace Vleerhond
             this->set_gate(i, Rand::randf() < coef.up);
     }
 
+    void BinaryPattern::add_one(const uint8_t length)
+    {
+        std::vector<uint8_t> indices;
+        for (int i = 0; i < length; i++)
+        {
+            if (gate(i))
+            {
+                indices.push_back(i);
+            }
+        }
+
+        if (indices.size() == 0)
+        {
+            set_gate(Rand::randui8(8), true);
+            return;
+        }
+        std::random_shuffle(indices.begin(), indices.end());
+
+        for (const uint8_t i: indices)
+        {
+            if (!gate(i+1 % length))
+            {
+                set_gate(i+1 % length, false);
+                return;
+            }
+        }
+    }
+
     void BinaryPattern::remove_one()
     {
         uint8_t indices[16];

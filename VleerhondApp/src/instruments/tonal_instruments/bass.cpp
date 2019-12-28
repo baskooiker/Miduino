@@ -24,17 +24,14 @@ void Bass::randomize_octaves()
 {
     ofLogNotice("", "randomize_octaves");
     this->octaves.randomize();
-    switch (Rand::distribution(16, 16, 16))
+    switch (Rand::distribution(16, 16))
     {
     case 0: 
-        this->octaves.length = 4; 
-        break;
-    case 1: 
         this->octaves.length = 8; 
         break;
-    case 2: 
+    case 1: 
         this->octaves.length = 16; 
-        octaves.abPattern.set_ab_pattern_const();
+        //octaves.abPattern.set_ab_pattern_const();
         break;
     }
 
@@ -286,11 +283,11 @@ uint8_t Bass::get_pitch()
     if (octave < 32)
         octave_opts = { 0, 0,  0, 0 , 1, 1};
     else if (octave < 64)
-        octave_opts = { 0, 0, -1, 1 , 1, 1};
+        octave_opts = { 0, -1, 0, 1 , 1, 1};
     else if (octave < 96)
-        octave_opts = { 0, 1, -1, 1 , 2, 2};
+        octave_opts = { 0, -1, 1, 1 , 2, 2};
     else
-        octave_opts = { 0, 1, -1, 1 , 2, 3};
+        octave_opts = { 0, -1, 1, 1 , 2, 3};
     if (octave < this->variable_octave)
     {
         pitch += octave_opts[octave % 6] * 12;

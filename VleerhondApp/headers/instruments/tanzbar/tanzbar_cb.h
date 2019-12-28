@@ -11,7 +11,7 @@ namespace Vleerhond
 {
     const RandomParam cb_params[] = {
         {TB_CB_Tune           ,  0, 127},
-        {TB_CB_Decay          ,  0, 127},
+        {TB_CB_Decay          ,  0,  64},
     };
     const uint8_t nr_cb_params = sizeof(cb_params) / sizeof(*cb_params);
 

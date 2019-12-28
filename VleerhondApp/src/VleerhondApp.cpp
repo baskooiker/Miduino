@@ -42,6 +42,14 @@ namespace Vleerhond
         midi_out_d.sendControlChange(channel, cc, value);
     }
 
+    void MidiIO::sendBytes(std::vector<uint8_t>& bytes)
+    {
+        for (ofxMidiOut* out : { &midi_out_a, &midi_out_b, &midi_out_c, &midi_out_d })
+        {
+            out->sendMidiBytes(bytes);
+        }
+    }
+
     bool open_port(ofxMidiOut& port, std::string name)
     {
         uint8_t num_ports = port.getNumOutPorts();

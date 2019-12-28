@@ -148,6 +148,14 @@ namespace Vleerhond
         this->set_coef_pattern(coef);
     }
 
+    void GatePatternAB::add_one()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            patterns[i].add_one(this->length);
+        }
+    }
+
     void GatePatternAB::remove_one()
     {
         for (int i = 0; i < 3; i++)

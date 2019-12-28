@@ -34,6 +34,7 @@ namespace Vleerhond
         void set_coef_snare_pattern();
         void set_coef_hat_pattern();
         void set_coef_slow_pattern();
+        void add_one();
         void remove_one();
         std::string toString();
     };

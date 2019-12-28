@@ -14,6 +14,7 @@
 #include "moog_bass.h"
 #include "acid_bass.h"
 #include "rocket_mono.h"
+#include "neutron_mono.h"
 
 #include "vermona_mono.h"
 #include "vermona_mono_dub.h"
@@ -36,7 +37,7 @@ namespace Vleerhond
         AcidBass acid_bass;
         VermonaMono mono;
         VermonaMonoDub mono_dub;
-        RocketMono rocket_mono;
+        NeutronMono neutron_mono;
         Drone drone;
 
         FuguePlayer fugue_vermona_2;

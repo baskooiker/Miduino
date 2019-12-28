@@ -20,18 +20,27 @@ namespace Vleerhond
     {
         last_randomized_time = millis();
 
-        switch (Rand::distribution(32, 16))
+        switch (Rand::distribution(settings.p_length_8, settings.p_length_16))
+        {
+        case 0: 
+            pattern.length = 8;
+            pattern.abPattern.set_ab_pattern();
+            break;
+        case 1: 
+            pattern.length = 16; 
+            pattern.abPattern.set_ab_pattern_const();
+            break;
+        }
+
+        switch (Rand::distribution(settings.p_rand, settings.p_drop))
         {
         case 0:
             this->pattern.randomize(Rand::randf(.5, 1.0));
-            switch (Rand::distribution(settings.p_length_8, settings.p_length_16))
-            {
-            case 0: pattern.length = 8; break;
-            case 1: pattern.length = 16; break;
-            }
             break;
         case 1:
-            this->pattern.set_coef_kick_pattern();
+            pattern.set_all(false);
+            pattern.add_one();
+            pattern.add_one();
             break;
         }
 
