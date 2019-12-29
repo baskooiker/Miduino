@@ -4,7 +4,7 @@
 #include <algorithm>
 
 #include "defs.h"
-#include "harmony_struct.h"
+#include "harmony/harmony_struct.h"
 #include "patterns/modulators.h"
 #include "parameters.h"
 

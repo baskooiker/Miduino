@@ -3,6 +3,8 @@
 #include "defs.h"
 #include "rand.h"
 
+namespace Vleerhond
+{
 class MicroTimingStruct
 {
 public:
@@ -16,3 +18,4 @@ public:
     }
 
 };
+}

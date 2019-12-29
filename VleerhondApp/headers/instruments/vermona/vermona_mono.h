@@ -3,7 +3,7 @@
 #include "parameters.h"
 #include "mono.h"
 #include "patterns/modulators.h"
-#include "harmony_struct.h"
+#include "harmony/harmony_struct.h"
 
 namespace Vleerhond
 {

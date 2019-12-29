@@ -6,7 +6,7 @@
 #include "patterns/euclid.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/interval_pattern.h"
-#include "harmony_struct.h"
+#include "harmony/harmony_struct.h"
 #include "patterns/fugue.h"
 #include "instrument_base.h"
 #include "sample_and_hold.h"

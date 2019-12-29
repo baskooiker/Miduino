@@ -3,6 +3,8 @@
 #include "defs.h"
 #include "rand.h"
 
+namespace Vleerhond
+{
 class AbPattern
 {
 protected:
@@ -143,3 +145,4 @@ public:
             && ab_pattern[2] == 0;
     }
 };
+}

@@ -3,7 +3,7 @@
 #include "defs.h"
 
 #include "application_data.h"
-#include "chords.h"
+#include "harmony/chords.h"
 #include "defs.h"
 #include "midi_io.h"
 #include "rand.h"
@@ -163,7 +163,11 @@ namespace Vleerhond
         case BTN_LEFT_BTM_01:
             if (value == 0)
             {
-                data.tanzbar.tanzbar_lo.randomize();
+                for (auto& inst : data.tanzbar.getLow())
+                    inst->randomize();
+                for (auto& inst : data.mfb_522.getLow())
+                    inst->randomize();
+
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
             }
@@ -179,11 +183,10 @@ namespace Vleerhond
         case BTN_LEFT_BTM_02:
             if (value == 0)
             {
-                data.tanzbar.tanzbar_tom.randomize();
-                data.tanzbar.tanzbar_cl.randomize();
-                data.tanzbar.tanzbar_cb.randomize();
-                data.tanzbar.tanzbar_cp.randomize();
-                data.tanzbar.tanzbar_mid.randomize();
+                for (auto& inst : data.tanzbar.getMid())
+                    inst->randomize();
+                for (auto& inst : data.mfb_522.getMid())
+                    inst->randomize();
 
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
@@ -199,14 +202,13 @@ namespace Vleerhond
         case BTN_LEFT_BTM_03:
             if (value == 0)
             {
-                if (value == 0)
-                {
-                    data.tanzbar.tanzbar_cy.randomize();
-                    data.tanzbar.tanzbar_ma.randomize();
-                    data.tanzbar.tanzbar_hats.randomize();
-                    data.time.randomize_shuffle();
-                    data.modulators.randomize();
-                }
+                for (auto& inst : data.tanzbar.getHigh())
+                    inst->randomize();
+                for (auto& inst : data.mfb_522.getHigh())
+                    inst->randomize();
+
+                data.time.randomize_shuffle();
+                data.modulators.randomize();
             }
             break;
         case BTN_LEFT_TOP_04:

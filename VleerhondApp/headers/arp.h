@@ -1,8 +1,9 @@
 #pragma once
 
-#include "chords.h"
 #include "defs.h"
 #include "rand.h"
+
+#include "harmony/chords.h"
 
 namespace Vleerhond
 {

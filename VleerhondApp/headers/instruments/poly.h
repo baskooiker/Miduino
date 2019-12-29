@@ -1,7 +1,7 @@
 #pragma once
 
 #include "arp.h"
-#include "chords.h"
+#include "harmony/chords.h"
 #include "defs.h"
 #include "patterns/euclid.h"
 #include "midi_io.h"

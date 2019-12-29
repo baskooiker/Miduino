@@ -97,6 +97,18 @@
     <ClCompile Include="src\patterns\modulators.cpp">
       <Filter>src\patterns</Filter>
     </ClCompile>
+    <ClCompile Include="src\harmony\chords.cpp">
+      <Filter>src\harmony</Filter>
+    </ClCompile>
+    <ClCompile Include="src\harmony\harmony_struct.cpp">
+      <Filter>src\harmony</Filter>
+    </ClCompile>
+    <ClCompile Include="src\harmony\scale.cpp">
+      <Filter>src\harmony</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\rand.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -183,6 +195,15 @@
     <Filter Include="headers\instruments\mfb_522">
       <UniqueIdentifier>{3a49fbe8-9d72-4d12-b637-b67f6c5cde08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\harmony">
+      <UniqueIdentifier>{9f194de9-f622-4a4b-829b-02f1167283ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\harmony">
+      <UniqueIdentifier>{96d5c688-0c94-4bf9-9c65-2b2d077e0b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils">
+      <UniqueIdentifier>{fdd6f3d3-720d-43af-b23e-c1f7a4e215a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxBaseMidi.h">
@@ -254,9 +275,6 @@
     <ClInclude Include="src\VleerhondApp.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="headers\step_callbacks.h">
-      <Filter>headers\app</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\drums\kick.h">
       <Filter>headers\instruments\drums</Filter>
     </ClInclude>
@@ -326,9 +344,6 @@
     <ClInclude Include="headers\arp.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\chords.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\consts.h">
       <Filter>headers</Filter>
     </ClInclude>
@@ -338,22 +353,13 @@
     <ClInclude Include="headers\enums.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\harmony_struct.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\intervals.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\note_struct.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\print.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\sample_and_hold.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\scale.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\time_struct.h">
@@ -460,6 +466,27 @@
     </ClInclude>
     <ClInclude Include="headers\patterns\modulators.h">
       <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\harmony\chords.h">
+      <Filter>headers\harmony</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\harmony\harmony_struct.h">
+      <Filter>headers\harmony</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\harmony\scale.h">
+      <Filter>headers\harmony</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\application\step_callbacks.h">
+      <Filter>headers\app</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils\print.h">
+      <Filter>headers\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils\rand.h">
+      <Filter>headers\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\utils\utils.h">
+      <Filter>headers\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "defs.h"
-#include "harmony_struct.h"
+#include "harmony/harmony_struct.h"
 #include "midi_channel.h"
 
 namespace Vleerhond

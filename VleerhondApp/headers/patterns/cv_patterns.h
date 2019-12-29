@@ -8,8 +8,8 @@
 #include "rand.h"
 #include "time_struct.h"
 #include "utils.h"
-#include "scale.h"
-#include "chords.h"
+#include "harmony/scale.h"
+#include "harmony/chords.h"
 
 namespace Vleerhond
 {
