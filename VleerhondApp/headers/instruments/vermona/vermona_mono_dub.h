@@ -2,7 +2,7 @@
 
 #include "parameters.h"
 #include "mono_dub.h"
-#include "modulators.h"
+#include "patterns/modulators.h"
 #include "harmony_struct.h"
 
 namespace Vleerhond

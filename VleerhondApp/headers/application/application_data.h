@@ -4,7 +4,7 @@
 
 #include "defs.h"
 #include "harmony_struct.h"
-#include "modulators.h"
+#include "patterns/modulators.h"
 #include "parameters.h"
 
 #include "tanzbar.h"

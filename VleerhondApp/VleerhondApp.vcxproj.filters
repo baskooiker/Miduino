@@ -88,6 +88,15 @@
     <ClCompile Include="src\patterns\cv_patterns.cpp">
       <Filter>src\patterns</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\mono.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\pattern_utils.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\modulators.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -335,9 +344,6 @@
     <ClInclude Include="headers\intervals.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\modulators.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\note_struct.h">
       <Filter>headers</Filter>
     </ClInclude>
@@ -448,6 +454,12 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\tonal_instruments\neutron_mono.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\pattern_utils.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\modulators.h">
+      <Filter>headers\patterns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

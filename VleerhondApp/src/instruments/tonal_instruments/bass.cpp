@@ -1,5 +1,7 @@
 #include "bass.h"
 
+#include "patterns/pattern_utils.h"
+
 namespace Vleerhond
 {
 
@@ -182,20 +184,8 @@ void Bass::randomize_gates()
 void Bass::randomize_accents()
 {
     ofLogNotice("", "randomize_accents");
-    this->slides.randomize(Rand::randf(.50f, .80f));
-    slides.length = 8;
-    slides.set(0, false);
-
-    this->accents.randomize(Rand::randf(.15f, .4f));
-    switch (Rand::distribution(0, 16))
-    {
-    case 0:
-        this->accents.length = 4;
-        break;
-    case 1:
-        break;
-        this->accents.length = 8;
-    }
+    PatternUtils::randomize_slides(this->slides);
+    PatternUtils::randomize_accents(this->accents);
 }
 
 void Bass::randomize()

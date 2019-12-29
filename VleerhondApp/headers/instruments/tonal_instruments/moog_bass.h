@@ -1,7 +1,7 @@
 #pragma once
 
 #include "bass.h"
-#include "modulators.h"
+#include "patterns/modulators.h"
 
 #define MINITAUR_CC_LFO_MIDI_SYNC   87
 #define MINITAUR_CC_LFO_KEY_TRIGGER 82

@@ -3,7 +3,7 @@
 #include <algorithm>
 
 #include "instrument_group.h"
-#include "modulators.h"
+#include "patterns/modulators.h"
 
 #include "kick.h"
 #include "snare.h"

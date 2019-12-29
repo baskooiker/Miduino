@@ -93,6 +93,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>PGOptimization</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -119,12 +120,15 @@
     <ClCompile Include="src\instruments\tonal_instruments\acid_bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp" />
+    <ClCompile Include="src\instruments\tonal_instruments\mono.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\midi\midi_channel.cpp" />
     <ClCompile Include="src\patterns\binary_pattern.cpp" />
     <ClCompile Include="src\patterns\cv_patterns.cpp" />
     <ClCompile Include="src\patterns\gate_patterns.cpp" />
+    <ClCompile Include="src\patterns\modulators.cpp" />
+    <ClCompile Include="src\patterns\pattern_utils.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +205,6 @@
     <ClInclude Include="headers\intervals.h" />
     <ClInclude Include="headers\midi\midi_channel.h" />
     <ClInclude Include="headers\midi\midi_io.h" />
-    <ClInclude Include="headers\modulators.h" />
     <ClInclude Include="headers\note_struct.h" />
     <ClInclude Include="headers\patterns\ab.h" />
     <ClInclude Include="headers\patterns\binary_pattern.h" />
@@ -210,6 +213,8 @@
     <ClInclude Include="headers\patterns\fugue.h" />
     <ClInclude Include="headers\patterns\gate_patterns.h" />
     <ClInclude Include="headers\patterns\interval_pattern.h" />
+    <ClInclude Include="headers\patterns\modulators.h" />
+    <ClInclude Include="headers\patterns\pattern_utils.h" />
     <ClInclude Include="headers\print.h" />
     <ClInclude Include="headers\sample_and_hold.h" />
     <ClInclude Include="headers\scale.h" />

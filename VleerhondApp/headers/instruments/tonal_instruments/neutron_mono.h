@@ -1,7 +1,7 @@
 #pragma once
 
 #include "mono.h"
-#include "modulators.h"
+#include "patterns/modulators.h"
 
 namespace Vleerhond
 {

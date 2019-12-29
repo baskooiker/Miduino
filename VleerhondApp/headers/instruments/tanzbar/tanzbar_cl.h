@@ -2,7 +2,7 @@
 
 #include "defs.h"
 #include "instrument_base.h"
-#include "modulators.h"
+#include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"
 #include "parameters.h"
 #include "percussion.h"

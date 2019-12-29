@@ -3,7 +3,7 @@
 #include "instrument_base.h"
 #include "timing_structs.h"
 #include "time_struct.h"
-#include "modulators.h"
+#include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"
 #include "cymbal.h"
 

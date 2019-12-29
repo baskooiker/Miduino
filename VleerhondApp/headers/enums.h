@@ -71,9 +71,6 @@ namespace Vleerhond
     };
 
     enum LeadStyle {
-        //LeadSixteenths,
-        //LeadLongPattern,
-        //LeadIntPattern,
         LeadSlow,
         LeadWhole
     };

@@ -6,13 +6,13 @@ namespace Vleerhond
 {
     void release_button_left_top_07(ApplicationData& data)
     {
-        data.mono.total_randomize();
+        //data.mono.total_randomize();
         //switch (Rand::randui8(2))
         //{
         //case 0: data.mono.set_style(MonoStyle::MonoPolyRhythm); break;
         //case 1: data.mono.set_style(MonoStyle::MonoLeadPattern); break;
         //}
-        data.mono.set_style(MonoStyle::MonoPolyRhythm);
+        //data.mono.set_style(MonoStyle::MonoPolyRhythm);
 
         // Rocket experiment
         data.neutron_mono.total_randomize();
@@ -23,32 +23,32 @@ namespace Vleerhond
         //}
         data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm);
 
-        data.fugue_vermona_3.randomize();
+        //data.fugue_vermona_3.randomize();
     }
 
     void release_button_left_btm_07(ApplicationData& data)
     {
-        data.mono.total_randomize();
-        data.mono.set_style(MonoStyle::MonoSixteenths);
+        //data.mono.total_randomize();
+        //data.mono.set_style(MonoStyle::MonoSixteenths);
+        //data.fugue_vermona_4.randomize();
 
         // Rocket experiment
         data.neutron_mono.total_randomize();
         data.neutron_mono.set_style(MonoStyle::MonoSixteenths);
 
-        data.fugue_vermona_4.randomize();
     }
 
     void release_buttons_left_07(ApplicationData& data)
     {
-        data.mono.total_randomize();
-        switch (Rand::randui8(2))
-        {
-        case 0: data.mono.set_style(MonoStyle::MonoPolyRhythm); break;
-        case 1: data.mono.set_style(MonoStyle::MonoLeadPattern); break;
-        }
-        data.mono.set_arp_type(ArpType::CLOSEST);
+        //data.mono.total_randomize();
+        //switch (Rand::randui8(2))
+        //{
+        //case 0: data.mono.set_style(MonoStyle::MonoPolyRhythm); break;
+        //case 1: data.mono.set_style(MonoStyle::MonoLeadPattern); break;
+        //}
+        //data.mono.set_arp_type(ArpType::CLOSEST);
 
-        // Rocket experiment
+        // Neutron
         data.neutron_mono.total_randomize();
         switch (Rand::randui8(2))
         {
