@@ -1,7 +1,6 @@
 #pragma once
 
 #include "arp.h"
-#include "intervals.h"
 #include "midi_io.h"
 
 #include "patterns/cv_patterns.h"

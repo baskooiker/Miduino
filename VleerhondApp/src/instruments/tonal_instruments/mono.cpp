@@ -71,15 +71,6 @@ namespace Vleerhond
         this->gate_pattern.patterns[1].set_euclid(length, euclid_steps2);
         this->gate_pattern.length = length;
 
-        //if (Rand::distribution(64, 16) == 1)
-        //{
-        //    gate_pattern.patterns[0].remove_one();
-        //}
-        //if (Rand::distribution(64, 16) == 1)
-        //{
-        //    gate_pattern.patterns[1].remove_one();
-        //}
-
         this->gate_pattern.time_division = TimeDivision::Sixteenth;
 
         PatternUtils::randomize_slides(this->slide_pattern);
@@ -131,12 +122,10 @@ namespace Vleerhond
 
         switch (Rand::distribution(
             settings.p_arp,
-            settings.p_euclid,
-            settings.p_coef))
+            settings.p_euclid))
         {
         case 0: this->style = MonoStyle::MonoSixteenths; break;
         case 1: this->style = MonoStyle::MonoPolyRhythm; break;
-        case 2: this->style = MonoStyle::MonoLeadPattern; break;
         }
     }
 
@@ -150,9 +139,6 @@ namespace Vleerhond
             break;
         case MonoStyle::MonoPolyRhythm:
             hit = this->gate_pattern.gate(time);
-            break;
-        case MonoStyle::MonoLeadPattern:
-            hit = this->lead_pattern.hit(time);
             break;
         }
         return hit;
@@ -200,10 +186,6 @@ namespace Vleerhond
                 uint8_t pitch = this->get_next_mono_pitch();
 
                 uint8_t length = 6 * 4;
-                if (this->style == MonoStyle::MonoLeadPattern)
-                {
-                    length = time.ticks_left_in_bar();
-                }
 
                 NoteType type = slide_pattern.gate(time) ? 
                     NoteType::Slide : 
@@ -263,6 +245,11 @@ namespace Vleerhond
     void Mono::set_style(MonoStyle mono_style)
     {
         style = mono_style;
+    }
+
+    void Mono::set_pitch_mode(const MonoPitchMode pitch_mode)
+    {
+        this->pitch_mode = pitch_mode;
     }
 
     uint8_t Mono::get_velocity()

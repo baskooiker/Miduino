@@ -17,7 +17,6 @@ public:
         const uint8_t midi_channel) :
         Mono(harmony, modulators, time, MIDI_CHANNEL_NEUTRON)
     {
-        settings.p_coef = 0;
     }
 
     void sendSysexMessage(const std::vector<uint8_t> msg)

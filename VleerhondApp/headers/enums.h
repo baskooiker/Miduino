@@ -87,8 +87,7 @@ namespace Vleerhond
 
     enum class MonoStyle {
         MonoSixteenths,
-        MonoPolyRhythm,
-        MonoLeadPattern
+        MonoPolyRhythm
     };
 
     enum HarmonyType {

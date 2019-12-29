@@ -353,9 +353,6 @@
     <ClInclude Include="headers\enums.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="headers\intervals.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\note_struct.h">
       <Filter>headers</Filter>
     </ClInclude>

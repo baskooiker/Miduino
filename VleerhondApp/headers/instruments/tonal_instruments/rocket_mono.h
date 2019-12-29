@@ -15,7 +15,6 @@ public:
         const uint8_t midi_channel) :
         Mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET)
     {
-        settings.p_coef = 0;
     }
 };
 }

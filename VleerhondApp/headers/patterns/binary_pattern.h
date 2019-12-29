@@ -7,7 +7,6 @@
 #include "defs.h"
 #include "rand.h"
 #include "time_struct.h"
-#include "intervals.h"
 
 namespace Vleerhond
 {
@@ -26,7 +25,7 @@ namespace Vleerhond
         void set_diddles(const float f, const bool starts_with, uint8_t length);
         void set_coef_pattern(const Coefficients coef);
         void add_one(const uint8_t length);
-        void remove_one();
+        void remove_one(const uint8_t length);
         void shift_one();
         bool shift_down();
         bool shift_up();

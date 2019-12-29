@@ -7,7 +7,6 @@
 #include "defs.h"
 #include "rand.h"
 #include "time_struct.h"
-#include "intervals.h"
 #include "patterns/binary_pattern.h"
 
 namespace Vleerhond

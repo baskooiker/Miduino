@@ -208,7 +208,6 @@
     <ClInclude Include="headers\instruments\tonal_instruments\rocket_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
-    <ClInclude Include="headers\intervals.h" />
     <ClInclude Include="headers\midi\midi_channel.h" />
     <ClInclude Include="headers\midi\midi_io.h" />
     <ClInclude Include="headers\note_struct.h" />

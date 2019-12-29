@@ -53,7 +53,6 @@ namespace Vleerhond
         struct {
             uint8_t p_arp = 16;
             uint8_t p_euclid = 16;
-            uint8_t p_coef = 0;
         } settings;
 
         Mono(
@@ -77,6 +76,7 @@ namespace Vleerhond
         void check_arp_reset();
         void set_arp_type(ArpType arp_type);
         void set_style(MonoStyle mono_style);
+        void set_pitch_mode(const MonoPitchMode pitch_mode);
         virtual uint8_t get_velocity();
     };
 }

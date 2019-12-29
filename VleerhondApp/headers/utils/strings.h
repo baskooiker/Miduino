@@ -62,8 +62,6 @@ namespace Vleerhond
         {
             switch (style)
             {
-            case MonoStyle::MonoLeadPattern:
-                return "lead_pattern";
             case MonoStyle::MonoPolyRhythm:
                 return "poly_rhythm";
             case MonoStyle::MonoSixteenths:

@@ -1,5 +1,7 @@
 #include "patterns/gate_patterns.h"
 
+#include "utils/utils.h"
+
 namespace Vleerhond
 {
     /////////////////////////////////
@@ -160,7 +162,7 @@ namespace Vleerhond
     {
         for (int i = 0; i < 3; i++)
         {
-            patterns[i].remove_one();
+            patterns[i].remove_one(this->length);
         }
     }
 

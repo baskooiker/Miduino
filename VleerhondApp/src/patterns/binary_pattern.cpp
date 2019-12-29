@@ -60,12 +60,10 @@ namespace Vleerhond
         //static const uint8_t fill_d[] = { 0, 1, 0, 0, 1, 0, 1, 0 };
 
         const uint8_t* fill = 0;
-        switch (Rand::distribution(10, 10, 0, 0))
+        switch (Rand::distribution(10, 10))
         {
         case 0: fill = fill_a; break;
         case 1: fill = fill_b; break;
-            //case 2: fill = fill_c; break;
-            //case 3: fill = fill_d; break;
         }
 
         for (int i = 0; i < 8; i++)
@@ -85,11 +83,13 @@ namespace Vleerhond
 
         this->pattern = 0x00;
 
-        uint8_t counters[16] = { 0 };
+        std::vector<uint8_t> counters;
+        for (int i = 0; i < steps; i++) counters.push_back(0);
+
         for (int i = 0; i < length; i++)
             counters[i%steps]++;
 
-        Utils::randomize_order(counters, steps);
+        std::random_shuffle(counters.begin(), counters.end());
 
         uint8_t c = 0;
         for (int i = 0; i < steps; i++)
@@ -186,15 +186,12 @@ namespace Vleerhond
         }
     }
 
-    void BinaryPattern::remove_one()
+    void BinaryPattern::remove_one(const uint8_t length)
     {
-        uint8_t indices[16];
-        for (int i = 0; i < 16; i++)
-        {
-            indices[i] = i;
-        }
-        Utils::randomize_order(indices, 16);
-        for (int i = 0; i < 16; i++)
+        std::vector<uint8_t> indices;
+        for (int i = 0; i < length; i++) indices.push_back(i);
+        std::random_shuffle(indices.begin(), indices.end());
+        for (int i = 0; i < length; i++)
         {
             if (gate(i))
             {
