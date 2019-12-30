@@ -109,6 +109,9 @@
     <ClCompile Include="src\utils\rand.cpp">
       <Filter>src\utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\patterns\arp.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -341,9 +344,6 @@
     <ClInclude Include="headers\application\callbacks.h">
       <Filter>headers\app</Filter>
     </ClInclude>
-    <ClInclude Include="headers\arp.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\consts.h">
       <Filter>headers</Filter>
     </ClInclude>
@@ -484,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="headers\utils\utils.h">
       <Filter>headers\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\arp.h">
+      <Filter>headers\patterns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

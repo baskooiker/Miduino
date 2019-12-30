@@ -127,6 +127,7 @@
     <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\midi\midi_channel.cpp" />
+    <ClCompile Include="src\patterns\arp.cpp" />
     <ClCompile Include="src\patterns\binary_pattern.cpp" />
     <ClCompile Include="src\patterns\cv_patterns.cpp" />
     <ClCompile Include="src\patterns\gate_patterns.cpp" />
@@ -161,7 +162,6 @@
     <ClInclude Include="headers\application\application_data.h" />
     <ClInclude Include="headers\application\callbacks.h" />
     <ClInclude Include="headers\application\step_callbacks.h" />
-    <ClInclude Include="headers\arp.h" />
     <ClInclude Include="headers\consts.h" />
     <ClInclude Include="headers\defs.h" />
     <ClInclude Include="headers\enums.h" />
@@ -212,6 +212,7 @@
     <ClInclude Include="headers\midi\midi_io.h" />
     <ClInclude Include="headers\note_struct.h" />
     <ClInclude Include="headers\patterns\ab.h" />
+    <ClInclude Include="headers\patterns\arp.h" />
     <ClInclude Include="headers\patterns\binary_pattern.h" />
     <ClInclude Include="headers\patterns\cv_patterns.h" />
     <ClInclude Include="headers\patterns\euclid.h" />

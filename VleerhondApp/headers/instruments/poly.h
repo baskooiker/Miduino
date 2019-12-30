@@ -1,6 +1,6 @@
 #pragma once
 
-#include "arp.h"
+#include "patterns/arp.h"
 #include "harmony/chords.h"
 #include "defs.h"
 #include "patterns/euclid.h"

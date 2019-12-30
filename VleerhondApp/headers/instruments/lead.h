@@ -1,6 +1,6 @@
 #pragma once
 
-#include "arp.h"
+#include "patterns/arp.h"
 #include "midi_io.h"
 
 #include "patterns/cv_patterns.h"
