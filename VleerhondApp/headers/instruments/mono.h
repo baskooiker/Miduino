@@ -5,10 +5,9 @@
 #include "patterns/cv_patterns.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/interval_pattern.h"
-
 #include "patterns/arp.h"
 #include "patterns/modulators.h"
-#include "sample_and_hold.h"
+#include "patterns/sample_and_hold.h"
 
 namespace Vleerhond
 {

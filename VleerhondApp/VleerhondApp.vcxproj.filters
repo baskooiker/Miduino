@@ -112,6 +112,9 @@
     <ClCompile Include="src\patterns\arp.cpp">
       <Filter>src\patterns</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\time_struct.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -152,9 +155,6 @@
     </Filter>
     <Filter Include="headers\instruments\tanzbar">
       <UniqueIdentifier>{383c7297-4be2-43cd-bc67-7e472cf93e57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="headers\app">
-      <UniqueIdentifier>{4a9475c6-0918-4793-9190-27625c33f653}</UniqueIdentifier>
     </Filter>
     <Filter Include="headers\instruments\drums">
       <UniqueIdentifier>{afff57e2-9de1-42f0-a569-a3aa37282eba}</UniqueIdentifier>
@@ -209,6 +209,12 @@
     </Filter>
     <Filter Include="headers\core">
       <UniqueIdentifier>{0168740f-ffa4-4a86-8317-60286ad16c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\application">
+      <UniqueIdentifier>{4a9475c6-0918-4793-9190-27625c33f653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{64f93f31-3e58-4295-a00c-ad42352d0ee3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -342,16 +348,10 @@
       <Filter>headers\instruments\drums</Filter>
     </ClInclude>
     <ClInclude Include="headers\application\application_data.h">
-      <Filter>headers\app</Filter>
+      <Filter>headers\application</Filter>
     </ClInclude>
     <ClInclude Include="headers\application\callbacks.h">
-      <Filter>headers\app</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\sample_and_hold.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\ui.h">
-      <Filter>headers</Filter>
+      <Filter>headers\application</Filter>
     </ClInclude>
     <ClInclude Include="headers\utils\strings.h">
       <Filter>headers\utils</Filter>
@@ -459,7 +459,7 @@
       <Filter>headers\harmony</Filter>
     </ClInclude>
     <ClInclude Include="headers\application\step_callbacks.h">
-      <Filter>headers\app</Filter>
+      <Filter>headers\application</Filter>
     </ClInclude>
     <ClInclude Include="headers\utils\print.h">
       <Filter>headers\utils</Filter>
@@ -490,6 +490,12 @@
     </ClInclude>
     <ClInclude Include="headers\core\timing_structs.h">
       <Filter>headers\core</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\sample_and_hold.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\application\ui.h">
+      <Filter>headers\application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

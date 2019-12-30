@@ -109,6 +109,7 @@
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiOut.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.cpp" />
     <ClCompile Include="src\application\application_data.cpp" />
+    <ClCompile Include="src\core\time_struct.cpp" />
     <ClCompile Include="src\harmony\chords.cpp" />
     <ClCompile Include="src\harmony\harmony_struct.cpp" />
     <ClCompile Include="src\harmony\scale.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="headers\application\application_data.h" />
     <ClInclude Include="headers\application\callbacks.h" />
     <ClInclude Include="headers\application\step_callbacks.h" />
+    <ClInclude Include="headers\application\ui.h" />
     <ClInclude Include="headers\core\consts.h" />
     <ClInclude Include="headers\core\defs.h" />
     <ClInclude Include="headers\core\enums.h" />
@@ -223,8 +225,7 @@
     <ClInclude Include="headers\patterns\interval_pattern.h" />
     <ClInclude Include="headers\patterns\modulators.h" />
     <ClInclude Include="headers\patterns\pattern_utils.h" />
-    <ClInclude Include="headers\sample_and_hold.h" />
-    <ClInclude Include="headers\ui.h" />
+    <ClInclude Include="headers\patterns\sample_and_hold.h" />
     <ClInclude Include="headers\utils\print.h" />
     <ClInclude Include="headers\utils\rand.h" />
     <ClInclude Include="headers\utils\strings.h" />
