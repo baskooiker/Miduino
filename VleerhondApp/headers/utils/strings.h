@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "enums.h"
+#include "core/enums.h"
 
 namespace Vleerhond
 {

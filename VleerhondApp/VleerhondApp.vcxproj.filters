@@ -207,6 +207,9 @@
     <Filter Include="src\utils">
       <UniqueIdentifier>{fdd6f3d3-720d-43af-b23e-c1f7a4e215a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="headers\core">
+      <UniqueIdentifier>{0168740f-ffa4-4a86-8317-60286ad16c67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxBaseMidi.h">
@@ -344,25 +347,7 @@
     <ClInclude Include="headers\application\callbacks.h">
       <Filter>headers\app</Filter>
     </ClInclude>
-    <ClInclude Include="headers\consts.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\defs.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\enums.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\note_struct.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="headers\sample_and_hold.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\time_struct.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\timing_structs.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="headers\ui.h">
@@ -487,6 +472,24 @@
     </ClInclude>
     <ClInclude Include="headers\patterns\arp.h">
       <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\core\consts.h">
+      <Filter>headers\core</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\core\defs.h">
+      <Filter>headers\core</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\core\enums.h">
+      <Filter>headers\core</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\core\note_struct.h">
+      <Filter>headers\core</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\core\time_struct.h">
+      <Filter>headers\core</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\core\timing_structs.h">
+      <Filter>headers\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

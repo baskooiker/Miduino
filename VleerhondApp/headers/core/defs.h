@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include <map>
 
-#include "consts.h"
-#include "enums.h"
+#include "core/consts.h"
+#include "core/enums.h"
 
 #ifndef ARDUINO
 uint32_t millis();

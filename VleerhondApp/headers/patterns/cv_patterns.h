@@ -2,11 +2,11 @@
 
 #include <sstream>
 
-#include "ab.h"
-#include "consts.h"
-#include "enums.h"
-#include "rand.h"
-#include "time_struct.h"
+#include "core/consts.h"
+#include "core/enums.h"
+#include "patterns/ab.h"
+#include "utils/rand.h"
+#include "core/time_struct.h"
 #include "utils.h"
 #include "harmony/scale.h"
 #include "harmony/chords.h"

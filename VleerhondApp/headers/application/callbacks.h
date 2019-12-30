@@ -1,10 +1,10 @@
 #pragma once
 
-#include "defs.h"
+#include "core/defs.h"
 
 #include "application_data.h"
 #include "harmony/chords.h"
-#include "defs.h"
+#include "core/defs.h"
 #include "midi_io.h"
 #include "rand.h"
 #include "step_callbacks.h"

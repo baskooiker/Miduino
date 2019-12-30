@@ -2,8 +2,8 @@
 
 #include "ofLog.h"
 
-#include "defs.h"
-#include "timing_structs.h"
+#include "core/defs.h"
+#include "core/timing_structs.h"
 
 namespace Vleerhond
 {

@@ -1,6 +1,6 @@
 #include "harmony/scale.h"
 
-#include "defs.h"
+#include "core/defs.h"
 #include "utils.h"
 #include "strings.h"
 

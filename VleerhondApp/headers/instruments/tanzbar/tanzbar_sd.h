@@ -1,6 +1,6 @@
 #pragma once
 
-#include "defs.h"
+#include "core/defs.h"
 #include "instruments/instrument_base.h"
 #include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"

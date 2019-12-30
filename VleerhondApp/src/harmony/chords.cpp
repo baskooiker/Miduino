@@ -5,6 +5,8 @@
 
 #include "utils.h"
 
+#include <vector>
+
 namespace Vleerhond
 {
 namespace ChordUtils

@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#include "defs.h"
+#include "core/defs.h"
 
 #include "harmony/scale.h"
 #include "harmony/chords.h"

@@ -1,7 +1,7 @@
 #include "harmony/harmony_struct.h"
 #include "ofMain.h"
 
-#include "defs.h"
+#include "core/defs.h"
 #include "harmony/scale.h"
 #include "harmony/chords.h"
 #include "patterns/cv_patterns.h"

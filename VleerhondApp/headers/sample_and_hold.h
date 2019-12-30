@@ -1,7 +1,7 @@
 #pragma once
 
-#include "defs.h"
-#include "time_struct.h"
+#include "core/defs.h"
+#include "core/time_struct.h"
 #include "utils.h"
 
 namespace Vleerhond 

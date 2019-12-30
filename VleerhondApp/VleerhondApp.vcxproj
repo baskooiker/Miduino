@@ -162,9 +162,12 @@
     <ClInclude Include="headers\application\application_data.h" />
     <ClInclude Include="headers\application\callbacks.h" />
     <ClInclude Include="headers\application\step_callbacks.h" />
-    <ClInclude Include="headers\consts.h" />
-    <ClInclude Include="headers\defs.h" />
-    <ClInclude Include="headers\enums.h" />
+    <ClInclude Include="headers\core\consts.h" />
+    <ClInclude Include="headers\core\defs.h" />
+    <ClInclude Include="headers\core\enums.h" />
+    <ClInclude Include="headers\core\note_struct.h" />
+    <ClInclude Include="headers\core\time_struct.h" />
+    <ClInclude Include="headers\core\timing_structs.h" />
     <ClInclude Include="headers\harmony\chords.h" />
     <ClInclude Include="headers\harmony\harmony_struct.h" />
     <ClInclude Include="headers\harmony\scale.h" />
@@ -210,7 +213,6 @@
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
     <ClInclude Include="headers\midi\midi_channel.h" />
     <ClInclude Include="headers\midi\midi_io.h" />
-    <ClInclude Include="headers\note_struct.h" />
     <ClInclude Include="headers\patterns\ab.h" />
     <ClInclude Include="headers\patterns\arp.h" />
     <ClInclude Include="headers\patterns\binary_pattern.h" />
@@ -222,8 +224,6 @@
     <ClInclude Include="headers\patterns\modulators.h" />
     <ClInclude Include="headers\patterns\pattern_utils.h" />
     <ClInclude Include="headers\sample_and_hold.h" />
-    <ClInclude Include="headers\time_struct.h" />
-    <ClInclude Include="headers\timing_structs.h" />
     <ClInclude Include="headers\ui.h" />
     <ClInclude Include="headers\utils\print.h" />
     <ClInclude Include="headers\utils\rand.h" />

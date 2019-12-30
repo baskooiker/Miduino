@@ -1,6 +1,6 @@
 #pragma once
 
-#include "defs.h"
+#include "core/defs.h"
 #include "harmony/harmony_struct.h"
 #include "midi_channel.h"
 

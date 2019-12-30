@@ -4,9 +4,9 @@
 #include <iostream>
 
 #include "ab.h"
-#include "defs.h"
+#include "core/defs.h"
 #include "rand.h"
-#include "time_struct.h"
+#include "core/time_struct.h"
 
 namespace Vleerhond
 {

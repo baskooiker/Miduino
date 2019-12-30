@@ -1,8 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include "defs.h"
-#include "midi_io.h"
+
+#include "core/defs.h"
+#include "midi/midi_io.h"
 
 static uint16_t note_hits[12] = { 0 };
 

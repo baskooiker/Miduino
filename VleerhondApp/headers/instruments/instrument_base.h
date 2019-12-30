@@ -2,9 +2,9 @@
 
 #include "ofMain.h"
 
-#include "timing_structs.h"
-#include "midi_channel.h"
+#include "core/timing_structs.h"
 #include "harmony/harmony_struct.h"
+#include "midi/midi_channel.h"
 
 namespace Vleerhond
 {

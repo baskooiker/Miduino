@@ -1,9 +1,8 @@
 #include "patterns/arp.h"
 
-#include "defs.h"
-#include "rand.h"
-
+#include "core/defs.h"
 #include "harmony/chords.h"
+#include "utils/rand.h"
 
 namespace Vleerhond
 {

@@ -3,8 +3,8 @@
 #include <time.h>
 #include <stdlib.h>
 
-#include "defs.h"
-#include "time_struct.h"
+#include "core/defs.h"
+#include "core/time_struct.h"
 #include "rand.h"
 
 namespace Vleerhond
