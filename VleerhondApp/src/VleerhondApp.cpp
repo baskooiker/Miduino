@@ -234,6 +234,7 @@ namespace Vleerhond
             }
             break;
         case MIDI_START:
+        case MIDI_CONTINUE:
             stop_counter = 0;
             shutdown_counter = 0;
             ofLogNotice("Vleerhond", "Start!");

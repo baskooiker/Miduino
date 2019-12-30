@@ -9,20 +9,18 @@ namespace Vleerhond
 {
 namespace ChordUtils
 {
-    static const uint8_t chord_time_patterns[][4] = {
+    static const std::vector<std::vector<uint8_t>> chord_time_patterns = {
         {8,  8, 0, 0},
-        {10, 6, 0, 0},
         {12, 4, 0, 0},
         {8,  4, 4, 0},
         {6,  6, 4, 0},
         {4,  4, 4, 4},
         {6,  2, 6, 2},
     };
-    static const uint8_t nr_of_chord_time_patterns = sizeof(chord_time_patterns) / sizeof(*chord_time_patterns);
 
     void get_chord_time_pattern(uint8_t* pattern, uint8_t& length)
     {
-        uint8_t pat_idx = Rand::randui8(nr_of_chord_time_patterns);
+        uint8_t pat_idx = Rand::randui8(chord_time_patterns.size());
         length = 0;
 
         for (int i = 0; i < 4; i++)
