@@ -37,6 +37,11 @@ public:
     {
         return { instruments[selection % instruments.size()] };
     }
+
+    virtual void auto_randomize()
+    {
+        return instruments[selection % instruments.size()]->auto_randomize();
+    }
 };
 
 }

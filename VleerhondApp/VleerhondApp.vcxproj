@@ -162,7 +162,6 @@
     <ClInclude Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTypes.h" />
     <ClInclude Include="headers\application\application_data.h" />
     <ClInclude Include="headers\application\callbacks.h" />
-    <ClInclude Include="headers\application\step_callbacks.h" />
     <ClInclude Include="headers\application\ui.h" />
     <ClInclude Include="headers\core\consts.h" />
     <ClInclude Include="headers\core\defs.h" />
@@ -203,6 +202,7 @@
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_hats.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_lo.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_ma.h" />
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_rs.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_sd.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_tom.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\303_acid_bass.h" />

@@ -19,6 +19,7 @@ namespace Vleerhond
         InstrumentGroup(harmony, time),
         tanzbar_lo(modulators, time),
         tanzbar_mid(modulators, time),
+        tanzbar_rs(modulators, time),
         tanzbar_cp(modulators, time),
         tanzbar_tom(modulators, time),
         tanzbar_cb(modulators, time),
@@ -29,6 +30,7 @@ namespace Vleerhond
     {
         instruments.push_back(&tanzbar_lo);
         instruments.push_back(&tanzbar_mid);
+        instruments.push_back(&tanzbar_rs);
         instruments.push_back(&tanzbar_cp);
         instruments.push_back(&tanzbar_tom);
         instruments.push_back(&tanzbar_cb);

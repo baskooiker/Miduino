@@ -7,12 +7,7 @@
 #include "core/defs.h"
 #include "midi_io.h"
 #include "rand.h"
-#include "step_callbacks.h"
 #include "ui.h"
-
-#include "lead.h"
-#include "mfb_522.h"
-#include "poly.h"
 
 namespace Vleerhond
 {
@@ -227,23 +222,31 @@ namespace Vleerhond
             {
             }
             break;
-        case BTN_LEFT_BTM_05:
-            if (value == 0)
-            {
-                data.acid_bass.total_randomize();
-                data.tb303_bass.total_randomize();
-            }
-            break;
         case BTN_LEFT_TOP_06:
             if (value == 0)
             {
             }
             break;
+        case BTN_LEFT_BTM_05:
         case BTN_LEFT_BTM_06:
             if (value == 0)
             {
-                data.drone.randomize();
-                data.fugue_vermona_2.randomize();
+                handle_step_release(data, number, BTN_LEFT_BTM_05, BTN_LEFT_BTM_06,
+                    [](ApplicationData& data) 
+                    {
+                        data.tb303_bass.total_randomize();
+                        data.tb303_bass.randomize_drop();
+                    },
+                    [](ApplicationData& data) 
+                    {
+                        data.tb303_bass.total_randomize();
+                    },
+                    [](ApplicationData& data) 
+                    {
+                        data.tb303_bass.total_randomize();
+                        data.tb303_bass.note_range_value = 0;
+                    }
+                );
             }
             break;
         case BTN_LEFT_TOP_07:
@@ -254,10 +257,28 @@ namespace Vleerhond
             if (value == 0)
             {
                 handle_step_release(data, number, BTN_LEFT_BTM_07, BTN_LEFT_BTM_08,
-                    release_button_left_top_07, release_button_left_btm_07, release_buttons_left_07);
+                    [](ApplicationData& data)
+                    {
+                        data.neutron_mono.total_randomize();
+                        data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm);
+                        data.neutron_mono.set_pitch_mode(MonoPitchMode::SEQUENCE);
+                    },
+                    [](ApplicationData& data)
+                    {
+                        data.neutron_mono.total_randomize();
+                        data.neutron_mono.set_style(MonoStyle::MonoSixteenths);
+                        data.neutron_mono.set_pitch_mode(MonoPitchMode::ARP);
+                    },
+                    [](ApplicationData& data)
+                    {
+                        data.neutron_mono.total_randomize();
+                        data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm);
+                        data.neutron_mono.set_arp_type(ArpType::CLOSEST);
+                        data.neutron_mono.set_pitch_mode(MonoPitchMode::ARP);
+                    }
+                );
             }
             break;
-
         case BTN_RIGHT_BTM_01:
             data.tanzbar.killLow(value > 0);
             data.mfb_522.killLow(value > 0);

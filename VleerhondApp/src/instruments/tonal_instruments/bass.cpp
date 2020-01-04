@@ -79,6 +79,25 @@ void Bass::randomize_pitches()
     }
 }
 
+void Bass::randomize_drop()
+{
+    switch (Rand::distribution(16, 16))
+    {
+    case 0:
+        euclid_pattern.length = 8;
+        euclid_pattern.abPattern.set_ab_pattern();
+        break;
+    case 1:
+        euclid_pattern.length = 16;
+        euclid_pattern.abPattern.set_ab_pattern_const();
+        break;
+    }
+
+    euclid_pattern.set_all(false);
+    euclid_pattern.add_one();
+    euclid_pattern.add_one();
+}
+
 void Bass::randomize_gates()
 {
     ofLogNotice("", "randomize_gates");

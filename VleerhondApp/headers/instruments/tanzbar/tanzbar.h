@@ -4,6 +4,7 @@
 
 #include "tanzbar_lo.h"
 #include "tanzbar_sd.h"
+#include "tanzbar_rs.h"
 #include "tanzbar_cp.h"
 #include "tanzbar_tom.h"
 #include "tanzbar_cb.h"
@@ -20,6 +21,7 @@ public:
 
     TanzbarLo tanzbar_lo;
     TanzbarMid tanzbar_mid;
+    TanzbarRs tanzbar_rs;
     TanzbarCp tanzbar_cp;
     TanzbarTom tanzbar_tom;
     TanzbarCb tanzbar_cb;
@@ -41,6 +43,7 @@ public:
     {
         return {
             &tanzbar_mid,
+            &tanzbar_rs,
             &tanzbar_cp,
             &tanzbar_tom,
             &tanzbar_cb,

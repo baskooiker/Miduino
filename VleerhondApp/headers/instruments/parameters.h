@@ -13,9 +13,11 @@ namespace Vleerhond
         {
             for (int i = 0; i < length; i++)
             {
-                MidiIO::send_cc(list[i].note,
+                MidiIO::send_cc(
+                    list[i].note,
                     Rand::randui8(list[i].min, list[i].max),
-                    channel);
+                    channel
+                );
             }
         }
 

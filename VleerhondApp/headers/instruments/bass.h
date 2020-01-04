@@ -77,6 +77,7 @@ namespace Vleerhond
         );
         void randomize_octaves();
         void randomize_pitches();
+        void randomize_drop();
         void randomize_gates();
         void randomize_accents();
         void randomize();

@@ -458,9 +458,6 @@
     <ClInclude Include="headers\harmony\scale.h">
       <Filter>headers\harmony</Filter>
     </ClInclude>
-    <ClInclude Include="headers\application\step_callbacks.h">
-      <Filter>headers\application</Filter>
-    </ClInclude>
     <ClInclude Include="headers\utils\print.h">
       <Filter>headers\utils</Filter>
     </ClInclude>
@@ -496,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="headers\application\ui.h">
       <Filter>headers\application</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tanzbar\tanzbar_rs.h">
+      <Filter>headers\instruments\tanzbar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

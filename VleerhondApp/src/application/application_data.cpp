@@ -41,30 +41,13 @@ namespace Vleerhond
 
     void ApplicationData::probability_randomize()
     {
-        if (!Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
+        if (Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
         {
-            return;
-        }
-
-        std::vector<InstrumentBase*> ptrs = get_randomizable_instruments();
-        InstrumentBase* latest_randomize_ptr = ptrs.at(0);
-        for (auto instrument : ptrs)
-        {
-            if (instrument->randomized_time() < latest_randomize_ptr->randomized_time())
+            for (InstrumentBase* ptr : get_active_instrument())
             {
-                latest_randomize_ptr = instrument;
+                ptr->auto_randomize();
             }
         }
-
-        uint64_t diff = millis() - latest_randomize_ptr->randomized_time();
-        if (diff > 60000)
-        {
-            if (Rand::distribution(diff / 1000, 240) == 0)
-            {
-                latest_randomize_ptr->randomize();
-            }
-        }
-
     }
 
     void ApplicationData::play_all()

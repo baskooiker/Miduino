@@ -95,6 +95,22 @@ namespace Vleerhond
             return { this };
         }
 
+        virtual void check_auto_randomize()
+        {
+            uint64_t diff = millis() - randomized_time();
+            if (diff > 60000)
+            {
+                if (Rand::distribution(diff / 1000, 240) == 0)
+                {
+                    auto_randomize();
+                }
+            }
+        }
+
+        virtual void auto_randomize()
+        {
+        }
+
     };
 
     class TonalInstrumentBase : public InstrumentBase

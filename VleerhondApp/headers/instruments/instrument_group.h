@@ -38,5 +38,12 @@ public:
         return instruments;
     }
 
+    virtual void auto_randomize()
+    {
+        for (InstrumentBase* instrument : instruments)
+        {
+            instrument->auto_randomize();
+        }
+    }
 };
 }
