@@ -21,7 +21,7 @@ namespace Vleerhond
     void Toms::randomize()
     {
         ofLogNotice("toms", "randomize()");
-        last_randomized_time = millis();
+        last_randomized_time = Utils::millis();
 
         switch (Rand::distribution(16, 16))
         {

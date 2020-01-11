@@ -26,7 +26,7 @@ namespace Vleerhond
         void randomize()
         {
             ofLogNotice("lead", "randomize()");
-            last_randomized_time = millis();
+            last_randomized_time = Utils::millis();
 
             this->min_pitch_pattern.randomize(60, 78);
             switch (Rand::randui8(3))

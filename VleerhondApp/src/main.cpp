@@ -3,11 +3,6 @@
 
 #include "ofAppNoWindow.h"
 
-uint32_t millis()
-{
-    return ofGetSystemTimeMillis();
-}
-
 //========================================================================
 int main( )
 {

@@ -141,24 +141,23 @@ namespace Vleerhond
 
         if (false)
         {
-            //ofLogNotice("", "acid p_d: %d", data.acid_bass.settings.p_diddles);
-
             data.tb303_bass.pitch_offset = 24;
-            for (uint8_t v : {0, 31, 63, 95, 126})
+            for (int i = 0; i < 16; i++)
             {
-                data.acid_bass.total_randomize();
-                data.tb303_bass.variable_octave = v;
+                data.tb303_bass.randomize_drop();
+
                 for (int i = 0; i < 4; i++)
                 {
                     for (int j = 0; j < 16; j++)
                     {
-                        std::cout << (int)data.tb303_bass.get_pitch() << " ";
+                        std::cout << (int)data.tb303_bass.get_hit(0, data.time) << " ";
                         data.time.tick += 6;
                     }
                     std::cout << std::endl;
                 }
                 std::cout << std::endl;
             }
+            std::cout << std::endl;
             ofExit();
         }
         else
@@ -214,14 +213,16 @@ namespace Vleerhond
 
     void VleerhondApp::newMidiMessage(ofxMidiMessage& message)
     {
-        //ofLogNotice("App", message.getStatusString(message.status).c_str());
         switch (message.status)
         {
         case MIDI_TIME_CLOCK:
             midi_out_a.sendMidiBytes(message.bytes);
             midi_out_b.sendMidiBytes(message.bytes);
             midi_out_c.sendMidiBytes(message.bytes);
-            midi_out_d.sendMidiBytes(message.bytes);
+            for (int i = 0; i < 4; i++)
+            {
+                midi_out_d.sendMidiBytes(message.bytes);
+            }
             handleClock(this->data);
             break;
         case MIDI_STOP:

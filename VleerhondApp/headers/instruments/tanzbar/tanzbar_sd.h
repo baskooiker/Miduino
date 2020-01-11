@@ -15,7 +15,7 @@ namespace Vleerhond
         {TB_SD_SNAPPY    , 64, 127},
         {TB_SD_SN_DECAY  , 64, 127},
         {TB_SD_TONE      ,  0,  64},
-        {TB_SD_TONE_DECAY,  0,  48},
+        {TB_SD_TONE_DECAY,  0,  16},
         {TB_SD_PITCH     ,  0,  64},
 
         {TB_RS_TUNE      ,  0,  64},

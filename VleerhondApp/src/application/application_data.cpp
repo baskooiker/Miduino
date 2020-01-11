@@ -6,18 +6,13 @@
 #include "core/defs.h"
 #include "harmony/harmony_struct.h"
 #include "patterns/modulators.h"
+#include "utils/utils.h"
 #include "parameters.h"
 
 #include "tanzbar.h"
 #include "mfb_522.h"
 
 #include "moog_bass.h"
-#include "acid_bass.h"
-
-#include "vermona_mono.h"
-#include "vermona_mono_dub.h"
-#include "drone.h"
-#include "fugue_player.h"
 
 namespace Vleerhond
 {
@@ -25,18 +20,10 @@ namespace Vleerhond
         tanzbar(harmony, modulators, time),
         mfb_522(harmony, modulators, time),
         moog_bass(modulators, harmony, time),
-        acid_bass(harmony, time),
-        mono(harmony, modulators, time),
-        mono_dub(mono, harmony, time, modulators),
-        drone(harmony, time),
-        fugue_vermona_2(harmony, time, fugue, MIDI_CHANNEL_BASS_DUB),
-        fugue_vermona_3(harmony, time, fugue, MIDI_CHANNEL_MONO),
-        fugue_vermona_4(harmony, time, fugue, MIDI_CHANNEL_MONO_2),
         neutron_mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET),
         tb303_bass(harmony, time)
     {
         this->randomize_all();
-        set_regular();
     }
 
     void ApplicationData::probability_randomize()
@@ -132,30 +119,5 @@ namespace Vleerhond
         {
             instrument->stop_notes();
         }
-    }
-
-    void ApplicationData::set_regular()
-    {
-        acid_bass.set_active(true);
-        drone.set_active(true);
-        mono.set_active(true);
-        mono_dub.set_active(true);
-
-        fugue_vermona_2.set_active(false);
-        fugue_vermona_3.set_active(false);
-        fugue_vermona_4.set_active(false);
-    }
-
-    void ApplicationData::set_fugue()
-    {
-        //fugue_vermona_1.set_active(true);
-        fugue_vermona_2.set_active(true);
-        fugue_vermona_3.set_active(true);
-        fugue_vermona_4.set_active(true);
-
-        //acid_bass.set_active(false);
-        drone.set_active(false);
-        mono.set_active(false);
-        mono_dub.set_active(false);
     }
 }

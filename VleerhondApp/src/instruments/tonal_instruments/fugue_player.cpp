@@ -79,7 +79,7 @@ namespace Vleerhond
 
     void FuguePlayer::randomize()
     {
-        last_randomized_time = millis();
+        last_randomized_time = Utils::millis();
 
         uint8_t pitch_offsets[] = { 36, 40, 44, 48, 52 };
         uint8_t nr_pitch_offsets = sizeof(pitch_offsets) / sizeof(*pitch_offsets);

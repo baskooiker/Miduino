@@ -82,6 +82,8 @@ namespace Vleerhond
         void randomize_accents();
         void randomize();
         void total_randomize();
+        uint8_t get_length();
+        NoteType get_note_type();
         bool get_hit(const uint8_t density, const TimeStruct& time);
         uint8_t get_pitch();
         bool play();

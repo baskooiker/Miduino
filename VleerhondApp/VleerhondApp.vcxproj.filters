@@ -68,7 +68,7 @@
       <Filter>src\instruments\tonal_instruments</Filter>
     </ClCompile>
     <ClCompile Include="src\midi\midi_channel.cpp">
-      <Filter>src\instruments\midi</Filter>
+      <Filter>src\midi</Filter>
     </ClCompile>
     <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp">
       <Filter>src\instruments\tonal_instruments</Filter>
@@ -114,6 +114,15 @@
     </ClCompile>
     <ClCompile Include="src\core\time_struct.cpp">
       <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\application\callbacks.cpp">
+      <Filter>src\application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\application\ui.cpp">
+      <Filter>src\application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\utils.cpp">
+      <Filter>src\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +195,6 @@
     <Filter Include="headers\midi">
       <UniqueIdentifier>{3442a4c9-b57c-4426-af48-75b4b94e9241}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\instruments\midi">
-      <UniqueIdentifier>{ce71558f-2963-4d5e-a8ff-68007d7159d5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="headers\patterns">
       <UniqueIdentifier>{acfb2cea-aa85-40fb-b56a-05478d377764}</UniqueIdentifier>
     </Filter>
@@ -215,6 +221,9 @@
     </Filter>
     <Filter Include="src\core">
       <UniqueIdentifier>{64f93f31-3e58-4295-a00c-ad42352d0ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\midi">
+      <UniqueIdentifier>{ce71558f-2963-4d5e-a8ff-68007d7159d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

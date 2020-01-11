@@ -21,7 +21,7 @@ namespace Vleerhond
         void randomize()
         {
             ofLogNotice("drone", "randomize()");
-            last_randomized_time = millis();
+            last_randomized_time = Utils::millis();
 
             uint8_t steps = Rand::randui8(5, 10);
             gate_pattern.set_euclid(16, steps);

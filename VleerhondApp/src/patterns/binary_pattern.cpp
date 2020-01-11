@@ -171,7 +171,7 @@ namespace Vleerhond
 
         if (indices.size() == 0)
         {
-            set_gate(Rand::randui8(8), true);
+            set_gate(Rand::randui8(length), true);
             return;
         }
         std::random_shuffle(indices.begin(), indices.end());
@@ -180,7 +180,7 @@ namespace Vleerhond
         {
             if (!gate(i+1 % length))
             {
-                set_gate(i+1 % length, false);
+                set_gate(i+1 % length, true);
                 return;
             }
         }

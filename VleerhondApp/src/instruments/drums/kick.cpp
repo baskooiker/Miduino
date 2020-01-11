@@ -18,7 +18,7 @@ namespace Vleerhond
     void Kick::randomize()
     {
         ofLogNotice("kick", "randomize");
-        last_randomized_time = millis();
+        last_randomized_time = Utils::millis();
         
         bd_pattern.set_all(false);
         for (int i : {0, 4, 8, 12})

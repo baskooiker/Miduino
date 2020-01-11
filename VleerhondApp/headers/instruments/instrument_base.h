@@ -39,7 +39,7 @@ namespace Vleerhond
         virtual bool play() = 0;
         virtual void randomize()
         {
-            last_randomized_time = millis();
+            last_randomized_time = Utils::millis();
             randomize_parameters();
         }
 
@@ -97,7 +97,7 @@ namespace Vleerhond
 
         virtual void check_auto_randomize()
         {
-            uint64_t diff = millis() - randomized_time();
+            uint64_t diff = Utils::millis() - randomized_time();
             if (diff > 60000)
             {
                 if (Rand::distribution(diff / 1000, 240) == 0)

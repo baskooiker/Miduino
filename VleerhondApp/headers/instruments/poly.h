@@ -35,7 +35,7 @@ namespace Vleerhond
         void randomize()
         {
             ofLogNotice("poly", "randomize()");
-            last_randomized_time = millis();
+            last_randomized_time = Utils::millis();
 
             // Set pattern low
             this->gates_low.set_gates_low();

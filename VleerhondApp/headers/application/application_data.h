@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+#include "application/ui.h"
 #include "core/defs.h"
 #include "harmony/harmony_struct.h"
 #include "patterns/modulators.h"
@@ -12,14 +13,7 @@
 
 #include "303_acid_bass.h"
 #include "moog_bass.h"
-#include "acid_bass.h"
-#include "rocket_mono.h"
 #include "neutron_mono.h"
-
-#include "vermona_mono.h"
-#include "vermona_mono_dub.h"
-#include "drone.h"
-#include "fugue_player.h"
 
 namespace Vleerhond
 {
@@ -34,15 +28,7 @@ namespace Vleerhond
 
         TB303Bass tb303_bass;
         MoogBass moog_bass;
-        AcidBass acid_bass;
-        VermonaMono mono;
-        VermonaMonoDub mono_dub;
         NeutronMono neutron_mono;
-        Drone drone;
-
-        FuguePlayer fugue_vermona_2;
-        FuguePlayer fugue_vermona_3;
-        FuguePlayer fugue_vermona_4;
 
         Mfb522 mfb_522;
         Tanzbar tanzbar;
@@ -59,7 +45,5 @@ namespace Vleerhond
         std::vector<InstrumentBase*> get_active_instrument();
         std::vector<InstrumentBase*> get_randomizable_instruments();
         void stop_all();
-        void set_regular();
-        void set_fugue();
     };
 }

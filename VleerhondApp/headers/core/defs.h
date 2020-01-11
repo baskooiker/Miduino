@@ -6,10 +6,6 @@
 #include "core/consts.h"
 #include "core/enums.h"
 
-#ifndef ARDUINO
-uint32_t millis();
-#endif
-
 class Coefficients {
 public:
     float one;
@@ -61,15 +57,3 @@ public:
 };
 
 static const IntervalProbs arp_interval_probs = { 25, 25, 25, 0,  0 };
-
-class ButtonState
-{
-public:
-    unsigned long last_pressed;
-    unsigned long last_released;
-};
-
-class UiState {
-public:
-    std::map<uint8_t, ButtonState> step_state;
-};

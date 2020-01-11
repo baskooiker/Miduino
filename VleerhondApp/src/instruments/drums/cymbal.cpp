@@ -20,7 +20,7 @@ namespace Vleerhond
     void Cymbal::randomize()
     {
         ofLogNotice("cymbal", "randomize()");
-        last_randomized_time = millis();
+        last_randomized_time = Utils::millis();
 
         // Randomize Cymbal
         switch (Rand::distribution(0, 16, 16))

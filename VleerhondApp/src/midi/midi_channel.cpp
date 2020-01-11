@@ -5,6 +5,7 @@
 #include "core/defs.h"
 #include "midi_channel.h"
 #include "core/note_struct.h"
+#include "utils/utils.h"
 
 #define STORAGE_SIZE 8
 
@@ -48,7 +49,7 @@ namespace Vleerhond
 
     void MidiChannel::process_events()
     {
-        uint32_t time = millis();
+        uint32_t time = Utils::millis();
         for (int i = this->nr_of_events - 1; i >= 0; i--)
         {
             NoteEvent event_i = this->events[i];
@@ -88,7 +89,7 @@ namespace Vleerhond
     {
         if (this->nr_of_events < STORAGE_SIZE && delay > 0)
         {
-            NoteEvent new_event(note, millis() + delay);
+            NoteEvent new_event(note, Utils::millis() + delay);
             this->events[this->nr_of_events++] = new_event;
         }
         else

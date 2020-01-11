@@ -17,7 +17,7 @@ namespace Vleerhond
 
     void Snare::randomize()
     {
-        last_randomized_time = millis();
+        last_randomized_time = Utils::millis();
 
         switch (Rand::distribution(
             settings.p_coef, 

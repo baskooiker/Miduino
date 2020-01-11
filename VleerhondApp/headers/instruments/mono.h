@@ -76,6 +76,9 @@ namespace Vleerhond
         void set_arp_type(ArpType arp_type);
         void set_style(MonoStyle mono_style);
         void set_pitch_mode(const MonoPitchMode pitch_mode);
+        void set_arp_range(const int range);
+        void set_const_sequence();
+        void set_slow_rhythm();
         virtual uint8_t get_velocity();
     };
 }

@@ -290,9 +290,9 @@ uint8_t Bass::get_pitch()
     uint8_t octave = this->octaves.value(time);
     std::vector<int> octave_opts;
     if (octave < 32)
-        octave_opts = { 0, 0,  0, 0 , 1, 1};
+        octave_opts = { 0, 0,  1, 1 , 1, 1};
     else if (octave < 64)
-        octave_opts = { 0, -1, 0, 1 , 1, 1};
+        octave_opts = { 0, -1, 1, 1 , 1, 1};
     else if (octave < 96)
         octave_opts = { 0, -1, 1, 1 , 2, 2};
     else
@@ -303,11 +303,37 @@ uint8_t Bass::get_pitch()
     }
 
     return pitch;
-    //return Utils::clip_pitch(
-    //    pitch, 
-    //    this->pitch_offset,
-    //    Utils::rerange(variable_octave, this->pitch_offset + 12, 36)
-    //);
+}
+
+uint8_t Bass::get_length()
+{
+    uint8_t length = this->accents.gate(time) ? 6 : 2;
+    length = 6;
+
+    if (this->slides.gate(time.add(TICKS_PER_STEP)))
+    {
+        length = time.ticks_left_in_bar();
+        length = TICKS_PER_STEP * 2;
+    }
+    //else
+    //{
+    //    if (!this->get_hit(this->density, time.add(TICKS_PER_STEP)))
+    //    {
+    //        length = TICKS_PER_STEP * 2;
+    //    }
+    //}
+
+    //length = TICKS_PER_STEP * 4;
+    return length;
+}
+
+NoteType Bass::get_note_type()
+{
+    if (this->slides.gate(time.add(TICKS_PER_STEP)))
+    {
+        return NoteType::Slide;
+    }
+    return NoteType::Tie;
 }
 
 bool Bass::play()
@@ -317,30 +343,9 @@ bool Bass::play()
         return false;
     }
 
-    // Get hit
-
     if (this->get_hit(this->density, time))
     {
         uint8_t pitch = get_pitch();
-
-        // Note length
-        uint8_t length = this->accents.gate(time) ? 6 : 2;
-        NoteType note_type = NoteType::Tie;
-        if (this->slides.gate(time))
-        {
-            length = time.ticks_left_in_bar();
-            length = TICKS_PER_STEP * 4;
-            note_type = NoteType::Slide;
-        }
-        else
-        {
-            if (!this->get_hit(this->density, time.add(TICKS_PER_STEP)))
-            {
-                length = TICKS_PER_STEP * 2;
-            }
-        }
-
-        length = TICKS_PER_STEP * 4;
 
         // Sample and hold on random octave jumps
         if (octave_sh.gate(time))
@@ -350,7 +355,12 @@ bool Bass::play()
 
         // Play it!
         this->midi_channel.note_on(
-            NoteStruct(pitch, this->get_velocity(), length, note_type),
+            NoteStruct(
+                pitch, 
+                this->get_velocity(), 
+                get_length(),
+                get_note_type()
+            ),
             time.get_shuffle_delay()
         );
         return true;

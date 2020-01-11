@@ -5,6 +5,7 @@
 #include "harmony/scale.h"
 #include "harmony/chords.h"
 #include "patterns/cv_patterns.h"
+#include "utils/utils.h"
 
 const std::string HARMONY = "harmony";
 

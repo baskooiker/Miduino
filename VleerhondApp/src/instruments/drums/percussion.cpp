@@ -18,7 +18,7 @@ namespace Vleerhond
 
     void Percussion::randomize()
     {
-        last_randomized_time = millis();
+        last_randomized_time = Utils::millis();
 
         switch (Rand::distribution(settings.p_length_8, settings.p_length_16))
         {

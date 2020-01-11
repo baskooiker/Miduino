@@ -1,7 +1,7 @@
 #include "harmony/scale.h"
 
 #include "core/defs.h"
-#include "utils.h"
+#include "utils/utils.h"
 #include "strings.h"
 
 namespace Vleerhond

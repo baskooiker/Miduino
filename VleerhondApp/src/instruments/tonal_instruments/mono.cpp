@@ -20,7 +20,7 @@ namespace Vleerhond
 
     void Mono::randomize_arp()
     {
-        this->arp_data.range = Rand::randui8(12, 48);
+        this->arp_data.range = Rand::randui8(12, 36);
 
         switch (Rand::randui8(4))
         {
@@ -44,7 +44,7 @@ namespace Vleerhond
         case 1: octave_pattern.length = 16; break;
         }
 
-        octave_range = Rand::randi8(1, 4);
+        octave_range = Rand::randi8(1, 3);
     }
 
     void Mono::randomize_rhythm()
@@ -250,6 +250,30 @@ namespace Vleerhond
     void Mono::set_pitch_mode(const MonoPitchMode pitch_mode)
     {
         this->pitch_mode = pitch_mode;
+    }
+
+    void Mono::set_arp_range(const int range)
+    {
+
+        arp_data.range = std::max(12, range);
+    }
+
+    void Mono::set_const_sequence()
+    {
+        this->pitch_pattern.set_all(0);
+        this->octave_pattern.set_all(0);
+    }
+
+    void Mono::set_slow_rhythm()
+    {
+        this->gate_pattern.set_all(0);
+        this->gate_pattern.set(0, true);
+        this->gate_pattern.time_division = TimeDivision::Eighth;
+        switch (Rand::distribution(16, 16))
+        {
+        case 0: gate_pattern.length = 8; break;
+        case 1: gate_pattern.length = 16; break;
+        }
     }
 
     uint8_t Mono::get_velocity()

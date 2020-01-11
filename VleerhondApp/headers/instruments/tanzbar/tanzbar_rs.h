@@ -21,6 +21,7 @@ namespace Vleerhond
             Percussion(modulators_ref, time_ref, MIDI_CHANNEL_TANZBAR),
             rs_tune(modulators_ref)
         {
+            pitch = NOTE_TANZBAR_RS;
             this->params.push_back({ TB_RS_TUNE, 0, 127, MIDI_CHANNEL_TANZBAR });
         }
 

@@ -109,6 +109,8 @@
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiOut.cpp" />
     <ClCompile Include="..\..\..\..\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\src\ofxMidiTimecode.cpp" />
     <ClCompile Include="src\application\application_data.cpp" />
+    <ClCompile Include="src\application\callbacks.cpp" />
+    <ClCompile Include="src\application\ui.cpp" />
     <ClCompile Include="src\core\time_struct.cpp" />
     <ClCompile Include="src\harmony\chords.cpp" />
     <ClCompile Include="src\harmony\harmony_struct.cpp" />
@@ -135,6 +137,7 @@
     <ClCompile Include="src\patterns\modulators.cpp" />
     <ClCompile Include="src\patterns\pattern_utils.cpp" />
     <ClCompile Include="src\utils\rand.cpp" />
+    <ClCompile Include="src\utils\utils.cpp" />
     <ClCompile Include="src\VleerhondApp.cpp" />
   </ItemGroup>
   <ItemGroup>

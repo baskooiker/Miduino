@@ -22,7 +22,7 @@ namespace Vleerhond
     void Hats::randomize()
     {
         ofLogNotice("hats", "randomize()");
-        last_randomized_time = millis();
+        last_randomized_time = Utils::millis();
 
         randomize_seq();
 
