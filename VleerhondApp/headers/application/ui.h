@@ -17,6 +17,7 @@ namespace Vleerhond
         uint32_t time_since_release() const;
         uint32_t time_since_press() const;
         bool was_pressed_long() const;
+        bool long_since_release() const;
     };
 
     class UiState {

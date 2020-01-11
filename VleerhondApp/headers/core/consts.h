@@ -29,7 +29,6 @@
 
 #define COMMON_DENOMINATOR 240240 // Exept 9
 #define TICKS_PER_STEP 6
-#define SHORT_PRESS_TIME 500
 
 #define STEPS_IN_BAR (16)
 #define TICKS_IN_BAR (96)

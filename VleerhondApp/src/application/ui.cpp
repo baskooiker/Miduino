@@ -39,6 +39,11 @@ namespace Vleerhond
         return true;
     }
 
+    bool ButtonState::long_since_release() const
+    {
+        return Utils::millis() - last_released > 500;
+    }
+
 ////////////////////////////////////////////////////////////////////////
 
     bool UiState::is_pressed(const uint8_t id)

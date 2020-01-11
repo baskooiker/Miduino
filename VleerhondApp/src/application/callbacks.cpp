@@ -51,7 +51,7 @@ namespace Vleerhond
             data.ui_state.get_step_state(button_2) :
             data.ui_state.get_step_state(button_1);
 
-        if (other_button.time_since_release() > SHORT_PRESS_TIME)
+        if (other_button.long_since_release())
         {
             if (other_button.is_pressed())
             {
