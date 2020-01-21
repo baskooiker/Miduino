@@ -2,6 +2,7 @@
 
 #include "mono.h"
 #include "patterns/modulators.h"
+#include "midi/midi_io.h"
 
 namespace Vleerhond
 {

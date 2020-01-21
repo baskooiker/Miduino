@@ -23,7 +23,7 @@ namespace Vleerhond
         bool contains(const uint8_t pitch) const;
         bool chord_contains(const uint8_t pitch, const uint8_t chord) const;
         uint8_t get_note(const uint8_t v) const;
-        void get_available_chords_indices(uint8_t* chords, uint8_t& length) const;
+        std::vector<uint8_t> getAvailableChordsIndices() const;
         uint8_t get_ascending(const uint8_t pitch, const int8_t note_interval);
         uint8_t get_penta(const uint8_t index) const;
     };

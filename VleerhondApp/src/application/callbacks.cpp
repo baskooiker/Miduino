@@ -153,7 +153,6 @@ namespace Vleerhond
         case BTN_LEFT_TOP_02:
             if (value == 0)
             {
-                //data.harmony.randomize();
                 data.harmony.type = HarmonyType::HarmonyConst;
                 data.harmony.switch_const_chord();
             }
@@ -173,8 +172,7 @@ namespace Vleerhond
         case BTN_LEFT_TOP_03:
             if (value == 0)
             {
-                data.harmony.randomize();
-                data.harmony.type = HarmonyType::HarmonyHigh;
+                data.harmony.setHighPattern(0, false);
             }
             break;
         case BTN_LEFT_BTM_03:
@@ -192,22 +190,29 @@ namespace Vleerhond
         case BTN_LEFT_TOP_04:
             if (value == 0)
             {
+                data.harmony.setHighPattern(0, true);
             }
             break;
         case BTN_LEFT_BTM_04:
             if (value == 0)
             {
+                if (data.ui_state.getValue(BSP_SLIDER))
+                {
+
+                }
                 data.moog_bass.total_randomize();
             }
             break;
         case BTN_LEFT_TOP_05:
             if (value == 0)
             {
+                data.harmony.setHighPattern(4, false);
             }
             break;
         case BTN_LEFT_TOP_06:
             if (value == 0)
             {
+                data.harmony.setHighPattern(4, true);
             }
             break;
         case BTN_LEFT_BTM_05:

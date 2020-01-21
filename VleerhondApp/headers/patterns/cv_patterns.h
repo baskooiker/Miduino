@@ -40,7 +40,8 @@ namespace Vleerhond
         // TODO: Move to separate ChordPattern class
         void set_chord_pattern(
             const Scale& scale,
-            const uint8_t start_chord = 0
+            const uint8_t start_chord,
+            const bool long_pattern
         );
     };
 

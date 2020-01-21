@@ -6,6 +6,7 @@
 #include "patterns/gate_patterns.h"
 #include "instruments/parameters.h"
 #include "instruments/drums/percussion.h"
+#include "midi/midi_io.h"
 
 namespace Vleerhond
 {

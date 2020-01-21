@@ -20,6 +20,7 @@ namespace Vleerhond
         HarmonyStruct();
         uint8_t get_chord_step(const TimeStruct& time) const;
         void randomize();
+        void setHighPattern(const uint8_t start_chord, const bool long_pattern);
         void switch_const_chord();
     };
 }

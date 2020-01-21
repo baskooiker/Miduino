@@ -157,6 +157,8 @@
 #define SLIDER_07 22
 #define SLIDER_08 23
 
+#define BSP_SLIDER 9
+
 // MFB 503 CC's
 #define BD_LEVEL  8 
 #define BD_TUNE   9 

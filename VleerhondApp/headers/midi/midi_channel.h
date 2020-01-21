@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/defs.h"
-#include "midi_io.h"
 #include "core/note_struct.h"
 
 #define STORAGE_SIZE 8

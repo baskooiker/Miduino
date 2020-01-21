@@ -1,6 +1,6 @@
 #pragma once
 
-#include "instrument_base.h"
+#include "instruments/instrument_base.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
 #include "parameters.h"

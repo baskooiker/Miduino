@@ -124,6 +124,15 @@
     <ClCompile Include="src\utils\utils.cpp">
       <Filter>src\utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\midi\midi_io.cpp">
+      <Filter>src\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\parameters.cpp">
+      <Filter>src\instruments</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\instrument_base.cpp">
+      <Filter>src\instruments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

@@ -74,12 +74,10 @@ namespace Vleerhond
                 const uint8_t MAX_CHORD_NOTES = 8;
 
                 uint8_t chord_nr = harmony.get_chord_step(time);
-                uint8_t size = 0;
-                uint8_t chord_notes[MAX_CHORD_NOTES];
 
                 uint8_t total_pitch_offset = Utils::rerange(this->variable_pitch_offset, 36, this->pitch_offset);
                 ofLogVerbose("poly", "variable pitch offset: %d, pitch_offset: %d", variable_pitch_offset, total_pitch_offset);
-                ChordUtils::get_chord(chord_nr, harmony.scale, total_pitch_offset, chord_notes, size);
+                std::vector<uint8_t> chord_notes = ChordUtils::getChord(chord_nr, harmony.scale, total_pitch_offset);
 
                 uint8_t length = 6;
                 if (this->tie_pattern.gate(time)

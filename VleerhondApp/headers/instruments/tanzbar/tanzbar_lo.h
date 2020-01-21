@@ -2,6 +2,7 @@
 
 #include "parameters.h"
 #include "drums/kick.h"
+#include "midi/midi_io.h"
 
 namespace Vleerhond
 {

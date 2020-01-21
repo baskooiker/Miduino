@@ -29,5 +29,6 @@ namespace Vleerhond
         void release_step(const uint8_t id);
         void press_step(const uint8_t id);
         ButtonState& get_step_state(const uint8_t id);
+        uint8_t getValue(const uint8_t id);
     };
 }

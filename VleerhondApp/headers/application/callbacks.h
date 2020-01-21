@@ -5,7 +5,6 @@
 #include "application_data.h"
 #include "harmony/chords.h"
 #include "core/defs.h"
-#include "midi_io.h"
 #include "rand.h"
 #include "ui.h"
 

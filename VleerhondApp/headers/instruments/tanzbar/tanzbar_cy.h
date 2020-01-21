@@ -6,6 +6,7 @@
 #include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"
 #include "cymbal.h"
+#include "midi/midi_io.h"
 
 namespace Vleerhond
 {

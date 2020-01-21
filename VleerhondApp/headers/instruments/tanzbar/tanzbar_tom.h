@@ -6,6 +6,7 @@
 #include "patterns/gate_patterns.h"
 #include "parameters.h"
 #include "toms.h"
+#include "midi/midi_io.h"
 
 namespace Vleerhond
 {

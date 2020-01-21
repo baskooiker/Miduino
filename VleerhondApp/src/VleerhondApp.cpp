@@ -8,169 +8,68 @@
 #include "core/defs.h"
 #include "midi_io.h"
 
-ofxMidiOut midi_out_a;
-ofxMidiOut midi_out_b;
-ofxMidiOut midi_out_c;
-ofxMidiOut midi_out_d;
-ofxMidiIn midi_in;
-
 namespace Vleerhond
 {
     const char MODULE[] = "VleerhondApp";
 
-    void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
+    bool openFirstInput(const std::vector<std::string> midi_in_names, ofxMidiListener* listener)
     {
-        midi_out_a.sendNoteOn(channel, pitch, velocity);
-        midi_out_b.sendNoteOn(channel, pitch, velocity);
-        midi_out_c.sendNoteOn(channel, pitch, velocity);
-        midi_out_d.sendNoteOn(channel, pitch, velocity);
-    }
-
-    void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel)
-    {
-        midi_out_a.sendNoteOff(channel, pitch);
-        midi_out_b.sendNoteOff(channel, pitch);
-        midi_out_c.sendNoteOff(channel, pitch);
-        midi_out_d.sendNoteOff(channel, pitch);
-    }
-
-    void MidiIO::send_cc(uint8_t cc, uint8_t value, uint8_t channel)
-    {
-        midi_out_a.sendControlChange(channel, cc, value);
-        midi_out_b.sendControlChange(channel, cc, value);
-        midi_out_c.sendControlChange(channel, cc, value);
-        midi_out_d.sendControlChange(channel, cc, value);
-    }
-
-    void MidiIO::sendBytes(std::vector<uint8_t>& bytes)
-    {
-        for (ofxMidiOut* out : { &midi_out_a, &midi_out_b, &midi_out_c, &midi_out_d })
+        bool in_found = false;
+        for (std::string in_name : midi_in_names)
         {
-            out->sendMidiBytes(bytes);
-        }
-    }
-
-    bool open_port(ofxMidiOut& port, std::string name)
-    {
-        uint8_t num_ports = port.getNumOutPorts();
-
-        int port_index = -1;
-        for (int i = 0; i < num_ports; i++)
-        {
-            std::string port_name = port.getOutPortName(i);
-            int eq = port_name.find(name);
-            ofLogNotice("midi out", "%s, num_ports = %d", port_name.c_str(), num_ports);
-            if (eq >= 0)
+            if (MidiIO::portAvailable(in_name))
             {
-                ofLogNotice("midi out", port_name);
-                return port.openPort(i);
+                if (MidiIO::setMainInput(in_name, listener))
+                {
+                    in_found = true;
+                    break;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
         }
-        return false;
+        if (!in_found)
+        {
+            return false;
+        }
     }
 
-    bool open_port(ofxMidiIn& port, std::string name)
+    bool VleerhondApp::initializeMidiPorts()
     {
-        uint8_t num_ports = port.getNumInPorts();
+        std::string midi_a_name = "MIDISPORT 2x4 Out 1";
+        std::string midi_b_name = "MIDISPORT 2x4 Out 2";
+        std::string midi_c_name = "MIDISPORT 2x4 Out 3";
+        std::string midi_d_name = "MIDISPORT 2x4 Out 4";
 
-        int port_index = -1;
-        for (int i = 0; i < num_ports; i++)
-        {
-            std::string port_name = port.getInPortName(i);
-            int eq = port_name.find(name);
-            ofLogNotice("midi in", "%s, num_ports = %d", port_name.c_str(), num_ports);
-            if (eq >= 0)
-            {
-                ofLogNotice("midi in", port_name);
-                return port.openPort(i);
-            }
-        }
-        return false;
-    }
+        if (!openFirstInput({ "Arturia BeatStep Pro", "MIDISPORT 2x4 In 2" }, this)) 
+            return false;
 
-    bool ports_open()
-    {
-        return midi_in.isOpen()
-            && midi_out_a.isOpen()
-            && midi_out_b.isOpen()
-            && midi_out_c.isOpen()
-            && midi_out_d.isOpen();
-    }
+        if (!MidiIO::addOutput(midi_a_name)) 
+            return false;
+        if (!MidiIO::addOutput(midi_b_name)) 
+            return false;
+        if (!MidiIO::addOutput(midi_c_name)) 
+            return false;
+        if (!MidiIO::addOutput(midi_d_name)) 
+            return false;
 
-    void initialize_midi_ports()
-    {
-        ofSetBackgroundColor(0);
-
-        std::string midi_a_name = "MIDISPORT 2x2 Anniversary Out A";
-        std::string midi_b_name = "MIDISPORT 2x2 Anniversary Out B";
-        std::string midi_c_name = "MIDISPORT 2x2 Anniversary Out A";
-        std::string midi_d_name = "MIDISPORT 2x2 Anniversary Out B";
-        midi_a_name = "MIDISPORT 2x4 Out 1";
-        midi_b_name = "MIDISPORT 2x4 Out 2";
-        midi_c_name = "MIDISPORT 2x4 Out 3";
-        midi_d_name = "MIDISPORT 2x4 Out 4";
-
-        std::string midi_in_name = "ZeRO MkII";
-        midi_in_name = "MIDISPORT 2x4 In 1";
-        midi_in_name = "MIDISPORT 2x4 In 2";
-
-        open_port(midi_in, midi_in_name);
-        open_port(midi_out_a, midi_a_name);
-        open_port(midi_out_b, midi_b_name);
-        open_port(midi_out_c, midi_c_name);
-        open_port(midi_out_d, midi_d_name);
-
-        if (!ports_open())
-        {
-            ofSetBackgroundColor(0);
-        }
-        else
-        {
-            ofSetBackgroundColor(128);
-        }
-
+        return true;
     }
 
     void VleerhondApp::setup()
     {
         ofLogToConsole();
-        ofLogToConsole();
 
-        initialize_midi_ports();
-
-
-        if (false)
+        if (!initializeMidiPorts())
         {
-            data.tb303_bass.pitch_offset = 24;
-            for (int i = 0; i < 16; i++)
-            {
-                data.tb303_bass.randomize_drop();
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 16; j++)
-                    {
-                        std::cout << (int)data.tb303_bass.get_hit(0, data.time) << " ";
-                        data.time.tick += 6;
-                    }
-                    std::cout << std::endl;
-                }
-                std::cout << std::endl;
-            }
-            std::cout << std::endl;
-            ofExit();
+            ofExit(0);
         }
-        else
-        {
-            // don't ignore sysex, timing, & active sense messages,
-            // these are ignored by default
-            midi_in.ignoreTypes(false, false, false);
-            midi_in.addListener(this);
-            midi_in.setVerbose(true);
 
-            // Init app
-            data.randomize_all();
-        }
+        // Init app
+        data.randomize_all();
     }
 
     void VleerhondApp::play()
@@ -185,11 +84,9 @@ namespace Vleerhond
     {
         static bool _is_trigger_on = false;
 
-        if (!ports_open())
+        if (!MidiIO::portsOpen())
         {
             ofExit(0);
-            ofSleepMillis(500);
-            initialize_midi_ports();
         }
         else
         {
@@ -202,6 +99,7 @@ namespace Vleerhond
                 {
                     MidiIO::send_cc(MINITAUR_CC_VCO2_WAVE, trigger_active ? 127 : 0, MIDI_CHANNEL_MINITAUR);
                     _is_trigger_on = trigger_active;
+                    ofLogNotice("", "BLINK");
                 }
             }
         }
@@ -216,13 +114,7 @@ namespace Vleerhond
         switch (message.status)
         {
         case MIDI_TIME_CLOCK:
-            midi_out_a.sendMidiBytes(message.bytes);
-            midi_out_b.sendMidiBytes(message.bytes);
-            midi_out_c.sendMidiBytes(message.bytes);
-            for (int i = 0; i < 4; i++)
-            {
-                midi_out_d.sendMidiBytes(message.bytes);
-            }
+            MidiIO::sendTimeClock();
             handleClock(this->data);
             break;
         case MIDI_STOP:
@@ -231,6 +123,7 @@ namespace Vleerhond
             stop_counter++;
             if (stop_counter > 8)
             {
+                ofLogNotice("stop_counter high");
                 ofExit(shutdown_counter > 0 ? -1 : 0);
             }
             break;
@@ -242,11 +135,12 @@ namespace Vleerhond
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
+            ofLogVerbose("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
             break;
         case MIDI_NOTE_OFF:
             break;
         case MIDI_CONTROL_CHANGE:
-            ofLogNotice("MIDIIN", "CC in: %d, %d", message.control, message.value);
+            ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
             if (message.value == BTN_LEFT_BTM_08 && data.time.state == PlayState::Stopped)
             {
                 shutdown_counter++;
@@ -272,10 +166,6 @@ namespace Vleerhond
     void VleerhondApp::exit()
     {
         ofLogNotice("", "Closing MIDI ports. shutdown_counter = %d", shutdown_counter);
-        midi_in.closePort();
-        midi_out_a.closePort();
-        midi_out_b.closePort();
-        midi_out_c.closePort();
-        midi_out_d.closePort();
+        MidiIO::closeAll();
     }
 }

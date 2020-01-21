@@ -1,5 +1,8 @@
 #pragma once
 
+#include "instruments/instrument_base.h"
+#include "midi/midi_io.h"
+
 namespace Vleerhond
 {
     enum class PatternType

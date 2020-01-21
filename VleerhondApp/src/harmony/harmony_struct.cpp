@@ -39,11 +39,16 @@ namespace Vleerhond
         }
 
         // Set high pattern
-        switch (Rand::distribution(64, 16))
-        {
-        case 0: this->high_pattern.set_chord_pattern(this->scale, 0); break;
-        case 1: this->high_pattern.set_chord_pattern(this->scale, 4); break;
-        }
+        const uint8_t start_chord = Rand::distribution(64, 16) ? 0 : 4;
+        const bool long_pattern = Rand::distribution(16, 16) == 1;
+        this->setHighPattern(start_chord, long_pattern);
+    }
+
+    void HarmonyStruct::setHighPattern(const uint8_t start_chord, const bool long_pattern)
+    {
+        this->type = HarmonyType::HarmonyHigh;
+
+        this->high_pattern.set_chord_pattern(this->scale, start_chord, long_pattern);
 
         switch (Rand::distribution(10, 10))
         {
@@ -54,11 +59,9 @@ namespace Vleerhond
 
     void HarmonyStruct::switch_const_chord()
     {
-        uint8_t options[8] = { 0 };
-        uint8_t length = 0;
-        this->scale.get_available_chords_indices(options, length);
-        Utils::remove(this->const_value, options, length);
-        Utils::remove(0, options, length);
-        this->const_value = options[Rand::randui8(length)];
+        std::vector<uint8_t> options = this->scale.getAvailableChordsIndices();
+        options.erase(std::remove(options.begin(), options.end(), const_value), options.end());
+        options.erase(std::remove(options.begin(), options.end(), 0), options.end());
+        this->const_value = options[Rand::randui8(options.size())];
     }
 }

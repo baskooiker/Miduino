@@ -8,8 +8,9 @@ namespace Vleerhond
 {
 namespace ChordUtils
 {
-    void get_chord_time_pattern(uint8_t* pattern, uint8_t& length); 
-    void get_chord_seq(uint8_t* options, uint8_t length, uint8_t* seq);
-    void get_chord(uint8_t chord, Scale& scale, uint8_t offset, uint8_t* chord_notes, uint8_t& size);
+    std::vector<uint8_t> getChordTimePatternShort();
+    std::vector<uint8_t> getChordTimePatternLong();
+    std::vector<uint8_t> getChordSeq(std::vector<uint8_t> options, uint8_t length);
+    std::vector<uint8_t> getChord(uint8_t chord, Scale& scale, uint8_t offset);
 }
 }

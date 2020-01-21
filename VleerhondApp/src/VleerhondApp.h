@@ -19,6 +19,8 @@ namespace Vleerhond
     public:
         ApplicationData data;
 
+        bool initializeMidiPorts();
+
         void setup();
         void play();
         void update();

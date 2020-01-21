@@ -69,4 +69,10 @@ namespace Vleerhond
         }
         return step_states[id];
     }
+
+    uint8_t UiState::getValue(const uint8_t id)
+    {
+        return 0;
+        //return get_step_state(id).value();
+    }
 }

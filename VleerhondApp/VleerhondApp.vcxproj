@@ -121,7 +121,9 @@
     <ClCompile Include="src\instruments\drums\percussion.cpp" />
     <ClCompile Include="src\instruments\drums\snare.cpp" />
     <ClCompile Include="src\instruments\drums\toms.cpp" />
+    <ClCompile Include="src\instruments\instrument_base.cpp" />
     <ClCompile Include="src\instruments\mfb_522.cpp" />
+    <ClCompile Include="src\instruments\parameters.cpp" />
     <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\acid_bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\bass.cpp" />
@@ -130,6 +132,7 @@
     <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\midi\midi_channel.cpp" />
+    <ClCompile Include="src\midi\midi_io.cpp" />
     <ClCompile Include="src\patterns\arp.cpp" />
     <ClCompile Include="src\patterns\binary_pattern.cpp" />
     <ClCompile Include="src\patterns\cv_patterns.cpp" />

@@ -3,8 +3,9 @@
 #include "ofLog.h"
 
 #include "core/defs.h"
-#include "midi_channel.h"
 #include "core/note_struct.h"
+#include "midi/midi_channel.h"
+#include "midi/midi_io.h"
 #include "utils/utils.h"
 
 #define STORAGE_SIZE 8

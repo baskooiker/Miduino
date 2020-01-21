@@ -1,6 +1,7 @@
 #pragma once
 
-#include "hats.h"
+#include "instruments/drums/hats.h"
+#include "midi/midi_io.h"
 
 namespace Vleerhond
 {

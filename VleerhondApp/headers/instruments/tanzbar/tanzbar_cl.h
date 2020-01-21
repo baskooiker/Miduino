@@ -1,11 +1,8 @@
 #pragma once
 
-#include "core/defs.h"
-#include "instrument_base.h"
+#include "instruments/drums/percussion.h"
+#include "instruments/parameters.h"
 #include "patterns/modulators.h"
-#include "patterns/gate_patterns.h"
-#include "parameters.h"
-#include "percussion.h"
 
 namespace Vleerhond
 {

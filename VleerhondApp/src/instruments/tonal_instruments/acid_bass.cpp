@@ -1,5 +1,7 @@
 #include "acid_bass.h"
 
+#include "midi/midi_io.h"
+
 namespace Vleerhond
 {
     AcidBass::AcidBass(

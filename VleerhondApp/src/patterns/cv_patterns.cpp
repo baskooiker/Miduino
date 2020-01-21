@@ -1,5 +1,7 @@
 #include "patterns/cv_patterns.h"
 
+#include <algorithm>
+
 namespace Vleerhond
 {
     void CvPattern::randomize(const uint8_t maximum, const uint8_t minimum)
@@ -72,26 +74,31 @@ namespace Vleerhond
     // TODO: Move to separate ChordPattern class
     void CvPattern16::set_chord_pattern(
         const Scale& scale,
-        const uint8_t start_chord)
+        const uint8_t start_chord,
+        const bool long_pattern)
     {
-        uint8_t options[8] = { 0 };
-        uint8_t options_length = 0;
-        scale.get_available_chords_indices(options, options_length);
-        Utils::randomize_order(options, options_length);
+        std::vector<uint8_t> options = scale.getAvailableChordsIndices();
+        std::random_shuffle(options.begin(), options.end());
 
         uint8_t start_chord_idx = 0;
-        Utils::find_item(start_chord, options, options_length, start_chord_idx);
-        Utils::swap(options, start_chord_idx, 0);
+        for (int i = 0; i < options.size(); i++)
+        {
+            if (start_chord == options[i])
+            {
+                start_chord_idx = i;
+                break;
+            }
+        }
+        std::iter_swap(options.begin(), options.begin()+start_chord_idx);
 
-        uint8_t time_pattern_length = 0;
-        uint8_t chord_time_pattern[4] = { 0, 0, 0, 0 };
-        ChordUtils::get_chord_time_pattern(chord_time_pattern, time_pattern_length);
+        std::vector<uint8_t> chord_time_pattern = long_pattern 
+            ? ChordUtils::getChordTimePatternLong() 
+            : ChordUtils::getChordTimePatternShort();
 
-        uint8_t seq[4] = { 0, 0, 0, 0 };
-        ChordUtils::get_chord_seq(options, time_pattern_length, seq);
+        std::vector<uint8_t> seq = ChordUtils::getChordSeq(options, chord_time_pattern.size());
 
         uint8_t c = 0;
-        for (int i = 0; i < time_pattern_length && i < 4; i++)
+        for (int i = 0; i < chord_time_pattern.size(); i++)
         {
             for (int j = 0; j < chord_time_pattern[i]; j++)
             {
@@ -99,6 +106,7 @@ namespace Vleerhond
                 c += 1;
             }
         }
+        this->length = c;
     }
 
     //////////////////////////////////////////////////////////////////////////////////

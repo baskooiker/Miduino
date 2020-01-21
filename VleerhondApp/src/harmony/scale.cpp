@@ -112,18 +112,19 @@ namespace Vleerhond
         return notes[v % length];
     }
 
-    void Scale::get_available_chords_indices(uint8_t* chords, uint8_t& length) const
+    std::vector<uint8_t> Scale::getAvailableChordsIndices() const
     {
-        length = 0;
+        std::vector<uint8_t> chords;
         uint8_t scale_length = 0;
         uint8_t* notes = this->get_scale_notes(scale_length);
         for (int i = 0; i < scale_length; i++)
         {
             if (this->contains(notes[i] + 7))
             {
-                chords[length++] = i;
+                chords.push_back(i);
             }
         }
+        return chords;
     }
 
     uint8_t Scale::get_ascending(const uint8_t pitch, const int8_t note_interval)
