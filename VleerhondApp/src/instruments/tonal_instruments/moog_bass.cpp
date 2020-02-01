@@ -57,10 +57,6 @@ namespace Vleerhond
 
     uint8_t MoogBass::get_velocity()
     {
-        uint8_t value = 100;
-        //vel_mod.value(time, value);
-
-        value = this->accents.gate(this->time) ? 127 : 64;
-        return value;
+        return this->accents.gate(this->time) ? 127 : 64;
     }
 }

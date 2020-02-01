@@ -18,6 +18,8 @@ public:
         const uint8_t midi_channel) :
         Mono(harmony, modulators, time, MIDI_CHANNEL_NEUTRON)
     {
+        settings.min_velocity = 32;
+        settings.min_velocity = 127;
     }
 
     void sendSysexMessage(const std::vector<uint8_t> msg)
@@ -52,6 +54,8 @@ public:
         setAutoglide(24);
         setShapeBlend(true);
         Mono::randomize();
+        settings.min_velocity = Rand::randui8(32, 64);
+        settings.max_velocity = Rand::randui8(100, 127);
     }
 
 };

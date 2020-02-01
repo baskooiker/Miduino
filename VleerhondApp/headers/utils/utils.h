@@ -21,7 +21,7 @@ namespace Vleerhond
         void swap(NoteInterval* array, uint8_t x, uint8_t y);
         void randomize_order(NoteInterval* array, uint8_t length);
         void sort(uint8_t* ar, uint8_t length);
-        bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size);
+        bool isInSet(const uint8_t pitch, const std::vector<uint8_t> set);
         uint8_t rerange(uint8_t input, uint8_t range, int8_t offset = 0);
         bool gate(const uint16_t value, const uint8_t index, const uint8_t length = 16);
         uint8_t to_chord_order(const uint8_t order);

@@ -92,6 +92,5 @@ public:
     void killLow(const bool kill);
     void killMid(const bool kill);
     void killHigh(const bool kill);
-
 };
 }

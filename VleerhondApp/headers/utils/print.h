@@ -2,6 +2,11 @@
 
 #include <stdio.h>
 
+#include "core/defs.h"
+#include "patterns/cv_patterns.h"
+#include "patterns/gate_patterns.h"
+#include "patterns/interval_pattern.h"
+
 namespace Vleerhond
 {
     void print_pattern(const BinaryPattern& pattern, const uint8_t length)
@@ -19,12 +24,6 @@ namespace Vleerhond
         {
             print_pattern(pattern.patterns[pattern.abPattern.value(i)], 16);
         }
-        printf("\n");
-    }
-
-    void print_pattern(const GatePattern16& pattern)
-    {
-        print_pattern(pattern.pattern, 16);
         printf("\n");
     }
 
@@ -63,12 +62,11 @@ namespace Vleerhond
 
     void print_scale(const Scale& scale)
     {
-        uint8_t length = 0;
-        uint8_t* notes = scale.get_scale_notes(length);
+        std::vector<uint8_t> notes = scale.getScaleNotes();
         printf("Root = %d\n", scale.root);
-        for (int i = 0; i < length; i++)
+        for (const int note : notes)
         {
-            printf("%-2d  ", notes[i]);
+            printf("%-2d  ", note);
         }
         printf("\n");
     }

@@ -47,14 +47,14 @@ namespace Vleerhond
         if (!openFirstInput({ "Arturia BeatStep Pro", "MIDISPORT 2x4 In 2" }, this)) 
             return false;
 
-        if (!MidiIO::addOutput(midi_a_name)) 
+        if (!MidiIO::addOutput(midi_a_name))
             return false;
-        if (!MidiIO::addOutput(midi_b_name)) 
-            return false;
-        if (!MidiIO::addOutput(midi_c_name)) 
-            return false;
-        if (!MidiIO::addOutput(midi_d_name)) 
-            return false;
+        //if (!MidiIO::addOutput(midi_b_name)) 
+        //    return false;
+        //if (!MidiIO::addOutput(midi_c_name)) 
+        //    return false;
+        //if (!MidiIO::addOutput(midi_d_name)) 
+        //    return false;
 
         return true;
     }
@@ -70,6 +70,9 @@ namespace Vleerhond
 
         // Init app
         data.randomize_all();
+
+        MidiIO::sendProgramChange(MIDI_CHANNEL_DS, 8);
+
     }
 
     void VleerhondApp::play()

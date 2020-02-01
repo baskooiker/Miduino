@@ -10,6 +10,7 @@
 
 #include "tanzbar.h"
 #include "mfb_522.h"
+#include "instruments/drumstation/drumstation.h"
 
 #include "303_acid_bass.h"
 #include "moog_bass.h"
@@ -23,7 +24,6 @@ namespace Vleerhond
         TimeStruct time;
         HarmonyStruct harmony;
 
-        Fugue fugue;
         Modulators modulators;
 
         TB303Bass tb303_bass;
@@ -32,6 +32,7 @@ namespace Vleerhond
 
         Mfb522 mfb_522;
         Tanzbar tanzbar;
+        DrumStation drumstation;
 
         UiState ui_state;
 

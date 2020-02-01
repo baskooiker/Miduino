@@ -161,4 +161,12 @@ namespace Vleerhond
         }
     }
 
+    void MidiIO::sendProgramChange(const uint8_t channel, const uint8_t program)
+    {
+        for (auto& out : out_ports)
+        {
+            out.port.sendProgramChange(channel, program);
+        }
+    }
+
 }

@@ -88,11 +88,11 @@ namespace Vleerhond
             }
         }
 
-        bool is_in_set(const uint8_t pitch, const uint8_t* set, const uint8_t size)
+        bool isInSet(const uint8_t pitch, const std::vector<uint8_t> set)
         {
-            for (int i = 0; i < size; i++)
+            for (const uint8_t item : set)
             {
-                if (pitch == set[i])
+                if (pitch == item)
                     return true;
             }
             return false;

@@ -20,6 +20,8 @@ namespace Vleerhond
             uint8_t p_off = 16;
             uint8_t p_euclid = 16;
             uint8_t p_drop = 16;
+            uint8_t velocity_range = 50;
+            uint8_t velocity_offset = 32;
         } settings;
 
     public:

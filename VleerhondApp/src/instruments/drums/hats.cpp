@@ -164,7 +164,11 @@ namespace Vleerhond
         }
         else
         {
-            velocity = Utils::rerange(this->hat_velocity.value(time), 50, 32);
+            velocity = Utils::rerange(
+                this->hat_velocity.value(time), 
+                settings.velocity_range, 
+                settings.velocity_offset
+            );
         }
         return velocity;
     }

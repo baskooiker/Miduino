@@ -30,6 +30,8 @@ namespace Vleerhond
 
     void HarmonyStruct::randomize()
     {
+        HarmonyType current_type = this->type;
+
         ofLogNotice(HARMONY, "randomize()");
         // Set const pattern
         switch (Rand::distribution(64, 16))
@@ -42,6 +44,8 @@ namespace Vleerhond
         const uint8_t start_chord = Rand::distribution(64, 16) ? 0 : 4;
         const bool long_pattern = Rand::distribution(16, 16) == 1;
         this->setHighPattern(start_chord, long_pattern);
+
+        this->type = current_type;
     }
 
     void HarmonyStruct::setHighPattern(const uint8_t start_chord, const bool long_pattern)

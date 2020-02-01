@@ -52,6 +52,8 @@ namespace Vleerhond
         struct {
             uint8_t p_arp = 16;
             uint8_t p_euclid = 16;
+            uint8_t min_velocity = 64;
+            uint8_t max_velocity = 100;
         } settings;
 
         Mono(

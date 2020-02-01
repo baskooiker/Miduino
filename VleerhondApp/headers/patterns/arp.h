@@ -9,8 +9,7 @@ namespace Vleerhond
     class ArpData
     {
     protected:
-        uint8_t arp_notes[32];
-        uint8_t arp_notes_length;
+        std::vector<uint8_t> arp_notes;
 
         RangeType range_type;
         uint8_t last_note;
@@ -23,9 +22,8 @@ namespace Vleerhond
         ArpType type;
 
         ArpData();
-        uint8_t get_closest(
-            const uint8_t* arp_pitches,
-            const uint8_t size,
+        uint8_t getClosest(
+            const std::vector<uint8_t> arp_pitches,
             const bool include_current,
             uint8_t& last_note) const;
 

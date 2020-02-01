@@ -71,7 +71,7 @@ namespace Vleerhond
         {
             uint8_t prob = tom_pattern.value(time);
             uint8_t penta = penta_notes.at(prob % penta_notes.size());
-            uint8_t penta_pitch = harmony.scale.get_penta(penta);
+            uint8_t penta_pitch = harmony.scale.getPenta(penta);
             return Utils::clip_pitch(penta_pitch, NOTE_503_TOM_MIN, NOTE_503_TOM_MAX);
         }
     };

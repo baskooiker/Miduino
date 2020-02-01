@@ -19,6 +19,7 @@ namespace Vleerhond
     ApplicationData::ApplicationData() :
         tanzbar(harmony, modulators, time),
         mfb_522(harmony, modulators, time),
+        drumstation(harmony, modulators, time),
         moog_bass(modulators, harmony, time),
         neutron_mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET),
         tb303_bass(harmony, time)
@@ -65,7 +66,6 @@ namespace Vleerhond
         }
 
         this->harmony.randomize();
-        this->fugue.randomize_fugue();
     }
 
     void ApplicationData::process_events()
@@ -80,8 +80,9 @@ namespace Vleerhond
     {
         std::vector<InstrumentBase*> ptrs;
 
+        ptrs.push_back(&this->drumstation);
         ptrs.push_back(&this->tanzbar);
-        ptrs.push_back(&this->mfb_522);
+        //ptrs.push_back(&this->mfb_522);
 
         ptrs.push_back(&this->tb303_bass);
         ptrs.push_back(&this->moog_bass);

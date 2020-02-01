@@ -115,6 +115,7 @@
     <ClCompile Include="src\harmony\chords.cpp" />
     <ClCompile Include="src\harmony\harmony_struct.cpp" />
     <ClCompile Include="src\harmony\scale.cpp" />
+    <ClCompile Include="src\instruments\drumstation\drumstation.cpp" />
     <ClCompile Include="src\instruments\drums\cymbal.cpp" />
     <ClCompile Include="src\instruments\drums\hats.cpp" />
     <ClCompile Include="src\instruments\drums\kick.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="headers\harmony\scale.h" />
     <ClInclude Include="headers\instruments\bass.h" />
     <ClInclude Include="headers\instruments\drone.h" />
+    <ClInclude Include="headers\instruments\drumstation\drumstation.h" />
     <ClInclude Include="headers\instruments\drums\cymbal.h" />
     <ClInclude Include="headers\instruments\drums\hats.h" />
     <ClInclude Include="headers\instruments\drums\kick.h" />

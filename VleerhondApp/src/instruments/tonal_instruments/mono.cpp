@@ -146,7 +146,7 @@ namespace Vleerhond
 
     uint8_t Mono::get_sequence_pitch() const
     {
-        uint8_t pitch = harmony.scale.get_penta(this->pitch_pattern.value(time));
+        uint8_t pitch = harmony.scale.getPenta(this->pitch_pattern.value(time));
         pitch = Utils::clip_pitch(pitch, variable_pitch_offset);
         uint8_t octave = Utils::rerange(octave_pattern.value(time), this->octave_range);
         pitch += octave * 12;
@@ -281,8 +281,8 @@ namespace Vleerhond
         // TODO: variation on min/max velocity
         if (accent_pattern.gate(time))
         {
-            return 100;
+            return settings.max_velocity;
         }
-        return 64;
+        return settings.min_velocity;
     }
 }

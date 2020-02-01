@@ -145,6 +145,8 @@ namespace Vleerhond
                     inst->randomize();
                 for (auto& inst : data.mfb_522.getLow())
                     inst->randomize();
+                for (auto& inst : data.drumstation.getLow())
+                    inst->randomize();
 
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
@@ -164,6 +166,8 @@ namespace Vleerhond
                     inst->randomize();
                 for (auto& inst : data.mfb_522.getMid())
                     inst->randomize();
+                for (auto& inst : data.drumstation.getMid())
+                    inst->randomize();
 
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
@@ -181,6 +185,8 @@ namespace Vleerhond
                 for (auto& inst : data.tanzbar.getHigh())
                     inst->randomize();
                 for (auto& inst : data.mfb_522.getHigh())
+                    inst->randomize();
+                for (auto& inst : data.drumstation.getHigh())
                     inst->randomize();
 
                 data.time.randomize_shuffle();
@@ -239,7 +245,12 @@ namespace Vleerhond
             }
             break;
         case BTN_LEFT_TOP_07:
+            break;
         case BTN_LEFT_TOP_08:
+            if (value == 0)
+            {
+                data.drumstation.reset();
+            }
             break;
         case BTN_LEFT_BTM_07:
         case BTN_LEFT_BTM_08:
@@ -288,16 +299,25 @@ namespace Vleerhond
             }
             break;
         case BTN_RIGHT_BTM_01:
-            data.tanzbar.killLow(value > 0);
-            data.mfb_522.killLow(value > 0);
+            if (data.ui_state.is_pressed(BTN_RIGHT_BTM_08))
+            {
+            }
+            else
+            {
+                data.tanzbar.killLow(value > 0);
+                data.mfb_522.killLow(value > 0);
+                data.drumstation.killLow(value > 0);
+            }
             break;
         case BTN_RIGHT_BTM_02:
             data.tanzbar.killMid(value > 0);
             data.mfb_522.killMid(value > 0);
+            data.drumstation.killMid(value > 0);
             break;
         case BTN_RIGHT_BTM_03:
             data.tanzbar.killHigh(value > 0);
             data.mfb_522.killHigh(value > 0);
+            data.drumstation.killHigh(value > 0);
             break;
         case BTN_RIGHT_BTM_04:
             data.moog_bass.kill = value > 0;

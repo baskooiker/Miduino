@@ -133,6 +133,9 @@
     <ClCompile Include="src\instruments\instrument_base.cpp">
       <Filter>src\instruments</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\drumstation\drumstation.cpp">
+      <Filter>src\instruments\drumstation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -233,6 +236,12 @@
     </Filter>
     <Filter Include="src\midi">
       <UniqueIdentifier>{ce71558f-2963-4d5e-a8ff-68007d7159d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\drumstation">
+      <UniqueIdentifier>{5ec787e9-1083-43ab-ba80-19d459c1e5b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\instruments\drumstation">
+      <UniqueIdentifier>{576aad96-3d45-4af3-bd05-2ae2b619a032}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +523,9 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_rs.h">
       <Filter>headers\instruments\tanzbar</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\drumstation\drumstation.h">
+      <Filter>headers\instruments\drumstation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
