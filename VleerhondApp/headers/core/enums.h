@@ -90,9 +90,12 @@ namespace Vleerhond
         MonoPolyRhythm
     };
 
-    enum HarmonyType {
-        HarmonyConst,
-        HarmonyHigh
+    enum class HarmonyType {
+        Const,
+        TonicLow,
+        TonicHigh,
+        DominantLow,
+        DominantHigh,
     };
 
     enum class NoteType {

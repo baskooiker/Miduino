@@ -46,6 +46,7 @@ namespace Vleerhond
         }
 
         probability_randomize();
+        this->handleUserEvents();
     }
 
     void ApplicationData::process_active_notes()
@@ -68,12 +69,30 @@ namespace Vleerhond
         this->harmony.randomize();
     }
 
-    void ApplicationData::process_events()
+    void ApplicationData::processNoteEvents()
     {
         for (auto instrument : get_instrument_ptrs())
         {
-            instrument->process_events();
+            instrument->processNoteEvents();
         }
+    }
+
+    void ApplicationData::handleUserEvents()
+    {
+        for (auto event : this->user_events)
+        {
+            if (!event->isHandled())
+            {
+                event->handle();
+            }
+        }
+
+        this->user_events.erase(std::remove_if(
+            this->user_events.begin(), 
+            this->user_events.end(), 
+            [](std::shared_ptr<UserEvent>& user_event) { return user_event->isHandled(); }
+        ), this->user_events.end()
+        );
     }
 
     std::vector<InstrumentBase*> ApplicationData::get_instrument_ptrs()
@@ -120,5 +139,11 @@ namespace Vleerhond
         {
             instrument->stop_notes();
         }
+    }
+
+    void ApplicationData::addEvent(std::shared_ptr<UserEvent> user_event)
+    {
+        // TODO: filter on event type
+        this->user_events.push_back(user_event);
     }
 }

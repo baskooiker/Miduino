@@ -111,6 +111,7 @@
     <ClCompile Include="src\application\application_data.cpp" />
     <ClCompile Include="src\application\callbacks.cpp" />
     <ClCompile Include="src\application\ui.cpp" />
+    <ClCompile Include="src\application\user_event.cpp" />
     <ClCompile Include="src\core\time_struct.cpp" />
     <ClCompile Include="src\harmony\chords.cpp" />
     <ClCompile Include="src\harmony\harmony_struct.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="headers\application\application_data.h" />
     <ClInclude Include="headers\application\callbacks.h" />
     <ClInclude Include="headers\application\ui.h" />
+    <ClInclude Include="headers\application\user_event.h" />
     <ClInclude Include="headers\core\consts.h" />
     <ClInclude Include="headers\core\defs.h" />
     <ClInclude Include="headers\core\enums.h" />

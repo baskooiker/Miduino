@@ -93,7 +93,7 @@ namespace Vleerhond
         }
         else
         {
-            data.process_events();
+            data.processNoteEvents();
 
             if (data.time.state == PlayState::Stopped)
             {

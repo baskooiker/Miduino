@@ -33,7 +33,7 @@ namespace Vleerhond
         virtual bool play() = 0;
         virtual void randomize();
         void randomize_parameters();
-        void process_events();
+        void processNoteEvents();
         void stop_notes();
         uint32_t randomized_time();
         bool is_randomizable();

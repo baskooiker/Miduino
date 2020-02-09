@@ -48,7 +48,7 @@ namespace Vleerhond
         channel = ChannelStruct(midi_channel, offset);
     }
 
-    void MidiChannel::process_events()
+    void MidiChannel::processNoteEvents()
     {
         uint32_t time = Utils::millis();
         for (int i = this->nr_of_events - 1; i >= 0; i--)

@@ -41,9 +41,9 @@ namespace Vleerhond
         }
     }
 
-    void InstrumentBase::process_events()
+    void InstrumentBase::processNoteEvents()
     {
-        midi_channel.process_events();
+        midi_channel.processNoteEvents();
     }
 
     void InstrumentBase::stop_notes()

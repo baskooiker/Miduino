@@ -11,16 +11,27 @@
 namespace Vleerhond
 {
     class HarmonyStruct {
+    private:
+        HarmonyType type = HarmonyType::Const;
+        uint8_t const_value = 0;
+
     public:
-        uint8_t const_value;
-        CvPattern16 high_pattern;
-        HarmonyType type;
+        CvPattern16 low_tonic_pattern;
+        CvPattern16 low_dominant_pattern;
+        CvPattern16 high_tonic_pattern;
+        CvPattern16 high_dominant_pattern;
+
         Scale scale;
 
         HarmonyStruct();
         uint8_t get_chord_step(const TimeStruct& time) const;
         void randomize();
-        void setHighPattern(const uint8_t start_chord, const bool long_pattern);
         void switch_const_chord();
+        uint16_t getPatternLength(HarmonyType type);
+        void HarmonyStruct::setType(HarmonyType type);
+        void setTonic();
+
+    private:
+        void randomizeHighPattern(CvPattern16& high_pattern, const uint8_t start_chord, const bool long_pattern);
     };
 }

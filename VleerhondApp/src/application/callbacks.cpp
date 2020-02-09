@@ -1,6 +1,9 @@
 #pragma once
 
 #include "application/callbacks.h"
+
+#include <memory>
+
 #include "application/ui.h"
 
 namespace Vleerhond
@@ -133,9 +136,14 @@ namespace Vleerhond
         case BTN_LEFT_TOP_01:
             if (value == 0)
             {
-                data.harmony.randomize();
-                data.harmony.type = HarmonyType::HarmonyConst;
-                data.harmony.const_value = 0;
+                if (data.ui_state.is_pressed(BTN_RIGHT_BTM_08))
+                {
+                    data.harmony.randomize();
+                }
+                else
+                {
+                    data.harmony.setTonic();
+                }
             }
             break;
         case BTN_LEFT_BTM_01:
@@ -155,7 +163,7 @@ namespace Vleerhond
         case BTN_LEFT_TOP_02:
             if (value == 0)
             {
-                data.harmony.type = HarmonyType::HarmonyConst;
+                data.harmony.setType(HarmonyType::Const);
                 data.harmony.switch_const_chord();
             }
             break;
@@ -176,7 +184,9 @@ namespace Vleerhond
         case BTN_LEFT_TOP_03:
             if (value == 0)
             {
-                data.harmony.setHighPattern(0, false);
+                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                    HarmonyType::TonicLow, &data.harmony, &data.time
+                ));
             }
             break;
         case BTN_LEFT_BTM_03:
@@ -196,29 +206,31 @@ namespace Vleerhond
         case BTN_LEFT_TOP_04:
             if (value == 0)
             {
-                data.harmony.setHighPattern(0, true);
+                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                    HarmonyType::TonicHigh, &data.harmony, &data.time
+                ));
             }
             break;
         case BTN_LEFT_BTM_04:
             if (value == 0)
             {
-                if (data.ui_state.getValue(BSP_SLIDER))
-                {
-
-                }
                 data.moog_bass.total_randomize();
             }
             break;
         case BTN_LEFT_TOP_05:
             if (value == 0)
             {
-                data.harmony.setHighPattern(4, false);
+                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                    HarmonyType::DominantLow, &data.harmony, &data.time
+                ));
             }
             break;
         case BTN_LEFT_TOP_06:
             if (value == 0)
             {
-                data.harmony.setHighPattern(4, true);
+                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                    HarmonyType::DominantHigh, &data.harmony, &data.time
+                ));
             }
             break;
         case BTN_LEFT_BTM_05:

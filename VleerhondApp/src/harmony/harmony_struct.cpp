@@ -13,7 +13,8 @@ namespace Vleerhond
 {
     HarmonyStruct::HarmonyStruct()
     {
-        type = HarmonyType::HarmonyConst;
+        type = HarmonyType::Const;
+        this->const_value = 0;
     }
 
     uint8_t HarmonyStruct::get_chord_step(const TimeStruct& time) const
@@ -21,43 +22,42 @@ namespace Vleerhond
         switch (this->type)
         {
         default:
-        case HarmonyType::HarmonyConst:
+        case HarmonyType::Const:
             return this->const_value;
-        case HarmonyType::HarmonyHigh:
-            return this->high_pattern.value(time);
+        case HarmonyType::TonicLow:
+            return this->low_tonic_pattern.value(time);
+        case HarmonyType::TonicHigh:
+            return this->high_tonic_pattern.value(time);
+        case HarmonyType::DominantLow:
+            return this->low_dominant_pattern.value(time);
+        case HarmonyType::DominantHigh:
+            return this->high_dominant_pattern.value(time);
         }
     }
 
     void HarmonyStruct::randomize()
     {
-        HarmonyType current_type = this->type;
-
         ofLogNotice(HARMONY, "randomize()");
-        // Set const pattern
-        switch (Rand::distribution(64, 16))
-        {
-        case 0: this->const_value = 0; break;
-        case 1: this->const_value = 4; break;
-        }
 
-        // Set high pattern
-        const uint8_t start_chord = Rand::distribution(64, 16) ? 0 : 4;
-        const bool long_pattern = Rand::distribution(16, 16) == 1;
-        this->setHighPattern(start_chord, long_pattern);
-
-        this->type = current_type;
+        // Set high patterns
+        this->randomizeHighPattern(this->low_tonic_pattern, 0, false);
+        this->randomizeHighPattern(this->high_tonic_pattern, 0, true);
+        this->randomizeHighPattern(this->low_dominant_pattern, 4, false);
+        this->randomizeHighPattern(this->high_dominant_pattern, 4, true);
     }
 
-    void HarmonyStruct::setHighPattern(const uint8_t start_chord, const bool long_pattern)
+    void HarmonyStruct::randomizeHighPattern(CvPattern16& high_pattern, const uint8_t start_chord, const bool long_pattern)
     {
-        this->type = HarmonyType::HarmonyHigh;
-
-        this->high_pattern.set_chord_pattern(this->scale, start_chord, long_pattern);
+        high_pattern.set_chord_pattern(this->scale, start_chord, long_pattern);
 
         switch (Rand::distribution(10, 10))
         {
-        case 0: this->high_pattern.time_division = TimeDivision::Quarter; break;
-        case 1: this->high_pattern.time_division = TimeDivision::Half; break;
+        case 0: 
+            high_pattern.time_division = TimeDivision::Quarter; 
+            break;
+        case 1: 
+            high_pattern.time_division = TimeDivision::Half; 
+            break;
         }
     }
 
@@ -68,4 +68,34 @@ namespace Vleerhond
         options.erase(std::remove(options.begin(), options.end(), 0), options.end());
         this->const_value = options[Rand::randui8(options.size())];
     }
+    uint16_t HarmonyStruct::getPatternLength(HarmonyType harmony_type)
+    {
+        switch (harmony_type)
+        {
+        case HarmonyType::Const:
+            return 1;
+        case HarmonyType::TonicLow:
+            return this->low_tonic_pattern.length * (uint16_t)low_tonic_pattern.time_division;
+        case HarmonyType::TonicHigh:
+            return this->high_tonic_pattern.length * (uint16_t)high_tonic_pattern.time_division;
+        case HarmonyType::DominantLow:
+            return this->low_dominant_pattern.length * (uint16_t)low_dominant_pattern.time_division;
+        case HarmonyType::DominantHigh:
+            return this->high_dominant_pattern.length * (uint16_t)high_dominant_pattern.time_division;
+        }
+        return 1;
+    }
+
+    void HarmonyStruct::setType(HarmonyType type)
+    {
+        this->type = type;
+    }
+
+    void HarmonyStruct::setTonic()
+    {
+        setType(HarmonyType::Const);
+        const_value = 0;
+    }
+
+
 }

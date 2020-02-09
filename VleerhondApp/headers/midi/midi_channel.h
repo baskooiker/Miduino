@@ -33,7 +33,7 @@ namespace Vleerhond
 
     public:
         MidiChannel(const uint8_t channel, const int8_t offset = 0);
-        void process_events();
+        void processNoteEvents();
         void note_off(uint8_t pitch);
         void note_on(const NoteStruct& note);
         void note_on(const NoteStruct& note, const uint32_t delay);

@@ -136,6 +136,9 @@
     <ClCompile Include="src\instruments\drumstation\drumstation.cpp">
       <Filter>src\instruments\drumstation</Filter>
     </ClCompile>
+    <ClCompile Include="src\application\user_event.cpp">
+      <Filter>src\application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -526,6 +529,9 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\drumstation\drumstation.h">
       <Filter>headers\instruments\drumstation</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\application\user_event.h">
+      <Filter>headers\application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
