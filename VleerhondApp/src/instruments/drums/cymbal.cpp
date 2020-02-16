@@ -50,7 +50,7 @@ namespace Vleerhond
     bool Cymbal::play()
     {
         // Play Cymbal
-        if (this->cy_pattern.gate(time) && !kill)
+        if (this->cy_pattern.gate(time) && !isKilled())
         {
             this->midi_channel.note_on(
                 NoteStruct(pitch, get_velocity()),

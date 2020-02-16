@@ -77,7 +77,7 @@ namespace Vleerhond
 
     bool Toms::play()
     {
-        if (kill)
+        if (isKilled())
         {
             return false;
         }

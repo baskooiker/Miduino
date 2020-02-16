@@ -121,7 +121,13 @@ namespace Vleerhond
     {
         uint8_t pat_length = MIN(this->length, 16);
         uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
-        return this->patterns[this->abPattern.value(count / pat_length)].value(count % pat_length);
+        return this->value(count);
+    }
+
+    uint8_t CvPatternAB::value(const int index) const
+    {
+        uint8_t pat_length = MIN(this->length, 16);
+        return this->patterns[this->abPattern.value(index / pat_length)].value(index % pat_length);
     }
 
     void CvPatternAB::set_all(const uint8_t value)

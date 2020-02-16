@@ -139,6 +139,15 @@
     <ClCompile Include="src\application\user_event.cpp">
       <Filter>src\application</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\neutron\neutron.cpp">
+      <Filter>src\instruments\neutron</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\neutron\neutron_mono.cpp">
+      <Filter>src\instruments\neutron</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\instrument_rack.cpp">
+      <Filter>src\instruments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -245,6 +254,12 @@
     </Filter>
     <Filter Include="headers\instruments\drumstation">
       <UniqueIdentifier>{576aad96-3d45-4af3-bd05-2ae2b619a032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\neutron">
+      <UniqueIdentifier>{ca74d178-60f6-4b50-a235-58e3a0c40fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\instruments\neutron">
+      <UniqueIdentifier>{e611a47b-de07-4031-a613-49447161f606}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -470,9 +485,6 @@
     <ClInclude Include="headers\instruments\mfb_522\mfb_522.h">
       <Filter>headers\instruments\mfb_522</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\tonal_instruments\neutron_mono.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\patterns\pattern_utils.h">
       <Filter>headers\patterns</Filter>
     </ClInclude>
@@ -532,6 +544,12 @@
     </ClInclude>
     <ClInclude Include="headers\application\user_event.h">
       <Filter>headers\application</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\neutron\neutron.h">
+      <Filter>headers\instruments\neutron</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\neutron\neutron_mono.h">
+      <Filter>headers\instruments\neutron</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

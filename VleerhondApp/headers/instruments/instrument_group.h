@@ -17,6 +17,11 @@ public:
 
     bool play()
     {
+        if (this->_kill)
+        {
+            return false;
+        }
+
         bool rv = false;
         for (InstrumentBase* instrument : instruments)
         {

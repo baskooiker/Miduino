@@ -14,34 +14,25 @@ protected:
 public:
     InstrumentRack(
         TimeStruct& time,
-        const uint8_t midi_channel)
-        : InstrumentBase(time, true, midi_channel)
-    {
-    }
+        const uint8_t midi_channel);
 
 public:
-    bool play()
-    {
-        return instruments[selection % instruments.size()]->play();
-    }
+    bool play();
+    void randomize();
+    virtual std::vector<InstrumentBase*> get_ptrs();
+    virtual void auto_randomize();
+    void select(const uint8_t index);
 
-    void randomize()
-    {
-        for (InstrumentBase* instrument : instruments)
-        {
-            instrument->randomize();
-        }
-    }
+    virtual void setVariableDensity(const uint8_t variable_density);
+    virtual uint8_t getVariableDensity() const;
+    virtual void setVariablePitch(const uint8_t variable_pitch);
+    virtual uint8_t getVariablePitch() const;
+    virtual void setVariablePitchOffset(const uint8_t variable_pitch_offset);
+    virtual uint8_t getVariablePitchOffset() const;
 
-    virtual std::vector<InstrumentBase*> get_ptrs()
-    {
-        return { instruments[selection % instruments.size()] };
-    }
-
-    virtual void auto_randomize()
-    {
-        return instruments[selection % instruments.size()]->auto_randomize();
-    }
+private:
+    InstrumentBase* getInstr();
+    InstrumentBase* getInstr() const;
 };
 
 }

@@ -51,7 +51,7 @@ namespace Vleerhond
 
         bool play()
         {
-            if (kill)
+            if (isKilled())
             {
                 return false;
             }

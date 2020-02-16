@@ -10,13 +10,13 @@
 namespace Vleerhond
 {
     const RandomParam sd_params[] = {
-        {TB_SD_TUNE      ,  0,  16},
-        {TB_SD_DTUNE     ,  0,  6},
-        {TB_SD_SNAPPY    , 96, 127},
-        {TB_SD_SN_DECAY  , 96, 127},
-        {TB_SD_TONE      ,  0,  32},
-        {TB_SD_TONE_DECAY,  0,  16},
-        {TB_SD_PITCH     ,  0,  32},
+        {TB_SD_TUNE      ,   0,  16},
+        {TB_SD_DTUNE     ,   0,  6},
+        {TB_SD_SNAPPY    ,  32,  96},
+        {TB_SD_SN_DECAY  , 110, 127},
+        {TB_SD_TONE      ,   0,  32},
+        {TB_SD_TONE_DECAY,   0,  16},
+        {TB_SD_PITCH     ,   0,  32},
     };
     const uint8_t nr_sd_params = sizeof(sd_params) / sizeof(*sd_params);
 

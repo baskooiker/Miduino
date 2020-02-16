@@ -89,7 +89,7 @@ namespace Vleerhond
 
         bool play()
         {
-            if (kill)
+            if (isKilled())
                 return false;
 
             if (interval_pattern.hit(time))

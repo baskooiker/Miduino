@@ -73,7 +73,7 @@ namespace Vleerhond
         switch (harmony_type)
         {
         case HarmonyType::Const:
-            return 1;
+            return 16 * (uint16_t)TimeDivision::Sixteenth;
         case HarmonyType::TonicLow:
             return this->low_tonic_pattern.length * (uint16_t)low_tonic_pattern.time_division;
         case HarmonyType::TonicHigh:

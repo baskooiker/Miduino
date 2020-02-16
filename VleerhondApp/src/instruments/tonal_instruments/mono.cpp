@@ -11,8 +11,7 @@ namespace Vleerhond
         Modulators& modulators,
         TimeStruct& time,
         const uint8_t midi_channel) :
-        TonalInstrumentBase(harmony, time, true, midi_channel),
-        note_repeat_sh(TimeDivision::Eighth)
+        TonalInstrumentBase(harmony, time, true, midi_channel)
     {
         style = MonoStyle::MonoSixteenths;
         arp_reset_interval = TimeDivision::Whole;
@@ -74,6 +73,7 @@ namespace Vleerhond
         this->gate_pattern.time_division = TimeDivision::Sixteenth;
 
         PatternUtils::randomize_slides(this->slide_pattern);
+
         PatternUtils::randomize_accents(this->accent_pattern);
 
         // Randomize Lead
@@ -89,8 +89,6 @@ namespace Vleerhond
         case 2: arp_reset_interval = TimeDivision::Four; break;
         case 3: arp_reset_interval = TimeDivision::Eight; break;
         }
-
-        note_repeat_sh.prob = Rand::randui8(0);
     }
 
     void Mono::randomize()
@@ -146,8 +144,29 @@ namespace Vleerhond
 
     uint8_t Mono::get_sequence_pitch() const
     {
-        uint8_t pitch = harmony.scale.getPenta(this->pitch_pattern.value(time));
-        pitch = Utils::clip_pitch(pitch, variable_pitch_offset);
+        uint8_t pitch = 0;
+
+        // TODO: Fix this some other way!
+        // This is done to make the const pattern follow chords
+        if (pitch_pattern.length == 1 && pitch_pattern.value(0) == 0)
+        {
+            int note_nr = harmony.get_chord_step(time);
+
+            pitch = harmony.scale.apply_scale_offset(
+                0,
+                this->getVariablePitchOffset(),
+                harmony.get_chord_step(time)
+            );
+
+            //pitch = harmony.scale.get_note(chord);
+            //pitch = Utils::clip_pitch(pitch, this->getVariablePitchOffset());
+        }
+        else
+        {
+            pitch = harmony.scale.getPenta(this->pitch_pattern.value(time));
+            pitch = Utils::clip_pitch(pitch, this->getVariablePitchOffset());
+        }
+
         uint8_t octave = Utils::rerange(octave_pattern.value(time), this->octave_range);
         pitch += octave * 12;
         return pitch;
@@ -160,7 +179,7 @@ namespace Vleerhond
             return get_sequence_pitch();
         }
         // Else if ARP
-        this->arp_data.min = Utils::rerange(this->variable_pitch_offset, 48, 36);
+        this->arp_data.min = Utils::rerange(this->_variable_pitch_offset, 48, 36);
         uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, harmony.get_chord_step(time));
         return pitch;
     }
@@ -185,14 +204,13 @@ namespace Vleerhond
             {
                 uint8_t pitch = this->get_next_mono_pitch();
 
-                uint8_t length = 6 * 4;
+                uint8_t length = slide_pattern.gate(time) ? 6 * 2 - 1 : 5;
 
                 NoteType type = slide_pattern.gate(time) ? 
                     NoteType::Slide : 
                     NoteType::Tie;
 
                 note_event.note = NoteStruct(pitch, get_velocity(), length, type);
-                note_repeat_sh.set_repeat_note(note_event.note);
             }
         }
         return note_event;
@@ -202,22 +220,9 @@ namespace Vleerhond
     {
         this->check_arp_reset();
 
-        if (this->kill)
+        if (this->isKilled())
         {
             return false;
-        }
-
-        NoteStruct repeat_note = note_repeat_sh.repeat_note(time);
-        if (repeat_note.pitch > 0)
-        {
-            TimeDivision repeat_interval = note_repeat_sh.get_interval(time);
-            ofLogVerbose("Mono", "note %3d, interval = %d", repeat_note.pitch, repeat_interval);
-            if (Utils::interval_hit(repeat_interval, time) && !this->kill)
-            {
-                ofLogVerbose("Mono", "note_repeating: %d", repeat_note.pitch);
-                midi_channel.note_on(repeat_note, time.get_shuffle_delay());
-                return true;
-            }
         }
 
         NoteInfo new_note_event = get_note_event();
@@ -262,6 +267,7 @@ namespace Vleerhond
     {
         this->pitch_pattern.set_all(0);
         this->octave_pattern.set_all(0);
+        pitch_pattern.length = 1;
     }
 
     void Mono::set_slow_rhythm()
@@ -284,5 +290,9 @@ namespace Vleerhond
             return settings.max_velocity;
         }
         return settings.min_velocity;
+    }
+    void Mono::disableSlides()
+    {
+        this->slide_pattern.set_all(0);
     }
 }

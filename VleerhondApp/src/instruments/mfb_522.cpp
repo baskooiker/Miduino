@@ -151,7 +151,7 @@ namespace Vleerhond
         {
             for (auto p : getLow())
             {
-                p->kill = kill;
+                p->kill(kill);
             }
         }
 
@@ -159,7 +159,7 @@ namespace Vleerhond
         {
             for (auto p : getMid())
             {
-                p->kill = kill;
+                p->kill(kill);
             }
         }
 
@@ -167,7 +167,7 @@ namespace Vleerhond
         {
             for (auto p : getHigh())
             {
-                p->kill = kill;
+                p->kill(kill);
             }
         }
 }

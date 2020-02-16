@@ -18,7 +18,7 @@ namespace Vleerhond
         time(time_ref),
         midi_channel(midi_channel, offset)
     {
-        kill = false;
+        _kill = false;
         randomizable = is_randomizable;
         active = true;
     }
@@ -95,6 +95,46 @@ namespace Vleerhond
 
     void InstrumentBase::auto_randomize()
     {
+    }
+
+    void InstrumentBase::kill(const bool kill)
+    {
+        this->_kill = kill;
+    }
+
+    bool InstrumentBase::isKilled() const
+    {
+        return this->_kill;
+    }
+
+    void InstrumentBase::setVariableDensity(const uint8_t variable_density)
+    {
+        this->_variable_density = variable_density;
+    }
+
+    uint8_t InstrumentBase::getVariableDensity() const
+    {
+        return this->_variable_density;
+    }
+
+    void InstrumentBase::setVariablePitch(const uint8_t variable_pitch)
+    {
+        this->_variable_pitch = variable_pitch;
+    }
+
+    uint8_t InstrumentBase::getVariablePitch() const
+    {
+        return this->_variable_pitch;
+    }
+
+    void InstrumentBase::setVariablePitchOffset(const uint8_t variable_pitch_offset)
+    {
+        this->_variable_pitch_offset = variable_pitch_offset;
+    }
+
+    uint8_t InstrumentBase::getVariablePitchOffset() const
+    {
+        return this->_variable_pitch_offset;
     }
 
 //////////////////////////////////////////

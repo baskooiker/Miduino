@@ -15,7 +15,7 @@
 
 #include "303_acid_bass.h"
 #include "moog_bass.h"
-#include "neutron_mono.h"
+#include "instruments/neutron/neutron.h"
 
 namespace Vleerhond
 {
@@ -32,7 +32,7 @@ namespace Vleerhond
 
         TB303Bass tb303_bass;
         MoogBass moog_bass;
-        NeutronMono neutron_mono;
+        Neutron neutron;
 
         Mfb522 mfb_522;
         Tanzbar tanzbar;

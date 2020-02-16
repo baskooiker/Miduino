@@ -27,8 +27,6 @@ namespace Vleerhond
     class Mono : public TonalInstrumentBase
     {
     protected:
-        NoteRepeat note_repeat_sh;
-
         ArpData arp_data;
         TimeDivision arp_reset_interval;
 
@@ -46,9 +44,6 @@ namespace Vleerhond
         NoteInfo note_event;
 
     public:
-        uint8_t variable_pitch_offset;
-        uint8_t variable_density;
-
         struct {
             uint8_t p_arp = 16;
             uint8_t p_euclid = 16;
@@ -82,5 +77,6 @@ namespace Vleerhond
         void set_const_sequence();
         void set_slow_rhythm();
         virtual uint8_t get_velocity();
+        void disableSlides();
     };
 }

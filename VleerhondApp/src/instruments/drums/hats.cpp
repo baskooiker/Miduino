@@ -126,8 +126,10 @@ namespace Vleerhond
 
     bool Hats::play_hats_open()
     {
-        if (this->kill)
+        if (this->isKilled())
+        {
             return false;
+        }
 
         if (this->oh_pattern.gate(time))
         {
@@ -142,8 +144,10 @@ namespace Vleerhond
 
     bool Hats::play()
     {
-        if (this->kill)
+        if (this->isKilled())
+        {
             return false;
+        }
 
         if (play_hats_open())
         {

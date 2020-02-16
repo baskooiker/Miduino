@@ -64,7 +64,7 @@ public:
     {
         for (auto p : getLow())
         {
-            p->kill = kill;
+            p->kill(kill);
         }
     }
 
@@ -72,7 +72,7 @@ public:
     {
         for (auto p : getMid())
         {
-            p->kill = kill;
+            p->kill(kill);
         }
     }
 
@@ -80,7 +80,7 @@ public:
     {
         for (auto p: getHigh())
         {
-            p->kill = kill;
+            p->kill(kill);
         }
     }
 

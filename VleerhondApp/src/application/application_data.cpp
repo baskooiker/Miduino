@@ -21,7 +21,7 @@ namespace Vleerhond
         mfb_522(harmony, modulators, time),
         drumstation(harmony, modulators, time),
         moog_bass(modulators, harmony, time),
-        neutron_mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET),
+        neutron(harmony, modulators, time),
         tb303_bass(harmony, time)
     {
         this->randomize_all();
@@ -101,11 +101,10 @@ namespace Vleerhond
 
         ptrs.push_back(&this->drumstation);
         ptrs.push_back(&this->tanzbar);
-        //ptrs.push_back(&this->mfb_522);
 
         ptrs.push_back(&this->tb303_bass);
         ptrs.push_back(&this->moog_bass);
-        ptrs.push_back(&neutron_mono);
+        ptrs.push_back(&this->neutron);
 
         return ptrs;
     }

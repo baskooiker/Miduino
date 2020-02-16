@@ -16,7 +16,6 @@ Bass::Bass(
 {
     style = BassStyle::BassEuclid;
     note_range_value = 0;
-    density = 0;
     octave_sh.prob = 16;
 
     total_randomize();
@@ -338,12 +337,12 @@ NoteType Bass::get_note_type()
 
 bool Bass::play()
 {
-    if (this->kill)
+    if (this->isKilled())
     {
         return false;
     }
 
-    if (this->get_hit(this->density, time))
+    if (this->get_hit(getVariableDensity(), time))
     {
         uint8_t pitch = get_pitch();
 

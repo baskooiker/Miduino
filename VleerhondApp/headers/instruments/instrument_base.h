@@ -19,9 +19,13 @@ namespace Vleerhond
         bool active;
         std::vector<CcParam> params;
 
+        bool _kill = false;
+        uint8_t _variable_density = 0;
+        uint8_t _variable_pitch = 0;
+        uint8_t _variable_pitch_offset = 64;
+
     public:
         MidiChannel midi_channel;
-        bool kill;
 
         InstrumentBase(
             TimeStruct& time_ref,
@@ -43,7 +47,15 @@ namespace Vleerhond
         virtual std::vector<InstrumentBase*> get_ptrs();
         virtual void check_auto_randomize();
         virtual void auto_randomize();
+        void kill(const bool kill);
+        bool isKilled() const;
 
+        virtual void setVariableDensity(const uint8_t variable_density);
+        virtual uint8_t getVariableDensity() const;
+        virtual void setVariablePitch(const uint8_t variable_pitch);
+        virtual uint8_t getVariablePitch() const;
+        virtual void setVariablePitchOffset(const uint8_t variable_pitch_offset);
+        virtual uint8_t getVariablePitchOffset() const;
     };
 
     class TonalInstrumentBase : public InstrumentBase

@@ -36,10 +36,10 @@ namespace Vleerhond
 
     bool AcidBass::play()
     {
-        if (kill)
+        if (isKilled())
             return false;
 
-        if (this->get_hit(this->density, time))
+        if (this->get_hit(this->getVariableDensity(), time))
         {
             uint8_t value = 0;
             if (this->accents.gate(this->time))

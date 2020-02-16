@@ -82,7 +82,7 @@ namespace Vleerhond
         }
 
         // Play snare
-        if (this->pattern.gate(time) && !this->kill)
+        if (this->pattern.gate(time) && !this->isKilled())
         {
             this->midi_channel.note_on(
                 NoteStruct(pitch, get_velocity()),

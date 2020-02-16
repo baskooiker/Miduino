@@ -55,6 +55,7 @@ namespace Vleerhond
 
         CvPatternAB();
         uint8_t value(const TimeStruct& time) const;
+        uint8_t value(const int index) const;
         void set_all(const uint8_t value);
         void randomize(const uint8_t max = 128, const uint8_t min = 0);
         std::string toString();

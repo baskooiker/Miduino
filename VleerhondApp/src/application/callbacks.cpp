@@ -90,12 +90,12 @@ namespace Vleerhond
         case ROTARY_04:
             break;
         case KNOB_04:
-            data.moog_bass.density = value;
+            data.moog_bass.setVariableDensity(value);
             break;
         case ROTARY_05:
             break;
         case KNOB_05:
-            data.tb303_bass.density = value;
+            data.tb303_bass.setVariableDensity(value);
             break;
         case ROTARY_06:
             break;
@@ -104,7 +104,7 @@ namespace Vleerhond
         case ROTARY_07:
             break;
         case KNOB_07:
-            data.neutron_mono.variable_density = value;
+            data.neutron.setVariableDensity(value);
             break;
         case ROTARY_08:
             break;
@@ -128,7 +128,7 @@ namespace Vleerhond
             data.tb303_bass.pitch_offset = Utils::rerange(value, 24, 24);
             break;
         case SLIDER_07:
-            data.neutron_mono.variable_pitch_offset = value;
+            data.neutron.setVariablePitchOffset(value);
             break;
         case SLIDER_08:
             break;
@@ -268,46 +268,7 @@ namespace Vleerhond
         case BTN_LEFT_BTM_08:
             if (value == 0)
             {
-                handle_step_release(data, number, BTN_LEFT_BTM_07, BTN_LEFT_BTM_08,
-                    [](ApplicationData& data)
-                    {
-                        data.neutron_mono.total_randomize();
-                        data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm);
-                        data.neutron_mono.set_pitch_mode(MonoPitchMode::SEQUENCE);
-                    },
-                    [](ApplicationData& data)
-                    {
-                        data.neutron_mono.total_randomize();
-                        data.neutron_mono.set_style(MonoStyle::MonoSixteenths);
-                        switch (Rand::distribution(16, 16))
-                        {
-                        case 0:
-                            data.neutron_mono.set_pitch_mode(MonoPitchMode::ARP);
-                            break;
-                        case 1:
-                            data.neutron_mono.set_pitch_mode(MonoPitchMode::SEQUENCE);
-                            break;
-                        }
-                    },
-                    [](ApplicationData& data)
-                    {
-                        if (!data.ui_state.is_pressed(BTN_RIGHT_BTM_08))
-                        {
-                            data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm);
-                            data.neutron_mono.set_pitch_mode(MonoPitchMode::SEQUENCE);
-                            data.neutron_mono.set_const_sequence();
-                        }
-                        else
-                        {
-                            data.neutron_mono.total_randomize();
-                            data.neutron_mono.set_slow_rhythm();
-                            data.neutron_mono.set_style(MonoStyle::MonoPolyRhythm);
-                            data.neutron_mono.set_arp_type(ArpType::CLOSEST_EXC);
-                            data.neutron_mono.set_pitch_mode(MonoPitchMode::ARP);
-                            data.neutron_mono.set_arp_range(12);
-                        }
-                    }
-                );
+                data.neutron.randomize();
             }
             break;
         case BTN_RIGHT_BTM_01:
@@ -332,15 +293,15 @@ namespace Vleerhond
             data.drumstation.killHigh(value > 0);
             break;
         case BTN_RIGHT_BTM_04:
-            data.moog_bass.kill = value > 0;
-            if (data.moog_bass.kill)
+            data.moog_bass.kill(value > 0);
+            if (data.moog_bass.isKilled())
             {
                 data.moog_bass.stop_notes();
                 data.moog_bass.midi_channel.process_active_notes();
             }
             break;
         case BTN_RIGHT_BTM_05:
-            data.tb303_bass.kill = value > 0;
+            data.tb303_bass.kill(value > 0);
             if (value > 0)
             {
                 data.tb303_bass.midi_channel.process_active_notes();
@@ -349,7 +310,7 @@ namespace Vleerhond
         case BTN_RIGHT_BTM_06:
             break;
         case BTN_RIGHT_BTM_07:
-            data.neutron_mono.kill = value > 0;
+            data.neutron.kill(value > 0);
             break;
         case BTN_RIGHT_BTM_08:
             break;
@@ -362,12 +323,28 @@ namespace Vleerhond
         case BTN_RIGHT_TOP_04:
             break;
         case BTN_RIGHT_TOP_05:
+            if (value == 0)
+            {
+                data.neutron.select(0);
+            }
             break;
         case BTN_RIGHT_TOP_06:
+            if (value == 0)
+            {
+                data.neutron.select(1);
+            }
             break;
         case BTN_RIGHT_TOP_07:
+            if (value == 0)
+            {
+                data.neutron.select(2);
+            }
             break;
         case BTN_RIGHT_TOP_08:
+            if (value == 0)
+            {
+                data.neutron.select(3);
+            }
             break;
         default:
             break;
