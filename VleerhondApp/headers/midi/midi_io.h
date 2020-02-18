@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include <vector>
 
 #include "ofxMidiOut.h"
@@ -8,17 +9,20 @@
 namespace Vleerhond
 {
 
-    struct MidiOut
+    class MidiOut
     {
+    public:
         ofxMidiOut port;
         int time_multiplier = 1;
+
+        MidiOut(int time_multiplier = 1);
     };
 
     class MidiIO
     {
     private:
         static std::vector<ofxMidiIn> in_ports;
-        static std::vector<MidiOut> out_ports;
+        static std::map<std::string, MidiOut> out_ports;
 
     public:
         static bool setMainInput(const std::string& port_name, ofxMidiListener* listener);

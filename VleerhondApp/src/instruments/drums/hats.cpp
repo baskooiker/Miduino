@@ -150,7 +150,7 @@ namespace Vleerhond
         }
 
         bool open_played = play_hats_open();
-        if (!open_played || !settings->choke_open)
+        if (!open_played || !settings.choke_open)
         {
             return play_hats_closed();
         }

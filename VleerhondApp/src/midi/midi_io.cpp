@@ -6,9 +6,8 @@
 
 namespace Vleerhond
 {
-
     std::vector<ofxMidiIn> MidiIO::in_ports;
-    std::vector<MidiOut> MidiIO::out_ports;
+    std::map<std::string, MidiOut> MidiIO::out_ports;
 
     bool nameMatches(const std::string& port_name, const std::string& target_name)
     {
@@ -50,9 +49,10 @@ namespace Vleerhond
 
     bool MidiIO::addOutput(const std::string& target_port_name, const int time_multiplier)
     {
-        out_ports.push_back({ ofxMidiOut(), time_multiplier });
+        out_ports.insert(std::make_pair(target_port_name, MidiOut(time_multiplier)));
 
-        ofxMidiOut& out = out_ports.back().port;
+        MidiOut& pair = out_ports[target_port_name];
+        ofxMidiOut& out = pair.port;
 
         for (const std::string name : out.getOutPortList())
         {
@@ -97,7 +97,7 @@ namespace Vleerhond
         }
         for (auto& out : out_ports)
         {
-            if (!out.port.isOpen())
+            if (!out.second.port.isOpen())
             {
                 return false;
             }
@@ -114,7 +114,7 @@ namespace Vleerhond
         }
         for (auto& out : out_ports)
         {
-            out.port.closePort();
+            out.second.port.closePort();
         }
     }
 
@@ -122,9 +122,9 @@ namespace Vleerhond
     {
         for (auto& out : out_ports)
         {
-            for (int i = 0; i < out.time_multiplier; i++)
+            for (int i = 0; i < out.second.time_multiplier; i++)
             {
-                out.port.sendMidiByte(0xF8);
+                out.second.port.sendMidiByte(0xF8);
             }
         }
     }
@@ -133,7 +133,7 @@ namespace Vleerhond
     {
         for (auto& out : out_ports)
         {
-            out.port.sendNoteOn(channel, pitch, velocity);
+            out.second.port.sendNoteOn(channel, pitch, velocity);
         }
     }
 
@@ -141,7 +141,7 @@ namespace Vleerhond
     {
         for (auto& out : out_ports)
         {
-            out.port.sendNoteOff(channel, pitch);
+            out.second.port.sendNoteOff(channel, pitch);
         }
     }
 
@@ -149,7 +149,7 @@ namespace Vleerhond
     {
         for (auto& out: out_ports)
         {
-            out.port.sendControlChange(channel, cc, value);
+            out.second.port.sendControlChange(channel, cc, value);
         }
     }
 
@@ -157,7 +157,7 @@ namespace Vleerhond
     {
         for (auto& out : out_ports)
         {
-            out.port.sendMidiBytes(bytes);
+            out.second.port.sendMidiBytes(bytes);
         }
     }
 
@@ -165,8 +165,13 @@ namespace Vleerhond
     {
         for (auto& out : out_ports)
         {
-            out.port.sendProgramChange(channel, program);
+            out.second.port.sendProgramChange(channel, program);
         }
+    }
+
+    inline MidiOut::MidiOut(int time_multiplier)
+        : time_multiplier(time_multiplier)
+    {
     }
 
 }

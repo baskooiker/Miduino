@@ -10,6 +10,12 @@
 #define CLIP(value,minimum,maximum) (MIN(MAX(value, minimum), maximum))
 #endif
 
+
+#define MIDI_A_NAME "MIDISPORT 2x4 Out 1"
+#define MIDI_B_NAME "MIDISPORT 2x4 Out 2"
+#define MIDI_C_NAME "MIDISPORT 2x4 Out 3"
+#define MIDI_D_NAME "MIDISPORT 2x4 Out 4"
+
 #define MIDI_CHANNEL_TANZBAR    11
 #define MIDI_CHANNEL_TB_CV1     1
 #define MIDI_CC_CHANNEL_TANZBAR 10

@@ -39,21 +39,16 @@ namespace Vleerhond
 
     bool VleerhondApp::initializeMidiPorts()
     {
-        std::string midi_a_name = "MIDISPORT 2x4 Out 1";
-        std::string midi_b_name = "MIDISPORT 2x4 Out 2";
-        std::string midi_c_name = "MIDISPORT 2x4 Out 3";
-        std::string midi_d_name = "MIDISPORT 2x4 Out 4";
-
         if (!openFirstInput({ "Arturia BeatStep Pro", "MIDISPORT 2x4 In 2" }, this)) 
             return false;
 
-        if (!MidiIO::addOutput(midi_a_name))
+        if (!MidiIO::addOutput(MIDI_A_NAME))
             return false;
-        //if (!MidiIO::addOutput(midi_b_name)) 
+        if (!MidiIO::addOutput(MIDI_B_NAME)) 
+            return false;
+        //if (!MidiIO::addOutput(MIDI_C_NAME)) 
         //    return false;
-        //if (!MidiIO::addOutput(midi_c_name)) 
-        //    return false;
-        //if (!MidiIO::addOutput(midi_d_name)) 
+        //if (!MidiIO::addOutput(MIDI_D_NAME)) 
         //    return false;
 
         return true;
