@@ -56,6 +56,14 @@ namespace Vleerhond
     {
         return getInstr()->getVariablePitchOffset();
     }
+    void InstrumentRack::kill(const bool kill)
+    {
+        this->_kill = kill;
+        for (InstrumentBase* instr_ptr : this->instruments)
+        {
+            instr_ptr->kill(kill);
+        }
+    }
     InstrumentBase * InstrumentRack::getInstr()
     {
         return instruments[selection % instruments.size()];

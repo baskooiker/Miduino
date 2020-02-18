@@ -148,6 +148,12 @@
     <ClCompile Include="src\instruments\instrument_rack.cpp">
       <Filter>src\instruments</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\note_struct.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\ab.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -465,9 +471,6 @@
       <Filter>headers\patterns</Filter>
     </ClInclude>
     <ClInclude Include="headers\patterns\cv_patterns.h">
-      <Filter>headers\patterns</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\patterns\euclid.h">
       <Filter>headers\patterns</Filter>
     </ClInclude>
     <ClInclude Include="headers\patterns\fugue.h">

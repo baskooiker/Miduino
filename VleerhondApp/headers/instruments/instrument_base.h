@@ -47,7 +47,7 @@ namespace Vleerhond
         virtual std::vector<InstrumentBase*> get_ptrs();
         virtual void check_auto_randomize();
         virtual void auto_randomize();
-        void kill(const bool kill);
+        virtual void kill(const bool kill);
         bool isKilled() const;
 
         virtual void setVariableDensity(const uint8_t variable_density);

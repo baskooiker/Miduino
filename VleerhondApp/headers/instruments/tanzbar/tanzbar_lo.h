@@ -13,7 +13,7 @@ namespace Vleerhond
         {TB_BD1_TUNE     , 32,  96},
         {TB_BD1_NOISE    ,  0,  64},
         {TB_BD1_FILTER   ,  0,  64},
-        {TB_BD1_DIST     ,  0, 127},
+        {TB_BD1_DIST     , 64, 127},
         {TB_BD1_TRIGGER  ,  0,  64},
 
         //{TB_BD2_DECAY    , 32,  96},

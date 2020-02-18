@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core/defs.h"
 #include "core/enums.h"
 
 namespace Vleerhond
@@ -12,21 +13,9 @@ namespace Vleerhond
         uint8_t length;
         NoteType type;
 
-        NoteStruct()
-        {
-            pitch = 0;
-            velocity = 0;
-            length = 0;
-            type = NoteType::Normal;
-        }
+        NoteStruct();
 
-        NoteStruct(const uint8_t pitch, const uint8_t velocity, const uint8_t length = 1, const NoteType type = NoteType::Tie)
-        {
-            this->pitch = pitch;
-            this->velocity = velocity;
-            this->length = length;
-            this->type = type;
-        }
+        NoteStruct(const uint8_t pitch, const uint8_t velocity, const uint8_t length = 1, const NoteType type = NoteType::Tie);
     };
 
     class NoteEvent
@@ -35,15 +24,8 @@ namespace Vleerhond
         NoteStruct note;
         uint32_t time;
 
-        NoteEvent()
-        {
-            time = 0;
-        }
+        NoteEvent();
 
-        NoteEvent(const NoteStruct note, const uint32_t time) :
-            note(note),
-            time(time)
-        {
-        }
+        NoteEvent(const NoteStruct note, const uint32_t time);
     };
 }

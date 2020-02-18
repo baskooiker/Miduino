@@ -29,7 +29,7 @@ public:
     virtual uint8_t getVariablePitch() const;
     virtual void setVariablePitchOffset(const uint8_t variable_pitch_offset);
     virtual uint8_t getVariablePitchOffset() const;
-
+    virtual void kill(const bool kill);
 private:
     InstrumentBase* getInstr();
     InstrumentBase* getInstr() const;

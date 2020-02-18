@@ -227,7 +227,6 @@ public:
 class DrumStation : public InstrumentGroup
 {
 public:
-    DrumStationKick kick;
     DrumStationSnare snare;
     DrumStationRimshot rimshot;
     DrumStationClap clap;

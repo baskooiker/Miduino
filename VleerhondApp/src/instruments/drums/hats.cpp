@@ -149,11 +149,8 @@ namespace Vleerhond
             return false;
         }
 
-        if (play_hats_open())
-        {
-            return true;
-        }
-        else
+        bool open_played = play_hats_open();
+        if (!open_played || !settings->choke_open)
         {
             return play_hats_closed();
         }

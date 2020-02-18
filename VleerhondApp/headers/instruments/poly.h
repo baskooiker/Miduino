@@ -3,7 +3,6 @@
 #include "patterns/arp.h"
 #include "harmony/chords.h"
 #include "core/defs.h"
-#include "patterns/euclid.h"
 #include "midi_io.h"
 
 #include "patterns/gate_patterns.h"

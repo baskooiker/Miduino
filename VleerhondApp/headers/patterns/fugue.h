@@ -26,20 +26,7 @@ namespace Vleerhond
                     this->pattern.pattern.set(this->pattern.length++, pitch_opts[i]);
                 }
             }
-
-            //for (auto player: players)
-            //{
-            //    player->randomize();
-            //}
         }
-
-        //void reset()
-        //{
-        //    for (FuguePlayer* player: players)
-        //    {
-        //        player->counter = 0;
-        //    }
-        //}
 
     };
 }

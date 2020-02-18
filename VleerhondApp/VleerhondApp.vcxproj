@@ -112,6 +112,7 @@
     <ClCompile Include="src\application\callbacks.cpp" />
     <ClCompile Include="src\application\ui.cpp" />
     <ClCompile Include="src\application\user_event.cpp" />
+    <ClCompile Include="src\core\note_struct.cpp" />
     <ClCompile Include="src\core\time_struct.cpp" />
     <ClCompile Include="src\harmony\chords.cpp" />
     <ClCompile Include="src\harmony\harmony_struct.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\midi\midi_channel.cpp" />
     <ClCompile Include="src\midi\midi_io.cpp" />
+    <ClCompile Include="src\patterns\ab.cpp" />
     <ClCompile Include="src\patterns\arp.cpp" />
     <ClCompile Include="src\patterns\binary_pattern.cpp" />
     <ClCompile Include="src\patterns\cv_patterns.cpp" />
@@ -233,7 +235,6 @@
     <ClInclude Include="headers\patterns\arp.h" />
     <ClInclude Include="headers\patterns\binary_pattern.h" />
     <ClInclude Include="headers\patterns\cv_patterns.h" />
-    <ClInclude Include="headers\patterns\euclid.h" />
     <ClInclude Include="headers\patterns\fugue.h" />
     <ClInclude Include="headers\patterns\gate_patterns.h" />
     <ClInclude Include="headers\patterns\interval_pattern.h" />

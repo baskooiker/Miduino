@@ -66,6 +66,7 @@ namespace Vleerhond
         pitch_closed = NOTE_DS808_HH;
         settings.velocity_range = 32;
         settings.velocity_offset = 96;
+        settings.choke_open = false;
     }
 
     DrumStationClap::DrumStationClap(Modulators& modulators, TimeStruct& time) :
@@ -125,7 +126,7 @@ namespace Vleerhond
 
     DrumStation::DrumStation(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time) :
         InstrumentGroup(harmony, time),
-        kick(modulators, time),
+        //kick(modulators, time),
         snare(modulators, time),
         rimshot(modulators, time),
         clap(modulators, time),
@@ -135,7 +136,7 @@ namespace Vleerhond
         cowbell(modulators, time),
         cymbal(modulators, time)
     {
-        instruments.push_back(&kick);
+        //instruments.push_back(&kick);
         instruments.push_back(&snare);
         instruments.push_back(&clap);
         instruments.push_back(&hats);
@@ -148,7 +149,7 @@ namespace Vleerhond
     std::vector<InstrumentBase*> DrumStation::getLow()
     {
         return {
-            &kick
+            //&kick
         };
     }
 
