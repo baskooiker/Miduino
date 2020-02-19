@@ -8,10 +8,9 @@ namespace Vleerhond
 Bass::Bass(
     HarmonyStruct& harmony_ref,
     TimeStruct& time_ref,
-    const uint8_t midi_channel,
-    const int8_t offset
+    const uint8_t midi_channel
 ) :
-    TonalInstrumentBase(harmony_ref, time_ref, true, midi_channel, offset),
+    TonalInstrumentBase(harmony_ref, time_ref, true, midi_channel),
     octave_sh(TimeDivision::Sixteenth)
 {
     style = BassStyle::BassEuclid;
@@ -353,7 +352,7 @@ bool Bass::play()
         }
 
         // Play it!
-        this->midi_channel.note_on(
+        this->midi_channel->note_on(
             NoteStruct(
                 pitch, 
                 this->get_velocity(), 

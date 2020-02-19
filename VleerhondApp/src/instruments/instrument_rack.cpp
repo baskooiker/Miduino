@@ -64,6 +64,13 @@ namespace Vleerhond
             instr_ptr->kill(kill);
         }
     }
+    void InstrumentRack::setChannel(std::shared_ptr<MidiChannel> channel)
+    {
+        for (InstrumentBase* instr_ptr : this->instruments)
+        {
+            instr_ptr->setChannel(channel);
+        }
+    }
     InstrumentBase * InstrumentRack::getInstr()
     {
         return instruments[selection % instruments.size()];

@@ -297,14 +297,14 @@ namespace Vleerhond
             if (data.moog_bass.isKilled())
             {
                 data.moog_bass.stop_notes();
-                data.moog_bass.midi_channel.process_active_notes();
+                data.moog_bass.midi_channel->process_active_notes();
             }
             break;
         case BTN_RIGHT_BTM_05:
             data.tb303_bass.kill(value > 0);
             if (value > 0)
             {
-                data.tb303_bass.midi_channel.process_active_notes();
+                data.tb303_bass.midi_channel->process_active_notes();
             }
             break;
         case BTN_RIGHT_BTM_06:

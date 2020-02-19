@@ -125,6 +125,7 @@
     <ClCompile Include="src\instruments\drums\snare.cpp" />
     <ClCompile Include="src\instruments\drums\toms.cpp" />
     <ClCompile Include="src\instruments\instrument_base.cpp" />
+    <ClCompile Include="src\instruments\instrument_group.cpp" />
     <ClCompile Include="src\instruments\instrument_rack.cpp" />
     <ClCompile Include="src\instruments\mfb_522.cpp" />
     <ClCompile Include="src\instruments\neutron\neutron.cpp" />

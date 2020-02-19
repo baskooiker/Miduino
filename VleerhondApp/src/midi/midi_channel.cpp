@@ -8,27 +8,25 @@
 #include "midi/midi_io.h"
 #include "utils/utils.h"
 
-#define STORAGE_SIZE 8
+#define STORAGE_SIZE 16
 
 namespace Vleerhond
 {
     ChannelStruct::ChannelStruct()
     {
         this->channel = 0;
-        this->pitch_offset = 0;
     }
 
-    ChannelStruct::ChannelStruct(const uint8_t channel, const int8_t pitch_offset)
+    ChannelStruct::ChannelStruct(const uint8_t channel)
     {
         this->channel = channel;
-        this->pitch_offset = pitch_offset;
     }
 
     void MidiChannel::_send_note_on(const uint8_t pitch, const uint8_t velocity)
     {
         if (this->channel.channel > 0)
         {
-            MidiIO::send_note_on(pitch + this->channel.pitch_offset, velocity, this->channel.channel);
+            MidiIO::send_note_on(pitch, velocity, this->channel.channel, this->port_name);
         }
     }
 
@@ -36,16 +34,14 @@ namespace Vleerhond
     {
         if (this->channel.channel > 0)
         {
-            MidiIO::send_note_off(pitch + this->channel.pitch_offset, this->channel.channel);
+            MidiIO::send_note_off(pitch, this->channel.channel, port_name);
         }
     }
 
-    MidiChannel::MidiChannel(const uint8_t midi_channel, const int8_t offset)
+    MidiChannel::MidiChannel(const uint8_t midi_channel, const std::string& port_name)
+        : channel(ChannelStruct(midi_channel))
     {
-        size = 0;
-        nr_of_events = 0;
-
-        channel = ChannelStruct(midi_channel, offset);
+        this->port_name = port_name;
     }
 
     void MidiChannel::processNoteEvents()

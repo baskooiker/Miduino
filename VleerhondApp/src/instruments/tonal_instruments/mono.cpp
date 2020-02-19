@@ -228,7 +228,7 @@ namespace Vleerhond
         NoteInfo new_note_event = get_note_event();
         if (new_note_event.hit)
         {
-            this->midi_channel.note_on(new_note_event.note, time.get_shuffle_delay());
+            this->midi_channel->note_on(new_note_event.note, time.get_shuffle_delay());
             return true;
         }
         return false;

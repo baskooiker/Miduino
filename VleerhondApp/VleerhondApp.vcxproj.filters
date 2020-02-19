@@ -154,6 +154,9 @@
     <ClCompile Include="src\patterns\ab.cpp">
       <Filter>src\patterns</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\instrument_group.cpp">
+      <Filter>src\instruments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

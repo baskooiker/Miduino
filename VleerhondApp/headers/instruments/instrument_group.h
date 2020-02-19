@@ -10,45 +10,16 @@ protected:
     std::vector<InstrumentBase*> instruments;
 
 public:
-    InstrumentGroup(HarmonyStruct& harmony, TimeStruct& time):
-        TonalInstrumentBase(harmony, time, false, 0)
-    {
-    }
+    InstrumentGroup(HarmonyStruct& harmony, TimeStruct& time);
 
-    bool play()
-    {
-        if (this->_kill)
-        {
-            return false;
-        }
+    bool play();
 
-        bool rv = false;
-        for (InstrumentBase* instrument : instruments)
-        {
-            rv |= instrument->play();
-        }
-        return rv;
-    }
+    void randomize();
 
-    void randomize()
-    {
-        for (InstrumentBase* instrument : instruments)
-        {
-            instrument->randomize();
-        }
-    }
+    virtual std::vector<InstrumentBase*> get_ptrs();
 
-    virtual std::vector<InstrumentBase*> get_ptrs()
-    {
-        return instruments;
-    }
+    virtual void auto_randomize();
 
-    virtual void auto_randomize()
-    {
-        for (InstrumentBase* instrument : instruments)
-        {
-            instrument->auto_randomize();
-        }
-    }
+    virtual void setChannel(std::shared_ptr<MidiChannel> channel);
 };
 }

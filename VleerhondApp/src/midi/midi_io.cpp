@@ -14,6 +14,22 @@ namespace Vleerhond
         return port_name.find(target_name) != -1;
     }
 
+    std::vector<MidiOut> MidiIO::getOutPorts(const std::string & port_name)
+    {
+        std::vector<MidiOut> ports;
+        std::transform(
+            out_ports.begin(),
+            out_ports.end(),
+            std::back_inserter(ports),
+            [](const std::map<std::string, MidiOut>::value_type& val) { return val.second; }
+        );
+        if (port_name.length() > 0)
+        {
+            ports = { out_ports[port_name] };
+        }
+        return ports;
+    }
+
     bool MidiIO::setMainInput(const std::string& target_port_name, ofxMidiListener* listener)
     {
         in_ports.push_back(ofxMidiIn());
@@ -129,43 +145,43 @@ namespace Vleerhond
         }
     }
 
-    void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel)
+    void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name)
     {
-        for (auto& out : out_ports)
+        for (auto& out : getOutPorts(port_name))
         {
-            out.second.port.sendNoteOn(channel, pitch, velocity);
+            out.port.sendNoteOn(channel, pitch, velocity);
         }
     }
 
-    void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel)
+    void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel, const std::string& port_name)
     {
-        for (auto& out : out_ports)
+        for (auto& out : getOutPorts(port_name))
         {
-            out.second.port.sendNoteOff(channel, pitch);
+            out.port.sendNoteOff(channel, pitch);
         }
     }
 
-    void MidiIO::send_cc(uint8_t cc, uint8_t value, uint8_t channel)
+    void MidiIO::send_cc(uint8_t cc, uint8_t value, uint8_t channel, const std::string& port_name)
     {
-        for (auto& out: out_ports)
+        for (auto& out: getOutPorts(port_name))
         {
-            out.second.port.sendControlChange(channel, cc, value);
+            out.port.sendControlChange(channel, cc, value);
         }
     }
 
-    void MidiIO::sendBytes(std::vector<uint8_t>& bytes)
+    void MidiIO::sendBytes(std::vector<uint8_t>& bytes, const std::string& port_name)
     {
-        for (auto& out : out_ports)
+        for (auto& out : getOutPorts(port_name))
         {
-            out.second.port.sendMidiBytes(bytes);
+            out.port.sendMidiBytes(bytes);
         }
     }
 
-    void MidiIO::sendProgramChange(const uint8_t channel, const uint8_t program)
+    void MidiIO::sendProgramChange(const uint8_t channel, const uint8_t program, const std::string& port_name)
     {
-        for (auto& out : out_ports)
+        for (auto& out : getOutPorts(port_name))
         {
-            out.second.port.sendProgramChange(channel, program);
+            out.port.sendProgramChange(channel, program);
         }
     }
 

@@ -41,8 +41,8 @@ namespace Vleerhond
         }
 
         // Modulators
-        uint8_t range = Rand::randui8(16, 64);
-        this->cy_vel.randomize(range, 127 - range);
+        uint8_t range = Rand::randui8(settings.max_velocity - settings.min_velocity);
+        this->cy_vel.randomize(range, settings.min_velocity);
 
         timing.randomize();
     }
@@ -52,7 +52,7 @@ namespace Vleerhond
         // Play Cymbal
         if (this->cy_pattern.gate(time) && !isKilled())
         {
-            this->midi_channel.note_on(
+            this->midi_channel->note_on(
                 NoteStruct(pitch, get_velocity()),
                 time.get_shuffle_delay(this->timing)
             );

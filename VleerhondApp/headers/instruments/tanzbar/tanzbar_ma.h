@@ -103,7 +103,7 @@ namespace Vleerhond
                     MIDI_CC_CHANNEL_TANZBAR
                 );
 
-                this->midi_channel.note_on(
+                this->midi_channel->note_on(
                     NoteStruct(NOTE_TANZBAR_MA, Utils::rerange(this->ma_pattern.value(time), 96, 16)),
                     time.get_shuffle_delay(this->timing)
                 );

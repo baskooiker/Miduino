@@ -3,7 +3,7 @@
 #include "core/defs.h"
 #include "core/note_struct.h"
 
-#define STORAGE_SIZE 8
+#define STORAGE_SIZE 32
 
 namespace Vleerhond
 {
@@ -11,28 +11,29 @@ namespace Vleerhond
     {
     public:
         uint8_t channel;
-        int8_t pitch_offset;
 
         ChannelStruct();
-        ChannelStruct(const uint8_t channel, const int8_t pitch_offset = 0);
+        ChannelStruct(const uint8_t channel);
     };
 
     class MidiChannel
     {
     protected:
         NoteStruct data[STORAGE_SIZE];
-        uint8_t size;
+        uint8_t size = 0;
 
         NoteEvent events[STORAGE_SIZE];
-        uint8_t nr_of_events;
+        uint8_t nr_of_events = 0;
         bool pedal = false;
 
         ChannelStruct channel;
+        std::string port_name = "";
+
         void _send_note_on(const uint8_t pitch, const uint8_t velocity);
         void _send_note_off(const uint8_t pitch);
 
     public:
-        MidiChannel(const uint8_t channel, const int8_t offset = 0);
+        MidiChannel(const uint8_t channel, const std::string& port_name="");
         void processNoteEvents();
         void note_off(uint8_t pitch);
         void note_on(const NoteStruct& note);

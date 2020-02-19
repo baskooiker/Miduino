@@ -53,7 +53,7 @@ namespace Vleerhond
     {
         for (auto instrument : get_instrument_ptrs())
         {
-            instrument->midi_channel.process_active_notes();
+            instrument->midi_channel->process_active_notes();
         }
     }
 
@@ -144,5 +144,11 @@ namespace Vleerhond
     {
         // TODO: filter on event type
         this->user_events.push_back(user_event);
+    }
+
+    void ApplicationData::connect()
+    {
+        this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
+        this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_A_NAME));
     }
 }

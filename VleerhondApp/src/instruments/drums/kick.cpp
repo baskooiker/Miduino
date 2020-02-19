@@ -53,7 +53,7 @@ namespace Vleerhond
     {
         if (this->bd_pattern.gate(time) && !this->isKilled())
         {
-            this->midi_channel.note_on(
+            this->midi_channel->note_on(
                 NoteStruct(this->pitch, get_velocity()),
                 time.get_shuffle_delay(this->timing)
             );

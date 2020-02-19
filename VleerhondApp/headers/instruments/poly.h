@@ -94,7 +94,7 @@ namespace Vleerhond
                     note_structs[i].length = length;
                 }
 
-                this->midi_channel.note_on(note_structs, size);
+                this->midi_channel->note_on(note_structs, size);
             }
         }
     };

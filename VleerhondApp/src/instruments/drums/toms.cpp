@@ -87,7 +87,7 @@ namespace Vleerhond
         if (Utils::interval_hit(TimeDivision::Sixteenth, time)
             && tom_prob > 0)
         {
-            this->midi_channel.note_on(
+            this->midi_channel->note_on(
                 NoteStruct(get_pitch(time), get_velocity()),
                 time.get_shuffle_delay(this->timing)
             );

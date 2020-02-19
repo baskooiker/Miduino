@@ -64,7 +64,7 @@ namespace Vleerhond
                 {
                     MidiIO::send_cc(TB_BD2_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
                 }
-                this->midi_channel.note_on(
+                this->midi_channel->note_on(
                     NoteStruct(NOTE_TANZBAR_BD2, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );

@@ -13,10 +13,9 @@ namespace Vleerhond
     InstrumentBase::InstrumentBase(
         TimeStruct& time_ref, 
         const bool is_randomizable,
-        const uint8_t midi_channel,
-        const int8_t offset) :
+        const uint8_t midi_channel) :
         time(time_ref),
-        midi_channel(midi_channel, offset)
+        midi_channel(std::make_shared<MidiChannel>(midi_channel))
     {
         _kill = false;
         randomizable = is_randomizable;
@@ -43,12 +42,12 @@ namespace Vleerhond
 
     void InstrumentBase::processNoteEvents()
     {
-        midi_channel.processNoteEvents();
+        midi_channel->processNoteEvents();
     }
 
     void InstrumentBase::stop_notes()
     {
-        midi_channel.all_notes_off();
+        midi_channel->all_notes_off();
     }
 
     uint32_t InstrumentBase::randomized_time()
@@ -107,6 +106,11 @@ namespace Vleerhond
         return this->_kill;
     }
 
+    void InstrumentBase::setChannel(std::shared_ptr<MidiChannel> channel)
+    {
+        this->midi_channel = channel;
+    }
+
     void InstrumentBase::setVariableDensity(const uint8_t variable_density)
     {
         this->_variable_density = variable_density;
@@ -143,9 +147,8 @@ namespace Vleerhond
         HarmonyStruct& harmony, 
         TimeStruct& time, 
         const bool is_randomizable,
-        const uint8_t midi_channel,
-        const int8_t offset) :
-        InstrumentBase(time, is_randomizable, midi_channel, offset),
+        const uint8_t midi_channel) :
+        InstrumentBase(time, is_randomizable, midi_channel),
         harmony(harmony)
     {
     }

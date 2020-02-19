@@ -102,7 +102,7 @@ namespace Vleerhond
                 {
                     shuffle_delay = time.get_shuffle_delay(this->timing);
                 }
-                this->midi_channel.note_on(
+                this->midi_channel->note_on(
                     NoteStruct(pitch_closed, get_velocity()),
                     shuffle_delay
                 );
@@ -113,7 +113,7 @@ namespace Vleerhond
         case HatClosedStyle::HatClosedRegular:
             if (this->hh_pattern.gate(time))
             {
-                this->midi_channel.note_on(
+                this->midi_channel->note_on(
                     NoteStruct(pitch_closed, get_velocity()),
                     time.get_shuffle_delay(this->timing)
                 );
@@ -133,7 +133,7 @@ namespace Vleerhond
 
         if (this->oh_pattern.gate(time))
         {
-            this->midi_channel.note_on(
+            this->midi_channel->note_on(
                 NoteStruct(pitch_open, get_velocity()),
                 time.get_shuffle_delay(this->timing)
             );

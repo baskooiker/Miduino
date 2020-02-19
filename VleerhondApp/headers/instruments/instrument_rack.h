@@ -30,6 +30,7 @@ public:
     virtual void setVariablePitchOffset(const uint8_t variable_pitch_offset);
     virtual uint8_t getVariablePitchOffset() const;
     virtual void kill(const bool kill);
+    virtual void setChannel(std::shared_ptr<MidiChannel> channel);
 private:
     InstrumentBase* getInstr();
     InstrumentBase* getInstr() const;

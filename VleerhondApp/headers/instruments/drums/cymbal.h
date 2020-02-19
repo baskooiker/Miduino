@@ -13,6 +13,10 @@ namespace Vleerhond
         MicroTimingStruct timing;
         ModulationReceiver cy_vel;
         uint8_t pitch;
+        struct {
+            uint8_t min_velocity = 64;
+            uint8_t max_velocity = 127;
+        } settings;
 
     public:
         GatePatternAB cy_pattern;

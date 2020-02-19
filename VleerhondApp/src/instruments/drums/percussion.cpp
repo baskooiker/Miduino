@@ -55,7 +55,7 @@ namespace Vleerhond
     {
         if (this->pattern.gate(time))
         {
-            this->midi_channel.note_on(
+            this->midi_channel->note_on(
                 NoteStruct(pitch, get_velocity()),
                 time.get_shuffle_delay(this->timing)
             );

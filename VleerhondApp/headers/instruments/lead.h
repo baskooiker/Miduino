@@ -75,7 +75,7 @@ namespace Vleerhond
 
                 uint8_t chord = harmony.get_chord_step(time);
                 uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, chord);
-                this->midi_channel.note_on(NoteStruct(pitch, 64, length));
+                this->midi_channel->note_on(NoteStruct(pitch, 64, length));
                 return true;
             }
             return false;

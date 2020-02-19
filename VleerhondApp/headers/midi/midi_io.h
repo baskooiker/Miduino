@@ -24,6 +24,8 @@ namespace Vleerhond
         static std::vector<ofxMidiIn> in_ports;
         static std::map<std::string, MidiOut> out_ports;
 
+        static std::vector<MidiOut> getOutPorts(const std::string& port_name);
+
     public:
         static bool setMainInput(const std::string& port_name, ofxMidiListener* listener);
         static bool addOutput(const std::string& port_name, const int time_multiplier=1);
@@ -33,10 +35,12 @@ namespace Vleerhond
         static void closeAll();
 
         static void sendTimeClock();
-        static void send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel);
-        static void send_note_off(const uint8_t pitch, const uint8_t channel);
-        static void send_cc(const uint8_t cc, const uint8_t value, const uint8_t channel);
-        static void sendBytes(std::vector<uint8_t>& bytes);
-        static void sendProgramChange(const uint8_t channel, const uint8_t program);
+
+        // TODO: Removedefault parameters!
+        static void send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name="");
+        static void send_note_off(const uint8_t pitch, const uint8_t channel, const std::string& port_name="");
+        static void send_cc(const uint8_t cc, const uint8_t value, const uint8_t channel, const std::string& port_name="");
+        static void sendBytes(std::vector<uint8_t>& bytes, const std::string& port_name="");
+        static void sendProgramChange(const uint8_t channel, const uint8_t program, const std::string& port_name="");
     };
 }

@@ -52,5 +52,6 @@ namespace Vleerhond
         std::vector<InstrumentBase*> get_randomizable_instruments();
         void stop_all();
         void addEvent(std::shared_ptr<UserEvent> user_event);
+        void connect();
     };
 }

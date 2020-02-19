@@ -70,8 +70,7 @@ namespace Vleerhond
         Bass(
             HarmonyStruct& harmony_ref,
             TimeStruct& time_ref,
-            const uint8_t midi_channel,
-            const int8_t offset = 0
+            const uint8_t midi_channel
         );
         void randomize_octaves();
         void randomize_pitches();

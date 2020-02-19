@@ -25,13 +25,12 @@ namespace Vleerhond
         uint8_t _variable_pitch_offset = 64;
 
     public:
-        MidiChannel midi_channel;
+        std::shared_ptr<MidiChannel> midi_channel;
 
         InstrumentBase(
             TimeStruct& time_ref,
             const bool is_randomizable,
-            const uint8_t midi_channel,
-            const int8_t offset = 0
+            const uint8_t midi_channel
         );
 
         virtual bool play() = 0;
@@ -49,6 +48,7 @@ namespace Vleerhond
         virtual void auto_randomize();
         virtual void kill(const bool kill);
         bool isKilled() const;
+        void setChannel(std::shared_ptr<MidiChannel> channel);
 
         virtual void setVariableDensity(const uint8_t variable_density);
         virtual uint8_t getVariableDensity() const;
@@ -68,8 +68,7 @@ namespace Vleerhond
             HarmonyStruct& harmony,
             TimeStruct& time,
             const bool is_randomizable,
-            const uint8_t midi_channel,
-            const int8_t offset = 0
+            const uint8_t midi_channel
         );
 
     };

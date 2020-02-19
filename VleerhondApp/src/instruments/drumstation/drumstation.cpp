@@ -122,6 +122,8 @@ namespace Vleerhond
         Cymbal(modulators, time, MIDI_CHANNEL_DS)
     {
         pitch = NOTE_DS909_CY;
+        settings.min_velocity = 32;
+        settings.max_velocity = 64;
     }
 
     DrumStation::DrumStation(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time) :
