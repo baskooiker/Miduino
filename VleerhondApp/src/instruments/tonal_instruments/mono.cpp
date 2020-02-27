@@ -204,12 +204,13 @@ namespace Vleerhond
             {
                 uint8_t pitch = this->get_next_mono_pitch();
 
-                uint8_t length = slide_pattern.gate(time) ? 6 * 2 - 1 : 5;
+                //uint8_t length = slide_pattern.gate(time) ? 6 * 2 - 1 : 5;
+                uint8_t length = 12;
 
-                NoteType type = slide_pattern.gate(time) ? 
-                    NoteType::Slide : 
-                    NoteType::Tie;
-
+                //NoteType type = slide_pattern.gate(time) ? 
+                //    NoteType::Slide : 
+                //    NoteType::Tie;
+                NoteType type = NoteType::Tie;
                 note_event.note = NoteStruct(pitch, get_velocity(), length, type);
             }
         }

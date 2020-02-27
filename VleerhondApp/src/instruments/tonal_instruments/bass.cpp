@@ -308,11 +308,11 @@ uint8_t Bass::get_length()
     uint8_t length = this->accents.gate(time) ? 6 : 2;
     length = 6;
 
-    if (this->slides.gate(time.add(TICKS_PER_STEP)))
-    {
-        length = time.ticks_left_in_bar();
-        length = TICKS_PER_STEP * 2;
-    }
+    //if (this->slides.gate(time.add(TICKS_PER_STEP)))
+    //{
+    //    length = time.ticks_left_in_bar();
+    //    length = TICKS_PER_STEP * 2;
+    //}
     //else
     //{
     //    if (!this->get_hit(this->density, time.add(TICKS_PER_STEP)))
@@ -321,16 +321,13 @@ uint8_t Bass::get_length()
     //    }
     //}
 
-    //length = TICKS_PER_STEP * 4;
+    length = TICKS_PER_STEP * 2;
+
     return length;
 }
 
 NoteType Bass::get_note_type()
 {
-    if (this->slides.gate(time.add(TICKS_PER_STEP)))
-    {
-        return NoteType::Slide;
-    }
     return NoteType::Tie;
 }
 
@@ -376,6 +373,13 @@ std::string Bass::toString()
     ss << "octaves\n";
     ss << this->octaves.toString() << "\n";
     return ss.str();
+}
+
+bool Bass::getPedal()
+{
+    bool v = slides.gate(this->time);
+    std::cout << "Bass::getPedal: " << v << "\n";
+    return v;
 }
 
 }

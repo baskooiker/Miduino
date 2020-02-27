@@ -16,6 +16,7 @@
 #include "303_acid_bass.h"
 #include "moog_bass.h"
 #include "instruments/neutron/neutron.h"
+#include "instruments/mam_mb33/mam_mb33.h"
 
 namespace Vleerhond
 {
@@ -33,6 +34,7 @@ namespace Vleerhond
         TB303Bass tb303_bass;
         MoogBass moog_bass;
         Neutron neutron;
+        MamMb33 mam_mb33;
 
         Mfb522 mfb_522;
         Tanzbar tanzbar;
@@ -47,6 +49,7 @@ namespace Vleerhond
         void randomize_all();
         void processNoteEvents();
         void handleUserEvents();
+        void updatePedalState();
         std::vector<InstrumentBase*> get_instrument_ptrs();
         std::vector<InstrumentBase*> get_active_instrument();
         std::vector<InstrumentBase*> get_randomizable_instruments();

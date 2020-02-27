@@ -45,6 +45,5 @@ namespace Vleerhond
             }
             return 64;
         }
-
     };
 }

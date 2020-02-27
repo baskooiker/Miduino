@@ -31,6 +31,8 @@ public:
     virtual uint8_t getVariablePitchOffset() const;
     virtual void kill(const bool kill);
     virtual void setChannel(std::shared_ptr<MidiChannel> channel);
+    virtual std::shared_ptr<MidiChannel> getChannel();
+    virtual bool getPedal() override;
 private:
     InstrumentBase* getInstr();
     InstrumentBase* getInstr() const;

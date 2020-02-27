@@ -68,13 +68,18 @@ namespace Vleerhond
     void MidiChannel::note_on(const NoteStruct& note)
     {
         // TODO: remove this intermediate function
-        this->untie_notes();
-        NoteStruct stored = this->pop_from_storage(note.pitch);
+        if (!this->getPedal())
+        {
+            this->untie_notes();
+        }
 
+        // If the played note was still active, stop it before replaying
+        NoteStruct stored = this->pop_from_storage(note.pitch);
         if (note.pitch == stored.pitch)
         {
             this->note_off(note.pitch);
         }
+
         if (note.velocity > 0)
         {
             this->_send_note_on(note.pitch, note.velocity);
@@ -146,20 +151,21 @@ namespace Vleerhond
 
     void MidiChannel::process_active_notes()
     {
-        if (this->size == 0) return;
-        for (uint8_t i = 0; i < this->size; i++)
+        for (uint8_t i = 0; i < (int)this->size; i++)
         {
             if (this->data[i].length > 0)
             {
                 this->data[i].length -= 1;
             }
         }
-
         for (int i = (int)this->size - 1; i >= 0; i--)
         {
             if (this->data[i].length == 0)
             {
-                this->note_off(this->data[i].pitch);
+                if (!this->pedal)
+                {
+                    this->note_off(this->data[i].pitch);
+                }
             }
         }
     }
@@ -168,14 +174,9 @@ namespace Vleerhond
     {
         for (int i = (int)this->size - 1; i >= 0; i--)
         {
-            switch (this->data[i].type)
+            if (!this->pedal)
             {
-            case NoteType::Slide:
-                this->data[i].length = 0;
-                break;
-            case NoteType::Tie:
                 this->note_off(this->data[i].pitch);
-                break;
             }
         }
     }
@@ -195,7 +196,7 @@ namespace Vleerhond
 
     void MidiChannel::print_storage()
     {
-        printf("\nStorage size: %d\n", this->size);
+        printf("\nStorage size: %d\n", (int)this->size);
         for (int i = 0; i < this->size; i++)
         {
             printf("%2d, %3d, %d\n",
@@ -209,5 +210,9 @@ namespace Vleerhond
     void MidiChannel::set_pedal(const bool value)
     {
         pedal = value;
+    }
+    bool MidiChannel::getPedal()
+    {
+        return this->pedal;
     }
 }

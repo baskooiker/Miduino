@@ -100,8 +100,7 @@ namespace Vleerhond
 
     enum class NoteType {
         Normal,
-        Tie,
-        Slide
+        Tie
     };
 
     enum class PlayState {

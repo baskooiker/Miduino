@@ -22,7 +22,8 @@ namespace Vleerhond
         drumstation(harmony, modulators, time),
         moog_bass(modulators, harmony, time),
         neutron(harmony, modulators, time),
-        tb303_bass(harmony, time)
+        tb303_bass(harmony, time),
+        mam_mb33(harmony, modulators, time)
     {
         this->randomize_all();
     }
@@ -51,9 +52,10 @@ namespace Vleerhond
 
     void ApplicationData::process_active_notes()
     {
-        for (auto instrument : get_instrument_ptrs())
+        for (InstrumentBase* instrument : get_instrument_ptrs())
         {
-            instrument->midi_channel->process_active_notes();
+
+            instrument->getChannel()->process_active_notes();
         }
     }
 
@@ -95,6 +97,14 @@ namespace Vleerhond
         );
     }
 
+    void ApplicationData::updatePedalState()
+    {
+        for (auto instrument : get_instrument_ptrs())
+        {
+            instrument->updatePedalState();
+        }
+    }
+
     std::vector<InstrumentBase*> ApplicationData::get_instrument_ptrs()
     {
         std::vector<InstrumentBase*> ptrs;
@@ -102,7 +112,8 @@ namespace Vleerhond
         ptrs.push_back(&this->drumstation);
         ptrs.push_back(&this->tanzbar);
 
-        ptrs.push_back(&this->tb303_bass);
+        //ptrs.push_back(&this->tb303_bass);
+        ptrs.push_back(&this->mam_mb33);
         ptrs.push_back(&this->moog_bass);
         ptrs.push_back(&this->neutron);
 
@@ -148,7 +159,10 @@ namespace Vleerhond
 
     void ApplicationData::connect()
     {
-        this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
         this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_A_NAME));
+        this->drumstation.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_DS, MIDI_A_NAME));
+
+        this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
+        this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
     }
 }

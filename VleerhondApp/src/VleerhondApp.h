@@ -22,7 +22,7 @@ namespace Vleerhond
         bool initializeMidiPorts();
 
         void setup();
-        void play();
+        //void play();
         void update();
         void draw();
 

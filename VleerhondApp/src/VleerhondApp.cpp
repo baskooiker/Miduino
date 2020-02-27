@@ -7,6 +7,7 @@
 #include "callbacks.h"
 #include "core/defs.h"
 #include "midi_io.h"
+#include "midi/console_midi_channel.h"
 
 namespace Vleerhond
 {
@@ -58,6 +59,45 @@ namespace Vleerhond
     {
         ofLogToConsole();
 
+        if (false)
+        {
+            data.harmony.randomize();
+            data.harmony.setType(HarmonyType::Const);
+            std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
+            data.mam_mb33.setChannel(console_midi_channel);
+            data.mam_mb33.randomize();
+            data.mam_mb33.setVariableDensity(127);
+            data.mam_mb33.setVariablePitchOffset(64);
+            data.mam_mb33.select(2);
+
+            int bars = 1;
+            for (int i = 0; i < bars * 16 * TICKS_PER_STEP; i++)
+            {
+                // From clock callback
+                if (Utils::interval_hit(TimeDivision::Sixteenth, data.time))
+                {
+                    data.updatePedalState();
+                }
+                data.process_active_notes();
+                data.mam_mb33.play();
+                data.time.tick += 1;
+            }
+
+
+            // Flush active notes
+            data.mam_mb33.getChannel()->set_pedal(false);
+            for (int i = 0; i < (16 * 6); i++)
+            {
+                data.process_active_notes();
+                data.time.tick += 1;
+            }
+
+            console_midi_channel->print_storage();
+            console_midi_channel->print();
+            ofExit(0);
+            return;
+        }
+
         if (!initializeMidiPorts())
         {
             ofExit(0);
@@ -72,13 +112,13 @@ namespace Vleerhond
 
     }
 
-    void VleerhondApp::play()
-    {
-        data.time.state = PlayState::Playing;
-        data.process_active_notes();
-        data.play_all();
-        data.time.tick++;
-    }
+    //void VleerhondApp::play()
+    //{
+    //    data.time.state = PlayState::Playing;
+    //    data.process_active_notes();
+    //    data.play_all();
+    //    data.time.tick++;
+    //}
 
     void VleerhondApp::update()
     {

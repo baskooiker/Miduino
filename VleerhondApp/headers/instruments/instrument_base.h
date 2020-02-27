@@ -24,9 +24,9 @@ namespace Vleerhond
         uint8_t _variable_pitch = 0;
         uint8_t _variable_pitch_offset = 64;
 
-    public:
         std::shared_ptr<MidiChannel> midi_channel;
 
+    public:
         InstrumentBase(
             TimeStruct& time_ref,
             const bool is_randomizable,
@@ -35,20 +35,23 @@ namespace Vleerhond
 
         virtual bool play() = 0;
         virtual void randomize();
-        void randomize_parameters();
-        void processNoteEvents();
-        void stop_notes();
-        uint32_t randomized_time();
-        bool is_randomizable();
+        virtual void randomize_parameters();
+        virtual void processNoteEvents();
+        virtual void stop_notes();
+        virtual uint32_t randomized_time();
+        virtual bool is_randomizable();
         virtual uint8_t get_velocity();
-        bool is_active() const;
-        void set_active(const bool active);
+        virtual bool is_active() const;
+        virtual void set_active(const bool active);
         virtual std::vector<InstrumentBase*> get_ptrs();
         virtual void check_auto_randomize();
         virtual void auto_randomize();
         virtual void kill(const bool kill);
-        bool isKilled() const;
-        void setChannel(std::shared_ptr<MidiChannel> channel);
+        virtual bool isKilled() const;
+        virtual void setChannel(std::shared_ptr<MidiChannel> channel);
+        virtual std::shared_ptr<MidiChannel> getChannel();
+        virtual bool getPedal();
+        virtual void updatePedalState();
 
         virtual void setVariableDensity(const uint8_t variable_density);
         virtual uint8_t getVariableDensity() const;

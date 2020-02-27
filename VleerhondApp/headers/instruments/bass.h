@@ -72,19 +72,21 @@ namespace Vleerhond
             TimeStruct& time_ref,
             const uint8_t midi_channel
         );
-        void randomize_octaves();
-        void randomize_pitches();
-        void randomize_drop();
-        void randomize_gates();
-        void randomize_accents();
-        void randomize();
-        void total_randomize();
-        uint8_t get_length();
-        NoteType get_note_type();
-        bool get_hit(const uint8_t density, const TimeStruct& time);
-        uint8_t get_pitch();
-        bool play();
-        std::string toString();
+
+        virtual void randomize_octaves();
+        virtual void randomize_pitches();
+        virtual void randomize_drop();
+        virtual void randomize_gates();
+        virtual void randomize_accents();
+        virtual void randomize();
+        virtual void total_randomize();
+        virtual uint8_t get_length();
+        virtual NoteType get_note_type();
+        virtual bool get_hit(const uint8_t density, const TimeStruct& time);
+        virtual uint8_t get_pitch();
+        virtual bool play();
+        virtual std::string toString();
+        virtual bool getPedal() override;
 
     };
 }

@@ -157,6 +157,9 @@
     <ClCompile Include="src\instruments\instrument_group.cpp">
       <Filter>src\instruments</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\mam_mb33\mam_mb33.cpp">
+      <Filter>src\instruments\mam_mb33</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -269,6 +272,12 @@
     </Filter>
     <Filter Include="headers\instruments\neutron">
       <UniqueIdentifier>{e611a47b-de07-4031-a613-49447161f606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\instruments\mam_mb33">
+      <UniqueIdentifier>{756e0628-43c2-4ab9-b901-9f0cc4553fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\mam_mb33">
+      <UniqueIdentifier>{7f3696cb-8850-434b-ab52-eb614d5bc171}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -556,6 +565,12 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\neutron\neutron_mono.h">
       <Filter>headers\instruments\neutron</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\mam_mb33\mam_mb33.h">
+      <Filter>headers\instruments\mam_mb33</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\midi\console_midi_channel.h">
+      <Filter>headers\midi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

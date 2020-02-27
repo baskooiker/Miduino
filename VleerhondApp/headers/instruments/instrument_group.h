@@ -21,5 +21,6 @@ public:
     virtual void auto_randomize();
 
     virtual void setChannel(std::shared_ptr<MidiChannel> channel);
+    virtual std::shared_ptr<MidiChannel> getChannel();
 };
 }

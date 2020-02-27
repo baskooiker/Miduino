@@ -45,4 +45,9 @@ namespace Vleerhond
             inst_ptr->setChannel(channel);
         }
     }
+    std::shared_ptr<MidiChannel> InstrumentGroup::getChannel()
+    {
+        // Uggly assumption that all instruments use the same channel
+        return instruments[0]->getChannel();
+    }
 }

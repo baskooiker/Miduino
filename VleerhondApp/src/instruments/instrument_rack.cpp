@@ -9,32 +9,35 @@ namespace Vleerhond
 
     bool InstrumentRack::play()
     {
-        return instruments[selection % instruments.size()]->play();
+        return getInstr()->play();
     }
-    inline void InstrumentRack::randomize()
+    void InstrumentRack::randomize()
     {
         for (InstrumentBase* instrument : instruments)
         {
             instrument->randomize();
         }
     }
-    inline std::vector<InstrumentBase*> InstrumentRack::get_ptrs()
+    std::vector<InstrumentBase*> InstrumentRack::get_ptrs()
     {
-        return { instruments[selection % instruments.size()] };
+        return { getInstr() };
     }
-    inline void InstrumentRack::auto_randomize()
+    void InstrumentRack::auto_randomize()
     {
-        return instruments[selection % instruments.size()]->auto_randomize();
+        return getInstr()->auto_randomize();
     }
     void InstrumentRack::select(const uint8_t index)
     {
-        instruments[selection % instruments.size()]->stop_notes();
-        instruments[selection % instruments.size()]->kill(false);
+        getInstr()->stop_notes();
+        getInstr()->kill(false);
         this->selection = index;
     }
     void InstrumentRack::setVariableDensity(const uint8_t variable_density)
     {
-        return getInstr()->setVariableDensity(variable_density);
+        for (InstrumentBase* instrument : instruments)
+        {
+            instrument->setVariableDensity(variable_density);
+        }
     }
     uint8_t InstrumentRack::getVariableDensity() const
     {
@@ -42,7 +45,10 @@ namespace Vleerhond
     }
     void InstrumentRack::setVariablePitch(const uint8_t variable_pitch)
     {
-        return getInstr()->setVariablePitch(variable_pitch);
+        for (InstrumentBase* instrument : instruments)
+        {
+            instrument->setVariablePitch(variable_pitch);
+        }
     }
     uint8_t InstrumentRack::getVariablePitch() const
     {
@@ -50,7 +56,10 @@ namespace Vleerhond
     }
     void InstrumentRack::setVariablePitchOffset(const uint8_t variable_pitch_offset)
     {
-        return getInstr()->setVariablePitchOffset(variable_pitch_offset);
+        for (InstrumentBase* instrument : instruments)
+        {
+            instrument->setVariablePitchOffset(variable_pitch_offset);
+        }
     }
     uint8_t InstrumentRack::getVariablePitchOffset() const
     {
@@ -70,6 +79,14 @@ namespace Vleerhond
         {
             instr_ptr->setChannel(channel);
         }
+    }
+    std::shared_ptr<MidiChannel> InstrumentRack::getChannel()
+    {
+        return getInstr()->getChannel();
+    }
+    inline bool InstrumentRack::getPedal()
+    {
+        return getInstr()->getPedal();
     }
     InstrumentBase * InstrumentRack::getInstr()
     {

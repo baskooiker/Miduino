@@ -150,21 +150,12 @@ namespace Vleerhond
 
     std::vector<InstrumentBase*> DrumStation::getLow()
     {
-        return {
-            //&kick
-        };
+        return {};
     }
 
     std::vector<InstrumentBase*> DrumStation::getMid()
     {
-        return {
-            &snare,
-            //&rimshot,
-            &clap,
-            &toms,
-            //&clave,
-            //&cowbell
-        };
+        return {&clap};
     }
 
     std::vector<InstrumentBase*> DrumStation::getHigh()

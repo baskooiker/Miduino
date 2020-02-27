@@ -42,12 +42,12 @@ namespace Vleerhond
 
     void InstrumentBase::processNoteEvents()
     {
-        midi_channel->processNoteEvents();
+        getChannel()->processNoteEvents();
     }
 
     void InstrumentBase::stop_notes()
     {
-        midi_channel->all_notes_off();
+        getChannel()->all_notes_off();
     }
 
     uint32_t InstrumentBase::randomized_time()
@@ -109,6 +109,27 @@ namespace Vleerhond
     void InstrumentBase::setChannel(std::shared_ptr<MidiChannel> channel)
     {
         this->midi_channel = channel;
+    }
+
+    std::shared_ptr<MidiChannel> InstrumentBase::getChannel()
+    {
+        return this->midi_channel;
+    }
+
+    bool InstrumentBase::getPedal()
+    {
+        return false;
+    }
+
+    void InstrumentBase::updatePedalState()
+    {
+        bool new_v = this->getPedal();
+        //std::cout << "updatePedalState: " << new_v << ", channel " << (int)getChannel()->get_channel().channel << std::endl;
+        //if (getChannel()->getPedal() != new_v)
+        //{
+            //std::cout << "== Switch pedal: " << (new_v ? "On" : "Off") << "\n";
+        //}
+        getChannel()->set_pedal(new_v);
     }
 
     void InstrumentBase::setVariableDensity(const uint8_t variable_density)

@@ -35,6 +35,10 @@ namespace Vleerhond
             data.time.last_pulse_time = now;
         }
 
+        if (Utils::interval_hit(TimeDivision::Sixteenth, data.time))
+        {
+            data.updatePedalState();
+        }
         data.process_active_notes();
         data.play_all();
 
@@ -96,6 +100,7 @@ namespace Vleerhond
             break;
         case KNOB_05:
             data.tb303_bass.setVariableDensity(value);
+            data.mam_mb33.setVariableDensity(value);
             break;
         case ROTARY_06:
             break;
@@ -237,23 +242,7 @@ namespace Vleerhond
         case BTN_LEFT_BTM_06:
             if (value == 0)
             {
-                handle_step_release(data, number, BTN_LEFT_BTM_05, BTN_LEFT_BTM_06,
-                    [](ApplicationData& data) 
-                    {
-                        data.tb303_bass.total_randomize();
-                        data.tb303_bass.randomize_drop();
-                    },
-                    [](ApplicationData& data) 
-                    {
-                        data.tb303_bass.total_randomize();
-                    },
-                    [](ApplicationData& data) 
-                    {
-                        data.tb303_bass.total_randomize();
-                        data.tb303_bass.note_range_value = 0;
-                    }
-                );
-                data.tb303_bass.follow_harmony = !data.ui_state.is_pressed(BTN_RIGHT_BTM_08);
+                data.mam_mb33.randomize();
             }
             break;
         case BTN_LEFT_TOP_07:
@@ -297,15 +286,16 @@ namespace Vleerhond
             if (data.moog_bass.isKilled())
             {
                 data.moog_bass.stop_notes();
-                data.moog_bass.midi_channel->process_active_notes();
+                data.moog_bass.getChannel()->process_active_notes();
             }
             break;
         case BTN_RIGHT_BTM_05:
             data.tb303_bass.kill(value > 0);
             if (value > 0)
             {
-                data.tb303_bass.midi_channel->process_active_notes();
+                data.tb303_bass.getChannel()->process_active_notes();
             }
+            data.mam_mb33.kill(value > 0);
             break;
         case BTN_RIGHT_BTM_06:
             break;
@@ -315,13 +305,26 @@ namespace Vleerhond
         case BTN_RIGHT_BTM_08:
             break;
         case BTN_RIGHT_TOP_01:
+            if (value == 0)
+            {
+                data.mam_mb33.select(0);
+            }
             break;
         case BTN_RIGHT_TOP_02:
-            break;
+            if (value == 0)
+            {
+                data.mam_mb33.select(1);
+            }
         case BTN_RIGHT_TOP_03:
-            break;
+            if (value == 0)
+            {
+                data.mam_mb33.select(2);
+            }
         case BTN_RIGHT_TOP_04:
-            break;
+            if (value == 0)
+            {
+                data.mam_mb33.select(2);
+            }
         case BTN_RIGHT_TOP_05:
             if (value == 0)
             {
