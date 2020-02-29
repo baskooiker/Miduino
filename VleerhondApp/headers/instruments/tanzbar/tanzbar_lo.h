@@ -43,7 +43,7 @@ namespace Vleerhond
             ofLogNotice("tanzbar_lo", "randomize()");
             Kick::randomize();
 
-            Parameters::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params, MIDI_CC_CHANNEL_TANZBAR);
+            Parameters::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             uint8_t range = Rand::randui8(96);
             bd2_pitch_mod.randomize(range, 32, .3);
@@ -62,7 +62,7 @@ namespace Vleerhond
                 uint8_t value = 0;
                 if (bd2_pitch_mod.value(time, value))
                 {
-                    MidiIO::send_cc(TB_BD2_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                    getChannel()->sendCC(TB_BD2_TUNE, value);
                 }
                 this->midi_channel->note_on(
                     NoteStruct(NOTE_TANZBAR_BD2, get_velocity()),

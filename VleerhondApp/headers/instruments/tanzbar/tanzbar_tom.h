@@ -52,7 +52,7 @@ namespace Vleerhond
 
             Toms::randomize();
 
-            Parameters::randomize_parameters(tom_params, nr_tom_params, MIDI_CC_CHANNEL_TANZBAR);
+            Parameters::randomize_parameters(tom_params, nr_tom_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             this->pitches.clear();
             switch (Rand::distribution(32, 32))
@@ -102,15 +102,15 @@ namespace Vleerhond
             uint8_t value = 0;
             if (low_pitch.value(time, value))
             {
-                MidiIO::send_cc(TB_LTC_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_LTC_TUNE, value);
             }
             if (mid_pitch.value(time, value))
             {
-                MidiIO::send_cc(TB_MTC_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_MTC_TUNE, value);
             }
             if (high_pitch.value(time, value))
             {
-                MidiIO::send_cc(TB_HTC_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_HTC_TUNE, value);
             }
             return Toms::play();
         }

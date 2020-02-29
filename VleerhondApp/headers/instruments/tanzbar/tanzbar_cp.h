@@ -40,7 +40,7 @@ namespace Vleerhond
         void randomize()
         {
             Snare::randomize();
-            Parameters::randomize_parameters(cp_params, nr_cp_params, MIDI_CC_CHANNEL_TANZBAR);
+            Parameters::randomize_parameters(cp_params, nr_cp_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             // Modulators
             uint8_t range = Rand::randui8(128);
@@ -57,11 +57,11 @@ namespace Vleerhond
             uint8_t value = 0;
             if (this->cp_trig.value(time, value))
             {
-                MidiIO::send_cc(TB_CP_TRIGGER, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_CP_TRIGGER, value);
             }
             if (this->filter_mod.value(time, value))
             {
-                MidiIO::send_cc(TB_CP_FILTER, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_CP_FILTER, value);
             }
             return Snare::play();
         }

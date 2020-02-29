@@ -36,7 +36,12 @@ namespace Vleerhond
         {
             ofLogNotice("tanzbar_cy", "randomize()");
             Cymbal::randomize();
-            Parameters::randomize_parameters(tanzbar_cy_params, nr_of_tanzbar_cy_params, MIDI_CC_CHANNEL_TANZBAR);
+            Parameters::randomize_parameters(
+                tanzbar_cy_params, 
+                nr_of_tanzbar_cy_params, 
+                MIDI_CC_CHANNEL_TANZBAR, 
+                getChannel()->getPortName()
+            );
 
             // Modulators
             uint8_t range = Rand::randui8(32);
@@ -49,7 +54,7 @@ namespace Vleerhond
             uint8_t value = 0;
             if (this->cy_tune.value(time, value))
             {
-                MidiIO::send_cc(TB_CY_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_CY_TUNE, value);
             }
             return Cymbal::play();
         }

@@ -59,4 +59,8 @@ namespace Vleerhond
     {
         return this->accents.gate(this->time) ? 127 : 64;
     }
+    void MoogBass::setVco2Square(const bool square)
+    {
+        getChannel()->sendCC(MINITAUR_CC_VCO2_WAVE, square ? 127 : 0);
+    }
 }

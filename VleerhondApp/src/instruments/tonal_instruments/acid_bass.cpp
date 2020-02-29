@@ -9,7 +9,7 @@ namespace Vleerhond
         TimeStruct& time) :
         Bass(harmony, time)
     {
-        MidiIO::send_cc(VERMONA_SYNTH_1_MOD_WHEEL, 127, VERMONA_CONTROL_CHANNEL);
+        getChannel()->sendCC(VERMONA_SYNTH_1_MOD_WHEEL, 127);
 
         settings.p_euclid_16 = 16;
         settings.p_euclid_8 = 0;
@@ -46,7 +46,7 @@ namespace Vleerhond
             {
                 value = accent_amount;
             }
-            MidiIO::send_cc(MODULATION_WHEEL_CC, value, MIDI_CHANNEL_BASS);
+            getChannel()->sendCC(MODULATION_WHEEL_CC, value);
         }
         return Bass::play();
     }

@@ -30,8 +30,6 @@ namespace Vleerhond
         // acid bass
         {
             acid_bass.total_randomize();
-            acid_bass.note_range_value = 96;
-            acid_bass.variable_octave = 96;
         }
     }
 }

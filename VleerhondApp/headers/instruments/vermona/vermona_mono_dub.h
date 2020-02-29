@@ -41,7 +41,7 @@ namespace Vleerhond
         {
             if (this->lead.get_hit())
             {
-                MidiIO::send_cc(MODULATION_WHEEL_CC, get_velocity(), MIDI_CHANNEL_MONO_2);
+                getChannel()->sendCC(MODULATION_WHEEL_CC, get_velocity());
             }
             return MonoDub::play();
         }

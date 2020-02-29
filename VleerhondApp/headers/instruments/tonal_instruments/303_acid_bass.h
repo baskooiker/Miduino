@@ -26,8 +26,6 @@ namespace Vleerhond
 
             settings.diddles.p_min = .6;
             settings.diddles.p_max = .9;
-
-            follow_harmony = false;
         }
 
         void randomize()

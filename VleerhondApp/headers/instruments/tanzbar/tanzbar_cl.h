@@ -33,7 +33,7 @@ namespace Vleerhond
         {
             ofLogNotice("tanzbar_perc", "randomize()");
             Percussion::randomize();
-            Parameters::randomize_parameters(cl_params, nr_cl_params, MIDI_CC_CHANNEL_TANZBAR);
+            Parameters::randomize_parameters(cl_params, nr_cl_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             // Modulators
             uint8_t range = Rand::randui8(128, 64);
@@ -45,7 +45,7 @@ namespace Vleerhond
             uint8_t value = 0;
             if (this->cl_pitch.value(time, value))
             {
-                MidiIO::send_cc(TB_CL_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_CL_TUNE, value);
             }
             return Percussion::play();
         }

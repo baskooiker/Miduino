@@ -36,7 +36,7 @@ namespace Vleerhond
         void randomize()
         {
             Snare::randomize();
-            Parameters::randomize_parameters(sd_params, nr_sd_params, MIDI_CC_CHANNEL_TANZBAR);
+            Parameters::randomize_parameters(sd_params, nr_sd_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
         }
     };
 }

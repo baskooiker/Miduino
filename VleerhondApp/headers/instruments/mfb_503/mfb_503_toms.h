@@ -57,9 +57,9 @@ namespace Vleerhond
         virtual void set_volume(const uint8_t value)
         {
             this->volume = value;
-            MidiIO::send_cc(MFB_503_LT_LEVEL, value, MIDI_CHANNEL_503);
-            MidiIO::send_cc(MFB_503_MT_LEVEL, value, MIDI_CHANNEL_503);
-            MidiIO::send_cc(MFB_503_HT_LEVEL, value, MIDI_CHANNEL_503);
+            getChannel()->sendCC(MFB_503_LT_LEVEL, value);
+            getChannel()->sendCC(MFB_503_MT_LEVEL, value);
+            getChannel()->sendCC(MFB_503_HT_LEVEL, value);
         }
 
         virtual uint8_t get_velocity()

@@ -38,7 +38,7 @@ namespace Vleerhond
         virtual void set_volume(const uint8_t value)
         {
             this->volume = value;
-            MidiIO::send_cc(SD_LEVEL, value, MIDI_CHANNEL_503);
+            getChannel()->sendCC(SD_LEVEL, value);
         }
 
         virtual uint8_t get_velocity()

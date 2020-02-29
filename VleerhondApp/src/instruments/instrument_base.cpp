@@ -28,10 +28,9 @@ namespace Vleerhond
     {
         for (CcParam param : params)
         {
-            MidiIO::send_cc(
+            getChannel()->sendCC(
                 param.note,
-                Rand::randui8(param.max, param.min),
-                param.channel
+                Rand::randui8(param.max, param.min)
             );
         }
     }

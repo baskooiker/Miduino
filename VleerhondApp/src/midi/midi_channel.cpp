@@ -12,36 +12,33 @@
 
 namespace Vleerhond
 {
-    ChannelStruct::ChannelStruct()
-    {
-        this->channel = 0;
-    }
-
-    ChannelStruct::ChannelStruct(const uint8_t channel)
-    {
-        this->channel = channel;
-    }
-
     void MidiChannel::_send_note_on(const uint8_t pitch, const uint8_t velocity)
     {
-        if (this->channel.channel > 0)
+        if (this->channel > 0)
         {
-            MidiIO::send_note_on(pitch, velocity, this->channel.channel, this->port_name);
+            MidiIO::send_note_on(pitch, velocity, this->channel, this->port_name);
         }
     }
 
     void MidiChannel::_send_note_off(const uint8_t pitch)
     {
-        if (this->channel.channel > 0)
+        if (this->channel > 0)
         {
-            MidiIO::send_note_off(pitch, this->channel.channel, port_name);
+            MidiIO::send_note_off(pitch, this->channel, port_name);
         }
     }
 
     MidiChannel::MidiChannel(const uint8_t midi_channel, const std::string& port_name)
-        : channel(ChannelStruct(midi_channel))
+        : channel(midi_channel)
+        , port_name(port_name)
     {
-        this->port_name = port_name;
+    }
+
+    MidiChannel::MidiChannel(const uint8_t channel, const uint8_t cc_channel, const std::string & port_name)
+        : channel(channel)
+        , cc_channel(cc_channel)
+        , port_name(port_name)
+    {
     }
 
     void MidiChannel::processNoteEvents()
@@ -189,11 +186,6 @@ namespace Vleerhond
         }
     }
 
-    ChannelStruct& MidiChannel::get_channel()
-    {
-        return channel;
-    }
-
     void MidiChannel::print_storage()
     {
         printf("\nStorage size: %d\n", (int)this->size);
@@ -214,5 +206,34 @@ namespace Vleerhond
     bool MidiChannel::getPedal()
     {
         return this->pedal;
+    }
+
+    // TODO: Remove when obsolete
+
+    std::string MidiChannel::getPortName()
+    {
+        return this->port_name;
+    }
+    void MidiChannel::sendCC(const uint8_t cc, const uint8_t value)
+    {
+        uint8_t send_channel = this->channel;
+        if (this->cc_channel >= 0 && this->cc_channel < 16)
+        {
+            send_channel = cc_channel;
+        }
+        MidiIO::send_cc(cc, value, send_channel, this->port_name);
+    }
+    void MidiChannel::sendBytes(std::vector<uint8_t>& bytes)
+    {
+        MidiIO::sendBytes(bytes, this->port_name);
+    }
+    void MidiChannel::sendProgramChange(const uint8_t program_change)
+    {
+        uint8_t send_channel = this->channel;
+        if (this->cc_channel >= 0 && this->cc_channel < 16)
+        {
+            send_channel = cc_channel;
+        }
+        MidiIO::sendProgramChange(send_channel, program_change, this->port_name);
     }
 }

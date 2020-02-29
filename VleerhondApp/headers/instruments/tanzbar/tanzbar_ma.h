@@ -97,11 +97,7 @@ namespace Vleerhond
             {
                 uint8_t value = 64;
                 decay_mod.value(time, value);
-                MidiIO::send_cc(
-                    TB_MA_Decay,
-                    Utils::quad(value) / 2,
-                    MIDI_CC_CHANNEL_TANZBAR
-                );
+                getChannel()->sendCC(TB_MA_Decay, Utils::quad(value) / 2);
 
                 this->midi_channel->note_on(
                     NoteStruct(NOTE_TANZBAR_MA, Utils::rerange(this->ma_pattern.value(time), 96, 16)),

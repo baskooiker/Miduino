@@ -79,7 +79,7 @@ namespace Vleerhond
                     data.updatePedalState();
                 }
                 data.process_active_notes();
-                data.mam_mb33.play();
+                data.play_all();
                 data.time.tick += 1;
             }
 
@@ -108,8 +108,8 @@ namespace Vleerhond
         // Init app
         data.randomize_all();
 
-        MidiIO::sendProgramChange(MIDI_CHANNEL_DS, 8);
-
+        // Set initial 808 program
+        data.drumstation.reset();
     }
 
     void VleerhondApp::update()
@@ -124,12 +124,13 @@ namespace Vleerhond
         {
             data.processNoteEvents();
 
+            // If stopped, blink light on moog
             if (data.time.state == PlayState::Stopped)
             {
                 bool trigger_active = (int)ofGetCurrentTime().getAsSeconds() % 2 == 1;
                 if (trigger_active != _is_trigger_on)
                 {
-                    MidiIO::send_cc(MINITAUR_CC_VCO2_WAVE, trigger_active ? 127 : 0, MIDI_CHANNEL_MINITAUR);
+                    data.moog_bass.setVco2Square(trigger_active);
                     _is_trigger_on = trigger_active;
                     ofLogNotice("", "BLINK");
                 }

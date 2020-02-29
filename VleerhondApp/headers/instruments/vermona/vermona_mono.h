@@ -22,7 +22,7 @@ namespace Vleerhond
         {
             if (this->get_hit())
             {
-                MidiIO::send_cc(MODULATION_WHEEL_CC, get_velocity(), MIDI_CHANNEL_MONO);
+                getChannel()->sendCC(MODULATION_WHEEL_CC, get_velocity());
             }
             return Mono::play();
         }

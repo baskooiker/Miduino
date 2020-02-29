@@ -26,7 +26,7 @@ namespace Vleerhond
             pitch_closed = NOTE_503_HH;
             pitch_open = NOTE_503_OH;
 
-            //MidiIO::send_cc(HH_LEVEL, 0, MIDI_CHANNEL_503);
+            getChannel()->sendCC(HH_LEVEL, 0);
         }
 
         void randomize()
@@ -39,7 +39,7 @@ namespace Vleerhond
         void set_volume(const uint8_t value)
         {
             this->volume = value;
-            MidiIO::send_cc(HH_LEVEL, value, MIDI_CHANNEL_503);
+            getChannel()->sendCC(HH_LEVEL, value);
         }
 
         uint8_t get_velocity()

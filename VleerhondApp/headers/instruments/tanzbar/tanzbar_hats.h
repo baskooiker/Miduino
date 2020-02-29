@@ -49,7 +49,7 @@ namespace Vleerhond
             ofLogNotice("tanzbar_hi", "randomize()");
             Hats::randomize();
 
-            Parameters::randomize_parameters(tanzbar_hats_params, nr_of_tanzbar_hats_params, MIDI_CC_CHANNEL_TANZBAR);
+            Parameters::randomize_parameters(tanzbar_hats_params, nr_of_tanzbar_hats_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             // Modulators
             {
@@ -76,7 +76,7 @@ namespace Vleerhond
             uint8_t value = 0;
             if (tune_mod.value(time, value))
             {
-                MidiIO::send_cc(TB_HH_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_HH_TUNE, value);
             }
             return Hats::play();
         }

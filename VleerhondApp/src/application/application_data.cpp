@@ -44,7 +44,6 @@ namespace Vleerhond
     {
         for (InstrumentBase* instrument : get_instrument_ptrs())
         {
-
             instrument->getChannel()->process_active_notes();
         }
     }

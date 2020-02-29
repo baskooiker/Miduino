@@ -33,5 +33,7 @@ namespace Vleerhond
         virtual void randomize();
         virtual void total_randomize();
         virtual uint8_t get_velocity();
+
+        void setVco2Square(const bool square);
     };
 }

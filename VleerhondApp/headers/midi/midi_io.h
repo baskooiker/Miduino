@@ -36,11 +36,10 @@ namespace Vleerhond
 
         static void sendTimeClock();
 
-        // TODO: Removedefault parameters!
-        static void send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name="");
-        static void send_note_off(const uint8_t pitch, const uint8_t channel, const std::string& port_name="");
-        static void send_cc(const uint8_t cc, const uint8_t value, const uint8_t channel, const std::string& port_name="");
-        static void sendBytes(std::vector<uint8_t>& bytes, const std::string& port_name="");
-        static void sendProgramChange(const uint8_t channel, const uint8_t program, const std::string& port_name="");
+        static void send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name);
+        static void send_note_off(const uint8_t pitch, const uint8_t channel, const std::string& port_name);
+        static void send_cc(const uint8_t cc, const uint8_t value, const uint8_t channel, const std::string& port_name);
+        static void sendBytes(std::vector<uint8_t>& bytes, const std::string& port_name);
+        static void sendProgramChange(const uint8_t channel, const uint8_t program, const std::string& port_name);
     };
 }

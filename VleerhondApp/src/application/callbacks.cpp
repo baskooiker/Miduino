@@ -244,7 +244,6 @@ namespace Vleerhond
         case BTN_LEFT_TOP_08:
             if (value == 0)
             {
-                data.drumstation.reset();
             }
             break;
         case BTN_LEFT_BTM_07:

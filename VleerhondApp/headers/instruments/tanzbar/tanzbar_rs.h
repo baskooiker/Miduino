@@ -41,7 +41,7 @@ namespace Vleerhond
             uint8_t value = 0;
             if (this->rs_tune.value(time, value))
             {
-                MidiIO::send_cc(TB_RS_TUNE, value, MIDI_CC_CHANNEL_TANZBAR);
+                getChannel()->sendCC(TB_RS_TUNE, value);
             }
             return Percussion::play();
         }

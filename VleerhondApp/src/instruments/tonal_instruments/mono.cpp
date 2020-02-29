@@ -173,13 +173,16 @@ namespace Vleerhond
 
     uint8_t Mono::get_next_mono_pitch()
     {
+        uint8_t pitch = 0;
         if (pitch_mode == MonoPitchMode::SEQUENCE)
         {
-            return get_sequence_pitch();
+            pitch = get_sequence_pitch();
         }
-        // Else if ARP
-        this->arp_data.min = Utils::rerange(this->_variable_pitch_offset, 48, 36);
-        uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, harmony.get_chord_step(time));
+        else if (pitch_mode == MonoPitchMode::ARP)
+        {
+            this->arp_data.min = Utils::rerange(this->_variable_pitch_offset, 48, 36);
+            pitch = this->arp_data.get_next_arp_pitch(harmony.scale, harmony.get_chord_step(time));
+        }
         return pitch;
     }
 

@@ -205,10 +205,10 @@ namespace Vleerhond
             DS_909_MT_PAN,
         };
 
-        MidiIO::sendProgramChange(MIDI_CHANNEL_DS, 8);
+        getChannel()->sendProgramChange(8);
         for (const int p: pan_params)
         {
-            MidiIO::send_cc(p, 64, MIDI_CHANNEL_DS);
+            getChannel()->sendCC(p, 64);
         }
 
     }
