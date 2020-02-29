@@ -112,21 +112,23 @@ namespace Vleerhond
 
     void ArpData::get_arp_pitches_by_count(const Scale& scale, const uint8_t chord)
     {
-        int i = this->min;
-        while (this->arp_notes.size() < this->range_count
-            && i < 128)
+        
+        for (
+            int i = this->min; 
+            this->arp_notes.size() < this->range_count && i < 128; 
+            i++)
         {
             if (scale.chord_contains(i, chord))
             {
 
                 this->arp_notes.push_back(i);
             }
-            i++;
         }
     }
 
     uint8_t ArpData::get_next_arp_pitch(const Scale& scale, const uint8_t chord)
     {
+        arp_notes = {};
         switch (this->range_type)
         {
         case RangeType::Range: this->get_arp_pitches_by_range(scale, chord); break;

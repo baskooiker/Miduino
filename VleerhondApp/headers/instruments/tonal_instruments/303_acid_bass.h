@@ -32,7 +32,7 @@ namespace Vleerhond
         {
             Bass::randomize();
             note_range_value = Rand::randui8(16, 56);
-            variable_octave = Rand::randui8(64);
+            _variable_octave = Rand::randui8(64);
         }
 
         uint8_t get_velocity()

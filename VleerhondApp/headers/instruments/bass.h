@@ -63,8 +63,6 @@ namespace Vleerhond
         BassStyle style;
         CvPatternAB note_range_prob;
         uint8_t note_range_value;
-        uint8_t variable_octave = 0;
-        uint8_t pitch_offset = 36;
         bool follow_harmony = true;
 
         Bass(

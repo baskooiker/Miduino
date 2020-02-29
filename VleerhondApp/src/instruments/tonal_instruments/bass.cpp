@@ -280,21 +280,21 @@ uint8_t Bass::get_pitch()
 
     uint8_t pitch = harmony.scale.apply_scale_offset(
         note_nr,
-        this->pitch_offset,
+        Utils::rerange(this->_variable_pitch_offset, 24, 24),
         this->follow_harmony ? harmony.get_chord_step(time) : 0
     );
 
     uint8_t octave = this->octaves.value(time);
     std::vector<int> octave_opts;
     if (octave < 32)
-        octave_opts = { 0, 0,  1, 1 , 1, 1};
+        octave_opts = { 0, 0, 0, 1, 1, 1};
     else if (octave < 64)
-        octave_opts = { 0, -1, 1, 1 , 1, 1};
+        octave_opts = { 0, 0, 1, 1, 1, 1};
     else if (octave < 96)
-        octave_opts = { 0, -1, 1, 1 , 2, 2};
+        octave_opts = { 0, 1, 1, 1, 2, 2};
     else
-        octave_opts = { 0, -1, 1, 1 , 2, 3};
-    if (octave < this->variable_octave)
+        octave_opts = { 0, 1, 1, 2, 2, 3};
+    if (octave < this->_variable_octave)
     {
         pitch += octave_opts[octave % octave_opts.size()] * 12;
     }
@@ -376,9 +376,7 @@ std::string Bass::toString()
 
 bool Bass::getPedal()
 {
-    bool v = slides.gate(this->time);
-    std::cout << "Bass::getPedal: " << v << "\n";
-    return v;
+    return slides.gate(this->time);
 }
 
 }

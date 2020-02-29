@@ -61,14 +61,25 @@ namespace Vleerhond
 
         if (false)
         {
+
             data.harmony.randomize();
             data.harmony.setType(HarmonyType::Const);
             std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
-            data.mam_mb33.setChannel(console_midi_channel);
-            data.mam_mb33.randomize();
-            data.mam_mb33.setVariableDensity(127);
-            data.mam_mb33.setVariablePitchOffset(64);
-            data.mam_mb33.select(2);
+
+            if (false)
+            {
+                data.mam_mb33.setChannel(console_midi_channel);
+                data.mam_mb33.randomize();
+                data.mam_mb33.setVariableDensity(127);
+                data.mam_mb33.setVariablePitchOffset(64);
+                data.mam_mb33.select(2);
+            }
+            if (true)
+            {
+                data.neutron.setChannel(console_midi_channel);
+                data.neutron.select(3);
+                data.neutron.setVariablePitchOffset(127);
+            }
 
             int bars = 1;
             for (int i = 0; i < bars * 16 * TICKS_PER_STEP; i++)
@@ -85,15 +96,14 @@ namespace Vleerhond
 
 
             // Flush active notes
-            data.mam_mb33.getChannel()->set_pedal(false);
             for (int i = 0; i < (16 * 6); i++)
             {
                 data.process_active_notes();
-                data.time.tick += 1;
             }
 
             console_midi_channel->print_storage();
             console_midi_channel->print();
+
             ofExit(0);
             return;
         }

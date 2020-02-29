@@ -16,5 +16,6 @@ private:
 public:
     Neutron(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time);
     void randomize();
+    void setArpType(ArpType type);
 };
 }

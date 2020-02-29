@@ -95,7 +95,7 @@ namespace Vleerhond
     {
         return getInstr()->getChannel();
     }
-    inline bool InstrumentRack::getPedal()
+    bool InstrumentRack::getPedal()
     {
         return getInstr()->getPedal();
     }

@@ -120,16 +120,15 @@ namespace Vleerhond
         case SLIDER_02:
             break;
         case SLIDER_03:
-            data.moog_bass.variable_octave = value;
+            data.moog_bass.setVariableOctave(value);
             break;
         case SLIDER_04:
-            data.moog_bass.pitch_offset = Utils::rerange(value, 24, 24);
+            data.moog_bass.setVariablePitchOffset(value);
             break;
         case SLIDER_05:
             data.mam_mb33.setVariableOctave(value);
             break;
         case SLIDER_06:
-            // TODO: maybe this should be full range
             data.mam_mb33.setVariablePitchOffset(value);
             break;
         case SLIDER_07:
@@ -247,11 +246,12 @@ namespace Vleerhond
             }
             break;
         case BTN_LEFT_BTM_07:
-        case BTN_LEFT_BTM_08:
             if (value == 0)
             {
                 data.neutron.randomize();
             }
+            break;
+        case BTN_LEFT_BTM_08:
             break;
         case BTN_RIGHT_BTM_01:
             if (data.ui_state.is_pressed(BTN_RIGHT_BTM_08))

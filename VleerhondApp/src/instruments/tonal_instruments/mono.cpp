@@ -128,17 +128,14 @@ namespace Vleerhond
 
     bool Mono::get_hit() const
     {
-        bool hit = false;
         switch (this->style)
         {
         case MonoStyle::MonoSixteenths:
-            hit = Utils::interval_hit(TimeDivision::Sixteenth, time);
-            break;
+            return Utils::interval_hit(TimeDivision::Sixteenth, time);
         case MonoStyle::MonoPolyRhythm:
-            hit = this->gate_pattern.gate(time);
-            break;
+            return this->gate_pattern.gate(time);
         }
-        return hit;
+        return false;
     }
 
     uint8_t Mono::get_sequence_pitch() const
@@ -156,9 +153,6 @@ namespace Vleerhond
                 this->getVariablePitchOffset(),
                 harmony.get_chord_step(time)
             );
-
-            //pitch = harmony.scale.get_note(chord);
-            //pitch = Utils::clip_pitch(pitch, this->getVariablePitchOffset());
         }
         else
         {
@@ -204,16 +198,12 @@ namespace Vleerhond
             note_event.hit = get_hit();
             if (note_event.hit)
             {
-                uint8_t pitch = this->get_next_mono_pitch();
-
-                //uint8_t length = slide_pattern.gate(time) ? 6 * 2 - 1 : 5;
-                uint8_t length = 12;
-
-                //NoteType type = slide_pattern.gate(time) ? 
-                //    NoteType::Slide : 
-                //    NoteType::Tie;
-                NoteType type = NoteType::Tie;
-                note_event.note = NoteStruct(pitch, get_velocity(), length, type);
+                note_event.note = NoteStruct(
+                    this->get_next_mono_pitch(), 
+                    get_velocity(), 
+                    12, 
+                    NoteType::Tie
+                );
             }
         }
         return note_event;
@@ -297,5 +287,9 @@ namespace Vleerhond
     void Mono::disableSlides()
     {
         this->slide_pattern.set_all(0);
+    }
+    bool Mono::getPedal()
+    {
+        return slide_pattern.gate(this->time);
     }
 }

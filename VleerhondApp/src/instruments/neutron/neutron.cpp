@@ -47,4 +47,8 @@ namespace Vleerhond
             arp_mono.disableSlides();
         }
     }
+    void Neutron::setArpType(ArpType type)
+    {
+        arp_mono.set_arp_type(type);
+    }
 }

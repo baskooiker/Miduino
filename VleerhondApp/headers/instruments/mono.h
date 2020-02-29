@@ -77,5 +77,7 @@ namespace Vleerhond
         void set_slow_rhythm();
         virtual uint8_t get_velocity();
         void disableSlides();
+        bool getPedal();
+
     };
 }
