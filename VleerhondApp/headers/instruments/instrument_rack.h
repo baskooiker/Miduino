@@ -12,9 +12,7 @@ protected:
     uint8_t selection = 0;
 
 public:
-    InstrumentRack(
-        TimeStruct& time,
-        const uint8_t midi_channel);
+    InstrumentRack(TimeStruct& time);
 
 public:
     bool play();
@@ -29,10 +27,14 @@ public:
     virtual uint8_t getVariablePitch() const;
     virtual void setVariablePitchOffset(const uint8_t variable_pitch_offset);
     virtual uint8_t getVariablePitchOffset() const;
+    virtual void setVariableOctave(const uint8_t variable_octave);
+    virtual uint8_t getVariableOctave() const;
+
     virtual void kill(const bool kill);
     virtual void setChannel(std::shared_ptr<MidiChannel> channel);
     virtual std::shared_ptr<MidiChannel> getChannel();
     virtual bool getPedal() override;
+
 private:
     InstrumentBase* getInstr();
     InstrumentBase* getInstr() const;

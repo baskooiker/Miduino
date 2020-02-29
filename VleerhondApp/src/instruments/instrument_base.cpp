@@ -4,6 +4,7 @@
 
 #include "core/timing_structs.h"
 #include "harmony/harmony_struct.h"
+#include "midi/dummy_midi_channel.h"
 #include "midi/midi_channel.h"
 #include "midi/midi_io.h"
 
@@ -11,15 +12,10 @@ namespace Vleerhond
 {
 
     InstrumentBase::InstrumentBase(
-        TimeStruct& time_ref, 
-        const bool is_randomizable,
-        const uint8_t midi_channel) :
+        TimeStruct& time_ref) :
         time(time_ref),
-        midi_channel(std::make_shared<MidiChannel>(midi_channel))
+        midi_channel(std::make_shared<DummyMidiChannel>())
     {
-        _kill = false;
-        randomizable = is_randomizable;
-        active = true;
     }
 
     void InstrumentBase::randomize()
@@ -55,24 +51,9 @@ namespace Vleerhond
         return last_randomized_time;
     }
 
-    bool InstrumentBase::is_randomizable()
-    {
-        return randomizable;
-    }
-
     uint8_t InstrumentBase::get_velocity()
     {
         return 100;
-    }
-
-    bool InstrumentBase::is_active() const
-    {
-        return this->active;
-    }
-
-    void InstrumentBase::set_active(const bool active)
-    {
-        this->active = active;
     }
 
     std::vector<InstrumentBase*> InstrumentBase::get_ptrs()
@@ -123,13 +104,7 @@ namespace Vleerhond
 
     void InstrumentBase::updatePedalState()
     {
-        bool new_v = this->getPedal();
-        //std::cout << "updatePedalState: " << new_v << ", channel " << (int)getChannel()->get_channel().channel << std::endl;
-        //if (getChannel()->getPedal() != new_v)
-        //{
-            //std::cout << "== Switch pedal: " << (new_v ? "On" : "Off") << "\n";
-        //}
-        getChannel()->set_pedal(new_v);
+        getChannel()->set_pedal(this->getPedal());
     }
 
     void InstrumentBase::setVariableDensity(const uint8_t variable_density)
@@ -162,15 +137,23 @@ namespace Vleerhond
         return this->_variable_pitch_offset;
     }
 
+    void InstrumentBase::setVariableOctave(const uint8_t variable_octave)
+    {
+        this->_variable_octave = variable_octave;
+    }
+
+    uint8_t InstrumentBase::getVariableOctave() const 
+    { 
+        return this->_variable_octave;
+    }
+
 //////////////////////////////////////////
 
     TonalInstrumentBase::TonalInstrumentBase(
         HarmonyStruct& harmony, 
-        TimeStruct& time, 
-        const bool is_randomizable,
-        const uint8_t midi_channel) :
-        InstrumentBase(time, is_randomizable, midi_channel),
-        harmony(harmony)
+        TimeStruct& time) 
+        : InstrumentBase(time)
+        , harmony(harmony)
     {
     }
 }

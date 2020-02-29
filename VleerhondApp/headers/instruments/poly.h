@@ -2,6 +2,7 @@
 
 #include "patterns/arp.h"
 #include "harmony/chords.h"
+#include "instruments/instrument_base.h"
 #include "core/defs.h"
 #include "midi_io.h"
 
@@ -23,9 +24,8 @@ namespace Vleerhond
 
         PolySettings(
             HarmonyStruct& harmony_ref, 
-            TimeStruct& time_ref, 
-            const uint8_t midi_channel) :
-            TonalInstrumentBase(harmony_ref, time_ref, true, midi_channel)
+            TimeStruct& time_ref) :
+            TonalInstrumentBase(harmony_ref, time_ref)
         {
             pitch_offset = 36;
             type = PolyType::PolyLow;
@@ -86,7 +86,7 @@ namespace Vleerhond
                 }
 
                 NoteStruct note_structs[MAX_CHORD_NOTES];
-                for (int i = 0; i < size; i++)
+                for (int i = 0; i < chord_notes.size(); i++)
                 {
                     note_structs[i].pitch = chord_notes[i];
                     note_structs[i].velocity = 64;
@@ -94,7 +94,7 @@ namespace Vleerhond
                     note_structs[i].length = length;
                 }
 
-                this->midi_channel->note_on(note_structs, size);
+                this->getChannel()->note_on(note_structs, chord_notes.size());
             }
         }
     };

@@ -39,14 +39,14 @@
 namespace Vleerhond
 {
     DrumStationKick::DrumStationKick(Modulators& modulators, TimeStruct& time)
-        : Kick(modulators, time, MIDI_CHANNEL_DS)
+        : Kick(modulators, time)
     {
         // TODO: long & short
         pitch = NOTE_DS808_BD;
     }
 
     DrumStationSnare::DrumStationSnare(Modulators& modulators, TimeStruct& time)
-        : Snare(modulators, time, MIDI_CHANNEL_DS)
+        : Snare(modulators, time)
     {
         pitch = NOTE_DS808_SD;
         //settings.p_coef = 0;
@@ -55,12 +55,12 @@ namespace Vleerhond
     }
 
     DrumStationRimshot::DrumStationRimshot(Modulators& modulators, TimeStruct& time) :
-        Percussion(modulators, time, MIDI_CHANNEL_DS)
+        Percussion(modulators, time)
     {
         pitch = NOTE_DS808_RS;
     }
     DrumStationHats::DrumStationHats(Modulators& modulators, TimeStruct& time) :
-        Hats(modulators, time, MIDI_CHANNEL_DS)
+        Hats(modulators, time)
     {
         pitch_open = NOTE_DS808_OH;
         pitch_closed = NOTE_DS808_HH;
@@ -70,7 +70,7 @@ namespace Vleerhond
     }
 
     DrumStationClap::DrumStationClap(Modulators& modulators, TimeStruct& time) :
-        Snare(modulators, time, MIDI_CHANNEL_DS)
+        Snare(modulators, time)
     {
         // TODO: long & short
         pitch = NOTE_DS808_CP;
@@ -79,7 +79,7 @@ namespace Vleerhond
     }
 
     DrumStationToms::DrumStationToms(Modulators& modulators, TimeStruct& time) :
-        Toms(modulators, time, MIDI_CHANNEL_DS)
+        Toms(modulators, time)
     {
         pitches = {
             NOTE_DS808_LT,
@@ -107,19 +107,19 @@ namespace Vleerhond
     }
 
     DrumStationClave::DrumStationClave(Modulators& modulators, TimeStruct& time) :
-        Percussion(modulators, time, MIDI_CHANNEL_DS)
+        Percussion(modulators, time)
     {
         pitch = NOTE_DS808_CL;
     }
 
     DrumStationCowbell::DrumStationCowbell(Modulators& modulators, TimeStruct& time) :
-        Percussion(modulators, time, MIDI_CHANNEL_DS)
+        Percussion(modulators, time)
     {
         pitch = NOTE_DS808_CB;
     }
 
     DrumStationCymbal::DrumStationCymbal(Modulators& modulators, TimeStruct& time) :
-        Cymbal(modulators, time, MIDI_CHANNEL_DS)
+        Cymbal(modulators, time)
     {
         pitch = NOTE_DS909_CY;
         settings.min_velocity = 32;

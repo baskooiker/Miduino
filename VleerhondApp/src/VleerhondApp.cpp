@@ -112,14 +112,6 @@ namespace Vleerhond
 
     }
 
-    //void VleerhondApp::play()
-    //{
-    //    data.time.state = PlayState::Playing;
-    //    data.process_active_notes();
-    //    data.play_all();
-    //    data.time.tick++;
-    //}
-
     void VleerhondApp::update()
     {
         static bool _is_trigger_on = false;

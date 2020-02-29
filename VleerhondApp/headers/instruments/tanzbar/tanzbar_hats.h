@@ -30,7 +30,7 @@ namespace Vleerhond
         TanzbarHats(
             Modulators& modulators,
             TimeStruct& time) :
-            Hats(modulators, time, MIDI_CHANNEL_TANZBAR),
+            Hats(modulators, time),
             tune_mod(modulators),
             oh_dec(modulators)
         {

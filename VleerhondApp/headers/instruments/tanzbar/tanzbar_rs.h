@@ -19,7 +19,7 @@ namespace Vleerhond
         TanzbarRs(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            Percussion(modulators_ref, time_ref, MIDI_CHANNEL_TANZBAR),
+            Percussion(modulators_ref, time_ref),
             rs_tune(modulators_ref)
         {
             pitch = NOTE_TANZBAR_RS;

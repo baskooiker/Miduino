@@ -160,6 +160,12 @@
     <ClCompile Include="src\instruments\mam_mb33\mam_mb33.cpp">
       <Filter>src\instruments\mam_mb33</Filter>
     </ClCompile>
+    <ClCompile Include="src\midi\dummy_midi_channel.cpp">
+      <Filter>src\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="src\midi\console_midi_channel.cpp">
+      <Filter>src\midi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -570,6 +576,9 @@
       <Filter>headers\instruments\mam_mb33</Filter>
     </ClInclude>
     <ClInclude Include="headers\midi\console_midi_channel.h">
+      <Filter>headers\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\midi\dummy_midi_channel.h">
       <Filter>headers\midi</Filter>
     </ClInclude>
   </ItemGroup>

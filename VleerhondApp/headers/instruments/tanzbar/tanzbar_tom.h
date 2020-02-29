@@ -39,7 +39,7 @@ namespace Vleerhond
         TanzbarTom(
             Modulators& modulators,
             TimeStruct& time) :
-            Toms(modulators, time, MIDI_CHANNEL_TANZBAR),
+            Toms(modulators, time),
             low_pitch(modulators),
             mid_pitch(modulators),
             high_pitch(modulators)

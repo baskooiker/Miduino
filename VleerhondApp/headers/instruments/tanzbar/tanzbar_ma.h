@@ -55,7 +55,7 @@ namespace Vleerhond
         TanzbarMa(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            InstrumentBase(time_ref, true, MIDI_CHANNEL_TANZBAR),
+            InstrumentBase(time_ref),
             decay_mod(modulators_ref)
         {
         }

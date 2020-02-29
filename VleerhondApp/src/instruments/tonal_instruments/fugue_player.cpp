@@ -7,9 +7,8 @@ namespace Vleerhond
     FuguePlayer::FuguePlayer(
         HarmonyStruct& harmony, 
         TimeStruct& time, 
-        Fugue& fugue,
-        const uint8_t midi_channel) :
-        TonalInstrumentBase(harmony, time, true, midi_channel),
+        Fugue& fugue) :
+        TonalInstrumentBase(harmony, time),
         fugue(fugue)
     {
         pitch_offset = 36;

@@ -54,8 +54,7 @@ namespace Vleerhond
         Mono(
             HarmonyStruct& harmony,
             Modulators& modulators,
-            TimeStruct& time,
-            const uint8_t midi_channel
+            TimeStruct& time
         );
 
         void randomize_arp();

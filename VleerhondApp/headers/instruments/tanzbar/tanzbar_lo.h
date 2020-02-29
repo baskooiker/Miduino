@@ -32,7 +32,7 @@ namespace Vleerhond
         TanzbarLo(
             Modulators& modulators,
             TimeStruct& time) :
-            Kick(modulators, time, MIDI_CHANNEL_TANZBAR),
+            Kick(modulators, time),
             bd2_pitch_mod(modulators)
         {
             this->pitch = NOTE_TANZBAR_BD1;

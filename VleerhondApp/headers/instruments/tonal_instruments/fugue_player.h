@@ -23,8 +23,7 @@ namespace Vleerhond
         FuguePlayer(
             HarmonyStruct& harmony, 
             TimeStruct& time, 
-            Fugue& fugue, 
-            const uint8_t midi_channel
+            Fugue& fugue
         );
         bool play();
         void randomize();

@@ -3,7 +3,7 @@
 namespace Vleerhond
 {
     MamMb33::MamMb33(HarmonyStruct & harmony, Modulators & modulators, TimeStruct & time)
-        : InstrumentRack(time, 0)
+        : InstrumentRack(time)
         , drop_bass(harmony, time)
         , const_bass(harmony, time)
         , acid_bass(harmony, time)

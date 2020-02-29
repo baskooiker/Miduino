@@ -7,10 +7,9 @@ namespace Vleerhond
 
 Bass::Bass(
     HarmonyStruct& harmony_ref,
-    TimeStruct& time_ref,
-    const uint8_t midi_channel
+    TimeStruct& time_ref
 ) :
-    TonalInstrumentBase(harmony_ref, time_ref, true, midi_channel),
+    TonalInstrumentBase(harmony_ref, time_ref),
     octave_sh(TimeDivision::Sixteenth)
 {
     style = BassStyle::BassEuclid;

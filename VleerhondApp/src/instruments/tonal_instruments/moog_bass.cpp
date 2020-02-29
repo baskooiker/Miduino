@@ -6,7 +6,7 @@ namespace Vleerhond
         Modulators& modulators,
         HarmonyStruct& harmony,
         TimeStruct& time) :
-        Bass(harmony, time, MIDI_CHANNEL_MINITAUR),
+        Bass(harmony, time),
         vel_mod(modulators)
     {
         params.push_back({ MINITAUR_CC_LFO_MIDI_SYNC  ,   0, 127, MIDI_CHANNEL_MINITAUR });

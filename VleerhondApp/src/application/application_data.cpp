@@ -3,26 +3,16 @@
 
 #include <algorithm>
 
-#include "core/defs.h"
-#include "harmony/harmony_struct.h"
-#include "patterns/modulators.h"
 #include "utils/utils.h"
 #include "parameters.h"
-
-#include "tanzbar.h"
-#include "mfb_522.h"
-
-#include "moog_bass.h"
 
 namespace Vleerhond
 {
     ApplicationData::ApplicationData() :
         tanzbar(harmony, modulators, time),
-        mfb_522(harmony, modulators, time),
         drumstation(harmony, modulators, time),
         moog_bass(modulators, harmony, time),
         neutron(harmony, modulators, time),
-        tb303_bass(harmony, time),
         mam_mb33(harmony, modulators, time)
     {
         this->randomize_all();
@@ -32,7 +22,7 @@ namespace Vleerhond
     {
         if (Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
         {
-            for (InstrumentBase* ptr : get_active_instrument())
+            for (InstrumentBase* ptr : get_instrument_ptrs())
             {
                 ptr->auto_randomize();
             }
@@ -41,7 +31,7 @@ namespace Vleerhond
 
     void ApplicationData::play_all()
     {
-        for (auto instrument : get_active_instrument())
+        for (auto instrument : get_instrument_ptrs())
         {
             instrument->play();
         }
@@ -120,29 +110,6 @@ namespace Vleerhond
         return ptrs;
     }
 
-    std::vector<InstrumentBase*> ApplicationData::get_active_instrument()
-    {
-        std::vector<InstrumentBase*> instruments = get_instrument_ptrs();
-        std::vector<InstrumentBase*> ptrs;
-        std::copy_if(instruments.begin(), instruments.end(), std::back_inserter(ptrs),
-            [](const InstrumentBase* i) {return i->is_active(); });
-        return ptrs;
-    }
-
-    std::vector<InstrumentBase*> ApplicationData::get_randomizable_instruments()
-    {
-        std::vector<InstrumentBase*> ptrs;
-        for (auto ptr : get_active_instrument())
-        {
-            if (ptr->is_randomizable())
-            {
-                std::vector<InstrumentBase*> v = ptr->get_ptrs();
-                ptrs.insert(ptrs.end(), v.begin(), v.end());
-            }
-        }
-        return ptrs;
-    }
-
     void ApplicationData::stop_all()
     {
         for (auto instrument : get_instrument_ptrs())
@@ -164,5 +131,6 @@ namespace Vleerhond
 
         this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
         this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
+        this->moog_bass.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_MINITAUR, MIDI_A_NAME));
     }
 }

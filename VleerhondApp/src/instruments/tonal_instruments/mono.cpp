@@ -9,9 +9,8 @@ namespace Vleerhond
     Mono::Mono(
         HarmonyStruct& harmony,
         Modulators& modulators,
-        TimeStruct& time,
-        const uint8_t midi_channel) :
-        TonalInstrumentBase(harmony, time, true, midi_channel)
+        TimeStruct& time) :
+        TonalInstrumentBase(harmony, time)
     {
         style = MonoStyle::MonoSixteenths;
         arp_reset_interval = TimeDivision::Whole;

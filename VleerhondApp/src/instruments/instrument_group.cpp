@@ -3,7 +3,7 @@
 namespace Vleerhond
 {
     InstrumentGroup::InstrumentGroup(HarmonyStruct & harmony, TimeStruct & time) :
-        TonalInstrumentBase(harmony, time, false, 0)
+        TonalInstrumentBase(harmony, time)
     {
     }
     bool InstrumentGroup::play()

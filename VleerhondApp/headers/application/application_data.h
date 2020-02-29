@@ -31,12 +31,10 @@ namespace Vleerhond
 
         Modulators modulators;
 
-        TB303Bass tb303_bass;
         MoogBass moog_bass;
         Neutron neutron;
         MamMb33 mam_mb33;
 
-        Mfb522 mfb_522;
         Tanzbar tanzbar;
         DrumStation drumstation;
 
@@ -51,8 +49,6 @@ namespace Vleerhond
         void handleUserEvents();
         void updatePedalState();
         std::vector<InstrumentBase*> get_instrument_ptrs();
-        std::vector<InstrumentBase*> get_active_instrument();
-        std::vector<InstrumentBase*> get_randomizable_instruments();
         void stop_all();
         void addEvent(std::shared_ptr<UserEvent> user_event);
         void connect();

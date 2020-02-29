@@ -15,14 +15,14 @@
 namespace Vleerhond
 {
     Mfb522Kick::Mfb522Kick(Modulators& modulators, TimeStruct& time) 
-        : Kick(modulators, time, MIDI_CHANNEL_522)
+        : Kick(modulators, time)
     {
         // TODO: long & short
         pitch = NOTE_522_BD_LONG;
     }
 
     Mfb522Snare::Mfb522Snare(Modulators& modulators, TimeStruct& time) 
-        : Snare(modulators, time, MIDI_CHANNEL_522)
+        : Snare(modulators, time)
     {
         pitch = NOTE_522_SN;
         //settings.p_coef = 0;
@@ -31,19 +31,19 @@ namespace Vleerhond
     }
 
     Mfb522Rimshot::Mfb522Rimshot(Modulators& modulators, TimeStruct& time) :
-            Percussion(modulators, time, MIDI_CHANNEL_522)
+            Percussion(modulators, time)
         {
             pitch = NOTE_522_RS;
         }
     Mfb522Hats::Mfb522Hats(Modulators& modulators, TimeStruct& time) :
-            Hats(modulators, time, MIDI_CHANNEL_522)
+            Hats(modulators, time)
         {
             pitch_open = NOTE_522_OH;
             pitch_closed = NOTE_522_HH;
         }
 
     Mfb522Clap::Mfb522Clap(Modulators& modulators, TimeStruct& time) :
-            Snare(modulators, time, MIDI_CHANNEL_522)
+            Snare(modulators, time)
         {
             // TODO: long & short
             pitch = NOTE_522_CP_LONG;
@@ -52,7 +52,7 @@ namespace Vleerhond
         }
 
     Mfb522Toms::Mfb522Toms(Modulators& modulators, TimeStruct& time) :
-            Toms(modulators, time, MIDI_CHANNEL_522)
+            Toms(modulators, time)
         {
             pitches = {
                 NOTE_522_LO_TOM,
@@ -81,19 +81,19 @@ namespace Vleerhond
         }
 
         Mfb522Clave::Mfb522Clave(Modulators& modulators, TimeStruct& time) :
-            Percussion(modulators, time, MIDI_CHANNEL_522)
+            Percussion(modulators, time)
         {
             pitch = NOTE_522_CLAVE;
         }
 
         Mfb522Cowbell::Mfb522Cowbell(Modulators& modulators, TimeStruct& time) :
-            Percussion(modulators, time, MIDI_CHANNEL_522)
+            Percussion(modulators, time)
         {
             pitch = NOTE_522_CB;
         }
 
         Mfb522Cymbal::Mfb522Cymbal(Modulators& modulators, TimeStruct& time) :
-            Cymbal(modulators, time, MIDI_CHANNEL_522)
+            Cymbal(modulators, time)
         {
             pitch = NOTE_522_CYMBAL;
         }

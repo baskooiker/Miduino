@@ -139,6 +139,8 @@
     <ClCompile Include="src\instruments\tonal_instruments\mono.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\midi\console_midi_channel.cpp" />
+    <ClCompile Include="src\midi\dummy_midi_channel.cpp" />
     <ClCompile Include="src\midi\midi_channel.cpp" />
     <ClCompile Include="src\midi\midi_io.cpp" />
     <ClCompile Include="src\patterns\ab.cpp" />
@@ -233,6 +235,7 @@
     <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />
     <ClInclude Include="headers\midi\console_midi_channel.h" />
+    <ClInclude Include="headers\midi\dummy_midi_channel.h" />
     <ClInclude Include="headers\midi\midi_channel.h" />
     <ClInclude Include="headers\midi\midi_io.h" />
     <ClInclude Include="headers\patterns\ab.h" />

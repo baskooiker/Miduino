@@ -17,11 +17,7 @@ namespace Vleerhond
         GatePatternAB bd_pattern;
         GatePatternAB ghost_notes;
 
-        Kick(
-            Modulators& modulators_ref,
-            TimeStruct& time_ref,
-            const uint8_t midi_channel
-        );
+        Kick(Modulators& modulators_ref, TimeStruct& time_ref);
         virtual void randomize();
         virtual bool play();
         virtual uint8_t get_velocity();

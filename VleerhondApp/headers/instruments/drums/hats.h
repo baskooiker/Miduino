@@ -36,8 +36,7 @@ namespace Vleerhond
 
         Hats(
             Modulators& modulators_ref,
-            TimeStruct& time_ref,
-            const uint8_t midi_channel
+            TimeStruct& time_ref
         );
         virtual void randomize();
         virtual void randomize_seq();

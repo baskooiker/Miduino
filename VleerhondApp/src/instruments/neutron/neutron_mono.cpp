@@ -3,7 +3,7 @@
 namespace Vleerhond
 {
     NeutronMono::NeutronMono(HarmonyStruct & harmony, Modulators & modulators, TimeStruct & time)
-        : Mono(harmony, modulators, time, MIDI_CHANNEL_NEUTRON)
+        : Mono(harmony, modulators, time)
     {
         settings.min_velocity = 16;
         settings.min_velocity = 127;

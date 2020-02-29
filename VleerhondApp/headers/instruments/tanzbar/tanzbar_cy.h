@@ -26,7 +26,7 @@ namespace Vleerhond
         TanzbarCy(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            Cymbal(modulators_ref, time_ref, MIDI_CHANNEL_TANZBAR),
+            Cymbal(modulators_ref, time_ref),
             cy_tune(modulators_ref)
         {
             pitch = NOTE_TANZBAR_CY;

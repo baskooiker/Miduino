@@ -11,9 +11,8 @@ public:
     RocketMono(
         HarmonyStruct& harmony,
         Modulators& modulators,
-        TimeStruct& time,
-        const uint8_t midi_channel) :
-        Mono(harmony, modulators, time, MIDI_CHANNEL_ROCKET)
+        TimeStruct& time) :
+        Mono(harmony, modulators, time)
     {
     }
 };

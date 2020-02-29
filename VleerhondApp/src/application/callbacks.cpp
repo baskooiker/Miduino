@@ -99,7 +99,6 @@ namespace Vleerhond
         case ROTARY_05:
             break;
         case KNOB_05:
-            data.tb303_bass.setVariableDensity(value);
             data.mam_mb33.setVariableDensity(value);
             break;
         case ROTARY_06:
@@ -127,10 +126,11 @@ namespace Vleerhond
             data.moog_bass.pitch_offset = Utils::rerange(value, 24, 24);
             break;
         case SLIDER_05:
-            data.tb303_bass.variable_octave = value;
+            data.mam_mb33.setVariableOctave(value);
             break;
         case SLIDER_06:
-            data.tb303_bass.pitch_offset = Utils::rerange(value, 24, 24);
+            // TODO: maybe this should be full range
+            data.mam_mb33.setVariablePitchOffset(value);
             break;
         case SLIDER_07:
             data.neutron.setVariablePitchOffset(value);
@@ -156,8 +156,6 @@ namespace Vleerhond
             {
                 for (auto& inst : data.tanzbar.getLow())
                     inst->randomize();
-                for (auto& inst : data.mfb_522.getLow())
-                    inst->randomize();
                 for (auto& inst : data.drumstation.getLow())
                     inst->randomize();
 
@@ -176,8 +174,6 @@ namespace Vleerhond
             if (value == 0)
             {
                 for (auto& inst : data.tanzbar.getMid())
-                    inst->randomize();
-                for (auto& inst : data.mfb_522.getMid())
                     inst->randomize();
                 for (auto& inst : data.drumstation.getMid())
                     inst->randomize();
@@ -198,8 +194,6 @@ namespace Vleerhond
             if (value == 0)
             {
                 for (auto& inst : data.tanzbar.getHigh())
-                    inst->randomize();
-                for (auto& inst : data.mfb_522.getHigh())
                     inst->randomize();
                 for (auto& inst : data.drumstation.getHigh())
                     inst->randomize();
@@ -267,18 +261,15 @@ namespace Vleerhond
             else
             {
                 data.tanzbar.killLow(value > 0);
-                data.mfb_522.killLow(value > 0);
                 data.drumstation.killLow(value > 0);
             }
             break;
         case BTN_RIGHT_BTM_02:
             data.tanzbar.killMid(value > 0);
-            data.mfb_522.killMid(value > 0);
             data.drumstation.killMid(value > 0);
             break;
         case BTN_RIGHT_BTM_03:
             data.tanzbar.killHigh(value > 0);
-            data.mfb_522.killHigh(value > 0);
             data.drumstation.killHigh(value > 0);
             break;
         case BTN_RIGHT_BTM_04:
@@ -290,11 +281,6 @@ namespace Vleerhond
             }
             break;
         case BTN_RIGHT_BTM_05:
-            data.tb303_bass.kill(value > 0);
-            if (value > 0)
-            {
-                data.tb303_bass.getChannel()->process_active_notes();
-            }
             data.mam_mb33.kill(value > 0);
             break;
         case BTN_RIGHT_BTM_06:

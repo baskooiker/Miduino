@@ -11,7 +11,7 @@ namespace Vleerhond
         TB303Bass(
             HarmonyStruct& harmony,
             TimeStruct& time) :
-            Bass(harmony, time, MIDI_CHANNEL_TB303)
+            Bass(harmony, time)
         {
             settings.p_euclid_16 = 16;
             settings.p_euclid_8 = 32;

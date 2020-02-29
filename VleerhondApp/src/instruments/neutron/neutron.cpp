@@ -3,7 +3,7 @@
 namespace Vleerhond
 {
     Neutron::Neutron(HarmonyStruct & harmony, Modulators & modulators, TimeStruct & time)
-        : InstrumentRack(time, 0)
+        : InstrumentRack(time)
         , const_mono(harmony, modulators, time)
         , closest_mono(harmony, modulators, time)
         , sequence_mono(harmony, modulators, time)

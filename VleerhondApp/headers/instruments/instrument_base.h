@@ -15,23 +15,19 @@ namespace Vleerhond
         MicroTimingStruct timing;
 
         uint32_t last_randomized_time;
-        bool randomizable;
-        bool active;
+
         std::vector<CcParam> params;
 
         bool _kill = false;
         uint8_t _variable_density = 0;
         uint8_t _variable_pitch = 0;
         uint8_t _variable_pitch_offset = 64;
+        uint8_t _variable_octave = 0;
 
         std::shared_ptr<MidiChannel> midi_channel;
 
     public:
-        InstrumentBase(
-            TimeStruct& time_ref,
-            const bool is_randomizable,
-            const uint8_t midi_channel
-        );
+        InstrumentBase(TimeStruct& time_ref);
 
         virtual bool play() = 0;
         virtual void randomize();
@@ -39,10 +35,7 @@ namespace Vleerhond
         virtual void processNoteEvents();
         virtual void stop_notes();
         virtual uint32_t randomized_time();
-        virtual bool is_randomizable();
         virtual uint8_t get_velocity();
-        virtual bool is_active() const;
-        virtual void set_active(const bool active);
         virtual std::vector<InstrumentBase*> get_ptrs();
         virtual void check_auto_randomize();
         virtual void auto_randomize();
@@ -59,6 +52,8 @@ namespace Vleerhond
         virtual uint8_t getVariablePitch() const;
         virtual void setVariablePitchOffset(const uint8_t variable_pitch_offset);
         virtual uint8_t getVariablePitchOffset() const;
+        virtual void setVariableOctave(const uint8_t variable_octave);
+        virtual uint8_t getVariableOctave() const;
     };
 
     class TonalInstrumentBase : public InstrumentBase
@@ -67,12 +62,6 @@ namespace Vleerhond
         HarmonyStruct& harmony;
 
     public:
-        TonalInstrumentBase(
-            HarmonyStruct& harmony,
-            TimeStruct& time,
-            const bool is_randomizable,
-            const uint8_t midi_channel
-        );
-
+        TonalInstrumentBase(HarmonyStruct& harmony, TimeStruct& time);
     };
 }

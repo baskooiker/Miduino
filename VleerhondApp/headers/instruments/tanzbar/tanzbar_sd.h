@@ -26,7 +26,7 @@ namespace Vleerhond
         TanzbarMid(
             Modulators& modulators_ref,
             TimeStruct& time_ref) :
-            Snare(modulators_ref, time_ref, MIDI_CHANNEL_TANZBAR)
+            Snare(modulators_ref, time_ref)
         {
             pitch = NOTE_TANZBAR_SD;
             settings.p_coef = 0;

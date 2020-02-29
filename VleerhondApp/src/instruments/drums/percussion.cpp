@@ -9,9 +9,8 @@ namespace Vleerhond
 {
     Percussion::Percussion(
         Modulators& modulators_ref,
-        TimeStruct& time_ref,
-        const uint8_t midi_channel) :
-        InstrumentBase(time_ref, true, midi_channel),
+        TimeStruct& time_ref) :
+        InstrumentBase(time_ref),
         velocity_mod(modulators_ref)
     {
     }

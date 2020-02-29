@@ -2,8 +2,8 @@
 
 namespace Vleerhond
 {
-    InstrumentRack::InstrumentRack(TimeStruct & time, const uint8_t midi_channel)
-        : InstrumentBase(time, true, midi_channel)
+    InstrumentRack::InstrumentRack(TimeStruct & time)
+        : InstrumentBase(time)
     {
     }
 
@@ -64,6 +64,17 @@ namespace Vleerhond
     uint8_t InstrumentRack::getVariablePitchOffset() const
     {
         return getInstr()->getVariablePitchOffset();
+    }
+    void InstrumentRack::setVariableOctave(const uint8_t variable_octave)
+    {
+        for (InstrumentBase* instrument : instruments)
+        {
+            instrument->setVariableOctave(variable_octave);
+        }
+    }
+    uint8_t InstrumentRack::getVariableOctave() const
+    {
+        return getInstr()->getVariableOctave();
     }
     void InstrumentRack::kill(const bool kill)
     {
