@@ -4,7 +4,6 @@
 #include "instrument_base.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
-#include "parameters.h"
 
 namespace Vleerhond
 {
@@ -19,7 +18,7 @@ namespace Vleerhond
     void Cymbal::randomize()
     {
         ofLogNotice("cymbal", "randomize()");
-        last_randomized_time = Utils::millis();
+        InstrumentBase::randomize();
 
         // Randomize Cymbal
         switch (Rand::distribution(0, 16, 16))

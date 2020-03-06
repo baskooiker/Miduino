@@ -1,6 +1,5 @@
 #pragma once
 
-#include "parameters.h"
 #include "hats.h"
 
 namespace Vleerhond
@@ -33,7 +32,6 @@ namespace Vleerhond
         {
             ofLogNotice("mfb_503_hats", "randomize()");
             Hats::randomize();
-            Parameters::randomize_parameters(mfb_503_hats_params, nr_mfb_503_hats_params, MIDI_CHANNEL_503);
         }
 
         void set_volume(const uint8_t value)

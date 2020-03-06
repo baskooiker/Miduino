@@ -145,7 +145,6 @@
     <ClCompile Include="src\instruments\mfb_522.cpp" />
     <ClCompile Include="src\instruments\neutron\neutron.cpp" />
     <ClCompile Include="src\instruments\neutron\neutron_mono.cpp" />
-    <ClCompile Include="src\instruments\parameters.cpp" />
     <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\acid_bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\bass.cpp" />
@@ -228,7 +227,6 @@
     <ClInclude Include="headers\instruments\mono.h" />
     <ClInclude Include="headers\instruments\neutron\neutron.h" />
     <ClInclude Include="headers\instruments\neutron\neutron_mono.h" />
-    <ClInclude Include="headers\instruments\parameters.h" />
     <ClInclude Include="headers\instruments\poly.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar.h" />
     <ClInclude Include="headers\instruments\tanzbar\tanzbar_cb.h" />

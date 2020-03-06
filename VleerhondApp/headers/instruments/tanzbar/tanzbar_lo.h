@@ -1,27 +1,10 @@
 #pragma once
 
-#include "parameters.h"
 #include "drums/kick.h"
 #include "midi/midi_io.h"
 
 namespace Vleerhond
 {
-    const RandomParam tanzbar_low_params[] = {
-        //{TB_BD1_ATTACK   ,  0,  64},
-        //{TB_BD1_DECAY    , 32,  96},
-        //{TB_BD1_PITCH    , 80, 112},
-        {TB_BD1_TUNE     , 32,  96},
-        {TB_BD1_NOISE    ,  0,  64},
-        {TB_BD1_FILTER   ,  0,  64},
-        {TB_BD1_DIST     , 64, 127},
-        {TB_BD1_TRIGGER  ,  0,  64},
-
-        //{TB_BD2_DECAY    , 32,  96},
-        {TB_BD2_TUNE     , 32,  96},
-        {TB_BD2_TONE     , 32,  96}
-    };
-    const uint8_t nr_tanzbar_low_params = sizeof(tanzbar_low_params) / sizeof(RandomParam);
-
     class TanzbarLo : public Kick
     {
     protected:
@@ -36,14 +19,20 @@ namespace Vleerhond
             bd2_pitch_mod(modulators)
         {
             this->pitch = NOTE_TANZBAR_BD1;
+
+            this->params.push_back(CcParam(TB_BD1_TUNE   , 32,  48));
+            this->params.push_back(CcParam(TB_BD1_NOISE  ,  0,  32));
+            this->params.push_back(CcParam(TB_BD1_FILTER ,  0,  32));
+            this->params.push_back(CcParam(TB_BD1_DIST   , 64, 127));
+            this->params.push_back(CcParam(TB_BD1_TRIGGER,  0, 127));
+            this->params.push_back(CcParam(TB_BD2_TUNE   , 32,  96));
+            this->params.push_back(CcParam(TB_BD2_TONE   , 32,  96));
         }
 
         void randomize()
         {
             ofLogNotice("tanzbar_lo", "randomize()");
             Kick::randomize();
-
-            Parameters::randomize_parameters(tanzbar_low_params, nr_tanzbar_low_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             uint8_t range = Rand::randui8(96);
             bd2_pitch_mod.randomize(range, 32, .3);

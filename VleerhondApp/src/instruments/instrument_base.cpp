@@ -29,7 +29,7 @@ namespace Vleerhond
         for (CcParam param : params)
         {
             getChannel()->sendCC(
-                param.note,
+                param.cc,
                 Rand::randui8(param.max, param.min)
             );
         }

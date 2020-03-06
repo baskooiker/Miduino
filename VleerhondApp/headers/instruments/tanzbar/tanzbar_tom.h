@@ -4,30 +4,11 @@
 #include "instrument_base.h"
 #include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"
-#include "parameters.h"
 #include "toms.h"
 #include "midi/midi_io.h"
 
 namespace Vleerhond
 {
-    const RandomParam tom_params[] = {
-
-        {TB_HTC_TUNE          , 64, 127},
-        {TB_HTC_DECAY         , 64,  96},
-        {TB_HTC_NOISE_ON_OFF  ,  0, 127},
-        {TB_HTC_TOM_CONGA     ,  0, 127},
-        {TB_MTC_TUNE          , 64, 127},
-        {TB_MTC_DECAY         , 64,  96},
-        {TB_MTC_NOISE_ON_OFF  ,  0, 127},
-        {TB_MTC_TOM_CONGA     ,  0, 127},
-        {TB_LTC_TUNE          , 64, 127},
-        {TB_LTC_DECAY         , 64,  96},
-        {TB_LTC_NOISE_ON_OFF  ,  0, 127},
-        {TB_LTC_TOM_CONGA     ,  0, 127},
-        {TB_TOM_NOISE         ,  0, 127},
-    };
-    const uint8_t nr_tom_params = sizeof(tom_params) / sizeof(*tom_params);
-
     class TanzbarTom : public Toms
     {
         ModulationReceiver low_pitch;
@@ -44,6 +25,20 @@ namespace Vleerhond
             mid_pitch(modulators),
             high_pitch(modulators)
         {
+
+            this->params.push_back(CcParam(TB_HTC_TUNE           , 64, 127));
+            this->params.push_back(CcParam(TB_HTC_DECAY         , 64,  96));
+            this->params.push_back(CcParam(TB_HTC_NOISE_ON_OFF  ,  0, 127));
+            this->params.push_back(CcParam(TB_HTC_TOM_CONGA     ,  0, 127));
+            this->params.push_back(CcParam(TB_MTC_TUNE          , 64, 127));
+            this->params.push_back(CcParam(TB_MTC_DECAY         , 64,  96));
+            this->params.push_back(CcParam(TB_MTC_NOISE_ON_OFF  ,  0, 127));
+            this->params.push_back(CcParam(TB_MTC_TOM_CONGA     ,  0, 127));
+            this->params.push_back(CcParam(TB_LTC_TUNE          , 64, 127));
+            this->params.push_back(CcParam(TB_LTC_DECAY         , 64,  96));
+            this->params.push_back(CcParam(TB_LTC_NOISE_ON_OFF  ,  0, 127));
+            this->params.push_back(CcParam(TB_LTC_TOM_CONGA     ,  0, 127));
+            this->params.push_back(CcParam(TB_TOM_NOISE         ,  0, 127));
         }
 
         void randomize()
@@ -51,8 +46,6 @@ namespace Vleerhond
             ofLogNotice("tanzbar_perc", "randomize()");
 
             Toms::randomize();
-
-            Parameters::randomize_parameters(tom_params, nr_tom_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             this->pitches.clear();
             switch (Rand::distribution(32, 32))

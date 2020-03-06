@@ -1,6 +1,5 @@
 #pragma once
 
-#include "parameters.h"
 #include "toms.h"
 
 namespace Vleerhond
@@ -42,7 +41,6 @@ namespace Vleerhond
         {
             ofLogNotice("mfb_503_toms", "randomize()");
             Toms::randomize();
-            Parameters::randomize_parameters(mfb_503_toms_params, nr_mfb_503_toms_params, MIDI_CHANNEL_503);
 
             uint8_t nr_notes = Rand::randui8(2, 4);
             penta_notes.clear();

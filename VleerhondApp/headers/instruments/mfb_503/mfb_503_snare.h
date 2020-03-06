@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/defs.h"
-#include "parameters.h"
 #include "snare.h"
 
 namespace Vleerhond
@@ -32,7 +31,6 @@ namespace Vleerhond
         {
             ofLogNotice("mfb_503_snare", "randomize()");
             Snare::randomize();
-            Parameters::randomize_parameters(mfb_503_snare_params, nr_mfb_503_snare_params, MIDI_CHANNEL_503);
         }
 
         virtual void set_volume(const uint8_t value)

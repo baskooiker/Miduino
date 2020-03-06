@@ -3,7 +3,6 @@
 #include "instruments/instrument_base.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
-#include "parameters.h"
 #include "patterns/interval_pattern.h"
 
 namespace Vleerhond

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "parameters.h"
 #include "mono_dub.h"
 #include "patterns/modulators.h"
 #include "harmony/harmony_struct.h"

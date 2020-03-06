@@ -3,7 +3,6 @@
 #include "instrument_base.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
-#include "parameters.h"
 
 namespace Vleerhond
 {
@@ -17,7 +16,7 @@ namespace Vleerhond
     void Kick::randomize()
     {
         ofLogNotice("kick", "randomize");
-        last_randomized_time = Utils::millis();
+        InstrumentBase::randomize();
         
         bd_pattern.set_all(false);
         for (int i : {0, 4, 8, 12})

@@ -127,9 +127,6 @@
     <ClCompile Include="src\midi\midi_io.cpp">
       <Filter>src\midi</Filter>
     </ClCompile>
-    <ClCompile Include="src\instruments\parameters.cpp">
-      <Filter>src\instruments</Filter>
-    </ClCompile>
     <ClCompile Include="src\instruments\instrument_base.cpp">
       <Filter>src\instruments</Filter>
     </ClCompile>
@@ -426,9 +423,6 @@
       <Filter>headers\utils</Filter>
     </ClInclude>
     <ClInclude Include="headers\instruments\instrument_base.h">
-      <Filter>headers\instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\parameters.h">
       <Filter>headers\instruments</Filter>
     </ClInclude>
     <ClInclude Include="headers\instruments\bass.h">

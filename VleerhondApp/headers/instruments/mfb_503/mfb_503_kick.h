@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/defs.h"
-#include "parameters.h"
 #include "kick.h"
 
 namespace Vleerhond
@@ -35,7 +34,6 @@ namespace Vleerhond
         {
             ofLogNotice("mfb_503_kick", "randomize()");
             Kick::randomize();
-            Parameters::randomize_parameters(mfb_503_kick_params, nr_mfb_503_kick_params, MIDI_CHANNEL_503);
         }
 
         virtual bool play()

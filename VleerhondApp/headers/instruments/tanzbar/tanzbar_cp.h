@@ -4,21 +4,11 @@
 #include "instrument_base.h"
 #include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"
-#include "parameters.h"
 #include "snare.h"
 #include "midi/midi_io.h"
 
 namespace Vleerhond
 {
-    const RandomParam cp_params[] = {
-        {TB_RS_TUNE      ,  0, 127},
-        {TB_CP_DECAY     ,  0, 127},
-        {TB_CP_FILTER    , 32, 127},
-        {TB_CP_ATTACK    ,  0, 127},
-        {TB_CP_TRIGGER   ,  0,  64}
-    };
-    const uint8_t nr_cp_params = sizeof(cp_params) / sizeof(*cp_params);
-
     class TanzbarCp : public Snare
     {
     protected:
@@ -35,12 +25,17 @@ namespace Vleerhond
         {
             settings.p_rand = 0;
             pitch = NOTE_TANZBAR_CP;
+
+            this->params.push_back(CcParam(TB_RS_TUNE    ,  0,  127));
+            this->params.push_back(CcParam( TB_CP_DECAY  ,  0, 127 ));
+            this->params.push_back(CcParam( TB_CP_FILTER , 32, 127 ));
+            this->params.push_back(CcParam( TB_CP_ATTACK ,  0, 127 ));
+            this->params.push_back(CcParam( TB_CP_TRIGGER,  0,  64 ));
         }
 
         void randomize()
         {
             Snare::randomize();
-            Parameters::randomize_parameters(cp_params, nr_cp_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             // Modulators
             uint8_t range = Rand::randui8(128);

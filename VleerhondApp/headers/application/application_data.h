@@ -7,7 +7,6 @@
 #include "core/defs.h"
 #include "harmony/harmony_struct.h"
 #include "patterns/modulators.h"
-#include "parameters.h"
 
 #include "tanzbar.h"
 #include "mfb_522.h"

@@ -3,7 +3,6 @@
 #include "instrument_base.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
-#include "parameters.h"
 #include "patterns/interval_pattern.h"
 #include "utils/rand.h"
 
@@ -20,7 +19,7 @@ namespace Vleerhond
     void Toms::randomize()
     {
         ofLogNotice("toms", "randomize()");
-        last_randomized_time = Utils::millis();
+        InstrumentBase::randomize();
 
         switch (Rand::distribution(16, 16))
         {

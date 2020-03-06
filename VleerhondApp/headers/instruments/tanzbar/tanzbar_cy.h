@@ -10,13 +10,6 @@
 
 namespace Vleerhond
 {
-    const RandomParam tanzbar_cy_params[] = {
-        {TB_CY_DECAY,  64, 127},
-        {TB_CY_TONE ,   0, 127},
-        {TB_CY_TUNE ,   0, 127}
-    };
-    const uint8_t nr_of_tanzbar_cy_params = sizeof(tanzbar_cy_params) / sizeof(*tanzbar_cy_params);
-
     class TanzbarCy : public Cymbal
     {
     protected:
@@ -30,18 +23,16 @@ namespace Vleerhond
             cy_tune(modulators_ref)
         {
             pitch = NOTE_TANZBAR_CY;
+
+            this->params.push_back(CcParam(TB_CY_DECAY, 64,  127));
+            this->params.push_back(CcParam(TB_CY_TONE ,   0, 127));
+            this->params.push_back(CcParam(TB_CY_TUNE ,   0, 127));
         }
 
         void randomize()
         {
             ofLogNotice("tanzbar_cy", "randomize()");
             Cymbal::randomize();
-            Parameters::randomize_parameters(
-                tanzbar_cy_params, 
-                nr_of_tanzbar_cy_params, 
-                MIDI_CC_CHANNEL_TANZBAR, 
-                getChannel()->getPortName()
-            );
 
             // Modulators
             uint8_t range = Rand::randui8(32);

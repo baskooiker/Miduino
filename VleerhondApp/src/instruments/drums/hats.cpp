@@ -3,7 +3,6 @@
 #include "instrument_base.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
-#include "parameters.h"
 #include "patterns/interval_pattern.h"
 
 namespace Vleerhond
@@ -21,7 +20,7 @@ namespace Vleerhond
     void Hats::randomize()
     {
         ofLogNotice("hats", "randomize()");
-        last_randomized_time = Utils::millis();
+        InstrumentBase::randomize();
 
         randomize_seq();
 

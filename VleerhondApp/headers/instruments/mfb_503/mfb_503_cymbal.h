@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/defs.h"
-#include "parameters.h"
 #include "cymbal.h"
 
 namespace Vleerhond
@@ -35,7 +34,6 @@ namespace Vleerhond
         {
             ofLogNotice("mfb_503_cymbal", "randomize()");
             Cymbal::randomize();
-            Parameters::randomize_parameters(mfb_503_cymbal_params, nr_mfb_503_cymbal_params, MIDI_CHANNEL_503);
         }
 
         void set_volume(const uint8_t value)

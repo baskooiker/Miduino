@@ -31,7 +31,7 @@ namespace Vleerhond
             return Utils::interval_hit(this->interval(time), time);
         }
 
-        void randomize_interval(const IntervalProbs probs)
+        void randomize_interval(const IntervalProbs& probs)
         {
             for (int i = 0; i < 16; i++)
             {

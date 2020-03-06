@@ -4,7 +4,6 @@
 #include <algorithm>
 
 #include "utils/utils.h"
-#include "parameters.h"
 
 namespace Vleerhond
 {
@@ -125,7 +124,7 @@ namespace Vleerhond
 
     void ApplicationData::connect()
     {
-        this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_A_NAME));
+        this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_CC_CHANNEL_TANZBAR, MIDI_A_NAME));
         this->drumstation.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_DS, MIDI_A_NAME));
 
         this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));

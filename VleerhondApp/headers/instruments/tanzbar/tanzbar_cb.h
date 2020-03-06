@@ -4,18 +4,11 @@
 #include "instrument_base.h"
 #include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"
-#include "parameters.h"
 #include "percussion.h"
 #include "midi/midi_io.h"
 
 namespace Vleerhond
 {
-    const RandomParam cb_params[] = {
-        {TB_CB_Tune           ,  0, 127},
-        {TB_CB_Decay          ,  0,  64},
-    };
-    const uint8_t nr_cb_params = sizeof(cb_params) / sizeof(*cb_params);
-
     class TanzbarCb : public Percussion
     {
     protected:
@@ -30,12 +23,14 @@ namespace Vleerhond
             cb_tune(modulators_ref)
         {
             pitch = NOTE_TANZBAR_CB;
+
+            this->params.push_back(CcParam(TB_CB_Tune, 0, 127));
+            this->params.push_back(CcParam(TB_CB_Decay, 0, 64));
         }
 
         void randomize()
         {
             ofLogNotice("tanzbar_perc", "randomize()");
-            Parameters::randomize_parameters(cb_params, nr_cb_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
             Percussion::randomize();
 
             // Modulators

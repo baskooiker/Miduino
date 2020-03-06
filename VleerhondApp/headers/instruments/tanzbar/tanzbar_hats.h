@@ -5,13 +5,6 @@
 
 namespace Vleerhond
 {
-    const RandomParam tanzbar_hats_params[] = {
-        //{TB_OH_DECAY,  0,  96},
-        {TB_HH_TUNE ,  0, 127},
-        //{TB_HH_DECAY,  0, 127},
-    };
-    const uint8_t nr_of_tanzbar_hats_params = sizeof(tanzbar_hats_params) / sizeof(*tanzbar_hats_params);
-
     class TanzbarHats : public Hats
     {
     protected:
@@ -22,11 +15,6 @@ namespace Vleerhond
         GatePatternAB hh_pattern;
         GatePatternAB oh_pattern;
 
-        //IntervalPattern hat_int_pattern;
-        //CvPatternAB hat_velocity;
-
-        //HatClosedStyle hat_closed_style;
-
         TanzbarHats(
             Modulators& modulators,
             TimeStruct& time) :
@@ -34,22 +22,19 @@ namespace Vleerhond
             tune_mod(modulators),
             oh_dec(modulators)
         {
-            //hat_closed_style = HatClosedStyle::HatClosedRegular;
-            randomize();
-
             pitch_open = NOTE_TANZBAR_OH;
             pitch_closed = NOTE_TANZBAR_HH;
 
             settings.p_euclid = 0;
             settings.p_drop = 0;
+
+            this->params.push_back(CcParam(TB_HH_TUNE, 0, 127));
         }
 
         void randomize()
         {
             ofLogNotice("tanzbar_hi", "randomize()");
             Hats::randomize();
-
-            Parameters::randomize_parameters(tanzbar_hats_params, nr_of_tanzbar_hats_params, MIDI_CC_CHANNEL_TANZBAR, getChannel()->getPortName());
 
             // Modulators
             {

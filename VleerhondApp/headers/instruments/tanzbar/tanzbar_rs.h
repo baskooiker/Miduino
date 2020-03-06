@@ -4,7 +4,6 @@
 #include "instruments/instrument_base.h"
 #include "patterns/modulators.h"
 #include "patterns/gate_patterns.h"
-#include "instruments/parameters.h"
 #include "instruments/drums/percussion.h"
 #include "midi/midi_io.h"
 
@@ -23,13 +22,12 @@ namespace Vleerhond
             rs_tune(modulators_ref)
         {
             pitch = NOTE_TANZBAR_RS;
-            this->params.push_back({ TB_RS_TUNE, 0, 127, MIDI_CHANNEL_TANZBAR });
+            this->params.push_back({ TB_RS_TUNE, 0, 127 });
         }
 
         void randomize()
         {
             Percussion::randomize();
-            randomize_parameters();
 
             // Modulators
             uint8_t range = Rand::randui8(128);

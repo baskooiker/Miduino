@@ -63,7 +63,7 @@ namespace Vleerhond
         void randomize()
         {
             ofLogNotice("tanzbar_hi", "randomize()");
-            last_randomized_time = Utils::millis();
+            InstrumentBase::randomize();
 
             // Randomize Seq
             this->ma_pattern.randomize();
@@ -77,8 +77,7 @@ namespace Vleerhond
 
             // Randomize Interval Pattern
             //IntervalProbs interval_probs(0, Rand::randui8(16), 32);
-            IntervalProbs interval_probs(0, 0, 32);
-            interval_pattern.randomize_interval(interval_probs);
+            interval_pattern.randomize_interval(IntervalProbs(0, 0, 32));
             interval_pattern.length = pow(Rand::randui8(3, 5), 2);
 
             // Modulators

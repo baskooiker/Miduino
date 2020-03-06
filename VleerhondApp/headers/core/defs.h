@@ -26,10 +26,15 @@ public:
 
 class CcParam {
 public:
-    uint8_t note;
-    uint8_t min;
-    uint8_t max;
-    uint8_t channel;
+    const uint8_t cc;
+    const uint8_t min;
+    const uint8_t max;
+
+    CcParam(uint8_t cc, uint8_t min, uint8_t max)
+        : cc(cc)
+        , min(min)
+        , max(max)
+    {}
 };
 
 class IntervalProbs 

@@ -3,7 +3,6 @@
 #include "instrument_base.h"
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
-#include "parameters.h"
 
 namespace Vleerhond
 {
@@ -16,7 +15,7 @@ namespace Vleerhond
 
     void Snare::randomize()
     {
-        last_randomized_time = Utils::millis();
+        InstrumentBase::randomize();
 
         switch (Rand::distribution(
             settings.p_coef, 
