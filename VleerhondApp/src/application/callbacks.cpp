@@ -137,11 +137,15 @@ namespace Vleerhond
         case BSP_PAD_TOP_01:
             if (value == 0)
             {
-                for (auto& inst : data.tanzbar.getLow())
-                    inst->randomize();
-                for (auto& inst : data.drumstation.getLow())
-                    inst->randomize();
-
+                if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
+                {
+                    data.tanzbar.tanzbar_lo.randomize_alternative();
+                }
+                else
+                {
+                    for (auto& inst : data.tanzbar.getLow())
+                        inst->randomize();
+                }
                 data.time.randomize_shuffle();
                 data.modulators.randomize();
             }

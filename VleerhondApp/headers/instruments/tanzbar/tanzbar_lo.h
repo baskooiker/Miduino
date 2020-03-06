@@ -38,6 +38,30 @@ namespace Vleerhond
             bd2_pitch_mod.randomize(range, 32, .3);
         }
 
+        void randomize_alternative()
+        {
+            // clear pattern
+            bd_pattern.set_all(0);
+
+            uint8_t length = 8;
+            uint8_t steps = 3; 
+            switch (Rand::distribution(16, 16))
+            {
+            case 0:
+                length = 8;
+                steps = 3;
+                break;
+            case 1:
+                length = 16;
+                steps = Rand::distribution(16, 16) == 0 ? 5 : 6;
+                break;
+            }
+
+            bd_pattern.set_euclid(length, steps);
+            bd_pattern.abPattern.set_ab_pattern_const();
+            bd_pattern.length = length;
+        }
+
         bool play()
         {
             if (isKilled())
