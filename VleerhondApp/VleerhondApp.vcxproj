@@ -146,6 +146,16 @@
     <ClCompile Include="src\instruments\neutron\neutron.cpp" />
     <ClCompile Include="src\instruments\neutron\neutron_mono.cpp" />
     <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_cb.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_cl.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_cp.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_cy.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_hats.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_lo.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_ma.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_rs.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_sd.cpp" />
+    <ClCompile Include="src\instruments\tanzbar\tanzbar_tom.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\acid_bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp" />
