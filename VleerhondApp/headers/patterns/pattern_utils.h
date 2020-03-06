@@ -2,8 +2,6 @@
 
 #include "patterns/gate_patterns.h"
 
-#include "rand.h"
-
 namespace Vleerhond
 {
 namespace PatternUtils

@@ -78,69 +78,53 @@ namespace Vleerhond
     {
         switch (number)
         {
-        case ROTARY_01:
+        case BSP_ROT_BTM_01:
             break;
-        case KNOB_01:
+        case BSP_ROT_BTM_02:
             break;
-        case ROTARY_02:
-            break;
-        case KNOB_02:
-            break;
-        case ROTARY_03:
-            break;
-        case KNOB_03:
+        case BSP_ROT_BTM_03:
             data.moog_bass.note_range_value = value;
             break;
-        case ROTARY_04:
-            break;
-        case KNOB_04:
+        case BSP_ROT_BTM_04:
             data.moog_bass.setVariableDensity(value);
             break;
-        case ROTARY_05:
-            break;
-        case KNOB_05:
+        case BSP_ROT_BTM_05:
             data.mam_mb33.setVariableDensity(value);
             break;
-        case ROTARY_06:
+        case BSP_ROT_BTM_06:
             break;
-        case KNOB_06:
-            break;
-        case ROTARY_07:
-            break;
-        case KNOB_07:
+        case BSP_ROT_BTM_07:
             data.neutron.setVariableDensity(value);
             break;
-        case ROTARY_08:
-            break;
-        case KNOB_08:
+        case BSP_ROT_BTM_08:
             break;
 
-        case SLIDER_01:
+        case BSP_ROT_TOP_01:
             break;
-        case SLIDER_02:
+        case BSP_ROT_TOP_02:
             break;
-        case SLIDER_03:
+        case BSP_ROT_TOP_03:
             data.moog_bass.setVariableOctave(value);
             break;
-        case SLIDER_04:
+        case BSP_ROT_TOP_04:
             data.moog_bass.setVariablePitchOffset(value);
             break;
-        case SLIDER_05:
+        case BSP_ROT_TOP_05:
             data.mam_mb33.setVariableOctave(value);
             break;
-        case SLIDER_06:
+        case BSP_ROT_TOP_06:
             data.mam_mb33.setVariablePitchOffset(value);
             break;
-        case SLIDER_07:
+        case BSP_ROT_TOP_07:
             data.neutron.setVariablePitchOffset(value);
             break;
-        case SLIDER_08:
+        case BSP_ROT_TOP_08:
             break;
 
-        case BTN_LEFT_TOP_01:
+        case BSP_STEP_01:
             if (value == 0)
             {
-                if (data.ui_state.is_pressed(BTN_RIGHT_BTM_08))
+                if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
                 {
                     data.harmony.randomize();
                 }
@@ -150,7 +134,7 @@ namespace Vleerhond
                 }
             }
             break;
-        case BTN_LEFT_BTM_01:
+        case BSP_PAD_TOP_01:
             if (value == 0)
             {
                 for (auto& inst : data.tanzbar.getLow())
@@ -162,14 +146,14 @@ namespace Vleerhond
                 data.modulators.randomize();
             }
             break;
-        case BTN_LEFT_TOP_02:
+        case BSP_STEP_02:
             if (value == 0)
             {
                 data.harmony.setType(HarmonyType::Const);
                 data.harmony.switch_const_chord();
             }
             break;
-        case BTN_LEFT_BTM_02:
+        case BSP_PAD_TOP_02:
             if (value == 0)
             {
                 for (auto& inst : data.tanzbar.getMid())
@@ -181,15 +165,24 @@ namespace Vleerhond
                 data.modulators.randomize();
             }
             break;
-        case BTN_LEFT_TOP_03:
+        case BSP_STEP_03:
             if (value == 0)
             {
-                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
-                    HarmonyType::TonicLow, &data.harmony, &data.time
-                ));
+                if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
+                {
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                        HarmonyType::DominantLow, &data.harmony, &data.time
+                        ));
+                }
+                else
+                {
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                        HarmonyType::TonicLow, &data.harmony, &data.time
+                        ));
+                }
             }
             break;
-        case BTN_LEFT_BTM_03:
+        case BSP_PAD_TOP_03:
             if (value == 0)
             {
                 for (auto& inst : data.tanzbar.getHigh())
@@ -201,60 +194,63 @@ namespace Vleerhond
                 data.modulators.randomize();
             }
             break;
-        case BTN_LEFT_TOP_04:
+        case BSP_STEP_04:
             if (value == 0)
             {
-                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
-                    HarmonyType::TonicHigh, &data.harmony, &data.time
-                ));
+                if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
+                {
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                        HarmonyType::DominantHigh, &data.harmony, &data.time
+                        ));
+                }
+                else
+                {
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(
+                        HarmonyType::TonicHigh, &data.harmony, &data.time
+                        ));
+                }
             }
             break;
-        case BTN_LEFT_BTM_04:
+        case BSP_PAD_TOP_04:
             if (value == 0)
             {
                 data.moog_bass.total_randomize();
             }
             break;
-        case BTN_LEFT_TOP_05:
+        case BSP_STEP_05:
             if (value == 0)
             {
-                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
-                    HarmonyType::DominantLow, &data.harmony, &data.time
-                ));
             }
             break;
-        case BTN_LEFT_TOP_06:
+        case BSP_STEP_06:
             if (value == 0)
             {
-                data.addEvent(std::make_shared<ChangeHarmonyEvent>(
-                    HarmonyType::DominantHigh, &data.harmony, &data.time
-                ));
             }
             break;
-        case BTN_LEFT_BTM_05:
-        case BTN_LEFT_BTM_06:
+        case BSP_PAD_TOP_05:
+        case BSP_PAD_TOP_06:
             if (value == 0)
             {
                 data.mam_mb33.randomize();
             }
             break;
-        case BTN_LEFT_TOP_07:
+        case BSP_STEP_07:
             break;
-        case BTN_LEFT_TOP_08:
+        case BSP_STEP_08:
             if (value == 0)
             {
             }
             break;
-        case BTN_LEFT_BTM_07:
+        case BSP_PAD_TOP_07:
             if (value == 0)
             {
                 data.neutron.randomize();
             }
             break;
-        case BTN_LEFT_BTM_08:
+        case BSP_PAD_TOP_08:
             break;
-        case BTN_RIGHT_BTM_01:
-            if (data.ui_state.is_pressed(BTN_RIGHT_BTM_08))
+        case BSP_PAD_BTM_01:
+            if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
             {
             }
             else
@@ -263,15 +259,15 @@ namespace Vleerhond
                 data.drumstation.killLow(value > 0);
             }
             break;
-        case BTN_RIGHT_BTM_02:
+        case BSP_PAD_BTM_02:
             data.tanzbar.killMid(value > 0);
             data.drumstation.killMid(value > 0);
             break;
-        case BTN_RIGHT_BTM_03:
+        case BSP_PAD_BTM_03:
             data.tanzbar.killHigh(value > 0);
             data.drumstation.killHigh(value > 0);
             break;
-        case BTN_RIGHT_BTM_04:
+        case BSP_PAD_BTM_04:
             data.moog_bass.kill(value > 0);
             if (data.moog_bass.isKilled())
             {
@@ -279,56 +275,56 @@ namespace Vleerhond
                 data.moog_bass.getChannel()->process_active_notes();
             }
             break;
-        case BTN_RIGHT_BTM_05:
+        case BSP_PAD_BTM_05:
             data.mam_mb33.kill(value > 0);
             break;
-        case BTN_RIGHT_BTM_06:
+        case BSP_PAD_BTM_06:
             break;
-        case BTN_RIGHT_BTM_07:
+        case BSP_PAD_BTM_07:
             data.neutron.kill(value > 0);
             break;
-        case BTN_RIGHT_BTM_08:
+        case BSP_PAD_BTM_08:
             break;
-        case BTN_RIGHT_TOP_01:
+        case BSP_STEP_09:
             if (value == 0)
             {
                 data.mam_mb33.select(0);
             }
             break;
-        case BTN_RIGHT_TOP_02:
+        case BSP_STEP_10:
             if (value == 0)
             {
                 data.mam_mb33.select(1);
             }
-        case BTN_RIGHT_TOP_03:
+        case BSP_STEP_11:
             if (value == 0)
             {
                 data.mam_mb33.select(2);
             }
-        case BTN_RIGHT_TOP_04:
+        case BSP_STEP_12:
             if (value == 0)
             {
                 data.mam_mb33.select(2);
             }
-        case BTN_RIGHT_TOP_05:
+        case BSP_STEP_13:
             if (value == 0)
             {
                 data.neutron.select(0);
             }
             break;
-        case BTN_RIGHT_TOP_06:
+        case BSP_STEP_14:
             if (value == 0)
             {
                 data.neutron.select(1);
             }
             break;
-        case BTN_RIGHT_TOP_07:
+        case BSP_STEP_15:
             if (value == 0)
             {
                 data.neutron.select(2);
             }
             break;
-        case BTN_RIGHT_TOP_08:
+        case BSP_STEP_16:
             if (value == 0)
             {
                 data.neutron.select(3);
@@ -343,67 +339,67 @@ namespace Vleerhond
     {
         switch (number)
         {
-        case BTN_LEFT_TOP_01:
+        case BSP_STEP_01:
             if (value == 0)
             {
                 data.randomize_all();
             }
             break;
-        case BTN_LEFT_BTM_01:
+        case BSP_PAD_TOP_01:
             if (value == 0)
             {
                 data.randomize_all();
             }
             break;
-        case BTN_LEFT_TOP_02:
+        case BSP_STEP_02:
             break;
-        case BTN_LEFT_BTM_02:
+        case BSP_PAD_TOP_02:
             break;
 
-        case BTN_RIGHT_BTM_01:
+        case BSP_PAD_BTM_01:
             data.harmony.scale.set_root(Root::ROOT_C);
             break;
-        case BTN_RIGHT_BTM_02:
+        case BSP_PAD_BTM_02:
             data.harmony.scale.set_root(Root::ROOT_D);
             break;
-        case BTN_RIGHT_BTM_03:
+        case BSP_PAD_BTM_03:
             data.harmony.scale.set_root(Root::ROOT_E);
             break;
-        case BTN_RIGHT_BTM_04:
+        case BSP_PAD_BTM_04:
             data.harmony.scale.set_root(Root::ROOT_F);
             break;
-        case BTN_RIGHT_BTM_05:
+        case BSP_PAD_BTM_05:
             data.harmony.scale.set_root(Root::ROOT_G);
             break;
-        case BTN_RIGHT_BTM_06:
+        case BSP_PAD_BTM_06:
             data.harmony.scale.set_root(Root::ROOT_A);
             break;
-        case BTN_RIGHT_BTM_07:
+        case BSP_PAD_BTM_07:
             data.harmony.scale.set_root(Root::ROOT_B);
             break;
-        case BTN_RIGHT_BTM_08:
+        case BSP_PAD_BTM_08:
             break;
-        case BTN_RIGHT_TOP_01:
+        case BSP_STEP_09:
             data.harmony.scale.set_root(Root::ROOT_C_SHARP);
             break;
-        case BTN_RIGHT_TOP_02:
+        case BSP_STEP_10:
             data.harmony.scale.set_root(Root::ROOT_D_SHARP);
             break;
-        case BTN_RIGHT_TOP_03:
+        case BSP_STEP_11:
             break;
-        case BTN_RIGHT_TOP_04:
+        case BSP_STEP_12:
             data.harmony.scale.set_root(Root::ROOT_F_SHARP);
             break;
-        case BTN_RIGHT_TOP_05:
+        case BSP_STEP_13:
             data.harmony.scale.set_root(Root::ROOT_G_SHARP);
             break;
-        case BTN_RIGHT_TOP_06:
+        case BSP_STEP_14:
             data.harmony.scale.set_root(Root::ROOT_A_SHARP);
             break;
-        case BTN_RIGHT_TOP_07:
+        case BSP_STEP_15:
             data.harmony.scale.set_scale(ScaleType::AEOLIAN);
             break;
-        case BTN_RIGHT_TOP_08:
+        case BSP_STEP_16:
             data.harmony.scale.set_scale(ScaleType::IONIAN);
             break;
         }

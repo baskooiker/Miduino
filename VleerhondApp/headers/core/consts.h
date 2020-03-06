@@ -101,70 +101,59 @@
 #define NOTE_TANZBAR_MA   52
 
 // BSP CC's
-#define BTN_LEFT_TOP_01 24
-#define BTN_LEFT_TOP_02 25
-#define BTN_LEFT_TOP_03 26
-#define BTN_LEFT_TOP_04 27
-#define BTN_LEFT_TOP_05 28
-#define BTN_LEFT_TOP_06 29
-#define BTN_LEFT_TOP_07 30
-#define BTN_LEFT_TOP_08 31
+#define BSP_STEP_01 24
+#define BSP_STEP_02 25
+#define BSP_STEP_03 26
+#define BSP_STEP_04 27
+#define BSP_STEP_05 28
+#define BSP_STEP_06 29
+#define BSP_STEP_07 30
+#define BSP_STEP_08 31
 
-#define BTN_LEFT_BTM_01 87
-#define BTN_LEFT_BTM_02 88
-#define BTN_LEFT_BTM_03 89
-#define BTN_LEFT_BTM_04 90
-#define BTN_LEFT_BTM_05 91
-#define BTN_LEFT_BTM_06 92
-#define BTN_LEFT_BTM_07 93
-#define BTN_LEFT_BTM_08 94
+#define BSP_PAD_TOP_01 87
+#define BSP_PAD_TOP_02 88
+#define BSP_PAD_TOP_03 89
+#define BSP_PAD_TOP_04 90
+#define BSP_PAD_TOP_05 91
+#define BSP_PAD_TOP_06 92
+#define BSP_PAD_TOP_07 93
+#define BSP_PAD_TOP_08 94
 
-#define BTN_RIGHT_BTM_01 48 // RIGHT_BTM
-#define BTN_RIGHT_BTM_02 49
-#define BTN_RIGHT_BTM_03 50
-#define BTN_RIGHT_BTM_04 51
-#define BTN_RIGHT_BTM_05 52
-#define BTN_RIGHT_BTM_06 53
-#define BTN_RIGHT_BTM_07 54
-#define BTN_RIGHT_BTM_08 55 // SHIFT: PAD BOTTOM RIGHT
+#define BSP_PAD_BTM_01 48 // RIGHT_BTM
+#define BSP_PAD_BTM_02 49
+#define BSP_PAD_BTM_03 50
+#define BSP_PAD_BTM_04 51
+#define BSP_PAD_BTM_05 52
+#define BSP_PAD_BTM_06 53
+#define BSP_PAD_BTM_07 54
+#define BSP_PAD_BTM_08 55 // SHIFT: PAD BOTTOM RIGHT
 
-#define BTN_RIGHT_TOP_01 40 // RIGHT_TOP
-#define BTN_RIGHT_TOP_02 41 
-#define BTN_RIGHT_TOP_03 42
-#define BTN_RIGHT_TOP_04 43
-#define BTN_RIGHT_TOP_05 44
-#define BTN_RIGHT_TOP_06 45
-#define BTN_RIGHT_TOP_07 46
-#define BTN_RIGHT_TOP_08 47
+#define BSP_STEP_09 40
+#define BSP_STEP_10 41 
+#define BSP_STEP_11 42
+#define BSP_STEP_12 43
+#define BSP_STEP_13 44
+#define BSP_STEP_14 45
+#define BSP_STEP_15 46
+#define BSP_STEP_16 47
 
-#define ROTARY_01 70 // ROTARYs
-#define ROTARY_02 71
-#define ROTARY_03 72
-#define ROTARY_04 73
-#define ROTARY_05 74
-#define ROTARY_06 75
-#define ROTARY_07 76
-#define ROTARY_08 77
+#define BSP_ROT_BTM_01 78 // BOTTOM
+#define BSP_ROT_BTM_02 79
+#define BSP_ROT_BTM_03 80
+#define BSP_ROT_BTM_04 81
+#define BSP_ROT_BTM_05 82
+#define BSP_ROT_BTM_06 83
+#define BSP_ROT_BTM_07 85
+#define BSP_ROT_BTM_08 86
 
-#define KNOB_01 78 // BOTTOM
-#define KNOB_02 79
-#define KNOB_03 80
-#define KNOB_04 81
-#define KNOB_05 82
-#define KNOB_06 83
-#define KNOB_07 85
-#define KNOB_08 86
-
-#define SLIDER_01 16
-#define SLIDER_02 17
-#define SLIDER_03 18
-#define SLIDER_04 19
-#define SLIDER_05 20
-#define SLIDER_06 21
-#define SLIDER_07 22
-#define SLIDER_08 23
-
-#define BSP_SLIDER 9
+#define BSP_ROT_TOP_01 16
+#define BSP_ROT_TOP_02 17
+#define BSP_ROT_TOP_03 18
+#define BSP_ROT_TOP_04 19
+#define BSP_ROT_TOP_05 20
+#define BSP_ROT_TOP_06 21
+#define BSP_ROT_TOP_07 22
+#define BSP_ROT_TOP_08 23
 
 // MFB 503 CC's
 #define BD_LEVEL  8 

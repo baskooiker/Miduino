@@ -184,7 +184,7 @@ namespace Vleerhond
             break;
         case MIDI_CONTROL_CHANGE:
             ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
-            if (message.value == BTN_LEFT_BTM_08 && data.time.state == PlayState::Stopped)
+            if (message.value == BSP_PAD_TOP_08 && data.time.state == PlayState::Stopped)
             {
                 shutdown_counter++;
             }

@@ -1,5 +1,7 @@
 #include "patterns/ab.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     void AbPattern::set_ab_pattern()

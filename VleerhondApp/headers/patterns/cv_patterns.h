@@ -5,7 +5,6 @@
 #include "core/consts.h"
 #include "core/enums.h"
 #include "patterns/ab.h"
-#include "utils/rand.h"
 #include "core/time_struct.h"
 #include "utils.h"
 #include "harmony/scale.h"

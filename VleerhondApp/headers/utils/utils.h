@@ -7,7 +7,6 @@
 
 #include "core/defs.h"
 #include "core/time_struct.h"
-#include "rand.h"
 
 namespace Vleerhond
 {

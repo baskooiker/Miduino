@@ -5,7 +5,6 @@
 
 #include "ab.h"
 #include "core/defs.h"
-#include "rand.h"
 #include "core/time_struct.h"
 #include "patterns/binary_pattern.h"
 

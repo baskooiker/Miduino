@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/defs.h"
-#include "rand.h"
 
 namespace Vleerhond
 {
