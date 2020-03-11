@@ -45,12 +45,12 @@ namespace Vleerhond
 
         if (!MidiIO::addOutput(MIDI_A_NAME, 0))
             return false;
-        if (!MidiIO::addOutput(MIDI_B_NAME, 4)) 
+        if (!MidiIO::addOutput(MIDI_B_NAME, 0)) 
             return false;
-        //if (!MidiIO::addOutput(MIDI_C_NAME)) 
-        //    return false;
-        //if (!MidiIO::addOutput(MIDI_D_NAME)) 
-        //    return false;
+        if (!MidiIO::addOutput(MIDI_C_NAME, 4)) 
+            return false;
+        if (!MidiIO::addOutput(MIDI_D_NAME, 0)) 
+            return false;
 
         return true;
     }

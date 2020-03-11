@@ -111,7 +111,7 @@ namespace Vleerhond
             probs.p_8 = Rand::randui8(30);
             probs.p_16 = 50;
             probs.p_32 = Rand::randui8(64) < 32 ? Rand::randui8(15) : 0;
-            probs.p_t8 = Rand::randui8(64) < 16 ? Rand::randui8(15) : 0;
+            probs.p_t8 = 0;
             this->randomize_interval(probs);
         }
 

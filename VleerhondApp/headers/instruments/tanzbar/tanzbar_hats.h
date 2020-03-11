@@ -9,7 +9,6 @@ namespace Vleerhond
     {
     protected:
         ModulationReceiver tune_mod;
-        ModulationReceiver oh_dec;
 
     public:
         GatePatternAB hh_pattern;

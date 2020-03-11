@@ -1,4 +1,7 @@
 #pragma once
+
+#include <algorithm>
+
 #include "application_data.h"
 
 #include <algorithm>
@@ -125,10 +128,10 @@ namespace Vleerhond
     void ApplicationData::connect()
     {
         this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_CC_CHANNEL_TANZBAR, MIDI_A_NAME));
-        this->drumstation.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_DS, MIDI_A_NAME));
+        this->drumstation.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_DS, MIDI_B_NAME));
 
         this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
         this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
-        this->moog_bass.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_MINITAUR, MIDI_A_NAME));
+        this->moog_bass.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_MINITAUR, MIDI_B_NAME));
     }
 }

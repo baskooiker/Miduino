@@ -62,7 +62,7 @@ namespace Vleerhond
     DrumStationHats::DrumStationHats(Modulators& modulators, TimeStruct& time) :
         Hats(modulators, time)
     {
-        pitch_open = NOTE_DS808_OH;
+        //pitch_open = NOTE_DS808_OH;
         pitch_closed = NOTE_DS808_HH;
         settings.velocity_range = 32;
         settings.velocity_offset = 96;

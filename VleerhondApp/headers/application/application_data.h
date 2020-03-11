@@ -1,7 +1,5 @@
 #pragma once
 
-#include <algorithm>
-
 #include "application/ui.h"
 #include "application/user_event.h"
 #include "core/defs.h"
@@ -9,10 +7,8 @@
 #include "patterns/modulators.h"
 
 #include "tanzbar.h"
-#include "mfb_522.h"
 #include "instruments/drumstation/drumstation.h"
 
-#include "303_acid_bass.h"
 #include "moog_bass.h"
 #include "instruments/neutron/neutron.h"
 #include "instruments/mam_mb33/mam_mb33.h"

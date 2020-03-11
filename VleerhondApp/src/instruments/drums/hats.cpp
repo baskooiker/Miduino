@@ -14,7 +14,6 @@ namespace Vleerhond
         hats_vel(modulators_ref)
     {
         hat_closed_style = HatClosedStyle::HatClosedRegular;
-        randomize();
     }
 
     void Hats::randomize()
@@ -157,11 +156,6 @@ namespace Vleerhond
     uint8_t Hats::get_velocity()
     {
         uint8_t velocity = 96;
-        if ((time.tick / TICKS_PER_STEP) % 4 == 2)
-        {
-            velocity = 127;
-        }
-        else
         {
             velocity = Utils::rerange(
                 this->hat_velocity.value(time), 
@@ -169,6 +163,13 @@ namespace Vleerhond
                 settings.velocity_offset
             );
         }
+
+
+        if ((time.tick / TICKS_PER_STEP) % 4 != 2)
+        {
+            velocity = (uint8_t)(velocity * .8);
+        }
+
         return velocity;
     }
 }
