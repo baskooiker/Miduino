@@ -15,7 +15,6 @@ namespace Vleerhond
 
     protected:
         int stop_counter = 0;
-        int shutdown_counter = 0;
     public:
         ApplicationData data;
 

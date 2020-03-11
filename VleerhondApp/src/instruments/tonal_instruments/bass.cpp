@@ -287,13 +287,13 @@ uint8_t Bass::get_pitch()
     uint8_t octave = this->octaves.value(time);
     std::vector<int> octave_opts;
     if (octave < 32)
-        octave_opts = { 0, 0, 0, 1, 1, 1};
+        octave_opts = { 1, 1, 1, 1, 1, 1};
     else if (octave < 64)
-        octave_opts = { 0, 0, 1, 1, 1, 1};
+        octave_opts = { 1, 1, 1, 1, 2, 2};
     else if (octave < 96)
-        octave_opts = { 0, 1, 1, 1, 2, 2};
+        octave_opts = { 1, 1, 1, 2, 2, 3};
     else
-        octave_opts = { 0, 1, 1, 2, 2, 3};
+        octave_opts = { 1, 1, 2, 2, 3, 3};
     if (octave < this->_variable_octave)
     {
         pitch += octave_opts[octave % octave_opts.size()] * 12;

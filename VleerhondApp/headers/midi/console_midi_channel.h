@@ -4,11 +4,6 @@
 
 #include "midi/midi_channel.h"
 
-
-// MOVE TO CPP
-#include <iostream>
-#include <sstream>
-
 namespace Vleerhond
 {
     class ConsoleMidiChannel : public MidiChannel

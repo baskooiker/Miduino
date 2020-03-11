@@ -166,14 +166,12 @@ namespace Vleerhond
             stop_counter++;
             if (stop_counter > 8)
             {
-                ofLogNotice("stop_counter high");
-                ofExit(shutdown_counter > 0 ? -1 : 0);
+                ofExit(0);
             }
             break;
         case MIDI_START:
         case MIDI_CONTINUE:
             stop_counter = 0;
-            shutdown_counter = 0;
             ofLogNotice("Vleerhond", "Start!");
             data.time.state = PlayState::Playing;
             break;
@@ -184,10 +182,6 @@ namespace Vleerhond
             break;
         case MIDI_CONTROL_CHANGE:
             ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
-            if (message.value == BSP_PAD_TOP_08 && data.time.state == PlayState::Stopped)
-            {
-                shutdown_counter++;
-            }
             handleControlChange(this->data, message.channel, message.control, message.value);
             break;
         default:
@@ -208,7 +202,7 @@ namespace Vleerhond
 
     void VleerhondApp::exit()
     {
-        ofLogNotice("", "Closing MIDI ports. shutdown_counter = %d", shutdown_counter);
+        ofLogNotice("", "Closing MIDI ports");
         MidiIO::closeAll();
     }
 }

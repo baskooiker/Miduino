@@ -1,5 +1,8 @@
 #include "midi/console_midi_channel.h"
 
+#include <iostream>
+#include <sstream>
+
 namespace Vleerhond
 {
     ConsoleMidiChannel::ConsoleMidiChannel(const std::string & port_name)

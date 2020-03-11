@@ -21,7 +21,7 @@ namespace Vleerhond
         bool _kill = false;
         uint8_t _variable_density = 0;
         uint8_t _variable_pitch = 0;
-        uint8_t _variable_pitch_offset = 64;
+        uint8_t _variable_pitch_offset = 0;
         uint8_t _variable_octave = 0;
 
         std::shared_ptr<MidiChannel> midi_channel;
