@@ -83,10 +83,9 @@ namespace Vleerhond
         case BSP_ROT_BTM_02:
             break;
         case BSP_ROT_BTM_03:
-            data.moog_bass.note_range_value = value;
             break;
         case BSP_ROT_BTM_04:
-            data.moog_bass.setVariableDensity(value);
+            data.minitaur.setVariableDensity(value);
             break;
         case BSP_ROT_BTM_05:
             data.mam_mb33.setVariableDensity(value);
@@ -104,10 +103,10 @@ namespace Vleerhond
         case BSP_ROT_TOP_02:
             break;
         case BSP_ROT_TOP_03:
-            data.moog_bass.setVariableOctave(value);
+            data.minitaur.setVariableOctave(value);
             break;
         case BSP_ROT_TOP_04:
-            data.moog_bass.setVariablePitchOffset(value);
+            data.minitaur.setVariablePitchOffset(value);
             break;
         case BSP_ROT_TOP_05:
             data.mam_mb33.setVariableOctave(value);
@@ -218,17 +217,19 @@ namespace Vleerhond
         case BSP_PAD_TOP_04:
             if (value == 0)
             {
-                data.moog_bass.total_randomize();
+                data.minitaur.randomize();
             }
             break;
         case BSP_STEP_05:
             if (value == 0)
             {
+                data.minitaur.select(0);
             }
             break;
         case BSP_STEP_06:
             if (value == 0)
             {
+                data.minitaur.select(1);
             }
             break;
         case BSP_PAD_TOP_05:
@@ -272,12 +273,7 @@ namespace Vleerhond
             data.drumstation.killHigh(value > 0);
             break;
         case BSP_PAD_BTM_04:
-            data.moog_bass.kill(value > 0);
-            if (data.moog_bass.isKilled())
-            {
-                data.moog_bass.stop_notes();
-                data.moog_bass.getChannel()->process_active_notes();
-            }
+            data.minitaur.kill(value > 0);
             break;
         case BSP_PAD_BTM_05:
             data.mam_mb33.kill(value > 0);
@@ -300,16 +296,19 @@ namespace Vleerhond
             {
                 data.mam_mb33.select(1);
             }
+            break;
         case BSP_STEP_11:
             if (value == 0)
             {
                 data.mam_mb33.select(2);
             }
+            break;
         case BSP_STEP_12:
             if (value == 0)
             {
-                data.mam_mb33.select(2);
+                data.mam_mb33.select(3);
             }
+            break;
         case BSP_STEP_13:
             if (value == 0)
             {

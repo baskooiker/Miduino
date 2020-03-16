@@ -7,10 +7,12 @@ namespace Vleerhond
         , drop_bass(harmony, time)
         , const_bass(harmony, time)
         , acid_bass(harmony, time)
+        , arp(harmony, modulators, time)
     {
         instruments.push_back(&drop_bass);
         instruments.push_back(&const_bass);
         instruments.push_back(&acid_bass);
+        instruments.push_back(&arp);
     }
 
     void MamMb33::randomize()
@@ -30,6 +32,14 @@ namespace Vleerhond
         // acid bass
         {
             acid_bass.total_randomize();
+        }
+
+        // Arp
+        {
+            arp.total_randomize();
+            arp.set_style(MonoStyle::MonoSixteenths);
+            arp.set_pitch_mode(MonoPitchMode::ARP);
+            arp.disableSlides();
         }
     }
 }

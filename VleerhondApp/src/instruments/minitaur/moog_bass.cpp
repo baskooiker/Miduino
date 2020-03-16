@@ -1,4 +1,4 @@
-#include "moog_bass.h"
+#include "instruments/minitaur/moog_bass.h"
 
 namespace Vleerhond
 {

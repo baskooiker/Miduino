@@ -143,6 +143,8 @@
     <ClCompile Include="src\instruments\instrument_rack.cpp" />
     <ClCompile Include="src\instruments\mam_mb33\mam_mb33.cpp" />
     <ClCompile Include="src\instruments\mfb_522.cpp" />
+    <ClCompile Include="src\instruments\minitaur\minitaur.cpp" />
+    <ClCompile Include="src\instruments\minitaur\moog_bass.cpp" />
     <ClCompile Include="src\instruments\neutron\neutron.cpp" />
     <ClCompile Include="src\instruments\neutron\neutron_mono.cpp" />
     <ClCompile Include="src\instruments\tanzbar\tanzbar.cpp" />
@@ -160,7 +162,6 @@
     <ClCompile Include="src\instruments\tonal_instruments\bass.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\fugue_player.cpp" />
     <ClCompile Include="src\instruments\tonal_instruments\mono.cpp" />
-    <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\midi\console_midi_channel.cpp" />
     <ClCompile Include="src\midi\dummy_midi_channel.cpp" />
@@ -233,6 +234,8 @@
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_snare.h" />
     <ClInclude Include="headers\instruments\mfb_503\mfb_503_toms.h" />
     <ClInclude Include="headers\instruments\mfb_522\mfb_522.h" />
+    <ClInclude Include="headers\instruments\minitaur\minitaur.h" />
+    <ClInclude Include="headers\instruments\minitaur\moog_bass.h" />
     <ClInclude Include="headers\instruments\mono_dub.h" />
     <ClInclude Include="headers\instruments\mono.h" />
     <ClInclude Include="headers\instruments\neutron\neutron.h" />
@@ -252,7 +255,6 @@
     <ClInclude Include="headers\instruments\tonal_instruments\303_acid_bass.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\fugue_player.h" />
-    <ClInclude Include="headers\instruments\tonal_instruments\moog_bass.h" />
     <ClInclude Include="headers\instruments\tonal_instruments\rocket_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono.h" />
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h" />

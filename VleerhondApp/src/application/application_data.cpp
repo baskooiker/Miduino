@@ -13,7 +13,7 @@ namespace Vleerhond
     ApplicationData::ApplicationData() :
         tanzbar(harmony, modulators, time),
         drumstation(harmony, modulators, time),
-        moog_bass(modulators, harmony, time),
+        minitaur(modulators, harmony, time),
         neutron(harmony, modulators, time),
         mam_mb33(harmony, modulators, time)
     {
@@ -52,9 +52,7 @@ namespace Vleerhond
 
     void ApplicationData::randomize_all()
     {
-        auto inst_ptrs = get_instrument_ptrs();
-        std::random_shuffle(inst_ptrs.begin(), inst_ptrs.end());
-        for (auto& value : inst_ptrs)
+        for (InstrumentBase* value : get_instrument_ptrs())
         {
             value->randomize();
         }
@@ -103,9 +101,8 @@ namespace Vleerhond
         ptrs.push_back(&this->drumstation);
         ptrs.push_back(&this->tanzbar);
 
-        //ptrs.push_back(&this->tb303_bass);
         ptrs.push_back(&this->mam_mb33);
-        ptrs.push_back(&this->moog_bass);
+        ptrs.push_back(&this->minitaur);
         ptrs.push_back(&this->neutron);
 
         return ptrs;
@@ -132,6 +129,6 @@ namespace Vleerhond
 
         this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
         this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
-        this->moog_bass.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_MINITAUR, MIDI_B_NAME));
+        this->minitaur.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_MINITAUR, MIDI_B_NAME));
     }
 }

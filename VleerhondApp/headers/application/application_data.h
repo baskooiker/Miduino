@@ -9,7 +9,7 @@
 #include "tanzbar.h"
 #include "instruments/drumstation/drumstation.h"
 
-#include "moog_bass.h"
+#include "instruments/minitaur/minitaur.h"
 #include "instruments/neutron/neutron.h"
 #include "instruments/mam_mb33/mam_mb33.h"
 
@@ -26,7 +26,7 @@ namespace Vleerhond
 
         Modulators modulators;
 
-        MoogBass moog_bass;
+        Minitaur minitaur;
         Neutron neutron;
         MamMb33 mam_mb33;
 

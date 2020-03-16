@@ -70,9 +70,6 @@
     <ClCompile Include="src\midi\midi_channel.cpp">
       <Filter>src\midi</Filter>
     </ClCompile>
-    <ClCompile Include="src\instruments\tonal_instruments\moog_bass.cpp">
-      <Filter>src\instruments\tonal_instruments</Filter>
-    </ClCompile>
     <ClCompile Include="src\instruments\tonal_instruments\bass.cpp">
       <Filter>src\instruments\tonal_instruments</Filter>
     </ClCompile>
@@ -193,6 +190,12 @@
     <ClCompile Include="src\instruments\tanzbar\tanzbar_tom.cpp">
       <Filter>src\instruments\tanzbar</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\minitaur\minitaur.cpp">
+      <Filter>src\instruments\minitaur</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\minitaur\moog_bass.cpp">
+      <Filter>src\instruments\minitaur</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -311,6 +314,12 @@
     </Filter>
     <Filter Include="src\instruments\mam_mb33">
       <UniqueIdentifier>{7f3696cb-8850-434b-ab52-eb614d5bc171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\minitaur">
+      <UniqueIdentifier>{3cba7ede-12e1-44ef-9672-ab17b72e86e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\instruments\minitaur">
+      <UniqueIdentifier>{089f040b-ddff-459d-9515-d75acd4c6ec2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -497,9 +506,6 @@
     <ClInclude Include="headers\midi\midi_io.h">
       <Filter>headers\midi</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\tonal_instruments\moog_bass.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\tonal_instruments\rocket_mono.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
@@ -604,6 +610,12 @@
     </ClInclude>
     <ClInclude Include="headers\midi\dummy_midi_channel.h">
       <Filter>headers\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\minitaur\minitaur.h">
+      <Filter>headers\instruments\minitaur</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\minitaur\moog_bass.h">
+      <Filter>headers\instruments\minitaur</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

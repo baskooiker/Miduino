@@ -140,7 +140,7 @@ namespace Vleerhond
                 bool trigger_active = (int)ofGetCurrentTime().getAsSeconds() % 2 == 1;
                 if (trigger_active != _is_trigger_on)
                 {
-                    data.moog_bass.setVco2Square(trigger_active);
+                    data.minitaur.bass_root.setVco2Square(trigger_active);
                     _is_trigger_on = trigger_active;
                     ofLogNotice("", "BLINK");
                 }

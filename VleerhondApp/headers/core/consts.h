@@ -227,9 +227,9 @@
 #define TB_SD_TUNE          11
 #define TB_SD_DTUNE         12
 #define TB_SD_SNAPPY        13
-#define TB_SD_SN_DECAY      67
+#define TB_SD_TONE_DECAY    67
 #define TB_SD_TONE          14
-#define TB_SD_TONE_DECAY    68
+#define TB_SD_S_DECAY       68
 #define TB_SD_PITCH         69
 #define TB_RS_TUNE          88
 #define TB_CY_DECAY         70
