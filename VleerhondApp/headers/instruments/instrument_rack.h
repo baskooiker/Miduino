@@ -17,8 +17,8 @@ public:
 public:
     bool play();
     void randomize();
-    virtual std::vector<InstrumentBase*> get_ptrs();
-    virtual void auto_randomize();
+    virtual std::vector<InstrumentBase*> getPtrs();
+    virtual void autoRandomize();
     void select(const uint8_t index);
 
     virtual void setVariableDensity(const uint8_t variable_density);

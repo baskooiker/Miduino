@@ -39,7 +39,7 @@ namespace ChordUtils
         if (length == 4 && Rand::distribution(16, 0) == 1)
         {
             AbPattern ab_pat;
-            ab_pat.set_ab_pattern_high();
+            ab_pat.setHigh();
             for (int i = 0; i < 4; i++)
             {
                 seq.push_back(options[ab_pat.value(i)]);

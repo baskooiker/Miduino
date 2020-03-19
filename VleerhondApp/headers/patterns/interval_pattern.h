@@ -22,16 +22,16 @@ namespace Vleerhond
 
         TimeDivision interval(const TimeStruct& time) const
         {
-            uint32_t c = time.get_count(this->time_division);
+            uint32_t c = time.getCount(this->time_division);
             return this->pattern[c % 16];
         }
 
         bool hit(const TimeStruct& time) const
         {
-            return Utils::interval_hit(this->interval(time), time);
+            return Utils::intervalHit(this->interval(time), time);
         }
 
-        void randomize_interval(const IntervalProbs& probs)
+        void randomizeInterval(const IntervalProbs& probs)
         {
             for (int i = 0; i < 16; i++)
             {
@@ -78,7 +78,7 @@ namespace Vleerhond
             }
         }
 
-        void randomize_interval_lead()
+        void randomizeIntervalLead()
         {
             for (int i = 0; i < this->length; i++)
             {
@@ -104,7 +104,7 @@ namespace Vleerhond
             this->time_division = TimeDivision::Quarter;
         }
 
-        void randomize_interval_hat()
+        void randomizeIntervalHat()
         {
             IntervalProbs probs = { 0,  20, 50, 15, 10 };
             probs.p_4 = 0;
@@ -112,7 +112,7 @@ namespace Vleerhond
             probs.p_16 = 50;
             probs.p_32 = Rand::randui8(64) < 32 ? Rand::randui8(15) : 0;
             probs.p_t8 = 0;
-            this->randomize_interval(probs);
+            this->randomizeInterval(probs);
         }
 
     };

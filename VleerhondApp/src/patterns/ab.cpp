@@ -4,7 +4,7 @@
 
 namespace Vleerhond
 {
-    void AbPattern::set_ab_pattern()
+    void AbPattern::randomize()
     {
         ab_pattern[0] = 0;
         switch (Rand::randui8(5))
@@ -56,14 +56,14 @@ namespace Vleerhond
             break;
         }
     }
-    void AbPattern::set_ab_pattern_const(const uint8_t value)
+    void AbPattern::setConst(const uint8_t value)
     {
         for (uint8_t i = 0; i < 4; i++)
         {
             ab_pattern[1] = value;
         }
     }
-    void AbPattern::set_ab_pattern_low()
+    void AbPattern::setLow()
     {
         ab_pattern[0] = 0;
         switch (Rand::randui8(4))
@@ -90,7 +90,7 @@ namespace Vleerhond
             break;
         }
     }
-    void AbPattern::set_ab_pattern_high()
+    void AbPattern::setHigh()
     {
         ab_pattern[0] = 0;
         switch (Rand::randui8(5))

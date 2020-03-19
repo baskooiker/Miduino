@@ -21,10 +21,10 @@ namespace Vleerhond
     void InstrumentBase::randomize()
     {
         last_randomized_time = Utils::millis();
-        randomize_parameters();
+        randomizeParameters();
     }
 
-    void InstrumentBase::randomize_parameters()
+    void InstrumentBase::randomizeParameters()
     {
         for (CcParam param : params)
         {
@@ -40,12 +40,12 @@ namespace Vleerhond
         getChannel()->processNoteEvents();
     }
 
-    void InstrumentBase::stop_notes()
+    void InstrumentBase::stopNotes()
     {
-        getChannel()->all_notes_off();
+        getChannel()->allNotesOff();
     }
 
-    uint32_t InstrumentBase::randomized_time()
+    uint32_t InstrumentBase::randomizedTime()
     {
         return last_randomized_time;
     }
@@ -55,24 +55,24 @@ namespace Vleerhond
         return 100;
     }
 
-    std::vector<InstrumentBase*> InstrumentBase::get_ptrs()
+    std::vector<InstrumentBase*> InstrumentBase::getPtrs()
     {
         return { this };
     }
 
-    void InstrumentBase::check_auto_randomize()
+    void InstrumentBase::checkAutoRandomize()
     {
-        uint64_t diff = Utils::millis() - randomized_time();
+        uint64_t diff = Utils::millis() - randomizedTime();
         if (diff > 60000)
         {
             if (Rand::distribution(diff / 1000, 240) == 0)
             {
-                auto_randomize();
+                autoRandomize();
             }
         }
     }
 
-    void InstrumentBase::auto_randomize()
+    void InstrumentBase::autoRandomize()
     {
     }
 
@@ -103,7 +103,7 @@ namespace Vleerhond
 
     void InstrumentBase::updatePedalState()
     {
-        getChannel()->set_pedal(this->getPedal());
+        getChannel()->setPedal(this->getPedal());
     }
 
     void InstrumentBase::setVariableDensity(const uint8_t variable_density)

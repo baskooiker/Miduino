@@ -20,7 +20,7 @@ namespace Vleerhond
 
     bool FuguePlayer::play()
     {
-        if (Utils::interval_hit(TimeDivision::Sixteenth, time))
+        if (Utils::intervalHit(TimeDivision::Sixteenth, time))
         {
             bool hit = false;
 
@@ -66,9 +66,9 @@ namespace Vleerhond
                     pitch_offset,
                     (uint8_t)this->note_interval
                 );
-                midi_channel->note_on(
+                midi_channel->noteOn(
                     NoteStruct(pitch, 64, player_length * TICKS_PER_STEP, NoteType::Tie),
-                    time.get_shuffle_delay()
+                    time.getShuffleDelay()
                 );
             }
 
@@ -82,14 +82,14 @@ namespace Vleerhond
 
         uint8_t pitch_offsets[] = { 36, 40, 44, 48, 52 };
         uint8_t nr_pitch_offsets = sizeof(pitch_offsets) / sizeof(*pitch_offsets);
-        Utils::randomize_order(pitch_offsets, nr_pitch_offsets);
+        Utils::randomizeOrder(pitch_offsets, nr_pitch_offsets);
 
         NoteInterval intervals[4] = {};
         intervals[0] = NoteInterval::IntervalRoot;
         intervals[1] = NoteInterval::IntervalFifth;
-        intervals[2] = Utils::random_note_interval();
-        intervals[3] = Utils::random_note_interval();
-        Utils::randomize_order(intervals, 4);
+        intervals[2] = Utils::randomNoteInterval();
+        intervals[3] = Utils::randomNoteInterval();
+        Utils::randomizeOrder(intervals, 4);
 
         this->pitch_offset = pitch_offsets[0];
         this->length = Rand::randui8(2, (uint8_t)time_intervals.size() - 1);

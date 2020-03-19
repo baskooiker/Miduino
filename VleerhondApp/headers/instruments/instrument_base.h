@@ -31,14 +31,14 @@ namespace Vleerhond
 
         virtual bool play() = 0;
         virtual void randomize();
-        virtual void randomize_parameters();
+        virtual void randomizeParameters();
         virtual void processNoteEvents();
-        virtual void stop_notes();
-        virtual uint32_t randomized_time();
+        virtual void stopNotes();
+        virtual uint32_t randomizedTime();
         virtual uint8_t getVelocity();
-        virtual std::vector<InstrumentBase*> get_ptrs();
-        virtual void check_auto_randomize();
-        virtual void auto_randomize();
+        virtual std::vector<InstrumentBase*> getPtrs();
+        virtual void checkAutoRandomize();
+        virtual void autoRandomize();
         virtual void kill(const bool kill);
         virtual bool isKilled() const;
         virtual void setChannel(std::shared_ptr<MidiChannel> channel);

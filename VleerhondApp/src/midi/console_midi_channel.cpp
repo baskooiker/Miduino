@@ -20,7 +20,7 @@ namespace Vleerhond
         ss << "]";
         return ss.str();
     }
-    void ConsoleMidiChannel::_send_note_on(const uint8_t pitch, const uint8_t velocity)
+    void ConsoleMidiChannel::_sendNoteOn(const uint8_t pitch, const uint8_t velocity)
     {
         if (notes.find(pitch) == notes.end())
         {
@@ -37,7 +37,7 @@ namespace Vleerhond
         std::cout << getStorageString();
         std::cout << std::endl;
     }
-    void ConsoleMidiChannel::_send_note_off(const uint8_t pitch)
+    void ConsoleMidiChannel::_sendNoteOff(const uint8_t pitch)
     {
         if (notes.find(pitch) == notes.end())
         {

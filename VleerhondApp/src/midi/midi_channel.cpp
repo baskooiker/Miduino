@@ -12,19 +12,19 @@
 
 namespace Vleerhond
 {
-    void MidiChannel::_send_note_on(const uint8_t pitch, const uint8_t velocity)
+    void MidiChannel::_sendNoteOn(const uint8_t pitch, const uint8_t velocity)
     {
         if (this->channel > 0)
         {
-            MidiIO::send_note_on(pitch, velocity, this->channel, this->port_name);
+            MidiIO::sendNoteOn(pitch, velocity, this->channel, this->port_name);
         }
     }
 
-    void MidiChannel::_send_note_off(const uint8_t pitch)
+    void MidiChannel::_sendNoteOff(const uint8_t pitch)
     {
         if (this->channel > 0)
         {
-            MidiIO::send_note_off(pitch, this->channel, port_name);
+            MidiIO::sendNoteOff(pitch, this->channel, port_name);
         }
     }
 
@@ -49,42 +49,42 @@ namespace Vleerhond
             NoteEvent event_i = this->events[i];
             if (event_i.time <= time)
             {
-                this->note_on(event_i.note);
+                this->noteOn(event_i.note);
                 this->events[i] = this->events[this->nr_of_events - 1];
                 this->nr_of_events--;
             }
         }
     }
 
-    void MidiChannel::note_off(uint8_t pitch)
+    void MidiChannel::noteOff(uint8_t pitch)
     {
-        this->_send_note_off(pitch);
-        NoteStruct stored = this->pop_from_storage(pitch);
+        this->_sendNoteOff(pitch);
+        NoteStruct stored = this->popFromStorage(pitch);
     }
 
-    void MidiChannel::note_on(const NoteStruct& note)
+    void MidiChannel::noteOn(const NoteStruct& note)
     {
         // TODO: remove this intermediate function
         if (!this->getPedal())
         {
-            this->untie_notes();
+            this->untieNotes();
         }
 
         // If the played note was still active, stop it before replaying
-        NoteStruct stored = this->pop_from_storage(note.pitch);
+        NoteStruct stored = this->popFromStorage(note.pitch);
         if (note.pitch == stored.pitch)
         {
-            this->note_off(note.pitch);
+            this->noteOff(note.pitch);
         }
 
         if (note.velocity > 0)
         {
-            this->_send_note_on(note.pitch, note.velocity);
-            this->add_to_storage(note);
+            this->_sendNoteOn(note.pitch, note.velocity);
+            this->addToStorage(note);
         }
     }
 
-    void MidiChannel::note_on(const NoteStruct& note, const uint32_t delay)
+    void MidiChannel::noteOn(const NoteStruct& note, const uint32_t delay)
     {
         if (this->nr_of_events < STORAGE_SIZE && delay > 0)
         {
@@ -93,32 +93,32 @@ namespace Vleerhond
         }
         else
         {
-            this->note_on(note);
+            this->noteOn(note);
         }
     }
 
-    void MidiChannel::note_on(const NoteStruct* notes, const uint8_t length)
+    void MidiChannel::noteOn(const NoteStruct* notes, const uint8_t length)
     {
         if (!pedal)
         {
-            this->untie_notes();
+            this->untieNotes();
         }
         for (int i = 0; i < length; i++)
         {
-            NoteStruct stored = this->pop_from_storage(notes[i].pitch);
+            NoteStruct stored = this->popFromStorage(notes[i].pitch);
             if (notes[i].pitch == stored.pitch)
             {
-                this->note_off(notes[i].pitch);
+                this->noteOff(notes[i].pitch);
             }
-            this->_send_note_on(notes[i].pitch, notes[i].velocity);
+            this->_sendNoteOn(notes[i].pitch, notes[i].velocity);
         }
         for (int i = 0; i < length; i++)
         {
-            this->add_to_storage(notes[i]);
+            this->addToStorage(notes[i]);
         }
     }
 
-    void MidiChannel::add_to_storage(const NoteStruct& note)
+    void MidiChannel::addToStorage(const NoteStruct& note)
     {
         for (uint8_t i = 0; i < this->size; i++)
         {
@@ -132,7 +132,7 @@ namespace Vleerhond
         this->size++;
     }
 
-    NoteStruct MidiChannel::pop_from_storage(uint8_t pitch)
+    NoteStruct MidiChannel::popFromStorage(uint8_t pitch)
     {
         for (uint8_t i = 0; i < this->size; i++)
         {
@@ -146,7 +146,7 @@ namespace Vleerhond
         return NoteStruct();
     }
 
-    void MidiChannel::process_active_notes()
+    void MidiChannel::processActiveNotes()
     {
         for (uint8_t i = 0; i < (int)this->size; i++)
         {
@@ -161,32 +161,32 @@ namespace Vleerhond
             {
                 if (!this->pedal)
                 {
-                    this->note_off(this->data[i].pitch);
+                    this->noteOff(this->data[i].pitch);
                 }
             }
         }
     }
 
-    void MidiChannel::untie_notes()
+    void MidiChannel::untieNotes()
     {
         for (int i = (int)this->size - 1; i >= 0; i--)
         {
             if (!this->pedal)
             {
-                this->note_off(this->data[i].pitch);
+                this->noteOff(this->data[i].pitch);
             }
         }
     }
 
-    void MidiChannel::all_notes_off()
+    void MidiChannel::allNotesOff()
     {
         for (int i = (int)this->size - 1; i >= 0; i--)
         {
-            note_off(this->data[i].pitch);
+            noteOff(this->data[i].pitch);
         }
     }
 
-    void MidiChannel::print_storage()
+    void MidiChannel::printStorage()
     {
         printf("\nStorage size: %d\n", (int)this->size);
         for (int i = 0; i < this->size; i++)
@@ -199,7 +199,7 @@ namespace Vleerhond
         }
     }
 
-    void MidiChannel::set_pedal(const bool value)
+    void MidiChannel::setPedal(const bool value)
     {
         pedal = value;
     }
@@ -221,7 +221,7 @@ namespace Vleerhond
         {
             send_channel = cc_channel;
         }
-        MidiIO::send_cc(cc, value, send_channel, this->port_name);
+        MidiIO::sendCc(cc, value, send_channel, this->port_name);
     }
     void MidiChannel::sendBytes(std::vector<uint8_t>& bytes)
     {

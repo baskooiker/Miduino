@@ -25,11 +25,11 @@ namespace Vleerhond
     {
         for (uint8_t j = 0; j < 16; j++)
         {
-            set_gate(j, Rand::randf() < prob);
+            setGate(j, Rand::randf() < prob);
         }
     }
 
-    void BinaryPattern::set_gate(const uint8_t index, const bool value)
+    void BinaryPattern::setGate(const uint8_t index, const bool value)
     {
         if (value)
             this->pattern |= (1 << index);
@@ -42,17 +42,17 @@ namespace Vleerhond
         return (this->pattern >> (step % length)) & 0x1;
     }
 
-    void BinaryPattern::set_gates_low()
+    void BinaryPattern::setGatesLow()
     {
         this->pattern = 0x00;
         uint8_t pattern_id = Rand::randui8(pattern_twos.size());
         for (int i = 0; i < 2; i++)
         {
-            this->set_gate(pattern_twos[pattern_id][i], true);
+            this->setGate(pattern_twos[pattern_id][i], true);
         }
     }
 
-    void BinaryPattern::set_kick_fill(uint8_t offset)
+    void BinaryPattern::setKickFill(uint8_t offset)
     {
         static const uint8_t fill_a[] = { 1, 0, 0, 1, 0, 0, 1, 0 };
         static const uint8_t fill_b[] = { 1, 0, 1, 0, 0, 1, 0, 0 };
@@ -71,12 +71,12 @@ namespace Vleerhond
             uint8_t index = offset + i;
             if (index < 16)
             {
-                this->set_gate(index, fill[i]);
+                this->setGate(index, fill[i]);
             }
         }
     }
 
-    void BinaryPattern::set_euclid(const uint8_t _length, const uint8_t _steps)
+    void BinaryPattern::setEuclid(const uint8_t _length, const uint8_t _steps)
     {
         uint8_t length = MIN(_length, 16);
         uint8_t steps = MIN(_steps, length);
@@ -94,7 +94,7 @@ namespace Vleerhond
         uint8_t c = 0;
         for (int i = 0; i < steps; i++)
         {
-            this->set_gate(c, true);
+            this->setGate(c, true);
             c += counters[i];
         }
     }
@@ -119,7 +119,7 @@ namespace Vleerhond
         return sets;
     }
 
-    void BinaryPattern::set_diddles(const float f, const bool starts_with, uint8_t length)
+    void BinaryPattern::setDiddles(const float f, const bool starts_with, uint8_t length)
     {
         length = length > 16 ? 16 : length;
         int8_t nr_hits = (uint8_t)((f * length) + .5);
@@ -128,37 +128,37 @@ namespace Vleerhond
         std::vector<uint8_t> sets = distribute(nr_diddles, nr_hits);
         std::vector<uint8_t> spaces = distribute(nr_diddles, length - nr_hits);
 
-        ofLogVerbose("GatePatterns", "set_diddles(nr_hits=%d, nr_diddles=%d, max_nr=%d)", nr_hits, nr_diddles, max_nr_diddles);
+        ofLogVerbose("GatePatterns", "setDiddles(nr_hits=%d, nr_diddles=%d, max_nr=%d)", nr_hits, nr_diddles, max_nr_diddles);
 
         uint8_t count = 0;
         for (int i = 0; i < nr_diddles; i++)
         {
             for (int j = 0; j < sets[i]; j++)
             {
-                this->set_gate(count++, starts_with);
+                this->setGate(count++, starts_with);
             }
             for (int j = 0; j < spaces[i]; j++)
             {
-                this->set_gate(count++, !starts_with);
+                this->setGate(count++, !starts_with);
             }
         }
     }
 
-    void BinaryPattern::set_coef_pattern(const Coefficients coef)
+    void BinaryPattern::setCoefPattern(const Coefficients coef)
     {
-        this->set_gate(0, Rand::randf() < coef.one);
-        this->set_gate(4, Rand::randf() < coef.two);
-        this->set_gate(8, Rand::randf() < coef.three);
-        this->set_gate(12, Rand::randf() < coef.four);
+        this->setGate(0, Rand::randf() < coef.one);
+        this->setGate(4, Rand::randf() < coef.two);
+        this->setGate(8, Rand::randf() < coef.three);
+        this->setGate(12, Rand::randf() < coef.four);
         for (int i = 2; i < 16; i += 4)
-            this->set_gate(i, Rand::randf() < coef.eights);
+            this->setGate(i, Rand::randf() < coef.eights);
         for (int i = 1; i < 16; i += 4)
-            this->set_gate(i, Rand::randf() < coef.down);
+            this->setGate(i, Rand::randf() < coef.down);
         for (int i = 3; i < 16; i += 4)
-            this->set_gate(i, Rand::randf() < coef.up);
+            this->setGate(i, Rand::randf() < coef.up);
     }
 
-    void BinaryPattern::add_one(const uint8_t length)
+    void BinaryPattern::addOne(const uint8_t length)
     {
         std::vector<uint8_t> indices;
         for (int i = 0; i < length; i++)
@@ -171,7 +171,7 @@ namespace Vleerhond
 
         if (indices.size() == 0)
         {
-            set_gate(Rand::randui8(length), true);
+            setGate(Rand::randui8(length), true);
             return;
         }
         std::random_shuffle(indices.begin(), indices.end());
@@ -180,13 +180,13 @@ namespace Vleerhond
         {
             if (!gate(i+1 % length))
             {
-                set_gate(i+1 % length, true);
+                setGate(i+1 % length, true);
                 return;
             }
         }
     }
 
-    void BinaryPattern::remove_one(const uint8_t length)
+    void BinaryPattern::removeOne(const uint8_t length)
     {
         std::vector<uint8_t> indices;
         for (int i = 0; i < length; i++) indices.push_back(i);
@@ -195,32 +195,32 @@ namespace Vleerhond
         {
             if (gate(i))
             {
-                set_gate(i, false);
+                setGate(i, false);
                 return;
             }
         }
     }
 
-    void BinaryPattern::shift_one()
+    void BinaryPattern::shiftOne()
     {
         if (Rand::randf() < .5)
         {
-            if (!shift_down())
+            if (!shiftDown())
             {
-                shift_up();
+                shiftUp();
             }
 
         }
         else
         {
-            if (!shift_up())
+            if (!shiftUp())
             {
-                shift_down();
+                shiftDown();
             }
         }
     }
 
-    bool BinaryPattern::shift_down()
+    bool BinaryPattern::shiftDown()
     {
         ofLogVerbose("PATTERNS", "shift_down");
         std::vector<uint8_t> shiftable;
@@ -237,12 +237,12 @@ namespace Vleerhond
         }
         uint8_t idx = shiftable[Rand::randui8((uint8_t)shiftable.size())];
         ofLogVerbose("PATTERNS", "shift_down: %d", idx);
-        this->set_gate(idx, false);
-        this->set_gate(idx + 15, true);
+        this->setGate(idx, false);
+        this->setGate(idx + 15, true);
         return true;
     }
 
-    bool BinaryPattern::shift_up()
+    bool BinaryPattern::shiftUp()
     {
         ofLogVerbose("PATTERNS", "shift_up");
         std::vector<uint8_t> shiftable;
@@ -260,8 +260,8 @@ namespace Vleerhond
         }
         uint8_t idx = shiftable[Rand::randui8((uint8_t)shiftable.size())];
         ofLogVerbose("PATTERNS", "shift_up: {}", idx);
-        this->set_gate(idx, false);
-        this->set_gate(idx + 1, true);
+        this->setGate(idx, false);
+        this->setGate(idx + 1, true);
         return true;
     }
 

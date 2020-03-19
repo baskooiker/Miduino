@@ -38,7 +38,7 @@ namespace Vleerhond
         ApplicationData();
         void probability_randomize();
         void play_all();
-        void process_active_notes();
+        void processActiveNotes();
         void randomize_all();
         void processNoteEvents();
         void handleUserEvents();

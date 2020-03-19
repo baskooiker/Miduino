@@ -22,11 +22,11 @@ namespace Vleerhond
         {
         case 0: 
             pattern.length = 8;
-            pattern.abPattern.set_ab_pattern();
+            pattern.abPattern.randomize();
             break;
         case 1: 
             pattern.length = 16; 
-            pattern.abPattern.set_ab_pattern_const();
+            pattern.abPattern.setConst();
             break;
         }
 
@@ -36,9 +36,9 @@ namespace Vleerhond
             this->pattern.randomize(Rand::randf(.5, 1.0));
             break;
         case 1:
-            pattern.set_all(false);
-            pattern.add_one();
-            pattern.add_one();
+            pattern.setAll(false);
+            pattern.addOne();
+            pattern.addOne();
             break;
         }
 
@@ -53,9 +53,9 @@ namespace Vleerhond
     {
         if (this->pattern.gate(time))
         {
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(pitch, getVelocity()),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             return true;
         }

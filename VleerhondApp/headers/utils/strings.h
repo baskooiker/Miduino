@@ -10,7 +10,7 @@ namespace Vleerhond
     {
     public:
 
-        static std::string get_string(const ScaleType scale)
+        static std::string getString(const ScaleType scale)
         {
             switch (scale)
             {
@@ -25,7 +25,7 @@ namespace Vleerhond
             }
         }
 
-        static std::string get_string(const Root root)
+        static std::string getString(const Root root)
         {
             switch (root)
             {
@@ -58,7 +58,7 @@ namespace Vleerhond
             }
         }
 
-        static const std::string get_string(const MonoStyle style)
+        static const std::string getString(const MonoStyle style)
         {
             switch (style)
             {

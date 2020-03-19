@@ -18,17 +18,17 @@ namespace Vleerhond
             instrument->randomize();
         }
     }
-    std::vector<InstrumentBase*> InstrumentRack::get_ptrs()
+    std::vector<InstrumentBase*> InstrumentRack::getPtrs()
     {
         return { getInstr() };
     }
-    void InstrumentRack::auto_randomize()
+    void InstrumentRack::autoRandomize()
     {
-        return getInstr()->auto_randomize();
+        return getInstr()->autoRandomize();
     }
     void InstrumentRack::select(const uint8_t index)
     {
-        getInstr()->stop_notes();
+        getInstr()->stopNotes();
         getInstr()->kill(false);
         this->selection = index;
     }

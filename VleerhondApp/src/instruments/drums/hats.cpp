@@ -40,20 +40,20 @@ namespace Vleerhond
         ))
         {
         case 0:
-            this->oh_pattern.set_coef_hat_pattern();
+            this->oh_pattern.setCoefHatPattern();
             oh_pattern.length = 16;
             break;
         case 1:
-            oh_pattern.set_euclid(8, 3);
+            oh_pattern.setEuclid(8, 3);
             oh_pattern.length = 8;
-            oh_pattern.abPattern.set_ab_pattern_const(0);
+            oh_pattern.abPattern.setConst(0);
             break;
         case 2:
-            oh_pattern.set_all(false);
+            oh_pattern.setAll(false);
             oh_pattern.length = 8;
-            oh_pattern.add_one();
-            oh_pattern.add_one();
-            oh_pattern.abPattern.set_ab_pattern_const(0);
+            oh_pattern.addOne();
+            oh_pattern.addOne();
+            oh_pattern.abPattern.setConst(0);
             break;
         }
 
@@ -70,10 +70,10 @@ namespace Vleerhond
         {
             for (int step = 0; step < 4; step++)
             {
-                this->hh_pattern.patterns[i].set_gate(step, Utils::gate(four_pat, step));
+                this->hh_pattern.patterns[i].setGate(step, Utils::gate(four_pat, step));
             }
             this->hh_pattern.length = 4;
-            this->hh_pattern.abPattern.set_ab_pattern();
+            this->hh_pattern.abPattern.randomize();
         }
         switch (Rand::distribution(32, 32))
         {
@@ -81,7 +81,7 @@ namespace Vleerhond
         case 1: this->hat_closed_style = HatClosedStyle::HatClosedInterval; break;
         }
 
-        this->hat_int_pattern.randomize_interval_hat();
+        this->hat_int_pattern.randomizeIntervalHat();
         this->hat_velocity.randomize();
     }
 
@@ -92,14 +92,14 @@ namespace Vleerhond
         case HatClosedStyle::HatClosedInterval:
         {
             TimeDivision div = this->hat_int_pattern.interval(time);
-            if (Utils::interval_hit(div, time))
+            if (Utils::intervalHit(div, time))
             {
                 uint8_t shuffle_delay = 0;
                 if (div > TimeDivision::Thirtysecond)
                 {
-                    shuffle_delay = time.get_shuffle_delay(this->timing);
+                    shuffle_delay = time.getShuffleDelay(this->timing);
                 }
-                this->midi_channel->note_on(
+                this->midi_channel->noteOn(
                     NoteStruct(pitch_closed, getVelocity()),
                     shuffle_delay
                 );
@@ -110,9 +110,9 @@ namespace Vleerhond
         case HatClosedStyle::HatClosedRegular:
             if (this->hh_pattern.gate(time))
             {
-                this->midi_channel->note_on(
+                this->midi_channel->noteOn(
                     NoteStruct(pitch_closed, getVelocity()),
-                    time.get_shuffle_delay(this->timing)
+                    time.getShuffleDelay(this->timing)
                 );
                 return true;
             }
@@ -130,9 +130,9 @@ namespace Vleerhond
 
         if (this->oh_pattern.gate(time))
         {
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(pitch_open, getVelocity()),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             return true;
         }

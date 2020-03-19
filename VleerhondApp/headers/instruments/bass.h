@@ -74,7 +74,7 @@ namespace Vleerhond
         virtual void randomize_pitches();
         virtual void randomize_drop();
         virtual void randomize_gates();
-        virtual void randomize_accents();
+        virtual void randomizeAccents();
         virtual void randomize();
         virtual void total_randomize();
         virtual uint8_t get_length();

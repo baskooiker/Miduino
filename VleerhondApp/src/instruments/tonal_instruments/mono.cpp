@@ -65,18 +65,18 @@ namespace Vleerhond
             break;
         }
 
-        this->gate_pattern.set_euclid(length, euclid_steps1);
-        this->gate_pattern.patterns[1].set_euclid(length, euclid_steps2);
+        this->gate_pattern.setEuclid(length, euclid_steps1);
+        this->gate_pattern.patterns[1].setEuclid(length, euclid_steps2);
         this->gate_pattern.length = length;
 
         this->gate_pattern.time_division = TimeDivision::Sixteenth;
 
-        PatternUtils::randomize_slides(this->slide_pattern);
+        PatternUtils::randomizeSlides(this->slide_pattern);
 
-        PatternUtils::randomize_accents(this->accent_pattern);
+        PatternUtils::randomizeAccents(this->accent_pattern);
 
         // Randomize Lead
-        this->lead_pattern.randomize_interval_lead();
+        this->lead_pattern.randomizeIntervalLead();
     }
 
     void Mono::randomize_chaos()
@@ -131,7 +131,7 @@ namespace Vleerhond
         switch (this->style)
         {
         case MonoStyle::MonoSixteenths:
-            return Utils::interval_hit(TimeDivision::Sixteenth, time);
+            return Utils::intervalHit(TimeDivision::Sixteenth, time);
         case MonoStyle::MonoPolyRhythm:
             return this->gate_pattern.gate(time);
         }
@@ -157,7 +157,7 @@ namespace Vleerhond
         else
         {
             pitch = harmony.scale.getPenta(this->pitch_pattern.value(time));
-            pitch = Utils::clip_pitch(pitch, this->getVariablePitchOffset());
+            pitch = Utils::clipPitch(pitch, this->getVariablePitchOffset());
         }
 
         uint8_t octave = Utils::rerange(octave_pattern.value(time), this->octave_range);
@@ -221,7 +221,7 @@ namespace Vleerhond
         NoteInfo new_note_event = getNoteEvent();
         if (new_note_event.hit)
         {
-            this->midi_channel->note_on(new_note_event.note, time.get_shuffle_delay());
+            this->midi_channel->noteOn(new_note_event.note, time.getShuffleDelay());
             return true;
         }
         return false;
@@ -229,7 +229,7 @@ namespace Vleerhond
 
     void Mono::check_arp_reset()
     {
-        if (Utils::interval_hit(this->arp_reset_interval, time))
+        if (Utils::intervalHit(this->arp_reset_interval, time))
         {
             arp_data.counter = 0;
         }
@@ -258,14 +258,14 @@ namespace Vleerhond
 
     void Mono::set_const_sequence()
     {
-        this->pitch_pattern.set_all(0);
-        this->octave_pattern.set_all(0);
+        this->pitch_pattern.setAll(0);
+        this->octave_pattern.setAll(0);
         pitch_pattern.length = 1;
     }
 
     void Mono::set_slow_rhythm()
     {
-        this->gate_pattern.set_all(0);
+        this->gate_pattern.setAll(0);
         this->gate_pattern.set(0, true);
         this->gate_pattern.time_division = TimeDivision::Eighth;
         switch (Rand::distribution(16, 16))
@@ -286,7 +286,7 @@ namespace Vleerhond
     }
     void Mono::disableSlides()
     {
-        this->slide_pattern.set_all(0);
+        this->slide_pattern.setAll(0);
     }
     bool Mono::getPedal()
     {

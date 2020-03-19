@@ -37,7 +37,7 @@ namespace Vleerhond
         void randomize(const TimeStruct time)
         {
 
-            if (!Utils::interval_hit(interval, time))
+            if (!Utils::intervalHit(interval, time))
             {
                 return;
             }
@@ -65,16 +65,16 @@ namespace Vleerhond
             interval_value = TimeDivision::Sixteenth;
         }
 
-        TimeDivision get_interval(const TimeStruct& time)
+        TimeDivision getInterval(const TimeStruct& time)
         {
-            if (Utils::interval_hit(interval, time))
+            if (Utils::intervalHit(interval, time))
             {
                 randomize(time);
             }
             return interval_value;
         }
 
-        NoteStruct repeat_note(const TimeStruct time)
+        NoteStruct repeatNote(const TimeStruct time)
         {
             randomize(time);
             if (gate(time))
@@ -91,7 +91,7 @@ namespace Vleerhond
             }
         }
 
-        void set_repeat_note(const NoteStruct note)
+        void setRepeatNote(const NoteStruct note)
         {
             if (repeated_note.pitch == 0)
             {
@@ -102,7 +102,7 @@ namespace Vleerhond
     protected:
         void randomize(const TimeStruct& time)
         {
-            if (!Utils::interval_hit(interval, time))
+            if (!Utils::intervalHit(interval, time))
             {
                 return;
             }

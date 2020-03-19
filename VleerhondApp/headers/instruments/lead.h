@@ -43,7 +43,7 @@ namespace Vleerhond
             }
             this->arp_data.range = Rand::randui8(12, 24);
 
-            this->pattern_slow.set_coef_slow_pattern();
+            this->pattern_slow.setCoefSlowPattern();
 
             switch (Rand::distribution(16, 16))
             {
@@ -60,12 +60,12 @@ namespace Vleerhond
             switch (this->style)
             {
             case LeadStyle::LeadWhole:
-                hit = Utils::interval_hit(TimeDivision::Whole, time);
+                hit = Utils::intervalHit(TimeDivision::Whole, time);
                 length = TICKS_IN_BAR;
                 break;
             case LeadStyle::LeadSlow:
                 hit = this->pattern_slow.gate(time);
-                length = time.ticks_left_in_bar();
+                length = time.ticksLeftInBar();
                 break;
             }
 
@@ -75,7 +75,7 @@ namespace Vleerhond
 
                 uint8_t chord = harmony.getChordStep(time).root;
                 uint8_t pitch = this->arp_data.getNextArpPitch(harmony.scale, chord);
-                this->midi_channel->note_on(NoteStruct(pitch, 64, length));
+                this->midi_channel->noteOn(NoteStruct(pitch, 64, length));
                 return true;
             }
             return false;

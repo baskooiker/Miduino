@@ -145,7 +145,7 @@ namespace Vleerhond
         }
     }
 
-    void MidiIO::send_note_on(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name)
+    void MidiIO::sendNoteOn(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name)
     {
         for (auto& out : getOutPorts(port_name))
         {
@@ -153,7 +153,7 @@ namespace Vleerhond
         }
     }
 
-    void MidiIO::send_note_off(const uint8_t pitch, const uint8_t channel, const std::string& port_name)
+    void MidiIO::sendNoteOff(const uint8_t pitch, const uint8_t channel, const std::string& port_name)
     {
         for (auto& out : getOutPorts(port_name))
         {
@@ -161,7 +161,7 @@ namespace Vleerhond
         }
     }
 
-    void MidiIO::send_cc(uint8_t cc, uint8_t value, uint8_t channel, const std::string& port_name)
+    void MidiIO::sendCc(uint8_t cc, uint8_t value, uint8_t channel, const std::string& port_name)
     {
         for (auto& out: getOutPorts(port_name))
         {

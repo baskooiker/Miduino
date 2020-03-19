@@ -45,7 +45,7 @@ void Bass::randomize_octaves()
         break;
     case 2: 
         this->variable_octaves.length = 16;
-        octaves.abPattern.set_ab_pattern_const();
+        octaves.abPattern.setConst();
         break;
     }
 }
@@ -81,17 +81,17 @@ void Bass::randomize_drop()
     {
     case 0:
         euclid_pattern.length = 8;
-        euclid_pattern.abPattern.set_ab_pattern();
+        euclid_pattern.abPattern.randomize();
         break;
     case 1:
         euclid_pattern.length = 16;
-        euclid_pattern.abPattern.set_ab_pattern_const();
+        euclid_pattern.abPattern.setConst();
         break;
     }
 
-    euclid_pattern.set_all(false);
-    euclid_pattern.add_one();
-    euclid_pattern.add_one();
+    euclid_pattern.setAll(false);
+    euclid_pattern.addOne();
+    euclid_pattern.addOne();
 }
 
 void Bass::randomize_gates()
@@ -133,9 +133,9 @@ void Bass::randomize_gates()
         case 3: steps = 9;  break;
         case 4: steps = 11;  break;
         }
-        this->euclid_pattern.set_euclid(16, steps);
+        this->euclid_pattern.setEuclid(16, steps);
         this->euclid_pattern.length = 16;
-        this->euclid_pattern.abPattern.set_ab_pattern_const();
+        this->euclid_pattern.abPattern.setConst();
         style = BassStyle::BassEuclid;
         break;
     }
@@ -152,7 +152,7 @@ void Bass::randomize_gates()
         case 1: steps = 5;  break;
         case 2: steps = 7;  break;
         }
-        this->euclid_pattern.set_euclid(8, steps);
+        this->euclid_pattern.setEuclid(8, steps);
         this->euclid_pattern.length = 8;
         style = BassStyle::BassEuclid;
         break;
@@ -160,7 +160,7 @@ void Bass::randomize_gates()
     case 2:
     {
         // Settings interval pattern
-        this->int_pattern.randomize_interval(arp_interval_probs);
+        this->int_pattern.randomizeInterval(arp_interval_probs);
         style = BassStyle::BassArpInterval;
         break;
     }
@@ -177,7 +177,7 @@ void Bass::randomize_gates()
             length = 16;
             break;
         }
-        euclid_pattern.set_diddles(
+        euclid_pattern.setDiddles(
             Rand::randf(
                 settings.diddles.p_min,
                 settings.diddles.p_max
@@ -187,7 +187,7 @@ void Bass::randomize_gates()
         );
         if (length > 8)
         {
-            euclid_pattern.abPattern.set_ab_pattern_const(0);
+            euclid_pattern.abPattern.setConst(0);
         }
         style = BassStyle::BassEuclid;
         break;
@@ -196,11 +196,11 @@ void Bass::randomize_gates()
 
 }
 
-void Bass::randomize_accents()
+void Bass::randomizeAccents()
 {
     ofLogNotice("", "randomize_accents");
-    PatternUtils::randomize_slides(this->slides);
-    PatternUtils::randomize_accents(this->accents);
+    PatternUtils::randomizeSlides(this->slides);
+    PatternUtils::randomizeAccents(this->accents);
 }
 
 void Bass::randomize()
@@ -214,7 +214,7 @@ void Bass::randomize()
     case 0: randomize_octaves(); break;
     case 1: randomize_pitches(); break;
     case 2: randomize_gates(); break;
-    case 3: randomize_accents(); break;
+    case 3: randomizeAccents(); break;
     }
 
 }
@@ -228,7 +228,7 @@ void Bass::total_randomize()
     randomize_octaves();
     randomize_pitches();
     randomize_gates();
-    randomize_accents();
+    randomizeAccents();
 }
 
 bool Bass::get_hit(const uint8_t density, const TimeStruct& time)
@@ -245,7 +245,7 @@ bool Bass::get_hit(const uint8_t density, const TimeStruct& time)
     }
 
     uint8_t prob = this->probs.value(time);
-    bool prob_step = (prob < density) && (prob > 0) && Utils::interval_hit(TimeDivision::Sixteenth, time);
+    bool prob_step = (prob < density) && (prob > 0) && Utils::intervalHit(TimeDivision::Sixteenth, time);
     return hit || prob_step;
 }
 
@@ -262,7 +262,7 @@ uint8_t Bass::get_pitch()
 
         if (this->note_range_value < 64)
         {
-            note_nr = Utils::to_chord_order(pitch_cv);
+            note_nr = Utils::toChordOrder(pitch_cv);
         }
         else
         {
@@ -272,7 +272,7 @@ uint8_t Bass::get_pitch()
             }
             else
             {
-                note_nr = Utils::to_chord_order(pitch_cv);
+                note_nr = Utils::toChordOrder(pitch_cv);
             }
         }
     }
@@ -308,7 +308,7 @@ uint8_t Bass::get_length()
 
     //if (this->slides.gate(time.add(TICKS_PER_STEP)))
     //{
-    //    length = time.ticks_left_in_bar();
+    //    length = time.ticksLeftInBar();
     //    length = TICKS_PER_STEP * 2;
     //}
     //else
@@ -342,14 +342,14 @@ bool Bass::play()
         }
 
         // Play it!
-        this->midi_channel->note_on(
+        this->midi_channel->noteOn(
             NoteStruct(
                 pitch, 
                 this->getVelocity(), 
                 get_length(),
                 NoteType::Tie
             ),
-            time.get_shuffle_delay()
+            time.getShuffleDelay()
         );
         return true;
     }

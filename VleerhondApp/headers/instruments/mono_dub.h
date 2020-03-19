@@ -50,9 +50,9 @@ namespace Vleerhond
                 }
                 note_info.note.pitch = pitch;
 
-                this->midi_channel->note_on(
+                this->midi_channel->noteOn(
                     note_info.note,
-                    time.get_shuffle_delay()
+                    time.getShuffleDelay()
                 );
                 return true;
             }

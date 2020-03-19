@@ -18,7 +18,7 @@ namespace Vleerhond
         ofLogNotice("kick", "randomize");
         InstrumentBase::randomize();
         
-        bd_pattern.set_all(false);
+        bd_pattern.setAll(false);
         for (int i : {0, 4, 8, 12})
         {
             bd_pattern.set(i, true);
@@ -37,7 +37,7 @@ namespace Vleerhond
             ghost_coef.eights = Rand::randf(.0625);
             ghost_coef.up = Rand::randf(.0625);
             ghost_coef.down = Rand::randf(.0625);
-            this->ghost_notes.set_coef_pattern(ghost_coef);
+            this->ghost_notes.setCoefPattern(ghost_coef);
             break;
         }
         case 2:
@@ -51,9 +51,9 @@ namespace Vleerhond
     {
         if (this->bd_pattern.gate(time) && !this->isKilled())
         {
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(this->pitch, getVelocity()),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             return true;
         }
@@ -72,7 +72,7 @@ namespace Vleerhond
 
         //uint8_t bar = this->bd_pattern.abPattern.value(Rand::randui8(4));
         // Always randomize the B part of the pattern
-        this->bd_pattern.patterns[1].set_kick_fill(half * 8);
+        this->bd_pattern.patterns[1].setKickFill(half * 8);
     }
 
 }

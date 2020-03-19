@@ -17,7 +17,7 @@ namespace Vleerhond
         this->pattern[i] = value;
     }
 
-    void CvPattern::set_all(const uint8_t value)
+    void CvPattern::setAll(const uint8_t value)
     {
         for (int i = 0; i < STEPS_IN_BAR; i++)
             this->pattern[i] = value;
@@ -53,7 +53,7 @@ namespace Vleerhond
 
     uint8_t CvPattern16::value(const TimeStruct& time) const
     {
-        return this->value(time.get_count(this->time_division));
+        return this->value(time.getCount(this->time_division));
     }
 
     uint8_t CvPattern16::value(const uint8_t step) const
@@ -61,9 +61,9 @@ namespace Vleerhond
         return this->pattern.value(step % MAX(MIN(this->length, 16), 1));
     }
 
-    void CvPattern16::set_all(const uint8_t value)
+    void CvPattern16::setAll(const uint8_t value)
     {
-        this->pattern.set_all(value);
+        this->pattern.setAll(value);
     }
 
     void CvPattern16::set(const uint8_t index, const uint8_t value)
@@ -82,7 +82,7 @@ namespace Vleerhond
     uint8_t CvPatternAB::value(const TimeStruct& time) const
     {
         uint8_t pat_length = MIN(this->length, 16);
-        uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
+        uint32_t count = time.getCount(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
         return this->value(count);
     }
 
@@ -92,10 +92,10 @@ namespace Vleerhond
         return this->patterns[this->abPattern.value(index / pat_length)].value(index % pat_length);
     }
 
-    void CvPatternAB::set_all(const uint8_t value)
+    void CvPatternAB::setAll(const uint8_t value)
     {
         for (int i = 0; i < 3; i++)
-            this->patterns[i].set_all(value);
+            this->patterns[i].setAll(value);
     }
 
     void CvPatternAB::randomize(const uint8_t max, const uint8_t min)
@@ -104,7 +104,7 @@ namespace Vleerhond
         {
             this->patterns[i].randomize(max, min);
         }
-        this->abPattern.set_ab_pattern();
+        this->abPattern.randomize();
     }
 
     std::string CvPatternAB::toString()

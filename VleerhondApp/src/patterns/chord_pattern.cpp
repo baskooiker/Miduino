@@ -75,7 +75,7 @@ namespace Vleerhond
     ChordStruct ChordPattern::getChord(const TimeStruct & time) const
     {
         // TODO: Vary time division?
-        return ChordStruct(this->value(time), chord_types[time.get_count(TimeDivision::Quarter) % 16]);
+        return ChordStruct(this->value(time), chord_types[time.getCount(TimeDivision::Quarter) % 16]);
     }
 
 }

@@ -10,13 +10,13 @@ protected:
     uint8_t ab_pattern[4];
 
 public:
-    void set_ab_pattern();
+    void randomize();
 
-    void set_ab_pattern_const(const uint8_t value = 0);
+    void setConst(const uint8_t value = 0);
 
-    void set_ab_pattern_low();
+    void setLow();
 
-    void set_ab_pattern_high();
+    void setHigh();
 
     uint8_t value(const uint8_t index) const;
 

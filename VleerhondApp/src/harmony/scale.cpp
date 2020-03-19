@@ -27,13 +27,13 @@ namespace Vleerhond
 
     void Scale::setScale(const ScaleType type_)
     {
-        ofLogNotice("scale", "setScale(%s)", Strings::get_string(type_).c_str());
+        ofLogNotice("scale", "setScale(%s)", Strings::getString(type_).c_str());
         this->type = type_;
     }
 
     void Scale::setRoot(const Root root)
     {
-        ofLogNotice("scale", "setScale(%s)", Strings::get_string(root).c_str());
+        ofLogNotice("scale", "setScale(%s)", Strings::getString(root).c_str());
         this->root = root;
     }
 
@@ -74,7 +74,7 @@ namespace Vleerhond
         uint8_t octave = note_nr / notes.size();
         uint8_t note = notes[(note_nr + chord_step) % notes.size()]; // Actual pitch
         note += (uint8_t)root; // Transpose to correct root note
-        note = Utils::clip_pitch(note, offset, 127);
+        note = Utils::clipPitch(note, offset, 127);
         note += octave * 12; // Transpose octaves
         return note;
     }

@@ -22,11 +22,11 @@ namespace Vleerhond
 
     void ApplicationData::probability_randomize()
     {
-        if (Utils::interval_hit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
+        if (Utils::intervalHit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
         {
             for (InstrumentBase* ptr : get_instrument_ptrs())
             {
-                ptr->auto_randomize();
+                ptr->autoRandomize();
             }
         }
     }
@@ -42,11 +42,11 @@ namespace Vleerhond
         this->handleUserEvents();
     }
 
-    void ApplicationData::process_active_notes()
+    void ApplicationData::processActiveNotes()
     {
         for (InstrumentBase* instrument : get_instrument_ptrs())
         {
-            instrument->getChannel()->process_active_notes();
+            instrument->getChannel()->processActiveNotes();
         }
     }
 
@@ -112,7 +112,7 @@ namespace Vleerhond
     {
         for (auto instrument : get_instrument_ptrs())
         {
-            instrument->stop_notes();
+            instrument->stopNotes();
         }
     }
 

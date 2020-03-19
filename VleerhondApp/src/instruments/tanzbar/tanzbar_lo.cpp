@@ -27,7 +27,7 @@ namespace Vleerhond
     void TanzbarLo::randomize_alternative()
     {
         // clear pattern
-        bd_pattern.set_all(0);
+        bd_pattern.setAll(0);
 
         uint8_t length = 8;
         uint8_t steps = 3;
@@ -43,8 +43,8 @@ namespace Vleerhond
             break;
         }
 
-        bd_pattern.set_euclid(length, steps);
-        bd_pattern.abPattern.set_ab_pattern_const();
+        bd_pattern.setEuclid(length, steps);
+        bd_pattern.abPattern.setConst();
         bd_pattern.length = length;
     }
     bool TanzbarLo::play()
@@ -55,16 +55,16 @@ namespace Vleerhond
         }
 
         bool rv = Kick::play();
-        if (Utils::interval_hit(TimeDivision::Quarter, time))
+        if (Utils::intervalHit(TimeDivision::Quarter, time))
         {
             uint8_t value = 0;
             if (bd2_pitch_mod.value(time, value))
             {
                 getChannel()->sendCC(TB_BD2_TUNE, value);
             }
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(NOTE_TANZBAR_BD2, getVelocity()),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             rv = true;
         }

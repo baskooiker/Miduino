@@ -22,12 +22,12 @@ namespace Vleerhond
         }
     }
 
-    void Lfo::randomize_offset()
+    void Lfo::randomizeOffset()
     {
         this->offset = Rand::randui16(TICKS_IN_BAR);
     }
 
-    void Lfo::randomize_sync_high()
+    void Lfo::randomizeSyncHigh()
     {
         switch (Rand::distribution(8, 8, 8, 8))
         {
@@ -36,10 +36,10 @@ namespace Vleerhond
         case 2: this->rate = TICKS_IN_BAR / 2;
         case 3: this->rate = TICKS_IN_BAR;
         }
-        randomize_offset();
+        randomizeOffset();
     }
 
-    void Lfo::randomize_sync_low()
+    void Lfo::randomizeSyncLow()
     {
         switch (Rand::distribution(8, 8, 8))
         {
@@ -47,19 +47,19 @@ namespace Vleerhond
         case 1: this->rate = TICKS_IN_BAR * 2;
         case 2: this->rate = TICKS_IN_BAR * 4;
         }
-        randomize_offset();
+        randomizeOffset();
     }
 
-    void Lfo::randomize_high()
+    void Lfo::randomizeHigh()
     {
         this->rate = Rand::randui16(TICKS_IN_BAR, TICKS_PER_STEP * 2);
-        randomize_offset();
+        randomizeOffset();
     }
 
-    void Lfo::randomize_low()
+    void Lfo::randomizeLow()
     {
         this->rate = Rand::randui16(TICKS_IN_BAR * 4, TICKS_IN_BAR);
-        randomize_offset();
+        randomizeOffset();
     }
 
     void Lfo::randomize()
@@ -67,10 +67,10 @@ namespace Vleerhond
         ofLogVerbose("modulators", "randomize()");
         switch (Rand::distribution(16, 16, 16, 16))
         {
-        case 0: this->randomize_low(); break;
-        case 1: this->randomize_high(); break;
-        case 2: this->randomize_sync_low(); break;
-        case 3: this->randomize_sync_high(); break;
+        case 0: this->randomizeLow(); break;
+        case 1: this->randomizeHigh(); break;
+        case 2: this->randomizeSyncLow(); break;
+        case 3: this->randomizeSyncHigh(); break;
         }
     }
 

@@ -27,15 +27,15 @@ namespace Vleerhond
             instrument->randomize();
         }
     }
-    std::vector<InstrumentBase*> InstrumentGroup::get_ptrs()
+    std::vector<InstrumentBase*> InstrumentGroup::getPtrs()
     {
         return instruments;
     }
-    void InstrumentGroup::auto_randomize()
+    void InstrumentGroup::autoRandomize()
     {
         for (InstrumentBase* instrument : instruments)
         {
-            instrument->auto_randomize();
+            instrument->autoRandomize();
         }
     }
     void InstrumentGroup::setChannel(std::shared_ptr<MidiChannel> channel)

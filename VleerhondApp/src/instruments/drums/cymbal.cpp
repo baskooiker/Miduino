@@ -25,15 +25,15 @@ namespace Vleerhond
         {
         case 0:
             // NOT USING HIS ONE!
-            this->cy_pattern.set_coef_kick_pattern();
+            this->cy_pattern.setCoefKickPattern();
             this->cy_pattern.length = 16;
             break;
         case 1:
-            this->cy_pattern.set_euclid(8, 3);
+            this->cy_pattern.setEuclid(8, 3);
             this->cy_pattern.length = 8;
             break;
         case 2:
-            this->cy_pattern.set_coef_hat_pattern();
+            this->cy_pattern.setCoefHatPattern();
             this->cy_pattern.length = 16;
             break;
         }
@@ -50,9 +50,9 @@ namespace Vleerhond
         // Play Cymbal
         if (this->cy_pattern.gate(time) && !isKilled())
         {
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(pitch, getVelocity()),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             return true;
         }

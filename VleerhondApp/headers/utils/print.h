@@ -9,7 +9,7 @@
 
 namespace Vleerhond
 {
-    void print_pattern(const BinaryPattern& pattern, const uint8_t length)
+    void printPattern(const BinaryPattern& pattern, const uint8_t length)
     {
         for (int i = 0; i < length; i++)
         {
@@ -18,16 +18,16 @@ namespace Vleerhond
         printf("\n");
     }
 
-    void print_pattern(const GatePatternAB& pattern)
+    void printPattern(const GatePatternAB& pattern)
     {
         for (int i = 0; i < 4; i++)
         {
-            print_pattern(pattern.patterns[pattern.abPattern.value(i)], 16);
+            printPattern(pattern.patterns[pattern.abPattern.value(i)], 16);
         }
         printf("\n");
     }
 
-    void print_pattern(const CvPattern& pattern)
+    void printPattern(const CvPattern& pattern)
     {
         for (int i = 0; i < 16; i++)
         {
@@ -36,22 +36,22 @@ namespace Vleerhond
         printf("\n");
     }
 
-    void print_pattern(const CvPattern16& pattern)
+    void printPattern(const CvPattern16& pattern)
     {
-        print_pattern(pattern.pattern);
+        printPattern(pattern.pattern);
         printf("\n");
     }
 
-    void print_pattern(const CvPatternAB& pattern)
+    void printPattern(const CvPatternAB& pattern)
     {
         for (int i = 0; i < 4; i++)
         {
-            print_pattern(pattern.patterns[pattern.abPattern.value(i)]);
+            printPattern(pattern.patterns[pattern.abPattern.value(i)]);
         }
         printf("\n");
     }
 
-    void print_pattern(const IntervalPattern& pattern)
+    void printPattern(const IntervalPattern& pattern)
     {
         for (int i = 0; i < pattern.length; i++)
         {
@@ -60,7 +60,7 @@ namespace Vleerhond
         printf("\n");
     }
 
-    void print_scale(const Scale& scale)
+    void printScale(const Scale& scale)
     {
         std::vector<uint8_t> notes = scale.getScaleNotes();
         printf("Root = %d\n", scale.root);

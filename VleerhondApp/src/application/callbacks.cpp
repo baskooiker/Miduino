@@ -15,7 +15,7 @@ namespace Vleerhond
             return;
         }
 
-        if (Utils::interval_hit(TimeDivision::Quarter, data.time))
+        if (Utils::intervalHit(TimeDivision::Quarter, data.time))
         {
             uint32_t now = Utils::millis();
             if (data.time.last_pulse_time > 0)
@@ -35,11 +35,11 @@ namespace Vleerhond
             data.time.last_pulse_time = now;
         }
 
-        if (Utils::interval_hit(TimeDivision::Sixteenth, data.time))
+        if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
         {
             data.updatePedalState();
         }
-        data.process_active_notes();
+        data.processActiveNotes();
         data.play_all();
 
         data.time.tick += 1;
@@ -145,7 +145,7 @@ namespace Vleerhond
                     for (auto& inst : data.tanzbar.getLow())
                         inst->randomize();
                 }
-                data.time.randomize_shuffle();
+                data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;
@@ -164,7 +164,7 @@ namespace Vleerhond
                 for (auto& inst : data.drumstation.getMid())
                     inst->randomize();
 
-                data.time.randomize_shuffle();
+                data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;
@@ -193,7 +193,7 @@ namespace Vleerhond
                 for (auto& inst : data.drumstation.getHigh())
                     inst->randomize();
 
-                data.time.randomize_shuffle();
+                data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;

@@ -16,14 +16,14 @@ namespace Vleerhond
 
     bool GatePatternAB::gate(const TimeStruct& time) const
     {
-        if (!Utils::interval_hit(this->time_division, time)) return false;
+        if (!Utils::intervalHit(this->time_division, time)) return false;
 
         uint8_t pat_length = MIN(this->length, 16);
-        uint32_t count = time.get_count(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
+        uint32_t count = time.getCount(this->time_division) % (this->length <= 16 ? pat_length * 4 : 64);
         return this->patterns[this->abPattern.value(count / pat_length)].gate(count % pat_length);
     }
 
-    void GatePatternAB::set_all(bool _value)
+    void GatePatternAB::setAll(bool _value)
     {
         uint8_t value = _value ? 0xFF : 0x00;
         for (int i = 0; i < 3; i++)
@@ -34,24 +34,24 @@ namespace Vleerhond
     {
         for (int i = 0; i < 3; i++)
         {
-            this->patterns[i].set_gate(index, _value);
+            this->patterns[i].setGate(index, _value);
         }
     }
 
-    void GatePatternAB::set_gates_low()
+    void GatePatternAB::setGatesLow()
     {
         for (int i = 0; i < 3; i++)
         {
-            this->patterns[i].set_gates_low();
+            this->patterns[i].setGatesLow();
         }
-        this->abPattern.set_ab_pattern();
+        this->abPattern.randomize();
     }
 
     void GatePatternAB::randomize(const float prob)
     {
         for (int i = 0; i < 3; i++)
             this->patterns[i].randomize(prob);
-        this->abPattern.set_ab_pattern();
+        this->abPattern.randomize();
     }
 
     void GatePatternAB::randomize_mask_pattern()
@@ -61,7 +61,7 @@ namespace Vleerhond
             uint8_t from = Rand::randui8(4, 7);
             for (int step = 0; step < 8; step++)
             {
-                this->patterns[i].set_gate(step, step > from);
+                this->patterns[i].setGate(step, step > from);
             }
         }
 
@@ -79,35 +79,35 @@ namespace Vleerhond
             this->time_division = TimeDivision::Sixteenth;
         }
         this->length = 8;
-        this->abPattern.set_ab_pattern();
+        this->abPattern.randomize();
     }
 
-    void GatePatternAB::set_euclid(const uint8_t length, const uint8_t steps)
+    void GatePatternAB::setEuclid(const uint8_t length, const uint8_t steps)
     {
         for (int i = 0; i < 3; i++)
         {
-            this->patterns[i].set_euclid(length, steps);
+            this->patterns[i].setEuclid(length, steps);
         }
-        this->abPattern.set_ab_pattern();
+        this->abPattern.randomize();
     }
 
-    void GatePatternAB::set_diddles(const float f, const bool starts_with, const uint8_t length)
+    void GatePatternAB::setDiddles(const float f, const bool starts_with, const uint8_t length)
     {
         for (int i = 0; i < 3; i++)
         {
-            this->patterns[i].set_diddles(f, starts_with, length);
+            this->patterns[i].setDiddles(f, starts_with, length);
         }
-        this->abPattern.set_ab_pattern();
+        this->abPattern.randomize();
     }
 
-    void GatePatternAB::set_coef_pattern(const Coefficients coef)
+    void GatePatternAB::setCoefPattern(const Coefficients coef)
     {
         for (int i = 0; i < 3; i++)
-            this->patterns[i].set_coef_pattern(coef);
-        this->abPattern.set_ab_pattern();
+            this->patterns[i].setCoefPattern(coef);
+        this->abPattern.randomize();
     }
 
-    void GatePatternAB::set_coef_kick_pattern()
+    void GatePatternAB::setCoefKickPattern()
     {
         Coefficients coef = { 0 };
         coef.one = 1.f;
@@ -117,10 +117,10 @@ namespace Vleerhond
         coef.eights = Rand::randf(.25);
         coef.up = Rand::randf(.125);
         coef.down = Rand::randf(.125);
-        set_coef_pattern(coef);
+        setCoefPattern(coef);
     }
 
-    void GatePatternAB::set_coef_snare_pattern()
+    void GatePatternAB::setCoefSnarePattern()
     {
         Coefficients coef = { 0 };
         coef.two = Rand::randf(.5f, .75f);
@@ -128,41 +128,41 @@ namespace Vleerhond
         coef.eights = Rand::randf(.125);
         coef.up = Rand::randf(.125);
         coef.down = Rand::randf(.125);
-        set_coef_pattern(coef);
+        setCoefPattern(coef);
     }
 
-    void GatePatternAB::set_coef_hat_pattern()
+    void GatePatternAB::setCoefHatPattern()
     {
         Coefficients coef = { 0 };
         coef.eights = 1.f;
         coef.up = Rand::randf(.125);
         coef.down = Rand::randf(.125);
-        set_coef_pattern(coef);
+        setCoefPattern(coef);
     }
 
-    void GatePatternAB::set_coef_slow_pattern()
+    void GatePatternAB::setCoefSlowPattern()
     {
         Coefficients coef = { 0 };
         coef.one = 1.f;
         coef.two = Rand::randf(.5f, 1.f);
         coef.three = Rand::randf(.5f, 1.f);
         coef.four = Rand::randf(.5f, 1.f);
-        this->set_coef_pattern(coef);
+        this->setCoefPattern(coef);
     }
 
-    void GatePatternAB::add_one()
+    void GatePatternAB::addOne()
     {
         for (int i = 0; i < 3; i++)
         {
-            patterns[i].add_one(this->length);
+            patterns[i].addOne(this->length);
         }
     }
 
-    void GatePatternAB::remove_one()
+    void GatePatternAB::removeOne()
     {
         for (int i = 0; i < 3; i++)
         {
-            patterns[i].remove_one(this->length);
+            patterns[i].removeOne(this->length);
         }
     }
 

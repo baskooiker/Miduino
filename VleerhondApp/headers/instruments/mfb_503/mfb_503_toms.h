@@ -45,7 +45,7 @@ namespace Vleerhond
             uint8_t nr_notes = Rand::randui8(2, 4);
             penta_notes.clear();
             uint8_t notes[] = {0, 1, 2, 3, 4};
-            Utils::randomize_order(notes, 5);
+            Utils::randomizeOrder(notes, 5);
             for (int i = 0; i < nr_notes; i++)
             {
                 penta_notes.push_back(notes[i]);
@@ -70,7 +70,7 @@ namespace Vleerhond
             uint8_t prob = tom_pattern.value(time);
             uint8_t penta = penta_notes.at(prob % penta_notes.size());
             uint8_t penta_pitch = harmony.scale.getPenta(penta);
-            return Utils::clip_pitch(penta_pitch, NOTE_503_TOM_MIN, NOTE_503_TOM_MAX);
+            return Utils::clipPitch(penta_pitch, NOTE_503_TOM_MIN, NOTE_503_TOM_MAX);
         }
     };
 }

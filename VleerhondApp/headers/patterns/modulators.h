@@ -12,11 +12,11 @@ namespace Vleerhond
 
         Lfo();
         uint8_t value(const TimeStruct& time) const;
-        void randomize_offset();
-        void randomize_sync_high();
-        void randomize_sync_low();
-        void randomize_high();
-        void randomize_low();
+        void randomizeOffset();
+        void randomizeSyncHigh();
+        void randomizeSyncLow();
+        void randomizeHigh();
+        void randomizeLow();
         void randomize();
     };
 

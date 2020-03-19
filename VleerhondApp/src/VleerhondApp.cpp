@@ -85,11 +85,11 @@ namespace Vleerhond
             for (int i = 0; i < bars * 16 * TICKS_PER_STEP; i++)
             {
                 // From clock callback
-                if (Utils::interval_hit(TimeDivision::Sixteenth, data.time))
+                if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
                 {
                     data.updatePedalState();
                 }
-                data.process_active_notes();
+                data.processActiveNotes();
                 data.play_all();
                 data.time.tick += 1;
             }
@@ -98,10 +98,10 @@ namespace Vleerhond
             // Flush active notes
             for (int i = 0; i < (16 * 6); i++)
             {
-                data.process_active_notes();
+                data.processActiveNotes();
             }
 
-            console_midi_channel->print_storage();
+            console_midi_channel->printStorage();
             console_midi_channel->print();
 
             ofExit(0);

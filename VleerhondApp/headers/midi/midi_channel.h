@@ -23,24 +23,24 @@ namespace Vleerhond
         uint8_t channel = -1;
         uint8_t cc_channel = -1;
 
-        virtual void _send_note_on(const uint8_t pitch, const uint8_t velocity);
-        virtual void _send_note_off(const uint8_t pitch);
+        virtual void _sendNoteOn(const uint8_t pitch, const uint8_t velocity);
+        virtual void _sendNoteOff(const uint8_t pitch);
 
     public:
         MidiChannel(const uint8_t channel, const std::string& port_name);
         MidiChannel(const uint8_t channel, const uint8_t cc_channel, const std::string& port_name);
         virtual void processNoteEvents();
-        virtual void note_off(uint8_t pitch);
-        virtual void note_on(const NoteStruct& note);
-        virtual void note_on(const NoteStruct& note, const uint32_t delay);
-        virtual void note_on(const NoteStruct* notes, const uint8_t length);
-        virtual void add_to_storage(const NoteStruct& note);
-        virtual NoteStruct pop_from_storage(uint8_t pitch);
-        virtual void process_active_notes();
-        virtual void untie_notes();
-        virtual void all_notes_off();
-        virtual void print_storage();
-        virtual void set_pedal(const bool value);
+        virtual void noteOff(uint8_t pitch);
+        virtual void noteOn(const NoteStruct& note);
+        virtual void noteOn(const NoteStruct& note, const uint32_t delay);
+        virtual void noteOn(const NoteStruct* notes, const uint8_t length);
+        virtual void addToStorage(const NoteStruct& note);
+        virtual NoteStruct popFromStorage(uint8_t pitch);
+        virtual void processActiveNotes();
+        virtual void untieNotes();
+        virtual void allNotesOff();
+        virtual void printStorage();
+        virtual void setPedal(const bool value);
         virtual bool getPedal();
 
         // TODO: Remove when obsolete

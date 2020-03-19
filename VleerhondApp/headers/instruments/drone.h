@@ -24,13 +24,13 @@ namespace Vleerhond
             last_randomized_time = Utils::millis();
 
             uint8_t steps = Rand::randui8(5, 10);
-            gate_pattern.set_euclid(16, steps);
+            gate_pattern.setEuclid(16, steps);
             if (Rand::distribution(16, 16))
             {
-                gate_pattern.remove_one();
+                gate_pattern.removeOne();
             }
 
-            interval_pattern.set_all(0);
+            interval_pattern.setAll(0);
             for (int i = 0; i < 3; i++)
             {
                 uint8_t fill_start = Rand::randui8(5, 8);
@@ -74,9 +74,9 @@ namespace Vleerhond
                     Utils::rerange(this->variable_pitch_range, 36, 48),
                     chord_step
                 );
-                midi_channel->note_on(
-                    NoteStruct(pitch, this->getVelocity(), time.ticks_left_in_bar(), NoteType::Tie),
-                    time.get_shuffle_delay()
+                midi_channel->noteOn(
+                    NoteStruct(pitch, this->getVelocity(), time.ticksLeftInBar(), NoteType::Tie),
+                    time.getShuffleDelay()
                 ); 
                 return true;
             }

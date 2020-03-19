@@ -38,7 +38,7 @@ namespace Vleerhond
 
         virtual bool play()
         {
-            pitch = Utils::clip_pitch(harmony.getChordStep(time).root, NOTE_503_BD_MIN, NOTE_503_BD_MAX);
+            pitch = Utils::clipPitch(harmony.getChordStep(time).root, NOTE_503_BD_MIN, NOTE_503_BD_MAX);
             return Kick::play();
         }
 
@@ -52,7 +52,7 @@ namespace Vleerhond
         {
             //printf("Mfb503Kick::getVelocity()\n");
 
-            bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
+            bool quarter_hit = Utils::intervalHit(TimeDivision::Quarter, time);
             uint16_t velocity = quarter_hit ? 127 : 96;
             return (uint8_t)(((uint16_t)volume * velocity) / 127);
         }

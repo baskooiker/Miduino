@@ -39,13 +39,13 @@ namespace Vleerhond
             break;
         case 1:
         {
-            tom_pattern.set_all(0);
+            tom_pattern.setAll(0);
             int length = 8;
             if (pitches.size() < 4)
             {
                 length = Rand::randf() < .5 ? 8 : 16;
             }
-            tom_pattern.abPattern.set_ab_pattern_const();
+            tom_pattern.abPattern.setConst();
             for (int i = 0; i < pitches.size(); i++)
             {
                 std::vector<uint8_t> opts;
@@ -82,12 +82,12 @@ namespace Vleerhond
 
         // Play toms
         uint8_t tom_prob = this->tom_pattern.value(time);
-        if (Utils::interval_hit(TimeDivision::Sixteenth, time)
+        if (Utils::intervalHit(TimeDivision::Sixteenth, time)
             && tom_prob > 0)
         {
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(get_pitch(time), getVelocity()),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             return true;
         }

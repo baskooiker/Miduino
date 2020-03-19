@@ -46,7 +46,7 @@ namespace Vleerhond
 
         // Randomize Interval Pattern
         //IntervalProbs interval_probs(0, Rand::randui8(16), 32);
-        interval_pattern.randomize_interval(IntervalProbs(0, 0, 32));
+        interval_pattern.randomizeInterval(IntervalProbs(0, 0, 32));
         interval_pattern.length = pow(Rand::randui8(3, 5), 2);
 
         // Modulators
@@ -66,9 +66,9 @@ namespace Vleerhond
             decay_mod.value(time, value);
             getChannel()->sendCC(TB_MA_Decay, Utils::quad(value) / 2);
 
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(NOTE_TANZBAR_MA, Utils::rerange(this->ma_pattern.value(time), 96, 16)),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             return true;
         }

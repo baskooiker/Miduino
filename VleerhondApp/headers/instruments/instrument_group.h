@@ -16,9 +16,9 @@ public:
 
     void randomize();
 
-    virtual std::vector<InstrumentBase*> get_ptrs();
+    virtual std::vector<InstrumentBase*> getPtrs();
 
-    virtual void auto_randomize();
+    virtual void autoRandomize();
 
     virtual void setChannel(std::shared_ptr<MidiChannel> channel);
     virtual std::shared_ptr<MidiChannel> getChannel();

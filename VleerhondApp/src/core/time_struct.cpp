@@ -21,7 +21,7 @@ namespace Vleerhond
         return this->tick / TICKS_PER_STEP;
     }
 
-    uint32_t TimeStruct::get_shuffle_delay(
+    uint32_t TimeStruct::getShuffleDelay(
         const int8_t shuffle_offset,
         const uint8_t global_delay) const
     {
@@ -38,17 +38,17 @@ namespace Vleerhond
             return delay;
     }
 
-    uint32_t TimeStruct::get_shuffle_delay(const MicroTimingStruct& micro) const
+    uint32_t TimeStruct::getShuffleDelay(const MicroTimingStruct& micro) const
     {
-        return this->get_shuffle_delay(micro.shuffle_off, micro.delay);
+        return this->getShuffleDelay(micro.shuffle_off, micro.delay);
     }
 
-    uint32_t TimeStruct::get_count(const TimeDivision time_division) const
+    uint32_t TimeStruct::getCount(const TimeDivision time_division) const
     {
         return this->tick / (uint32_t)time_division;
     }
 
-    void TimeStruct::randomize_shuffle()
+    void TimeStruct::randomizeShuffle()
     {
         const int8_t rand_range = 32;
         int8_t min_ = MAX((int8_t)this->global_shuffle - rand_range, 0);
@@ -57,7 +57,7 @@ namespace Vleerhond
         ofLogNotice("time", "shuffle = %d", this->global_shuffle);
     }
 
-    uint8_t TimeStruct::ticks_left_in_bar() const
+    uint8_t TimeStruct::ticksLeftInBar() const
     {
         uint32_t tick_in_local_bar = this->tick % TICKS_IN_BAR;
         return TICKS_IN_BAR - tick_in_local_bar;

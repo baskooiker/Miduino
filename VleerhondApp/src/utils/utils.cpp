@@ -23,7 +23,7 @@ namespace Vleerhond
             }
         }
 
-        void randomize_order(uint8_t* array, uint8_t length)
+        void randomizeOrder(uint8_t* array, uint8_t length)
         {
             for (uint8_t i = 0; i < length; i++)
             {
@@ -31,7 +31,7 @@ namespace Vleerhond
             }
         }
 
-        void find_item(const uint8_t item, const uint8_t* array, const uint8_t length, uint8_t& idx)
+        void findItem(const uint8_t item, const uint8_t* array, const uint8_t length, uint8_t& idx)
         {
             for (uint8_t i = 0; i < length; i++)
             {
@@ -43,7 +43,7 @@ namespace Vleerhond
             }
         }
 
-        NoteInterval random_note_interval()
+        NoteInterval randomNoteInterval()
         {
             switch (Rand::distribution(16, 16, 16))
             {
@@ -64,7 +64,7 @@ namespace Vleerhond
             array[y] = mem;
         }
 
-        void randomize_order(NoteInterval* array, uint8_t length)
+        void randomizeOrder(NoteInterval* array, uint8_t length)
         {
             for (uint8_t i = 0; i < length; i++)
             {
@@ -108,7 +108,7 @@ namespace Vleerhond
             return (value >> (index % length)) & 0x1;
         }
 
-        uint8_t to_chord_order(const uint8_t order)
+        uint8_t toChordOrder(const uint8_t order)
         {
             if (order < 2)
                 return 0;
@@ -119,19 +119,19 @@ namespace Vleerhond
             return 0;
         }
 
-        uint8_t clip_pitch(const uint8_t pitch, const uint8_t minimum, uint8_t maximum)
+        uint8_t clipPitch(const uint8_t pitch, const uint8_t minimum, uint8_t maximum)
         {
             maximum = MAX(minimum + 12, maximum);
             if (pitch < minimum)
-                return clip_pitch(pitch + 12, minimum, maximum);
+                return clipPitch(pitch + 12, minimum, maximum);
             if (pitch >= maximum)
-                return clip_pitch(pitch - 12, minimum, maximum);
+                return clipPitch(pitch - 12, minimum, maximum);
             return pitch;
         }
 
-        uint8_t clip_pitch(const uint8_t pitch, const uint8_t min)
+        uint8_t clipPitch(const uint8_t pitch, const uint8_t min)
         {
-            return clip_pitch(pitch, min, min + 12);
+            return clipPitch(pitch, min, min + 12);
         }
 
         uint8_t quad(const uint8_t v)
@@ -145,7 +145,7 @@ namespace Vleerhond
             return (uint8_t)(127.9 * log(((double)v / 127.)));
         }
 
-        bool interval_hit(const TimeDivision time_division, const TimeStruct& time)
+        bool intervalHit(const TimeDivision time_division, const TimeStruct& time)
         {
             return time.tick % (uint32_t)time_division == 0;
         }

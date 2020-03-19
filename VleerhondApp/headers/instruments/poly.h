@@ -37,12 +37,12 @@ namespace Vleerhond
             last_randomized_time = Utils::millis();
 
             // Set pattern low
-            this->gates_low.set_gates_low();
+            this->gates_low.setGatesLow();
 
             // Set pattern high
             uint8_t steps = Rand::randui8(5, 11);
-            this->gates.set_euclid(16, steps);
-            this->gates.abPattern.set_ab_pattern();
+            this->gates.setEuclid(16, steps);
+            this->gates.abPattern.randomize();
 
             // Set Tie Pattern
             this->tie_pattern.randomize(Rand::randf(.1f, .4f));
@@ -82,7 +82,7 @@ namespace Vleerhond
                 if (this->tie_pattern.gate(time)
                     || this->type == PolyType::PolyLow)
                 {
-                    length = time.ticks_left_in_bar();
+                    length = time.ticksLeftInBar();
                 }
 
                 NoteStruct note_structs[MAX_CHORD_NOTES];
@@ -94,7 +94,7 @@ namespace Vleerhond
                     note_structs[i].length = length;
                 }
 
-                this->getChannel()->note_on(note_structs, chord_notes.size());
+                this->getChannel()->noteOn(note_structs, chord_notes.size());
             }
         }
     };

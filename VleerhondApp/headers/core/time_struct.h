@@ -19,13 +19,13 @@ namespace Vleerhond
     public:
         TimeStruct();
         uint32_t step() const;
-        uint32_t get_shuffle_delay(
+        uint32_t getShuffleDelay(
             const int8_t shuffle_offset = 0,
             const uint8_t global_delay = 0) const;
-        uint32_t get_shuffle_delay(const MicroTimingStruct& micro) const;
-        uint32_t get_count(const TimeDivision time_division) const;
-        void randomize_shuffle();
-        uint8_t ticks_left_in_bar() const;
+        uint32_t getShuffleDelay(const MicroTimingStruct& micro) const;
+        uint32_t getCount(const TimeDivision time_division) const;
+        void randomizeShuffle();
+        uint8_t ticksLeftInBar() const;
         void reset();
         TimeStruct add(const int32_t offset);
     };

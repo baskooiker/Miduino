@@ -24,11 +24,11 @@ namespace Vleerhond
         {
         case 0: // Coef
             //ofLogNotice("", "randomize snare coef");
-            this->pattern.set_coef_snare_pattern();
+            this->pattern.setCoefSnarePattern();
             break;
         case 1: // Off
             //ofLogNotice("", "randomize snare off");
-            this->pattern.set_all(0);
+            this->pattern.setAll(0);
             this->pattern.set(4, true);
             this->pattern.set(12, true);
             break;
@@ -50,7 +50,7 @@ namespace Vleerhond
     void Snare::play_roll(const TimeStruct& time)
     {
         static TimeDivision division = TimeDivision::Sixteenth;
-        if (Utils::interval_hit(TimeDivision::Sixteenth, time))
+        if (Utils::intervalHit(TimeDivision::Sixteenth, time))
         {
             uint8_t r = Rand::randui8(16);
             if (r < 3)
@@ -63,11 +63,11 @@ namespace Vleerhond
             }
         }
 
-        if (Utils::interval_hit(division, time))
+        if (Utils::intervalHit(division, time))
         {
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(pitch, getVelocity()),
-                time.get_shuffle_delay()
+                time.getShuffleDelay()
             );
         }
     }
@@ -82,9 +82,9 @@ namespace Vleerhond
         // Play snare
         if (this->pattern.gate(time) && !this->isKilled())
         {
-            this->midi_channel->note_on(
+            this->midi_channel->noteOn(
                 NoteStruct(pitch, getVelocity()),
-                time.get_shuffle_delay(this->timing)
+                time.getShuffleDelay(this->timing)
             );
             return true;
         }
