@@ -66,7 +66,7 @@ namespace Vleerhond
         if (Utils::interval_hit(division, time))
         {
             this->midi_channel->note_on(
-                NoteStruct(pitch, get_velocity()),
+                NoteStruct(pitch, getVelocity()),
                 time.get_shuffle_delay()
             );
         }
@@ -83,7 +83,7 @@ namespace Vleerhond
         if (this->pattern.gate(time) && !this->isKilled())
         {
             this->midi_channel->note_on(
-                NoteStruct(pitch, get_velocity()),
+                NoteStruct(pitch, getVelocity()),
                 time.get_shuffle_delay(this->timing)
             );
             return true;
@@ -91,7 +91,7 @@ namespace Vleerhond
         return false;
     }
 
-    uint8_t Snare::get_velocity()
+    uint8_t Snare::getVelocity()
     {
         // TODO: use modulator
         return 127;

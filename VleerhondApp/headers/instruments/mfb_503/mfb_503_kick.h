@@ -48,9 +48,9 @@ namespace Vleerhond
             getChannel()->sendCC(BD_LEVEL, value);
         }
 
-        virtual uint8_t get_velocity()
+        virtual uint8_t getVelocity()
         {
-            //printf("Mfb503Kick::get_velocity()\n");
+            //printf("Mfb503Kick::getVelocity()\n");
 
             bool quarter_hit = Utils::interval_hit(TimeDivision::Quarter, time);
             uint16_t velocity = quarter_hit ? 127 : 96;

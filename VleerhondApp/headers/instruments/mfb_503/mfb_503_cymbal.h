@@ -42,9 +42,9 @@ namespace Vleerhond
             getChannel()->sendCC(MFB_503_CY_LEVEL, value);
         }
 
-        virtual uint8_t get_velocity()
+        virtual uint8_t getVelocity()
         {
-            return (uint8_t)(((uint16_t)volume * (uint16_t)Cymbal::get_velocity()) / 127);
+            return (uint8_t)(((uint16_t)volume * (uint16_t)Cymbal::getVelocity()) / 127);
         }
     };
 }

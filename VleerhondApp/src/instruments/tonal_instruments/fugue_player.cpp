@@ -61,7 +61,7 @@ namespace Vleerhond
                 uint8_t note_step = this->fugue.pattern.value(c);
 
                 uint8_t pitch_offset = Utils::rerange(this->manual_pitch_offset, 36, this->pitch_offset);
-                uint8_t pitch = harmony.scale.apply_scale_offset(
+                uint8_t pitch = harmony.scale.applyScaleOffset(
                     note_step,
                     pitch_offset,
                     (uint8_t)this->note_interval

@@ -148,7 +148,7 @@ namespace Vleerhond
         {
             int note_nr = harmony.getChordStep(time).root;
 
-            pitch = harmony.scale.apply_scale_offset(
+            pitch = harmony.scale.applyScaleOffset(
                 0,
                 this->getVariablePitchOffset(),
                 harmony.getChordStep(time).root
@@ -190,7 +190,7 @@ namespace Vleerhond
         return this->arp_data.getArpPitch();
     }
 
-    NoteInfo Mono::get_note_event()
+    NoteInfo Mono::getNoteEvent()
     {
         if (time.tick != note_event.tick)
         {
@@ -200,7 +200,7 @@ namespace Vleerhond
             {
                 note_event.note = NoteStruct(
                     this->get_next_mono_pitch(), 
-                    get_velocity(), 
+                    getVelocity(), 
                     12, 
                     NoteType::Tie
                 );
@@ -218,7 +218,7 @@ namespace Vleerhond
             return false;
         }
 
-        NoteInfo new_note_event = get_note_event();
+        NoteInfo new_note_event = getNoteEvent();
         if (new_note_event.hit)
         {
             this->midi_channel->note_on(new_note_event.note, time.get_shuffle_delay());
@@ -275,7 +275,7 @@ namespace Vleerhond
         }
     }
 
-    uint8_t Mono::get_velocity()
+    uint8_t Mono::getVelocity()
     {
         // TODO: variation on min/max velocity
         if (accent_pattern.gate(time))

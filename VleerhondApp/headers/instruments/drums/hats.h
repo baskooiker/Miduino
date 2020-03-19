@@ -42,6 +42,6 @@ namespace Vleerhond
         virtual bool play_hats_closed();
         virtual bool play_hats_open();
         virtual bool play();
-        virtual uint8_t get_velocity();
+        virtual uint8_t getVelocity();
     };
 }

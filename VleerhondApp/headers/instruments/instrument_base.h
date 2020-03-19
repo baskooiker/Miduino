@@ -35,7 +35,7 @@ namespace Vleerhond
         virtual void processNoteEvents();
         virtual void stop_notes();
         virtual uint32_t randomized_time();
-        virtual uint8_t get_velocity();
+        virtual uint8_t getVelocity();
         virtual std::vector<InstrumentBase*> get_ptrs();
         virtual void check_auto_randomize();
         virtual void auto_randomize();

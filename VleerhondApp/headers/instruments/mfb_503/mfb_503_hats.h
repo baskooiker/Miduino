@@ -40,7 +40,7 @@ namespace Vleerhond
             getChannel()->sendCC(HH_LEVEL, value);
         }
 
-        uint8_t get_velocity()
+        uint8_t getVelocity()
         {
             uint16_t velocity = 63;
             if ((time.tick / TICKS_PER_STEP) % 4 == 2)

@@ -54,7 +54,7 @@ namespace Vleerhond
         Bass::total_randomize();
     }
 
-    uint8_t MoogBass::get_velocity()
+    uint8_t MoogBass::getVelocity()
     {
         return this->accents.gate(this->time) ? 127 : 64;
     }

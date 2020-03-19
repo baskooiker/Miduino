@@ -34,7 +34,7 @@ namespace Vleerhond
             note_range_value = Rand::randui8(16, 56);
         }
 
-        uint8_t get_velocity()
+        uint8_t getVelocity()
         {
             if (this->accents.gate(this->time))
             {

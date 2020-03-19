@@ -60,9 +60,9 @@ namespace Vleerhond
             getChannel()->sendCC(MFB_503_HT_LEVEL, value);
         }
 
-        virtual uint8_t get_velocity()
+        virtual uint8_t getVelocity()
         {
-            return (uint8_t)(((uint16_t)volume * (uint16_t)Toms::get_velocity()) / 127);
+            return (uint8_t)(((uint16_t)volume * (uint16_t)Toms::getVelocity()) / 127);
         }
 
         virtual uint8_t get_pitch(const TimeStruct& time)

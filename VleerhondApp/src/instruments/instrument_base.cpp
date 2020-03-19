@@ -50,7 +50,7 @@ namespace Vleerhond
         return last_randomized_time;
     }
 
-    uint8_t InstrumentBase::get_velocity()
+    uint8_t InstrumentBase::getVelocity()
     {
         return 100;
     }

@@ -51,7 +51,7 @@ namespace Vleerhond
         if (this->cy_pattern.gate(time) && !isKilled())
         {
             this->midi_channel->note_on(
-                NoteStruct(pitch, get_velocity()),
+                NoteStruct(pitch, getVelocity()),
                 time.get_shuffle_delay(this->timing)
             );
             return true;
@@ -59,7 +59,7 @@ namespace Vleerhond
         return false;
     }
 
-    uint8_t Cymbal::get_velocity()
+    uint8_t Cymbal::getVelocity()
     {
         uint8_t velocity = 100;
         this->cy_vel.value(time, velocity);

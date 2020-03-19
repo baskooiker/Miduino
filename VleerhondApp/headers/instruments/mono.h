@@ -66,7 +66,7 @@ namespace Vleerhond
         uint8_t get_sequence_pitch() const;
         uint8_t get_next_mono_pitch();
         uint8_t get_mono_pitch() const;
-        NoteInfo get_note_event();
+        NoteInfo getNoteEvent();
         bool play();
         void check_arp_reset();
         void set_arp_type(ArpType arp_type);
@@ -75,7 +75,7 @@ namespace Vleerhond
         void set_arp_range(const int range);
         void set_const_sequence();
         void set_slow_rhythm();
-        virtual uint8_t get_velocity();
+        virtual uint8_t getVelocity();
         void disableSlides();
         bool getPedal();
 

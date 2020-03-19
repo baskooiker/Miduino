@@ -258,7 +258,7 @@ uint8_t Bass::get_pitch()
     // TODO: Deze geeft veel te vaak false.
     if (note_range_p < this->note_range_value)
     {
-        uint8_t pitch_cv = harmony.scale.get_note(this->pitches.value(time));
+        uint8_t pitch_cv = harmony.scale.getNote(this->pitches.value(time));
 
         if (this->note_range_value < 64)
         {
@@ -277,7 +277,7 @@ uint8_t Bass::get_pitch()
         }
     }
 
-    uint8_t pitch = harmony.scale.apply_scale_offset(
+    uint8_t pitch = harmony.scale.applyScaleOffset(
         note_nr,
         Utils::rerange(this->_variable_pitch_offset, 24, 24),
         this->follow_harmony ? harmony.getChordStep(time).root : 0
@@ -324,11 +324,6 @@ uint8_t Bass::get_length()
     return length;
 }
 
-NoteType Bass::get_note_type()
-{
-    return NoteType::Tie;
-}
-
 bool Bass::play()
 {
     if (this->isKilled())
@@ -350,9 +345,9 @@ bool Bass::play()
         this->midi_channel->note_on(
             NoteStruct(
                 pitch, 
-                this->get_velocity(), 
+                this->getVelocity(), 
                 get_length(),
-                get_note_type()
+                NoteType::Tie
             ),
             time.get_shuffle_delay()
         );

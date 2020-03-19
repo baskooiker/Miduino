@@ -60,7 +60,7 @@ namespace ChordUtils
         std::vector<uint8_t> chord_notes;
         for (int i = offset; i < offset + 12; i++)
         {
-            if (scale.chord_contains(i, chord))
+            if (scale.chordContains(i, chord))
             {
                 chord_notes.push_back(i);
             }

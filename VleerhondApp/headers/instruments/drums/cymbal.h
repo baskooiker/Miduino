@@ -26,6 +26,6 @@ namespace Vleerhond
         );
         virtual void randomize();
         virtual bool play();
-        virtual uint8_t get_velocity();
+        virtual uint8_t getVelocity();
     };
 }

@@ -26,7 +26,7 @@ namespace Vleerhond
         );
         virtual void randomize();
         virtual bool play();
-        virtual uint8_t get_velocity();
+        virtual uint8_t getVelocity();
         virtual uint8_t get_pitch(const TimeStruct& time);
     };
 }

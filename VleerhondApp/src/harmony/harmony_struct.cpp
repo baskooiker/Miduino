@@ -61,7 +61,7 @@ namespace Vleerhond
         }
     }
 
-    void HarmonyStruct::switch_const_chord()
+    void HarmonyStruct::switchConstChord()
     {
         std::vector<uint8_t> options = this->scale.getAvailableChordsIndices();
         options.erase(std::remove(options.begin(), options.end(), const_value), options.end());

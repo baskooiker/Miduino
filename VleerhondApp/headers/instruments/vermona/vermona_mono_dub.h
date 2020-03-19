@@ -29,7 +29,7 @@ namespace Vleerhond
             MonoDub::randomize();
         }
 
-        uint8_t get_velocity()
+        uint8_t getVelocity()
         {
             uint8_t value = 0;
             velocity_mod.value(time, value);
@@ -40,7 +40,7 @@ namespace Vleerhond
         {
             if (this->lead.get_hit())
             {
-                getChannel()->sendCC(MODULATION_WHEEL_CC, get_velocity());
+                getChannel()->sendCC(MODULATION_WHEEL_CC, getVelocity());
             }
             return MonoDub::play();
         }

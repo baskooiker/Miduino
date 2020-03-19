@@ -19,7 +19,7 @@ namespace Vleerhond
         Kick(Modulators& modulators_ref, TimeStruct& time_ref);
         virtual void randomize();
         virtual bool play();
-        virtual uint8_t get_velocity();
+        virtual uint8_t getVelocity();
 
     protected:
         virtual void randomize_kick();

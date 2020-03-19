@@ -39,9 +39,9 @@ namespace Vleerhond
             getChannel()->sendCC(SD_LEVEL, value);
         }
 
-        virtual uint8_t get_velocity()
+        virtual uint8_t getVelocity()
         {
-            return (uint8_t)(((uint16_t)volume * (uint16_t)Snare::get_velocity()) / 127);
+            return (uint8_t)(((uint16_t)volume * (uint16_t)Snare::getVelocity()) / 127);
         }
     };
 }

@@ -34,7 +34,7 @@ namespace Vleerhond
             if (this->kill)
                 return false;
 
-            NoteInfo note_info = lead.get_note_event();
+            NoteInfo note_info = lead.getNoteEvent();
 
             if (note_info.hit)
             {
@@ -44,7 +44,7 @@ namespace Vleerhond
                 case 0: pitch -= 12; break;
                 case 1: pitch -= 5; break;
                 case 2: pitch += 0; break;
-                case 3: pitch = this->harmony.scale.get_ascending(note_info.note.pitch, 2); break;
+                case 3: pitch = this->harmony.scale.getAscending(note_info.note.pitch, 2); break;
                 case 4: pitch += 7; break;
                 case 5: pitch += 12; break;
                 }

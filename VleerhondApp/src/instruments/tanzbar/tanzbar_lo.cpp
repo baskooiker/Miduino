@@ -63,7 +63,7 @@ namespace Vleerhond
                 getChannel()->sendCC(TB_BD2_TUNE, value);
             }
             this->midi_channel->note_on(
-                NoteStruct(NOTE_TANZBAR_BD2, get_velocity()),
+                NoteStruct(NOTE_TANZBAR_BD2, getVelocity()),
                 time.get_shuffle_delay(this->timing)
             );
             rv = true;

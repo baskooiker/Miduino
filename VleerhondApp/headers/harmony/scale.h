@@ -18,17 +18,17 @@ namespace Vleerhond
 
         Scale();
         Scale(ScaleType type, Root root);
-        void set_scale(const ScaleType type);
-        void set_root(const Root root);
+        void setScale(const ScaleType type);
+        void setRoot(const Root root);
         std::vector<uint8_t> getScaleNotes() const;
         std::vector<uint8_t> getPentaNotes() const;
-        uint8_t apply_scale(uint8_t note_nr, uint8_t octave);
-        uint8_t apply_scale_offset(uint8_t note_nr, uint8_t offset, uint8_t chord_step) const;
+        uint8_t applyScaleOffset(uint8_t note_nr, uint8_t octave);
+        uint8_t applyScaleOffset(uint8_t note_nr, uint8_t offset, uint8_t chord_step) const;
         bool contains(const uint8_t pitch) const;
-        bool chord_contains(const uint8_t pitch, const ChordStruct& chord) const;
-        uint8_t get_note(const uint8_t v) const;
+        bool chordContains(const uint8_t pitch, const ChordStruct& chord) const;
+        uint8_t getNote(const uint8_t v) const;
         std::vector<uint8_t> getAvailableChordsIndices() const;
-        uint8_t get_ascending(const uint8_t pitch, const int8_t note_interval);
+        uint8_t getAscending(const uint8_t pitch, const int8_t note_interval);
         uint8_t getPenta(const uint8_t index) const;
     };
 }

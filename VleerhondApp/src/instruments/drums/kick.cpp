@@ -52,7 +52,7 @@ namespace Vleerhond
         if (this->bd_pattern.gate(time) && !this->isKilled())
         {
             this->midi_channel->note_on(
-                NoteStruct(this->pitch, get_velocity()),
+                NoteStruct(this->pitch, getVelocity()),
                 time.get_shuffle_delay(this->timing)
             );
             return true;
@@ -60,7 +60,7 @@ namespace Vleerhond
         return false;
     }
 
-    uint8_t Kick::get_velocity()
+    uint8_t Kick::getVelocity()
     {
         return this->bd_pattern.gate(time) ? 127 : 32;
     }

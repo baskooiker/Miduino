@@ -103,7 +103,7 @@ namespace Vleerhond
     {
         for (int i = this->min; i < this->min + this->range; i++)
         {
-            if (scale.chord_contains(i, chord))
+            if (scale.chordContains(i, chord))
             {
                 this->arp_notes.push_back(i);
             }
@@ -118,7 +118,7 @@ namespace Vleerhond
             this->arp_notes.size() < this->range_count && i < 128; 
             i++)
         {
-            if (scale.chord_contains(i, chord))
+            if (scale.chordContains(i, chord))
             {
 
                 this->arp_notes.push_back(i);

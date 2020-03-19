@@ -78,7 +78,6 @@ namespace Vleerhond
         virtual void randomize();
         virtual void total_randomize();
         virtual uint8_t get_length();
-        virtual NoteType get_note_type();
         virtual bool get_hit(const uint8_t density, const TimeStruct& time);
         virtual uint8_t get_pitch();
         virtual bool play();

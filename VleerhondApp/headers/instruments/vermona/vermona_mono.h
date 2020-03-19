@@ -21,7 +21,7 @@ namespace Vleerhond
         {
             if (this->get_hit())
             {
-                getChannel()->sendCC(MODULATION_WHEEL_CC, get_velocity());
+                getChannel()->sendCC(MODULATION_WHEEL_CC, getVelocity());
             }
             return Mono::play();
         }

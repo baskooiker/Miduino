@@ -86,7 +86,7 @@ namespace Vleerhond
             && tom_prob > 0)
         {
             this->midi_channel->note_on(
-                NoteStruct(get_pitch(time), get_velocity()),
+                NoteStruct(get_pitch(time), getVelocity()),
                 time.get_shuffle_delay(this->timing)
             );
             return true;
@@ -94,7 +94,7 @@ namespace Vleerhond
         return false;
     }
 
-    uint8_t Toms::get_velocity()
+    uint8_t Toms::getVelocity()
     {
         uint8_t velocity = 100;
         this->tom_vel.value(time, velocity);

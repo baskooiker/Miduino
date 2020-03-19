@@ -69,13 +69,13 @@ namespace Vleerhond
             {
                 uint8_t chord_step = harmony.getChordStep(time).root;
                 uint8_t pitch_interval = interval_pattern.value(time);
-                uint8_t pitch = harmony.scale.apply_scale_offset(
+                uint8_t pitch = harmony.scale.applyScaleOffset(
                     pitch_interval,
                     Utils::rerange(this->variable_pitch_range, 36, 48),
                     chord_step
                 );
                 midi_channel->note_on(
-                    NoteStruct(pitch, this->get_velocity(), time.ticks_left_in_bar(), NoteType::Tie),
+                    NoteStruct(pitch, this->getVelocity(), time.ticks_left_in_bar(), NoteType::Tie),
                     time.get_shuffle_delay()
                 ); 
                 return true;

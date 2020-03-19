@@ -15,25 +15,25 @@ namespace Vleerhond
     
     Scale::Scale()
     {
-        set_scale(ScaleType::AEOLIAN);
+        setScale(ScaleType::AEOLIAN);
         root = Root::ROOT_C;
     }
 
     Scale::Scale(ScaleType type_, Root root_)
     {
-        set_scale(type_);
+        setScale(type_);
         root = root_;
     }
 
-    void Scale::set_scale(const ScaleType type_)
+    void Scale::setScale(const ScaleType type_)
     {
-        ofLogNotice("scale", "set_scale(%s)", Strings::get_string(type_).c_str());
+        ofLogNotice("scale", "setScale(%s)", Strings::get_string(type_).c_str());
         this->type = type_;
     }
 
-    void Scale::set_root(const Root root)
+    void Scale::setRoot(const Root root)
     {
-        ofLogNotice("scale", "set_scale(%s)", Strings::get_string(root).c_str());
+        ofLogNotice("scale", "setScale(%s)", Strings::get_string(root).c_str());
         this->root = root;
     }
 
@@ -59,7 +59,7 @@ namespace Vleerhond
         }
     }
 
-    uint8_t Scale::apply_scale(uint8_t note_nr, uint8_t octave)
+    uint8_t Scale::applyScaleOffset(uint8_t note_nr, uint8_t octave)
     {
         std::vector<uint8_t> notes = getScaleNotes();
         uint8_t note = notes[note_nr % notes.size()]; // Actual pitch
@@ -68,7 +68,7 @@ namespace Vleerhond
         return note;
     }
 
-    uint8_t Scale::apply_scale_offset(uint8_t note_nr, uint8_t offset, uint8_t chord_step) const
+    uint8_t Scale::applyScaleOffset(uint8_t note_nr, uint8_t offset, uint8_t chord_step) const
     {
         std::vector<uint8_t> notes = getScaleNotes();
         uint8_t octave = note_nr / notes.size();
@@ -84,7 +84,7 @@ namespace Vleerhond
         return Utils::isInSet((pitch + 12 - (uint8_t)this->root) % 12, getScaleNotes());
     }
 
-    bool Scale::chord_contains(const uint8_t pitch, const ChordStruct& chord) const
+    bool Scale::chordContains(const uint8_t pitch, const ChordStruct& chord) const
     {
         std::vector<uint8_t> notes = getScaleNotes();
         for (int i : indicesForChordType(chord.chord_type))
@@ -97,7 +97,7 @@ namespace Vleerhond
         return false;
     }
 
-    uint8_t Scale::get_note(const uint8_t v) const
+    uint8_t Scale::getNote(const uint8_t v) const
     {
         std::vector<uint8_t> notes = getScaleNotes();
         return notes[v % notes.size()];
@@ -117,7 +117,7 @@ namespace Vleerhond
         return chords;
     }
 
-    uint8_t Scale::get_ascending(const uint8_t pitch, const int8_t note_interval)
+    uint8_t Scale::getAscending(const uint8_t pitch, const int8_t note_interval)
     {
         uint8_t rv = pitch;
         int8_t steps = note_interval;

@@ -39,7 +39,7 @@ namespace Vleerhond
         virtual void randomize();
         virtual void play_roll(const TimeStruct& time);
         virtual bool play();
-        virtual uint8_t get_velocity();
+        virtual uint8_t getVelocity();
         virtual void printPattern();
     };
 }

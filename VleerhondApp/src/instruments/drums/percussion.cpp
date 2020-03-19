@@ -54,14 +54,14 @@ namespace Vleerhond
         if (this->pattern.gate(time))
         {
             this->midi_channel->note_on(
-                NoteStruct(pitch, get_velocity()),
+                NoteStruct(pitch, getVelocity()),
                 time.get_shuffle_delay(this->timing)
             );
             return true;
         }
         return false;
     }
-    uint8_t Percussion::get_velocity()
+    uint8_t Percussion::getVelocity()
     {
         uint8_t velocity = 100;
         velocity_mod.value(time, velocity);

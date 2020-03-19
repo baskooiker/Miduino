@@ -26,7 +26,7 @@ namespace Vleerhond
         HarmonyStruct();
         ChordStruct getChordStep(const TimeStruct& time) const;
         void randomize();
-        void switch_const_chord();
+        void switchConstChord();
         uint16_t getPatternLength(HarmonyType type);
         void HarmonyStruct::setType(HarmonyType type);
         void setTonic();

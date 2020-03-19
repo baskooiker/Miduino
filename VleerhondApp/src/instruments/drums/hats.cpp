@@ -100,7 +100,7 @@ namespace Vleerhond
                     shuffle_delay = time.get_shuffle_delay(this->timing);
                 }
                 this->midi_channel->note_on(
-                    NoteStruct(pitch_closed, get_velocity()),
+                    NoteStruct(pitch_closed, getVelocity()),
                     shuffle_delay
                 );
                 return true;
@@ -111,7 +111,7 @@ namespace Vleerhond
             if (this->hh_pattern.gate(time))
             {
                 this->midi_channel->note_on(
-                    NoteStruct(pitch_closed, get_velocity()),
+                    NoteStruct(pitch_closed, getVelocity()),
                     time.get_shuffle_delay(this->timing)
                 );
                 return true;
@@ -131,7 +131,7 @@ namespace Vleerhond
         if (this->oh_pattern.gate(time))
         {
             this->midi_channel->note_on(
-                NoteStruct(pitch_open, get_velocity()),
+                NoteStruct(pitch_open, getVelocity()),
                 time.get_shuffle_delay(this->timing)
             );
             return true;
@@ -153,7 +153,7 @@ namespace Vleerhond
         }
     }
 
-    uint8_t Hats::get_velocity()
+    uint8_t Hats::getVelocity()
     {
         uint8_t velocity = 96;
         {
