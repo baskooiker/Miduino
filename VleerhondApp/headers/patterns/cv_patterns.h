@@ -36,12 +36,6 @@ namespace Vleerhond
         uint8_t value(const uint8_t step) const;
         void set_all(const uint8_t value);
         void set(const uint8_t index, const uint8_t value);
-        // TODO: Move to separate ChordPattern class
-        void set_chord_pattern(
-            const Scale& scale,
-            const uint8_t start_chord,
-            const bool long_pattern
-        );
     };
 
     class CvPatternAB

@@ -73,8 +73,8 @@ namespace Vleerhond
             {
                 this->arp_data.min = this->min_pitch_pattern.value(time);
 
-                uint8_t chord = harmony.get_chord_step(time);
-                uint8_t pitch = this->arp_data.get_next_arp_pitch(harmony.scale, chord);
+                uint8_t chord = harmony.getChordStep(time).root;
+                uint8_t pitch = this->arp_data.getNextArpPitch(harmony.scale, chord);
                 this->midi_channel->note_on(NoteStruct(pitch, 64, length));
                 return true;
             }

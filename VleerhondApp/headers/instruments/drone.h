@@ -67,7 +67,7 @@ namespace Vleerhond
 
             if (gate_pattern.gate(time))
             {
-                uint8_t chord_step = harmony.get_chord_step(time);
+                uint8_t chord_step = harmony.getChordStep(time).root;
                 uint8_t pitch_interval = interval_pattern.value(time);
                 uint8_t pitch = harmony.scale.apply_scale_offset(
                     pitch_interval,

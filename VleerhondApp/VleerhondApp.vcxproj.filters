@@ -196,6 +196,12 @@
     <ClCompile Include="src\instruments\minitaur\moog_bass.cpp">
       <Filter>src\instruments\minitaur</Filter>
     </ClCompile>
+    <ClCompile Include="src\patterns\chord_pattern.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="src\harmony\chord_type.cpp">
+      <Filter>src\harmony</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -616,6 +622,12 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\minitaur\moog_bass.h">
       <Filter>headers\instruments\minitaur</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\patterns\chord_pattern.h">
+      <Filter>headers\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\harmony\chord_struct.h">
+      <Filter>headers\harmony</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

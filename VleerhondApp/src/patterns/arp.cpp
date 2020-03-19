@@ -60,7 +60,7 @@ namespace Vleerhond
         return 0;
     }
 
-    uint8_t ArpData::get_arp_pitch(
+    uint8_t ArpData::getArpPitch(
         uint8_t& arp_counter,
         uint8_t &last_note) const
     {
@@ -99,7 +99,7 @@ namespace Vleerhond
         return 0;
     }
 
-    void ArpData::get_arp_pitches_by_range(const Scale& scale, const uint8_t chord)
+    void ArpData::getArpPitchesByRange(const Scale& scale, const ChordStruct& chord)
     {
         for (int i = this->min; i < this->min + this->range; i++)
         {
@@ -110,7 +110,7 @@ namespace Vleerhond
         }
     }
 
-    void ArpData::get_arp_pitches_by_count(const Scale& scale, const uint8_t chord)
+    void ArpData::getArpPitchesByCount(const Scale& scale, const ChordStruct& chord)
     {
         
         for (
@@ -126,22 +126,22 @@ namespace Vleerhond
         }
     }
 
-    uint8_t ArpData::get_next_arp_pitch(const Scale& scale, const uint8_t chord)
+    uint8_t ArpData::getNextArpPitch(const Scale& scale, const ChordStruct& chord)
     {
         arp_notes = {};
         switch (this->range_type)
         {
-        case RangeType::Range: this->get_arp_pitches_by_range(scale, chord); break;
-        case RangeType::Count: this->get_arp_pitches_by_count(scale, chord); break;
+        case RangeType::Range: this->getArpPitchesByRange(scale, chord); break;
+        case RangeType::Count: this->getArpPitchesByCount(scale, chord); break;
         }
 
-        return this->get_arp_pitch(this->counter, this->last_note);
+        return this->getArpPitch(this->counter, this->last_note);
     }
 
-    uint8_t ArpData::get_arp_pitch() const
+    uint8_t ArpData::getArpPitch() const
     {
         uint8_t counter = this->counter;
         uint8_t last_note = this->last_note;
-        return get_arp_pitch(counter, last_note);
+        return getArpPitch(counter, last_note);
     }
 }

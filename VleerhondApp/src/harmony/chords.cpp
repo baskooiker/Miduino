@@ -55,7 +55,7 @@ namespace ChordUtils
         return seq;
     }
 
-    std::vector<uint8_t> getChord(uint8_t chord, Scale& scale, uint8_t offset)
+    std::vector<uint8_t> getChord(ChordStruct& chord, Scale& scale, uint8_t offset)
     {
         std::vector<uint8_t> chord_notes;
         for (int i = offset; i < offset + 12; i++)

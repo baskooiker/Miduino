@@ -6,7 +6,7 @@
 
 #include "harmony/scale.h"
 #include "harmony/chords.h"
-#include "patterns/cv_patterns.h"
+#include "patterns/chord_pattern.h"
 
 namespace Vleerhond
 {
@@ -16,15 +16,15 @@ namespace Vleerhond
         uint8_t const_value = 0;
 
     public:
-        CvPattern16 low_tonic_pattern;
-        CvPattern16 low_dominant_pattern;
-        CvPattern16 high_tonic_pattern;
-        CvPattern16 high_dominant_pattern;
+        ChordPattern low_tonic_pattern;
+        ChordPattern low_dominant_pattern;
+        ChordPattern high_tonic_pattern;
+        ChordPattern high_dominant_pattern;
 
         Scale scale;
 
         HarmonyStruct();
-        uint8_t get_chord_step(const TimeStruct& time) const;
+        ChordStruct getChordStep(const TimeStruct& time) const;
         void randomize();
         void switch_const_chord();
         uint16_t getPatternLength(HarmonyType type);
@@ -32,6 +32,6 @@ namespace Vleerhond
         void setTonic();
 
     private:
-        void randomizeHighPattern(CvPattern16& high_pattern, const uint8_t start_chord, const bool long_pattern);
+        void randomizeHighPattern(ChordPattern& high_pattern, const uint8_t start_chord, const bool long_pattern);
     };
 }

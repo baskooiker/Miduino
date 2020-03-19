@@ -30,7 +30,6 @@ void Bass::randomize_octaves()
         break;
     case 1: 
         this->octaves.length = 16; 
-        //octaves.abPattern.set_ab_pattern_const();
         break;
     }
 
@@ -281,7 +280,7 @@ uint8_t Bass::get_pitch()
     uint8_t pitch = harmony.scale.apply_scale_offset(
         note_nr,
         Utils::rerange(this->_variable_pitch_offset, 24, 24),
-        this->follow_harmony ? harmony.get_chord_step(time) : 0
+        this->follow_harmony ? harmony.getChordStep(time).root : 0
     );
 
     uint8_t octave = this->octaves.value(time);

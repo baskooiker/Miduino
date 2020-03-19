@@ -38,7 +38,7 @@ namespace Vleerhond
 
         virtual bool play()
         {
-            pitch = Utils::clip_pitch(harmony.get_chord_step(time), NOTE_503_BD_MIN, NOTE_503_BD_MAX);
+            pitch = Utils::clip_pitch(harmony.getChordStep(time).root, NOTE_503_BD_MIN, NOTE_503_BD_MAX);
             return Kick::play();
         }
 

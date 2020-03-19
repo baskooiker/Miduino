@@ -17,21 +17,21 @@ namespace Vleerhond
         this->const_value = 0;
     }
 
-    uint8_t HarmonyStruct::get_chord_step(const TimeStruct& time) const
+    ChordStruct HarmonyStruct::getChordStep(const TimeStruct& time) const
     {
         switch (this->type)
         {
         default:
         case HarmonyType::Const:
-            return this->const_value;
+            return ChordStruct(this->const_value, ChordType::TRIAD);
         case HarmonyType::TonicLow:
-            return this->low_tonic_pattern.value(time);
+            return this->low_tonic_pattern.getChord(time);
         case HarmonyType::TonicHigh:
-            return this->high_tonic_pattern.value(time);
+            return this->high_tonic_pattern.getChord(time);
         case HarmonyType::DominantLow:
-            return this->low_dominant_pattern.value(time);
+            return this->low_dominant_pattern.getChord(time);
         case HarmonyType::DominantHigh:
-            return this->high_dominant_pattern.value(time);
+            return this->high_dominant_pattern.getChord(time);
         }
     }
 
@@ -46,9 +46,9 @@ namespace Vleerhond
         this->randomizeHighPattern(this->high_dominant_pattern, 4, true);
     }
 
-    void HarmonyStruct::randomizeHighPattern(CvPattern16& high_pattern, const uint8_t start_chord, const bool long_pattern)
+    void HarmonyStruct::randomizeHighPattern(ChordPattern& high_pattern, const uint8_t start_chord, const bool long_pattern)
     {
-        high_pattern.set_chord_pattern(this->scale, start_chord, long_pattern);
+        high_pattern.setChordPattern(this->scale, start_chord, long_pattern);
 
         switch (Rand::distribution(10, 10))
         {

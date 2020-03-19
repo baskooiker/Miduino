@@ -2,6 +2,7 @@
 
 #include "core/defs.h"
 #include "harmony/chords.h"
+#include "harmony/chord_struct.h"
 
 namespace Vleerhond
 {
@@ -14,6 +15,7 @@ namespace Vleerhond
         uint8_t last_note;
 
     public:
+        // TODO: Make private and create getters and setters
         uint8_t min;
         uint8_t range;
         uint8_t range_count;
@@ -26,13 +28,13 @@ namespace Vleerhond
             const bool include_current,
             uint8_t& last_note) const;
 
-        uint8_t get_arp_pitch(
+        uint8_t getArpPitch(
             uint8_t& arp_counter,
             uint8_t &last_note) const;
 
-        void get_arp_pitches_by_range(const Scale& scale, const uint8_t chord);
-        void get_arp_pitches_by_count(const Scale& scale, const uint8_t chord);
-        uint8_t get_next_arp_pitch(const Scale& scale, const uint8_t chord);
-        uint8_t get_arp_pitch() const;
+        void getArpPitchesByRange(const Scale& scale, const ChordStruct& chord);
+        void getArpPitchesByCount(const Scale& scale, const ChordStruct& chord);
+        uint8_t getNextArpPitch(const Scale& scale, const ChordStruct& chord);
+        uint8_t getArpPitch() const;
     };
 }

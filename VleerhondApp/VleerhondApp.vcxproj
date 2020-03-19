@@ -129,6 +129,7 @@
     <ClCompile Include="src\core\note_struct.cpp" />
     <ClCompile Include="src\core\time_struct.cpp" />
     <ClCompile Include="src\harmony\chords.cpp" />
+    <ClCompile Include="src\harmony\chord_type.cpp" />
     <ClCompile Include="src\harmony\harmony_struct.cpp" />
     <ClCompile Include="src\harmony\scale.cpp" />
     <ClCompile Include="src\instruments\drumstation\drumstation.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\patterns\ab.cpp" />
     <ClCompile Include="src\patterns\arp.cpp" />
     <ClCompile Include="src\patterns\binary_pattern.cpp" />
+    <ClCompile Include="src\patterns\chord_pattern.cpp" />
     <ClCompile Include="src\patterns\cv_patterns.cpp" />
     <ClCompile Include="src\patterns\gate_patterns.cpp" />
     <ClCompile Include="src\patterns\modulators.cpp" />
@@ -212,6 +214,7 @@
     <ClInclude Include="headers\core\time_struct.h" />
     <ClInclude Include="headers\core\timing_structs.h" />
     <ClInclude Include="headers\harmony\chords.h" />
+    <ClInclude Include="headers\harmony\chord_struct.h" />
     <ClInclude Include="headers\harmony\harmony_struct.h" />
     <ClInclude Include="headers\harmony\scale.h" />
     <ClInclude Include="headers\instruments\bass.h" />
@@ -265,6 +268,7 @@
     <ClInclude Include="headers\patterns\ab.h" />
     <ClInclude Include="headers\patterns\arp.h" />
     <ClInclude Include="headers\patterns\binary_pattern.h" />
+    <ClInclude Include="headers\patterns\chord_pattern.h" />
     <ClInclude Include="headers\patterns\cv_patterns.h" />
     <ClInclude Include="headers\patterns\fugue.h" />
     <ClInclude Include="headers\patterns\gate_patterns.h" />

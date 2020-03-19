@@ -146,12 +146,12 @@ namespace Vleerhond
         // This is done to make the const pattern follow chords
         if (pitch_pattern.length == 1 && pitch_pattern.value(0) == 0)
         {
-            int note_nr = harmony.get_chord_step(time);
+            int note_nr = harmony.getChordStep(time).root;
 
             pitch = harmony.scale.apply_scale_offset(
                 0,
                 this->getVariablePitchOffset(),
-                harmony.get_chord_step(time)
+                harmony.getChordStep(time).root
             );
         }
         else
@@ -175,7 +175,7 @@ namespace Vleerhond
         else if (pitch_mode == MonoPitchMode::ARP)
         {
             this->arp_data.min = Utils::rerange(this->_variable_pitch_offset, 48, 36);
-            pitch = this->arp_data.get_next_arp_pitch(harmony.scale, harmony.get_chord_step(time));
+            pitch = this->arp_data.getNextArpPitch(harmony.scale, harmony.getChordStep(time));
         }
         return pitch;
     }
@@ -187,7 +187,7 @@ namespace Vleerhond
             return get_sequence_pitch();
         }
         // Else MonoPitchMode::ARP
-        return this->arp_data.get_arp_pitch();
+        return this->arp_data.getArpPitch();
     }
 
     NoteInfo Mono::get_note_event()

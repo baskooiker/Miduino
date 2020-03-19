@@ -84,13 +84,13 @@ namespace Vleerhond
         return Utils::isInSet((pitch + 12 - (uint8_t)this->root) % 12, getScaleNotes());
     }
 
-    bool Scale::chord_contains(const uint8_t pitch, const uint8_t chord) const
+    bool Scale::chord_contains(const uint8_t pitch, const ChordStruct& chord) const
     {
         std::vector<uint8_t> notes = getScaleNotes();
-        for (int i = 0; i < 5; i += 2)
+        for (int i : indicesForChordType(chord.chord_type))
         {
             uint8_t note = ((pitch + 12 - (uint8_t)this->root) % 12);
-            uint8_t chord_note = notes[(i + chord) % notes.size()];
+            uint8_t chord_note = notes[(i + chord.root) % notes.size()];
             if (note == chord_note)
                 return true;
         }
