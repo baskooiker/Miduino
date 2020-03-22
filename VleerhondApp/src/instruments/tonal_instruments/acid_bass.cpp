@@ -39,7 +39,7 @@ namespace Vleerhond
         if (isKilled())
             return false;
 
-        if (this->get_hit(this->getVariableDensity(), time))
+        if (this->getHit(this->getVariableDensity(), time))
         {
             uint8_t value = 0;
             if (this->accents.gate(this->time))

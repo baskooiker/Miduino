@@ -19,7 +19,7 @@ namespace Vleerhond
 
         bool play()
         {
-            if (this->get_hit())
+            if (this->getHit())
             {
                 getChannel()->sendCC(MODULATION_WHEEL_CC, getVelocity());
             }

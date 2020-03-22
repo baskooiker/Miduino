@@ -19,26 +19,26 @@ namespace Vleerhond
     {
         // drop bass
         {
-            drop_bass.total_randomize();
-            drop_bass.randomize_drop();
+            drop_bass.totalRandomize();
+            drop_bass.randomizeDrop();
         }
 
         // const bass
         {
-            const_bass.total_randomize();
+            const_bass.totalRandomize();
             const_bass.note_range_value = 0;
         }
 
         // acid bass
         {
-            acid_bass.total_randomize();
+            acid_bass.totalRandomize();
         }
 
         // Arp
         {
-            arp.total_randomize();
-            arp.set_style(MonoStyle::MonoSixteenths);
-            arp.set_pitch_mode(MonoPitchMode::ARP);
+            arp.totalRandomize();
+            arp.setStyle(MonoStyle::MonoSixteenths);
+            arp.setPitchMode(MonoPitchMode::ARP);
             arp.disableSlides();
         }
     }

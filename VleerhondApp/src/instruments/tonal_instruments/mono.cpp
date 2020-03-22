@@ -16,7 +16,7 @@ namespace Vleerhond
         arp_reset_interval = TimeDivision::Whole;
     }
 
-    void Mono::randomize_arp()
+    void Mono::randomizeArp()
     {
         this->arp_data.range = Rand::randui8(12, 36);
 
@@ -45,7 +45,7 @@ namespace Vleerhond
         octave_range = Rand::randi8(1, 3);
     }
 
-    void Mono::randomize_rhythm()
+    void Mono::randomizeRhythm()
     {
         // Set Euclid
         uint8_t length = 16;
@@ -79,7 +79,7 @@ namespace Vleerhond
         this->lead_pattern.randomizeIntervalLead();
     }
 
-    void Mono::randomize_chaos()
+    void Mono::randomizeChaos()
     {
         switch (Rand::distribution(16, 16, 16, 16))
         {
@@ -98,24 +98,24 @@ namespace Vleerhond
         switch (Rand::distribution(16, 16, 16))
         {
         case 0:
-            randomize_arp();
+            randomizeArp();
             break;
         case 1:
-            randomize_rhythm();
+            randomizeRhythm();
             break;
         case 2:
-            randomize_chaos();
+            randomizeChaos();
             break;
         }
     }
 
-    void Mono::total_randomize()
+    void Mono::totalRandomize()
     {
         TonalInstrumentBase::randomize();
 
-        randomize_arp();
-        randomize_rhythm();
-        randomize_chaos();
+        randomizeArp();
+        randomizeRhythm();
+        randomizeChaos();
 
         switch (Rand::distribution(
             settings.p_arp,
@@ -126,7 +126,7 @@ namespace Vleerhond
         }
     }
 
-    bool Mono::get_hit() const
+    bool Mono::getHit() const
     {
         switch (this->style)
         {
@@ -138,7 +138,7 @@ namespace Vleerhond
         return false;
     }
 
-    uint8_t Mono::get_sequence_pitch() const
+    uint8_t Mono::getSequencePitch() const
     {
         uint8_t pitch = 0;
 
@@ -165,26 +165,29 @@ namespace Vleerhond
         return pitch;
     }
 
-    uint8_t Mono::get_next_mono_pitch()
+    uint8_t Mono::getNextMonoPitch()
     {
         uint8_t pitch = 0;
         if (pitch_mode == MonoPitchMode::SEQUENCE)
         {
-            pitch = get_sequence_pitch();
+            pitch = getSequencePitch();
         }
         else if (pitch_mode == MonoPitchMode::ARP)
         {
-            this->arp_data.min = Utils::rerange(this->_variable_pitch_offset, 48, 36);
+            uint8_t range = 48;
+            uint8_t offset = 36;
+            uint8_t pitch_offset_value = Utils::rerange(this->_variable_pitch_offset, range, offset);
+            this->arp_data.min = pitch_offset_value - arp_data.range / 3;
             pitch = this->arp_data.getNextArpPitch(harmony.scale, harmony.getChordStep(time));
         }
         return pitch;
     }
 
-    uint8_t Mono::get_mono_pitch() const
+    uint8_t Mono::getMonoPitch() const
     {
         if (pitch_mode == MonoPitchMode::SEQUENCE)
         {
-            return get_sequence_pitch();
+            return getSequencePitch();
         }
         // Else MonoPitchMode::ARP
         return this->arp_data.getArpPitch();
@@ -195,11 +198,11 @@ namespace Vleerhond
         if (time.tick != note_event.tick)
         {
             note_event.tick = time.tick;
-            note_event.hit = get_hit();
+            note_event.hit = getHit();
             if (note_event.hit)
             {
                 note_event.note = NoteStruct(
-                    this->get_next_mono_pitch(), 
+                    this->getNextMonoPitch(), 
                     getVelocity(), 
                     12, 
                     NoteType::Tie
@@ -211,7 +214,7 @@ namespace Vleerhond
 
     bool Mono::play()
     {
-        this->check_arp_reset();
+        this->checkArpReset();
 
         if (this->isKilled())
         {
@@ -227,7 +230,7 @@ namespace Vleerhond
         return false;
     }
 
-    void Mono::check_arp_reset()
+    void Mono::checkArpReset()
     {
         if (Utils::intervalHit(this->arp_reset_interval, time))
         {
@@ -235,35 +238,35 @@ namespace Vleerhond
         }
     }
 
-    void Mono::set_arp_type(ArpType arp_type)
+    void Mono::setArpType(ArpType arp_type)
     {
         arp_data.type = arp_type;
     }
 
-    void Mono::set_style(MonoStyle mono_style)
+    void Mono::setStyle(MonoStyle mono_style)
     {
         style = mono_style;
     }
 
-    void Mono::set_pitch_mode(const MonoPitchMode pitch_mode)
+    void Mono::setPitchMode(const MonoPitchMode pitch_mode)
     {
         this->pitch_mode = pitch_mode;
     }
 
-    void Mono::set_arp_range(const int range)
+    void Mono::setArpRange(const int range)
     {
 
         arp_data.range = std::max(12, range);
     }
 
-    void Mono::set_const_sequence()
+    void Mono::setConstSequence()
     {
         this->pitch_pattern.setAll(0);
         this->octave_pattern.setAll(0);
         pitch_pattern.length = 1;
     }
 
-    void Mono::set_slow_rhythm()
+    void Mono::setSlowRhythm()
     {
         this->gate_pattern.setAll(0);
         this->gate_pattern.set(0, true);

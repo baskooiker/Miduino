@@ -19,36 +19,36 @@ namespace Vleerhond
     {
         // const
         {
-            const_mono.total_randomize();
-            const_mono.set_style(MonoStyle::MonoPolyRhythm);
-            const_mono.set_pitch_mode(MonoPitchMode::SEQUENCE);
-            const_mono.set_const_sequence();
+            const_mono.totalRandomize();
+            const_mono.setStyle(MonoStyle::MonoPolyRhythm);
+            const_mono.setPitchMode(MonoPitchMode::SEQUENCE);
+            const_mono.setConstSequence();
         }
         // closest
         {
-            closest_mono.total_randomize();
-            closest_mono.set_slow_rhythm();
-            closest_mono.set_style(MonoStyle::MonoPolyRhythm);
-            closest_mono.set_arp_type(ArpType::CLOSEST_EXC);
-            closest_mono.set_pitch_mode(MonoPitchMode::ARP);
-            closest_mono.set_arp_range(12);
+            closest_mono.totalRandomize();
+            closest_mono.setSlowRhythm();
+            closest_mono.setStyle(MonoStyle::MonoPolyRhythm);
+            closest_mono.setArpType(ArpType::CLOSEST_EXC);
+            closest_mono.setPitchMode(MonoPitchMode::ARP);
+            closest_mono.setArpRange(12);
         }
         // sequence
         {
-            sequence_mono.total_randomize();
-            sequence_mono.set_style(MonoStyle::MonoPolyRhythm);
-            sequence_mono.set_pitch_mode(MonoPitchMode::SEQUENCE);
+            sequence_mono.totalRandomize();
+            sequence_mono.setStyle(MonoStyle::MonoPolyRhythm);
+            sequence_mono.setPitchMode(MonoPitchMode::SEQUENCE);
         }
         // arp
         {
-            arp_mono.total_randomize();
-            arp_mono.set_style(MonoStyle::MonoSixteenths);
-            arp_mono.set_pitch_mode(MonoPitchMode::ARP);
+            arp_mono.totalRandomize();
+            arp_mono.setStyle(MonoStyle::MonoSixteenths);
+            arp_mono.setPitchMode(MonoPitchMode::ARP);
             arp_mono.disableSlides();
         }
     }
     void Neutron::setArpType(ArpType type)
     {
-        arp_mono.set_arp_type(type);
+        arp_mono.setArpType(type);
     }
 }

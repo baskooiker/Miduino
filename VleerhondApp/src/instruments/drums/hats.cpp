@@ -58,7 +58,7 @@ namespace Vleerhond
         }
 
         uint8_t four_pat = 0;
-        switch (Rand::distribution(32, 10, 10, 10, 10))
+        switch (Rand::distribution(settings.p_4_4, settings.p_3_4, settings.p_3_4, settings.p_3_4, settings.p_3_4))
         {
         case 0: four_pat = BXXXX; break;
         case 1: four_pat = BXXX0; break;

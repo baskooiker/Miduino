@@ -22,6 +22,8 @@ namespace Vleerhond
             uint8_t velocity_range = 50;
             uint8_t velocity_offset = 32;
             bool choke_open = true;
+            uint8_t p_4_4 = 32;
+            uint8_t p_3_4 = 10;
         } settings;
 
     public:

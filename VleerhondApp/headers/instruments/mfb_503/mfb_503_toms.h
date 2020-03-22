@@ -65,7 +65,7 @@ namespace Vleerhond
             return (uint8_t)(((uint16_t)volume * (uint16_t)Toms::getVelocity()) / 127);
         }
 
-        virtual uint8_t get_pitch(const TimeStruct& time)
+        virtual uint8_t getPitch(const TimeStruct& time)
         {
             uint8_t prob = tom_pattern.value(time);
             uint8_t penta = penta_notes.at(prob % penta_notes.size());

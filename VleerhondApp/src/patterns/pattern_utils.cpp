@@ -6,7 +6,7 @@ namespace PatternUtils
 {
     void randomizeSlides(GatePatternAB& slides)
     {
-        slides.randomize(Rand::randf(.125f, .25f));
+        slides.randomize(Rand::randf(.25f, .5f));
         slides.length = 16;
         slides.set(0, false);
     }

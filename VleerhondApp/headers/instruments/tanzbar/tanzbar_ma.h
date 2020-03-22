@@ -7,24 +7,6 @@
 
 namespace Vleerhond
 {
-    enum class PatternType
-    {
-        Interval,
-        Gate
-    };
-
-    class RhythmPattern
-    {
-    public:
-        GatePatternAB gate_pattern;
-        IntervalPattern interval_pattern;
-        PatternType type;
-
-        bool value(const TimeStruct& time);
-
-        void randomize_type();
-    };
-
     class TanzbarMa : public InstrumentBase
     {
     protected:

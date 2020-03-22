@@ -16,10 +16,10 @@ Bass::Bass(
     note_range_value = 0;
     octave_sh.prob = 16;
 
-    total_randomize();
+    totalRandomize();
 }
 
-void Bass::randomize_octaves()
+void Bass::randomizeOctaves()
 {
     ofLogNotice("", "randomize_octaves");
     this->octaves.randomize();
@@ -50,7 +50,7 @@ void Bass::randomize_octaves()
     }
 }
 
-void Bass::randomize_pitches()
+void Bass::randomizePitches()
 {
     ofLogNotice("", "randomize_pitches");
     // Randomize pitches
@@ -75,7 +75,7 @@ void Bass::randomize_pitches()
     }
 }
 
-void Bass::randomize_drop()
+void Bass::randomizeDrop()
 {
     switch (Rand::distribution(16, 16))
     {
@@ -94,7 +94,7 @@ void Bass::randomize_drop()
     euclid_pattern.addOne();
 }
 
-void Bass::randomize_gates()
+void Bass::randomizeGates()
 {
     ofLogNotice("", "randomize_gates");
     // Randomize gates
@@ -211,27 +211,27 @@ void Bass::randomize()
 
     switch (Rand::distribution(16, 16, 0, 16))
     {
-    case 0: randomize_octaves(); break;
-    case 1: randomize_pitches(); break;
-    case 2: randomize_gates(); break;
+    case 0: randomizeOctaves(); break;
+    case 1: randomizePitches(); break;
+    case 2: randomizeGates(); break;
     case 3: randomizeAccents(); break;
     }
 
 }
 
-void Bass::total_randomize()
+void Bass::totalRandomize()
 {
     TonalInstrumentBase::randomize();
 
     octave_sh.prob = Rand::randui8(32);
 
-    randomize_octaves();
-    randomize_pitches();
-    randomize_gates();
+    randomizeOctaves();
+    randomizePitches();
+    randomizeGates();
     randomizeAccents();
 }
 
-bool Bass::get_hit(const uint8_t density, const TimeStruct& time)
+bool Bass::getHit(const uint8_t density, const TimeStruct& time)
 {
     bool hit = false;
     switch (this->style)
@@ -249,7 +249,7 @@ bool Bass::get_hit(const uint8_t density, const TimeStruct& time)
     return hit || prob_step;
 }
 
-uint8_t Bass::get_pitch()
+uint8_t Bass::getPitch()
 {
     // TODO: Hier klopt dus niks van...
     uint8_t note_nr = 0;
@@ -301,27 +301,9 @@ uint8_t Bass::get_pitch()
     return pitch;
 }
 
-uint8_t Bass::get_length()
+uint8_t Bass::getLength()
 {
-    uint8_t length = this->accents.gate(time) ? 6 : 2;
-    length = 6;
-
-    //if (this->slides.gate(time.add(TICKS_PER_STEP)))
-    //{
-    //    length = time.ticksLeftInBar();
-    //    length = TICKS_PER_STEP * 2;
-    //}
-    //else
-    //{
-    //    if (!this->get_hit(this->density, time.add(TICKS_PER_STEP)))
-    //    {
-    //        length = TICKS_PER_STEP * 2;
-    //    }
-    //}
-
-    length = TICKS_PER_STEP * 2;
-
-    return length;
+    return settings.default_note_length;
 }
 
 bool Bass::play()
@@ -331,9 +313,9 @@ bool Bass::play()
         return false;
     }
 
-    if (this->get_hit(getVariableDensity(), time))
+    if (this->getHit(getVariableDensity(), time))
     {
-        uint8_t pitch = get_pitch();
+        uint8_t pitch = getPitch();
 
         // Sample and hold on random octave jumps
         if (octave_sh.gate(time))
@@ -346,7 +328,7 @@ bool Bass::play()
             NoteStruct(
                 pitch, 
                 this->getVelocity(), 
-                get_length(),
+                getLength(),
                 NoteType::Tie
             ),
             time.getShuffleDelay()

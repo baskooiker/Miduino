@@ -40,6 +40,8 @@ namespace Vleerhond
         settings.diddles.p_max = .6;
 
         settings.p_octave_sh = 0;
+
+        settings.default_note_length = 12;
     }
 
     void MoogBass::randomize()
@@ -49,9 +51,9 @@ namespace Vleerhond
         vel_mod.randomize(range, 64);
     }
 
-    void MoogBass::total_randomize()
+    void MoogBass::totalRandomize()
     {
-        Bass::total_randomize();
+        Bass::totalRandomize();
     }
 
     uint8_t MoogBass::getVelocity()

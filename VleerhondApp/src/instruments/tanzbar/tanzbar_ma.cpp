@@ -2,36 +2,15 @@
 
 namespace Vleerhond
 {
-    bool RhythmPattern::value(const TimeStruct & time)
-    {
-        switch (type)
-        {
-        default:
-        case PatternType::Gate:
-            return gate_pattern.gate(time);
-        case PatternType::Interval:
-            return interval_pattern.hit(time);
-        }
-    }
-    void RhythmPattern::randomize_type()
-    {
-        if (Rand::distribution(32, 32) == 0)
-        {
-            type = PatternType::Gate;
-        }
-        else
-        {
-            type = PatternType::Interval;
-        }
-    }
     TanzbarMa::TanzbarMa(Modulators & modulators_ref, TimeStruct & time_ref) :
         InstrumentBase(time_ref),
         decay_mod(modulators_ref)
     {
     }
+
     void TanzbarMa::randomize()
     {
-        ofLogNotice("tanzbar_hi", "randomize()");
+        ofLogNotice("tanzbar_ma", "randomize()");
         InstrumentBase::randomize();
 
         // Randomize Seq
@@ -64,10 +43,17 @@ namespace Vleerhond
         {
             uint8_t value = 64;
             decay_mod.value(time, value);
-            getChannel()->sendCC(TB_MA_Decay, Utils::quad(value) / 2);
+            uint8_t decay_value = Utils::quad(value) / 2;
+
+            // TODO: is this good?
+            decay_value = Utils::rerange(value, 64, 1);
+            getChannel()->sendCC(TB_MA_Decay, decay_value);
 
             this->midi_channel->noteOn(
-                NoteStruct(NOTE_TANZBAR_MA, Utils::rerange(this->ma_pattern.value(time), 96, 16)),
+                NoteStruct(
+                    NOTE_TANZBAR_MA, 
+                    Utils::rerange(this->ma_pattern.value(time), 96, 16)
+                ),
                 time.getShuffleDelay(this->timing)
             );
             return true;

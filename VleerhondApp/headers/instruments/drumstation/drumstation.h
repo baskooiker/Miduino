@@ -191,6 +191,12 @@ public:
     DrumStationHats(Modulators& modulators, TimeStruct& time);
 };
 
+class DrumStationMaracas : public Hats
+{
+public:
+    DrumStationMaracas(Modulators& modulators, TimeStruct& time);
+};
+
 class DrumStationClap : public Snare
 {
 public:
@@ -235,6 +241,7 @@ public:
     DrumStationClave clave;
     DrumStationCowbell cowbell;
     DrumStationCymbal cymbal;
+    DrumStationMaracas maracas;
 
     DrumStation(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time);
 

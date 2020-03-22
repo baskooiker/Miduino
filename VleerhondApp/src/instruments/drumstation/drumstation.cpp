@@ -69,6 +69,16 @@ namespace Vleerhond
         settings.choke_open = false;
     }
 
+    DrumStationMaracas::DrumStationMaracas(Modulators& modulators, TimeStruct& time) :
+        Hats(modulators, time)
+    {
+        pitch_closed = NOTE_DS808_MA;
+        settings.velocity_range = 32;
+        settings.velocity_offset = 96;
+        settings.choke_open = false;
+        settings.p_3_4 = 0;
+    }
+
     DrumStationClap::DrumStationClap(Modulators& modulators, TimeStruct& time) :
         Snare(modulators, time)
     {
@@ -76,6 +86,7 @@ namespace Vleerhond
         pitch = NOTE_DS808_CP;
         settings.p_coef = 0;
         settings.p_off = 0;
+        settings.p_rand_min = .95;
     }
 
     DrumStationToms::DrumStationToms(Modulators& modulators, TimeStruct& time) :
@@ -136,16 +147,18 @@ namespace Vleerhond
         toms(modulators, time),
         clave(modulators, time),
         cowbell(modulators, time),
-        cymbal(modulators, time)
+        cymbal(modulators, time),
+        maracas(modulators, time)
     {
         //instruments.push_back(&kick);
-        instruments.push_back(&snare);
+        //instruments.push_back(&snare);
         instruments.push_back(&clap);
         instruments.push_back(&hats);
         //instruments.push_back(&toms);
         //instruments.push_back(&clave);
         //instruments.push_back(&cowbell);
         instruments.push_back(&cymbal);
+        instruments.push_back(&maracas);
     }
 
     std::vector<InstrumentBase*> DrumStation::getLow()

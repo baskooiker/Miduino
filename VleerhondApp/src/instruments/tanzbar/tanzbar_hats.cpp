@@ -11,6 +11,7 @@ namespace Vleerhond
 
         settings.p_euclid = 0;
         settings.p_drop = 0;
+        settings.p_3_4 = 0;
 
         this->params.push_back(CcParam(TB_HH_TUNE, 0, 127));
     }

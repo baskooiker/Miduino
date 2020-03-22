@@ -48,9 +48,9 @@ namespace Vleerhond
     void NeutronMono::randomize()
     {
         setAutoglide(24);
-        setShapeBlend(true);
+        setShapeBlend(false);
         setVcfModSource(3);
-        setVcfModDepth(63);
+        setVcfModDepth(32);
 
         Mono::randomize();
         settings.min_velocity = Rand::randui8(32, 64);

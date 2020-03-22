@@ -31,7 +31,7 @@ namespace Vleerhond
             TimeStruct& time
         );
         virtual void randomize();
-        virtual void total_randomize();
+        virtual void totalRandomize();
         virtual uint8_t getVelocity();
 
         void setVco2Square(const bool square);

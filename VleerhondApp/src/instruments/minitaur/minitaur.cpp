@@ -13,12 +13,12 @@ namespace Vleerhond
     void Minitaur::randomize()
     {
         {
-            bass_root.total_randomize();
+            bass_root.totalRandomize();
             bass_root.note_range_value = 0;
         }
 
         {
-            bass_funk.total_randomize();
+            bass_funk.totalRandomize();
             bass_funk.note_range_value = 127;
         }
     }

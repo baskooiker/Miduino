@@ -21,7 +21,7 @@ namespace Vleerhond
         {
         }
 
-        void total_randomize()
+        void totalRandomize()
         {
         }
 

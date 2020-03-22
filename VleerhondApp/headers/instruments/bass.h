@@ -47,6 +47,7 @@ namespace Vleerhond
             } diddles;
             uint8_t p_diddles = 32;
             uint8_t p_octave_sh = 32;
+            uint8_t default_note_length = 6;
         } settings;
 
     public:
@@ -70,16 +71,16 @@ namespace Vleerhond
             TimeStruct& time_ref
         );
 
-        virtual void randomize_octaves();
-        virtual void randomize_pitches();
-        virtual void randomize_drop();
-        virtual void randomize_gates();
+        virtual void randomizeOctaves();
+        virtual void randomizePitches();
+        virtual void randomizeDrop();
+        virtual void randomizeGates();
         virtual void randomizeAccents();
         virtual void randomize();
-        virtual void total_randomize();
-        virtual uint8_t get_length();
-        virtual bool get_hit(const uint8_t density, const TimeStruct& time);
-        virtual uint8_t get_pitch();
+        virtual void totalRandomize();
+        virtual uint8_t getLength();
+        virtual bool getHit(const uint8_t density, const TimeStruct& time);
+        virtual uint8_t getPitch();
         virtual bool play();
         virtual std::string toString();
         virtual bool getPedal() override;

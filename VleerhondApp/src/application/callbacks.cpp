@@ -97,8 +97,8 @@ namespace Vleerhond
             break;
         case BSP_ROT_BTM_08:
             break;
-
         case BSP_ROT_TOP_01:
+            data.time.global_shuffle = value;
             break;
         case BSP_ROT_TOP_02:
             break;
@@ -115,9 +115,9 @@ namespace Vleerhond
             data.mam_mb33.setVariablePitchOffset(value);
             break;
         case BSP_ROT_TOP_07:
-            data.neutron.setVariablePitchOffset(value);
             break;
         case BSP_ROT_TOP_08:
+            data.neutron.setVariablePitchOffset(value);
             break;
 
         case BSP_STEP_01:
