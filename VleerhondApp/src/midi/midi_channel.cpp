@@ -91,36 +91,20 @@ namespace Vleerhond
 
     void MidiChannel::noteOn(const NoteStruct& note, const uint32_t delay)
     {
+        std::vector<NoteStruct> notes = {note};
+        noteOn(notes, delay);
+    }
+
+    void MidiChannel::noteOn(const std::vector<NoteStruct>& notes, const uint8_t delay)
+    {
         if (this->nr_of_events < STORAGE_SIZE && delay > 0)
         {
-            NoteEvent new_event({ note }, Utils::millis() + delay);
+            NoteEvent new_event(notes, Utils::millis() + delay);
             this->events[this->nr_of_events++] = new_event;
         }
         else
         {
-            std::vector<NoteStruct> notes = {note};
             this->_noteOn(notes);
-        }
-    }
-
-    void MidiChannel::noteOn(const std::vector<NoteStruct>& notes)
-    {
-        if (!pedal)
-        {
-            this->untieNotes();
-        }
-        for (int i = 0; i < notes.size(); i++)
-        {
-            NoteStruct stored = this->popFromStorage(notes[i].pitch);
-            if (notes[i].pitch == stored.pitch)
-            {
-                this->noteOff(notes[i].pitch);
-            }
-            this->_sendNoteOn(notes[i].pitch, notes[i].velocity);
-        }
-        for (int i = 0; i < notes.size(); i++)
-        {
-            this->addToStorage(notes[i]);
         }
     }
 

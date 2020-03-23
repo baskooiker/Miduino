@@ -33,7 +33,7 @@ namespace Vleerhond
         virtual void noteOff(uint8_t pitch);
         virtual void _noteOn(const std::vector<NoteStruct>& notes);
         virtual void noteOn(const NoteStruct& note, const uint32_t delay);
-        virtual void noteOn(const std::vector<NoteStruct>& notes);
+        virtual void noteOn(const std::vector<NoteStruct>& notes, const uint8_t delay);
         virtual void addToStorage(const NoteStruct& note);
         virtual NoteStruct popFromStorage(uint8_t pitch);
         virtual void processActiveNotes();
