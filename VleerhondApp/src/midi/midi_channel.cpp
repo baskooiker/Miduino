@@ -51,7 +51,7 @@ namespace Vleerhond
             {
                 for (const auto& note : event_i.notes)
                 {
-                    this->noteOn(note);
+                    this->_noteOn({ note });
                 }
                 this->events[i] = this->events[this->nr_of_events - 1];
                 this->nr_of_events--;
@@ -65,25 +65,27 @@ namespace Vleerhond
         NoteStruct stored = this->popFromStorage(pitch);
     }
 
-    void MidiChannel::noteOn(const NoteStruct& note)
+    void MidiChannel::_noteOn(const std::vector<NoteStruct>& notes)
     {
-        // TODO: remove this intermediate function
         if (!this->getPedal())
         {
             this->untieNotes();
         }
 
-        // If the played note was still active, stop it before replaying
-        NoteStruct stored = this->popFromStorage(note.pitch);
-        if (note.pitch == stored.pitch)
+        for (const auto& note : notes)
         {
-            this->noteOff(note.pitch);
-        }
+            // If the played note was still active, stop it before replaying
+            NoteStruct stored = this->popFromStorage(note.pitch);
+            if (note.pitch == stored.pitch)
+            {
+                this->noteOff(note.pitch);
+            }
 
-        if (note.velocity > 0)
-        {
-            this->_sendNoteOn(note.pitch, note.velocity);
-            this->addToStorage(note);
+            if (note.velocity > 0)
+            {
+                this->_sendNoteOn(note.pitch, note.velocity);
+                this->addToStorage(note);
+            }
         }
     }
 
@@ -96,7 +98,8 @@ namespace Vleerhond
         }
         else
         {
-            this->noteOn(note);
+            std::vector<NoteStruct> notes = {note};
+            this->_noteOn(notes);
         }
     }
 

@@ -31,7 +31,7 @@ namespace Vleerhond
         MidiChannel(const uint8_t channel, const uint8_t cc_channel, const std::string& port_name);
         virtual void processNoteEvents();
         virtual void noteOff(uint8_t pitch);
-        virtual void noteOn(const NoteStruct& note);
+        virtual void _noteOn(const std::vector<NoteStruct>& notes);
         virtual void noteOn(const NoteStruct& note, const uint32_t delay);
         virtual void noteOn(const std::vector<NoteStruct>& notes);
         virtual void addToStorage(const NoteStruct& note);
