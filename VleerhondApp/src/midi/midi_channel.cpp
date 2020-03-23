@@ -97,13 +97,13 @@ namespace Vleerhond
         }
     }
 
-    void MidiChannel::noteOn(const NoteStruct* notes, const uint8_t length)
+    void MidiChannel::noteOn(const std::vector<NoteStruct>& notes)
     {
         if (!pedal)
         {
             this->untieNotes();
         }
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < notes.size(); i++)
         {
             NoteStruct stored = this->popFromStorage(notes[i].pitch);
             if (notes[i].pitch == stored.pitch)
@@ -112,7 +112,7 @@ namespace Vleerhond
             }
             this->_sendNoteOn(notes[i].pitch, notes[i].velocity);
         }
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < notes.size(); i++)
         {
             this->addToStorage(notes[i]);
         }
