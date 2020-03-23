@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "core/defs.h"
 #include "core/enums.h"
 
@@ -21,11 +23,11 @@ namespace Vleerhond
     class NoteEvent
     {
     public:
-        NoteStruct note;
+        std::vector<NoteStruct> notes;
         uint32_t time;
 
         NoteEvent();
 
-        NoteEvent(const NoteStruct note, const uint32_t time);
+        NoteEvent(const std::vector<NoteStruct>& notes, const uint32_t time);
     };
 }

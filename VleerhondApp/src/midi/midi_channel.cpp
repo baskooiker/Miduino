@@ -49,7 +49,10 @@ namespace Vleerhond
             NoteEvent event_i = this->events[i];
             if (event_i.time <= time)
             {
-                this->noteOn(event_i.note);
+                for (const auto& note : event_i.notes)
+                {
+                    this->noteOn(note);
+                }
                 this->events[i] = this->events[this->nr_of_events - 1];
                 this->nr_of_events--;
             }
@@ -88,7 +91,7 @@ namespace Vleerhond
     {
         if (this->nr_of_events < STORAGE_SIZE && delay > 0)
         {
-            NoteEvent new_event(note, Utils::millis() + delay);
+            NoteEvent new_event({ note }, Utils::millis() + delay);
             this->events[this->nr_of_events++] = new_event;
         }
         else

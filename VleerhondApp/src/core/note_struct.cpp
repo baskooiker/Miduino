@@ -20,8 +20,8 @@ namespace Vleerhond
     {
         time = 0;
     }
-    NoteEvent::NoteEvent(const NoteStruct note, const uint32_t time) :
-        note(note),
+    NoteEvent::NoteEvent(const std::vector<NoteStruct>& notes, const uint32_t time) :
+        notes(notes),
         time(time)
     {
     }
