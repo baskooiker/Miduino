@@ -86,6 +86,7 @@ namespace Vleerhond
     }
     void InstrumentRack::setChannel(std::shared_ptr<MidiChannel> channel)
     {
+        //std::cout << "InstrumentRack::setChannel\n";
         for (InstrumentBase* instr_ptr : this->instruments)
         {
             instr_ptr->setChannel(channel);

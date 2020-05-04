@@ -88,6 +88,11 @@ namespace Vleerhond
 
     void InstrumentBase::setChannel(std::shared_ptr<MidiChannel> channel)
     {
+        //std::cout << "InstrumentBase::setChannel\n";
+        if (channel.use_count() > 0)
+        {
+            //std::cout << channel->getChannel() << std::endl;
+        }
         this->midi_channel = channel;
     }
 

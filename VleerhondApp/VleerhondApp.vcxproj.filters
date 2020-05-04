@@ -202,6 +202,18 @@
     <ClCompile Include="src\harmony\chord_type.cpp">
       <Filter>src\harmony</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\poly.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\vermona\vermona_poly.cpp">
+      <Filter>src\instruments\vermona</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\vermona\vermona.cpp">
+      <Filter>src\instruments\vermona</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\vermona\vermona_fugue.cpp">
+      <Filter>src\instruments\vermona</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -326,6 +338,9 @@
     </Filter>
     <Filter Include="headers\instruments\minitaur">
       <UniqueIdentifier>{089f040b-ddff-459d-9515-d75acd4c6ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\vermona">
+      <UniqueIdentifier>{7f20953e-6948-4117-b93a-d9d48a6ad779}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -470,18 +485,6 @@
     <ClInclude Include="headers\instruments\instrument_base.h">
       <Filter>headers\instruments</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\bass.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\drone.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\lead.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\poly.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\tonal_instruments\acid_bass.h">
       <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
@@ -491,14 +494,8 @@
     <ClInclude Include="headers\instruments\vermona\vermona_mono.h">
       <Filter>headers\instruments\vermona</Filter>
     </ClInclude>
-    <ClInclude Include="headers\instruments\mono.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
-    </ClInclude>
     <ClInclude Include="headers\instruments\vermona\vermona_mono_dub.h">
       <Filter>headers\instruments\vermona</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\instruments\mono_dub.h">
-      <Filter>headers\instruments\tonal_instruments</Filter>
     </ClInclude>
     <ClInclude Include="headers\instruments\instrument_group.h">
       <Filter>headers\instruments</Filter>
@@ -628,6 +625,33 @@
     </ClInclude>
     <ClInclude Include="headers\harmony\chord_struct.h">
       <Filter>headers\harmony</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\vermona\vermona_poly.h">
+      <Filter>headers\instruments\vermona</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\poly.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\mono_dub.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\bass.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\drone.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\lead.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\tonal_instruments\mono.h">
+      <Filter>headers\instruments\tonal_instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\vermona\vermona.h">
+      <Filter>headers\instruments\vermona</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\vermona\vermona_fugue.h">
+      <Filter>headers\instruments\vermona</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

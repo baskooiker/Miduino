@@ -1,11 +1,8 @@
-#pragma once
-
-#include <algorithm>
-
 #include "application_data.h"
 
 #include <algorithm>
 
+#include "core/defs.h"
 #include "utils/utils.h"
 
 namespace Vleerhond
@@ -15,44 +12,45 @@ namespace Vleerhond
         drumstation(harmony, modulators, time),
         minitaur(modulators, harmony, time),
         neutron(harmony, modulators, time),
-        mam_mb33(harmony, modulators, time)
+        mam_mb33(harmony, modulators, time),
+        vermona(harmony, time)
     {
-        this->randomize_all();
+        this->randomizeAll();
     }
 
-    void ApplicationData::probability_randomize()
+    void ApplicationData::probabilityRandomize()
     {
         if (Utils::intervalHit(TimeDivision::Four, time.add(TICKS_PER_STEP / 2)))
         {
-            for (InstrumentBase* ptr : get_instrument_ptrs())
+            for (InstrumentBase* ptr : getInstrumentPtrs())
             {
                 ptr->autoRandomize();
             }
         }
     }
 
-    void ApplicationData::play_all()
+    void ApplicationData::playAll()
     {
-        for (auto instrument : get_instrument_ptrs())
+        for (auto instrument : getInstrumentPtrs())
         {
             instrument->play();
         }
 
-        probability_randomize();
+        probabilityRandomize();
         this->handleUserEvents();
     }
 
     void ApplicationData::processActiveNotes()
     {
-        for (InstrumentBase* instrument : get_instrument_ptrs())
+        for (InstrumentBase* instrument : getInstrumentPtrs())
         {
             instrument->getChannel()->processActiveNotes();
         }
     }
 
-    void ApplicationData::randomize_all()
+    void ApplicationData::randomizeAll()
     {
-        for (InstrumentBase* value : get_instrument_ptrs())
+        for (InstrumentBase* value : getInstrumentPtrs())
         {
             value->randomize();
         }
@@ -62,7 +60,7 @@ namespace Vleerhond
 
     void ApplicationData::processNoteEvents()
     {
-        for (auto instrument : get_instrument_ptrs())
+        for (auto instrument : getInstrumentPtrs())
         {
             instrument->processNoteEvents();
         }
@@ -88,13 +86,13 @@ namespace Vleerhond
 
     void ApplicationData::updatePedalState()
     {
-        for (auto instrument : get_instrument_ptrs())
+        for (auto instrument : getInstrumentPtrs())
         {
             instrument->updatePedalState();
         }
     }
 
-    std::vector<InstrumentBase*> ApplicationData::get_instrument_ptrs()
+    std::vector<InstrumentBase*> ApplicationData::getInstrumentPtrs()
     {
         std::vector<InstrumentBase*> ptrs;
 
@@ -104,13 +102,14 @@ namespace Vleerhond
         ptrs.push_back(&this->mam_mb33);
         ptrs.push_back(&this->minitaur);
         ptrs.push_back(&this->neutron);
+        ptrs.push_back(&this->vermona);
 
         return ptrs;
     }
 
-    void ApplicationData::stop_all()
+    void ApplicationData::stopAll()
     {
-        for (auto instrument : get_instrument_ptrs())
+        for (auto instrument : getInstrumentPtrs())
         {
             instrument->stopNotes();
         }
@@ -118,7 +117,6 @@ namespace Vleerhond
 
     void ApplicationData::addEvent(std::shared_ptr<UserEvent> user_event)
     {
-        // TODO: filter on event type
         this->user_events.push_back(user_event);
     }
 
@@ -129,6 +127,11 @@ namespace Vleerhond
 
         this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
         this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
-        this->minitaur.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_MINITAUR, MIDI_B_NAME));
+        this->minitaur.setChannel(std::make_shared<MidiChannel>(12, MIDI_A_NAME));
+
+        this->vermona.setChannel(std::make_shared<MidiChannel>(7, VERMONA_CONTROL_CHANNEL, MIDI_A_NAME));
+        this->vermona.fugue.player_2.setChannel(std::make_shared<MidiChannel>(8, VERMONA_CONTROL_CHANNEL, MIDI_A_NAME));
+        this->vermona.fugue.player_3.setChannel(std::make_shared<MidiChannel>(9, VERMONA_CONTROL_CHANNEL, MIDI_A_NAME));
+        this->vermona.fugue.player_4.setChannel(std::make_shared<MidiChannel>(10, VERMONA_CONTROL_CHANNEL, MIDI_A_NAME));
     }
 }

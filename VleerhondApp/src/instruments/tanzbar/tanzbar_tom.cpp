@@ -30,6 +30,7 @@ namespace Vleerhond
         Toms::randomize();
 
         this->pitches.clear();
+
         switch (Rand::distribution(32, 32))
         {
         case 0:
@@ -57,6 +58,8 @@ namespace Vleerhond
             pitches.push_back(NOTE_TANZBAR_HC);
             break;
         }
+
+        return;
 
         {
             uint8_t range = Rand::randui8(64, 128);

@@ -12,6 +12,7 @@
 #include "instruments/minitaur/minitaur.h"
 #include "instruments/neutron/neutron.h"
 #include "instruments/mam_mb33/mam_mb33.h"
+#include "instruments/vermona/vermona.h"
 
 namespace Vleerhond
 {
@@ -29,6 +30,7 @@ namespace Vleerhond
         Minitaur minitaur;
         Neutron neutron;
         MamMb33 mam_mb33;
+        Vermona vermona;
 
         Tanzbar tanzbar;
         DrumStation drumstation;
@@ -36,15 +38,15 @@ namespace Vleerhond
         UiState ui_state;
 
         ApplicationData();
-        void probability_randomize();
-        void play_all();
+        void probabilityRandomize();
+        void playAll();
         void processActiveNotes();
-        void randomize_all();
+        void randomizeAll();
         void processNoteEvents();
         void handleUserEvents();
         void updatePedalState();
-        std::vector<InstrumentBase*> get_instrument_ptrs();
-        void stop_all();
+        std::vector<InstrumentBase*> getInstrumentPtrs();
+        void stopAll();
         void addEvent(std::shared_ptr<UserEvent> user_event);
         void connect();
     };

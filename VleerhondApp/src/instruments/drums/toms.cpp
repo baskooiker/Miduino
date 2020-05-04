@@ -21,9 +21,10 @@ namespace Vleerhond
         ofLogNotice("toms", "randomize()");
         InstrumentBase::randomize();
 
-        switch (Rand::distribution(16, 16))
+        switch (Rand::distribution(0, 16))
         {
         case 0:
+        {
             // Randomize toms
             this->tom_pattern.randomize(1, 127);
             for (int i = 0; i < 3; i++)
@@ -36,7 +37,8 @@ namespace Vleerhond
                     }
                 }
             }
-            break;
+        }
+        break;
         case 1:
         {
             tom_pattern.setAll(0);
@@ -62,8 +64,8 @@ namespace Vleerhond
                     }
                 }
             }
-            break;
         }
+        break;
         }
 
         // Modulators

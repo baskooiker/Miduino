@@ -67,7 +67,7 @@ namespace Vleerhond
                     (uint8_t)this->note_interval
                 );
                 midi_channel->noteOn(
-                    NoteStruct(pitch, 64, player_length * TICKS_PER_STEP, NoteType::Tie),
+                    NoteStruct(pitch, 64, player_length * TICKS_PER_STEP, NoteType::Normal),
                     time.getShuffleDelay()
                 );
             }

@@ -40,7 +40,7 @@ namespace Vleerhond
             data.updatePedalState();
         }
         data.processActiveNotes();
-        data.play_all();
+        data.playAll();
 
         data.time.tick += 1;
     }
@@ -345,13 +345,13 @@ namespace Vleerhond
         case BSP_STEP_01:
             if (value == 0)
             {
-                data.randomize_all();
+                data.randomizeAll();
             }
             break;
         case BSP_PAD_TOP_01:
             if (value == 0)
             {
-                data.randomize_all();
+                data.randomizeAll();
             }
             break;
         case BSP_STEP_02:
@@ -360,50 +360,52 @@ namespace Vleerhond
             break;
 
         case BSP_PAD_BTM_01:
-            data.harmony.scale.setRoot(Root::ROOT_C);
+            //data.harmony.scale.setRoot(Root::ROOT_C);
             break;
         case BSP_PAD_BTM_02:
-            data.harmony.scale.setRoot(Root::ROOT_D);
+            //data.harmony.scale.setRoot(Root::ROOT_D);
             break;
         case BSP_PAD_BTM_03:
-            data.harmony.scale.setRoot(Root::ROOT_E);
+            //data.harmony.scale.setRoot(Root::ROOT_E);
             break;
         case BSP_PAD_BTM_04:
-            data.harmony.scale.setRoot(Root::ROOT_F);
+            //data.harmony.scale.setRoot(Root::ROOT_F);
             break;
         case BSP_PAD_BTM_05:
-            data.harmony.scale.setRoot(Root::ROOT_G);
+            //data.harmony.scale.setRoot(Root::ROOT_G);
             break;
         case BSP_PAD_BTM_06:
-            data.harmony.scale.setRoot(Root::ROOT_A);
+            //data.harmony.scale.setRoot(Root::ROOT_A);
             break;
         case BSP_PAD_BTM_07:
-            data.harmony.scale.setRoot(Root::ROOT_B);
+            //data.harmony.scale.setRoot(Root::ROOT_B);
             break;
         case BSP_PAD_BTM_08:
             break;
         case BSP_STEP_09:
-            data.harmony.scale.setRoot(Root::ROOT_C_SHARP);
+            data.vermona.select(0);
+            //data.harmony.scale.setRoot(Root::ROOT_C_SHARP);
             break;
         case BSP_STEP_10:
-            data.harmony.scale.setRoot(Root::ROOT_D_SHARP);
+            data.vermona.select(1);
+            //data.harmony.scale.setRoot(Root::ROOT_D_SHARP);
             break;
         case BSP_STEP_11:
             break;
         case BSP_STEP_12:
-            data.harmony.scale.setRoot(Root::ROOT_F_SHARP);
+            //data.harmony.scale.setRoot(Root::ROOT_F_SHARP);
             break;
         case BSP_STEP_13:
-            data.harmony.scale.setRoot(Root::ROOT_G_SHARP);
+            //data.harmony.scale.setRoot(Root::ROOT_G_SHARP);
             break;
         case BSP_STEP_14:
-            data.harmony.scale.setRoot(Root::ROOT_A_SHARP);
+            //data.harmony.scale.setRoot(Root::ROOT_A_SHARP);
             break;
         case BSP_STEP_15:
-            data.harmony.scale.setScale(ScaleType::AEOLIAN);
+            //data.harmony.scale.setScale(ScaleType::AEOLIAN);
             break;
         case BSP_STEP_16:
-            data.harmony.scale.setScale(ScaleType::IONIAN);
+            //data.harmony.scale.setScale(ScaleType::IONIAN);
             break;
         }
     }
@@ -430,7 +432,7 @@ namespace Vleerhond
 
     void handleStop(ApplicationData& data)
     {
-        data.stop_all();
+        data.stopAll();
         data.time.reset();
     }
 }

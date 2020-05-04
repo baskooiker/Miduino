@@ -9,8 +9,8 @@ namespace Vleerhond
     class Fugue 
     {
     public:
+        // TODO: privatize
         CvPattern16 pattern;
-        //std::vector<FuguePlayer*> players;
 
         void randomizeFugue()
         {

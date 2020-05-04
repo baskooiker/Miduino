@@ -49,10 +49,7 @@ namespace Vleerhond
             NoteEvent event_i = this->events[i];
             if (event_i.time <= time)
             {
-                for (const auto& note : event_i.notes)
-                {
-                    this->_noteOn({ note });
-                }
+                this->_noteOn(event_i.notes);
                 this->events[i] = this->events[this->nr_of_events - 1];
                 this->nr_of_events--;
             }
@@ -163,7 +160,10 @@ namespace Vleerhond
         {
             if (!this->pedal)
             {
-                this->noteOff(this->data[i].pitch);
+                if (this->data[i].type == NoteType::Tie)
+                {
+                    this->noteOff(this->data[i].pitch);
+                }
             }
         }
     }

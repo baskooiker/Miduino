@@ -1,10 +1,8 @@
 #pragma once
 
 #include "instruments/instrument_rack.h"
-
 #include "instruments/tonal_instruments/303_acid_bass.h"
-#include "instruments/mono.h"
-#include "patterns/modulators.h"
+#include "instruments/tonal_instruments/mono.h"
 
 namespace Vleerhond
 {

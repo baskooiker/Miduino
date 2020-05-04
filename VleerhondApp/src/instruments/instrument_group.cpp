@@ -40,7 +40,8 @@ namespace Vleerhond
     }
     void InstrumentGroup::setChannel(std::shared_ptr<MidiChannel> channel)
     {
-        for (auto& inst_ptr : instruments)
+        //std::cout << "InstrumentGroup::setChannel\n";
+        for (InstrumentBase* inst_ptr : instruments)
         {
             inst_ptr->setChannel(channel);
         }

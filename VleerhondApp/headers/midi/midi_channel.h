@@ -53,5 +53,10 @@ namespace Vleerhond
 
         // TODO: Remove when obsolete
         virtual std::string getPortName();
+
+        virtual uint8_t getChannel()
+        {
+            return this->channel;
+        }
     };
 }

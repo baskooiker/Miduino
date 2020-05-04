@@ -61,25 +61,20 @@ namespace Vleerhond
 
         if (false)
         {
+            for (int i = 0; i < 100; i++)
+            {
+                data.randomizeAll();
+            }
+            ofExit(0);
+            return;
 
             data.harmony.randomize();
             data.harmony.setType(HarmonyType::Const);
             std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
 
-            if (false)
-            {
-                data.mam_mb33.setChannel(console_midi_channel);
-                data.mam_mb33.randomize();
-                data.mam_mb33.setVariableDensity(127);
-                data.mam_mb33.setVariablePitchOffset(64);
-                data.mam_mb33.select(2);
-            }
-            if (true)
-            {
-                data.neutron.setChannel(console_midi_channel);
-                data.neutron.select(3);
-                data.neutron.setVariablePitchOffset(127);
-            }
+            data.vermona.fugue.randomize();
+            data.vermona.select(1);
+            data.vermona.setChannel(console_midi_channel);
 
             int bars = 1;
             for (int i = 0; i < bars * 16 * TICKS_PER_STEP; i++)
@@ -90,7 +85,7 @@ namespace Vleerhond
                     data.updatePedalState();
                 }
                 data.processActiveNotes();
-                data.play_all();
+                data.playAll();
                 data.time.tick += 1;
             }
 
@@ -116,10 +111,12 @@ namespace Vleerhond
         data.connect();
 
         // Init app
-        data.randomize_all();
+        data.randomizeAll();
 
         // Set initial 808 program
         data.drumstation.reset();
+
+        data.vermona.select(1);
     }
 
     void VleerhondApp::update()
