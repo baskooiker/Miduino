@@ -150,14 +150,14 @@ namespace Vleerhond
 
             pitch = harmony.scale.applyScaleOffset(
                 0,
-                this->getVariablePitchOffset(),
+                Utils::rerange(this->getVariablePitchOffset(), 127 - settings.min_pitch, settings.min_pitch),
                 harmony.getChordStep(time).root
             );
         }
         else
         {
             pitch = harmony.scale.getPenta(this->pitch_pattern.value(time));
-            pitch = Utils::clipPitch(pitch, this->getVariablePitchOffset());
+            pitch = Utils::clipPitch(pitch, Utils::rerange(this->getVariablePitchOffset(), 127 - settings.min_pitch, settings.min_pitch));
         }
 
         uint8_t octave = Utils::rerange(octave_pattern.value(time), this->octave_range);
@@ -174,9 +174,7 @@ namespace Vleerhond
         }
         else if (pitch_mode == MonoPitchMode::ARP)
         {
-            uint8_t range = 48;
-            uint8_t offset = 36;
-            uint8_t pitch_offset_value = Utils::rerange(this->_variable_pitch_offset, range, offset);
+            uint8_t pitch_offset_value = Utils::rerange(this->getVariablePitchOffset(), 127 - settings.min_pitch, settings.min_pitch);
             this->arp_data.min = pitch_offset_value - arp_data.range / 3;
             pitch = this->arp_data.getNextArpPitch(harmony.scale, harmony.getChordStep(time));
         }

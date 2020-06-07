@@ -279,7 +279,7 @@ uint8_t Bass::getPitch()
 
     uint8_t pitch = harmony.scale.applyScaleOffset(
         note_nr,
-        Utils::rerange(this->_variable_pitch_offset, 24, 24),
+        Utils::rerange(this->_variable_pitch_offset, this->settings.min_pitch, 24),
         this->follow_harmony ? harmony.getChordStep(time).root : 0
     );
 

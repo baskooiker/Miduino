@@ -31,6 +31,7 @@ namespace Vleerhond
         Neutron neutron;
         MamMb33 mam_mb33;
         Vermona vermona;
+        Hats vermona_hats;
 
         Tanzbar tanzbar;
         DrumStation drumstation;

@@ -16,8 +16,6 @@ private:
 
 public:
     MamMb33(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time);
-
     void randomize();
-
 };
 }

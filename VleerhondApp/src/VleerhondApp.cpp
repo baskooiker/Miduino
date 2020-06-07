@@ -45,9 +45,9 @@ namespace Vleerhond
 
         if (!MidiIO::addOutput(MIDI_A_NAME, 0))
             return false;
-        if (!MidiIO::addOutput(MIDI_B_NAME, 0)) 
+        if (!MidiIO::addOutput(MIDI_B_NAME, 1)) 
             return false;
-        if (!MidiIO::addOutput(MIDI_C_NAME, 4)) 
+        if (!MidiIO::addOutput(MIDI_C_NAME, 0)) 
             return false;
         if (!MidiIO::addOutput(MIDI_D_NAME, 0)) 
             return false;
@@ -73,7 +73,7 @@ namespace Vleerhond
             std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
 
             data.vermona.fugue.randomize();
-            data.vermona.select(1);
+            data.vermona.select(0);
             data.vermona.setChannel(console_midi_channel);
 
             int bars = 1;
@@ -116,7 +116,7 @@ namespace Vleerhond
         // Set initial 808 program
         data.drumstation.reset();
 
-        data.vermona.select(1);
+        data.vermona.select(0);
     }
 
     void VleerhondApp::update()
@@ -164,6 +164,13 @@ namespace Vleerhond
             if (stop_counter > 8)
             {
                 ofExit(0);
+            }
+            else if (stop_counter > 1)
+            {
+                for (InstrumentBase* inst : data.getInstrumentPtrs())
+                {
+                    inst->getChannel()->allNotesOff();
+                }
             }
             break;
         case MIDI_START:

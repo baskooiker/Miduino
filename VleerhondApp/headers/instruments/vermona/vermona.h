@@ -23,7 +23,5 @@ namespace Vleerhond
         VermonaFugue fugue;
 
         Vermona(HarmonyStruct& harmony, TimeStruct& time);
-
-        virtual void select(const uint8_t index);
     };
 }

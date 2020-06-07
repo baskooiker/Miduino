@@ -24,6 +24,7 @@ namespace Vleerhond
         uint8_t range = Rand::randui8(96);
         bd2_pitch_mod.randomize(range, 32, .3);
     }
+
     void TanzbarLo::randomize_alternative()
     {
         // clear pattern
@@ -47,6 +48,7 @@ namespace Vleerhond
         bd_pattern.abPattern.setConst();
         bd_pattern.length = length;
     }
+
     bool TanzbarLo::play()
     {
         if (isKilled())
@@ -55,6 +57,7 @@ namespace Vleerhond
         }
 
         bool rv = Kick::play();
+
         if (Utils::intervalHit(TimeDivision::Quarter, time))
         {
             uint8_t value = 0;

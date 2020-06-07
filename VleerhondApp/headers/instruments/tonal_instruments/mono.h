@@ -49,6 +49,7 @@ namespace Vleerhond
             uint8_t p_euclid = 16;
             uint8_t min_velocity = 64;
             uint8_t max_velocity = 100;
+            uint8_t min_pitch = 0;
         } settings;
 
         Mono(

@@ -13,6 +13,11 @@ namespace Vleerhond
         instruments.push_back(&const_bass);
         instruments.push_back(&acid_bass);
         instruments.push_back(&arp);
+
+        drop_bass.settings.min_pitch = 30;
+        const_bass.settings.min_pitch = 30;
+        acid_bass.settings.min_pitch = 30;
+        arp.settings.min_pitch = 30;
     }
 
     void MamMb33::randomize()
@@ -21,17 +26,24 @@ namespace Vleerhond
         {
             drop_bass.totalRandomize();
             drop_bass.randomizeDrop();
+
+            drop_bass.setVariableDensity(0);
+            drop_bass.setVariablePitch(0);
         }
 
         // const bass
         {
             const_bass.totalRandomize();
             const_bass.note_range_value = 0;
+
+            const_bass.setVariablePitch(0);
         }
 
         // acid bass
         {
             acid_bass.totalRandomize();
+
+            acid_bass.setVariablePitch(0);
         }
 
         // Arp
@@ -39,7 +51,7 @@ namespace Vleerhond
             arp.totalRandomize();
             arp.setStyle(MonoStyle::MonoSixteenths);
             arp.setPitchMode(MonoPitchMode::ARP);
-            arp.disableSlides();
+            //arp.disableSlides();
         }
     }
 }

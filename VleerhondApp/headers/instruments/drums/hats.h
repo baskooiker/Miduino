@@ -12,6 +12,9 @@ namespace Vleerhond
     protected:
         MicroTimingStruct timing;
         ModulationReceiver hats_vel;
+
+    public:
+        // TODO: Move back to private
         uint8_t pitch_closed;
         uint8_t pitch_open;
 
@@ -26,7 +29,6 @@ namespace Vleerhond
             uint8_t p_3_4 = 10;
         } settings;
 
-    public:
         GatePatternAB hh_pattern;
         GatePatternAB oh_pattern;
 

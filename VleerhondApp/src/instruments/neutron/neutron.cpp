@@ -13,6 +13,11 @@ namespace Vleerhond
         this->instruments.push_back(&closest_mono);
         this->instruments.push_back(&sequence_mono);
         this->instruments.push_back(&arp_mono);
+
+        for (NeutronMono* neutron : { &const_mono,  &closest_mono, &sequence_mono, &arp_mono })
+        {
+            neutron->settings.min_pitch = 24;
+        }
     }
 
     void Neutron::randomize()

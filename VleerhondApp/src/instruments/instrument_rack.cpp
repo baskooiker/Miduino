@@ -34,10 +34,7 @@ namespace Vleerhond
     }
     void InstrumentRack::setVariableDensity(const uint8_t variable_density)
     {
-        for (InstrumentBase* instrument : instruments)
-        {
-            instrument->setVariableDensity(variable_density);
-        }
+        getInstr()->setVariableDensity(variable_density);
     }
     uint8_t InstrumentRack::getVariableDensity() const
     {
@@ -45,10 +42,7 @@ namespace Vleerhond
     }
     void InstrumentRack::setVariablePitch(const uint8_t variable_pitch)
     {
-        for (InstrumentBase* instrument : instruments)
-        {
-            instrument->setVariablePitch(variable_pitch);
-        }
+        getInstr()->setVariablePitch(variable_pitch);
     }
     uint8_t InstrumentRack::getVariablePitch() const
     {
@@ -56,10 +50,7 @@ namespace Vleerhond
     }
     void InstrumentRack::setVariablePitchOffset(const uint8_t variable_pitch_offset)
     {
-        for (InstrumentBase* instrument : instruments)
-        {
-            instrument->setVariablePitchOffset(variable_pitch_offset);
-        }
+        getInstr()->setVariablePitchOffset(variable_pitch_offset);
     }
     uint8_t InstrumentRack::getVariablePitchOffset() const
     {
@@ -67,10 +58,7 @@ namespace Vleerhond
     }
     void InstrumentRack::setVariableOctave(const uint8_t variable_octave)
     {
-        for (InstrumentBase* instrument : instruments)
-        {
-            instrument->setVariableOctave(variable_octave);
-        }
+        getInstr()->setVariableOctave(variable_octave);
     }
     uint8_t InstrumentRack::getVariableOctave() const
     {

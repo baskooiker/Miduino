@@ -48,6 +48,7 @@ namespace Vleerhond
             uint8_t p_diddles = 32;
             uint8_t p_octave_sh = 32;
             uint8_t default_note_length = 6;
+            uint8_t min_pitch = 24;
         } settings;
 
     public:

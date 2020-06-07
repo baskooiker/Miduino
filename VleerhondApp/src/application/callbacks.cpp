@@ -218,6 +218,7 @@ namespace Vleerhond
             if (value == 0)
             {
                 data.minitaur.randomize();
+                data.minitaur.getChannel()->allNotesOff();
             }
             break;
         case BSP_STEP_05:
@@ -434,5 +435,9 @@ namespace Vleerhond
     {
         data.stopAll();
         data.time.reset();
+        for (InstrumentBase* inst : data.getInstrumentPtrs())
+        {
+            inst->kill(false);
+        }
     }
 }
