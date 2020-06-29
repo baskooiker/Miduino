@@ -9,6 +9,7 @@ namespace Vleerhond
         length = 0;
         type = NoteType::Normal;
     }
+
     NoteStruct::NoteStruct(const uint8_t pitch, const uint8_t velocity, const uint8_t length, const NoteType type)
     {
         this->pitch = pitch;

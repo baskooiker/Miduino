@@ -131,9 +131,9 @@ namespace Vleerhond
     void ApplicationData::connect()
     {
         this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_CC_CHANNEL_TANZBAR, MIDI_A_NAME));
-        this->drumstation.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_DS, MIDI_B_NAME));
+        //this->drumstation.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_DS, MIDI_B_NAME));
 
-        this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_B_NAME));
+        this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
         this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
         this->minitaur.setChannel(std::make_shared<MidiChannel>(12, MIDI_A_NAME));
 

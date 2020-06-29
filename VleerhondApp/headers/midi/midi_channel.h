@@ -5,17 +5,17 @@
 #include "core/defs.h"
 #include "core/note_struct.h"
 
-#define STORAGE_SIZE 32
+#define MIDI_STORAGE_SIZE 32
 
 namespace Vleerhond
 {
     class MidiChannel
     {
     protected:
-        NoteStruct data[STORAGE_SIZE];
+        NoteStruct data[MIDI_STORAGE_SIZE];
         uint8_t size = 0;
 
-        NoteEvent events[STORAGE_SIZE];
+        NoteEvent events[MIDI_STORAGE_SIZE];
         uint8_t nr_of_events = 0;
         bool pedal = false;
 

@@ -1,5 +1,6 @@
 #include "patterns/gate_patterns.h"
 
+#include "utils/rand.h"
 #include "utils/utils.h"
 
 namespace Vleerhond

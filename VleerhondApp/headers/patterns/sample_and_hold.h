@@ -1,8 +1,8 @@
 #pragma once
 
 #include "core/defs.h"
+#include "core/note_struct.h"
 #include "core/time_struct.h"
-#include "utils.h"
 
 namespace Vleerhond 
 {
@@ -16,40 +16,14 @@ namespace Vleerhond
     public:
         uint8_t prob;
 
-        SampleAndHold(const TimeDivision div=TimeDivision::Sixteenth)
-        {
-            interval = div;
-        }
+        SampleAndHold(const TimeDivision div = TimeDivision::Sixteenth);
 
-        uint8_t value(const TimeStruct& time)
-        {
-            randomize(time);
-            return sampled_value;
-        }
+        uint8_t value(const TimeStruct& time);
 
-        bool gate(const TimeStruct& time)
-        {
-            randomize(time);
-            return value(time) < prob;
-        }
+        bool gate(const TimeStruct& time);
 
     protected:
-        void randomize(const TimeStruct time)
-        {
-
-            if (!Utils::intervalHit(interval, time))
-            {
-                return;
-            }
-            if (last_randomized >= time.tick)
-            {
-                return;
-            }
-            last_randomized = time.tick;
-
-            this->sampled_value = Rand::randui8();
-
-        }
+        void randomize(const TimeStruct time);
     };
 
     class NoteRepeat : public SampleAndHold
@@ -59,68 +33,16 @@ namespace Vleerhond
         NoteStruct repeated_note;
 
     public:
-        NoteRepeat(const TimeDivision div) :
-            SampleAndHold(div)
-        {
-            interval_value = TimeDivision::Sixteenth;
-        }
+        NoteRepeat(const TimeDivision div);
 
-        TimeDivision getInterval(const TimeStruct& time)
-        {
-            if (Utils::intervalHit(interval, time))
-            {
-                randomize(time);
-            }
-            return interval_value;
-        }
+        TimeDivision getInterval(const TimeStruct& time);
 
-        NoteStruct repeatNote(const TimeStruct time)
-        {
-            randomize(time);
-            if (gate(time))
-            {
-                return repeated_note;
-            }
-            else
-            {
-                if (repeated_note.pitch > 0)
-                {
-                    repeated_note = NoteStruct();
-                }
-                return repeated_note;
-            }
-        }
+        NoteStruct repeatNote(const TimeStruct time);
 
-        void setRepeatNote(const NoteStruct note)
-        {
-            if (repeated_note.pitch == 0)
-            {
-                repeated_note = note;
-            }
-        }
+        void setRepeatNote(const NoteStruct note);
 
     protected:
-        void randomize(const TimeStruct& time)
-        {
-            if (!Utils::intervalHit(interval, time))
-            {
-                return;
-            }
-            if (last_randomized >= time.tick)
-            {
-                return;
-            }
-
-            SampleAndHold::randomize(time);
-
-            switch (Rand::distribution(16, 0))
-            {
-            case 0: this->interval_value = TimeDivision::Thirtysecond; break;
-            case 1: this->interval_value = TimeDivision::Sixteenth; break;
-            }
-
-            repeated_note = NoteStruct();
-        }
+        void randomize(const TimeStruct& time);
     };
 
 }

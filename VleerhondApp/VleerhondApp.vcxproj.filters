@@ -214,6 +214,21 @@
     <ClCompile Include="src\instruments\vermona\vermona_fugue.cpp">
       <Filter>src\instruments\vermona</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\timing_structs.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\interval_pattern.cpp\interval_pattern.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\sample_and_hold.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="src\patterns\fugue.cpp">
+      <Filter>src\patterns</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instruments\tonal_instruments\303_acid_bass.cpp">
+      <Filter>src\instruments\tonal_instruments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

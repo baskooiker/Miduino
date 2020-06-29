@@ -145,7 +145,7 @@ namespace Vleerhond
                     for (auto& inst : data.tanzbar.getLow())
                         inst->randomize();
                 }
-                data.time.randomizeShuffle();
+                //data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;
@@ -164,7 +164,7 @@ namespace Vleerhond
                 for (auto& inst : data.drumstation.getMid())
                     inst->randomize();
 
-                data.time.randomizeShuffle();
+                //data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;
@@ -193,7 +193,7 @@ namespace Vleerhond
                 for (auto& inst : data.drumstation.getHigh())
                     inst->randomize();
 
-                data.time.randomizeShuffle();
+                //data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;

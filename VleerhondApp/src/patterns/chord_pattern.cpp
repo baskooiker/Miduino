@@ -1,5 +1,7 @@
 #include "patterns/chord_pattern.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     ChordPattern::ChordPattern()
@@ -66,7 +68,7 @@ namespace Vleerhond
 
     void ChordPattern::initializeChordTypes()
     {
-        for (int i; i < 16; i++)
+        for (int i = 0; i < 16; i++)
         {
             chord_types[i] = ChordType::TRIAD;
         }

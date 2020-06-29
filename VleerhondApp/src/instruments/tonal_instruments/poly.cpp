@@ -2,6 +2,8 @@
 
 #include "midi_io.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     Poly::Poly(HarmonyStruct & harmony, TimeStruct & time)
@@ -70,6 +72,8 @@ namespace Vleerhond
             }
 
             this->getChannel()->noteOn(note_structs, chord_notes.size());
+            return true;
         }
+        return false;
     }
 }

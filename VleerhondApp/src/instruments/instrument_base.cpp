@@ -8,6 +8,8 @@
 #include "midi/midi_channel.h"
 #include "midi/midi_io.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
 

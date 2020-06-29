@@ -2,6 +2,8 @@
 
 #include "midi/midi_io.h"
 
+#include "utils/rand.h"
+
 #define NOTE_DS909_BD 24
 #define NOTE_DS909_RS 25
 #define NOTE_DS909_SD 26
@@ -15,20 +17,20 @@
 #define NOTE_DS909_OH 34
 #define NOTE_DS808_BD 36
 #define NOTE_DS808_RS 37
-#define NOTE_DS808_SD 38
+//#define NOTE_DS808_SD 38
 #define NOTE_DS808_CP 39
 #define NOTE_DS808_SD 40
-#define NOTE_DS808_LT 41
-#define NOTE_DS808_HH 42
+//#define NOTE_DS808_LT 41
+//#define NOTE_DS808_HH 42
 #define NOTE_DS808_LT 43
 #define NOTE_DS808_HH 44
 #define NOTE_DS808_MT 45
 #define NOTE_DS808_OH 46
-#define NOTE_DS808_MT 47
+//#define NOTE_DS808_MT 47
 #define NOTE_DS808_HT 48
 #define NOTE_DS808_CR 49
-#define NOTE_DS808_HT 50
-#define NOTE_DS909_CY 51
+//#define NOTE_DS808_HT 50
+//#define NOTE_DS909_CY 51
 #define NOTE_DS808_CB 56
 #define NOTE_DS808_HC 62
 #define NOTE_DS808_MC 63

@@ -1,5 +1,7 @@
 #include "instruments/neutron/neutron_mono.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     NeutronMono::NeutronMono(HarmonyStruct & harmony, Modulators & modulators, TimeStruct & time)

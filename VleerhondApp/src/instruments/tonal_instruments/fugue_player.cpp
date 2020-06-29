@@ -1,5 +1,7 @@
 #include "fugue_player.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     static const std::vector<uint8_t> time_intervals{ 1, 1, 2, 2, 4, 6};
@@ -73,7 +75,9 @@ namespace Vleerhond
             }
 
             this->counter++;
+            return true;
         }
+        return false;
     }
 
     void FuguePlayer::randomize()

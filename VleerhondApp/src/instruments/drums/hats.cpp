@@ -5,6 +5,8 @@
 #include "patterns/modulators.h"
 #include "patterns/interval_pattern.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     Hats::Hats(
@@ -151,6 +153,7 @@ namespace Vleerhond
         {
             return play_hats_closed();
         }
+        return open_played;
     }
 
     uint8_t Hats::getVelocity()

@@ -2,6 +2,8 @@
 
 #include "midi/midi_io.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     AcidBass::AcidBass(

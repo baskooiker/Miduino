@@ -10,6 +10,7 @@ namespace Vleerhond
     protected:
         MicroTimingStruct bd_timing;
         ModulationReceiver bd2_pitch_mod;
+        GatePatternAB bd2_pattern;
 
     public:
         TanzbarLo(

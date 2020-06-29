@@ -65,21 +65,30 @@ namespace Rand
         const uint16_t e,
         const uint16_t f)
     {
+        return distribution({a, b, c, d, e, f});
+    }
+
+    uint8_t distribution(const std::vector<uint16_t>& weights)
+    {
         // Use std::discrete_ditribution
         // https://stackoverflow.com/questions/1761626/weighted-random-numbers
-        uint16_t total = (uint16_t)a + (uint16_t)b + (uint16_t)c + (uint16_t)d + (uint16_t)e + (uint16_t)f;
+        uint16_t total = 0;
+        for (const uint16_t& w : weights)
+        {
+            total += w;
+        }
+
         uint16_t r = randui16(total);
-        if (r < a)
-            return 0;
-        if (r < (a + b))
-            return 1;
-        if (r < (a + b + c))
-            return 2;
-        if (r < (a + b + c + d))
-            return 3;
-        if (r < (a + b + c + d + e))
-            return 4;
-        return 5;
+        uint16_t acc = 0;
+        for (int i = 0; i < weights.size(); i++)
+        {
+            acc += weights[i];
+            if (r < acc)
+            {
+                return i;
+            }
+        }
+        return weights.size() - 1;
     }
 }
 }

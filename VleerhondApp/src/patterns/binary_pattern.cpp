@@ -1,5 +1,7 @@
 #include "patterns/binary_pattern.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
 
@@ -83,13 +85,19 @@ namespace Vleerhond
 
         this->pattern = 0x00;
 
-        std::vector<uint8_t> counters;
+        std::deque<uint8_t> counters;
+
         for (int i = 0; i < steps; i++) counters.push_back(0);
 
         for (int i = 0; i < length; i++)
             counters[i%steps]++;
 
-        std::random_shuffle(counters.begin(), counters.end());
+        uint8_t nr_shuffles = Rand::randui8(counters.size());
+        for (int i = 0; i < nr_shuffles; i++)
+        {
+            counters.push_front(counters.back());
+            counters.pop_back();
+        }
 
         uint8_t c = 0;
         for (int i = 0; i < steps; i++)

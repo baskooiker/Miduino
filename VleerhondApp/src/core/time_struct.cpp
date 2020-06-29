@@ -5,6 +5,8 @@
 #include "core/defs.h"
 #include "core/timing_structs.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     TimeStruct::TimeStruct()

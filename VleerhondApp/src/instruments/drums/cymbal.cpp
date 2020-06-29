@@ -5,6 +5,8 @@
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     Cymbal::Cymbal(

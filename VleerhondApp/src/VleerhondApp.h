@@ -3,7 +3,6 @@
 #include "ofxMidiMessage.h"
 
 #include "ofMain.h"
-#include "print_midi.h"
 
 #include "application_data.h"
 

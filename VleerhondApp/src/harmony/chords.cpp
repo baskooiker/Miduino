@@ -3,7 +3,8 @@
 #include "harmony/scale.h"
 #include "patterns/ab.h"
 
-#include "utils.h"
+#include "utils/rand.h"
+#include "utils/utils.h"
 
 #include <vector>
 

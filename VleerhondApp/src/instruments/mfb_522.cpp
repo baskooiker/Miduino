@@ -12,6 +12,8 @@
 #include "percussion.h"
 #include "cymbal.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     Mfb522Kick::Mfb522Kick(Modulators& modulators, TimeStruct& time) 

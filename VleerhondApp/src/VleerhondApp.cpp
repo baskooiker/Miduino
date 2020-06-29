@@ -36,6 +36,8 @@ namespace Vleerhond
         {
             return false;
         }
+
+        return true;
     }
 
     bool VleerhondApp::initializeMidiPorts()
@@ -61,43 +63,40 @@ namespace Vleerhond
 
         if (false)
         {
-            for (int i = 0; i < 100; i++)
+            const int NR_OF_RANDOMS = 1;
+            const int NR_OF_CYCLES = 64;
+            const int NR_OF_BARS = 64;
+
+            for (int cycle = 0; cycle < NR_OF_CYCLES; cycle++)
             {
-                data.randomizeAll();
-            }
-            ofExit(0);
-            return;
-
-            data.harmony.randomize();
-            data.harmony.setType(HarmonyType::Const);
-            std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
-
-            data.vermona.fugue.randomize();
-            data.vermona.select(0);
-            data.vermona.setChannel(console_midi_channel);
-
-            int bars = 1;
-            for (int i = 0; i < bars * 16 * TICKS_PER_STEP; i++)
-            {
-                // From clock callback
-                if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
+                for (int i = 0; i < NR_OF_RANDOMS; i++)
                 {
-                    data.updatePedalState();
+                    data.randomizeAll();
                 }
-                data.processActiveNotes();
-                data.playAll();
-                data.time.tick += 1;
-            }
+
+                //data.harmony.setType(HarmonyType::Const);
+                //std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
+                //data.vermona.setChannel(console_midi_channel);
+
+                for (int i = 0; i < NR_OF_BARS * 16 * TICKS_PER_STEP; i++)
+                {
+                    // From clock callback
+                    if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
+                    {
+                        data.updatePedalState();
+                    }
+                    data.processActiveNotes();
+                    data.playAll();
+                    data.time.tick += 1;
+                }
 
 
-            // Flush active notes
-            for (int i = 0; i < (16 * 6); i++)
-            {
-                data.processActiveNotes();
-            }
-
-            console_midi_channel->printStorage();
-            console_midi_channel->print();
+                // Flush active notes
+                for (int i = 0; i < (16 * 6); i++)
+                {
+                    data.processActiveNotes();
+                }
+            } // End cycle
 
             ofExit(0);
             return;

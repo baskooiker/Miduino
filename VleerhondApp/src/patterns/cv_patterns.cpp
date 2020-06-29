@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     void CvPattern::randomize(const uint8_t maximum, const uint8_t minimum)

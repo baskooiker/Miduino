@@ -1,5 +1,7 @@
 #include "utils/utils.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     namespace Utils

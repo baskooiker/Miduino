@@ -1,5 +1,7 @@
 #include "instruments/tanzbar/tanzbar_cy.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     TanzbarCy::TanzbarCy(Modulators & modulators_ref, TimeStruct & time_ref) :

@@ -1,5 +1,7 @@
 #include "instruments/minitaur/moog_bass.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     MoogBass::MoogBass(

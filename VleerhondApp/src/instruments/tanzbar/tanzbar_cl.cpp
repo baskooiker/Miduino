@@ -1,5 +1,7 @@
 #include "instruments/tanzbar/tanzbar_cl.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     TanzbarCl::TanzbarCl(Modulators & modulators_ref, TimeStruct & time_ref) :

@@ -1,5 +1,7 @@
 #include "patterns/pattern_utils.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
 namespace PatternUtils

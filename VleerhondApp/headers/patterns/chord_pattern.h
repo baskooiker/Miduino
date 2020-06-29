@@ -9,6 +9,7 @@ namespace Vleerhond
     class ChordPattern : public CvPattern16
     {
     private:
+        // TODO: change to vector
         ChordType chord_types[16];
 
     public:

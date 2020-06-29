@@ -47,8 +47,8 @@
 #define DS_808_HT_TUNE 45
 #define DS_808_HT_DECAY 46
 #define DS_808_HT_RIM SHOT 
-#define DS_808_HT_PAN 47
-#define DS_808_HT_TUNE 48
+//#define DS_808_HT_PAN 47
+//#define DS_808_HT_TUNE 48
 
 // HAND CLAP
 #define DS_808_CP_PAN 49

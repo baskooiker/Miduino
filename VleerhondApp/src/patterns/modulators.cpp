@@ -1,5 +1,7 @@
 #include "patterns/modulators.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     Lfo::Lfo()

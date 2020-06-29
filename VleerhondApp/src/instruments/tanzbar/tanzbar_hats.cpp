@@ -1,5 +1,7 @@
 #include "instruments/tanzbar/tanzbar_hats.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     TanzbarHats::TanzbarHats(Modulators & modulators, TimeStruct & time) :

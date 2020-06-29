@@ -1,5 +1,7 @@
 #include "instruments/tanzbar/tanzbar_tom.h"
 
+#include "utils/rand.h"
+
 namespace Vleerhond
 {
     TanzbarTom::TanzbarTom(Modulators & modulators, TimeStruct & time) :
