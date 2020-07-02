@@ -16,6 +16,9 @@
 #define MIDI_C_NAME "MIDISPORT 2x4 Out 3"
 #define MIDI_D_NAME "MIDISPORT 2x4 Out 4"
 
+#define MIDI_BSP_IN  "Arturia BeatStep Pro" 
+#define MIDI_BSP_OUT "Arturia BeatStep Pro" 
+
 #define MIDI_CHANNEL_TANZBAR    11
 #define MIDI_CHANNEL_TB_CV1     1
 #define MIDI_CHANNEL_TB_CV2     2

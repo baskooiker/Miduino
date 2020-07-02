@@ -4,7 +4,7 @@
 
 namespace Vleerhond
 {
-    TanzbarHats::TanzbarHats(Modulators & modulators, TimeStruct & time) :
+    AbstractTanzbarHats::AbstractTanzbarHats(Modulators & modulators, TimeStruct & time) :
         Hats(modulators, time),
         tune_mod(modulators)
     {
@@ -17,21 +17,8 @@ namespace Vleerhond
 
         this->params.push_back(CcParam(TB_HH_TUNE, 0, 127));
     }
-    void TanzbarHats::randomize()
-    {
-        ofLogNotice("tanzbar_hi", "randomize()");
-        Hats::randomize();
 
-        // Modulator
-        {
-            uint8_t range = Rand::randui8(16, 96);
-            uint8_t off = Rand::randui8(127 - range);
-            this->tune_mod.randomize(range, off, .33);
-        }
-
-
-    }
-    bool TanzbarHats::play()
+    bool AbstractTanzbarHats::play()
     {
         if (this->isKilled())
         {
@@ -44,5 +31,56 @@ namespace Vleerhond
             getChannel()->sendCC(TB_HH_TUNE, value);
         }
         return Hats::play();
+    }
+
+    TanzbarRegularHats::TanzbarRegularHats(Modulators & modulators, TimeStruct & time)
+        : AbstractTanzbarHats(modulators, time)
+    {
+    }
+
+    void TanzbarRegularHats::randomize()
+    {
+        Hats::randomize();
+        // Modulator
+        {
+            uint8_t range = Rand::randui8(16, 96);
+            uint8_t off = Rand::randui8(127 - range);
+            this->tune_mod.randomize(range, off, .33);
+        }
+    }
+
+    TanzbarAlternativeHats::TanzbarAlternativeHats(Modulators & modulators, TimeStruct & time)
+        : AbstractTanzbarHats(modulators, time)
+    {
+    }
+
+    void TanzbarAlternativeHats::randomize()
+    {
+        int hh_length = Rand::distribute<int>({ 3, 5, 7 });
+        hh_pattern.setAll(0);
+        hh_pattern.abPattern.setConst();
+        hh_pattern.length = hh_length;
+        int hh_count = Rand::randui8(1, hh_length / 2 + 1);
+        for (int i = 0; i < hh_count; i++)
+        {
+            hh_pattern.addOneGrouped();
+        }
+
+        int oh_length = Rand::distribute<int>({ 5, 7, 11 });
+        oh_pattern.setAll(0);
+        oh_pattern.abPattern.setConst();
+        oh_pattern.length = oh_length;
+        int oh_count = Rand::randui8(1, oh_length / 3 + 1);
+        for (int i = 0; i < oh_count; i++)
+        {
+            oh_pattern.addOneGrouped();
+        }
+        
+        // Modulator
+        {
+            uint8_t range = Rand::randui8(16, 96);
+            uint8_t off = Rand::randui8(127 - range);
+            this->tune_mod.randomize(range, off, .33);
+        }
     }
 }

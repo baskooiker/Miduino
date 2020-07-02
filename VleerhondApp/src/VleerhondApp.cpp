@@ -51,7 +51,9 @@ namespace Vleerhond
             return false;
         if (!MidiIO::addOutput(MIDI_C_NAME, 0)) 
             return false;
-        if (!MidiIO::addOutput(MIDI_D_NAME, 0)) 
+        if (!MidiIO::addOutput(MIDI_D_NAME, 0))
+            return false;
+        if (!MidiIO::addOutput(MIDI_BSP_OUT, 0))
             return false;
 
         return true;
@@ -111,9 +113,6 @@ namespace Vleerhond
 
         // Init app
         data.randomizeAll();
-
-        // Set initial 808 program
-        data.drumstation.reset();
 
         data.vermona.select(0);
     }

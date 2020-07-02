@@ -92,8 +92,8 @@ void Bass::randomizeDrop()
     }
 
     euclid_pattern.setAll(false);
-    euclid_pattern.addOne();
-    euclid_pattern.addOne();
+    euclid_pattern.addOneGrouped();
+    euclid_pattern.addOneGrouped();
 }
 
 void Bass::randomizeGates()

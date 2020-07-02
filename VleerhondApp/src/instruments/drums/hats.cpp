@@ -53,8 +53,8 @@ namespace Vleerhond
         case 2:
             oh_pattern.setAll(false);
             oh_pattern.length = 8;
-            oh_pattern.addOne();
-            oh_pattern.addOne();
+            oh_pattern.addOneGrouped();
+            oh_pattern.addOneGrouped();
             oh_pattern.abPattern.setConst(0);
             break;
         }

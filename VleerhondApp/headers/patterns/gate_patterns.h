@@ -32,7 +32,7 @@ namespace Vleerhond
         void setCoefSnarePattern();
         void setCoefHatPattern();
         void setCoefSlowPattern();
-        void addOne();
+        void addOneGrouped();
         void removeOne();
         std::string toString();
     };

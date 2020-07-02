@@ -151,11 +151,11 @@ namespace Vleerhond
         this->setCoefPattern(coef);
     }
 
-    void GatePatternAB::addOne()
+    void GatePatternAB::addOneGrouped()
     {
         for (int i = 0; i < 3; i++)
         {
-            patterns[i].addOne(this->length);
+            patterns[i].addOneGrouped(this->length);
         }
     }
 

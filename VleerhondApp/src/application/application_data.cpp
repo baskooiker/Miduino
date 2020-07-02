@@ -9,19 +9,11 @@ namespace Vleerhond
 {
     ApplicationData::ApplicationData() :
         tanzbar(harmony, modulators, time),
-        drumstation(harmony, modulators, time),
         minitaur(modulators, harmony, time),
         neutron(harmony, modulators, time),
         mam_mb33(harmony, modulators, time),
-        vermona(harmony, time),
-        vermona_hats(modulators, time)
+        vermona(harmony, time)
     {
-        // TODO: Move to own class
-        vermona_hats.pitch_open = 0;
-        vermona_hats.pitch_closed = 36;
-        vermona_hats.settings.choke_open = false;
-        vermona_hats.settings.p_3_4 = 0;
-
         this->randomizeAll();
     }
 
@@ -103,14 +95,12 @@ namespace Vleerhond
     {
         std::vector<InstrumentBase*> ptrs;
 
-        //ptrs.push_back(&this->drumstation);
         ptrs.push_back(&this->tanzbar);
 
         ptrs.push_back(&this->mam_mb33);
         ptrs.push_back(&this->minitaur);
         ptrs.push_back(&this->neutron);
-        //ptrs.push_back(&this->vermona);
-        //ptrs.push_back(&this->vermona_hats);
+        ptrs.push_back(&this->vermona);
 
         return ptrs;
     }
@@ -131,13 +121,10 @@ namespace Vleerhond
     void ApplicationData::connect()
     {
         this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_CC_CHANNEL_TANZBAR, MIDI_A_NAME));
-        //this->drumstation.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_DS, MIDI_B_NAME));
 
         this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
         this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
         this->minitaur.setChannel(std::make_shared<MidiChannel>(12, MIDI_A_NAME));
-
         this->vermona.setChannel(std::make_shared<MidiChannel>(7, VERMONA_CONTROL_CHANNEL, MIDI_B_NAME));
-        this->vermona_hats.setChannel(std::make_shared<MidiChannel>(8, VERMONA_CONTROL_CHANNEL, MIDI_B_NAME));
     }
 }

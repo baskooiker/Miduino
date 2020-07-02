@@ -145,7 +145,6 @@ namespace Vleerhond
                     for (auto& inst : data.tanzbar.getLow())
                         inst->randomize();
                 }
-                //data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;
@@ -161,10 +160,7 @@ namespace Vleerhond
             {
                 for (auto& inst : data.tanzbar.getMid())
                     inst->randomize();
-                for (auto& inst : data.drumstation.getMid())
-                    inst->randomize();
 
-                //data.time.randomizeShuffle();
                 data.modulators.randomize();
             }
             break;
@@ -189,12 +185,20 @@ namespace Vleerhond
             if (value == 0)
             {
                 for (auto& inst : data.tanzbar.getHigh())
+                { 
                     inst->randomize();
-                for (auto& inst : data.drumstation.getHigh())
-                    inst->randomize();
+                }
 
-                //data.time.randomizeShuffle();
                 data.modulators.randomize();
+
+                if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
+                {
+                    data.tanzbar.tanzbar_hats.select(1);
+                }
+                else
+                {
+                    data.tanzbar.tanzbar_hats.select(0);
+                }
             }
             break;
         case BSP_STEP_04:
@@ -262,16 +266,13 @@ namespace Vleerhond
             else
             {
                 data.tanzbar.killLow(value > 0);
-                data.drumstation.killLow(value > 0);
             }
             break;
         case BSP_PAD_BTM_02:
             data.tanzbar.killMid(value > 0);
-            data.drumstation.killMid(value > 0);
             break;
         case BSP_PAD_BTM_03:
             data.tanzbar.killHigh(value > 0);
-            data.drumstation.killHigh(value > 0);
             break;
         case BSP_PAD_BTM_04:
             data.minitaur.kill(value > 0);

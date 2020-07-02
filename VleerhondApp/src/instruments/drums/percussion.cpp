@@ -39,8 +39,8 @@ namespace Vleerhond
             break;
         case 1:
             pattern.setAll(false);
-            pattern.addOne();
-            pattern.addOne();
+            pattern.addOneGrouped();
+            pattern.addOneGrouped();
             break;
         }
 
@@ -53,6 +53,11 @@ namespace Vleerhond
 
     bool Percussion::play()
     {
+        if (this->isKilled())
+        {
+            return false;
+        }
+
         if (this->pattern.gate(time))
         {
             this->midi_channel->noteOn(
@@ -61,6 +66,7 @@ namespace Vleerhond
             );
             return true;
         }
+
         return false;
     }
     uint8_t Percussion::getVelocity()

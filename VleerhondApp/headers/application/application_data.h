@@ -7,7 +7,6 @@
 #include "patterns/modulators.h"
 
 #include "tanzbar.h"
-#include "instruments/drumstation/drumstation.h"
 
 #include "instruments/minitaur/minitaur.h"
 #include "instruments/neutron/neutron.h"
@@ -31,10 +30,8 @@ namespace Vleerhond
         Neutron neutron;
         MamMb33 mam_mb33;
         Vermona vermona;
-        Hats vermona_hats;
 
         Tanzbar tanzbar;
-        DrumStation drumstation;
 
         UiState ui_state;
 

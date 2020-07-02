@@ -23,7 +23,7 @@ namespace Vleerhond
         std::vector<uint8_t> distribute(uint8_t size, uint8_t amount);
         void setDiddles(const float f, const bool starts_with, uint8_t length);
         void setCoefPattern(const Coefficients coef);
-        void addOne(const uint8_t length);
+        void addOneGrouped(const uint8_t length);
         void removeOne(const uint8_t length);
         void shiftOne();
         bool shiftDown();

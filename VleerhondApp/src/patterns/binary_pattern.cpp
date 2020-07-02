@@ -166,7 +166,7 @@ namespace Vleerhond
             this->setGate(i, Rand::randf() < coef.up);
     }
 
-    void BinaryPattern::addOne(const uint8_t length)
+    void BinaryPattern::addOneGrouped(const uint8_t length)
     {
         std::vector<uint8_t> indices;
         for (int i = 0; i < length; i++)
