@@ -8,13 +8,15 @@ uint32_t millis()
 }
 
 //========================================================================
-int main( ){
-    if (true)
+int main(){
+    //ofAppNoWindow headless;
+    //ofSetupOpenGL(&headless, 640, 420, OF_WINDOW);
+    //ofRunApp(new Vleerhond::VleerhondApp());
+    Vleerhond::VleerhondApp app;
+    app.setup();
+    while(app.stateOk())
     {
-        ofSetupOpenGL(512, 384, OF_WINDOW);			// <-------- setup the GL context
-        // this kicks off the running of my app
-        // can be OF_WINDOW or OF_FULLSCREEN
-        // pass in width and height too:
-        ofRunApp(new Vleerhond::VleerhondApp());
+        app.update();
     }
+    std::cout << "Done...\n";
 }

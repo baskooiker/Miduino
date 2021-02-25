@@ -139,3 +139,23 @@
 ################################################################################
 # PROJECT_CXX = 
 # PROJECT_CC = 
+
+USER_CFLAGS = \
+    -I./headers/ \
+    -I./headers/application \
+    -I./headers/core \
+    -I./headers/harmony \
+    -I./headers/instruments \
+    -I./headers/instruments/drums \
+    -I./headers/instruments/drumstation \
+    -I./headers/instruments/mam_mb33 \
+    -I./headers/instruments/mfb_503 \
+    -I./headers/instruments/mfb_522 \
+    -I./headers/instruments/minitaur \
+    -I./headers/instruments/neutron \
+    -I./headers/instruments/tanzbar \
+    -I./headers/instruments/tonal_instruments \
+    -I./headers/instruments/vermona \
+    -I./headers/midi \
+    -I./headers/patterns \
+    -I./headers/utils \

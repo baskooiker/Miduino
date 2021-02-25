@@ -18,11 +18,12 @@ namespace Vleerhond
         public ofBaseApp,
         public ofxMidiListener 
     {
+        bool state = true;
     public:
         ApplicationData data;
         
         bool initializeMidiPorts();
-
+        bool stateOk();
         void setup();
         void play();
         void update();

@@ -12,26 +12,20 @@ namespace Vleerhond
 {
     const char MODULE[] = "VleerhondApp";
 
+    bool VleerhondApp::stateOk()
+    {
+        return state;
+    }
+
     bool VleerhondApp::initializeMidiPorts()
     {
-        ofSetBackgroundColor(0);
+        std::cout << "Starting setup\n";
+        std::string midi_a_name = "f_midi";
+        std::string midi_b_name = "f_midi";
+        std::string midi_c_name = "f_midi";
+        std::string midi_d_name = "f_midi";
 
-        std::string midi_a_name = "MIDISPORT 2x2 Anniversary Out A";
-        std::string midi_b_name = "MIDISPORT 2x2 Anniversary Out B";
-        std::string midi_c_name = "MIDISPORT 2x2 Anniversary Out A";
-        std::string midi_d_name = "MIDISPORT 2x2 Anniversary Out B";
-        midi_a_name = "MidiSport 2x4:MidiSport 2x4 MIDI 1";
-        midi_b_name = "MidiSport 2x4:MidiSport 2x4 MIDI 2";
-        midi_c_name = "MidiSport 2x4:MidiSport 2x4 MIDI 3";
-        midi_d_name = "MidiSport 2x4:MidiSport 2x4 MIDI 4";
-        midi_a_name = "ESI M4U MIDI 1";
-        midi_b_name = "ESI M4U MIDI 2";
-        midi_c_name = "ESI M4U MIDI 3";
-        midi_d_name = "ESI M4U MIDI 4";
-
-        std::string midi_in_name = "ZeRO MkII";
-        midi_in_name = "MidiSport 2x4:MidiSport 2x4 MIDI 1";
-        midi_in_name = "ESI M4U MIDI 1";
+        std::string midi_in_name = "f_midi";
 
         bool success = true;
 
@@ -48,23 +42,17 @@ namespace Vleerhond
         success &= MidiIO::addMidiOut(midi_c_name);
         success &= MidiIO::addMidiOut(midi_d_name);
 
-        if (success)
-        {
-            ofSetBackgroundColor(128);
-        }
-        else
-        {
-            ofSetBackgroundColor(0);
-        }
         return success;
     }
 
     void VleerhondApp::setup()
     {
+        state = true;
         ofLogToConsole();
 
         if (!initializeMidiPorts())
         {
+            state = false;
             ofExit();
         }
 
@@ -89,6 +77,7 @@ namespace Vleerhond
         else
         {
             ofExit();
+            state = false;
         }
     }
 
@@ -99,6 +88,7 @@ namespace Vleerhond
         {
         case 'q':
             ofExit();
+            state = false;
             break;
         case 'r':
             ofLogNotice(MODULE, "Randomize");
@@ -111,6 +101,7 @@ namespace Vleerhond
 
     void VleerhondApp::newMidiMessage(ofxMidiMessage& message)
     {
+        std::cout << "newMidiMessage\n";
         switch (message.status)
         {
         case MIDI_TIME_CLOCK:
