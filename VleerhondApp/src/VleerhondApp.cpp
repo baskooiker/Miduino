@@ -20,16 +20,16 @@ namespace Vleerhond
     bool VleerhondApp::initializeMidiPorts()
     {
         std::cout << "Starting setup\n";
-        std::string midi_a_name = "f_midi";
-        std::string midi_b_name = "f_midi";
-        std::string midi_c_name = "f_midi";
-        std::string midi_d_name = "f_midi";
+        std::string midi_a_name = "ttymidi";
 
-        std::string midi_in_name = "f_midi";
+        std::string midi_in_name = "ttymidi";
+        midi_in_name = "Midi Through";
+//        midi_in_name = "Midi Through Port-0";
 
         bool success = true;
 
         success &= MidiIO::addMidiIn(midi_in_name);
+
         // don't ignore sysex, timing, & active sense messages,
         // these are ignored by default
         MidiIO::ins()[0].ignoreTypes(false, false, false);
@@ -38,9 +38,9 @@ namespace Vleerhond
 
 
         success &= MidiIO::addMidiOut(midi_a_name);
-        success &= MidiIO::addMidiOut(midi_b_name);
-        success &= MidiIO::addMidiOut(midi_c_name);
-        success &= MidiIO::addMidiOut(midi_d_name);
+//        success &= MidiIO::addMidiOut(midi_b_name);
+//        success &= MidiIO::addMidiOut(midi_c_name);
+//        success &= MidiIO::addMidiOut(midi_d_name);
 
         return success;
     }

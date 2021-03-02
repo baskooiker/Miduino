@@ -44,6 +44,9 @@ namespace Vleerhond
         midi_in.push_back(ofxMidiIn());
         ofxMidiIn& port = midi_in[midi_in.size() - 1];
 
+        port.openVirtualPort();
+        return true;
+
         uint8_t num_ports = port.getNumInPorts();
 
         int port_index = -1;
