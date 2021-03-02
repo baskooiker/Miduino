@@ -1,7 +1,0 @@
-ofxOsc
-ofxAudioFile
-ofxBpm
-ofxMidi
-ofxPDSP
-ofxSamplePlayer
-ofxSIMDFloats

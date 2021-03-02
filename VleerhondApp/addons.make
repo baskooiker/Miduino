@@ -1,4 +1,1 @@
-ofxAudioFile
-ofxBpm
-ofxPDSP
-ofxSamplePlayer
+ofxMidi

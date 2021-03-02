@@ -42,19 +42,20 @@ namespace Vleerhond
 
     bool VleerhondApp::initializeMidiPorts()
     {
-        if (!openFirstInput({ "Arturia BeatStep Pro", "MIDISPORT 2x4 In 2" }, this)) 
+        if (!openFirstInput({ "ttymidi"}, this)) 
             return false;
 
-        if (!MidiIO::addOutput(MIDI_A_NAME, 0))
+        if (!MidiIO::addOutput("ttymidi", 1))
             return false;
-        if (!MidiIO::addOutput(MIDI_B_NAME, 1)) 
-            return false;
-        if (!MidiIO::addOutput(MIDI_C_NAME, 0)) 
-            return false;
-        if (!MidiIO::addOutput(MIDI_D_NAME, 0))
-            return false;
-        if (!MidiIO::addOutput(MIDI_BSP_OUT, 0))
-            return false;
+
+        //if (!MidiIO::addOutput(MIDI_B_NAME, 1)) 
+        //    return false;
+        //if (!MidiIO::addOutput(MIDI_C_NAME, 0)) 
+        //    return false;
+        //if (!MidiIO::addOutput(MIDI_D_NAME, 0))
+        //    return false;
+        //if (!MidiIO::addOutput(MIDI_BSP_OUT, 0))
+        //    return false;
 
         return true;
     }
@@ -137,7 +138,7 @@ namespace Vleerhond
                 {
                     data.minitaur.bass_root.setVco2Square(trigger_active);
                     _is_trigger_on = trigger_active;
-                    ofLogNotice("", "BLINK");
+                    //ofLogNotice("", "BLINK");
                 }
             }
         }
@@ -156,7 +157,7 @@ namespace Vleerhond
             handleClock(this->data);
             break;
         case MIDI_STOP:
-            ofLogNotice("Vleerhond", "Stop!");
+            //ofLogNotice("Vleerhond", "Stop!");
             handleStop(this->data);
             stop_counter++;
             if (stop_counter > 8)
@@ -174,16 +175,16 @@ namespace Vleerhond
         case MIDI_START:
         case MIDI_CONTINUE:
             stop_counter = 0;
-            ofLogNotice("Vleerhond", "Start!");
+            //ofLogNotice("Vleerhond", "Start!");
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
-            ofLogVerbose("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
+            //ofLogVerbose("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
             break;
         case MIDI_NOTE_OFF:
             break;
         case MIDI_CONTROL_CHANGE:
-            ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
+            //ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
             handleControlChange(this->data, message.channel, message.control, message.value);
             break;
         default:

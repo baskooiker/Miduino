@@ -28,7 +28,7 @@ namespace Vleerhond
         void randomize();
         void switchConstChord();
         uint16_t getPatternLength(HarmonyType type);
-        void HarmonyStruct::setType(HarmonyType type);
+        void setType(HarmonyType type);
         void setTonic();
 
     private:
