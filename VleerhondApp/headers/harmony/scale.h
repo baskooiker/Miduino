@@ -4,7 +4,7 @@
 
 #include "core/defs.h"
 #include "utils.h"
-#include "strings.h"
+#include "string_utils.h"
 
 #include "harmony/chord_struct.h"
 

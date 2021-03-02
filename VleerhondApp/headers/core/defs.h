@@ -47,10 +47,10 @@ public:
     uint8_t p_t8;
 
     IntervalProbs(
-        const uint8_t p4 = 0, 
-        const uint8_t p8 = 0, 
-        const uint8_t p16 = 0, 
-        const uint8_t p32 = 0, 
+        const uint8_t p4 = 0,
+        const uint8_t p8 = 0,
+        const uint8_t p16 = 0,
+        const uint8_t p32 = 0,
         const uint8_t p8t = 0) :
         p_4(p4),
         p_8(p16),

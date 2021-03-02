@@ -28,9 +28,9 @@ namespace Rand
     template<typename T>
     T distribute(const std::vector<T>& values, const std::vector<uint16_t>& weights)
     {
-        BOOST_ASSERT_MSG(weights.size() == values.size(), "Size of weights and values is not equal");
-        BOOST_ASSERT_MSG(weights.size() < 7, "Should not use more than 7 weights");
-        BOOST_ASSERT_MSG(weights.size() > 0, "Should use at least 1 weight");
+        //BOOST_ASSERT_MSG(weights.size() == values.size(), "Size of weights and values is not equal");
+        //BOOST_ASSERT_MSG(weights.size() < 7, "Should not use more than 7 weights");
+        //BOOST_ASSERT_MSG(weights.size() > 0, "Should use at least 1 weight");
 
         return values[distribution(weights)];
     }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #include "harmony/chord_type.h"
 
 namespace Vleerhond

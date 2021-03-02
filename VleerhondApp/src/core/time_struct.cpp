@@ -1,5 +1,6 @@
 #include "core/time_struct.h"
 
+#include <algorithm>
 #include "ofLog.h"
 
 #include "core/defs.h"
@@ -31,8 +32,8 @@ namespace Vleerhond
 
         if ((this->tick + TICKS_PER_STEP) % (2 * TICKS_PER_STEP) == 0)
         {
-            uint8_t amount = (uint8_t)CLIP((int8_t)this->global_shuffle + shuffle_offset, 0, 127);
-            return MAX((uint32_t)((this->average_pulse_time / 8.) * (amount / 127.)), delay);
+            uint8_t amount = (uint8_t)std::min(std::max((int8_t)this->global_shuffle + shuffle_offset, 0), 127);
+            return std::max((uint32_t)((this->average_pulse_time / 8.) * (amount / 127.)), delay);
         }
         else
             return delay;
@@ -51,8 +52,8 @@ namespace Vleerhond
     void TimeStruct::randomizeShuffle()
     {
         const int8_t rand_range = 32;
-        int8_t min_ = MAX((int8_t)this->global_shuffle - rand_range, 0);
-        int8_t max_ = MIN((int8_t)this->global_shuffle + rand_range, 128);
+        int8_t min_ = std::max((int8_t)this->global_shuffle - rand_range, 0);
+        int8_t max_ = std::min((int8_t)this->global_shuffle + rand_range, 128);
         this->global_shuffle = Rand::randui8(min_, max_);
         ofLogNotice("time", "shuffle = %d", this->global_shuffle);
     }

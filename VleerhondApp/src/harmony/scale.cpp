@@ -2,7 +2,6 @@
 
 #include "core/defs.h"
 #include "utils/utils.h"
-#include "strings.h"
 
 namespace Vleerhond
 {

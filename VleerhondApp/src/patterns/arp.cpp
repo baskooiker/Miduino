@@ -22,7 +22,7 @@ namespace Vleerhond
         const bool include_current,
         uint8_t& last_note) const
     {
-        last_note = CLIP(this->last_note, this->min, this->min + this->range);
+        last_note = std::min((uint8_t)std::max((uint8_t)this->last_note, (uint8_t)this->min), (uint8_t)(this->min + this->range));
         if (Utils::isInSet(this->last_note, arp_pitches) && include_current)
             return this->last_note;
         bool below = false;
@@ -112,10 +112,9 @@ namespace Vleerhond
 
     void ArpData::getArpPitchesByCount(const Scale& scale, const ChordStruct& chord)
     {
-        
         for (
-            int i = this->min; 
-            this->arp_notes.size() < this->range_count && i < 128; 
+            int i = this->min;
+            this->arp_notes.size() < this->range_count && i < 128;
             i++)
         {
             if (scale.chordContains(i, chord))

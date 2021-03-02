@@ -1,4 +1,4 @@
-#include "instruments\tonal_instruments\poly.h"
+#include "instruments/tonal_instruments/poly.h"
 
 #include "midi_io.h"
 
