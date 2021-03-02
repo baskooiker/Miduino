@@ -11,7 +11,7 @@
 #endif
 
 
-#define MIDI_A_NAME "MIDISPORT 2x4 Out 1"
+#define MIDI_A_NAME "ttymidi"
 #define MIDI_B_NAME "MIDISPORT 2x4 Out 2"
 #define MIDI_C_NAME "MIDISPORT 2x4 Out 3"
 #define MIDI_D_NAME "MIDISPORT 2x4 Out 4"

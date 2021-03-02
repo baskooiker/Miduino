@@ -42,11 +42,15 @@ namespace Vleerhond
 
     bool VleerhondApp::initializeMidiPorts()
     {
-        if (!openFirstInput({ "ttymidi"}, this)) 
+        if (!openFirstInput({"ttymidi"}, this)) 
             return false;
 
         if (!MidiIO::addOutput("ttymidi", 1))
+        {
+            ofLogNotice("", "Failed to open output!");
             return false;
+        }
+        ofLogNotice("", "Succesfully opened output!");
 
         //if (!MidiIO::addOutput(MIDI_B_NAME, 1)) 
         //    return false;
@@ -157,7 +161,7 @@ namespace Vleerhond
             handleClock(this->data);
             break;
         case MIDI_STOP:
-            //ofLogNotice("Vleerhond", "Stop!");
+            ofLogNotice("Vleerhond", "Stop!");
             handleStop(this->data);
             stop_counter++;
             if (stop_counter > 8)
@@ -175,16 +179,16 @@ namespace Vleerhond
         case MIDI_START:
         case MIDI_CONTINUE:
             stop_counter = 0;
-            //ofLogNotice("Vleerhond", "Start!");
+            ofLogNotice("Vleerhond", "Start!");
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
-            //ofLogVerbose("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
+            ofLogVerbose("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
             break;
         case MIDI_NOTE_OFF:
             break;
         case MIDI_CONTROL_CHANGE:
-            //ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
+            ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
             handleControlChange(this->data, message.channel, message.control, message.value);
             break;
         default:
