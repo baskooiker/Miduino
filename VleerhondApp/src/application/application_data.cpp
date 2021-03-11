@@ -95,9 +95,8 @@ namespace Vleerhond
     {
         std::vector<InstrumentBase*> ptrs;
 
-        ptrs.push_back(&this->tanzbar);
-
-        ptrs.push_back(&this->mam_mb33);
+//        ptrs.push_back(&this->tanzbar);
+//        ptrs.push_back(&this->mam_mb33);
         ptrs.push_back(&this->minitaur);
         ptrs.push_back(&this->neutron);
         ptrs.push_back(&this->vermona);

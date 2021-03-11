@@ -6,10 +6,6 @@
 #ifndef MAX
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #endif
-#ifndef CLIP
-#define CLIP(value,minimum,maximum) (MIN(MAX(value, minimum), maximum))
-#endif
-
 
 #define MIDI_A_NAME "ttymidi"
 #define MIDI_B_NAME "MIDISPORT 2x4 Out 2"

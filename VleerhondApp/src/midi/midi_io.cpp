@@ -32,7 +32,8 @@ namespace Vleerhond
 
     bool MidiIO::setMainInput(const std::string& target_port_name, ofxMidiListener* listener)
     {
-        in_ports.push_back(ofxMidiIn());
+        in_ports.push_back(ofxMidiIn("ofxMidiInClient", MIDI_API_DEFAULT));
+//        in_ports.push_back(ofxMidiIn("ofxMidiInClient", MIDI_API_JACK));
 
         ofxMidiIn& in = in_ports.back();
 
@@ -186,7 +187,9 @@ namespace Vleerhond
     }
 
     inline MidiOut::MidiOut(int time_multiplier)
-        : time_multiplier(time_multiplier)
+        : port("ofxMidiOut Client", MIDI_API_DEFAULT)
+//        : port("ofxMidiOut Client", MIDI_API_JACK)
+        , time_multiplier(time_multiplier)
     {
     }
 

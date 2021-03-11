@@ -18,6 +18,7 @@ namespace Vleerhond
         bool in_found = false;
         for (std::string in_name : midi_in_names)
         {
+            ofLogNotice("", "Trying to open port %s", in_name);
             if (MidiIO::portAvailable(in_name))
             {
                 if (MidiIO::setMainInput(in_name, listener))
@@ -42,7 +43,7 @@ namespace Vleerhond
 
     bool VleerhondApp::initializeMidiPorts()
     {
-        if (!openFirstInput({"ttymidi"}, this)) 
+        if (!openFirstInput({"vleerhond_clock"}, this)) 
             return false;
 
         if (!MidiIO::addOutput("ttymidi", 1))
@@ -109,6 +110,8 @@ namespace Vleerhond
             return;
         }
 
+        receiver.setup(4041);
+
         if (!initializeMidiPorts())
         {
             ofExit(0);
@@ -120,6 +123,8 @@ namespace Vleerhond
         data.randomizeAll();
 
         data.vermona.select(0);
+
+        data.time.state = PlayState::Playing;
     }
 
     void VleerhondApp::update()
@@ -130,22 +135,33 @@ namespace Vleerhond
         {
             ofExit(0);
         }
-        else
-        {
-            data.processNoteEvents();
 
-            // If stopped, blink light on moog
-            if (data.time.state == PlayState::Stopped)
+        data.processNoteEvents();
+
+	// check for waiting messages
+	while( receiver.hasWaitingMessages() )
+	{
+            // get the next message
+            ofxOscMessage m;
+            receiver.getNextMessage( &m );
+            ofLogNotice("OSC", "Received from %s", m.getAddress());
+            if ( strcmp( m.getAddress().c_str(), "/mouse/position" ) == 0 )
             {
-                bool trigger_active = (int)ofGetCurrentTime().getAsSeconds() % 2 == 1;
-                if (trigger_active != _is_trigger_on)
-                {
-                    data.minitaur.bass_root.setVco2Square(trigger_active);
-                    _is_trigger_on = trigger_active;
-                    //ofLogNotice("", "BLINK");
-                }
             }
         }
+
+        // If stopped, blink light on moog
+        if (data.time.state == PlayState::Stopped)
+        {
+            bool trigger_active = (int)ofGetCurrentTime().getAsSeconds() % 2 == 1;
+            if (trigger_active != _is_trigger_on)
+            {
+                data.minitaur.bass_root.setVco2Square(trigger_active);
+                _is_trigger_on = trigger_active;
+                //ofLogNotice("", "BLINK");
+            }
+        }
+
     }
 
     void VleerhondApp::draw() {}
@@ -183,7 +199,7 @@ namespace Vleerhond
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
-            ofLogVerbose("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
+            ofLogNotice("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
             break;
         case MIDI_NOTE_OFF:
             break;

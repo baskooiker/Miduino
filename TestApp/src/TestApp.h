@@ -2,27 +2,29 @@
 
 #include "ofxMidiMessage.h"
 
+#include "ofxMidiOut.h"
+
 #include "ofMain.h"
 #include "ofxOsc.h"
 
-#include "application_data.h"
-
 namespace Vleerhond
 {
-    class VleerhondApp :
+    class TestApp :
         public ofBaseApp,
         public ofxMidiListener {
 
     protected:
-        int stop_counter = 0;
+        uint64_t clock_counter = 0;
+        uint64_t start_time = 0;
+
     public:
-        ApplicationData data;
         ofxOscReceiver receiver;
+
+        ofxMidiOut midi_out;
 
         bool initializeMidiPorts();
 
         void setup();
-        //void play();
         void update();
         void draw();
 
