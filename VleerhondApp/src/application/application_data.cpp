@@ -76,8 +76,8 @@ namespace Vleerhond
         }
 
         this->user_events.erase(std::remove_if(
-            this->user_events.begin(), 
-            this->user_events.end(), 
+            this->user_events.begin(),
+            this->user_events.end(),
             [](std::shared_ptr<UserEvent>& user_event) { return user_event->isHandled(); }
         ), this->user_events.end()
         );
@@ -96,7 +96,7 @@ namespace Vleerhond
         std::vector<InstrumentBase*> ptrs;
 
 //        ptrs.push_back(&this->tanzbar);
-//        ptrs.push_back(&this->mam_mb33);
+        // ptrs.push_back(&this->mam_mb33);
         ptrs.push_back(&this->minitaur);
         ptrs.push_back(&this->neutron);
         ptrs.push_back(&this->vermona);
@@ -121,9 +121,9 @@ namespace Vleerhond
     {
         this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_CC_CHANNEL_TANZBAR, MIDI_A_NAME));
 
-        this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
-        this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
-        this->minitaur.setChannel(std::make_shared<MidiChannel>(12, MIDI_A_NAME));
+        this->neutron.setChannel(std::make_shared<MidiChannel>(1, MIDI_A_NAME));
+        this->mam_mb33.setChannel(std::make_shared<MidiChannel>(4, MIDI_A_NAME));
+        this->minitaur.setChannel(std::make_shared<MidiChannel>(3, MIDI_A_NAME));
         this->vermona.setChannel(std::make_shared<MidiChannel>(7, VERMONA_CONTROL_CHANNEL, MIDI_A_NAME));
     }
 }

@@ -14,10 +14,12 @@ namespace Vleerhond
         instruments.push_back(&acid_bass);
         instruments.push_back(&arp);
 
-        drop_bass.settings.min_pitch = 30;
-        const_bass.settings.min_pitch = 30;
-        acid_bass.settings.min_pitch = 30;
-        arp.settings.min_pitch = 30;
+        uint8_t min_pitch = 48; // 30 for MAM MB 33, 48 for TT303
+
+        drop_bass.settings.min_pitch = min_pitch;
+        const_bass.settings.min_pitch = min_pitch;
+        acid_bass.settings.min_pitch = min_pitch;
+        arp.settings.min_pitch = min_pitch;
     }
 
     void MamMb33::randomize()

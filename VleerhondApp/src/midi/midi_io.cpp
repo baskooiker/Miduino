@@ -32,8 +32,8 @@ namespace Vleerhond
 
     bool MidiIO::setMainInput(const std::string& target_port_name, ofxMidiListener* listener)
     {
-        in_ports.push_back(ofxMidiIn("ofxMidiInClient", MIDI_API_DEFAULT));
-//        in_ports.push_back(ofxMidiIn("ofxMidiInClient", MIDI_API_JACK));
+//        in_ports.push_back(ofxMidiIn("ofxMidiInClient", MIDI_API_DEFAULT));
+        in_ports.push_back(ofxMidiIn("ofxMidiInClient", MIDI_API_JACK));
 
         ofxMidiIn& in = in_ports.back();
 
@@ -41,7 +41,7 @@ namespace Vleerhond
         std::vector<std::string> port_names = in.getInPortList();
         for (const std::string& name: port_names)
         {
-            ofLogNotice("MIDI", "In port: %s", name);
+            ofLogNotice("MIDI", "In port: %s", name.c_str());
         }
 
         for (int i = 0; i < port_names.size(); i++)
@@ -55,7 +55,7 @@ namespace Vleerhond
                     in.ignoreTypes(false, false, false);
                     in.setVerbose(true);
                     in.addListener(listener);
-                    ofLogNotice("", "input succesfully initialized: %s", in.getInPortName(i));
+                    ofLogNotice("", "input succesfully initialized: %s", in.getInPortName(i).c_str());
                     return true;
                 }
             }
@@ -91,16 +91,18 @@ namespace Vleerhond
 
     bool MidiIO::portAvailable(const std::string & target_port_name)
     {
-        ofxMidiIn in;
+        ofxMidiIn in("ofxMidiInClient", MIDI_API_JACK);
 
+        bool return_value = false;
         for (const std::string& name : in.getInPortList())
         {
+            ofLogNotice("MIDI", "InPort: %s", name.c_str());
             if (nameMatches(name, target_port_name))
             {
-                return true;
+                return_value = true;
             }
         }
-        return false;
+        return return_value;
     }
 
     bool MidiIO::portsOpen()
@@ -187,8 +189,8 @@ namespace Vleerhond
     }
 
     inline MidiOut::MidiOut(int time_multiplier)
-        : port("ofxMidiOut Client", MIDI_API_DEFAULT)
-//        : port("ofxMidiOut Client", MIDI_API_JACK)
+//        : port("ofxMidiOut Client", MIDI_API_DEFAULT)
+        : port("ofxMidiOut Client", MIDI_API_JACK)
         , time_multiplier(time_multiplier)
     {
     }

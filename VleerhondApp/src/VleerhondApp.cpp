@@ -18,7 +18,7 @@ namespace Vleerhond
         bool in_found = false;
         for (std::string in_name : midi_in_names)
         {
-            ofLogNotice("", "Trying to open port %s", in_name);
+            ofLogNotice("", "Trying to open port %s", in_name.c_str());
             if (MidiIO::portAvailable(in_name))
             {
                 if (MidiIO::setMainInput(in_name, listener))
@@ -43,24 +43,15 @@ namespace Vleerhond
 
     bool VleerhondApp::initializeMidiPorts()
     {
-        if (!openFirstInput({"vleerhond_clock"}, this)) 
+        if (!openFirstInput({"ttymidi"}, this))
             return false;
 
-        if (!MidiIO::addOutput("ttymidi", 1))
+        if (!MidiIO::addOutput("ttymidi", 0))
         {
             ofLogNotice("", "Failed to open output!");
             return false;
         }
         ofLogNotice("", "Succesfully opened output!");
-
-        //if (!MidiIO::addOutput(MIDI_B_NAME, 1)) 
-        //    return false;
-        //if (!MidiIO::addOutput(MIDI_C_NAME, 0)) 
-        //    return false;
-        //if (!MidiIO::addOutput(MIDI_D_NAME, 0))
-        //    return false;
-        //if (!MidiIO::addOutput(MIDI_BSP_OUT, 0))
-        //    return false;
 
         return true;
     }
@@ -68,47 +59,6 @@ namespace Vleerhond
     void VleerhondApp::setup()
     {
         ofLogToConsole();
-
-        if (false)
-        {
-            const int NR_OF_RANDOMS = 1;
-            const int NR_OF_CYCLES = 64;
-            const int NR_OF_BARS = 64;
-
-            for (int cycle = 0; cycle < NR_OF_CYCLES; cycle++)
-            {
-                for (int i = 0; i < NR_OF_RANDOMS; i++)
-                {
-                    data.randomizeAll();
-                }
-
-                //data.harmony.setType(HarmonyType::Const);
-                //std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
-                //data.vermona.setChannel(console_midi_channel);
-
-                for (int i = 0; i < NR_OF_BARS * 16 * TICKS_PER_STEP; i++)
-                {
-                    // From clock callback
-                    if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
-                    {
-                        data.updatePedalState();
-                    }
-                    data.processActiveNotes();
-                    data.playAll();
-                    data.time.tick += 1;
-                }
-
-
-                // Flush active notes
-                for (int i = 0; i < (16 * 6); i++)
-                {
-                    data.processActiveNotes();
-                }
-            } // End cycle
-
-            ofExit(0);
-            return;
-        }
 
         receiver.setup(4041);
 
@@ -123,8 +73,6 @@ namespace Vleerhond
         data.randomizeAll();
 
         data.vermona.select(0);
-
-        data.time.state = PlayState::Playing;
     }
 
     void VleerhondApp::update()
@@ -144,7 +92,7 @@ namespace Vleerhond
             // get the next message
             ofxOscMessage m;
             receiver.getNextMessage( &m );
-            ofLogNotice("OSC", "Received from %s", m.getAddress());
+            ofLogNotice("OSC", "Received from %s", m.getAddress().c_str());
             if ( strcmp( m.getAddress().c_str(), "/mouse/position" ) == 0 )
             {
             }
@@ -158,7 +106,6 @@ namespace Vleerhond
             {
                 data.minitaur.bass_root.setVco2Square(trigger_active);
                 _is_trigger_on = trigger_active;
-                //ofLogNotice("", "BLINK");
             }
         }
 
@@ -196,6 +143,15 @@ namespace Vleerhond
         case MIDI_CONTINUE:
             stop_counter = 0;
             ofLogNotice("Vleerhond", "Start!");
+
+            data.randomizeAll();
+
+            data.neutron.select(2);
+            data.neutron.setVariablePitchOffset(32);
+
+            data.minitaur.select(1);
+            data.minitaur.setVariablePitchOffset(64);
+
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
