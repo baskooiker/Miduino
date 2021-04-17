@@ -4,37 +4,10 @@
 #include "ofxMidiOut.h"
 #include "ofxMidiIn.h"
 
+#include "message_handlers.h"
+
 namespace Vleerhond
 {
-    static const uint8_t OFF_OFF = 12;
-    static const uint8_t RED_LOW = 13;
-    static const uint8_t RED_FULL = 15;
-    static const uint8_t AMBER_LOW = 29;
-    static const uint8_t AMBER_FULL = 63;
-    static const uint8_t YELLOW_FULL = 62;
-    static const uint8_t GREEN_LOW = 28;
-    static const uint8_t GREEN_FULL = 60;
-
-    const char MODULE[] = "LaunchControlDriver";
-
-
-    static const uint8_t CHANNEL = 1;
-    static const uint8_t BUTTON_0 = 9;
-    static const uint8_t BUTTON_1 = 10;
-    static const uint8_t BUTTON_2 = 11;
-    static const uint8_t BUTTON_3 = 12;
-    static const uint8_t BUTTON_4 = 25;
-    static const uint8_t BUTTON_5 = 26;
-    static const uint8_t BUTTON_6 = 27;
-    static const uint8_t BUTTON_7 = 28;
-    static const uint8_t BUTTONS[] = {BUTTON_0, BUTTON_1, BUTTON_2, BUTTON_3, BUTTON_4, BUTTON_5, BUTTON_6, BUTTON_7};
-    static const uint8_t ENCODERS_A[] = {21, 22, 23, 24, 25, 26, 27, 28};
-    static const uint8_t ENCODERS_B[] = {41, 42, 43, 44, 45, 46, 47, 48};
-    static const uint8_t UP = 114;
-    static const uint8_t DOWN = 115;
-    static const uint8_t LEFT = 116;
-    static const uint8_t RIGHT = 117;
-
     LaunchControlDriver::LaunchControlDriver()
         : midi_out("ofxMidiOutClient", MIDI_API_JACK)
         , midi_in("ofxMidiInClient", MIDI_API_JACK)
@@ -46,7 +19,7 @@ namespace Vleerhond
         ofLogToConsole();
 
         osc_sender.setup("127.0.0.1", 4042);
-        osc_receiver.setup(4041);
+        osc_receiver.setup(4043);
 
         std::string port_out_name = "Launch Control";
         uint8_t port_index = 0xFF;
@@ -95,44 +68,124 @@ namespace Vleerhond
         midi_in.setVerbose(true);
         midi_in.addListener(this);
 
-        start_time = ofGetSystemTimeMicros();
         clock_counter = 0;
-
 
         // Reset button colors
         std::vector<uint8_t> bytes = {0xB0, 0x00, 0x00};
         midi_out.sendMidiBytes(bytes);
         }
 
-    void LaunchControlDriver::update()
+    uint8_t getColorForPad(uint32_t counter, uint8_t pad_index, ControlMode control_mode)
     {
-        // check for waiting messages
-        static uint8_t counter = 0;
-
-        uint64_t micros_since_start = ofGetSystemTimeMicros() - start_time;
-
-        if (micros_since_start / 100000 > clock_counter)
+        uint32_t bar_number = counter / (24 * 4);
+        bool active_step = bar_number % 8 == pad_index;
+        switch(control_mode)
         {
-            clock_counter++;
-            counter = (counter + 1) % 128;
-            // ofLogNotice("", "Sending NoteOne(%d, %d, %d)", buttons[counter % 8], AMBER_LOW, i);
-            // midi_out.sendNoteOn(buttons[counter % 8], AMBER_LOW, i);
-            uint8_t color_for_mode = this->control_mode == ControlMode::CHORD_MODE ? AMBER_LOW : GREEN_LOW;
+            case ControlMode::CHORD_MODE:
+                return active_step ? AMBER_LOW : AMBER_FULL;
+            case ControlMode::PATTERN_MODE:
+                return active_step ? GREEN_LOW : GREEN_FULL;
+            default:
+                return OFF_OFF;
+        }
+    }
 
-            // std::vector<uint8_t> bytes = {0xB0, 0x00, 0x7F};
-            for (auto note : BUTTONS)
+    void LaunchControlDriver::receiveOscMessages()
+    {
+        // Receive clock counter
+        while(osc_receiver.hasWaitingMessages())
+        {
+            // get the next message
+            ofxOscMessage m;
+            osc_receiver.getNextMessage(m);
+            std::string message_address = m.getAddress();
+            // ofLogNotice("OSC", "Received from %s", message_address.c_str());
+            if ( message_address.compare("/clock") == 0 )
             {
-                uint8_t channel = 144 + CHANNEL;
-                std::vector<uint8_t> bytes = {channel, note, color_for_mode};
-                // midi_out.sendMidiBytes(bytes);
-                midi_out.sendNoteOn(CHANNEL, note, color_for_mode);
+                this->clock_counter = (uint64_t)m.getArgAsInt32(0);
+                // ofLogNotice("OSC", "Received counter: %d", this->clock_counter);
             }
         }
+    }
+
+    void LaunchControlDriver::update()
+    {
+        receiveOscMessages();
+
+        if (this->last_processed_counter != this->clock_counter || this->last_processed_mode != this->control_mode)
+        {
+            // Set pad LEDs
+            for (uint8_t i = 0; i < 8; i++)
+            {
+                uint8_t note = BUTTONS[i];
+                // ofLogNotice("LED", "note %d", note);
+                uint8_t color_for_mode = getColorForPad((uint32_t)this->clock_counter, i, this->control_mode);
+                // ofLogNotice("LED", "sendNoteOn(CHANNEL %d, note %d, color_for_mode %d)", CHANNEL, note, color_for_mode);
+                midi_out.sendNoteOn(CHANNEL, note, color_for_mode);
+            }
+            this->last_processed_counter = clock_counter;
+            this->last_processed_mode = this->control_mode;
+        }
+
     }
 
     void LaunchControlDriver::draw() {}
 
     void LaunchControlDriver::keyPressed(int key) {}
+
+    void LaunchControlDriver::handleCcMessage(const uint8_t channel, const uint8_t control, const uint8_t value)
+    {
+        switch (control)
+        {
+            case UP:
+                if (value > 0)
+                {
+                    ofLogNotice("MIDIIN", "UP");
+                }
+                break;
+            case DOWN:
+                if (value > 0)
+                {
+                    ofLogNotice("MIDIIN", "DOWN");
+                }
+                break;
+            case LEFT:
+                if (value > 0)
+                {
+                    this->control_mode = ControlMode::CHORD_MODE;
+                    ofLogNotice("MIDIIN", "Switch to Chord Mode");
+                }
+                break;
+            case RIGHT:
+                if (value > 0)
+                {
+                    this->control_mode = ControlMode::PATTERN_MODE;
+                    ofLogNotice("MIDIIN", "Switch to Pattern Mode");
+                }
+                break;
+            case ENCODER_B_1:
+                sendBass(osc_sender, "density", value);
+                break;
+            case ENCODER_B_2:
+                sendBass(osc_sender, "octave", value);
+                break;
+            case ENCODER_B_3:
+                sendBass(osc_sender, "pitch_offset", value);
+                break;
+            case ENCODER_B_5:
+                sendLead(osc_sender, "density", value);
+                break;
+            case ENCODER_B_6:
+                // sendLead(osc_sender, "octave", value);
+                break;
+            case ENCODER_B_7:
+                sendLead(osc_sender, "pitch_offset", value);
+                break;
+            default:
+                ofLogNotice("MIDIIN", "CC(channel: %d, control: %d, value: %d)", channel, control, value);
+                break;
+        }
+    }
 
     void LaunchControlDriver::newMidiMessage(ofxMidiMessage& message)
     {
@@ -141,139 +194,18 @@ namespace Vleerhond
         case MIDI_TIME_CLOCK:
             break;
         case MIDI_STOP:
-            // ofLogNotice("Vleerhond", "Stop!");
             break;
         case MIDI_START:
         case MIDI_CONTINUE:
-            // ofLogNotice("", "Start!");
             break;
         case MIDI_NOTE_ON:
-            switch (message.pitch)
-            {
-                case BUTTON_0:
-                    ofLogNotice("MIDIIN", "BUTTON[0] on");
-                    break;
-                case BUTTON_1:
-                    ofLogNotice("MIDIIN", "BUTTON[1] on");
-                    break;
-                case BUTTON_2:
-                    ofLogNotice("MIDIIN", "BUTTON[2] on");
-                    break;
-                case BUTTON_3:
-                    ofLogNotice("MIDIIN", "BUTTON[3] on");
-                    break;
-                case BUTTON_4:
-                    ofLogNotice("MIDIIN", "BUTTON[4] on");
-                    break;
-                case BUTTON_5:
-                    ofLogNotice("MIDIIN", "BUTTON[5] on");
-                    break;
-                case BUTTON_6:
-                    ofLogNotice("MIDIIN", "BUTTON[6] on");
-                    break;
-                case BUTTON_7:
-                    ofLogNotice("MIDIIN", "BUTTON[7] on");
-                    break;
-                default:
-                    ofLogNotice("MIDIIN", "NoteOn(channel: %d, pitch: %d, velocity: %d)", message.channel, message.pitch, message.velocity);
-                    break;
-            }
+            handleNoteOnMessage(osc_sender, message.channel, message.pitch, message.velocity);
             break;
         case MIDI_NOTE_OFF:
-
-            switch (message.pitch)
-            {
-                case BUTTON_0:
-                    if (this->control_mode == ControlMode::CHORD_MODE)
-                    {
-                        if (message.value == 0)
-                        {
-                            ofxOscMessage m;
-                            m.setAddress( "/chord_pattern" );
-                            m.addStringArg( "STATIC_ROOT" );
-                            osc_sender.sendMessage( m );
-                            ofLogNotice("MIDIIN", "BUTTON[0]: OSC STATIC_ROOT sent");
-                        }
-                    }
-                    break;
-                case BUTTON_1:
-                    if (this->control_mode == ControlMode::CHORD_MODE)
-                    {
-                        if (message.value == 0)
-                        {
-                            ofxOscMessage m;
-                            m.setAddress( "/chord_pattern" );
-                            m.addStringArg( "STATIC_NON_ROOT" );
-                            osc_sender.sendMessage( m );
-                            ofLogNotice("MIDIIN", "BUTTON[1]: OSC STATIC_NON_ROOT sent");
-                        }
-                    }
-                    break;
-                case BUTTON_2:
-                    if (this->control_mode == ControlMode::CHORD_MODE)
-                    {
-                        if (message.value == 0)
-                        {
-                            ofxOscMessage m;
-                            m.setAddress( "/chord_pattern" );
-                            m.addStringArg( "SIMPLE_PROGRESSION" );
-                            osc_sender.sendMessage( m );
-                            ofLogNotice("MIDIIN", "BUTTON[2]: OSC SIMPLE_PROGRESSION sent");
-                        }
-                    }
-                    break;
-                case BUTTON_3:
-                    if (this->control_mode == ControlMode::CHORD_MODE)
-                    {
-                        if (message.value == 0)
-                        {
-                            ofxOscMessage m;
-                            m.setAddress( "/chord_pattern" );
-                            m.addStringArg( "LONG_PROGRESSION" );
-                            osc_sender.sendMessage( m );
-                            ofLogNotice("MIDIIN", "BUTTON[3]: OSC LONG_PROGRESSION sent");
-                        }
-                    }
-                    break;
-                default:
-                    ofLogNotice("MIDIIN", "NoteOff(channel: %d, pitch: %d, velocity: %d)", message.channel, message.pitch, message.velocity);
-                    break;
-            }
+            handleNoteOffMessage(osc_sender, this->control_mode, message.channel, message.pitch);
             break;
         case MIDI_CONTROL_CHANGE:
-            
-            switch (message.control)
-            {
-                case UP:
-                    if (message.value > 0)
-                    {
-                        ofLogNotice("MIDIIN", "UP");
-                    }
-                    break;
-                case DOWN:
-                    if (message.value > 0)
-                    {
-                        ofLogNotice("MIDIIN", "DOWN");
-                    }
-                    break;
-                case LEFT:
-                    if (message.value > 0)
-                    {
-                        this->control_mode = ControlMode::CHORD_MODE;
-                        ofLogNotice("MIDIIN", "Switch to Chord Mode");
-                    }
-                    break;
-                case RIGHT:
-                    if (message.value > 0)
-                    {
-                        this->control_mode = ControlMode::PATTERN_MODE;
-                        ofLogNotice("MIDIIN", "Switch to Pattern Mode");
-                    }
-                    break;
-                default:
-                    ofLogNotice("MIDIIN", "CC(channel: %d, control: %d, value: %d)", message.channel, message.control, message.value);
-                    break;
-            }
+            handleCcMessage(message.channel, message.control, message.value);
             break;
         default:
             ofLogNotice("MIDIIN", "Unexpected status %d: channel %d, cc %d, value %d", message.status, message.channel, message.control, message.value);
@@ -294,6 +226,6 @@ namespace Vleerhond
 
     void LaunchControlDriver::exit()
     {
-        ofLogNotice("", "Closing MIDI ports");
+        ofLogNotice("", "Exit");
     }
 }

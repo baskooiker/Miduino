@@ -16,7 +16,7 @@ namespace Vleerhond
 
     void ChangeHarmonyEvent::handle()
     {
-        ofLogNotice("", "handle: base class");
+        // ofLogNotice("", "handle: base class");
         if ((this->time->tick + 1) % (uint32_t)harmony->getPatternLength(this->type) == 0)
         {
             harmony->setType(type);

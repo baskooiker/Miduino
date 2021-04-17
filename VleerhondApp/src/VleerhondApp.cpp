@@ -8,6 +8,7 @@
 #include "core/defs.h"
 #include "midi_io.h"
 #include "midi/console_midi_channel.h"
+#include "osc_callbacks.h"
 
 namespace Vleerhond
 {
@@ -60,7 +61,8 @@ namespace Vleerhond
     {
         ofLogToConsole();
 
-        receiver.setup(4041);
+        osc_receiver.setup(4042);
+        osc_sender.setup("127.0.0.1", 4043);
 
         if (!initializeMidiPorts())
         {
@@ -86,17 +88,7 @@ namespace Vleerhond
 
         data.processNoteEvents();
 
-	// check for waiting messages
-	while( receiver.hasWaitingMessages() )
-	{
-            // get the next message
-            ofxOscMessage m;
-            receiver.getNextMessage( &m );
-            ofLogNotice("OSC", "Received from %s", m.getAddress().c_str());
-            if ( strcmp( m.getAddress().c_str(), "/mouse/position" ) == 0 )
-            {
-            }
-        }
+        receiveOscMessages(data, osc_receiver);
 
         // If stopped, blink light on moog
         if (data.time.state == PlayState::Stopped)
@@ -121,6 +113,13 @@ namespace Vleerhond
         {
         case MIDI_TIME_CLOCK:
             MidiIO::sendTimeClock();
+            if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
+            {
+                ofxOscMessage m;
+                m.setAddress( "/clock" );
+                m.addInt32Arg(this->data.time.tick);
+                osc_sender.sendMessage( m );
+            }
             handleClock(this->data);
             break;
         case MIDI_STOP:

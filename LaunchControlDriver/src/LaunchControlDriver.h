@@ -7,22 +7,26 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 
+#include "lcd_consts.h"
+
 namespace Vleerhond
 {
-    enum ControlMode
-    {
-        CHORD_MODE,
-        PATTERN_MODE
-    };
-
     class LaunchControlDriver :
         public ofBaseApp,
         public ofxMidiListener {
 
     protected:
         uint64_t clock_counter = 0;
-        uint64_t start_time = 0;
+        uint64_t last_processed_counter = 0xFFFFFFFF;
         ControlMode control_mode = ControlMode::CHORD_MODE;
+        ControlMode last_processed_mode = ControlMode::CHORD_MODE;
+
+        void receiveOscMessages();
+        // void handleNoteOnMessage(const uint8_t channel, const uint8_t pitch, const uint8_t velocity);
+        // void handleChordModeMessage(const uint8_t channel, const uint8_t pitch);
+        // void handlePatternModeMessage(const uint8_t channel, const uint8_t pitch);
+        // void handleNoteOffMessage(const uint8_t channel, const uint8_t pitch);
+        void handleCcMessage(const uint8_t channel, const uint8_t control, const uint8_t value);
 
     public:
         LaunchControlDriver();
@@ -32,8 +36,6 @@ namespace Vleerhond
 
         ofxMidiOut midi_out;
         ofxMidiIn midi_in;
-
-
 
         bool initializeMidiPorts();
 

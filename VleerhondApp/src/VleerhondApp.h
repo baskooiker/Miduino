@@ -17,7 +17,8 @@ namespace Vleerhond
         int stop_counter = 0;
     public:
         ApplicationData data;
-        ofxOscReceiver receiver;
+        ofxOscReceiver osc_receiver;
+        ofxOscSender osc_sender;
 
         bool initializeMidiPorts();
 
