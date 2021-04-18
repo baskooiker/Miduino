@@ -63,9 +63,9 @@ namespace Vleerhond
     {
         // ofLogNotice("OSC", "Send ChordMode: %s", mesage.c_str());
         ofxOscMessage m;
-        m.setAddress( "/chord_pattern" );
+        m.setAddress("/chord_pattern");
         m.addStringArg(message);
-        osc_sender.sendMessage( m );
+        osc_sender.sendMessage(m);
     }
 
     void handleChordModeMessage(ofxOscSender& osc_sender, const uint8_t channel, const uint8_t pitch)

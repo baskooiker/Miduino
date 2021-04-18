@@ -97,7 +97,11 @@ namespace Vleerhond
         {
             // get the next message
             ofxOscMessage m;
-            osc_receiver.getNextMessage(m);
+            if (!osc_receiver.getNextMessage(m))
+            {
+                ofLogWarning("OSC", "Unable to retrieve message");
+                break;
+            }
             std::string message_address = m.getAddress();
             // ofLogNotice("OSC", "Received from %s", message_address.c_str());
             if ( message_address.compare("/clock") == 0 )

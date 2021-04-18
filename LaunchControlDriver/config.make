@@ -140,6 +140,4 @@
 # PROJECT_CXX = 
 # PROJECT_CC = 
 
-USER_CFLAGS = \
-    -D__UNIX_JACK__ \
-    -ljack
+USER_CFLAGS = -D__UNIX_JACK__ -ljack

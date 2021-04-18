@@ -1,5 +1,7 @@
 #include "VleerhondApp.h"
 
+#include <stdlib.h>
+
 #include "ofLog.h"
 #include "ofxMidiOut.h"
 #include "ofxMidiIn.h"
@@ -66,13 +68,16 @@ namespace Vleerhond
 
         if (!initializeMidiPorts())
         {
-            ofExit(0);
+            ::exit(-1);
+            // ofExit(0);
         }
 
         data.connect();
 
         // Init app
         data.randomizeAll();
+
+        // TODO: Send All note offs to all instruments
 
         data.vermona.select(0);
     }
@@ -83,7 +88,8 @@ namespace Vleerhond
 
         if (!MidiIO::portsOpen())
         {
-            ofExit(0);
+            ::exit(-1);
+            // ofExit(0);
         }
 
         data.processNoteEvents();
@@ -116,7 +122,7 @@ namespace Vleerhond
             if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
             {
                 ofxOscMessage m;
-                m.setAddress( "/clock" );
+                m.setAddress("/clock");
                 m.addInt32Arg(this->data.time.tick);
                 osc_sender.sendMessage( m );
             }
@@ -128,9 +134,10 @@ namespace Vleerhond
             stop_counter++;
             if (stop_counter > 8)
             {
-                ofExit(0);
+                ::exit(0);
+                // ofExit(0);
             }
-            else if (stop_counter > 1)
+            else //if (stop_counter > 1)
             {
                 for (InstrumentBase* inst : data.getInstrumentPtrs())
                 {
