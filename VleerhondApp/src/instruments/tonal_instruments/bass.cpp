@@ -297,7 +297,7 @@ uint8_t Bass::getPitch()
         octave_opts = { 1, 1, 2, 2, 3, 3};
     if (octave < this->_variable_octave)
     {
-        pitch += octave_opts[octave % octave_opts.size()] * 12;
+        // pitch += octave_opts[octave % octave_opts.size()] * 12;
     }
 
     return pitch;
