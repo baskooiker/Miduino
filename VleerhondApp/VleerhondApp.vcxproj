@@ -225,6 +225,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
     <ClCompile Include="src\instruments\drums\percussion.cpp" />
     <ClCompile Include="src\instruments\drums\snare.cpp" />
     <ClCompile Include="src\instruments\drums\toms.cpp" />
+    <ClCompile Include="src\instruments\eurorack\eurorack.cpp" />
     <ClCompile Include="src\instruments\instrument_base.cpp" />
     <ClCompile Include="src\instruments\instrument_group.cpp" />
     <ClCompile Include="src\instruments\instrument_rack.cpp" />
@@ -318,6 +319,7 @@ C:\OF\of_v0.10.1_vs2017_release\addons\ofxMidi\libs\rtmidi;%(AdditionalIncludeDi
     <ClInclude Include="headers\instruments\drums\percussion.h" />
     <ClInclude Include="headers\instruments\drums\snare.h" />
     <ClInclude Include="headers\instruments\drums\toms.h" />
+    <ClInclude Include="headers\instruments\eurorack\eurorack.hpp" />
     <ClInclude Include="headers\instruments\instrument_base.h" />
     <ClInclude Include="headers\instruments\instrument_group.h" />
     <ClInclude Include="headers\instruments\instrument_rack.h" />

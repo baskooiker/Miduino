@@ -229,6 +229,9 @@
     <ClCompile Include="src\instruments\tonal_instruments\303_acid_bass.cpp">
       <Filter>src\instruments\tonal_instruments</Filter>
     </ClCompile>
+    <ClCompile Include="src\instruments\eurorack\eurorack.cpp">
+      <Filter>src\instruments\eurorack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -356,6 +359,12 @@
     </Filter>
     <Filter Include="src\instruments\vermona">
       <UniqueIdentifier>{7f20953e-6948-4117-b93a-d9d48a6ad779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\instruments\eurorack">
+      <UniqueIdentifier>{dfd45cb6-20d4-4ff5-8e54-e27309fd95f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\instruments\eurorack">
+      <UniqueIdentifier>{e92277fa-4ade-413e-81eb-49c6a82f3075}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -667,6 +676,9 @@
     </ClInclude>
     <ClInclude Include="headers\instruments\vermona\vermona_fugue.h">
       <Filter>headers\instruments\vermona</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\instruments\eurorack\eurorack.hpp">
+      <Filter>headers\instruments\eurorack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

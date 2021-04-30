@@ -36,4 +36,11 @@ namespace Vleerhond
 
         void setVco2Square(const bool square);
     };
+
+    class LongBass : public MoogBass
+    {
+    public:
+        LongBass(Modulators& modulators, HarmonyStruct& harmony, TimeStruct& time);
+        virtual void randomize();
+    };
 }

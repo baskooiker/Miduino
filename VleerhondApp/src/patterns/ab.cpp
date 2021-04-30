@@ -122,6 +122,15 @@ namespace Vleerhond
             break;
         }
     }
+
+    void AbPattern::setABCB()
+    {
+        ab_pattern[0] = 0;
+        ab_pattern[1] = 1;
+        ab_pattern[2] = 2;
+        ab_pattern[3] = 1;
+    }
+
     uint8_t AbPattern::value(const uint8_t index) const
     {
         return this->ab_pattern[index % 4];

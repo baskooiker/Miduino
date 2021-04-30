@@ -12,6 +12,7 @@
 #include "instruments/neutron/neutron.h"
 #include "instruments/mam_mb33/mam_mb33.h"
 #include "instruments/vermona/vermona.h"
+#include "instruments/eurorack/eurorack.hpp"
 
 namespace Vleerhond
 {
@@ -32,6 +33,7 @@ namespace Vleerhond
         Vermona vermona;
 
         Tanzbar tanzbar;
+        EurorackTriggers eurorack_triggers;
 
         UiState ui_state;
 

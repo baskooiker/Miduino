@@ -191,6 +191,7 @@ namespace Vleerhond
 
                 data.modulators.randomize();
 
+                bool is_killed = data.tanzbar.tanzbar_hats.isKilled();
                 if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
                 {
                     data.tanzbar.tanzbar_hats.select(1);
@@ -199,6 +200,7 @@ namespace Vleerhond
                 {
                     data.tanzbar.tanzbar_hats.select(0);
                 }
+                data.tanzbar.tanzbar_hats.kill(is_killed);
             }
             break;
         case BSP_STEP_04:
@@ -237,14 +239,18 @@ namespace Vleerhond
                 data.minitaur.select(1);
             }
             break;
+        case BSP_STEP_07:
+            if (value == 0)
+            {
+                data.minitaur.select(2);
+            }
+            break;
         case BSP_PAD_TOP_05:
         case BSP_PAD_TOP_06:
             if (value == 0)
             {
                 data.mam_mb33.randomize();
             }
-            break;
-        case BSP_STEP_07:
             break;
         case BSP_STEP_08:
             if (value == 0)

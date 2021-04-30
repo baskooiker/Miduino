@@ -43,8 +43,10 @@ namespace Vleerhond
 
         settings.p_octave_sh = 0;
 
-        settings.default_note_length = 12;
-        settings.min_pitch = 30;
+        settings.default_note_length = 5;
+        settings.min_pitch = 40;
+
+        name = "MoogBass";
     }
 
     void MoogBass::randomize()
@@ -63,8 +65,43 @@ namespace Vleerhond
     {
         return this->accents.gate(this->time) ? 127 : 64;
     }
+
     void MoogBass::setVco2Square(const bool square)
     {
         getChannel()->sendCC(MINITAUR_CC_VCO2_WAVE, square ? 127 : 0);
+    }
+
+    LongBass::LongBass(Modulators & modulators, HarmonyStruct & harmony, TimeStruct & time)
+        : MoogBass(modulators, harmony, time)
+    {
+        name = "LongBass";
+    }
+
+    void LongBass::randomize()
+    {
+        MoogBass::randomize();
+        ofLogNotice("LongBass", "randomize()");
+        this->setVariableDensity(0);
+        setVariablePitch(127);
+
+        this->style = BassStyle::BassEuclid;
+
+        this->euclid_pattern.abPattern.setABCB();
+
+        // Reset all patterns
+        //for (int i = 0; i < 16; i++)
+        //{
+        //    euclid_pattern.patterns[0].setGate(i, false);
+        //    euclid_pattern.patterns[1].setGate(i, false);
+        //    euclid_pattern.patterns[2].setGate(i, false);
+        //}
+        euclid_pattern.patterns[0].pattern = 0;
+        euclid_pattern.patterns[1].pattern = 0;
+        euclid_pattern.patterns[2].pattern = 0;
+
+        // Set rhythmic patterns
+        euclid_pattern.patterns[0].setGate(0, true);
+        euclid_pattern.patterns[1].setEuclid(Rand::distribute<int>({ 3, 4, 5 }), 8, 8);
+        euclid_pattern.patterns[2].setEuclid(Rand::distribute<int>({ 3, 4, 5 }), 8);
     }
 }

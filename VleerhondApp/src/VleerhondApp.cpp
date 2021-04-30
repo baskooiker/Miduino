@@ -65,9 +65,12 @@ namespace Vleerhond
 
         if (false)
         {
+            data.minitaur.select(2);
+            data.minitaur.randomize();
+
             const int NR_OF_RANDOMS = 1;
-            const int NR_OF_CYCLES = 64;
-            const int NR_OF_BARS = 64;
+            const int NR_OF_CYCLES = 1;
+            const int NR_OF_BARS = 4;
 
             for (int cycle = 0; cycle < NR_OF_CYCLES; cycle++)
             {
@@ -76,20 +79,25 @@ namespace Vleerhond
                     data.randomizeAll();
                 }
 
-                //data.harmony.setType(HarmonyType::Const);
-                //std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
-                //data.vermona.setChannel(console_midi_channel);
+                std::shared_ptr<ConsoleMidiChannel> console_midi_channel = std::make_shared<ConsoleMidiChannel>(MIDI_A_NAME);
+                data.minitaur.setChannel(console_midi_channel);
 
-                for (int i = 0; i < NR_OF_BARS * 16 * TICKS_PER_STEP; i++)
+                ofLogNotice("TEST", data.minitaur.getName());
+
+                for (int bar = 0; bar < NR_OF_BARS; bar++)
                 {
-                    // From clock callback
-                    if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
+                    ofLogNotice("TEST", "Playing bar %d", bar);
+                    for (int i = 0; i < 16 * TICKS_PER_STEP; i++)
                     {
-                        data.updatePedalState();
+                        // From clock callback
+                        if (Utils::intervalHit(TimeDivision::Sixteenth, data.time))
+                        {
+                            data.updatePedalState();
+                        }
+                        data.processActiveNotes();
+                        data.playAll();
+                        data.time.tick += 1;
                     }
-                    data.processActiveNotes();
-                    data.playAll();
-                    data.time.tick += 1;
                 }
 
 

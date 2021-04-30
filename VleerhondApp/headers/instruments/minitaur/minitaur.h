@@ -12,11 +12,9 @@ namespace Vleerhond
     public:
         MoogBass bass_root;
         MoogBass bass_funk;
+        LongBass bass_long;
 
-        Minitaur(
-            Modulators& modulators,
-            HarmonyStruct& harmony,
-            TimeStruct& time);
+        Minitaur(Modulators& modulators, HarmonyStruct& harmony, TimeStruct& time);
 
         void randomize();
     };

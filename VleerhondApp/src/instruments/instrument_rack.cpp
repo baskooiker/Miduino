@@ -88,6 +88,14 @@ namespace Vleerhond
     {
         return getInstr()->getPedal();
     }
+    
+    std::string InstrumentRack::getName()
+    {
+        std::string n = name;
+        n.append(":");
+        n.append(getInstr()->getName());
+        return n;
+    }
     InstrumentBase * InstrumentRack::getInstr()
     {
         return instruments[selection % instruments.size()];

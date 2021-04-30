@@ -12,7 +12,8 @@ namespace Vleerhond
         minitaur(modulators, harmony, time),
         neutron(harmony, modulators, time),
         mam_mb33(harmony, modulators, time),
-        vermona(harmony, time)
+        vermona(harmony, time),
+        eurorack_triggers(time)
     {
         this->randomizeAll();
     }
@@ -101,6 +102,7 @@ namespace Vleerhond
         ptrs.push_back(&this->minitaur);
         ptrs.push_back(&this->neutron);
         ptrs.push_back(&this->vermona);
+        ptrs.push_back(&eurorack_triggers);
 
         return ptrs;
     }
@@ -120,11 +122,16 @@ namespace Vleerhond
 
     void ApplicationData::connect()
     {
-        this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_CC_CHANNEL_TANZBAR, MIDI_A_NAME));
-
+        this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR, MIDI_CC_CHANNEL_TANZBAR, MIDI_C_NAME));
+         
         this->neutron.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_NEUTRON, MIDI_A_NAME));
-        this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
-        this->minitaur.setChannel(std::make_shared<MidiChannel>(12, MIDI_A_NAME));
+
+        //this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_A_NAME));
+        //this->minitaur.setChannel(std::make_shared<MidiChannel>(12, MIDI_A_NAME));
+        this->mam_mb33.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TB303, MIDI_BSP_OUT));
+        this->minitaur.setChannel(std::make_shared<MidiChannel>(12, MIDI_BSP_OUT));
+        this->eurorack_triggers.setChannel(std::make_shared<MidiChannel>(11, MIDI_BSP_OUT));
+
         this->vermona.setChannel(std::make_shared<MidiChannel>(7, VERMONA_CONTROL_CHANNEL, MIDI_B_NAME));
     }
 }
