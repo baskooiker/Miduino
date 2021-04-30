@@ -44,7 +44,7 @@ namespace Vleerhond
         settings.p_octave_sh = 0;
 
         settings.default_note_length = 12;
-        settings.min_pitch = 30;
+        settings.min_pitch = 42; // TODO: Make this a knob
     }
 
     void MoogBass::randomize()

@@ -21,12 +21,16 @@ namespace Vleerhond
         ControlMode control_mode = ControlMode::CHORD_MODE;
         ControlMode last_processed_mode = ControlMode::CHORD_MODE;
 
+        uint64_t t_last_messages_sent_micros = 0;
+        std::queue<ofxOscMessage> pending_messages;
+
+
         void receiveOscMessages();
         // void handleNoteOnMessage(const uint8_t channel, const uint8_t pitch, const uint8_t velocity);
         // void handleChordModeMessage(const uint8_t channel, const uint8_t pitch);
         // void handlePatternModeMessage(const uint8_t channel, const uint8_t pitch);
         // void handleNoteOffMessage(const uint8_t channel, const uint8_t pitch);
-        void handleCcMessage(const uint8_t channel, const uint8_t control, const uint8_t value);
+        void handleCcMessage(std::queue<ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t control, const uint8_t value);
 
     public:
         LaunchControlDriver();

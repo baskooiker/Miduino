@@ -131,13 +131,28 @@ namespace Vleerhond
             this->last_processed_mode = this->control_mode;
         }
 
+        uint64_t now_micros = ofGetSystemTimeMicros();
+        if (now_micros - t_last_messages_sent_micros > 100000) // Send messages every 100 ms
+        {
+            ofxOscBundle bundle;
+            while(!pending_messages.empty())
+            {
+                ofxOscMessage m = pending_messages.front();
+                // osc_sender.sendMessage(m);
+                bundle.addMessage(m);
+                pending_messages.pop();
+            }
+            osc_sender.sendBundle(bundle);
+            t_last_messages_sent_micros = now_micros;
+        }
+
     }
 
     void LaunchControlDriver::draw() {}
 
     void LaunchControlDriver::keyPressed(int key) {}
 
-    void LaunchControlDriver::handleCcMessage(const uint8_t channel, const uint8_t control, const uint8_t value)
+    void LaunchControlDriver::handleCcMessage(std::queue<ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t control, const uint8_t value)
     {
         switch (control)
         {
@@ -168,22 +183,22 @@ namespace Vleerhond
                 }
                 break;
             case ENCODER_B_1:
-                sendBass(osc_sender, "density", value);
+                sendBass(message_queue, "density", value);
                 break;
             case ENCODER_B_2:
-                sendBass(osc_sender, "octave", value);
+                sendBass(message_queue, "octave", value);
                 break;
             case ENCODER_B_3:
-                sendBass(osc_sender, "pitch_offset", value);
+                sendBass(message_queue, "pitch_offset", value);
                 break;
             case ENCODER_B_5:
-                sendLead(osc_sender, "density", value);
+                sendLead(message_queue, "density", value);
                 break;
             case ENCODER_B_6:
-                // sendLead(osc_sender, "octave", value);
+                // sendLead(message_queue, "octave", value);
                 break;
             case ENCODER_B_7:
-                sendLead(osc_sender, "pitch_offset", value);
+                sendLead(message_queue, "pitch_offset", value);
                 break;
             default:
                 ofLogNotice("MIDIIN", "CC(channel: %d, control: %d, value: %d)", channel, control, value);
@@ -203,13 +218,13 @@ namespace Vleerhond
         case MIDI_CONTINUE:
             break;
         case MIDI_NOTE_ON:
-            handleNoteOnMessage(osc_sender, message.channel, message.pitch, message.velocity);
+            handleNoteOnMessage(pending_messages, message.channel, message.pitch, message.velocity);
             break;
         case MIDI_NOTE_OFF:
-            handleNoteOffMessage(osc_sender, this->control_mode, message.channel, message.pitch);
+            handleNoteOffMessage(pending_messages, this->control_mode, message.channel, message.pitch);
             break;
         case MIDI_CONTROL_CHANGE:
-            handleCcMessage(message.channel, message.control, message.value);
+            handleCcMessage(pending_messages, message.channel, message.control, message.value);
             break;
         default:
             ofLogNotice("MIDIIN", "Unexpected status %d: channel %d, cc %d, value %d", message.status, message.channel, message.control, message.value);
@@ -227,9 +242,5 @@ namespace Vleerhond
     void LaunchControlDriver::windowResized(int w, int h) {}
     void LaunchControlDriver::gotMessage(ofMessage msg) {}
     void LaunchControlDriver::dragEvent(ofDragInfo dragInfo) { }
-
-    void LaunchControlDriver::exit()
-    {
-        ofLogNotice("", "Exit");
-    }
+    void LaunchControlDriver::exit() {}
 }
