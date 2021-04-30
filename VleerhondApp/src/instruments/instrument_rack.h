@@ -34,6 +34,8 @@ public:
     virtual void setChannel(std::shared_ptr<MidiChannel> channel);
     virtual std::shared_ptr<MidiChannel> getChannel();
     virtual bool getPedal() override;
+    virtual std::string getName();
+
 
 private:
     InstrumentBase* getInstr();

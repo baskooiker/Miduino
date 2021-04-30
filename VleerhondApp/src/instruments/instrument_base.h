@@ -25,6 +25,7 @@ namespace Vleerhond
         uint8_t _variable_octave = 0;
 
         std::shared_ptr<MidiChannel> midi_channel;
+        std::string name = "";
 
     public:
         InstrumentBase(TimeStruct& time_ref);
@@ -54,6 +55,7 @@ namespace Vleerhond
         virtual uint8_t getVariablePitchOffset() const;
         virtual void setVariableOctave(const uint8_t variable_octave);
         virtual uint8_t getVariableOctave() const;
+        std::string getName();
     };
 
     class TonalInstrumentBase : public InstrumentBase

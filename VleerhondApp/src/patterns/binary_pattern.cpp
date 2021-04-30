@@ -78,7 +78,7 @@ namespace Vleerhond
         }
     }
 
-    void BinaryPattern::setEuclid(const uint8_t _length, const uint8_t _steps)
+    void BinaryPattern::setEuclid(const uint8_t _length, const uint8_t _steps, const uint8_t offset)
     {
         uint8_t length = MIN(_length, 16);
         uint8_t steps = MIN(_steps, length);
@@ -102,7 +102,7 @@ namespace Vleerhond
         uint8_t c = 0;
         for (int i = 0; i < steps; i++)
         {
-            this->setGate(c, true);
+            this->setGate(c + offset, true);
             c += counters[i];
         }
     }

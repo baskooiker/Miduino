@@ -19,7 +19,7 @@ namespace Vleerhond
         bool gate(const uint32_t step, const uint8_t length = 16) const;
         void setGatesLow();
         void setKickFill(uint8_t offset);
-        void setEuclid(const uint8_t _length, const uint8_t _steps);
+        void setEuclid(const uint8_t _length, const uint8_t _steps, const uint8_t offset = 0);
         std::vector<uint8_t> distribute(uint8_t size, uint8_t amount);
         void setDiddles(const float f, const bool starts_with, uint8_t length);
         void setCoefPattern(const Coefficients coef);

@@ -17,7 +17,9 @@ public:
     void setLow();
 
     void setHigh();
-
+    
+    void setABCB();
+    
     uint8_t value(const uint8_t index) const;
 
     bool isConstant();

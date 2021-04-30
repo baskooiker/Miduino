@@ -12,6 +12,7 @@ namespace Vleerhond
     public:
         MoogBass bass_root;
         MoogBass bass_funk;
+        LongBass bass_long;
 
         Minitaur(
             Modulators& modulators,

@@ -153,6 +153,11 @@ namespace Vleerhond
         return this->_variable_octave;
     }
 
+    std::string InstrumentBase::getName()
+    {
+        return this->name;
+    }
+
 //////////////////////////////////////////
 
     TonalInstrumentBase::TonalInstrumentBase(
