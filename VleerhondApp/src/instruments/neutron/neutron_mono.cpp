@@ -58,4 +58,10 @@ namespace Vleerhond
         settings.min_velocity = Rand::randui8(32, 64);
         settings.max_velocity = Rand::randui8(100, 127);
     }
+
+    void NeutronMono::autoRandomize()
+    {
+        // This method is called every 4 bars. Should randomize every time.
+        this->randomize();
+    }
 }

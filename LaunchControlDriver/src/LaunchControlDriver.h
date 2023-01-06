@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include "ofxMidiMessage.h"
 
 #include "ofxMidi.h"
@@ -22,7 +24,7 @@ namespace Vleerhond
         ControlMode last_processed_mode = ControlMode::CHORD_MODE;
 
         uint64_t t_last_messages_sent_micros = 0;
-        std::queue<ofxOscMessage> pending_messages;
+        std::map<std::string, ofxOscMessage> pending_messages;
 
 
         void receiveOscMessages();
@@ -30,7 +32,7 @@ namespace Vleerhond
         // void handleChordModeMessage(const uint8_t channel, const uint8_t pitch);
         // void handlePatternModeMessage(const uint8_t channel, const uint8_t pitch);
         // void handleNoteOffMessage(const uint8_t channel, const uint8_t pitch);
-        void handleCcMessage(std::queue<ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t control, const uint8_t value);
+        void handleCcMessage(std::map<std::string, ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t control, const uint8_t value);
 
     public:
         LaunchControlDriver();

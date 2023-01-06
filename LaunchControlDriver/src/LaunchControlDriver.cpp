@@ -135,13 +135,13 @@ namespace Vleerhond
         if (now_micros - t_last_messages_sent_micros > 100000) // Send messages every 100 ms
         {
             ofxOscBundle bundle;
-            while(!pending_messages.empty())
+            for(const auto& m : pending_messages)
             {
-                ofxOscMessage m = pending_messages.front();
-                // osc_sender.sendMessage(m);
-                bundle.addMessage(m);
-                pending_messages.pop();
+                // std::pair<std::string, ofxOscMessage> m = pending_messages.front();
+                bundle.addMessage(m.second);
+                // pending_messages.pop();
             }
+            pending_messages.clear();
             osc_sender.sendBundle(bundle);
             t_last_messages_sent_micros = now_micros;
         }
@@ -152,7 +152,7 @@ namespace Vleerhond
 
     void LaunchControlDriver::keyPressed(int key) {}
 
-    void LaunchControlDriver::handleCcMessage(std::queue<ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t control, const uint8_t value)
+    void LaunchControlDriver::handleCcMessage(std::map<std::string, ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t control, const uint8_t value)
     {
         switch (control)
         {

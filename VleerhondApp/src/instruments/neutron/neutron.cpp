@@ -16,7 +16,7 @@ namespace Vleerhond
 
         for (NeutronMono* neutron : { &const_mono,  &closest_mono, &sequence_mono, &arp_mono })
         {
-            neutron->settings.min_pitch = 30;
+            neutron->settings.min_pitch = 40;
         }
     }
 

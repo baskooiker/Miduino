@@ -35,6 +35,9 @@ namespace Vleerhond
         static void closeAll();
 
         static void sendTimeClock();
+        static void sendStart();
+        static void sendContinue();
+        static void sendStop();
 
         static void sendNoteOn(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name);
         static void sendNoteOff(const uint8_t pitch, const uint8_t channel, const std::string& port_name);

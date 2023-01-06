@@ -4,8 +4,16 @@ namespace Vleerhond
 {
     void handleBassMessage(const ofxOscMessage& m, ApplicationData& data)
     {
-        const std::string parameter_name = m.getArgAsString(0);
-        const uint8_t value = (uint8_t)m.getArgAsInt32(1);
+        const std::string message_address = m.getAddress();
+        const std::string address_root = "/bass";
+        if (message_address.rfind(address_root, 0) != 0)
+        {
+            return;
+        }
+        
+        const std::string parameter_name = message_address.substr(address_root.size());
+        const uint8_t value = (uint8_t)m.getArgAsInt32(0);
+
         if (parameter_name.compare("density") == 0)
         {
             // ofLogNotice("OSC", "Setting density %d", value);
@@ -18,7 +26,7 @@ namespace Vleerhond
         }
         else if (parameter_name.compare("pitch_offset") == 0)
         {
-            ofLogNotice("BASS", "Setting pitch offset %d", value);
+            // ofLogNotice("BASS", "Setting pitch offset %d", value);
             data.minitaur.setVariablePitchOffset(value);   
         }
         else if (parameter_name.compare("pattern") == 0)
@@ -33,16 +41,24 @@ namespace Vleerhond
 
     void handleLeadMessage(const ofxOscMessage& m, ApplicationData& data)
     {
-        const std::string parameter_name = m.getArgAsString(0);
-        const uint8_t value = (uint8_t)m.getArgAsInt32(1);
+        const std::string message_address = m.getAddress();
+        const std::string address_root = "/lead";
+        if (message_address.rfind(address_root, 0) != 0)
+        {
+            return;
+        }
+        
+        const std::string parameter_name = message_address.substr(address_root.size());
+        const uint8_t value = (uint8_t)m.getArgAsInt32(0);
+
         if (parameter_name.compare("density") == 0)
         {
             data.neutron.setVariableDensity(value);   
         }
-        // else if (parameter_name.compare("octave") == 0)
-        // {
-        //     data.neutron.setVariableOctave(value);   
-        // }
+        else if (parameter_name.compare("octave") == 0)
+        {
+            data.neutron.setVariableOctave(value);   
+        }
         else if (parameter_name.compare("pitch_offset") == 0)
         {
             data.neutron.setVariablePitchOffset(value);   
@@ -74,7 +90,7 @@ namespace Vleerhond
             else if(m.getArgType(i) == OFXOSC_TYPE_FLOAT)
                 ofLogNotice("OSC", "%s%f ", msg_string.c_str(), m.getArgAsFloat(i));
             else if(m.getArgType(i) == OFXOSC_TYPE_STRING)
-                ofLogNotice("OSC", "%s\"%s\" ", msg_string, m.getArgAsString(i).c_str());
+                ofLogNotice("OSC", "%s\"%s\" ", msg_string.c_str(), m.getArgAsString(i).c_str());
             else
                 ofLogNotice("OSC", "unknown arg type: %d", m.getArgType(i));
         }
@@ -82,19 +98,28 @@ namespace Vleerhond
 
     void handleChordPatternMessage(const ofxOscMessage& m, ApplicationData& data)
     {
+        const std::string message_address = m.getAddress();
+        const std::string address_root = "/chord_pattern";
+        if (message_address.rfind(address_root, 0) != 0)
+        {
+            return;
+        }
+        
         std::string pattern_id = m.getArgAsString(0);
-        if (pattern_id.compare("STATIC_ROOT" ) == 0 )
+
+        // ofLogNotice("OSC", "Pattern ID: %s", pattern_id.c_str());
+        if (pattern_id.rfind("STATIC_ROOT", 0) == 0 )
         {
             ofLogNotice("OSC", "Setting STATIC_ROOT");
             data.harmony.setTonic();
         }
-        else if (pattern_id.compare("STATIC_NON_ROOT" ) == 0 )
+        else if (pattern_id.rfind("STATIC_NON_ROOT", 0) == 0 )
         {
             ofLogNotice("OSC", "Setting STATIC_NON_ROOT");
             data.harmony.setType(HarmonyType::Const);
             data.harmony.switchConstChord();
         }
-        else if (pattern_id.compare("SIMPLE_PROGRESSION" ) == 0 )
+        else if (pattern_id.rfind("SIMPLE_PROGRESSION", 0) == 0 )
         {
             ofLogNotice("OSC", "Setting SIMPLE_CHORD_PROGRESSION");
             // if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
@@ -110,7 +135,7 @@ namespace Vleerhond
             //         ));
             // }
         }
-        else if (pattern_id.compare("LONG_PROGRESSION" ) == 0 )
+        else if (pattern_id.rfind("LONG_PROGRESSION", 0) == 0 )
         {
             ofLogNotice("OSC", "Setting LONG_PROGRESSION");
             // if (data.ui_state.is_pressed(BSP_PAD_BTM_08))
@@ -144,24 +169,12 @@ namespace Vleerhond
                 ofLogWarning("OSC", "Unable to retrieve message");
                 break;
             }
-            const std::string message_address = m.getAddress();
+            // const std::string message_address = m.getAddress();
             // ofLogNotice("OSC", "Received from %s", message_address.c_str());
-            if (message_address.compare("/chord_pattern") == 0)
-            {
-                handleChordPatternMessage(m, data);
-            }
-            else if (message_address.compare("/bass") == 0)
-            {
-                handleBassMessage(m, data);
-            }
-            else if (message_address.compare("/lead") == 0)
-            {
-                handleLeadMessage(m, data);
-            }
-            else
-            {
-                handleUnexpectedMessage(m);
-            }
+            
+            handleChordPatternMessage(m, data);
+            handleBassMessage(m, data);
+            handleLeadMessage(m, data);
         }
     }
 }

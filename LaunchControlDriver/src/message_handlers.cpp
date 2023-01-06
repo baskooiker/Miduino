@@ -4,28 +4,27 @@
 
 namespace Vleerhond
 {
-    void sendOscMessage(std::queue<ofxOscMessage>& message_queue, const std::string& address, const std::string& id, const uint8_t value)
+    void sendOscMessage(std::map<std::string, ofxOscMessage>& message_queue, const std::string& address, const std::string& id, const uint8_t value)
     {
         // ofLogNotice("OSC", "Send message to %s: %s %d", address.c_str(), id.c_str(), value);
         ofxOscMessage m;
-        m.setAddress(address);
-        m.addStringArg(id);
+        m.setAddress(address + id);
         m.addIntArg(value);
-        message_queue.push(m);
+        message_queue.insert(std::pair<std::string, ofxOscMessage>(m.getAddress(), m));
     }
 
-    void sendBass(std::queue<ofxOscMessage>& message_queue, const std::string& id, const uint8_t value)
+    void sendBass(std::map<std::string, ofxOscMessage>& message_queue, const std::string& id, const uint8_t value)
     {
         sendOscMessage(message_queue, "/bass", id, value);
     }
 
-    void sendLead(std::queue<ofxOscMessage>& message_queue, const std::string& id, const uint8_t value)
+    void sendLead(std::map<std::string, ofxOscMessage>& message_queue, const std::string& id, const uint8_t value)
     {
         ofLogNotice("OSC", "Send Lead, %s %d", id.c_str(), value);
         sendOscMessage(message_queue, "/lead", id, value);
     }
 
-    void handleNoteOnMessage(std::queue<ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t pitch, const uint8_t velocity)
+    void handleNoteOnMessage(std::map<std::string, ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t pitch, const uint8_t velocity)
     {
         switch (pitch)
         {
@@ -59,16 +58,16 @@ namespace Vleerhond
         }
     }
 
-    void sendChordMode(std::queue<ofxOscMessage>& message_queue, const std::string& message)
+    void sendChordMode(std::map<std::string, ofxOscMessage>& message_queue, const std::string& message)
     {
         // ofLogNotice("OSC", "Send ChordMode: %s", mesage.c_str());
         ofxOscMessage m;
         m.setAddress("/chord_pattern");
         m.addStringArg(message);
-        message_queue.push(m);
+        message_queue.insert(std::pair<std::string, ofxOscMessage>(m.getAddress(), m));
     }
 
-    void handleChordModeMessage(std::queue<ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t pitch)
+    void handleChordModeMessage(std::map<std::string, ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t pitch)
     {
         switch (pitch)
         {
@@ -90,7 +89,7 @@ namespace Vleerhond
         }
     }
 
-    void handlePatternModeMessage(std::queue<ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t pitch)
+    void handlePatternModeMessage(std::map<std::string, ofxOscMessage>& message_queue, const uint8_t channel, const uint8_t pitch)
     {
         switch (pitch)
         {
@@ -124,7 +123,7 @@ namespace Vleerhond
         }
     }
 
-    void handleNoteOffMessage(std::queue<ofxOscMessage>& message_queue, ControlMode control_mode, const uint8_t channel, const uint8_t pitch)
+    void handleNoteOffMessage(std::map<std::string, ofxOscMessage>& message_queue, ControlMode control_mode, const uint8_t channel, const uint8_t pitch)
     {
         switch(control_mode)
         {

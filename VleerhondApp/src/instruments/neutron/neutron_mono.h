@@ -40,6 +40,6 @@ public:
     virtual void setVcfModDepth(const uint8_t value);
 
     virtual void randomize();
-
+    virtual void autoRandomize();
 };
 }

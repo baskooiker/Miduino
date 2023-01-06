@@ -13,7 +13,8 @@ namespace Vleerhond
     TimeStruct::TimeStruct()
     {
         tick = 0;
-        state = PlayState::Stopped;
+        //state = PlayState::Stopped;
+        state = PlayState::Playing;
         last_pulse_time = 0;
         average_pulse_time = 500.f;
         global_shuffle = 0;

@@ -11,6 +11,7 @@ namespace Vleerhond
         Bass(harmony, time),
         vel_mod(modulators)
     {
+/*
         params.push_back({ MINITAUR_CC_LFO_MIDI_SYNC  ,   0, 127 });
         params.push_back({ MINITAUR_CC_LFO_KEY_TRIGGER,   0, 127 });
         params.push_back({ MINITAUR_CC_MOD_SOURCE     ,  16,  16 }); // Only sine
@@ -22,7 +23,7 @@ namespace Vleerhond
         params.push_back({ MINITAUR_CC_LEGATO_GLIDE   ,  64, 127 }); // Only on legato notes
         params.push_back({ MINITAUR_CC_FILTER_VELOCITY,  64,  64 });
         params.push_back({ MINITAUR_CC_VOLUME_VELOCITY,  64,  64 });
-        
+ */       
         settings.p_euclid_16 = 16;
         settings.p_euclid_8 = 8;
         settings.p_interval = 8;

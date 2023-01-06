@@ -200,9 +200,9 @@ namespace Vleerhond
             if (note_event.hit)
             {
                 note_event.note = NoteStruct(
-                    this->getNextMonoPitch(), 
-                    getVelocity(), 
-                    12, 
+                    this->getNextMonoPitch(),
+                    getVelocity(),
+                    5,
                     NoteType::Tie
                 );
             }

@@ -46,10 +46,11 @@ namespace Vleerhond
 
     bool VleerhondApp::initializeMidiPorts()
     {
-        if (!openFirstInput({"ttymidi"}, this))
+        //if (!openFirstInput({"ttymidi"}, this))
+        if (!openFirstInput({"Midi Through Port-1"}, this))
             return false;
 
-        if (!MidiIO::addOutput("ttymidi", 0))
+        if (!MidiIO::addOutput("ttymidi", 1))
         {
             ofLogNotice("", "Failed to open output!");
             return false;
@@ -80,6 +81,12 @@ namespace Vleerhond
         // TODO: Send All note offs to all instruments
 
         data.vermona.select(0);
+
+        // Set default key to G
+        data.harmony.scale.setRoot(Root::ROOT_G);
+
+        // Set default MS20 to ARP
+        data.neutron.select(3);
     }
 
     void VleerhondApp::update()
@@ -111,7 +118,9 @@ namespace Vleerhond
 
     void VleerhondApp::draw() {}
 
-    void VleerhondApp::keyPressed(int key) {}
+    void VleerhondApp::keyPressed(int key) {
+        ofLogNotice("Vleerhond", "key %d", key);
+    }
 
     void VleerhondApp::newMidiMessage(ofxMidiMessage& message)
     {
@@ -130,6 +139,7 @@ namespace Vleerhond
             break;
         case MIDI_STOP:
             ofLogNotice("Vleerhond", "Stop!");
+            MidiIO::sendStop();
             handleStop(this->data);
             stop_counter++;
             if (stop_counter > 8)
@@ -147,6 +157,8 @@ namespace Vleerhond
             break;
         case MIDI_START:
         case MIDI_CONTINUE:
+            MidiIO::sendContinue();
+            MidiIO::sendStart();
             stop_counter = 0;
             ofLogNotice("Vleerhond", "Start!");
 
@@ -161,16 +173,88 @@ namespace Vleerhond
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:
-            ofLogNotice("MIDIIN", "NoteOn(d%, %d, %d)", message.channel, message.pitch, message.velocity);
+            ofLogNotice("MIDIIN", "NoteOn(%d, %d, %d)", message.channel, message.pitch, message.velocity);
+            switch (message.pitch)
+            {
+                case 48: // C3
+                    data.minitaur.select(0);
+                    break;
+                case 64: // E4
+                    data.minitaur.select(1);
+                    break;
+                case 80: // G#5
+                    data.minitaur.select(2);
+                    break;
+                case 96: // C7
+                    data.minitaur.select(3);
+                    break;
+
+                case 50:  // D3
+                    data.neutron.select(0);
+                    break;
+                case 66:  // D3
+                    data.neutron.select(1);
+                    break;
+                case 82:  // F#4
+                    data.neutron.select(2);
+                    break;
+                case 98:  // A#5
+                    data.neutron.select(3);
+                    break;
+
+                case 52:  // E3
+                    data.harmony.setTonic();
+                    break;
+                case 53:  // F3
+                    data.harmony.setType(HarmonyType::Const);
+                    data.harmony.switchConstChord();
+                    break;
+                case 68:  // G#4
+                    break;
+                case 84:  // C6
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(HarmonyType::TonicLow, &data.harmony, &data.time));
+                    break;
+                case 85:  // C#6
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(HarmonyType::DominantLow, &data.harmony, &data.time));
+                    break;
+                case 100:  // E7
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(HarmonyType::TonicHigh, &data.harmony, &data.time));
+                    break;
+                case 101:  // F7
+                    data.addEvent(std::make_shared<ChangeHarmonyEvent>(HarmonyType::DominantHigh, &data.harmony, &data.time));
+                    break;
+                default:
+                    break;
+            }
             break;
         case MIDI_NOTE_OFF:
             break;
         case MIDI_CONTROL_CHANGE:
-            ofLogVerbose("MIDIIN", "CC in: %d, %d", message.control, message.value);
-            handleControlChange(this->data, message.channel, message.control, message.value);
+            ofLogNotice("MIDIIN", "CC in: channel %d, control %d, value %d", message.channel, message.control, message.value);
+//            handleControlChange(this->data, message.channel, message.control, message.value);
+            if (message.channel != 10)
+            {
+                break;
+            }
+            switch(message.control)
+            {
+                case 43:
+                    data.minitaur.setVariableDensity(message.value);
+                    break;
+                case 39:
+                    data.minitaur.setVariablePitchOffset(message.value);
+                    break;
+                case 16:
+                    data.neutron.setVariableDensity(message.value);
+                    break;
+                case 17:
+                    data.neutron.setVariablePitchOffset(message.value);
+                    break;
+                default:
+                    break;
+            }
             break;
-        default:
-            break;
+            //break;
         }
     }
 

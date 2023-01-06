@@ -148,8 +148,33 @@ namespace Vleerhond
         }
     }
 
+    void MidiIO::sendStart()
+    {
+        for (auto& out : out_ports)
+        {
+            out.second.port.sendMidiByte(0xFA);
+        }
+    }
+
+    void MidiIO::sendContinue()
+    {
+        for (auto& out : out_ports)
+        {
+            out.second.port.sendMidiByte(0xFB);
+        }
+    }
+
+    void MidiIO::sendStop()
+    {
+        for (auto& out : out_ports)
+        {
+            out.second.port.sendMidiByte(0xFC);
+        }
+    }
+
     void MidiIO::sendNoteOn(const uint8_t pitch, const uint8_t velocity, const uint8_t channel, const std::string& port_name)
     {
+//        ofLogNotice("MIDI", "sendNoteOn(pitch: %d, velocity: %d, channel: %d)", pitch, velocity, channel);
         for (auto& out : getOutPorts(port_name))
         {
             out.port.sendNoteOn(channel, pitch, velocity);
