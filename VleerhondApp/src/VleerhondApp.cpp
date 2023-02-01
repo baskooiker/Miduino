@@ -85,12 +85,6 @@ namespace Vleerhond
         osc_receiver.setup(4042);
         osc_sender.setup("127.0.0.1", 4043);
 
-        if (!openFirstInput({"nanoKONTROL2"}, this))
-        {
-            ofLogError("", "Failed to open input 'nanoKONTROL2'!");
-            ::exit(-1);
-        }
-
         if (!initializeMidiPorts())
         {
             ::exit(-1);
@@ -104,6 +98,11 @@ namespace Vleerhond
 
         auto nanokontrol = std::make_shared<NanoKontrol2>(data, midicloro_out);
         midi_listeners.push_back(nanokontrol);
+        if (!openFirstInput({"nanoKONTROL2"}, nanokontrol.get()))
+        {
+            ofLogError("", "Failed to open input 'nanoKONTROL2'!");
+            ::exit(-1);
+        }
 
         data.connect();
 
