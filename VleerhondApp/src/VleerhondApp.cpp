@@ -10,11 +10,27 @@
 #include "core/defs.h"
 #include "midi_io.h"
 #include "midi/console_midi_channel.h"
+#include "application/nanokontrol2.h"
 #include "osc_callbacks.h"
 
 namespace Vleerhond
 {
     const char MODULE[] = "VleerhondApp";
+
+    bool openOutputPort(const std::string& target_port_name, ofxMidiOut& out)
+    {
+        for (int i = 0; i < out.getNumOutPorts(); i++)
+        {
+            if (out.getOutPortName(i).find(target_port_name) != -1)
+            {
+                if (out.openPort(i))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     bool openFirstInput(const std::vector<std::string> midi_in_names, ofxMidiListener* listener)
     {
@@ -48,7 +64,9 @@ namespace Vleerhond
     {
         //if (!openFirstInput({"ttymidi"}, this))
         if (!openFirstInput({"Midi Through Port-1"}, this))
+        {
             return false;
+        }
 
         if (!MidiIO::addOutput("ttymidi", 1))
         {
@@ -67,11 +85,25 @@ namespace Vleerhond
         osc_receiver.setup(4042);
         osc_sender.setup("127.0.0.1", 4043);
 
+        if (!openFirstInput({"nanoKONTROL2"}, this))
+        {
+            ofLogError("", "Failed to open input 'nanoKONTROL2'!");
+            ::exit(-1);
+        }
+
         if (!initializeMidiPorts())
         {
             ::exit(-1);
-            // ofExit(0);
         }
+
+        if(openOutputPort("Midi Through 14:1", midicloro_out))
+        {
+            ofLogNotice("", "Failed to open mdicloro output: 'Midi Through 14:1'!");
+            ::exit(-1);
+        }
+
+        auto nanokontrol = std::make_shared<NanoKontrol2>(data, midicloro_out);
+        midi_listeners.push_back(nanokontrol);
 
         data.connect();
 
@@ -96,24 +128,11 @@ namespace Vleerhond
         if (!MidiIO::portsOpen())
         {
             ::exit(-1);
-            // ofExit(0);
         }
 
         data.processNoteEvents();
 
         receiveOscMessages(data, osc_receiver);
-
-        // If stopped, blink light on moog
-        if (data.time.state == PlayState::Stopped)
-        {
-            bool trigger_active = (int)ofGetCurrentTime().getAsSeconds() % 2 == 1;
-            if (trigger_active != _is_trigger_on)
-            {
-                data.minitaur.bass_root.setVco2Square(trigger_active);
-                _is_trigger_on = trigger_active;
-            }
-        }
-
     }
 
     void VleerhondApp::draw() {}

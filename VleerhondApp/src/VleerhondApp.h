@@ -20,6 +20,9 @@ namespace Vleerhond
         ofxOscReceiver osc_receiver;
         ofxOscSender osc_sender;
 
+        std::vector<std::shared_ptr<ofxMidiListener>> midi_listeners;
+        ofxMidiOut midicloro_out;
+
         bool initializeMidiPorts();
 
         void setup();
