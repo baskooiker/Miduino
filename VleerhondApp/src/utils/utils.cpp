@@ -15,7 +15,7 @@ namespace Vleerhond
 
         void remove(const uint8_t item, uint8_t* array, uint8_t& length)
         {
-            for (int i = 0; i < length; i++)
+            for (size_t i = 0; i < length; i++)
             {
                 if (array[i] == item)
                 {
@@ -78,7 +78,7 @@ namespace Vleerhond
         {
             for (uint8_t i = 0; i < length; i++)                     //Loop for descending ordering
             {
-                for (int j = 0; j < length; j++)             //Loop for comparing other values
+                for (size_t j = 0; j < length; j++)             //Loop for comparing other values
                 {
                     if (ar[j] > ar[i])                //Comparing other array elements
                     {

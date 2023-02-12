@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ofLog.h"
 
 #include "core/defs.h"
@@ -44,7 +42,7 @@ namespace Vleerhond
     void MidiChannel::processNoteEvents()
     {
         uint32_t time = Utils::millis();
-        for (int i = this->nr_of_events - 1; i >= 0; i--)
+        for (size_t i = this->nr_of_events - 1; i >= 0; i--)
         {
             NoteEvent event_i = this->events[i];
             if (event_i.time <= time)
@@ -60,6 +58,7 @@ namespace Vleerhond
     {
         this->_sendNoteOff(pitch);
         NoteStruct stored = this->popFromStorage(pitch);
+        (void)stored;
     }
 
     void MidiChannel::_noteOn(const std::vector<NoteStruct>& notes)
@@ -142,7 +141,7 @@ namespace Vleerhond
                 this->data[i].length -= 1;
             }
         }
-        for (int i = (int)this->size - 1; i >= 0; i--)
+        for (size_t i = (int)this->size - 1; i >= 0; i--)
         {
             if (this->data[i].length == 0)
             {
@@ -156,7 +155,7 @@ namespace Vleerhond
 
     void MidiChannel::untieNotes()
     {
-        for (int i = (int)this->size - 1; i >= 0; i--)
+        for (size_t i = (int)this->size - 1; i >= 0; i--)
         {
             if (!this->pedal)
             {
@@ -170,7 +169,7 @@ namespace Vleerhond
 
     void MidiChannel::allNotesOff()
     {
-        for (int i = (int)this->size - 1; i >= 0; i--)
+        for (size_t i = (int)this->size - 1; i >= 0; i--)
         {
             noteOff(this->data[i].pitch);
         }
@@ -179,12 +178,12 @@ namespace Vleerhond
     void MidiChannel::printStorage()
     {
         printf("\nStorage size: %d\n", (int)this->size);
-        for (int i = 0; i < this->size; i++)
+        for (size_t i = 0; i < this->size; i++)
         {
             printf("%2d, %3d, %d\n",
                 this->data[i].pitch,
                 this->data[i].length,
-                this->data[i].type
+                (int)this->data[i].type
             );
         }
     }

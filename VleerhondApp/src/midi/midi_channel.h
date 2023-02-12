@@ -19,9 +19,9 @@ namespace Vleerhond
         uint8_t nr_of_events = 0;
         bool pedal = false;
 
-        std::string port_name = "";
         uint8_t channel = -1;
         uint8_t cc_channel = -1;
+        std::string port_name = "";
 
         virtual void _sendNoteOn(const uint8_t pitch, const uint8_t velocity);
         virtual void _sendNoteOff(const uint8_t pitch);

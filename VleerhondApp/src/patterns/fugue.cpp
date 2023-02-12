@@ -16,7 +16,7 @@ namespace Vleerhond
         {
             std::random_shuffle(pitch_opts.begin(), pitch_opts.end());
 
-            for (int i = 0; i < 5 && this->pattern.length < length; i++)
+            for (size_t i = 0; i < 5 && this->pattern.length < length; i++)
             {
                 this->pattern.pattern.set(this->pattern.length++, pitch_opts[i]);
             }

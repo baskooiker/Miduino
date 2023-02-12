@@ -8,7 +8,7 @@ namespace Vleerhond
 {
     void CvPattern::randomize(const uint8_t maximum, const uint8_t minimum)
     {
-        for (int i = 0; i < STEPS_IN_BAR; i++)
+        for (size_t i = 0; i < STEPS_IN_BAR; i++)
         {
             this->pattern[i] = Rand::randui8(minimum, maximum);
         }
@@ -21,7 +21,7 @@ namespace Vleerhond
 
     void CvPattern::setAll(const uint8_t value)
     {
-        for (int i = 0; i < STEPS_IN_BAR; i++)
+        for (size_t i = 0; i < STEPS_IN_BAR; i++)
             this->pattern[i] = value;
     }
 
@@ -33,7 +33,7 @@ namespace Vleerhond
     std::string CvPattern::toString(const int length)
     {
         std::stringstream ss;
-        for (int i = 0; i < length; i++)
+        for (int16_t i = 0; i < length; i++)
         {
             ss << std::to_string(this->value(i)) << " ";
         }
@@ -96,13 +96,13 @@ namespace Vleerhond
 
     void CvPatternAB::setAll(const uint8_t value)
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
             this->patterns[i].setAll(value);
     }
 
     void CvPatternAB::randomize(const uint8_t max, const uint8_t min)
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             this->patterns[i].randomize(max, min);
         }
@@ -112,7 +112,7 @@ namespace Vleerhond
     std::string CvPatternAB::toString()
     {
         std::stringstream ss;
-        for (int i = 0; i < 4; i++)
+        for (size_t i = 0; i < 4; i++)
         {
             ss << this->patterns[this->abPattern.value(i)].toString(this->length) << "\n";
         }

@@ -61,7 +61,7 @@ namespace Vleerhond
         hh_pattern.abPattern.setConst();
         hh_pattern.length = hh_length;
         int hh_count = Rand::randui8(1, hh_length / 2 + 1);
-        for (int i = 0; i < hh_count; i++)
+        for (size_t i = 0; i < hh_count; i++)
         {
             hh_pattern.addOneGrouped();
         }
@@ -71,7 +71,7 @@ namespace Vleerhond
         oh_pattern.abPattern.setConst();
         oh_pattern.length = oh_length;
         int oh_count = Rand::randui8(1, oh_length / 3 + 1);
-        for (int i = 0; i < oh_count; i++)
+        for (size_t i = 0; i < oh_count; i++)
         {
             oh_pattern.addOneGrouped();
         }

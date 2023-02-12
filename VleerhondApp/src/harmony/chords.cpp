@@ -41,14 +41,14 @@ namespace ChordUtils
         {
             AbPattern ab_pat;
             ab_pat.setHigh();
-            for (int i = 0; i < 4; i++)
+            for (size_t i = 0; i < 4; i++)
             {
                 seq.push_back(options[ab_pat.value(i)]);
             }
         }
         else
         {
-            for (int i = 0; i < length; i++)
+            for (size_t i = 0; i < length; i++)
             {
                 seq.push_back(options[i]);
             }
@@ -59,7 +59,7 @@ namespace ChordUtils
     std::vector<uint8_t> getChord(ChordStruct& chord, Scale& scale, uint8_t offset)
     {
         std::vector<uint8_t> chord_notes;
-        for (int i = offset; i < offset + 12; i++)
+        for (size_t i = offset; i < offset + 12; i++)
         {
             if (scale.chordContains(i, chord))
             {

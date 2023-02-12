@@ -1,4 +1,3 @@
-#pragma once
 #include "cymbal.h"
 
 #include "instrument_base.h"

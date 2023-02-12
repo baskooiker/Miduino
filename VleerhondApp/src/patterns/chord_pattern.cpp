@@ -18,7 +18,7 @@ namespace Vleerhond
         std::random_shuffle(options.begin(), options.end());
 
         uint8_t start_chord_idx = 0;
-        for (int i = 0; i < options.size(); i++)
+        for (size_t i = 0; i < options.size(); i++)
         {
             if (start_chord == options[i])
             {
@@ -35,9 +35,9 @@ namespace Vleerhond
         std::vector<uint8_t> seq = ChordUtils::getChordSeq(options, chord_time_pattern.size());
 
         uint8_t c = 0;
-        for (int i = 0; i < chord_time_pattern.size(); i++)
+        for (size_t i = 0; i < chord_time_pattern.size(); i++)
         {
-            for (int j = 0; j < chord_time_pattern[i]; j++)
+            for (size_t j = 0; j < chord_time_pattern[i]; j++)
             {
                 this->set(c, seq[i]);
                 c += 1;
@@ -51,7 +51,7 @@ namespace Vleerhond
     void ChordPattern::randomizeChordTypes()
     {
         initializeChordTypes();
-        for (int i = 0; i < 16; i++)
+        for (size_t i = 0; i < 16; i++)
         {
             if (Rand::distribution(16, 16) == 1)
             {
@@ -68,7 +68,7 @@ namespace Vleerhond
 
     void ChordPattern::initializeChordTypes()
     {
-        for (int i = 0; i < 16; i++)
+        for (size_t i = 0; i < 16; i++)
         {
             chord_types[i] = ChordType::TRIAD;
         }

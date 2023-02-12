@@ -11,7 +11,7 @@ namespace Vleerhond
 
     bool nameMatches(const std::string& port_name, const std::string& target_name)
     {
-        return port_name.find(target_name) != -1;
+        return port_name.find(target_name) != std::string::npos;
     }
 
     std::vector<MidiOut> MidiIO::getOutPorts(const std::string & port_name)
@@ -44,7 +44,7 @@ namespace Vleerhond
             ofLogNotice("MIDI", "In port: %s", name.c_str());
         }
 
-        for (int i = 0; i < port_names.size(); i++)
+        for (size_t i = 0; i < port_names.size(); i++)
         {
             if (nameMatches(port_names[i], target_port_name))
             {
@@ -76,7 +76,7 @@ namespace Vleerhond
             ofLogNotice("MIDI", "Out port: %s", name.c_str());
         }
 
-        for (int i = 0; i < out.getNumOutPorts(); i++)
+        for (int16_t i = 0; i < out.getNumOutPorts(); i++)
         {
             if (nameMatches(out.getOutPortName(i), target_port_name))
             {
@@ -141,7 +141,7 @@ namespace Vleerhond
     {
         for (auto& out : out_ports)
         {
-            for (int i = 0; i < out.second.time_multiplier; i++)
+            for (int16_t i = 0; i < out.second.time_multiplier; i++)
             {
                 out.second.port.sendMidiByte(0xF8);
             }

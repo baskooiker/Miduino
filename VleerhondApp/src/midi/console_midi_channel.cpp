@@ -13,7 +13,7 @@ namespace Vleerhond
     {
         std::stringstream ss;
         ss << "[";
-        for (int i = 0; i < size; i++)
+        for (size_t i = 0; i < size; i++)
         {
             ss << "(" << (int)data[i].pitch << ", " << (int)data[i].length << ")";
         }

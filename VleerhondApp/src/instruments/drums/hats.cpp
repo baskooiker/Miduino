@@ -68,9 +68,9 @@ namespace Vleerhond
         case 3: four_pat = BX0XX; break;
         case 4: four_pat = B0XXX; break;
         }
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
-            for (int step = 0; step < 4; step++)
+            for (size_t step = 0; step < 4; step++)
             {
                 this->hh_pattern.patterns[i].setGate(step, Utils::gate(four_pat, step));
             }

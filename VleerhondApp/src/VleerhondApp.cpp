@@ -19,9 +19,9 @@ namespace Vleerhond
 
     bool openOutputPort(const std::string& target_port_name, ofxMidiOut& out)
     {
-        for (int i = 0; i < out.getNumOutPorts(); i++)
+        for (int16_t i = 0; i < out.getNumOutPorts(); i++)
         {
-            if (out.getOutPortName(i).find(target_port_name) != -1)
+            if (out.getOutPortName(i).find(target_port_name) != std::string::npos)
             {
                 if (out.openPort(i))
                 {
@@ -264,6 +264,7 @@ namespace Vleerhond
                 default:
                     break;
             }
+        default:
             break;
             //break;
         }

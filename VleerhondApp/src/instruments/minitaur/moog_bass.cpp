@@ -90,7 +90,7 @@ namespace Vleerhond
         this->euclid_pattern.abPattern.setABCB();
 
         // Reset all patterns
-        //for (int i = 0; i < 16; i++)
+        //for (size_t i = 0; i < 16; i++)
         //{
         //    euclid_pattern.patterns[0].setGate(i, false);
         //    euclid_pattern.patterns[1].setGate(i, false);

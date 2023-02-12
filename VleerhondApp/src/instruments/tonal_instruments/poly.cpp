@@ -41,7 +41,7 @@ namespace Vleerhond
 
     bool Poly::play()
     {
-        uint8_t velocity = 64;
+        // uint8_t velocity = 64;
 
         bool hit = false;
         switch (this->type)
@@ -65,7 +65,7 @@ namespace Vleerhond
             }
 
             std::vector<NoteStruct> note_structs;
-            for (int i = 0; i < chord_notes.size(); i++)
+            for (size_t i = 0; i < chord_notes.size(); i++)
             {
                 NoteStruct note(chord_notes[i], 64, length, NoteType::Tie);
                 note_structs.push_back(note);

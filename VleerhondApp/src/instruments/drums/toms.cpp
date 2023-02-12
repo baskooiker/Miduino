@@ -27,9 +27,9 @@ namespace Vleerhond
         {
             // Randomize toms
             this->tom_pattern.randomize(1, 127);
-            for (int i = 0; i < 3; i++)
+            for (size_t i = 0; i < 3; i++)
             {
-                for (int j = 0; j < 16; j++)
+                for (size_t j = 0; j < 16; j++)
                 {
                     if (Rand::randf() < .2)
                     {
@@ -48,10 +48,10 @@ namespace Vleerhond
                 length = Rand::randf() < .5 ? 8 : 16;
             }
             tom_pattern.abPattern.setConst();
-            for (int i = 0; i < pitches.size(); i++)
+            for (size_t i = 0; i < pitches.size(); i++)
             {
                 std::vector<uint8_t> opts;
-                for (int j = 0; j < length; j++) opts.push_back(j);
+                for (size_t j = 0; j < length; j++) opts.push_back(j);
                 std::random_shuffle(opts.begin(), opts.end());
                 for (uint8_t opt: opts)
                 {

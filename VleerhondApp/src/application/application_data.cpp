@@ -8,11 +8,12 @@
 namespace Vleerhond
 {
     ApplicationData::ApplicationData() :
-        tanzbar(harmony, modulators, time),
         minitaur(modulators, harmony, time),
         neutron(harmony, modulators, time),
         mam_mb33(harmony, modulators, time),
-        vermona(harmony, time)
+        vermona(harmony, time),
+        tanzbar(harmony, modulators, time),
+        nord_drum(modulators, time)
     {
         this->randomizeAll();
     }
@@ -99,6 +100,7 @@ namespace Vleerhond
         //ptrs.push_back(&this->mam_mb33);
         ptrs.push_back(&this->minitaur);
         ptrs.push_back(&this->neutron);
+        ptrs.push_back(&this->nord_drum);
         //ptrs.push_back(&this->vermona);
 
         return ptrs;
@@ -123,6 +125,7 @@ namespace Vleerhond
         this->neutron.setChannel(std::make_shared<MidiChannel>(1, MIDI_A_NAME));
         //this->mam_mb33.setChannel(std::make_shared<MidiChannel>(1, MIDI_A_NAME));
         this->minitaur.setChannel(std::make_shared<MidiChannel>(2, MIDI_A_NAME));
+        this->nord_drum.setChannel(std::make_shared<MidiChannel>(11, MIDI_A_NAME));
         //this->vermona.setChannel(std::make_shared<MidiChannel>(7, VERMONA_CONTROL_CHANNEL, MIDI_A_NAME));
     }
 }

@@ -4,10 +4,10 @@ namespace Vleerhond
 {
     Neutron::Neutron(HarmonyStruct & harmony, Modulators & modulators, TimeStruct & time)
         : InstrumentRack(time)
-        , const_mono(harmony, modulators, time)
-        , closest_mono(harmony, modulators, time)
         , sequence_mono(harmony, modulators, time)
         , arp_mono(harmony, modulators, time)
+        , const_mono(harmony, modulators, time)
+        , closest_mono(harmony, modulators, time)
     {
         this->instruments.push_back(&const_mono);
         this->instruments.push_back(&closest_mono);

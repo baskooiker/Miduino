@@ -1,5 +1,3 @@
-#pragma once
-
 #include "application/callbacks.h"
 
 #include <memory>

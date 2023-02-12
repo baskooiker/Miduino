@@ -27,13 +27,13 @@ namespace Vleerhond
     void GatePatternAB::setAll(bool _value)
     {
         uint8_t value = _value ? 0xFF : 0x00;
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
             this->patterns[i].pattern = value;
     }
 
     void GatePatternAB::set(const uint8_t index, bool _value)
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             this->patterns[i].setGate(index, _value);
         }
@@ -41,7 +41,7 @@ namespace Vleerhond
 
     void GatePatternAB::setGatesLow()
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             this->patterns[i].setGatesLow();
         }
@@ -50,17 +50,17 @@ namespace Vleerhond
 
     void GatePatternAB::randomize(const float prob)
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
             this->patterns[i].randomize(prob);
         this->abPattern.randomize();
     }
 
     void GatePatternAB::randomize_mask_pattern()
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             uint8_t from = Rand::randui8(4, 7);
-            for (int step = 0; step < 8; step++)
+            for (size_t step = 0; step < 8; step++)
             {
                 this->patterns[i].setGate(step, step > from);
             }
@@ -85,7 +85,7 @@ namespace Vleerhond
 
     void GatePatternAB::setEuclid(const uint8_t length, const uint8_t steps)
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             this->patterns[i].setEuclid(length, steps);
         }
@@ -94,7 +94,7 @@ namespace Vleerhond
 
     void GatePatternAB::setDiddles(const float f, const bool starts_with, const uint8_t length)
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             this->patterns[i].setDiddles(f, starts_with, length);
         }
@@ -103,7 +103,7 @@ namespace Vleerhond
 
     void GatePatternAB::setCoefPattern(const Coefficients coef)
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
             this->patterns[i].setCoefPattern(coef);
         this->abPattern.randomize();
     }
@@ -153,7 +153,7 @@ namespace Vleerhond
 
     void GatePatternAB::addOneGrouped()
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             patterns[i].addOneGrouped(this->length);
         }
@@ -161,7 +161,7 @@ namespace Vleerhond
 
     void GatePatternAB::removeOne()
     {
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; i++)
         {
             patterns[i].removeOne(this->length);
         }
@@ -170,7 +170,7 @@ namespace Vleerhond
     std::string GatePatternAB::toString()
     {
         std::stringstream ss;
-        for (int bar = 0; bar < 4; bar++)
+        for (size_t bar = 0; bar < 4; bar++)
         {
             ss << this->patterns[this->abPattern.value(bar)].toString() << std::endl;
         }

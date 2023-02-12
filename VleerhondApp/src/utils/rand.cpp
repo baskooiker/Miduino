@@ -80,7 +80,7 @@ namespace Rand
 
         uint16_t r = randui16(total);
         uint16_t acc = 0;
-        for (int i = 0; i < weights.size(); i++)
+        for (size_t i = 0; i < weights.size(); i++)
         {
             acc += weights[i];
             if (r < acc)

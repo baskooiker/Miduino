@@ -146,7 +146,7 @@ namespace Vleerhond
         // This is done to make the const pattern follow chords
         if (pitch_pattern.length == 1 && pitch_pattern.value(0) == 0)
         {
-            int note_nr = harmony.getChordStep(time).root;
+            // int note_nr = harmony.getChordStep(time).root;
 
             pitch = harmony.scale.applyScaleOffset(
                 0,

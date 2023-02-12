@@ -48,7 +48,7 @@ namespace Vleerhond
     {
         this->pattern = 0x00;
         uint8_t pattern_id = Rand::randui8(pattern_twos.size());
-        for (int i = 0; i < 2; i++)
+        for (size_t i = 0; i < 2; i++)
         {
             this->setGate(pattern_twos[pattern_id][i], true);
         }
@@ -68,7 +68,7 @@ namespace Vleerhond
         case 1: fill = fill_b; break;
         }
 
-        for (int i = 0; i < 8; i++)
+        for (size_t i = 0; i < 8; i++)
         {
             uint8_t index = offset + i;
             if (index < 16)
@@ -87,20 +87,20 @@ namespace Vleerhond
 
         std::deque<uint8_t> counters;
 
-        for (int i = 0; i < steps; i++) counters.push_back(0);
+        for (size_t i = 0; i < steps; i++) counters.push_back(0);
 
-        for (int i = 0; i < length; i++)
+        for (size_t i = 0; i < length; i++)
             counters[i%steps]++;
 
         uint8_t nr_shuffles = Rand::randui8(counters.size());
-        for (int i = 0; i < nr_shuffles; i++)
+        for (size_t i = 0; i < nr_shuffles; i++)
         {
             counters.push_front(counters.back());
             counters.pop_back();
         }
 
         uint8_t c = 0;
-        for (int i = 0; i < steps; i++)
+        for (size_t i = 0; i < steps; i++)
         {
             this->setGate(c + offset, true);
             c += counters[i];
@@ -112,14 +112,14 @@ namespace Vleerhond
         ofLogVerbose("PATTERNS", "distribute(size=%d, amount=%d)", size, amount);
         std::vector<uint8_t> sets;
 
-        for (int i = 0; i < size; i++)
+        for (size_t i = 0; i < size; i++)
         {
             sets.push_back(1);
             if (amount > 0)
                 amount -= 1;
         }
 
-        for (int i = 0; i < amount; i++)
+        for (size_t i = 0; i < amount; i++)
         {
             sets[Rand::randui8(size)] += 1;
         }
@@ -139,13 +139,13 @@ namespace Vleerhond
         ofLogVerbose("GatePatterns", "setDiddles(nr_hits=%d, nr_diddles=%d, max_nr=%d)", nr_hits, nr_diddles, max_nr_diddles);
 
         uint8_t count = 0;
-        for (int i = 0; i < nr_diddles; i++)
+        for (size_t i = 0; i < nr_diddles; i++)
         {
-            for (int j = 0; j < sets[i]; j++)
+            for (size_t j = 0; j < sets[i]; j++)
             {
                 this->setGate(count++, starts_with);
             }
-            for (int j = 0; j < spaces[i]; j++)
+            for (size_t j = 0; j < spaces[i]; j++)
             {
                 this->setGate(count++, !starts_with);
             }
@@ -158,18 +158,18 @@ namespace Vleerhond
         this->setGate(4, Rand::randf() < coef.two);
         this->setGate(8, Rand::randf() < coef.three);
         this->setGate(12, Rand::randf() < coef.four);
-        for (int i = 2; i < 16; i += 4)
+        for (size_t i = 2; i < 16; i += 4)
             this->setGate(i, Rand::randf() < coef.eights);
-        for (int i = 1; i < 16; i += 4)
+        for (size_t i = 1; i < 16; i += 4)
             this->setGate(i, Rand::randf() < coef.down);
-        for (int i = 3; i < 16; i += 4)
+        for (size_t i = 3; i < 16; i += 4)
             this->setGate(i, Rand::randf() < coef.up);
     }
 
     void BinaryPattern::addOneGrouped(const uint8_t length)
     {
         std::vector<uint8_t> indices;
-        for (int i = 0; i < length; i++)
+        for (size_t i = 0; i < length; i++)
         {
             if (gate(i))
             {
@@ -197,9 +197,9 @@ namespace Vleerhond
     void BinaryPattern::removeOne(const uint8_t length)
     {
         std::vector<uint8_t> indices;
-        for (int i = 0; i < length; i++) indices.push_back(i);
+        for (size_t i = 0; i < length; i++) indices.push_back(i);
         std::random_shuffle(indices.begin(), indices.end());
-        for (int i = 0; i < length; i++)
+        for (size_t i = 0; i < length; i++)
         {
             if (gate(i))
             {
@@ -232,7 +232,7 @@ namespace Vleerhond
     {
         ofLogVerbose("PATTERNS", "shift_down");
         std::vector<uint8_t> shiftable;
-        for (int i = 0; i < 16; i++)
+        for (size_t i = 0; i < 16; i++)
         {
             if (gate(i) && !gate(i + 15) && !gate(i + 14))
             {
@@ -254,7 +254,7 @@ namespace Vleerhond
     {
         ofLogVerbose("PATTERNS", "shift_up");
         std::vector<uint8_t> shiftable;
-        for (int i = 0; i < 16; i++)
+        for (int16_t i = 0; i < 16; i++)
         {
             if (gate(i) && !gate(i + 1) && !gate(i + 2))
             {
@@ -267,7 +267,7 @@ namespace Vleerhond
             return false;
         }
         uint8_t idx = shiftable[Rand::randui8((uint8_t)shiftable.size())];
-        ofLogVerbose("PATTERNS", "shift_up: {}", idx);
+        ofLogVerbose("PATTERNS", "shift_up: %d", idx);
         this->setGate(idx, false);
         this->setGate(idx + 1, true);
         return true;
@@ -276,7 +276,7 @@ namespace Vleerhond
     std::string BinaryPattern::toString()
     {
         std::stringstream ss;
-        for (int i = 0; i < 16; i++)
+        for (size_t i = 0; i < 16; i++)
         {
             ss << (this->gate(i) == true ? "1" : "0") << " ";
         }

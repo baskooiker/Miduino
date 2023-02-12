@@ -86,7 +86,7 @@ namespace Vleerhond
     bool Scale::chordContains(const uint8_t pitch, const ChordStruct& chord) const
     {
         std::vector<uint8_t> notes = getScaleNotes();
-        for (int i : indicesForChordType(chord.chord_type))
+        for (size_t i : indicesForChordType(chord.chord_type))
         {
             uint8_t note = ((pitch + 12 - (uint8_t)this->root) % 12);
             uint8_t chord_note = notes[(i + chord.root) % notes.size()];
@@ -106,7 +106,7 @@ namespace Vleerhond
     {
         std::vector<uint8_t> chords;
         std::vector<uint8_t> notes = this->getScaleNotes();
-        for (int i = 0; i < notes.size(); i++)
+        for (size_t i = 0; i < notes.size(); i++)
         {
             if (this->contains(notes[i] + 7))
             {
@@ -121,7 +121,7 @@ namespace Vleerhond
         uint8_t rv = pitch;
         int8_t steps = note_interval;
         int8_t sign = note_interval >= 0 ? 1 : -1;
-        for (int i = pitch + sign; i < 128 && i >= 0; i++)
+        for (size_t i = pitch + sign; i < 128 && i >= 0; i++)
         {
             if (this->contains(i))
             {

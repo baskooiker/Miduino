@@ -10,6 +10,7 @@
 
 #include "instruments/minitaur/minitaur.h"
 #include "instruments/neutron/neutron.h"
+#include "instruments/nord_drum/nord_drum.h"
 #include "instruments/mam_mb33/mam_mb33.h"
 #include "instruments/vermona/vermona.h"
 
@@ -32,6 +33,7 @@ namespace Vleerhond
         Vermona vermona;
 
         Tanzbar tanzbar;
+        NordDrum nord_drum;
 
         UiState ui_state;
 

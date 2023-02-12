@@ -101,7 +101,7 @@ namespace Vleerhond
 
     void ArpData::getArpPitchesByRange(const Scale& scale, const ChordStruct& chord)
     {
-        for (int i = this->min; i < this->min + this->range; i++)
+        for (size_t i = this->min; i < this->min + this->range; i++)
         {
             if (scale.chordContains(i, chord))
             {

@@ -57,7 +57,7 @@ void Bass::randomizePitches()
     ofLogNotice("", "randomize_pitches");
     // Randomize pitches
     this->pitches.randomize();
-    for (int i = 0; i < 3; i++)
+    for (size_t i = 0; i < 3; i++)
     {
         this->pitches.patterns[i].set(0, 0);
     }

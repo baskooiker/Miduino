@@ -1,4 +1,3 @@
-#pragma once
 #include "tanzbar.h"
 
 #include "instrument_group.h"

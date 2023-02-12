@@ -8,7 +8,7 @@ namespace Vleerhond
     IntervalPattern::IntervalPattern()
     {
         length = 16;
-        for (int i = 0; i < length; i++)
+        for (size_t i = 0; i < length; i++)
         {
             pattern[i] = TimeDivision::Sixteenth;
         }
@@ -28,7 +28,7 @@ namespace Vleerhond
     
     void IntervalPattern::randomizeInterval(const IntervalProbs & probs)
     {
-        for (int i = 0; i < 16; i++)
+        for (size_t i = 0; i < 16; i++)
         {
             if (i % 2 == 0)
             {
@@ -75,11 +75,11 @@ namespace Vleerhond
     
     void IntervalPattern::randomizeIntervalLead()
     {
-        for (int i = 0; i < this->length; i++)
+        for (size_t i = 0; i < this->length; i++)
         {
             this->pattern[i] = TimeDivision::Whole;
         }
-        for (int bar = 0; bar < 4; bar++)
+        for (size_t bar = 0; bar < 4; bar++)
         {
             // 50% chance for fill in each far
             if (Rand::randui8(4) < 3)
@@ -87,7 +87,7 @@ namespace Vleerhond
                 // Starting fill of length 1 or two. Randomize position in bar.
                 uint8_t fill_length = Rand::randui8(1, 3);
                 uint8_t start_beat = Rand::randui8(0, 5 - fill_length);
-                for (int beat = start_beat; beat < start_beat + fill_length; beat++)
+                for (size_t beat = start_beat; beat < start_beat + fill_length; beat++)
                 {
                     TimeDivision time_division = Rand::randui8(64) < 8 ?
                         TimeDivision::Sixteenth :
