@@ -122,8 +122,6 @@ namespace Vleerhond
 
     void VleerhondApp::update()
     {
-        static bool _is_trigger_on = false;
-
         if (!MidiIO::portsOpen())
         {
             ::exit(-1);
@@ -163,31 +161,26 @@ namespace Vleerhond
             if (stop_counter > 8)
             {
                 ::exit(0);
-                // ofExit(0);
             }
-            else //if (stop_counter > 1)
+            else
             {
                 for (InstrumentBase* inst : data.getInstrumentPtrs())
                 {
                     inst->getChannel()->allNotesOff();
                 }
             }
+
+            //data.randomizeAll();
+            //data.neutron.select(2);
+            //data.neutron.setVariablePitchOffset(32);
+            //data.minitaur.select(1);
+            //data.minitaur.setVariablePitchOffset(64);
             break;
         case MIDI_START:
         case MIDI_CONTINUE:
             MidiIO::sendContinue();
             MidiIO::sendStart();
-            stop_counter = 0;
             ofLogNotice("Vleerhond", "Start!");
-
-            data.randomizeAll();
-
-            data.neutron.select(2);
-            data.neutron.setVariablePitchOffset(32);
-
-            data.minitaur.select(1);
-            data.minitaur.setVariablePitchOffset(64);
-
             data.time.state = PlayState::Playing;
             break;
         case MIDI_NOTE_ON:

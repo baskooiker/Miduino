@@ -10,7 +10,7 @@ class NanoKontrol2 : public ofxMidiListener
     ofxMidiOut& midicloro_out;
 
     public:
-        NanoKontrol2(ApplicationData& data, ofxMidiOut& midicloro_out) 
+        NanoKontrol2(ApplicationData& data, ofxMidiOut& midicloro_out)
         : data(data)
         , midicloro_out(midicloro_out)
         {
@@ -21,7 +21,7 @@ class NanoKontrol2 : public ofxMidiListener
             switch (message.status)
             {
             case MIDI_CONTROL_CHANGE:
-                // ofLogNotice("MIDIIN", "CC in: channel %d, control %d, value %d", message.channel, message.control, message.value);
+                ofLogNotice("NANOKONTROL", "CC in: channel %d, control %d, value %d", message.channel, message.control, message.value);
                 switch(message.control)
                 {
                     case 0: // Slider 1
@@ -39,16 +39,21 @@ class NanoKontrol2 : public ofxMidiListener
                     case 6: // Slider 7
                         break;
                     case 7: // Slider 8
-                        midicloro_out.sendControlChange(0, 10, message.value);
-                        data.time.state = PlayState::Playing;
+                        //midicloro_out.sendControlChange(0, 10, message.value);
+                        //data.time.state = PlayState::Playing;
+                        break;
+                    case 32: // Solo 1
+                    case 48: // Mute 1
+                    case 65: // Record 1
                         break;
                     case 41:  // Play
-                        midicloro_out.sendControlChange(0, 13, message.value);
+                        //midicloro_out.sendControlChange(0, 13, message.value);
                         data.time.state = PlayState::Playing;
                         break;
                     case 42:  // Stop
-                        midicloro_out.sendControlChange(0, 14, message.value);
+                        //midicloro_out.sendControlChange(0, 14, message.value);
                         data.time.state = PlayState::Stopped;
+                        data.stopAll();
                         break;
                     default:
                         break;
@@ -60,6 +65,7 @@ class NanoKontrol2 : public ofxMidiListener
             case MIDI_CONTINUE:
             case MIDI_NOTE_ON:
             case MIDI_NOTE_OFF:
+            default:
                 break;
             }
         }
