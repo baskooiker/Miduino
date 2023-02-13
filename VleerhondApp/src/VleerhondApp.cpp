@@ -96,7 +96,7 @@ namespace Vleerhond
             ::exit(-1);
         }
 
-        auto nanokontrol = std::make_shared<NanoKontrol2>(data, midicloro_out);
+        auto nanokontrol = std::make_shared<NanoKontrol2>(data);
         midi_listeners.push_back(nanokontrol);
         if (!openFirstInput({"nanoKONTROL2"}, nanokontrol.get()))
         {
@@ -169,12 +169,6 @@ namespace Vleerhond
                     inst->getChannel()->allNotesOff();
                 }
             }
-
-            //data.randomizeAll();
-            //data.neutron.select(2);
-            //data.neutron.setVariablePitchOffset(32);
-            //data.minitaur.select(1);
-            //data.minitaur.setVariablePitchOffset(64);
             break;
         case MIDI_START:
         case MIDI_CONTINUE:
@@ -266,7 +260,6 @@ namespace Vleerhond
             }
         default:
             break;
-            //break;
         }
     }
 
