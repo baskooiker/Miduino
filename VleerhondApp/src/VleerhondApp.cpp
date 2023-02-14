@@ -21,7 +21,7 @@ namespace Vleerhond
     {
         for (int16_t i = 0; i < out.getNumOutPorts(); i++)
         {
-            if (out.getOutPortName(i).find(target_port_name) != std::string::npos)
+            if (out.getOutPortName(i).find(target_port_name) != -1)
             {
                 if (out.openPort(i))
                 {

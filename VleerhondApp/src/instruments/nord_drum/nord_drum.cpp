@@ -1,6 +1,7 @@
 #include "nord_drum.h"
 
 #include "instrument_group.h"
+#include "utils/utils.h"
 
 namespace Vleerhond
 {
@@ -15,12 +16,14 @@ namespace Vleerhond
     }
 
     bool NordDrum::play()
-    { 
+    {
         ofLogNotice("NordDrum", "play");
         auto it = std::max_element(std::begin(densities), std::end(densities));
         uint8_t max_density = *it;
         uint16_t v = density_pattern.value(time);
 
+        if (Utils::intervalHit(TimeDivision::Sixteenth, time))
+        {
         if (v < max_density)
         {
             uint16_t total = 0;
@@ -37,7 +40,7 @@ namespace Vleerhond
                 }
             }
         }
-
+        }
         return false;
     }
 
