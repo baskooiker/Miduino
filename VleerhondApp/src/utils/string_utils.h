@@ -4,16 +4,11 @@
 
 #include "core/enums.h"
 
-namespace Vleerhond
-{
-    class Strings
-    {
-    public:
-
-        static std::string getString(const ScaleType scale)
-        {
-            switch (scale)
-            {
+namespace Vleerhond {
+class Strings {
+   public:
+    static std::string getString(const ScaleType scale) {
+        switch (scale) {
             case ScaleType::AEOLIAN:
                 return "aeolian";
             case ScaleType::DORIAN:
@@ -22,13 +17,11 @@ namespace Vleerhond
                 return "ionian";
             default:
                 return "unkown scale";
-            }
         }
+    }
 
-        static std::string getString(const Root root)
-        {
-            switch (root)
-            {
+    static std::string getString(const Root root) {
+        switch (root) {
             case Root::ROOT_C:
                 return "C";
             case Root::ROOT_C_SHARP:
@@ -55,20 +48,18 @@ namespace Vleerhond
                 return "B";
             default:
                 return "unkown root";
-            }
         }
+    }
 
-        static const std::string getString(const MonoStyle style)
-        {
-            switch (style)
-            {
+    static const std::string getString(const MonoStyle style) {
+        switch (style) {
             case MonoStyle::MonoPolyRhythm:
                 return "poly_rhythm";
             case MonoStyle::MonoSixteenths:
                 return "sixteenths";
             default:
                 return "invalid style";
-            }
         }
-    };
-}
+    }
+};
+}  // namespace Vleerhond

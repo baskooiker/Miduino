@@ -2,19 +2,17 @@
 
 #include "instrument_base.h"
 
-namespace Vleerhond
-{
+namespace Vleerhond {
 
-class InstrumentRack : public InstrumentBase
-{
-protected:
+class InstrumentRack : public InstrumentBase {
+   protected:
     std::vector<InstrumentBase*> instruments;
     uint8_t selection = 0;
 
-public:
+   public:
     InstrumentRack(TimeStruct& time);
 
-public:
+   public:
     bool play();
     void randomize();
     virtual std::vector<InstrumentBase*> getPtrs();
@@ -36,10 +34,9 @@ public:
     virtual bool getPedal() override;
     virtual std::string getName();
 
-
-private:
+   private:
     InstrumentBase* getInstr();
     InstrumentBase* getInstr() const;
 };
 
-}
+}  // namespace Vleerhond

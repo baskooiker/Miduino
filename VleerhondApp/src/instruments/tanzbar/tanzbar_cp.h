@@ -2,26 +2,22 @@
 
 #include "core/defs.h"
 #include "instrument_base.h"
-#include "patterns/modulators.h"
-#include "patterns/gate_patterns.h"
-#include "snare.h"
 #include "midi/midi_io.h"
+#include "patterns/gate_patterns.h"
+#include "patterns/modulators.h"
+#include "snare.h"
 
-namespace Vleerhond
-{
-    class TanzbarCp : public Snare
-    {
-    protected:
-        ModulationReceiver cp_trig;
-        ModulationReceiver filter_mod;
+namespace Vleerhond {
+class TanzbarCp : public Snare {
+   protected:
+    ModulationReceiver cp_trig;
+    ModulationReceiver filter_mod;
 
-    public:
-        TanzbarCp(
-            Modulators& modulators_ref,
-            TimeStruct& time_ref);
+   public:
+    TanzbarCp(Modulators& modulators_ref, TimeStruct& time_ref);
 
-        void randomize();
+    void randomize();
 
-        bool play();
-    };
-}
+    bool play();
+};
+}  // namespace Vleerhond

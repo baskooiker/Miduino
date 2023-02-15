@@ -2,26 +2,21 @@
 
 #include "core/defs.h"
 #include "instrument_base.h"
-#include "patterns/modulators.h"
-#include "patterns/gate_patterns.h"
-#include "percussion.h"
 #include "midi/midi_io.h"
+#include "patterns/gate_patterns.h"
+#include "patterns/modulators.h"
+#include "percussion.h"
 
-namespace Vleerhond
-{
-    class TanzbarCb : public Percussion
-    {
-    protected:
-        ModulationReceiver cb_tune;
+namespace Vleerhond {
+class TanzbarCb : public Percussion {
+   protected:
+    ModulationReceiver cb_tune;
 
-    public:
+   public:
+    TanzbarCb(Modulators& modulators_ref, TimeStruct& time_ref);
 
-        TanzbarCb(
-            Modulators& modulators_ref,
-            TimeStruct& time_ref);
+    void randomize();
 
-        void randomize();
-
-        bool play();
-    };
-}
+    bool play();
+};
+}  // namespace Vleerhond

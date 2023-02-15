@@ -4,25 +4,22 @@
 
 #include "midi/midi_channel.h"
 
-namespace Vleerhond
-{
-    class ConsoleMidiChannel : public MidiChannel
-    {
-    private:
-        std::map<uint8_t, int> notes;
+namespace Vleerhond {
+class ConsoleMidiChannel : public MidiChannel {
+   private:
+    std::map<uint8_t, int> notes;
 
-    public:
-        ConsoleMidiChannel(const std::string& port_name);
+   public:
+    ConsoleMidiChannel(const std::string& port_name);
 
-        virtual std::string getStorageString();
+    virtual std::string getStorageString();
 
-        virtual void _sendNoteOn(const uint8_t pitch, const uint8_t velocity);
+    virtual void _sendNoteOn(const uint8_t pitch, const uint8_t velocity);
 
-        virtual void _sendNoteOff(const uint8_t pitch);
+    virtual void _sendNoteOff(const uint8_t pitch);
 
-        virtual void print();
+    virtual void print();
 
-        int activeNoteCount();
-
-    };
-}
+    int activeNoteCount();
+};
+}  // namespace Vleerhond

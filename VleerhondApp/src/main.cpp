@@ -1,12 +1,9 @@
+#include "VleerhondApp.h"
+#include "ofAppNoWindow.h"
 #include "ofMain.h"
 
-#include "VleerhondApp.h"
-
-#include "ofAppNoWindow.h"
-
 //========================================================================
-int main( )
-{
+int main() {
     ofAppNoWindow headless;
     ofSetupOpenGL(&headless, 640, 420, OF_WINDOW);
 

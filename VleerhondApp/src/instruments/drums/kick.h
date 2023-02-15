@@ -4,24 +4,22 @@
 #include "patterns/gate_patterns.h"
 #include "patterns/modulators.h"
 
-namespace Vleerhond
-{
-    class Kick : public InstrumentBase
-    {
-    protected:
-        MicroTimingStruct timing;
-        uint8_t pitch;
+namespace Vleerhond {
+class Kick : public InstrumentBase {
+   protected:
+    MicroTimingStruct timing;
+    uint8_t pitch;
 
-    public:
-        GatePatternAB bd_pattern;
-        GatePatternAB ghost_notes;
+   public:
+    GatePatternAB bd_pattern;
+    GatePatternAB ghost_notes;
 
-        Kick(Modulators& modulators_ref, TimeStruct& time_ref);
-        virtual void randomize();
-        virtual bool play();
-        virtual uint8_t getVelocity();
+    Kick(Modulators& modulators_ref, TimeStruct& time_ref);
+    virtual void randomize();
+    virtual bool play();
+    virtual uint8_t getVelocity();
 
-    protected:
-        virtual void randomize_kick();
-    };
-}
+   protected:
+    virtual void randomize_kick();
+};
+}  // namespace Vleerhond

@@ -5,23 +5,19 @@
 #include "patterns/interval_pattern.h"
 #include "patterns/modulators.h"
 
-namespace Vleerhond
-{
-    class TanzbarMa : public InstrumentBase
-    {
-    protected:
-        ModulationReceiver decay_mod;
+namespace Vleerhond {
+class TanzbarMa : public InstrumentBase {
+   protected:
+    ModulationReceiver decay_mod;
 
-    public:
-        CvPatternAB ma_pattern;
-        IntervalPattern interval_pattern;
+   public:
+    CvPatternAB ma_pattern;
+    IntervalPattern interval_pattern;
 
-        TanzbarMa(
-            Modulators& modulators_ref,
-            TimeStruct& time_ref);
+    TanzbarMa(Modulators& modulators_ref, TimeStruct& time_ref);
 
-        void randomize();
+    void randomize();
 
-        bool play();
-    };
-}
+    bool play();
+};
+}  // namespace Vleerhond

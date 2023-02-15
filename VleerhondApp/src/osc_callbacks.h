@@ -1,10 +1,8 @@
 #pragma once
 
+#include "application_data.h"
 #include "ofxOsc.h"
 
-#include "application_data.h"
-
-namespace Vleerhond
-{
-    void receiveOscMessages(ApplicationData& data, ofxOscReceiver& osc_receiver);
+namespace Vleerhond {
+void receiveOscMessages(ApplicationData& data, ofxOscReceiver& osc_receiver);
 }

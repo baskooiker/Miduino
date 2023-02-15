@@ -8,20 +8,18 @@
 #define VERMONA_DUOPHONIC 1
 #define VERMONA_POLYPHONIC 2
 
-#define CC_VERMONA_MODE       20
-#define CC_VERMONA_SYNTH_1_CH 21 
-#define CC_VERMONA_SYNTH_2_CH 22 
-#define CC_VERMONA_SYNTH_3_CH 23 
-#define CC_VERMONA_SYNTH_4_CH 24 
+#define CC_VERMONA_MODE 20
+#define CC_VERMONA_SYNTH_1_CH 21
+#define CC_VERMONA_SYNTH_2_CH 22
+#define CC_VERMONA_SYNTH_3_CH 23
+#define CC_VERMONA_SYNTH_4_CH 24
 
-namespace Vleerhond
-{
-    class Vermona : public InstrumentRack
-    {
-    public:
-        VermonaPoly poly;
-        VermonaFugue fugue;
+namespace Vleerhond {
+class Vermona : public InstrumentRack {
+   public:
+    VermonaPoly poly;
+    VermonaFugue fugue;
 
-        Vermona(HarmonyStruct& harmony, TimeStruct& time);
-    };
-}
+    Vermona(HarmonyStruct& harmony, TimeStruct& time);
+};
+}  // namespace Vleerhond

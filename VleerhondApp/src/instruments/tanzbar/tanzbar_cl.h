@@ -3,21 +3,16 @@
 #include "instruments/drums/percussion.h"
 #include "patterns/modulators.h"
 
-namespace Vleerhond
-{
-    class TanzbarCl : public Percussion
-    {
-    protected:
-        ModulationReceiver cl_pitch;
+namespace Vleerhond {
+class TanzbarCl : public Percussion {
+   protected:
+    ModulationReceiver cl_pitch;
 
-    public:
+   public:
+    TanzbarCl(Modulators& modulators_ref, TimeStruct& time_ref);
 
-        TanzbarCl(
-            Modulators& modulators_ref,
-            TimeStruct& time_ref);
+    void randomize();
 
-        void randomize();
-
-        bool play();
-    };
-}
+    bool play();
+};
+}  // namespace Vleerhond
