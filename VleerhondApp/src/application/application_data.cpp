@@ -13,7 +13,7 @@ namespace Vleerhond
         mam_mb33(harmony, modulators, time),
         vermona(harmony, time),
         tanzbar(harmony, modulators, time),
-        nord_drum(modulators, time)
+        nord_drum(harmony, modulators, time)
     {
         this->randomizeAll();
     }

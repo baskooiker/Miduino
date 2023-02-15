@@ -11,7 +11,7 @@ namespace Vleerhond
 
     bool nameMatches(const std::string& port_name, const std::string& target_name)
     {
-        return port_name.find(target_name) != -1;
+        return port_name.find(target_name) != std::string::npos;
     }
 
     std::vector<MidiOut> MidiIO::getOutPorts(const std::string & port_name)

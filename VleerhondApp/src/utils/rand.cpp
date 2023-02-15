@@ -1,6 +1,7 @@
 #include "utils/rand.h"
 
 #include <math.h>
+#include <cmath>
 #include <cstdlib>
 
 #include "core/consts.h"
@@ -68,7 +69,7 @@ namespace Rand
         return distribution({a, b, c, d, e, f});
     }
 
-    uint8_t distribution(const std::vector<uint16_t>& weights)
+    uint8_t distribution(float i, const std::vector<uint16_t>& weights)
     {
         // Use std::discrete_ditribution
         // https://stackoverflow.com/questions/1761626/weighted-random-numbers
@@ -78,7 +79,7 @@ namespace Rand
             total += w;
         }
 
-        uint16_t r = randui16(total);
+        uint16_t r = std::round(i * total);
         uint16_t acc = 0;
         for (size_t i = 0; i < weights.size(); i++)
         {
@@ -89,6 +90,11 @@ namespace Rand
             }
         }
         return weights.size() - 1;
+    }
+
+    uint8_t distribution(const std::vector<uint16_t>& weights)
+    {
+        return distribution(randf(), weights);
     }
 }
 }

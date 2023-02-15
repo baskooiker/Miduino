@@ -24,6 +24,7 @@ namespace Rand
     );
 
     uint8_t distribution(const std::vector<uint16_t>& weights);
+    uint8_t distribution(float i, const std::vector<uint16_t>& weights);
 
     template<typename T>
     T distribute(const std::vector<T>& values, const std::vector<uint16_t>& weights)

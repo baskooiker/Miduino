@@ -29,16 +29,16 @@ namespace Vleerhond
                 case 2: // Slider 3
                     break;
                 case 3: // Slider 4
-                    data.nord_drum.setDensity(0, message.value);
+                    data.nord_drum.percussion.setDensity(0, message.value);
                     break;
                 case 4: // Slider 5
-                    data.nord_drum.setDensity(1, message.value);
+                    data.nord_drum.percussion.setDensity(1, message.value);
                     break;
                 case 5: // Slider 6
-                    data.nord_drum.setDensity(2, message.value);
+                    data.nord_drum.percussion.setDensity(2, message.value);
                     break;
                 case 6: // Slider 7
-                    data.nord_drum.setDensity(3, message.value);
+                    data.nord_drum.percussion.setDensity(3, message.value);
                     break;
                 case 7: // Slider 8
                     break;
