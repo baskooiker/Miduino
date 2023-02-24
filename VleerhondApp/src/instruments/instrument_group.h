@@ -12,7 +12,7 @@ class InstrumentGroup : public TonalInstrumentBase {
 
     bool play();
 
-    void randomize();
+    virtual void randomize();
 
     virtual std::vector<InstrumentBase*> getPtrs();
     virtual void autoRandomize();

@@ -7,7 +7,7 @@ bool InstrumentRack::play() { return getInstr()->play(); }
 void InstrumentRack::randomize() {
     // Only randomize the selected instrument in the rack.
     getInstr()->randomize();
-    //for (InstrumentBase* instrument : instruments) {
+    // for (InstrumentBase* instrument : instruments) {
     //    instrument->randomize();
     //}
 }

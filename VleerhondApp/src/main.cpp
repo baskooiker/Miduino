@@ -1,6 +1,6 @@
 #include "VleerhondApp.h"
 #include "ofAppNoWindow.h"
-#include "ofMain.h"
+// #include "ofMain.h"
 
 //========================================================================
 int main() {
