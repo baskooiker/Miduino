@@ -40,7 +40,7 @@ void NordDrumPercussion::randomize() {
     density_pattern.randomize();
     velocity_pattern.randomize();
     this->midi_channel->sendProgramChange(
-        NordDrum::PERCS[Rand::randui8(NordDrum::PERCS.size())]);
+        NordDrum::PERCS[Rand::randui8(NordDrum::PERCS.size())] - 1);
 }
 
 uint8_t NordDrumPercussion::getVelocity() {

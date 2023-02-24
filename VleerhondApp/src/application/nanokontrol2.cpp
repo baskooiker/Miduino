@@ -77,32 +77,36 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 53:  // Mute 6
                     break;
                 case 54:  // Mute 7
+                    if (message.value == 0){
                     data.nord_drum.select(0);
                     data.nord_drum.randomize();
+                    }
                     break;
                 case 55:  // Mute 8
                     break;
-                case 65:  // Record 1
+                case 64:  // Record 1
                     data.neutron.select(2);
                     data.neutron.randomize();
                     break;
-                case 66:  // Record 2
+                case 65:  // Record 2
                     data.neutron.select(3);
-                    data.neutron.randomize();
-                    break;
-                case 67:  // Record 3
-                    break;
-                case 68:  // Record 4
-                    break;
-                case 69:  // Record 5
-                    break;
-                case 70:  // Record 6
-                    break;
-                case 71:  // Record 7
-                    data.nord_drum.select(1);
                     data.nord_drum.randomize();
                     break;
-                case 72:  // Record 8
+                case 66:  // Record 3
+                    break;
+                case 67:  // Record 4
+                    break;
+                case 68:  // Record 5
+                    break;
+                case 69:  // Record 6
+                    break;
+                case 70:  // Record 7
+                    if (message.value == 0){
+                    data.nord_drum.select(1);
+                    data.nord_drum.randomize();
+                    }
+                    break;
+                case 71:  // Record 8
                     break;
                 case 41:  // Play
                     data.time.state = PlayState::Playing;

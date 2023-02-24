@@ -5,9 +5,11 @@ InstrumentRack::InstrumentRack(TimeStruct& time) : InstrumentBase(time) {}
 
 bool InstrumentRack::play() { return getInstr()->play(); }
 void InstrumentRack::randomize() {
-    for (InstrumentBase* instrument : instruments) {
-        instrument->randomize();
-    }
+    // Only randomize the selected instrument in the rack.
+    getInstr()->randomize();
+    //for (InstrumentBase* instrument : instruments) {
+    //    instrument->randomize();
+    //}
 }
 std::vector<InstrumentBase*> InstrumentRack::getPtrs() { return {getInstr()}; }
 void InstrumentRack::autoRandomize() { return getInstr()->autoRandomize(); }

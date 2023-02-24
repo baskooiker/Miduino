@@ -7,10 +7,10 @@ namespace Vleerhond {
 NordDrumKit::NordDrumKit(
     HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time)
     : InstrumentGroup(harmony, time),
-      kick(modulators, time, 37),
-      snare(modulators, time, 38),
-      percussion(modulators, time, 40),
-      hats(modulators, time, 0, 41) {
+      kick(modulators, time, 36),
+      snare(modulators, time, 37),
+      percussion(modulators, time, 39),
+      hats(modulators, time, 40, 0) {
     instruments.push_back(&kick);
     instruments.push_back(&snare);
     instruments.push_back(&percussion);
