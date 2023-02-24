@@ -28,7 +28,7 @@ class Snare : public InstrumentBase {
 
     SnareSettings settings;
 
-    Snare(Modulators& modulators_ref, TimeStruct& time_ref);
+    Snare(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch);
     virtual void randomize();
     virtual void play_roll(const TimeStruct& time);
     virtual bool play();

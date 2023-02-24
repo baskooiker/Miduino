@@ -1,23 +1,9 @@
 #include "nord_drum_percussion.h"
 
 #include "instrument_group.h"
+#include "instruments/nord_drum/nord_drum_defs.h"
 #include "utils/rand.h"
 #include "utils/utils.h"
-
-namespace {
-// Kick, Snare, Tom, Hi-hat.
-std::vector<uint8_t> KITS = {3,  4,  6,  11, 15, 16, 20, 24, 26, 28, 35, 37,
-                             45, 46, 47, 50, 58, 61, 63, 66, 69, 72, 78, 79};
-
-// Kick, Snare, Tom1 Tom2.
-std::vector<uint8_t> DRUM = {1,  2,  5,  7,  8,  10, 12, 13, 14, 31, 34,
-                             36, 38, 40, 41, 42, 49, 51, 52, 54, 56, 57,
-                             59, 62, 64, 65, 67, 68, 71, 73, 74, 75, 80};
-
-// Made for 4 pads, for the standup percussionist.
-std::vector<uint8_t> PERCS = {9,  17, 18, 19, 21, 23, 25, 27, 29, 30, 32,
-                              33, 39, 43, 44, 48, 53, 55, 60, 70, 76, 77};
-}  // namespace
 
 namespace Vleerhond {
 NordDrumPercussion::NordDrumPercussion(Modulators& modulators, TimeStruct& time)
@@ -53,7 +39,8 @@ void NordDrumPercussion::setDensity(uint8_t index, uint8_t value) {
 void NordDrumPercussion::randomize() {
     density_pattern.randomize();
     velocity_pattern.randomize();
-    this->midi_channel->sendProgramChange(PERCS[Rand::randui8(PERCS.size())]);
+    this->midi_channel->sendProgramChange(
+        NordDrum::PERCS[Rand::randui8(NordDrum::PERCS.size())]);
 }
 
 uint8_t NordDrumPercussion::getVelocity() {

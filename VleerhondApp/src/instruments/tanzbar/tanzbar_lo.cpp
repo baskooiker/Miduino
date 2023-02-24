@@ -4,9 +4,7 @@
 
 namespace Vleerhond {
 TanzbarLo::TanzbarLo(Modulators& modulators, TimeStruct& time)
-    : Kick(modulators, time), bd2_pitch_mod(modulators) {
-    this->pitch = NOTE_TANZBAR_BD1;
-
+    : Kick(modulators, time, NOTE_TANZBAR_BD1), bd2_pitch_mod(modulators) {
     this->params.push_back(CcParam(TB_BD1_TUNE, 32, 48));
     this->params.push_back(CcParam(TB_BD1_NOISE, 0, 32));
     this->params.push_back(CcParam(TB_BD1_FILTER, 0, 32));

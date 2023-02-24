@@ -61,8 +61,12 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 39:  // Solo 8
                     break;
                 case 48:  // Mute 1
+                    data.neutron.select(0);
+                    data.neutron.randomize();
                     break;
                 case 49:  // Mute 2
+                    data.neutron.select(1);
+                    data.neutron.randomize();
                     break;
                 case 50:  // Mute 3
                     break;
@@ -73,12 +77,18 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 53:  // Mute 6
                     break;
                 case 54:  // Mute 7
+                    data.nord_drum.select(0);
+                    data.nord_drum.randomize();
                     break;
                 case 55:  // Mute 8
                     break;
                 case 65:  // Record 1
+                    data.neutron.select(2);
+                    data.neutron.randomize();
                     break;
                 case 66:  // Record 2
+                    data.neutron.select(3);
+                    data.neutron.randomize();
                     break;
                 case 67:  // Record 3
                     break;
@@ -89,6 +99,8 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 70:  // Record 6
                     break;
                 case 71:  // Record 7
+                    data.nord_drum.select(1);
+                    data.nord_drum.randomize();
                     break;
                 case 72:  // Record 8
                     break;

@@ -6,8 +6,8 @@
 #include "utils/rand.h"
 
 namespace Vleerhond {
-Snare::Snare(Modulators& modulators_ref, TimeStruct& time_ref)
-    : InstrumentBase(time_ref) {}
+Snare::Snare(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch)
+    : InstrumentBase(time_ref), pitch(pitch) {}
 
 void Snare::randomize() {
     InstrumentBase::randomize();

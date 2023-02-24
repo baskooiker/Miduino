@@ -4,11 +4,10 @@
 
 namespace Vleerhond {
 TanzbarCp::TanzbarCp(Modulators& modulators_ref, TimeStruct& time_ref)
-    : Snare(modulators_ref, time_ref),
+    : Snare(modulators_ref, time_ref, NOTE_TANZBAR_CP),
       cp_trig(modulators_ref),
       filter_mod(modulators_ref) {
     settings.p_rand = 0;
-    pitch = NOTE_TANZBAR_CP;
 
     this->params.push_back(CcParam(TB_RS_TUNE, 0, 127));
     this->params.push_back(CcParam(TB_CP_DECAY, 0, 127));

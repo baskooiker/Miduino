@@ -35,7 +35,7 @@ class Hats : public InstrumentBase {
 
     HatClosedStyle hat_closed_style;
 
-    Hats(Modulators& modulators_ref, TimeStruct& time_ref);
+    Hats(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch_closed, uint8_t pitch_open);
     virtual void randomize();
     virtual void randomize_seq();
     virtual bool play_hats_closed();

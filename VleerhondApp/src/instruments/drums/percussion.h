@@ -21,7 +21,7 @@ class Percussion : public InstrumentBase {
         uint8_t p_drop = 16;
     } settings;
 
-    Percussion(Modulators& modulators_ref, TimeStruct& time_ref);
+    Percussion(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch);
     virtual void randomize();
     virtual bool play();
     virtual uint8_t getVelocity();

@@ -2,8 +2,7 @@
 
 namespace Vleerhond {
 TanzbarMid::TanzbarMid(Modulators& modulators, TimeStruct& time)
-    : Snare(modulators, time) {
-    pitch = NOTE_TANZBAR_SD;
+    : Snare(modulators, time, NOTE_TANZBAR_SD) {
     settings.p_coef = 0;
     settings.p_off = 0;
     settings.p_rand_min = .95;

@@ -6,8 +6,9 @@
 #include "utils/rand.h"
 
 namespace Vleerhond {
-Percussion::Percussion(Modulators& modulators_ref, TimeStruct& time_ref)
-    : InstrumentBase(time_ref), velocity_mod(modulators_ref) {}
+Percussion::Percussion(
+    Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch)
+    : InstrumentBase(time_ref), velocity_mod(modulators_ref), pitch(pitch) {}
 
 void Percussion::randomize() {
     InstrumentBase::randomize();

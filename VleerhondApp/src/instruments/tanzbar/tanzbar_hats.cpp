@@ -5,10 +5,8 @@
 namespace Vleerhond {
 AbstractTanzbarHats::AbstractTanzbarHats(
     Modulators& modulators, TimeStruct& time)
-    : Hats(modulators, time), tune_mod(modulators) {
-    pitch_open = NOTE_TANZBAR_OH;
-    pitch_closed = NOTE_TANZBAR_HH;
-
+    : Hats(modulators, time, NOTE_TANZBAR_HH, NOTE_TANZBAR_OH),
+      tune_mod(modulators) {
     settings.p_euclid = 0;
     settings.p_drop = 0;
     settings.p_3_4 = 0;
@@ -50,8 +48,8 @@ void TanzbarAlternativeHats::randomize() {
     hh_pattern.setAll(0);
     hh_pattern.abPattern.setConst();
     hh_pattern.length = hh_length;
-    int hh_count = Rand::randui8(1, hh_length / 2 + 1);
-    for (size_t i = 0; i < hh_count; i++) {
+    uint8_t hh_count = Rand::randui8(1, hh_length / 2 + 1);
+    for (uint8_t i = 0; i < hh_count; i++) {
         hh_pattern.addOneGrouped();
     }
 
@@ -59,8 +57,8 @@ void TanzbarAlternativeHats::randomize() {
     oh_pattern.setAll(0);
     oh_pattern.abPattern.setConst();
     oh_pattern.length = oh_length;
-    int oh_count = Rand::randui8(1, oh_length / 3 + 1);
-    for (size_t i = 0; i < oh_count; i++) {
+    uint8_t oh_count = Rand::randui8(1, oh_length / 3 + 1);
+    for (uint8_t i = 0; i < oh_count; i++) {
         oh_pattern.addOneGrouped();
     }
 

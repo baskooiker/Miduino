@@ -6,8 +6,8 @@
 #include "utils/rand.h"
 
 namespace Vleerhond {
-Kick::Kick(Modulators& modulators_ref, TimeStruct& time_ref)
-    : InstrumentBase(time_ref) {}
+Kick::Kick(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch)
+    : InstrumentBase(time_ref), pitch(pitch) {}
 
 void Kick::randomize() {
     ofLogNotice("kick", "randomize");

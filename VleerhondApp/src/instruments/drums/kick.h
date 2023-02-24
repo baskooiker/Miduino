@@ -14,7 +14,7 @@ class Kick : public InstrumentBase {
     GatePatternAB bd_pattern;
     GatePatternAB ghost_notes;
 
-    Kick(Modulators& modulators_ref, TimeStruct& time_ref);
+    Kick(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch);
     virtual void randomize();
     virtual bool play();
     virtual uint8_t getVelocity();

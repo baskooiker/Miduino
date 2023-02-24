@@ -22,9 +22,9 @@ Tanzbar::Tanzbar(
       tanzbar_tom(modulators, time),
       tanzbar_cb(modulators, time),
       tanzbar_cl(modulators, time),
-      tanzbar_ma(modulators, time),
+      tanzbar_hats(modulators, time),
       tanzbar_cy(modulators, time),
-      tanzbar_hats(modulators, time) {
+      tanzbar_ma(modulators, time) {
     instruments.push_back(&tanzbar_lo);
     instruments.push_back(&tanzbar_mid);
     instruments.push_back(&tanzbar_rs);

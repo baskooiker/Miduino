@@ -4,9 +4,8 @@
 
 namespace Vleerhond {
 TanzbarCl::TanzbarCl(Modulators& modulators_ref, TimeStruct& time_ref)
-    : Percussion(modulators_ref, time_ref), cl_pitch(modulators_ref) {
-    pitch = NOTE_TANZBAR_CL;
-
+    : Percussion(modulators_ref, time_ref, NOTE_TANZBAR_CL),
+      cl_pitch(modulators_ref) {
     this->params.push_back(CcParam(TB_CL_TUNE, 0, 127));
     this->params.push_back(CcParam(TB_CL_DECAY, 80, 127));
 }

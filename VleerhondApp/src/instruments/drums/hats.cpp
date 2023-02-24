@@ -7,8 +7,13 @@
 #include "utils/rand.h"
 
 namespace Vleerhond {
-Hats::Hats(Modulators& modulators_ref, TimeStruct& time_ref)
-    : InstrumentBase(time_ref), hats_vel(modulators_ref) {
+Hats::Hats(
+    Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch_closed,
+    uint8_t pitch_open)
+    : InstrumentBase(time_ref),
+      hats_vel(modulators_ref),
+      pitch_closed(pitch_closed),
+      pitch_open(pitch_open) {
     hat_closed_style = HatClosedStyle::HatClosedRegular;
 }
 
@@ -88,6 +93,9 @@ void Hats::randomize_seq() {
 }
 
 bool Hats::play_hats_closed() {
+    if (pitch_closed == 0) {
+        return false;
+    }
     switch (this->hat_closed_style) {
         case HatClosedStyle::HatClosedInterval: {
             TimeDivision div = this->hat_int_pattern.interval(time);
@@ -115,7 +123,7 @@ bool Hats::play_hats_closed() {
 }
 
 bool Hats::play_hats_open() {
-    if (this->isKilled()) {
+    if (this->isKilled() || pitch_open == 0) {
         return false;
     }
 
