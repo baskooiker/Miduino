@@ -7,7 +7,7 @@
 
 namespace Vleerhond {
 ApplicationData::ApplicationData()
-    : minitaur(modulators, harmony, time),
+    : minitaur(harmony, modulators, time),
       neutron(harmony, modulators, time),
       mam_mb33(harmony, modulators, time),
       vermona(harmony, time),

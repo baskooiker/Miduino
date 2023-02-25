@@ -2,13 +2,12 @@
 
 namespace Vleerhond {
 Minitaur::Minitaur(
-    Modulators& modulators, HarmonyStruct& harmony, TimeStruct& time)
+    HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time)
     : InstrumentRack(time),
-      bass_root(modulators, harmony, time),
-      bass_funk(modulators, harmony, time),
-      bass_long(modulators, harmony, time) {
+      bass_root(harmony, modulators, time),
+      bass_funk(harmony, modulators, time),
+      bass_long(harmony, modulators, time) {
     name = "Minitaur";
-
     instruments.push_back(&bass_root);
     instruments.push_back(&bass_funk);
     instruments.push_back(&bass_long);

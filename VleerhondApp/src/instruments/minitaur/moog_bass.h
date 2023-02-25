@@ -23,17 +23,11 @@ class MoogBass : public Bass {
     ModulationReceiver vel_mod;
 
    public:
-    MoogBass(Modulators& modulators, HarmonyStruct& harmony, TimeStruct& time);
+    MoogBass(HarmonyStruct& harmony, Modulators& modulators, TimeStruct& time);
     virtual void randomize();
     virtual void totalRandomize();
     virtual uint8_t getVelocity();
 
     void setVco2Square(const bool square);
-};
-
-class LongBass : public MoogBass {
-   public:
-    LongBass(Modulators& modulators, HarmonyStruct& harmony, TimeStruct& time);
-    virtual void randomize();
 };
 }  // namespace Vleerhond

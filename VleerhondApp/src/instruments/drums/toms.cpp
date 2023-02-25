@@ -28,14 +28,16 @@ void Toms::randomize() {
         } break;
         case 1: {
             tom_pattern.setAll(0);
-            int length = 8;
+            int16_t length = 8;
             if (pitches.size() < 4) {
                 length = Rand::randf() < .5 ? 8 : 16;
             }
             tom_pattern.abPattern.setConst();
             for (size_t i = 0; i < pitches.size(); i++) {
                 std::vector<uint8_t> opts;
-                for (size_t j = 0; j < length; j++) opts.push_back(j);
+                for (int16_t j = 0; j < length; j++) {
+                    opts.push_back(j);
+                }
                 std::random_shuffle(opts.begin(), opts.end());
                 for (uint8_t opt : opts) {
                     if (tom_pattern.patterns[0].value(opt) == 0 &&
