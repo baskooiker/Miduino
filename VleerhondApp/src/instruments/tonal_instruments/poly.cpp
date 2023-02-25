@@ -11,7 +11,7 @@ Poly::Poly(HarmonyStruct& harmony, TimeStruct& time)
 }
 
 void Poly::randomize() {
-    ofLogNotice("poly", "randomize()");
+    ofLogVerbose("poly", "randomize()");
     last_randomized_time = Utils::millis();
 
     // Set pattern low

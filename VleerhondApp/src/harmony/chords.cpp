@@ -50,7 +50,7 @@ std::vector<uint8_t> getChordSeq(std::vector<uint8_t> options, uint8_t length) {
 std::vector<uint8_t> getChord(
     ChordStruct& chord, Scale& scale, uint8_t offset) {
     std::vector<uint8_t> chord_notes;
-    for (size_t i = offset; i < offset + 12; i++) {
+    for (uint8_t i = offset; i < offset + 12; i++) {
         if (scale.chordContains(i, chord)) {
             chord_notes.push_back(i);
         }

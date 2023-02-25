@@ -15,11 +15,11 @@ void Snare::randomize() {
     switch (
         Rand::distribution(settings.p_coef, settings.p_off, settings.p_rand)) {
         case 0:  // Coef
-            // ofLogNotice("", "randomize snare coef");
+            // ofLogVerbose("", "randomize snare coef");
             this->pattern.setCoefSnarePattern();
             break;
         case 1:  // Off
-            // ofLogNotice("", "randomize snare off");
+            // ofLogVerbose("", "randomize snare off");
             this->pattern.setAll(0);
             this->pattern.set(4, true);
             this->pattern.set(12, true);

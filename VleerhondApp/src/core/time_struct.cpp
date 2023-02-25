@@ -47,7 +47,7 @@ void TimeStruct::randomizeShuffle() {
     int8_t min_ = std::max((int8_t)this->global_shuffle - rand_range, 0);
     int8_t max_ = std::min((int8_t)this->global_shuffle + rand_range, 128);
     this->global_shuffle = Rand::randui8(min_, max_);
-    ofLogNotice("time", "shuffle = %d", this->global_shuffle);
+    ofLogVerbose("time", "shuffle = %d", this->global_shuffle);
 }
 
 uint8_t TimeStruct::ticksLeftInBar() const {

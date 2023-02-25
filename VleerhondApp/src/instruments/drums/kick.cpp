@@ -10,7 +10,7 @@ Kick::Kick(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch)
     : InstrumentBase(time_ref), pitch(pitch) {}
 
 void Kick::randomize() {
-    ofLogNotice("kick", "randomize");
+    // ofLogNotice("kick", "randomize");
     InstrumentBase::randomize();
 
     bd_pattern.setAll(false);
@@ -45,9 +45,8 @@ void Kick::randomize() {
 }
 
 bool Kick::play() {
-    if (this->isKilled())
-    {
-    return false;
+    if (this->isKilled()) {
+        return false;
     }
 
     if (this->bd_pattern.gate(time)) {
@@ -55,9 +54,7 @@ bool Kick::play() {
             NoteStruct(this->pitch, getVelocity()),
             time.getShuffleDelay(this->timing));
         return true;
-    }
-    else if (ghost_notes.gate(time))
-    {
+    } else if (ghost_notes.gate(time) && settings.play_ghost_notes) {
         this->midi_channel->noteOn(
             NoteStruct(this->pitch, getVelocity()),
             time.getShuffleDelay(this->timing));
@@ -66,14 +63,15 @@ bool Kick::play() {
     return false;
 }
 
-uint8_t Kick::getVelocity() { return this->bd_pattern.gate(time) ? max_velocity : min_velocity; }
+uint8_t Kick::getVelocity() {
+    return this->bd_pattern.gate(time) ? settings.max_velocity
+                                       : settings.min_velocity;
+}
 
 void Kick::randomize_kick() {
     // Fill in first or second half of bar
     uint8_t half = Rand::distribution(64, 64);
 
-    //uint8_t bar = this->bd_pattern.abPattern.value(Rand::randui8(4));
-    // Always randomize the B part of the pattern
     this->bd_pattern.patterns[1].setKickFill(half * 8);
     this->bd_pattern.abPattern.randomize();
 }

@@ -33,7 +33,7 @@ ChordStruct HarmonyStruct::getChordStep(const TimeStruct& time) const {
 }
 
 void HarmonyStruct::randomize() {
-    ofLogNotice(HARMONY, "randomize()");
+    ofLogVerbose(HARMONY, "randomize()");
 
     // Set high patterns
     this->randomizeHighPattern(this->low_tonic_pattern, 0, false);

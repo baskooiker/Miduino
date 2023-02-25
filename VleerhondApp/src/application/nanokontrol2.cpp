@@ -12,9 +12,9 @@ NanoKontrol2::NanoKontrol2(ApplicationData& data) : data(data) {}
 void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
     switch (message.status) {
         case MIDI_CONTROL_CHANGE:
-            ofLogNotice(
-                "NANOKONTROL", "CC in: channel %d, control %d, value %d",
-                message.channel, message.control, message.value);
+            // ofLogNotice(
+            //     "NANOKONTROL", "CC in: channel %d, control %d, value %d",
+            //     message.channel, message.control, message.value);
             switch (message.control) {
                 case 0:  // Slider 1
                     break;
@@ -42,7 +42,7 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                     break;
                 case 33:  // Solo 2
                     data.addEvent(std::make_shared<ChangeHarmonyEvent>(
-                        HarmonyType::DominantLow, &data.harmony, &data.time));
+                        HarmonyType::TonicHigh, &data.harmony, &data.time));
                     break;
                 case 34:  // Solo 3
                     data.addEvent(std::make_shared<ChangeHarmonyEvent>(
@@ -69,17 +69,21 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                     data.neutron.randomize();
                     break;
                 case 50:  // Mute 3
+                    data.minitaur.select(0);
+                    data.minitaur.randomize();
                     break;
                 case 51:  // Mute 4
+                    data.minitaur.select(1);
+                    data.minitaur.randomize();
                     break;
                 case 52:  // Mute 5
                     break;
                 case 53:  // Mute 6
                     break;
                 case 54:  // Mute 7
-                    if (message.value == 0){
-                    data.nord_drum.select(0);
-                    data.nord_drum.randomize();
+                    if (message.value == 0) {
+                        data.nord_drum.select(0);
+                        data.nord_drum.randomize();
                     }
                     break;
                 case 55:  // Mute 8
@@ -93,17 +97,21 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                     data.nord_drum.randomize();
                     break;
                 case 66:  // Record 3
+                    data.minitaur.select(3);
+                    data.minitaur.randomize();
                     break;
                 case 67:  // Record 4
+                    data.minitaur.select(4);
+                    data.minitaur.randomize();
                     break;
                 case 68:  // Record 5
                     break;
                 case 69:  // Record 6
                     break;
                 case 70:  // Record 7
-                    if (message.value == 0){
-                    data.nord_drum.select(1);
-                    data.nord_drum.randomize();
+                    if (message.value == 0) {
+                        data.nord_drum.select(1);
+                        data.nord_drum.randomize();
                     }
                     break;
                 case 71:  // Record 8

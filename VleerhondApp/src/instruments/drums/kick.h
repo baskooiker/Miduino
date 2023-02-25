@@ -5,15 +5,20 @@
 #include "patterns/modulators.h"
 
 namespace Vleerhond {
+
+struct KickSettings {
+    bool play_ghost_notes = false;
+    uint8_t min_velocity = 32;
+    uint8_t max_velocity = 127;
+};
+
 class Kick : public InstrumentBase {
    protected:
     MicroTimingStruct timing;
     uint8_t pitch;
 
    public:
-    // Move these to a settings struct.
-    uint8_t min_velocity = 32;
-    uint8_t max_velocity = 127;
+    KickSettings settings;
 
     GatePatternAB bd_pattern;
     GatePatternAB ghost_notes;

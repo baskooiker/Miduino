@@ -16,7 +16,8 @@ NordDrumKit::NordDrumKit(
     instruments.push_back(&percussion);
     instruments.push_back(&hats);
 
-    kick.min_velocity = 96;
+    kick.settings.min_velocity = 96;
+    kick.settings.play_ghost_notes = true;
 
     snare.settings.p_rand_min = 0.0;
     snare.settings.p_rand_max = 0.25;
