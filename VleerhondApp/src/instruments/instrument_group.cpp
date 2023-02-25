@@ -26,7 +26,7 @@ void InstrumentGroup::autoRandomize() {
     }
 }
 void InstrumentGroup::setChannel(std::shared_ptr<MidiChannel> channel) {
-    // std::cout << "InstrumentGroup::setChannel\n";
+    this->midi_channel = channel;
     for (InstrumentBase* inst_ptr : instruments) {
         inst_ptr->setChannel(channel);
     }

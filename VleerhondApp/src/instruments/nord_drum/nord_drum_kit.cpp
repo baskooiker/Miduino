@@ -15,6 +15,14 @@ NordDrumKit::NordDrumKit(
     instruments.push_back(&snare);
     instruments.push_back(&percussion);
     instruments.push_back(&hats);
+
+    kick.min_velocity = 96;
+
+    snare.settings.p_rand_min = 0.0;
+    snare.settings.p_rand_max = 0.25;
+
+    hats.settings.velocity_range = 64;
+    hats.settings.velocity_offset = 127 - 64;
 }
 
 void NordDrumKit::randomize() {
@@ -22,6 +30,6 @@ void NordDrumKit::randomize() {
         i->randomize();
     }
     this->midi_channel->sendProgramChange(
-        NordDrum::KITS[Rand::randui8(NordDrum::KITS.size())]);
+        NordDrum::KITS[Rand::randui8(NordDrum::KITS.size() - 1)] - 1);
 }
 }  // namespace Vleerhond

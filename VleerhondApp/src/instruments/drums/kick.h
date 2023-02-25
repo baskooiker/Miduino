@@ -11,6 +11,10 @@ class Kick : public InstrumentBase {
     uint8_t pitch;
 
    public:
+    // Move these to a settings struct.
+    uint8_t min_velocity = 32;
+    uint8_t max_velocity = 127;
+
     GatePatternAB bd_pattern;
     GatePatternAB ghost_notes;
 

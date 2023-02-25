@@ -25,10 +25,10 @@ void Hats::randomize() {
 
     this->timing.randomize();
 
-    uint8_t range = Rand::randui8(16, 64);
+    //uint8_t range = Rand::randui8(16, 64);
     //this->hats_vel.randomize(range, 127 - range);
-    settings.velocity_range = range;
-    settings.velocity_offset = 127 - range;
+    //settings.velocity_range = range;
+    //settings.velocity_offset = 127 - range;
 }
 
 void Hats::randomize_seq() {

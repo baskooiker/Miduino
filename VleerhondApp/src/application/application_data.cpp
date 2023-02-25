@@ -83,7 +83,7 @@ std::vector<InstrumentBase*> ApplicationData::getInstrumentPtrs() {
     ptrs.push_back(&this->minitaur);
     ptrs.push_back(&this->neutron);
     ptrs.push_back(&this->nord_drum);
-    // ptrs.push_back(&this->vermona);
+    //ptrs.push_back(&this->vermona);
 
     return ptrs;
 }
@@ -101,11 +101,10 @@ void ApplicationData::addEvent(std::shared_ptr<UserEvent> user_event) {
 void ApplicationData::connect() {
     // this->tanzbar.setChannel(std::make_shared<MidiChannel>(MIDI_CHANNEL_TANZBAR,
     // MIDI_CC_CHANNEL_TANZBAR, MIDI_A_NAME));
-    this->neutron.setChannel(std::make_shared<MidiChannel>(1, MIDI_A_NAME));
+    //this->neutron.setChannel(std::make_shared<MidiChannel>(1, MIDI_A_NAME));
     // this->mam_mb33.setChannel(std::make_shared<MidiChannel>(1, MIDI_A_NAME));
     this->minitaur.setChannel(std::make_shared<MidiChannel>(2, MIDI_A_NAME));
     this->nord_drum.setChannel(std::make_shared<MidiChannel>(11, MIDI_A_NAME));
-    // this->vermona.setChannel(std::make_shared<MidiChannel>(7,
-    // VERMONA_CONTROL_CHANNEL, MIDI_A_NAME));
+    this->vermona.setChannel(std::make_shared<MidiChannel>(1, MIDI_A_NAME));
 }
 }  // namespace Vleerhond

@@ -14,7 +14,7 @@ class InstrumentRack : public InstrumentBase {
 
    public:
     bool play();
-    void randomize();
+    virtual void randomize();
     virtual std::vector<InstrumentBase*> getPtrs();
     virtual void autoRandomize();
     void select(const uint8_t index);
