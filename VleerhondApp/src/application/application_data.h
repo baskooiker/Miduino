@@ -5,7 +5,9 @@
 #include "core/defs.h"
 #include "harmony/harmony_struct.h"
 #include "instruments/mam_mb33/mam_mb33.h"
+#include "instruments/mbase/mbase.h"
 #include "instruments/minitaur/minitaur.h"
+#include "instruments/monopoly/monopoly.h"
 #include "instruments/neutron/neutron.h"
 #include "instruments/nord_drum/nord_drum_rack.h"
 #include "instruments/vermona/vermona.h"
@@ -27,9 +29,11 @@ class ApplicationData {
     Neutron neutron;
     MamMb33 mam_mb33;
     Vermona vermona;
+    Monopoly monopoly;
 
     Tanzbar tanzbar;
     NordDrumRack nord_drum;
+    MBase mbase;
 
     UiState ui_state;
 
