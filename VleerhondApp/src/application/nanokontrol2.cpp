@@ -23,16 +23,24 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 2:  // Slider 3
                     break;
                 case 3:  // Slider 4
-                    data.nord_drum.percussion.setDensity(0, message.value);
+                    if (message.value == 0) {
+                        data.nord_drum.percussion.setDensity(0, message.value);
+                    }
                     break;
                 case 4:  // Slider 5
-                    data.nord_drum.percussion.setDensity(1, message.value);
+                    if (message.value == 0) {
+                        data.nord_drum.percussion.setDensity(1, message.value);
+                    }
                     break;
                 case 5:  // Slider 6
-                    data.nord_drum.percussion.setDensity(2, message.value);
+                    if (message.value == 0) {
+                        data.nord_drum.percussion.setDensity(2, message.value);
+                    }
                     break;
                 case 6:  // Slider 7
-                    data.nord_drum.percussion.setDensity(3, message.value);
+                    if (message.value == 0) {
+                        data.nord_drum.percussion.setDensity(3, message.value);
+                    }
                     break;
                 case 7:  // Slider 8
                     break;
@@ -61,24 +69,34 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 39:  // Solo 8
                     break;
                 case 48:  // Mute 1
-                    data.neutron.select(0);
-                    data.neutron.randomize();
-                    data.monopoly.select(0);
-                    data.monopoly.randomize();
+                    if (message.value == 0) {
+                        data.neutron.select(0);
+                        data.neutron.randomize();
+                        data.monopoly.select(0);
+                        data.monopoly.randomize();
+                    }
                     break;
                 case 49:  // Mute 2
-                    data.neutron.select(1);
-                    data.neutron.randomize();
-                    data.monopoly.select(1);
-                    data.monopoly.randomize();
+                    if (message.value == 0) {
+                        data.neutron.select(1);
+                        data.neutron.randomize();
+                        data.monopoly.select(1);
+                        data.monopoly.randomize();
+                    }
                     break;
                 case 50:  // Mute 3
-                    data.minitaur.select(0);
-                    data.minitaur.randomize();
+
+                    if (message.value == 0) {
+                        data.minitaur.select(0);
+                        data.minitaur.randomize();
+                    }
                     break;
                 case 51:  // Mute 4
-                    data.minitaur.select(1);
-                    data.minitaur.randomize();
+
+                    if (message.value == 0) {
+                        data.minitaur.select(1);
+                        data.minitaur.randomize();
+                    }
                     break;
                 case 52:  // Mute 5
                     break;
@@ -93,26 +111,37 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 55:  // Mute 8
                     break;
                 case 64:  // Record 1
-                    data.neutron.select(2);
-                    data.neutron.randomize();
-                    data.monopoly.select(2);
-                    data.monopoly.randomize();
+                    if (message.value == 0) {
+                        data.neutron.select(2);
+                        data.neutron.randomize();
+                        data.monopoly.select(2);
+                        data.monopoly.randomize();
+                    }
                     break;
                 case 65:  // Record 2
-                    data.neutron.select(3);
-                    data.nord_drum.randomize();
-                    data.monopoly.select(3);
-                    data.monopoly.randomize();
+                    if (message.value == 0) {
+                        data.neutron.select(3);
+                        data.nord_drum.randomize();
+                        data.monopoly.select(3);
+                        data.monopoly.randomize();
+                    }
                     break;
                 case 66:  // Record 3
-                    data.minitaur.select(3);
-                    data.minitaur.randomize();
+                    if (message.value == 0) {
+                        data.minitaur.select(3);
+                        data.minitaur.randomize();
+                    }
                     break;
                 case 67:  // Record 4
-                    data.minitaur.select(4);
-                    data.minitaur.randomize();
+                    if (message.value == 0) {
+                        data.minitaur.select(4);
+                        data.minitaur.randomize();
+                    }
                     break;
                 case 68:  // Record 5
+                    if (message.value == 0) {
+                        data.mbase.randomize();
+                    }
                     break;
                 case 69:  // Record 6
                     break;

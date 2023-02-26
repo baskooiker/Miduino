@@ -23,12 +23,11 @@ void test_things() {
 
 //========================================================================
 int main() {
-    Vleerhond::test_things();
+    // Vleerhond::test_things();
+    // return 0;
 
-    return 0;
     // ofAppNoWindow headless;
     // ofSetupOpenGL(&headless, 640, 420, OF_WINDOW);
-
     // ofRunApp(new Vleerhond::VleerhondApp());
 
     auto app = new Vleerhond::VleerhondApp();
