@@ -23,26 +23,26 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 2:  // Slider 3
                     break;
                 case 3:  // Slider 4
+                    break;
+                case 4:  // Slider 5
                     if (message.value == 0) {
                         data.nord_drum.percussion.setDensity(0, message.value);
                     }
                     break;
-                case 4:  // Slider 5
+                case 5:  // Slider 6
                     if (message.value == 0) {
                         data.nord_drum.percussion.setDensity(1, message.value);
                     }
                     break;
-                case 5:  // Slider 6
+                case 6:  // Slider 7
                     if (message.value == 0) {
                         data.nord_drum.percussion.setDensity(2, message.value);
                     }
                     break;
-                case 6:  // Slider 7
+                case 7:  // Slider 8
                     if (message.value == 0) {
                         data.nord_drum.percussion.setDensity(3, message.value);
                     }
-                    break;
-                case 7:  // Slider 8
                     break;
                 case 32:  // Solo 1
                     data.addEvent(std::make_shared<ChangeHarmonyEvent>(
@@ -85,14 +85,12 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                     }
                     break;
                 case 50:  // Mute 3
-
                     if (message.value == 0) {
                         data.minitaur.select(0);
                         data.minitaur.randomize();
                     }
                     break;
                 case 51:  // Mute 4
-
                     if (message.value == 0) {
                         data.minitaur.select(1);
                         data.minitaur.randomize();
@@ -159,6 +157,16 @@ void NanoKontrol2::newMidiMessage(ofxMidiMessage& message) {
                 case 42:  // Stop
                     data.time.state = PlayState::Stopped;
                     data.stopAll();
+                    break;
+                case 58:  // Trask left
+                    break;
+                case 59:  // Track Right
+                    break;
+                case 60:  // Marker Set
+                    break;
+                case 61:  // Marker Left
+                    break;
+                case 62:  // Marker Right
                     break;
                 default:
                     break;
