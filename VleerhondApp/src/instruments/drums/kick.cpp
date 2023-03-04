@@ -10,7 +10,7 @@ Kick::Kick(Modulators& modulators_ref, TimeStruct& time_ref, uint8_t pitch)
     : InstrumentBase(time_ref), pitch(pitch) {}
 
 void Kick::randomize() {
-    // ofLogNotice("kick", "randomize");
+    // ofLogVerbose("kick", "randomize");
     InstrumentBase::randomize();
 
     bd_pattern.setAll(false);
@@ -23,12 +23,12 @@ void Kick::randomize() {
 
     switch (Rand::distribution(16, 16, 0)) {
         case 0: {
-            ofLogNotice("kick", "randomize_kick: default");
+            ofLogVerbose("kick", "randomize_kick: default");
             this->randomize_kick();
             break;
         }
         case 1: {
-            ofLogNotice("kick", "randomize_kick: coeff");
+            ofLogVerbose("kick", "randomize_kick: coeff");
             Coefficients ghost_coef = {0};
             ghost_coef.eights = Rand::randf(.25);
             ghost_coef.up = Rand::randf(.25);
@@ -37,7 +37,7 @@ void Kick::randomize() {
             break;
         }
         default:
-            ofLogNotice("kick", "randomize_kick: NOT!");
+            ofLogVerbose("kick", "randomize_kick: NOT!");
             break;
     }
 
